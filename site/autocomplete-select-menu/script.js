@@ -28,13 +28,31 @@ const itemList = [
 ]
 
 const updateItems = (filter) => {
-    const itemCount = Math.min(5, itemList.length)
+    const itemWrapper = document.getElementById('menuItems')
+    while (itemWrapper.children.length > 0) {
+        itemWrapper.children[0].remove()
+    }
+
+    const filteredItems = [...itemList]
+    if (filter) {
+        filteredItems.length = 0
+        log(filter)
+        const pattern = new RegExp(filter, 'gi')
+        itemList.forEach((item) => {
+            const compareItem = item.toLowerCase()
+            if (item.toLowerCase().match(pattern)) {
+                filteredItems.push(item)
+            }
+        })
+    }
+
+    const itemCount = Math.min(5, filteredItems.length)
     for (let i = 0; i < itemCount; i++) {
-        const parent = document.getElementById('menuItems')
         const newItem = document.createElement('button')
-        newItem.id = `item--${itemList[i]}`
-        newItem.innerHTML = itemList[i]
-        parent.appendChild(newItem)
+        // TODO: Make this a valid key
+        newItem.id = `item--${filteredItems[i]}`
+        newItem.innerHTML = filteredItems[i]
+        itemWrapper.appendChild(newItem)
     }
 }
 
@@ -48,7 +66,7 @@ const handleMenuClick = (event) => {
 
 const handleMenuInput = (event) => {
     log(event)
-    // updateItems()
+    updateItems(event.target.value)
 }
 
 const kickoff = () => {
