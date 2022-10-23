@@ -1,5 +1,6 @@
 #font-input-field {
     background-color: white;
     height: 1.6rem;
+    padding: 4px;
     color: black;
 }
