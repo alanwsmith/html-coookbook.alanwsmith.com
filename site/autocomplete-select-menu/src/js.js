@@ -1,7 +1,6 @@
 const itemList = [
     'Roboto',
-    'Open Sans',
-    'Noto Sans JP',
+    'OpenSans',
     'Montserrat',
     'Lato',
     'Poppins',
@@ -28,28 +27,55 @@ const itemList = [
 ]
 
 const activeList = []
+const listKeys = []
+
+// Setup keys that can be used as IDs
+const prepKeys = () => {
+    for (const item of itemList) {
+        // listKeys.push({`${item.toLowerCase().replaceAll(/ /g, '')}`: item })
+        listKeys.push({
+            id: item.toLowerCase().replaceAll(/ /g, ''),
+            name: item,
+        })
+    }
+}
 
 const updateItems = (filter) => {
+    // Clear any existing items
     const itemWrapper = document.getElementById('menuItems')
     while (itemWrapper.children.length > 0) {
         itemWrapper.children[0].remove()
     }
+
+    // Only add stuff if there's input to filter off of
     if (filter) {
         activeList.length = 0
         const pattern = new RegExp(filter, 'gi')
-        itemList.forEach((item) => {
-            const compareItem = item.toLowerCase()
-            if (item.toLowerCase().match(pattern)) {
+        listKeys.forEach((item) => {
+            const compareItem = item.name.toLowerCase()
+            if (item.name.toLowerCase().match(pattern)) {
                 activeList.push(item)
             }
         })
     }
+
+    // // Only add stuff if there's input to filter off of
+    // if (filter) {
+    //     activeList.length = 0
+    //     const pattern = new RegExp(filter, 'gi')
+    //     itemList.forEach((item) => {
+    //         const compareItem = item.toLowerCase()
+    //         if (item.toLowerCase().match(pattern)) {
+    //             activeList.push(item)
+    //         }
+    //     })
+    // }
+
     const itemCount = Math.min(5, activeList.length)
     for (let i = 0; i < itemCount; i++) {
         const newItem = document.createElement('button')
-        // TODO: Make this a valid key
-        newItem.id = `item--${activeList[i]}`
-        newItem.innerHTML = activeList[i]
+        newItem.id = `item--${activeList[i].id}`
+        newItem.innerHTML = activeList[i].name
         itemWrapper.appendChild(newItem)
     }
 }
@@ -71,26 +97,26 @@ const handleKeyUp = (event) => {
     // TODO: Handle escape and tab
     // TODO: Handle arrow keys
     if (event.key.toLowerCase() === 'enter') {
-        console.log("Caught enter")
+        console.log('Caught enter')
         if (activeList[0]) {
             console.log(`THING: ${activeList[0]}`)
-            document.getElementById('active-font').innerText= activeList[0]
+            document.getElementById('active-font').innerText =
+                activeList[0].name
             document.getElementById('font-input-field').innerText = ''
             activeList.length = 0
             updateItems()
         }
-        document.getElementById('font-input-field').innerText =
-           document.getElementById('font-input-field').innerText.replaceAll(/\n/g, '')
-        console.log(activeList[0])
+        document.getElementById('font-input-field').innerText = document
+            .getElementById('font-input-field')
+            .innerText.replaceAll(/\n/g, '')
     }
 }
 
 const kickoff = () => {
     console.log(`Kickoff: ${new Date().getTime()}`)
-    // clear for refreshes during testing
-    // document.getElementById('font-input-field').innerText = ''
+    prepKeys()
     document
-        .getElementById('menuWrapper')
+        .getElementById('menuItems')
         .addEventListener('click', handleMenuClick)
     document
         .getElementById('menuWrapper')
@@ -101,5 +127,4 @@ const kickoff = () => {
         .addEventListener('keyup', handleKeyUp)
     updateItems()
 }
-
 document.addEventListener('DOMContentLoaded', kickoff)
