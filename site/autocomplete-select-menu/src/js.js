@@ -27,13 +27,12 @@ const itemList = [
 ]
 
 const activeList = []
-const listKeys = []
+const listIds = []
 
-// Setup keys that can be used as IDs
-const prepKeys = () => {
+// Setup ids for each item
+const prepIds = () => {
     for (const item of itemList) {
-        // listKeys.push({`${item.toLowerCase().replaceAll(/ /g, '')}`: item })
-        listKeys.push({
+        listIds.push({
             id: item.toLowerCase().replaceAll(/ /g, ''),
             name: item,
         })
@@ -41,17 +40,20 @@ const prepKeys = () => {
 }
 
 const updateItems = (filter) => {
+    // Get the wrapper
+    let itemWrapper = document.getElementById('menuItems')
+
     // Clear any existing items
-    const itemWrapper = document.getElementById('menuItems')
-    while (itemWrapper.children.length > 0) {
-        itemWrapper.children[0].remove()
+    activeList.length = 0
+    while (itemWrapper.firstChild) {
+        console.log('x')
+        itemWrapper.removeChild(itemWrapper.firstChild)
     }
 
-    // Only add stuff if there's input to filter off of
+    // Only add items if there's a filter
     if (filter) {
-        activeList.length = 0
         const pattern = new RegExp(filter, 'gi')
-        listKeys.forEach((item) => {
+        listIds.forEach((item) => {
             const compareItem = item.name.toLowerCase()
             if (item.name.toLowerCase().match(pattern)) {
                 activeList.push(item)
@@ -59,18 +61,7 @@ const updateItems = (filter) => {
         })
     }
 
-    // // Only add stuff if there's input to filter off of
-    // if (filter) {
-    //     activeList.length = 0
-    //     const pattern = new RegExp(filter, 'gi')
-    //     itemList.forEach((item) => {
-    //         const compareItem = item.toLowerCase()
-    //         if (item.toLowerCase().match(pattern)) {
-    //             activeList.push(item)
-    //         }
-    //     })
-    // }
-
+    // Output zero or more things
     const itemCount = Math.min(5, activeList.length)
     for (let i = 0; i < itemCount; i++) {
         const newItem = document.createElement('button')
@@ -81,7 +72,14 @@ const updateItems = (filter) => {
 }
 
 const handleMenuClick = (event) => {
-    console.log(event)
+    console.log(event.target.id)
+    idParts = event.target.id.split('--')
+    for (const listItem of listIds) {
+        if (idParts[1] === listItem.id) {
+            setActiveItem(listItem.name)
+        }
+    }
+    updateItems(null)
 }
 
 const handleMenuInput = (event) => {
@@ -89,21 +87,34 @@ const handleMenuInput = (event) => {
     const textFilter = document
         .getElementById('font-input-field')
         .innerText.trim()
-    console.log(`-${textFilter}-`)
     updateItems(textFilter)
+
+    // console.log(`-${textFilter}-`)
+    // if (textFilter.length > 0) {
+    //     updateItems(textFilter)
+    // } else {
+    //     console.log('asdf')
+    //     // activeList.length = 0
+    //     updateItems(null)
+    // }
+}
+
+const setActiveItem = (itemName) => {
+    console.log(`The new item is: ${itemName}`)
+    document.getElementById('active-font').innerText = itemName
+    document.getElementById('font-input-field').innerText = ''
+    activeList.length = 0
 }
 
 const handleKeyUp = (event) => {
-    // TODO: Handle escape and tab
+    // TODO: Handle escape
     // TODO: Handle arrow keys
+    // TODO: Handle if you delete all the way back it should clear
     if (event.key.toLowerCase() === 'enter') {
         console.log('Caught enter')
         if (activeList[0]) {
-            console.log(`THING: ${activeList[0]}`)
-            document.getElementById('active-font').innerText =
-                activeList[0].name
-            document.getElementById('font-input-field').innerText = ''
-            activeList.length = 0
+            setActiveItem(activeList[0].name)
+
             updateItems()
         }
         document.getElementById('font-input-field').innerText = document
@@ -114,7 +125,7 @@ const handleKeyUp = (event) => {
 
 const kickoff = () => {
     console.log(`Kickoff: ${new Date().getTime()}`)
-    prepKeys()
+    prepIds()
     document
         .getElementById('menuItems')
         .addEventListener('click', handleMenuClick)
