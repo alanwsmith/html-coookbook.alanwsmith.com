@@ -29,6 +29,8 @@ const itemList = [
 const activeList = []
 const listIds = []
 
+let activeFont = ''
+
 // Setup ids for each item
 const prepIds = () => {
     for (const item of itemList) {
@@ -88,28 +90,20 @@ const handleMenuInput = (event) => {
         .getElementById('font-input-field')
         .innerText.trim()
     updateItems(textFilter)
-
-    // console.log(`-${textFilter}-`)
-    // if (textFilter.length > 0) {
-    //     updateItems(textFilter)
-    // } else {
-    //     console.log('asdf')
-    //     // activeList.length = 0
-    //     updateItems(null)
-    // }
 }
 
 const setActiveItem = (itemName) => {
     console.log(`The new item is: ${itemName}`)
     document.getElementById('active-font').innerText = itemName
-    document.getElementById('font-input-field').innerText = ''
+    document.getElementById('font-input-field').innerText = itemName
     activeList.length = 0
+    activeFont = itemName
+    document.getElementById('font-input-field').blur()
 }
 
 const handleKeyUp = (event) => {
     // TODO: Handle escape
     // TODO: Handle arrow keys
-    // TODO: Handle if you delete all the way back it should clear
     if (event.key.toLowerCase() === 'enter') {
         console.log('Caught enter')
         if (activeList[0]) {
@@ -123,6 +117,14 @@ const handleKeyUp = (event) => {
     }
 }
 
+const handleFocus = (event) => {
+    event.target.innerText = ''
+}
+
+const handleBlur = (event) => {
+    event.target.innerText = activeFont
+}
+
 const kickoff = () => {
     console.log(`Kickoff: ${new Date().getTime()}`)
     prepIds()
@@ -132,7 +134,12 @@ const kickoff = () => {
     document
         .getElementById('menuWrapper')
         .addEventListener('input', handleMenuInput)
-
+    document
+        .getElementById('font-input-field')
+        .addEventListener('focus', handleFocus)
+    document
+        .getElementById('font-input-field')
+        .addEventListener('blur', handleBlur)
     document
         .getElementById('menuWrapper')
         .addEventListener('keyup', handleKeyUp)
