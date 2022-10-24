@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Search Input Type Example - The HTML, CSS, and JavaScript Cookbook Of Alan
+    </title>
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Search Input Type Example - The HTML, CSS, and JavaScript Cookbook Of Alan"
+    />
+    <meta
+      property="og:description"
+      content="A test run with the search input field"
+    />
+    <meta
+      property="og:image"
+      content="https://html-css-js-cookbook.alanwsmith.com/og-images/main.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <header>
+      <a href="/">Cookbook Home</a> ~
+      <a href="https://www.alanwsmith.com/">alanwsmith.com</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a>
+    </header>
+    <main>
+      <h1>Input Search Type Example</h1>
+      <hr />
+      <div>
+        <label for="site-search">Search the site:</label>
+        <input list="search-list" type="search" id="site-search" name="q" />
+        <button>Search</button>
+        <datalist id="search-list">
+          <option value="Test"></option>
+        </datalist>
+      </div>
+      <hr />
+
+      <h2>Notes</h2>
+      <ul>
+        <li>This is to test autocomplete in search via a data list</li>
+        <li>
+          It shows the word 'Test' if you type 'T', but I'm not sure how to pick
+          that up yet as the first item. It doesn't look like it does what I
+          want so I'm going back to the autocomplete example
+        </li>
+      </ul>
+
+      <h2>TODO</h2>
+      <ul></ul>
+    </main>
+    <footer>
+      made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>
+      <br />
+      who has a <a href="https://www.alanwsmith.com">website</a> and a
+      <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
+      among other <a href="https://links.alanwsmith.com">things</a>
+    </footer>
+  </body>
+</html>
