@@ -153,6 +153,13 @@ const handleFocus = (event) => {
     }
 }
 
+const handleBlur = (event) => {
+    const selectionsEl = document.getElementById('selections')
+    while (selectionsEl.firstChild) {
+        selectionsEl.removeChild(selectionsEl.firstChild)
+    }
+}
+
 // const handleBlur = (event) => {
 //     event.target.innerText = activeFont
 //     // if (timeoutIdFixForBlur) {
@@ -174,6 +181,9 @@ const kickoff = () => {
     document
         .getElementById('font-input-field')
         .addEventListener('focus', handleFocus)
+    document
+        .getElementById('font-input-field')
+        .addEventListener('blur', handleBlur)
 
     // document
     //     .getElementById('menuItems')
@@ -181,9 +191,6 @@ const kickoff = () => {
     // document
     //     .getElementById('menuWrapper')
     //     .addEventListener('input', handleMenuInput)
-    // document
-    //     .getElementById('font-input-field')
-    //     .addEventListener('blur', handleBlur)
     // document
     //     .getElementById('menuWrapper')
     //     .addEventListener('keyup', handleKeyUp)
