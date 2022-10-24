@@ -1,7 +1,7 @@
 {
     "TITLE": "Cookbook Recipe Template",
     "DESCRIPTION": "",
-    "DETAILS": [],
+    "DETAILS": ["first", "second"],
     "NOTES": [],
     "REFERENCES": [
         {

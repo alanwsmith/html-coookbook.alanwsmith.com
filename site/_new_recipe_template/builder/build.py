@@ -49,13 +49,30 @@ class Builder():
             self.content_parts[key] = self.slurp_file(path)
 
     def load_details(self):
-        self.content_parts['DETAILS'] = ''
+        if len(self.config['DETAILS']) > 0:
+            items = []
+            for item in self.config['DETAILS']:
+                items.append(f'<li>{item}</li>')
+            self.content_parts['DETAILS'] = f'''
+                <h2>Deatils</h2>
+                <ul>
+                    {" ".join(items)}
+                </ul>
+                '''
+        else:
+            self.content_parts['DETAILS'] = ''
 
     def load_notes(self):
-        self.content_parts['NOTES'] = ''
+        if len(self.config['NOTES']) > 0:
+            self.content_parts['NOTES'] = '<h2>Notes</h2>'
+        else:
+            self.content_parts['NOTES'] = ''
 
     def load_references(self):
-        self.content_parts['REFERENCES'] = ''
+        if len(self.config['REFERENCES']) > 0:
+            self.content_parts['REFERENCES'] = '<h2>References</h2>'
+        else:
+            self.content_parts['REFERENCES'] = ''
 
     def do_output(self):
         skeleton = Template(self.content_parts['TEMPLATE'])
