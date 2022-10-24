@@ -12,7 +12,7 @@
     <meta property="og:description" content="$DESCRIPTION" />
     <meta
       property="og:image"
-      content="https://html-css-js-cookbook.alanwsmith.com/og-images/main.jpg"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:$IMAGESLUG,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site:id" content="@TheIdOfAlan" />
@@ -32,13 +32,26 @@
     <link rel="stylesheet" href="/styles/prism.css" />
     $HEAD
     <style>
+      #text-to-update {
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+      }
       $CSS
     </style>
     <script>
       $JS
     </script>
     <style>
+      header {
+        max-width: 90ch;
+      }
       main {
+        max-width: 90ch;
+      }
+      footer {
         max-width: 90ch;
       }
     </style>
@@ -53,10 +66,10 @@
     </header>
     <main>
       <h1>$TITLESLUG</h1>
+      <h2>TL;DR</h2>
 
       $CONTENT
 
-      <p>More details below the code</p>
       <h2>HTML</h2>
       <pre><code class="language-html">$ESCAPED_HTML</code></pre>
 

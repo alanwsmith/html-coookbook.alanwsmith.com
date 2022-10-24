@@ -11,6 +11,11 @@
         "title": "Dynamically load web font",
         "url": "https://stackoverflow.com/a/32526247/102401",
         "extra": "Another answer that was linked from the first on that shows a selection box for usage"
+    },
+        {
+        "title": "Freehand from Google Fonts",
+        "url": "https://fonts.google.com/specimen/Freehand?query=freehand",
+        "extra": "This is the font used in the example"
     }
     ]
 }

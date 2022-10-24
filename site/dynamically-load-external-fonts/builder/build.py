@@ -2,12 +2,14 @@
 
 import json
 import re
+import urllib.parse
+
 
 from datetime import datetime
 from string import Template
 from html import escape
 
-main_dir = "/Users/alan/workshop/html-css-js-coookbook.alanwsmith.com/site/dynamically-load-external-fonts"
+main_dir = "/Users/alan/workshop/html-css-js.alanwsmith.com/site/dynamically-load-external-fonts"
 
 print(f"Building: {datetime.now()}")
 
@@ -46,7 +48,8 @@ output = skeleton.substitute(
     JS=js,
     ESCAPED_HTML=escape(content),
     ESCAPED_JS=escape(js),
-    REFERENCES="\n".join(references)
+    REFERENCES="\n".join(references),
+    IMAGESLUG=urllib.parse.quote(config['titleSlug'])
 )
 
 with open(f'{main_dir}/index.html', 'w') as _output:
