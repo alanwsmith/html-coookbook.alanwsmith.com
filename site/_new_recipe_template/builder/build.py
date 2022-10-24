@@ -22,59 +22,59 @@ class Builder():
         self.source_dir = f'{self.base_dir}/src'
         self.config_file = f'{self.source_dir}/config.json'
         self.content_files = []
-        self.content_parts = {}
+        self.parts = {}
 
     def escape_parts(self):
-        part_keys = [key for key in self.content_parts.keys()]
+        part_keys = [key for key in self.parts.keys()]
         for part_key in part_keys:
-            self.content_parts[f'ESCAPED_{part_key}'] = escape(self.content_parts[part_key])
+            self.parts[f'ESCAPED_{part_key}'] = escape(self.parts[part_key])
 
-        print(self.content_parts.keys())
+        print(self.parts.keys())
 
     def load_config(self):
         with open(self.config_file) as _config:
             self.config = json.load(_config)
-            self.content_parts['TITLE'] = self.config['TITLE']
-            self.content_parts['DESCRIPTION'] = self.config['DESCRIPTION']
-            self.content_parts['IMAGESLUG'] = urllib.parse.quote(self.config['TITLE'])
+            self.parts['TITLE'] = self.config['TITLE']
+            self.parts['DESCRIPTION'] = self.config['DESCRIPTION']
+            self.parts['IMAGESLUG'] = urllib.parse.quote(self.config['TITLE'])
 
     def slurp_file(self, path):
         with open(path) as _file:
             return _file.read()
 
-    def load_content_parts(self):
+    def load_parts(self):
         for content_file in self.content_files:
             key = content_file.split('.')[0]
             path = f"{self.source_dir}/{content_file}"
-            self.content_parts[key] = self.slurp_file(path)
+            self.parts[key] = self.slurp_file(path)
 
     def load_details(self):
         if len(self.config['DETAILS']) > 0:
             details = []
             for detail in self.config['DETAILS']:
                 details.append(f'<li>{detail}</li>')
-            self.content_parts['DETAILS'] = f'''
+            self.parts['DETAILS'] = f'''
                 <h2>Deatils</h2>
                 <ul>
                     {" ".join(items)}
                 </ul>
                 '''
         else:
-            self.content_parts['DETAILS'] = ''
+            self.parts['DETAILS'] = ''
 
     def load_notes(self):
         if len(self.config['NOTES']) > 0:
             notes = []
             for note in self.config['NOTES']:
                 notes.append(f'<li>{note}</li>')
-            self.content_parts['NOTES'] = f'''
+            self.parts['NOTES'] = f'''
                 <h2>Notes</h2>
                 <ul>
                     {" ".join(notes)}
                 </ul>
             '''
         else:
-            self.content_parts['NOTES'] = ''
+            self.parts['NOTES'] = ''
 
     def load_references(self):
         if len(self.config['REFERENCES']) > 0:
@@ -84,27 +84,45 @@ class Builder():
                 if reference['extra'] != '':
                     reference_line += f''' - {reference['extra']}'''
                 references.append(f'<li>{reference_line}</li>')
-            self.content_parts['REFERENCES'] = f'''
+            self.parts['REFERENCES'] = f'''
                 <h2>References</h2>
                 <ul>
                     {" ".join(references)}
                 </ul>
                 '''
         else:
-            self.content_parts['REFERENCES'] = ''
+            self.parts['REFERENCES'] = ''
 
     def do_output(self):
-        skeleton = Template(self.content_parts['TEMPLATE'])
-        output = skeleton.substitute(self.content_parts)
+        skeleton = Template(self.parts['TEMPLATE'])
+        output = skeleton.substitute(self.parts)
         with open(f"{self.base_dir}/index.html", 'w') as _output:
             _output.write(output)
 
+    def wrap_escapes(self):
+        if self.parts['HEAD'] != '':
+            self.parts['ESCAPED_HEAD'] = f'''
+            <h2>&lt;head&gt;</h2>
+            <pre><code class="language-html">{escape(self.parts['HEAD'])}</code></pre>
+            '''
 
+        if self.parts['HTML'] != '':
+            self.parts['ESCAPED_HTML'] = f'''
+            <h2>HTML</h2>
+            <pre><code class="language-html">{escape(self.parts['HTML'])}</code></pre>
+            '''
 
+        if self.parts['CSS'] != '':
+            self.parts['ESCAPED_CSS'] = f'''
+            <h2>CSS</h2>
+            <pre><code class="language-css">{escape(self.parts['CSS'])}</code></pre>
+            '''
 
-
-
-
+        if self.parts['JAVASCRIPT'] != '':
+            self.parts['ESCAPED_JAVASCRIPT'] = f'''
+            <h2>JavaScript</h2>
+            <pre><code class="language-js">{escape(self.parts['JAVASCRIPT'])}</code></pre>
+            '''
 
 
 # def load_content():
@@ -181,14 +199,15 @@ class Builder():
 
 if __name__ == "__main__":
     b = Builder()
-    b.content_files = ['HTML.html', 'HEAD.html', 'SCRIPT.js', 'STYLES.css', 'TEMPLATE.html']
+    b.content_files = ['HTML.html', 'HEAD.html', 'JAVASCRIPT.js', 'CSS.css', 'TEMPLATE.html']
     b.load_config()
-    b.load_content_parts()
+    b.load_parts()
     b.escape_parts()
     b.load_details()
     b.load_notes()
     b.load_references()
+    b.wrap_escapes()
     b.do_output()
-    print(b.content_parts)
+    print(b.parts)
 
 
