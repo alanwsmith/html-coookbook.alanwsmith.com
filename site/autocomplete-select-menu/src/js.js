@@ -26,7 +26,7 @@ const rawItems = [
     'Fira Sans',
 ]
 
-// let timeoutIdFixForBlur = null
+let timeoutIdForBlurTransition = null
 
 const fullList = []
 const currentList = []
@@ -139,7 +139,10 @@ const prepIds = () => {
 //     }
 // }
 
-const handleFocus = (event) => {
+const handleInputFocus = (event) => {
+    if (timeoutIdForBlurTransition) {
+        clearTimeout(timeoutIdForBlurTransition)
+    }
     event.target.innerText = ''
     const selectionsEl = document.getElementById('selections')
     while (selectionsEl.firstChild) {
@@ -147,17 +150,43 @@ const handleFocus = (event) => {
     }
     for (let i = 0; i < 5; i++) {
         const newItem = document.createElement('button')
-        newItem.id = `item--${fullList[i].id}`
+        newItem.id = `selection--${fullList[i].id}`
         newItem.innerHTML = fullList[i].name
+        newItem.className = 'selection--button'
+        newItem.addEventListener('focus', handleButtonFocus)
+        newItem.addEventListener('blur', handleButtonBlur)
         selections.appendChild(newItem)
     }
 }
 
-const handleBlur = (event) => {
-    const selectionsEl = document.getElementById('selections')
-    while (selectionsEl.firstChild) {
-        selectionsEl.removeChild(selectionsEl.firstChild)
+const handleButtonFocus = () => {
+    if (timeoutIdForBlurTransition) {
+        clearTimeout(timeoutIdForBlurTransition)
     }
+}
+
+const handleButtonBlur = () => {
+    if (timeoutIdForBlurTransition) {
+        clearTimeout(timeoutIdForBlurTransition)
+    }
+    timeoutIdForBlurTransition = setTimeout(() => {
+        const selectionsEl = document.getElementById('selections')
+        while (selectionsEl.firstChild) {
+            selectionsEl.removeChild(selectionsEl.firstChild)
+        }
+    }, 30)
+}
+
+const handleInputBlur = () => {
+    if (timeoutIdForBlurTransition) {
+        clearTimeout(timeoutIdForBlurTransition)
+    }
+    timeoutIdForBlurTransition = setTimeout(() => {
+        const selectionsEl = document.getElementById('selections')
+        while (selectionsEl.firstChild) {
+            selectionsEl.removeChild(selectionsEl.firstChild)
+        }
+    }, 30)
 }
 
 // const handleBlur = (event) => {
@@ -180,10 +209,10 @@ const kickoff = () => {
     prepIds()
     document
         .getElementById('font-input-field')
-        .addEventListener('focus', handleFocus)
+        .addEventListener('focus', handleInputFocus)
     document
         .getElementById('font-input-field')
-        .addEventListener('blur', handleBlur)
+        .addEventListener('blur', handleInputBlur)
 
     // document
     //     .getElementById('menuItems')
