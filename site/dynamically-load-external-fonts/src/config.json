@@ -1,0 +1,16 @@
+{
+    "titleSlug": "Dynamically Load External Fonts",
+    "description": "Pull in fonts from extneral sources (e.g. Google Fonts) after page load",
+    "references": [
+        {
+        "title": "Dynamically load google fonts after page has loaded",
+        "url": "https://stackoverflow.com/a/65917124/102401",
+        "extra": "Credit to this answer showing how to pull this off. The code on this page is completely based on it."
+    },
+        {
+        "title": "",
+        "url": "https://stackoverflow.com/a/32526247/102401",
+        "extra": "Another answer that was linked from the first on that shows a selection box for usage"
+    }
+    ]
+}
