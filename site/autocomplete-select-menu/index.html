@@ -234,6 +234,9 @@ const prepIds = () => {
 const handleFocus = (event) => {
     event.target.innerText = ''
     const selectionsEl = document.getElementById('selections')
+    while (selectionsEl.firstChild) {
+        selectionsEl.removeChild(selectionsEl.firstChild)
+    }
     for (let i = 0; i < 5; i++) {
         const newItem = document.createElement('button')
         newItem.id = `item--${fullList[i].id}`
