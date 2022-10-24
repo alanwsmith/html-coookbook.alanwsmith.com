@@ -3,21 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      Autocomplete Select Menu - The HTML, CSS, and JavaScript Cookbook Of Alan
-    </title>
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:title"
-      content="Autocomplete Select Menu - The HTML, CSS, and JavaScript Cookbook Of Alan"
-    />
-    <meta
-      property="og:description"
-      content="Type or click to get your selection"
-    />
+    <title>$TITLE - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="$TITLE" />
+    <meta property="og:description" content="$DESCRIPTION" />
     <meta
       property="og:image"
-      content="https://html-css-js-cookbook.alanwsmith.com/og-images/main.jpg"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:$IMAGESLUG,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site:id" content="@TheIdOfAlan" />
@@ -33,56 +25,14 @@
       sizes="180x180"
       href="/favicons/180x180.png"
     />
-
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/prism.css" />
+    $HEAD
     <style>
-      body {
-        background-color: #243845;
-        color: #9fd6ef;
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-        display: grid;
-        grid-template-rows: auto 1fr auto;
-      }
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        color: #65b4f5;
-      }
-      a {
-        color: #fffffe;
-        text-decoration: none;
-      }
-      header {
-        padding-top: 18px;
-        padding-bottom: 4px;
-        width: 100%;
-        max-width: 76ch;
-        margin: 0 auto;
-        border-bottom: 1px solid #888;
-      }
-      main {
-        width: 100%;
-        max-width: 76ch;
-        margin: 0 auto;
-      }
-      footer {
-        width: 100%;
-        max-width: 76ch;
-        margin: 0 auto;
-        text-align: center;
-        margin-top: 60px;
-        padding-bottom: 12px;
-        font-size: 0.9rem;
-      }
       $CSS
     </style>
-
     <script>
-      $JS
+      $JAVASCRIPT
     </script>
   </head>
   <body>
@@ -94,14 +44,10 @@
     </header>
     <main>
       <h1>Autocomplete Select Menu</h1>
-      <p>This is a work in progress. It's not fully functional yet</p>
+      <p>This is a work in progress. It doesn't work yet.</p>
       <div id="tmp-focus-target-for-safari-fix"></div>
-      <hr />
       $HTML
-      <hr />
-
-      <h3>Source</h3>
-
+      
       <h2>Target behavior</h2>
       <ul>
         <li>Filter selections based on text input</li>

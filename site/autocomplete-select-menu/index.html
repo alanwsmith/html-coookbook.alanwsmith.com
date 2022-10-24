@@ -3,21 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      Autocomplete Select Menu - The HTML, CSS, and JavaScript Cookbook Of Alan
-    </title>
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:title"
-      content="Autocomplete Select Menu - The HTML, CSS, and JavaScript Cookbook Of Alan"
-    />
-    <meta
-      property="og:description"
-      content="Type or click to get your selection"
-    />
+    <title>Autocomplete Selection Menu - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Autocomplete Selection Menu" />
+    <meta property="og:description" content="An selection menu with autocompletion that only allows for the configure values to be selected" />
     <meta
       property="og:image"
-      content="https://html-css-js-cookbook.alanwsmith.com/og-images/main.jpg"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Autocomplete%20Selection%20Menu,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site:id" content="@TheIdOfAlan" />
@@ -33,62 +25,19 @@
       sizes="180x180"
       href="/favicons/180x180.png"
     />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/prism.css" />
+    
 
     <style>
-      body {
-        background-color: #243845;
-        color: #9fd6ef;
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-        display: grid;
-        grid-template-rows: auto 1fr auto;
-      }
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        color: #65b4f5;
-      }
-      a {
-        color: #fffffe;
-        text-decoration: none;
-      }
-      header {
-        padding-top: 18px;
-        padding-bottom: 4px;
-        width: 100%;
-        max-width: 76ch;
-        margin: 0 auto;
-        border-bottom: 1px solid #888;
-      }
-      main {
-        width: 100%;
-        max-width: 76ch;
-        margin: 0 auto;
-      }
-      footer {
-        width: 100%;
-        max-width: 76ch;
-        margin: 0 auto;
-        text-align: center;
-        margin-top: 60px;
-        padding-bottom: 12px;
-        font-size: 0.9rem;
-      }
-      #font-input-field {
+      #selection-text-field {
     background-color: white;
-
-    height: 1.6rem;
-
+    height: 1.4rem;
     padding: 4px;
     color: black;
 }
 
     </style>
-
     <script>
       const rawItems = [
     'Roboto',
@@ -118,20 +67,33 @@
     'Fira Sans',
 ]
 
+
+const Autocomete 
+
+
+
+
 let timeoutIdForBlurTransition = null
 
 const fullList = []
+const fullKeys = {}
 const currentList = []
+
+let state = {
+    activeSelection: '',
+}
 
 // let activeFont = ''
 
 // Setup ids for each item
 const prepIds = () => {
     for (const rawItem of rawItems) {
+        const itemId = rawItem.toLowerCase().replaceAll(/ /g, '')
         fullList.push({
-            id: rawItem.toLowerCase().replaceAll(/ /g, ''),
+            id: itemId,
             name: rawItem,
         })
+        fullKeys[itemId] = rawItem
     }
 }
 
@@ -247,8 +209,24 @@ const handleInputFocus = (event) => {
         newItem.className = 'selection--button'
         newItem.addEventListener('focus', handleButtonFocus)
         newItem.addEventListener('blur', handleButtonBlur)
+        newItem.addEventListener('click', handleButtonClick)
         selections.appendChild(newItem)
     }
+}
+
+const handleButtonClick = (event) => {
+    const selectionsEl = document.getElementById('selections')
+    while (selectionsEl.firstChild) {
+        selectionsEl.removeChild(selectionsEl.firstChild)
+    }
+    const parts = event.target.id.split('--')
+    state.activeSelection = fullKeys[parts[1]]
+    console.log(state.activeSelection)
+    document.getElementById(
+        'active-selection'
+    ).innerText = `Active Selection: ${state.activeSelection}`
+    document.getElementById('selection-text-field').innerText =
+        state.activeSelection
 }
 
 const handleButtonFocus = () => {
@@ -270,6 +248,7 @@ const handleButtonBlur = () => {
 }
 
 const handleInputBlur = () => {
+    console.log('-- Input blur')
     if (timeoutIdForBlurTransition) {
         clearTimeout(timeoutIdForBlurTransition)
     }
@@ -278,6 +257,9 @@ const handleInputBlur = () => {
         while (selectionsEl.firstChild) {
             selectionsEl.removeChild(selectionsEl.firstChild)
         }
+        document.getElementById(
+            'active-selection'
+        ).innerText = `Active Selection: ${state.activeSelection}`
     }, 30)
 }
 
@@ -300,10 +282,10 @@ const kickoff = () => {
     console.log(`Kickoff: ${new Date().getTime()}`)
     prepIds()
     document
-        .getElementById('font-input-field')
+        .getElementById('selection-text-field')
         .addEventListener('focus', handleInputFocus)
     document
-        .getElementById('font-input-field')
+        .getElementById('selection-text-field')
         .addEventListener('blur', handleInputBlur)
 
     // document
@@ -332,20 +314,13 @@ document.addEventListener('DOMContentLoaded', kickoff)
     </header>
     <main>
       <h1>Autocomplete Select Menu</h1>
-      <p>This is a work in progress. It's not fully functional yet</p>
+      <p>This is a work in progress. It doesn't work yet.</p>
       <div id="tmp-focus-target-for-safari-fix"></div>
-      <hr />
-      <div id="active-font-wrapper">Active Font: <span id="active-font"></span></div>
-
-<div id="menuWrapper">
-  <div id="font-input-field" contenteditable="true"></div>
-</div>
+      <div id="active-selection">Active Selection: None</div>
+<div id="selection-text-field" contenteditable="true"></div>
 <div id="selections"></div>
 
-      <hr />
-
-      <h3>Source</h3>
-
+      
       <h2>Target behavior</h2>
       <ul>
         <li>Filter selections based on text input</li>

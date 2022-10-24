@@ -26,20 +26,33 @@ const rawItems = [
     'Fira Sans',
 ]
 
+
+const Autocomete 
+
+
+
+
 let timeoutIdForBlurTransition = null
 
 const fullList = []
+const fullKeys = {}
 const currentList = []
+
+let state = {
+    activeSelection: '',
+}
 
 // let activeFont = ''
 
 // Setup ids for each item
 const prepIds = () => {
     for (const rawItem of rawItems) {
+        const itemId = rawItem.toLowerCase().replaceAll(/ /g, '')
         fullList.push({
-            id: rawItem.toLowerCase().replaceAll(/ /g, ''),
+            id: itemId,
             name: rawItem,
         })
+        fullKeys[itemId] = rawItem
     }
 }
 
@@ -155,8 +168,24 @@ const handleInputFocus = (event) => {
         newItem.className = 'selection--button'
         newItem.addEventListener('focus', handleButtonFocus)
         newItem.addEventListener('blur', handleButtonBlur)
+        newItem.addEventListener('click', handleButtonClick)
         selections.appendChild(newItem)
     }
+}
+
+const handleButtonClick = (event) => {
+    const selectionsEl = document.getElementById('selections')
+    while (selectionsEl.firstChild) {
+        selectionsEl.removeChild(selectionsEl.firstChild)
+    }
+    const parts = event.target.id.split('--')
+    state.activeSelection = fullKeys[parts[1]]
+    console.log(state.activeSelection)
+    document.getElementById(
+        'active-selection'
+    ).innerText = `Active Selection: ${state.activeSelection}`
+    document.getElementById('selection-text-field').innerText =
+        state.activeSelection
 }
 
 const handleButtonFocus = () => {
@@ -178,6 +207,7 @@ const handleButtonBlur = () => {
 }
 
 const handleInputBlur = () => {
+    console.log('-- Input blur')
     if (timeoutIdForBlurTransition) {
         clearTimeout(timeoutIdForBlurTransition)
     }
@@ -186,6 +216,9 @@ const handleInputBlur = () => {
         while (selectionsEl.firstChild) {
             selectionsEl.removeChild(selectionsEl.firstChild)
         }
+        document.getElementById(
+            'active-selection'
+        ).innerText = `Active Selection: ${state.activeSelection}`
     }, 30)
 }
 
@@ -208,10 +241,10 @@ const kickoff = () => {
     console.log(`Kickoff: ${new Date().getTime()}`)
     prepIds()
     document
-        .getElementById('font-input-field')
+        .getElementById('selection-text-field')
         .addEventListener('focus', handleInputFocus)
     document
-        .getElementById('font-input-field')
+        .getElementById('selection-text-field')
         .addEventListener('blur', handleInputBlur)
 
     // document
