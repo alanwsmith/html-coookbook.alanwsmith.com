@@ -31,7 +31,52 @@
       sizes="180x180"
       href="/favicons/180x180.png"
     />
-    <link rel="stylesheet" href="/styles/global.css" />
+
+    <style>
+      body {
+        background-color: #243845;
+        color: #9fd6ef;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        color: #65b4f5;
+      }
+      a {
+        color: #fffffe;
+        text-decoration: none;
+      }
+      header {
+        padding-top: 18px;
+        padding-bottom: 4px;
+        width: 100%;
+        max-width: 76ch;
+        margin: 0 auto;
+        border-bottom: 1px solid #888;
+      }
+      main {
+        width: 100%;
+        max-width: 76ch;
+        margin: 0 auto;
+      }
+      footer {
+        width: 100%;
+        max-width: 76ch;
+        margin: 0 auto;
+        text-align: center;
+        margin-top: 60px;
+        padding-bottom: 12px;
+        font-size: 0.9rem;
+      }
+    </style>
   </head>
   <body>
     <header>
@@ -41,24 +86,33 @@
       <a href="https://podcast.alanwsmith.com/">podcast</a>
     </header>
     <main>
-      <h1>The HTML, CSS, and JavaScript Cookbook Of Alan</h1>
+      <h1>Alan's HTML, CSS, and JavaScript Cookbook</h1>
       <h2>Recipes</h2>
-      <ul><li>
-                    <a href="/recipes/dynamically-load-external-fonts--2GbIL3X471Fa/index.html">Dynamically Load External Fonts</a>
-                    </li></ul>
+      <ul>
+        <li>
+          <a href="/dynamically-load-external-fonts">
+            Dynamically Load External Fonts (e.g. Google Fonts)
+          </a>
+        </li>
+      </ul>
 
-      <h2>Under Construction (and probably broken)</h2>
-      <ul><li>
-                    <a href="/recipes/autocomplete-select-menu--2GbIUkcEyxaH/index.html">Autocomplete Selection Menu</a>
-                    </li><li>
-                    <a href="/recipes/details-element-example--2GbISkLaYoEW/index.html">Details Element Example</a>
-                    </li><li>
-                    <a href="/recipes/detect-enter-key-in-input-field--2GbIaPbO7xXQ/index.html">Detecting Enter/Return Key Presses</a>
-                    </li><li>
-                    <a href="/recipes/javascript-class-example--2GbDpBAwq2AB/index.html">JavaScript Class Example</a>
-                    </li><li>
-                    <a href="/recipes/search-input-example--2GbIh2R7rTEd/index.html">Search Input Example</a>
-                    </li></ul>
+      <h2>These are currently under construction</h2>
+      <ul>
+        <li>
+          <a href="/autocomplete-select-menu">Autocomplete Select Menu</a>
+        </li>
+        <li>
+          <a href="/details-element-example">Details Element Example</a>
+        </li>
+        <li>
+          <a href="/detect-enter-key-in-input-field"
+            >Detect Enter Key Presses In Text Input Fields</a
+          >
+        </li>
+        <li>
+          <a href="/search-input-type-example">Search Input Type Example</a>
+        </li>
+      </ul>
     </main>
     <footer>
       made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>

@@ -8,10 +8,6 @@ module.exports = {
     reloadOnRestart: true,
     server: {
         baseDir: 'site',
-        index: 'index.html',
-        serveStaticOptions: {
-            extensions: ['html'],
-        },
     },
     watch: true,
 }
