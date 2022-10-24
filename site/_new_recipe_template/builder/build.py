@@ -76,6 +76,21 @@ class Builder():
         else:
             self.parts['NOTES'] = ''
 
+    def load_todos(self):
+        if len(self.config['TODOS']) > 0:
+            todos = []
+            for todo in self.config['TODOS']:
+                todos.append(f'<li>{todo}</li>')
+            self.parts['TODOS'] = f'''
+                <h2>TODO</h2>
+                <ul>
+                    {" ".join(todos)}
+                </ul>
+            '''
+        else:
+            self.parts['TODOS'] = ''
+
+
     def load_references(self):
         if len(self.config['REFERENCES']) > 0:
             references = []
@@ -205,6 +220,7 @@ if __name__ == "__main__":
     b.escape_parts()
     b.load_details()
     b.load_notes()
+    b.load_todos()
     b.load_references()
     b.wrap_escapes()
     b.do_output()
