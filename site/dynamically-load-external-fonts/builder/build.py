@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import json
+import re
 
 from datetime import datetime
 from string import Template
@@ -28,6 +29,13 @@ with open(f'{main_dir}/src/css.css') as _css:
 with open(f'{main_dir}/src/template.html') as _template:
     template = _template.read()
 
+references = []
+for reference in config['references']:
+    references.append(f'''
+<li><a href="{reference['url']}">{reference['title']}</a><br />{reference['extra']}</li>
+''')
+    print(reference)
+
 skeleton = Template(template)
 output = skeleton.substitute(
     TITLESLUG=config['titleSlug'],
@@ -38,6 +46,7 @@ output = skeleton.substitute(
     JS=js,
     ESCAPED_HTML=escape(content),
     ESCAPED_JS=escape(js),
+    REFERENCES="\n".join(references)
 )
 
 with open(f'{main_dir}/index.html', 'w') as _output:
