@@ -50,9 +50,9 @@ class Builder():
 
     def load_details(self):
         if len(self.config['DETAILS']) > 0:
-            items = []
-            for item in self.config['DETAILS']:
-                items.append(f'<li>{item}</li>')
+            details = []
+            for detail in self.config['DETAILS']:
+                details.append(f'<li>{detail}</li>')
             self.content_parts['DETAILS'] = f'''
                 <h2>Deatils</h2>
                 <ul>
@@ -64,13 +64,32 @@ class Builder():
 
     def load_notes(self):
         if len(self.config['NOTES']) > 0:
-            self.content_parts['NOTES'] = '<h2>Notes</h2>'
+            notes = []
+            for note in self.config['NOTES']:
+                notes.append(f'<li>{note}</li>')
+            self.content_parts['NOTES'] = f'''
+                <h2>Notes</h2>
+                <ul>
+                    {" ".join(notes)}
+                </ul>
+            '''
         else:
             self.content_parts['NOTES'] = ''
 
     def load_references(self):
         if len(self.config['REFERENCES']) > 0:
-            self.content_parts['REFERENCES'] = '<h2>References</h2>'
+            references = []
+            for reference in self.config['REFERENCES']:
+                reference_line = f'''<a href="{reference['url']}">{reference['title']}</a>'''
+                if reference['extra'] != '':
+                    reference_line += f''' - {reference['extra']}'''
+                references.append(f'<li>{reference_line}</li>')
+            self.content_parts['REFERENCES'] = f'''
+                <h2>References</h2>
+                <ul>
+                    {" ".join(references)}
+                </ul>
+                '''
         else:
             self.content_parts['REFERENCES'] = ''
 

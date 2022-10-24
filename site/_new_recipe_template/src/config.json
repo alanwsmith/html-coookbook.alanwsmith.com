@@ -1,12 +1,12 @@
 {
     "TITLE": "Cookbook Recipe Template",
     "DESCRIPTION": "",
-    "DETAILS": ["first", "second"],
-    "NOTES": [],
+    "DETAILS": [],
+    "NOTES": ["a", "b"],
     "REFERENCES": [
         {
-            "title": "",
-            "url": "",
+            "title": "asdf",
+            "url": "asdfasdf",
             "extra": ""
         }
     ]
