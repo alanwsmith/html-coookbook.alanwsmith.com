@@ -1,0 +1,33 @@
+{
+    "TITLE": "Autocomplete Selection Menu",
+    "STATUS": "draft",
+    "DESCRIPTION": "An selection menu with autocompletion that only allows for the configure values to be selected",
+    "DETAILS": [
+        "GOAL: [ ] Accepts an array of key-value pairs to use as selections",
+        "GOAL: [ ] Filter selections based on text input",
+        "GOAL: [ ] Proper accessability",
+        "GOAL: [ ] Show autocompete when typing",
+        "GOAL: [ ] Show first option in text area if autocomplete doesn't match exactly",
+        "GOAL: [ ] Clicking enter selects first item",
+        "GOAL: [ ] Tabbing to secondary selections",
+        "GOAL: [ ] Hitting enter on a secondary selection chooses it",
+        "GOAL: [ ] Clicking a secondary button selects it",
+        "GOAL: [ ] Show the last select item as a placeholder when the field isn't focused",
+        "GOAL: [ ] Ability to select a placeholder on load",
+        "GOAL: [ ] Scrollable list of selections",
+        "GOAL: [ ] Multiple instances on the same page"
+    ],
+    "NOTES": [
+        "This is currnelyt a very naive approach to the matching selections. If the string in the input field matches anywhere in the item list it gets included."
+    ],
+    "TODOS": [
+        "Dig through this for multiline suppression: https://stackoverflow.com/questions/6831482/contenteditable-single-line-input"
+    ],
+    "REFERENCES": [
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        }
+    ]
+}
