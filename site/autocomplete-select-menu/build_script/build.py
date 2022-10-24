@@ -2,7 +2,7 @@
 
 from string import Template
 
-main_dir = "/Users/alan/workshop/html-css-js-coookbook.alanwsmith.com/site/autocomplete-select-menu"
+main_dir = "/Users/alan/workshop/html-css-js.alanwsmith.com/site/autocomplete-select-menu"
 
 with open(f'{main_dir}/src/html.html') as _html:
     html = _html.read()
