@@ -23,21 +23,24 @@ header {
   padding-top: 18px;
   padding-bottom: 4px;
   width: 100%;
-  max-width: 76ch;
+  max-width: 80ch;
   margin: 0 auto;
   border-bottom: 1px solid #888;
 }
 main {
   width: 100%;
-  max-width: 76ch;
+  max-width: 80ch;
   margin: 0 auto;
 }
 footer {
   width: 100%;
-  max-width: 76ch;
+  max-width: 80ch;
   margin: 0 auto;
   text-align: center;
   margin-top: 60px;
   padding-bottom: 12px;
   font-size: 0.9rem;
+}
+p {
+  max-width: 72ch;
 }
