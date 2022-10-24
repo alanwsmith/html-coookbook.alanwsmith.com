@@ -305,55 +305,53 @@ document.addEventListener('DOMContentLoaded', kickoff)
 
     </script>
   </head>
-  <body>
+  <body class="line-numbers">
+
     <header>
       <a href="/">Cookbook Home</a> ~
       <a href="https://www.alanwsmith.com/">alanwsmith.com</a> ~
       <a href="https://links.alanwsmith.com">links</a> ~
       <a href="https://podcast.alanwsmith.com/">podcast</a>
     </header>
+
     <main>
       <h1>Autocomplete Select Menu</h1>
       <p>This is a work in progress. It doesn't work yet.</p>
       <div id="tmp-focus-target-for-safari-fix"></div>
+
       <div id="active-selection">Active Selection: None</div>
 <div id="selection-text-field" contenteditable="true"></div>
 <div id="selections"></div>
 
+
       
-      <h2>Target behavior</h2>
-      <ul>
-        <li>Filter selections based on text input</li>
-        <li>Show auto complete for typing</li>
-        <li>
-          Pressing enter fires the event with whatever the top item is in the
-          list
-        </li>
-        <li>Clicking an item fires the event</li>
-        <li>Only show N number of items regardless of list length</li>
-        <li>Accessible</li>
-        <li>
-          Put the current value in as a placeholder when something is selected
-        </li>
-      </ul>
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;div id=&quot;active-selection&quot;&gt;Active Selection: None&lt;/div&gt;
+&lt;div id=&quot;selection-text-field&quot; contenteditable=&quot;true&quot;&gt;&lt;/div&gt;
+&lt;div id=&quot;selections&quot;&gt;&lt;/div&gt;
+</code></pre>
+             
+                <h2>Deatils</h2>
+                <ul>
+                    <li>GOAL: [ ] Accepts an array of key-value pairs to use as selections</li> <li>GOAL: [ ] Filter selections based on text input</li> <li>GOAL: [ ] Proper accessability</li> <li>GOAL: [ ] Show autocompete when typing</li> <li>GOAL: [ ] Show first option in text area if autocomplete doesn't match exactly</li> <li>GOAL: [ ] Clicking enter selects first item</li> <li>GOAL: [ ] Tabbing to secondary selections</li> <li>GOAL: [ ] Hitting enter on a secondary selection chooses it</li> <li>GOAL: [ ] Clicking a secondary button selects it</li> <li>GOAL: [ ] Show the last select item as a placeholder when the field isn't focused</li> <li>GOAL: [ ] Ability to select a placeholder on load</li> <li>GOAL: [ ] Scrollable list of selections</li>
+                </ul>
+                 
+                <h2>Notes</h2>
+                <ul>
+                    <li>This is currnelyt a very naive approach to the matching selections. If the string in the input field matches anywhere in the item list it gets included.</li>
+                </ul>
+             
+                <h2>TODO</h2>
+                <ul>
+                    <li>Dig through this for multiline suppression: https://stackoverflow.com/questions/6831482/contenteditable-single-line-input</li>
+                </ul>
+             
+                <h2>References</h2>
+                <ul>
+                    <li><a href=""></a></li>
+                </ul>
+                
 
-      <h2>Notes</h2>
-      <ul>
-        <li>This uses a small font list for the items to search</li>
-        <li>
-          This uses a very naive approach to the search. If the string in the
-          input field matches anywhere in the item list it gets included.
-        </li>
-      </ul>
-
-      <h2>TODO</h2>
-      <ul>
-        <li>Put eyes on the specificity of things</li>
-        <li>
-          Dig through this for multiline suppression:
-          https://stackoverflow.com/questions/6831482/contenteditable-single-line-input
-        </li>
-      </ul>
     </main>
     <footer>
       made by <a href="https://twitter.com/TheIdOfAlan">
@@ -362,5 +360,6 @@ document.addEventListener('DOMContentLoaded', kickoff)
       <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
       among other <a href="https://links.alanwsmith.com">things</a>
     </footer>
+    <script src="/styles/prism.js"></script>
   </body>
 </html>

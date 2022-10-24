@@ -35,52 +35,24 @@
       $JAVASCRIPT
     </script>
   </head>
-  <body>
+  <body class="line-numbers">
+
     <header>
       <a href="/">Cookbook Home</a> ~
       <a href="https://www.alanwsmith.com/">alanwsmith.com</a> ~
       <a href="https://links.alanwsmith.com">links</a> ~
       <a href="https://podcast.alanwsmith.com/">podcast</a>
     </header>
+
     <main>
       <h1>Autocomplete Select Menu</h1>
       <p>This is a work in progress. It doesn't work yet.</p>
       <div id="tmp-focus-target-for-safari-fix"></div>
+
       $HTML
-      
-      <h2>Target behavior</h2>
-      <ul>
-        <li>Filter selections based on text input</li>
-        <li>Show auto complete for typing</li>
-        <li>
-          Pressing enter fires the event with whatever the top item is in the
-          list
-        </li>
-        <li>Clicking an item fires the event</li>
-        <li>Only show N number of items regardless of list length</li>
-        <li>Accessible</li>
-        <li>
-          Put the current value in as a placeholder when something is selected
-        </li>
-      </ul>
 
-      <h2>Notes</h2>
-      <ul>
-        <li>This uses a small font list for the items to search</li>
-        <li>
-          This uses a very naive approach to the search. If the string in the
-          input field matches anywhere in the item list it gets included.
-        </li>
-      </ul>
+      $ESCAPED_HTML $DETAILS $NOTES $TODOS $REFERENCES
 
-      <h2>TODO</h2>
-      <ul>
-        <li>Put eyes on the specificity of things</li>
-        <li>
-          Dig through this for multiline suppression:
-          https://stackoverflow.com/questions/6831482/contenteditable-single-line-input
-        </li>
-      </ul>
     </main>
     <footer>
       made by <a href="https://twitter.com/TheIdOfAlan">
@@ -89,5 +61,6 @@
       <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
       among other <a href="https://links.alanwsmith.com">things</a>
     </footer>
+    <script src="/styles/prism.js"></script>
   </body>
 </html>
