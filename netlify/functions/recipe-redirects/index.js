@@ -17,31 +17,27 @@ exports.handler = async function (event, context) {
   "2GbIh2R7rTEd": "/recipes/search-input-example--2GbIh2R7rTEd/index.html"
 }
   const url_parts = event.path.split('/')
-  if (url_parts.length !== 3) {
+  // console.log(url_parts)
+  if (url_parts.length !== 4) {
+    // console.log('1')
     return fire_redirect('/')
   } else {
+    // console.log('2')
     const slug_parts = url_parts[2].split('--')
     if (slug_parts.length !== 2) {
+      // console.log('3')
       return fire_redirect('/')
     } else {
       const key = slug_parts[1]
       if (files[key]) {
+        // console.log('hit')
         return fire_redirect(files[key])
       } else {
+        // console.log('4')
         return fire_redirect('/')
       }
     }
   }
 
   return fire_redirect('/')
-
-  // return {
-  //   statusCode: 200,
-  //   body: JSON.stringify({
-  //     note: 'wwww',
-  //     original_path: event.path,
-  //     key: key,
-  //     redirect_to: redirect_to,
-  //   }),
-  // }
 }
