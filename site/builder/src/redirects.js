@@ -1,25 +1,40 @@
-exports.handler = async function (event, context) {
-  // TODO: Handle the error cases e.g. the path doesn't
-  // have a key or the key isn't in the files list
-  const files = $REDIRECTS
-  const url_parts = event.path.split('/')
-  const slug_parts = url_parts[2].split('--')
-  const key = slug_parts[slug_parts.length - 1]
-  const redirect_to = files[key]
+const fire_redirect = (location) => {
   return {
     statusCode: 301,
     headers: {
-      Location: redirect_to,
+      Location: location,
     },
   }
+}
 
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      note: 'wwww',
-      original_path: event.path,
-      key: key,
-      redirect_to: redirect_to,
-    }),
+exports.handler = async function (event, context) {
+  const files = $REDIRECTS
+  const url_parts = event.path.split('/')
+  if (url_parts.length !== 3) {
+    return fire_redirect('/')
+  } else {
+    const slug_parts = url_parts[2].split('--')
+    if (slug_parts.length !== 2) {
+      return fire_redirect('/')
+    } else {
+      const key = slug_parts[1]
+      if (files[key]) {
+        return fire_redirect(files[key])
+      } else {
+        return fire_redirect('/')
+      }
+    }
   }
+
+  return fire_redirect('/')
+
+  // return {
+  //   statusCode: 200,
+  //   body: JSON.stringify({
+  //     note: 'wwww',
+  //     original_path: event.path,
+  //     key: key,
+  //     redirect_to: redirect_to,
+  //   }),
+  // }
 }
