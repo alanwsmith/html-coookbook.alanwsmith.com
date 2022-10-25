@@ -37,6 +37,8 @@ class Builder():
             self.parts['TITLE'] = self.config['TITLE']
             self.parts['DESCRIPTION'] = self.config['DESCRIPTION']
             self.parts['IMAGESLUG'] = urllib.parse.quote(self.config['TITLE'])
+            # Fix for commas in Cloudinary
+            self.parts['IMAGESLUG'] = re.sub('%2C', '%252C', self.parts['IMAGESLUG'])
 
     def slurp_file(self, path):
         with open(path) as _file:
