@@ -44,7 +44,7 @@ class Builder():
 
     def get_directories_and_titles(self):
         recipes_dir = os.path.join('..', 'recipes')
-        recipe_dirs = [
+        self.recipe_dirs = [
             os.path.basename(dir) for dir in glob.glob(f"{recipes_dir}/*")
             if os.path.isdir(dir)
         ]
@@ -52,7 +52,7 @@ class Builder():
         published = []
         drafts = []
 
-        for recipe_dir in recipe_dirs:
+        for recipe_dir in self.recipe_dirs:
             config_file_path = f"../recipes/{recipe_dir}/builder/src/config.json"
             with open(config_file_path) as _config:
                 config = json.load(_config)
@@ -86,6 +86,22 @@ class Builder():
         output = skeleton.substitute(self.parts)
         with open(f"../index.html", 'w') as _output:
             _output.write(output)
+
+    def build_redirects(self):
+        redirects = {}
+        for recipe_dir in self.recipe_dirs:
+            parts = recipe_dir.split('--')
+            redirects[parts[1]] = f'/recipes/{recipe_dir}/index.html'
+        print(redirects)
+
+        with open("src/redirects.js") as _redirects_in:
+            redirects_skeleton = Template(_redirects_in.read())
+            redirects_output = redirects_skeleton.substitute(
+                {"REDIRECTS": json.dumps(redirects, indent=2, sort_keys=True)}
+            )
+            with open("../../netlify/functions/recipe-redirects/index.js", "w") as _redirects_out:
+                _redirects_out.write(redirects_output)
+
 
     # def load_details(self):
     #     if len(self.config['DETAILS']) > 0:
@@ -260,6 +276,7 @@ if __name__ == "__main__":
     # b.wrap_escapes()
 
     b.do_output()
+    b.build_redirects()
 
 
 
