@@ -1,2 +1,9 @@
 [build]
   publish = "site/"
+
+[[redirects]]
+  from = "/recipes/*"
+  to = "/.netlify/functions/recipe-redirects"
+  status = 200
+  force = false
+  query = '{path = ":path"}'
