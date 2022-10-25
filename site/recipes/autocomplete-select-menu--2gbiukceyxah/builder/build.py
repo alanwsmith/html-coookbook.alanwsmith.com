@@ -11,16 +11,15 @@ from html import escape
 
 class Builder():
     def __init__(self):
-        print(f"Building: {datetime.now()}")
-        self.base_dir = os.path.join(
+        self.base_dir = os.path.dirname(
             os.path.dirname(
-                os.path.dirname(
-                    os.path.realpath(__file__)
-                )
-            ), 
-        )
-        self.source_dir = f'{self.base_dir}/src'
-        self.config_file = f'{self.source_dir}/config.json'
+                os.path.realpath(__file__)
+            )
+        ) 
+        print(f"Building: {datetime.now()}")
+        self.source_dir = os.path.join(self.base_dir, 'builder', 'src')
+        self.config_file = os.path.join(self.source_dir, 'config.json')
+        self.output_file = os.path.join(self.base_dir, 'index.html')
         self.content_files = []
         self.parts = {}
 
@@ -109,7 +108,7 @@ class Builder():
     def do_output(self):
         skeleton = Template(self.parts['TEMPLATE'])
         output = skeleton.substitute(self.parts)
-        with open(f"{self.base_dir}/index.html", 'w') as _output:
+        with open(self.output_file, 'w') as _output:
             _output.write(output)
 
     def wrap_escapes(self):
