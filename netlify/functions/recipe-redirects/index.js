@@ -1,4 +1,6 @@
 exports.handler = async function (event, context) {
+  // TODO: Handle the error cases e.g. the path doesn't
+  // have a key or the key isn't in the files list
   const files = {
   "2GbDpBAwq2AB": "/recipes/javascript-class-example--2GbDpBAwq2AB/index.html",
   "2GbIL3X471Fa": "/recipes/dynamically-load-external-fonts--2GbIL3X471Fa/index.html",
@@ -11,6 +13,13 @@ exports.handler = async function (event, context) {
   const slug_parts = url_parts[2].split('--')
   const key = slug_parts[slug_parts.length - 1]
   const redirect_to = files[key]
+  return {
+    statusCode: 301,
+    headers: {
+      Location: redirect_to,
+    },
+  }
+
   return {
     statusCode: 200,
     body: JSON.stringify({
