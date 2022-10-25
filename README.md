@@ -1,2 +1,5 @@
 # html-coookbook.alanwsmith.com
-A collection of HTML Recipes 
+
+My collection of HTML, CSS, and JavaScript recipes. 
+
+Some are basic usage examples and some are more complicated experiments. 

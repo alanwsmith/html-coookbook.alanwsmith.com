@@ -14,7 +14,8 @@ exports.handler = async function (event, context) {
   "2GbISkLaYoEW": "/recipes/details-element-example--2GbISkLaYoEW/index.html",
   "2GbIUkcEyxaH": "/recipes/autocomplete-select-menu--2GbIUkcEyxaH/index.html",
   "2GbIaPbO7xXQ": "/recipes/detect-enter-key-in-input-field--2GbIaPbO7xXQ/index.html",
-  "2GbIh2R7rTEd": "/recipes/search-input-example--2GbIh2R7rTEd/index.html"
+  "2GbIh2R7rTEd": "/recipes/search-input-example--2GbIh2R7rTEd/index.html",
+  "2Gc2v5BVvNGH": "/recipes/font-download-test--2Gc2v5BVvNGH/index.html"
 }
   const url_parts = event.path.split('/')
   // console.log(url_parts)
