@@ -9,13 +9,13 @@ const fire_redirect = (location) => {
 
 exports.handler = async function (event, context) {
   const files = {
-  "2GbDpBAwq2AB": "/recipes/javascript-class-example--2GbDpBAwq2AB/index.html",
-  "2GbIL3X471Fa": "/recipes/dynamically-load-external-fonts--2GbIL3X471Fa/index.html",
-  "2GbISkLaYoEW": "/recipes/details-element-example--2GbISkLaYoEW/index.html",
-  "2GbIUkcEyxaH": "/recipes/autocomplete-select-menu--2GbIUkcEyxaH/index.html",
-  "2GbIaPbO7xXQ": "/recipes/detect-enter-key-in-input-field--2GbIaPbO7xXQ/index.html",
-  "2GbIh2R7rTEd": "/recipes/search-input-example--2GbIh2R7rTEd/index.html",
-  "2Gc2v5BVvNGH": "/recipes/font-download-test--2Gc2v5BVvNGH/index.html"
+  "2gbdpbawq2ab": "/recipes/javascript-class-example--2gbdpbawq2ab/index.html",
+  "2gbiapbo7xxq": "/recipes/detect-enter-key-in-input-field--2gbiapbo7xxq/index.html",
+  "2gbih2r7rted": "/recipes/search-input-example--2gbih2r7rted/index.html",
+  "2gbil3x471fa": "/recipes/dynamically-load-external-fonts--2gbil3x471fa/index.html",
+  "2gbisklayoew": "/recipes/details-element-example--2gbisklayoew/index.html",
+  "2gbiukceyxah": "/recipes/autocomplete-select-menu--2gbiukceyxah/index.html",
+  "2gc2v5bvvngh": "/recipes/font-download-test--2gc2v5bvvngh/index.html"
 }
   const url_parts = event.path.split('/')
   // console.log(url_parts)
