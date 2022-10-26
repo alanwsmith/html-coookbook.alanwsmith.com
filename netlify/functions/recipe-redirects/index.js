@@ -15,7 +15,8 @@ exports.handler = async function (event, context) {
   "2gbil3x471fa": "/recipes/dynamically-load-external-fonts--2gbil3x471fa/index.html",
   "2gbisklayoew": "/recipes/details-element-example--2gbisklayoew/index.html",
   "2gbiukceyxah": "/recipes/autocomplete-select-menu--2gbiukceyxah/index.html",
-  "2gc2v5bvvngh": "/recipes/font-download-test--2gc2v5bvvngh/index.html"
+  "2gc2v5bvvngh": "/recipes/font-download-test--2gc2v5bvvngh/index.html",
+  "2ggjxa4tvm9x": "/recipes/mdash-input-select-autocomplete-test--2ggjxa4tvm9x/index.html"
 }
   const url_parts = event.path.split('/')
   // console.log(url_parts)
