@@ -26,18 +26,16 @@ const options = [
     { key: 'firasans', value: 'Fira Sans' },
 ]
 
-// // let timeoutIdForBlurTransition = null
 // const fullList = []
 // const fullKeys = {}
 // const currentList = []
 
 // TODO: Move stuff into this:
 const state = {
-    activeSelection: '',
+    activeKey: null,
     // fullList: [],
     fullKeys: {},
     // currentList: [],
-    // timeoutIdForBlurTransition: null,
 }
 
 const prepKeys = () => {
@@ -47,29 +45,17 @@ const prepKeys = () => {
 }
 
 const handleInputFocus = (event) => {
-    // if (timeoutIdForBlurTransition) {
-    //     clearTimeout(timeoutIdForBlurTransition)
-    // }
     event.target.innerText = ''
     const selectionsEl = document.getElementById('awsselectmenu--selections')
     while (selectionsEl.firstChild) {
         selectionsEl.removeChild(selectionsEl.firstChild)
     }
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 5; i++) {
         const newItem = document.createElement('button')
         const buttonId = `awsselectmenu--choice-id--${options[i].key}`
         newItem.id = buttonId
         newItem.innerHTML = options[i].value
-        // // newItem.addEventListener('focus', handleButtonFocus)
-        // // newItem.addEventListener('blur', handleButtonBlur)
-        // // newItem.addEventListener('click', handleButtonClick)
         selectionsEl.appendChild(newItem)
-        // // document
-        // //     .getElementById(buttonId)
-        // //     .addEventListener('click', handleButtonClick)
-        // // document.getElementById(buttonId).addEventListener('click', () => {
-        // //     console.log('asdfasdfasdf')
-        // // })
     }
 }
 
@@ -138,11 +124,31 @@ const handleKeyup = (event) => {
     // TODO: Handle tab and escape
     const pressedKey = event.key.toLowerCase()
     if (pressedKey === 'enter') {
-        makeSelection()
+        console.log('ENTER')
+        // makeSelection()
     } else {
         state.currentSearch = document.getElementById(
-            'selection-text-field'
+            'awsselectmenu--search-text'
         ).innerText
+        removeSelections()
+        const selectionsEl = document.getElementById(
+            'awsselectmenu--selections'
+        )
+        let counter = 0
+        for (i = 0; i < options.length; i++) {
+            const pattern = new RegExp(state.currentSearch, 'gi')
+            if (options[i].value.toLowerCase().match(pattern)) {
+                const newItem = document.createElement('button')
+                const buttonId = `awsselectmenu--choice-id--${options[i].key}`
+                newItem.id = buttonId
+                newItem.innerHTML = options[i].value
+                selectionsEl.appendChild(newItem)
+                counter += 1
+            }
+            if (counter === 5) {
+                break
+            }
+        }
         console.log(state.currentSearch)
     }
 }
@@ -201,9 +207,9 @@ const kickoff = () => {
     //     .getElementById('selection-text-field')
     //     .addEventListener('blur', handleInputBlur)
 
-    // document
-    //     .getElementById('selection-text-field')
-    //     .addEventListener('keyup', handleKeyup)
+    document
+        .getElementById('awsselectmenu--search-text')
+        .addEventListener('keyup', handleKeyup)
 
     // document
     //     .getElementById('selectionsWrapper')
