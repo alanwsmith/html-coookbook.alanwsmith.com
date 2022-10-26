@@ -86,14 +86,16 @@ const handleFilterFocus = () => {
 }
 
 const handleFilterKeyup = (event) => {
+    // console.log('handlerFilterKeyup')
+    // console.log(event)
     const pressedKey = event.key.toLowerCase()
     if (pressedKey === 'enter') {
-        console.log('ENTER')
-        if (state.options.length > 0) {
-            console.log(state.options[0])
-        } else {
-            console.log('no valid selection')
-        }
+        console.log('ENTER - TODO: Do update here')
+        // if (state.options.length > 0) {
+        //     console.log(state.options[0])
+        // } else {
+        //     console.log('no valid selection')
+        // }
     } else {
         setOptions()
     }
@@ -139,22 +141,17 @@ const removeOptions = () => {
 }
 
 const setOptions = () => {
-    console.log('setOptions')
     state.options = []
-    // if (state.filterEl.value) {
-
-    // state.filter = state.filterEl.value.toLowerCase().replaceAll(/ /g, '')
-    // const pattern = new RegExp(, 'gi')
+    state.filter = state.filterEl.value
     fontsByPopularity.forEach((font) => {
-        // const checkValue = font.value.toLowerCase().replaceAll(/ /g, '')
-        // if (checkValue.match(pattern)) {
-        state.options.push(font)
-        console.log(font.value)
-        // }
+        if (state.filter) {
+            if (font.value.toLowerCase().includes(state.filter.toLowerCase())) {
+                state.options.push(font)
+            }
+        } else {
+            state.options.push(font)
+        }
     })
-
-    // }
-    console.log(state.filter)
     updateOptions()
 }
 
@@ -296,14 +293,16 @@ const handleFilterFocus = () =&gt; {
 }
 
 const handleFilterKeyup = (event) =&gt; {
+    // console.log(&#x27;handlerFilterKeyup&#x27;)
+    // console.log(event)
     const pressedKey = event.key.toLowerCase()
     if (pressedKey === &#x27;enter&#x27;) {
-        console.log(&#x27;ENTER&#x27;)
-        if (state.options.length &gt; 0) {
-            console.log(state.options[0])
-        } else {
-            console.log(&#x27;no valid selection&#x27;)
-        }
+        console.log(&#x27;ENTER - TODO: Do update here&#x27;)
+        // if (state.options.length &gt; 0) {
+        //     console.log(state.options[0])
+        // } else {
+        //     console.log(&#x27;no valid selection&#x27;)
+        // }
     } else {
         setOptions()
     }
@@ -349,22 +348,17 @@ const removeOptions = () =&gt; {
 }
 
 const setOptions = () =&gt; {
-    console.log(&#x27;setOptions&#x27;)
     state.options = []
-    // if (state.filterEl.value) {
-
-    // state.filter = state.filterEl.value.toLowerCase().replaceAll(/ /g, &#x27;&#x27;)
-    // const pattern = new RegExp(, &#x27;gi&#x27;)
+    state.filter = state.filterEl.value
     fontsByPopularity.forEach((font) =&gt; {
-        // const checkValue = font.value.toLowerCase().replaceAll(/ /g, &#x27;&#x27;)
-        // if (checkValue.match(pattern)) {
-        state.options.push(font)
-        console.log(font.value)
-        // }
+        if (state.filter) {
+            if (font.value.toLowerCase().includes(state.filter.toLowerCase())) {
+                state.options.push(font)
+            }
+        } else {
+            state.options.push(font)
+        }
     })
-
-    // }
-    console.log(state.filter)
     updateOptions()
 }
 

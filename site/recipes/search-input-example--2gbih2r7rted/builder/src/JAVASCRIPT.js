@@ -51,14 +51,16 @@ const handleFilterFocus = () => {
 }
 
 const handleFilterKeyup = (event) => {
+    // console.log('handlerFilterKeyup')
+    // console.log(event)
     const pressedKey = event.key.toLowerCase()
     if (pressedKey === 'enter') {
-        console.log('ENTER')
-        if (state.options.length > 0) {
-            console.log(state.options[0])
-        } else {
-            console.log('no valid selection')
-        }
+        console.log('ENTER - TODO: Do update here')
+        // if (state.options.length > 0) {
+        //     console.log(state.options[0])
+        // } else {
+        //     console.log('no valid selection')
+        // }
     } else {
         setOptions()
     }
@@ -104,22 +106,17 @@ const removeOptions = () => {
 }
 
 const setOptions = () => {
-    console.log('setOptions')
     state.options = []
-    // if (state.filterEl.value) {
-
-    // state.filter = state.filterEl.value.toLowerCase().replaceAll(/ /g, '')
-    // const pattern = new RegExp(, 'gi')
+    state.filter = state.filterEl.value
     fontsByPopularity.forEach((font) => {
-        // const checkValue = font.value.toLowerCase().replaceAll(/ /g, '')
-        // if (checkValue.match(pattern)) {
-        state.options.push(font)
-        console.log(font.value)
-        // }
+        if (state.filter) {
+            if (font.value.toLowerCase().includes(state.filter.toLowerCase())) {
+                state.options.push(font)
+            }
+        } else {
+            state.options.push(font)
+        }
     })
-
-    // }
-    console.log(state.filter)
     updateOptions()
 }
 
