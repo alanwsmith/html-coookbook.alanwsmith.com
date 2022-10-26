@@ -66,22 +66,36 @@ const state = {
     placeholder: 'Pick a font',
     filterEl: null,
     optionsEl: null,
+    options: [],
 }
 
-const handleFilterBlur = () => {
+const deactivateSelector = () => {
+    console.log('deactivateSelector')
+    state.optionsEl.style.display = 'none'
     setPlaceholder()
 }
 
+// const handleFilterBlur = () => {
+//     setPlaceholder()
+// }
+
 const handleFilterFocus = () => {
+    state.optionsEl.style.display = 'inline'
     state.filterEl.placeholder = ''
+    setOptions()
 }
 
 const handleFilterKeyup = (event) => {
     const pressedKey = event.key.toLowerCase()
     if (pressedKey === 'enter') {
         console.log('ENTER')
+        if (state.options.length > 0) {
+            console.log(state.options[0])
+        } else {
+            console.log('no valid selection')
+        }
     } else {
-        console.log(state.filterEl.value)
+        setOptions()
     }
 }
 
@@ -89,11 +103,59 @@ const handleOptionsInput = (event) => {
     console.log(event.target.value)
 }
 
+const handlePageClick = (event) => {
+    // console.log('handlePageClick')
+    if (!event.target.id) {
+        deactivateSelector()
+    } else {
+        const idParts = event.target.id.split('--')
+        if (idParts[0] !== 'awsselect') {
+            deactivateSelector()
+        } else {
+            console.log('GOT AN ITEM')
+        }
+    }
+
+    // if (clickId) {
+    //     const idParts = clickId.split('--')
+    //     if (idParts[0] !== 'awsselectmenu') {
+    //         removeSelections()
+    //     } else {
+    //         if (idParts[1] === 'choice-id') {
+    //             setSelectionFromKey(idParts[2])
+    //             defocusInput()
+    //         }
+    //     }
+    // } else {
+    //     removeSelections()
+    // }
+}
+
 const removeOptions = () => {
     const selectionsEl = document.getElementById('awsselect--options')
     while (selectionsEl.firstChild) {
         selectionsEl.removeChild(selectionsEl.firstChild)
     }
+}
+
+const setOptions = () => {
+    console.log('setOptions')
+    state.options = []
+    // if (state.filterEl.value) {
+
+    // state.filter = state.filterEl.value.toLowerCase().replaceAll(/ /g, '')
+    // const pattern = new RegExp(, 'gi')
+    fontsByPopularity.forEach((font) => {
+        // const checkValue = font.value.toLowerCase().replaceAll(/ /g, '')
+        // if (checkValue.match(pattern)) {
+        state.options.push(font)
+        console.log(font.value)
+        // }
+    })
+
+    // }
+    console.log(state.filter)
+    updateOptions()
 }
 
 const setPlaceholder = (newValue = null) => {
@@ -105,11 +167,11 @@ const setPlaceholder = (newValue = null) => {
 
 const updateOptions = () => {
     removeOptions()
-    // <select id="awsselect--options" size="3">
-    fontsByPopularity.forEach((font) => {
+    state.options.forEach((font) => {
         const newOption = document.createElement('option')
         newOption.value = font.key
         newOption.innerHTML = font.value
+        newOption.id = `awsselect--selection--${font.key}`
         state.optionsEl.appendChild(newOption)
     })
 }
@@ -118,12 +180,13 @@ const kickoff = () => {
     console.log('kickoff')
     state.filterEl = document.getElementById('awsselect--filter')
     state.filterEl.addEventListener('focus', handleFilterFocus)
-    state.filterEl.addEventListener('blur', handleFilterBlur)
+    // state.filterEl.addEventListener('blur', handleFilterBlur)
     state.filterEl.addEventListener('keyup', handleFilterKeyup)
     state.optionsEl = document.getElementById('awsselect--options')
     state.optionsEl.addEventListener('input', handleOptionsInput)
     setPlaceholder()
     updateOptions()
+    document.addEventListener('click', handlePageClick)
 }
 
 document.addEventListener('DOMContentLoaded', kickoff)
@@ -148,7 +211,7 @@ document.addEventListener('DOMContentLoaded', kickoff)
   spellcheck="false"
 />
 <br />
-<select id="awsselect--options" size="5"></select>
+<select id="awsselect--options" style="display: none" size="5"></select>
 
 <h4>Notes</h4>
 <ul>
@@ -165,7 +228,7 @@ document.addEventListener('DOMContentLoaded', kickoff)
   spellcheck=&quot;false&quot;
 /&gt;
 &lt;br /&gt;
-&lt;select id=&quot;awsselect--options&quot; size=&quot;5&quot;&gt;&lt;/select&gt;
+&lt;select id=&quot;awsselect--options&quot; style=&quot;display: none&quot; size=&quot;5&quot;&gt;&lt;/select&gt;
 
 &lt;h4&gt;Notes&lt;/h4&gt;
 &lt;ul&gt;
@@ -213,22 +276,36 @@ const state = {
     placeholder: &#x27;Pick a font&#x27;,
     filterEl: null,
     optionsEl: null,
+    options: [],
 }
 
-const handleFilterBlur = () =&gt; {
+const deactivateSelector = () =&gt; {
+    console.log(&#x27;deactivateSelector&#x27;)
+    state.optionsEl.style.display = &#x27;none&#x27;
     setPlaceholder()
 }
 
+// const handleFilterBlur = () =&gt; {
+//     setPlaceholder()
+// }
+
 const handleFilterFocus = () =&gt; {
+    state.optionsEl.style.display = &#x27;inline&#x27;
     state.filterEl.placeholder = &#x27;&#x27;
+    setOptions()
 }
 
 const handleFilterKeyup = (event) =&gt; {
     const pressedKey = event.key.toLowerCase()
     if (pressedKey === &#x27;enter&#x27;) {
         console.log(&#x27;ENTER&#x27;)
+        if (state.options.length &gt; 0) {
+            console.log(state.options[0])
+        } else {
+            console.log(&#x27;no valid selection&#x27;)
+        }
     } else {
-        console.log(state.filterEl.value)
+        setOptions()
     }
 }
 
@@ -236,11 +313,59 @@ const handleOptionsInput = (event) =&gt; {
     console.log(event.target.value)
 }
 
+const handlePageClick = (event) =&gt; {
+    // console.log(&#x27;handlePageClick&#x27;)
+    if (!event.target.id) {
+        deactivateSelector()
+    } else {
+        const idParts = event.target.id.split(&#x27;--&#x27;)
+        if (idParts[0] !== &#x27;awsselect&#x27;) {
+            deactivateSelector()
+        } else {
+            console.log(&#x27;GOT AN ITEM&#x27;)
+        }
+    }
+
+    // if (clickId) {
+    //     const idParts = clickId.split(&#x27;--&#x27;)
+    //     if (idParts[0] !== &#x27;awsselectmenu&#x27;) {
+    //         removeSelections()
+    //     } else {
+    //         if (idParts[1] === &#x27;choice-id&#x27;) {
+    //             setSelectionFromKey(idParts[2])
+    //             defocusInput()
+    //         }
+    //     }
+    // } else {
+    //     removeSelections()
+    // }
+}
+
 const removeOptions = () =&gt; {
     const selectionsEl = document.getElementById(&#x27;awsselect--options&#x27;)
     while (selectionsEl.firstChild) {
         selectionsEl.removeChild(selectionsEl.firstChild)
     }
+}
+
+const setOptions = () =&gt; {
+    console.log(&#x27;setOptions&#x27;)
+    state.options = []
+    // if (state.filterEl.value) {
+
+    // state.filter = state.filterEl.value.toLowerCase().replaceAll(/ /g, &#x27;&#x27;)
+    // const pattern = new RegExp(, &#x27;gi&#x27;)
+    fontsByPopularity.forEach((font) =&gt; {
+        // const checkValue = font.value.toLowerCase().replaceAll(/ /g, &#x27;&#x27;)
+        // if (checkValue.match(pattern)) {
+        state.options.push(font)
+        console.log(font.value)
+        // }
+    })
+
+    // }
+    console.log(state.filter)
+    updateOptions()
 }
 
 const setPlaceholder = (newValue = null) =&gt; {
@@ -252,11 +377,11 @@ const setPlaceholder = (newValue = null) =&gt; {
 
 const updateOptions = () =&gt; {
     removeOptions()
-    // &lt;select id=&quot;awsselect--options&quot; size=&quot;3&quot;&gt;
-    fontsByPopularity.forEach((font) =&gt; {
+    state.options.forEach((font) =&gt; {
         const newOption = document.createElement(&#x27;option&#x27;)
         newOption.value = font.key
         newOption.innerHTML = font.value
+        newOption.id = `awsselect--selection--${font.key}`
         state.optionsEl.appendChild(newOption)
     })
 }
@@ -265,12 +390,13 @@ const kickoff = () =&gt; {
     console.log(&#x27;kickoff&#x27;)
     state.filterEl = document.getElementById(&#x27;awsselect--filter&#x27;)
     state.filterEl.addEventListener(&#x27;focus&#x27;, handleFilterFocus)
-    state.filterEl.addEventListener(&#x27;blur&#x27;, handleFilterBlur)
+    // state.filterEl.addEventListener(&#x27;blur&#x27;, handleFilterBlur)
     state.filterEl.addEventListener(&#x27;keyup&#x27;, handleFilterKeyup)
     state.optionsEl = document.getElementById(&#x27;awsselect--options&#x27;)
     state.optionsEl.addEventListener(&#x27;input&#x27;, handleOptionsInput)
     setPlaceholder()
     updateOptions()
+    document.addEventListener(&#x27;click&#x27;, handlePageClick)
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, kickoff)

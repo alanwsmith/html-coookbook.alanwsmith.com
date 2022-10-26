@@ -31,22 +31,36 @@ const state = {
     placeholder: 'Pick a font',
     filterEl: null,
     optionsEl: null,
+    options: [],
 }
 
-const handleFilterBlur = () => {
+const deactivateSelector = () => {
+    console.log('deactivateSelector')
+    state.optionsEl.style.display = 'none'
     setPlaceholder()
 }
 
+// const handleFilterBlur = () => {
+//     setPlaceholder()
+// }
+
 const handleFilterFocus = () => {
+    state.optionsEl.style.display = 'inline'
     state.filterEl.placeholder = ''
+    setOptions()
 }
 
 const handleFilterKeyup = (event) => {
     const pressedKey = event.key.toLowerCase()
     if (pressedKey === 'enter') {
         console.log('ENTER')
+        if (state.options.length > 0) {
+            console.log(state.options[0])
+        } else {
+            console.log('no valid selection')
+        }
     } else {
-        console.log(state.filterEl.value)
+        setOptions()
     }
 }
 
@@ -54,11 +68,59 @@ const handleOptionsInput = (event) => {
     console.log(event.target.value)
 }
 
+const handlePageClick = (event) => {
+    // console.log('handlePageClick')
+    if (!event.target.id) {
+        deactivateSelector()
+    } else {
+        const idParts = event.target.id.split('--')
+        if (idParts[0] !== 'awsselect') {
+            deactivateSelector()
+        } else {
+            console.log('GOT AN ITEM')
+        }
+    }
+
+    // if (clickId) {
+    //     const idParts = clickId.split('--')
+    //     if (idParts[0] !== 'awsselectmenu') {
+    //         removeSelections()
+    //     } else {
+    //         if (idParts[1] === 'choice-id') {
+    //             setSelectionFromKey(idParts[2])
+    //             defocusInput()
+    //         }
+    //     }
+    // } else {
+    //     removeSelections()
+    // }
+}
+
 const removeOptions = () => {
     const selectionsEl = document.getElementById('awsselect--options')
     while (selectionsEl.firstChild) {
         selectionsEl.removeChild(selectionsEl.firstChild)
     }
+}
+
+const setOptions = () => {
+    console.log('setOptions')
+    state.options = []
+    // if (state.filterEl.value) {
+
+    // state.filter = state.filterEl.value.toLowerCase().replaceAll(/ /g, '')
+    // const pattern = new RegExp(, 'gi')
+    fontsByPopularity.forEach((font) => {
+        // const checkValue = font.value.toLowerCase().replaceAll(/ /g, '')
+        // if (checkValue.match(pattern)) {
+        state.options.push(font)
+        console.log(font.value)
+        // }
+    })
+
+    // }
+    console.log(state.filter)
+    updateOptions()
 }
 
 const setPlaceholder = (newValue = null) => {
@@ -70,11 +132,11 @@ const setPlaceholder = (newValue = null) => {
 
 const updateOptions = () => {
     removeOptions()
-    // <select id="awsselect--options" size="3">
-    fontsByPopularity.forEach((font) => {
+    state.options.forEach((font) => {
         const newOption = document.createElement('option')
         newOption.value = font.key
         newOption.innerHTML = font.value
+        newOption.id = `awsselect--selection--${font.key}`
         state.optionsEl.appendChild(newOption)
     })
 }
@@ -83,12 +145,13 @@ const kickoff = () => {
     console.log('kickoff')
     state.filterEl = document.getElementById('awsselect--filter')
     state.filterEl.addEventListener('focus', handleFilterFocus)
-    state.filterEl.addEventListener('blur', handleFilterBlur)
+    // state.filterEl.addEventListener('blur', handleFilterBlur)
     state.filterEl.addEventListener('keyup', handleFilterKeyup)
     state.optionsEl = document.getElementById('awsselect--options')
     state.optionsEl.addEventListener('input', handleOptionsInput)
     setPlaceholder()
     updateOptions()
+    document.addEventListener('click', handlePageClick)
 }
 
 document.addEventListener('DOMContentLoaded', kickoff)
