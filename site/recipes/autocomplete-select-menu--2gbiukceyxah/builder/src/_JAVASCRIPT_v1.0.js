@@ -73,6 +73,62 @@ const handleKeyUp = (event) => {
     }
 }
 
+
+// const handleButtonClick = (event) => {
+//     console.log('click')
+//     const selectionsEl = document.getElementById('selectionsWrapper')
+//     while (selectionsEl.firstChild) {
+//         selectionsEl.removeChild(selectionsEl.firstChild)
+//     }
+//     const parts = event.target.id.split('--')
+//     console.log(parts)
+//     // state.activeSelection = fullKeys[parts[1]]
+//     // console.log(state.activeSelection)
+//     // document.getElementById(
+//     //     'active-selection'
+//     // ).innerText = `Active Selection: ${state.activeSelection}`
+//     // // document.getElementById('selection-text-field').innerText =
+//     //     state.activeSelection
+// }
+
+// const handleButtonFocus = () => {
+//     if (timeoutIdForBlurTransition) {
+//         clearTimeout(timeoutIdForBlurTransition)
+//     }
+// }
+
+// const handleButtonBlur = () => {
+//     if (timeoutIdForBlurTransition) {
+//         clearTimeout(timeoutIdForBlurTransition)
+//     }
+//     timeoutIdForBlurTransition = setTimeout(() => {
+//         const selectionsEl = document.getElementById('selectionsWrapper')
+//         while (selectionsEl.firstChild) {
+//             selectionsEl.removeChild(selectionsEl.firstChild)
+//         }
+//     }, 30)
+// }
+
+// // This closes things if you don't tab over to a button
+// // Setting time timeout at 30ms was too fast. The
+// // buttons closed before the click registered.
+// const handleInputBlur = () => {
+//     if (timeoutIdForBlurTransition) {
+//         clearTimeout(timeoutIdForBlurTransition)
+//     }
+//     timeoutIdForBlurTransition = setTimeout(() => {
+//         const selectionsEl = document.getElementById('selectionsWrapper')
+//         while (selectionsEl.firstChild) {
+//             selectionsEl.removeChild(selectionsEl.firstChild)
+//         }
+//         document.getElementById(
+//             'active-selection'
+//         ).innerText = `Active Selection: ${state.activeSelection}`
+//     }, 150)
+// }
+
+
+
 const kickoff = () => {
     console.log(`Kickoff: ${new Date().getTime()}`)
     // clear for refreshes during testing

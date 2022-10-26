@@ -29,11 +29,16 @@
     <link rel="stylesheet" href="/styles/prism.css" />
     
     <style>
-      #awsselectmenu--search-text {
+      #awsselectmenu--wrapper {
     background-color: white;
-    height: 1.4rem;
+    /* height: 1.4rem; */
     padding: 4px;
     color: black;
+}
+
+#awsselectmenu--search-text {
+    /* user-select: text; */
+    user-select: text;
 }
 
     </style>
@@ -66,98 +71,52 @@
     { key: 'firasans', value: 'Fira Sans' },
 ]
 
-// const fullList = []
-// const fullKeys = {}
-// const currentList = []
-
-// TODO: Move stuff into this:
 const state = {
     activeKey: null,
-    // fullList: [],
     fullKeys: {},
-    // currentList: [],
 }
 
-const prepKeys = () => {
-    options.forEach((option) => {
-        state.fullKeys[option.key] = option.value
-    })
+const defocusInput = () => {
+    const actualElement = document.getElementById('awsselectmenu--search-text')
+    const fixElement = document.getElementById(
+        'awsselectmenu--current-selection'
+    )
+    actualElement.blur()
+    fixElement.setAttribute('contenteditable', 'true')
+    fixElement.focus()
+    fixElement.blur()
+    fixElement.setAttribute('contenteditable', 'false')
 }
 
 const handleInputFocus = (event) => {
-    event.target.innerText = ''
-    const selectionsEl = document.getElementById('awsselectmenu--selections')
-    while (selectionsEl.firstChild) {
-        selectionsEl.removeChild(selectionsEl.firstChild)
-    }
-    for (let i = 0; i < 5; i++) {
-        const newItem = document.createElement('button')
-        const buttonId = `awsselectmenu--choice-id--${options[i].key}`
-        newItem.id = buttonId
-        newItem.innerHTML = options[i].value
-        selectionsEl.appendChild(newItem)
-    }
-}
+    console.log('focus')
+    /////////////////
+    // Trying to fix safari issue where blanking text
+    // removes the caret
+    //
+    // this didn't work for for getting the
+    // caret to focus properly
+    // jevent.target.innerHTML = '-'
+    // event.target.innerHTML = ''
+    //
+    //
+    // doing it explicitly by element didn't work
+    const input = document.getElementById('awsselectmenu--search-text')
+    input.innerText = 'a'
+    // input.innerText = ''
+    //
 
-// const handleButtonClick = (event) => {
-//     console.log('click')
-//     const selectionsEl = document.getElementById('selectionsWrapper')
-//     while (selectionsEl.firstChild) {
-//         selectionsEl.removeChild(selectionsEl.firstChild)
-//     }
-//     const parts = event.target.id.split('--')
-//     console.log(parts)
-//     // state.activeSelection = fullKeys[parts[1]]
-//     // console.log(state.activeSelection)
-//     // document.getElementById(
-//     //     'active-selection'
-//     // ).innerText = `Active Selection: ${state.activeSelection}`
-//     // // document.getElementById('selection-text-field').innerText =
-//     //     state.activeSelection
-// }
-
-// const handleButtonFocus = () => {
-//     if (timeoutIdForBlurTransition) {
-//         clearTimeout(timeoutIdForBlurTransition)
-//     }
-// }
-
-// const handleButtonBlur = () => {
-//     if (timeoutIdForBlurTransition) {
-//         clearTimeout(timeoutIdForBlurTransition)
-//     }
-//     timeoutIdForBlurTransition = setTimeout(() => {
-//         const selectionsEl = document.getElementById('selectionsWrapper')
-//         while (selectionsEl.firstChild) {
-//             selectionsEl.removeChild(selectionsEl.firstChild)
-//         }
-//     }, 30)
-// }
-
-// // This closes things if you don't tab over to a button
-// // Setting time timeout at 30ms was too fast. The
-// // buttons closed before the click registered.
-// const handleInputBlur = () => {
-//     if (timeoutIdForBlurTransition) {
-//         clearTimeout(timeoutIdForBlurTransition)
-//     }
-//     timeoutIdForBlurTransition = setTimeout(() => {
-//         const selectionsEl = document.getElementById('selectionsWrapper')
-//         while (selectionsEl.firstChild) {
-//             selectionsEl.removeChild(selectionsEl.firstChild)
-//         }
-//         document.getElementById(
-//             'active-selection'
-//         ).innerText = `Active Selection: ${state.activeSelection}`
-//     }, 150)
-// }
-
-const makeSelection = () => {
-    // TODO: deal with if there isn't a valid option
-    console.log('Making selection')
-    const theInput = document.getElementById('selection-text-field')
-    console.log(theInput.innerText)
-    theInput.innerText = ''
+    // const selectionsEl = document.getElementById('awsselectmenu--selections')
+    // while (selectionsEl.firstChild) {
+    //     selectionsEl.removeChild(selectionsEl.firstChild)
+    // }
+    // for (let i = 0; i < 5; i++) {
+    //     const newItem = document.createElement('button')
+    //     const buttonId = `awsselectmenu--choice-id--${options[i].key}`
+    //     newItem.id = buttonId
+    //     newItem.innerHTML = options[i].value
+    //     selectionsEl.appendChild(newItem)
+    // }
 }
 
 const handleKeyup = (event) => {
@@ -165,7 +124,7 @@ const handleKeyup = (event) => {
     const pressedKey = event.key.toLowerCase()
     if (pressedKey === 'enter') {
         console.log('ENTER')
-        // makeSelection()
+        makeSelection()
     } else {
         state.currentSearch = document.getElementById(
             'awsselectmenu--search-text'
@@ -193,6 +152,26 @@ const handleKeyup = (event) => {
     }
 }
 
+const makeSelection = () => {
+    // TODO: deal with if there isn't a valid option
+    console.log('Making selection')
+    for (i = 0; i < options.length; i++) {
+        const pattern = new RegExp(state.currentSearch, 'gi')
+        if (options[i].value.toLowerCase().match(pattern)) {
+            state.activeKey = options[i].key
+            break
+        }
+    }
+    setPlaceholder()
+    removeSelections()
+    defocusInput()
+}
+
+const prepKeys = () => {
+    options.forEach((option) => {
+        state.fullKeys[option.key] = option.value
+    })
+}
 const removeSelections = () => {
     const selectionsEl = document.getElementById('awsselectmenu--selections')
     while (selectionsEl.firstChild) {
@@ -203,16 +182,17 @@ const removeSelections = () => {
 const setSelectionFromKey = (key) => {
     state.activeKey = key
     console.log(state.activeKey)
-    removeSelections()
     setPlaceholder()
+    defocusInput()
+    removeSelections()
 }
 
 const setPlaceholder = () => {
     const inputField = document.getElementById('awsselectmenu--search-text')
     if (state.activeKey) {
-        inputField.innerText = state.fullKeys[state.activeKey]
+        inputField.innerHTML = state.fullKeys[state.activeKey]
     } else {
-        inputField.innerText = 'Select a font'
+        inputField.innerHTML = 'Select a font'
     }
 }
 
@@ -229,6 +209,7 @@ const handlePageClick = (event) => {
         } else {
             if (idParts[1] === 'choice-id') {
                 setSelectionFromKey(idParts[2])
+                defocusInput()
             }
         }
     } else {
@@ -242,19 +223,9 @@ const kickoff = () => {
     document
         .getElementById('awsselectmenu--search-text')
         .addEventListener('focus', handleInputFocus)
-
-    // document
-    //     .getElementById('selection-text-field')
-    //     .addEventListener('blur', handleInputBlur)
-
     document
         .getElementById('awsselectmenu--search-text')
         .addEventListener('keyup', handleKeyup)
-
-    // document
-    //     .getElementById('selectionsWrapper')
-    //     .addEventListener('click', handleButtonClick)
-
     document.addEventListener('click', handlePageClick)
     setPlaceholder()
 }
@@ -277,36 +248,95 @@ document.addEventListener('DOMContentLoaded', kickoff)
       <p>This is a work in progress. (aka: it doesn't work yet)</p>
       <div id="tmp-focus-target-for-safari-fix"></div>
 
-      <div
-  autocomplete="off"
-  spellcheck="false"
-  id="awsselectmenu--search-text"
-  contenteditable="true"
-></div>
-<div id="awsselectmenu--selections"></div>
+      <div id="awsselectmenu--wrapper">
+  <div
+    autocomplete="off"
+    spellcheck="false"
+    id="awsselectmenu--search-text"
+    contenteditable="true"
+  ></div>
+  <div id="awsselectmenu--selections"></div>
+  <div id="awsselectmenu--current-selection">Active Selection: None</div>
+</div>
 
-<div id="awsselectmenu--current-selection">Active Selection: None</div>
+<h4>Hacking</h4>
+<ul>
+  <li>
+    The reason I went through this is I couldn't figure out how to get it so
+    that if you hit enter it would pull the first item in the list and use it.
+  </li>
+  <li>
+    Simply couldn't figure out how to get access to the first filtered item
+  </li>
+</ul>
+
+<h4>Didn't work</h4>
+<ul>
+  <li>
+    Was going to try just using a filter on the input and pulling the value
+    based off that, but there's no guarantee that the filter used by the
+    selection data-list would match
+  </li>
+  <li>https://stackoverflow.com/a/31831776/102401</li>
+  <li>
+    Tried setting up to add an innerHTML with a space or letter then remove it
+    to blank, but that didn't work
+  </li>
+  <li>Tried: user-select: text; in the css, but that didn't work</li>
+</ul>
 
 
        
             <h2>HTML</h2>
-            <pre><code class="language-html">&lt;div
-  autocomplete=&quot;off&quot;
-  spellcheck=&quot;false&quot;
-  id=&quot;awsselectmenu--search-text&quot;
-  contenteditable=&quot;true&quot;
-&gt;&lt;/div&gt;
-&lt;div id=&quot;awsselectmenu--selections&quot;&gt;&lt;/div&gt;
+            <pre><code class="language-html">&lt;div id=&quot;awsselectmenu--wrapper&quot;&gt;
+  &lt;div
+    autocomplete=&quot;off&quot;
+    spellcheck=&quot;false&quot;
+    id=&quot;awsselectmenu--search-text&quot;
+    contenteditable=&quot;true&quot;
+  &gt;&lt;/div&gt;
+  &lt;div id=&quot;awsselectmenu--selections&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;awsselectmenu--current-selection&quot;&gt;Active Selection: None&lt;/div&gt;
+&lt;/div&gt;
 
-&lt;div id=&quot;awsselectmenu--current-selection&quot;&gt;Active Selection: None&lt;/div&gt;
+&lt;h4&gt;Hacking&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    The reason I went through this is I couldn&#x27;t figure out how to get it so
+    that if you hit enter it would pull the first item in the list and use it.
+  &lt;/li&gt;
+  &lt;li&gt;
+    Simply couldn&#x27;t figure out how to get access to the first filtered item
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4&gt;Didn&#x27;t work&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    Was going to try just using a filter on the input and pulling the value
+    based off that, but there&#x27;s no guarantee that the filter used by the
+    selection data-list would match
+  &lt;/li&gt;
+  &lt;li&gt;https://stackoverflow.com/a/31831776/102401&lt;/li&gt;
+  &lt;li&gt;
+    Tried setting up to add an innerHTML with a space or letter then remove it
+    to blank, but that didn&#x27;t work
+  &lt;/li&gt;
+  &lt;li&gt;Tried: user-select: text; in the css, but that didn&#x27;t work&lt;/li&gt;
+&lt;/ul&gt;
 </code></pre>
              
             <h2>CSS</h2>
-            <pre><code class="language-css">#awsselectmenu--search-text {
+            <pre><code class="language-css">#awsselectmenu--wrapper {
     background-color: white;
-    height: 1.4rem;
+    /* height: 1.4rem; */
     padding: 4px;
     color: black;
+}
+
+#awsselectmenu--search-text {
+    /* user-select: text; */
+    user-select: text;
 }
 </code></pre>
              
@@ -339,98 +369,52 @@ document.addEventListener('DOMContentLoaded', kickoff)
     { key: &#x27;firasans&#x27;, value: &#x27;Fira Sans&#x27; },
 ]
 
-// const fullList = []
-// const fullKeys = {}
-// const currentList = []
-
-// TODO: Move stuff into this:
 const state = {
     activeKey: null,
-    // fullList: [],
     fullKeys: {},
-    // currentList: [],
 }
 
-const prepKeys = () =&gt; {
-    options.forEach((option) =&gt; {
-        state.fullKeys[option.key] = option.value
-    })
+const defocusInput = () =&gt; {
+    const actualElement = document.getElementById(&#x27;awsselectmenu--search-text&#x27;)
+    const fixElement = document.getElementById(
+        &#x27;awsselectmenu--current-selection&#x27;
+    )
+    actualElement.blur()
+    fixElement.setAttribute(&#x27;contenteditable&#x27;, &#x27;true&#x27;)
+    fixElement.focus()
+    fixElement.blur()
+    fixElement.setAttribute(&#x27;contenteditable&#x27;, &#x27;false&#x27;)
 }
 
 const handleInputFocus = (event) =&gt; {
-    event.target.innerText = &#x27;&#x27;
-    const selectionsEl = document.getElementById(&#x27;awsselectmenu--selections&#x27;)
-    while (selectionsEl.firstChild) {
-        selectionsEl.removeChild(selectionsEl.firstChild)
-    }
-    for (let i = 0; i &lt; 5; i++) {
-        const newItem = document.createElement(&#x27;button&#x27;)
-        const buttonId = `awsselectmenu--choice-id--${options[i].key}`
-        newItem.id = buttonId
-        newItem.innerHTML = options[i].value
-        selectionsEl.appendChild(newItem)
-    }
-}
+    console.log(&#x27;focus&#x27;)
+    /////////////////
+    // Trying to fix safari issue where blanking text
+    // removes the caret
+    //
+    // this didn&#x27;t work for for getting the
+    // caret to focus properly
+    // jevent.target.innerHTML = &#x27;-&#x27;
+    // event.target.innerHTML = &#x27;&#x27;
+    //
+    //
+    // doing it explicitly by element didn&#x27;t work
+    const input = document.getElementById(&#x27;awsselectmenu--search-text&#x27;)
+    input.innerText = &#x27;a&#x27;
+    // input.innerText = &#x27;&#x27;
+    //
 
-// const handleButtonClick = (event) =&gt; {
-//     console.log(&#x27;click&#x27;)
-//     const selectionsEl = document.getElementById(&#x27;selectionsWrapper&#x27;)
-//     while (selectionsEl.firstChild) {
-//         selectionsEl.removeChild(selectionsEl.firstChild)
-//     }
-//     const parts = event.target.id.split(&#x27;--&#x27;)
-//     console.log(parts)
-//     // state.activeSelection = fullKeys[parts[1]]
-//     // console.log(state.activeSelection)
-//     // document.getElementById(
-//     //     &#x27;active-selection&#x27;
-//     // ).innerText = `Active Selection: ${state.activeSelection}`
-//     // // document.getElementById(&#x27;selection-text-field&#x27;).innerText =
-//     //     state.activeSelection
-// }
-
-// const handleButtonFocus = () =&gt; {
-//     if (timeoutIdForBlurTransition) {
-//         clearTimeout(timeoutIdForBlurTransition)
-//     }
-// }
-
-// const handleButtonBlur = () =&gt; {
-//     if (timeoutIdForBlurTransition) {
-//         clearTimeout(timeoutIdForBlurTransition)
-//     }
-//     timeoutIdForBlurTransition = setTimeout(() =&gt; {
-//         const selectionsEl = document.getElementById(&#x27;selectionsWrapper&#x27;)
-//         while (selectionsEl.firstChild) {
-//             selectionsEl.removeChild(selectionsEl.firstChild)
-//         }
-//     }, 30)
-// }
-
-// // This closes things if you don&#x27;t tab over to a button
-// // Setting time timeout at 30ms was too fast. The
-// // buttons closed before the click registered.
-// const handleInputBlur = () =&gt; {
-//     if (timeoutIdForBlurTransition) {
-//         clearTimeout(timeoutIdForBlurTransition)
-//     }
-//     timeoutIdForBlurTransition = setTimeout(() =&gt; {
-//         const selectionsEl = document.getElementById(&#x27;selectionsWrapper&#x27;)
-//         while (selectionsEl.firstChild) {
-//             selectionsEl.removeChild(selectionsEl.firstChild)
-//         }
-//         document.getElementById(
-//             &#x27;active-selection&#x27;
-//         ).innerText = `Active Selection: ${state.activeSelection}`
-//     }, 150)
-// }
-
-const makeSelection = () =&gt; {
-    // TODO: deal with if there isn&#x27;t a valid option
-    console.log(&#x27;Making selection&#x27;)
-    const theInput = document.getElementById(&#x27;selection-text-field&#x27;)
-    console.log(theInput.innerText)
-    theInput.innerText = &#x27;&#x27;
+    // const selectionsEl = document.getElementById(&#x27;awsselectmenu--selections&#x27;)
+    // while (selectionsEl.firstChild) {
+    //     selectionsEl.removeChild(selectionsEl.firstChild)
+    // }
+    // for (let i = 0; i &lt; 5; i++) {
+    //     const newItem = document.createElement(&#x27;button&#x27;)
+    //     const buttonId = `awsselectmenu--choice-id--${options[i].key}`
+    //     newItem.id = buttonId
+    //     newItem.innerHTML = options[i].value
+    //     selectionsEl.appendChild(newItem)
+    // }
 }
 
 const handleKeyup = (event) =&gt; {
@@ -438,7 +422,7 @@ const handleKeyup = (event) =&gt; {
     const pressedKey = event.key.toLowerCase()
     if (pressedKey === &#x27;enter&#x27;) {
         console.log(&#x27;ENTER&#x27;)
-        // makeSelection()
+        makeSelection()
     } else {
         state.currentSearch = document.getElementById(
             &#x27;awsselectmenu--search-text&#x27;
@@ -466,6 +450,26 @@ const handleKeyup = (event) =&gt; {
     }
 }
 
+const makeSelection = () =&gt; {
+    // TODO: deal with if there isn&#x27;t a valid option
+    console.log(&#x27;Making selection&#x27;)
+    for (i = 0; i &lt; options.length; i++) {
+        const pattern = new RegExp(state.currentSearch, &#x27;gi&#x27;)
+        if (options[i].value.toLowerCase().match(pattern)) {
+            state.activeKey = options[i].key
+            break
+        }
+    }
+    setPlaceholder()
+    removeSelections()
+    defocusInput()
+}
+
+const prepKeys = () =&gt; {
+    options.forEach((option) =&gt; {
+        state.fullKeys[option.key] = option.value
+    })
+}
 const removeSelections = () =&gt; {
     const selectionsEl = document.getElementById(&#x27;awsselectmenu--selections&#x27;)
     while (selectionsEl.firstChild) {
@@ -476,16 +480,17 @@ const removeSelections = () =&gt; {
 const setSelectionFromKey = (key) =&gt; {
     state.activeKey = key
     console.log(state.activeKey)
-    removeSelections()
     setPlaceholder()
+    defocusInput()
+    removeSelections()
 }
 
 const setPlaceholder = () =&gt; {
     const inputField = document.getElementById(&#x27;awsselectmenu--search-text&#x27;)
     if (state.activeKey) {
-        inputField.innerText = state.fullKeys[state.activeKey]
+        inputField.innerHTML = state.fullKeys[state.activeKey]
     } else {
-        inputField.innerText = &#x27;Select a font&#x27;
+        inputField.innerHTML = &#x27;Select a font&#x27;
     }
 }
 
@@ -502,6 +507,7 @@ const handlePageClick = (event) =&gt; {
         } else {
             if (idParts[1] === &#x27;choice-id&#x27;) {
                 setSelectionFromKey(idParts[2])
+                defocusInput()
             }
         }
     } else {
@@ -515,19 +521,9 @@ const kickoff = () =&gt; {
     document
         .getElementById(&#x27;awsselectmenu--search-text&#x27;)
         .addEventListener(&#x27;focus&#x27;, handleInputFocus)
-
-    // document
-    //     .getElementById(&#x27;selection-text-field&#x27;)
-    //     .addEventListener(&#x27;blur&#x27;, handleInputBlur)
-
     document
         .getElementById(&#x27;awsselectmenu--search-text&#x27;)
         .addEventListener(&#x27;keyup&#x27;, handleKeyup)
-
-    // document
-    //     .getElementById(&#x27;selectionsWrapper&#x27;)
-    //     .addEventListener(&#x27;click&#x27;, handleButtonClick)
-
     document.addEventListener(&#x27;click&#x27;, handlePageClick)
     setPlaceholder()
 }

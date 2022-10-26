@@ -1,6 +1,11 @@
-#awsselectmenu--search-text {
+#awsselectmenu--wrapper {
     background-color: white;
-    height: 1.4rem;
+    /* height: 1.4rem; */
     padding: 4px;
     color: black;
+}
+
+#awsselectmenu--search-text {
+    /* user-select: text; */
+    user-select: text;
 }

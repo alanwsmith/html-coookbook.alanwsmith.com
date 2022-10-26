@@ -26,98 +26,52 @@ const options = [
     { key: 'firasans', value: 'Fira Sans' },
 ]
 
-// const fullList = []
-// const fullKeys = {}
-// const currentList = []
-
-// TODO: Move stuff into this:
 const state = {
     activeKey: null,
-    // fullList: [],
     fullKeys: {},
-    // currentList: [],
 }
 
-const prepKeys = () => {
-    options.forEach((option) => {
-        state.fullKeys[option.key] = option.value
-    })
+const defocusInput = () => {
+    const actualElement = document.getElementById('awsselectmenu--search-text')
+    const fixElement = document.getElementById(
+        'awsselectmenu--current-selection'
+    )
+    actualElement.blur()
+    fixElement.setAttribute('contenteditable', 'true')
+    fixElement.focus()
+    fixElement.blur()
+    fixElement.setAttribute('contenteditable', 'false')
 }
 
 const handleInputFocus = (event) => {
-    event.target.innerText = ''
-    const selectionsEl = document.getElementById('awsselectmenu--selections')
-    while (selectionsEl.firstChild) {
-        selectionsEl.removeChild(selectionsEl.firstChild)
-    }
-    for (let i = 0; i < 5; i++) {
-        const newItem = document.createElement('button')
-        const buttonId = `awsselectmenu--choice-id--${options[i].key}`
-        newItem.id = buttonId
-        newItem.innerHTML = options[i].value
-        selectionsEl.appendChild(newItem)
-    }
-}
+    console.log('focus')
+    /////////////////
+    // Trying to fix safari issue where blanking text
+    // removes the caret
+    //
+    // this didn't work for for getting the
+    // caret to focus properly
+    // jevent.target.innerHTML = '-'
+    // event.target.innerHTML = ''
+    //
+    //
+    // doing it explicitly by element didn't work
+    const input = document.getElementById('awsselectmenu--search-text')
+    input.innerText = 'a'
+    // input.innerText = ''
+    //
 
-// const handleButtonClick = (event) => {
-//     console.log('click')
-//     const selectionsEl = document.getElementById('selectionsWrapper')
-//     while (selectionsEl.firstChild) {
-//         selectionsEl.removeChild(selectionsEl.firstChild)
-//     }
-//     const parts = event.target.id.split('--')
-//     console.log(parts)
-//     // state.activeSelection = fullKeys[parts[1]]
-//     // console.log(state.activeSelection)
-//     // document.getElementById(
-//     //     'active-selection'
-//     // ).innerText = `Active Selection: ${state.activeSelection}`
-//     // // document.getElementById('selection-text-field').innerText =
-//     //     state.activeSelection
-// }
-
-// const handleButtonFocus = () => {
-//     if (timeoutIdForBlurTransition) {
-//         clearTimeout(timeoutIdForBlurTransition)
-//     }
-// }
-
-// const handleButtonBlur = () => {
-//     if (timeoutIdForBlurTransition) {
-//         clearTimeout(timeoutIdForBlurTransition)
-//     }
-//     timeoutIdForBlurTransition = setTimeout(() => {
-//         const selectionsEl = document.getElementById('selectionsWrapper')
-//         while (selectionsEl.firstChild) {
-//             selectionsEl.removeChild(selectionsEl.firstChild)
-//         }
-//     }, 30)
-// }
-
-// // This closes things if you don't tab over to a button
-// // Setting time timeout at 30ms was too fast. The
-// // buttons closed before the click registered.
-// const handleInputBlur = () => {
-//     if (timeoutIdForBlurTransition) {
-//         clearTimeout(timeoutIdForBlurTransition)
-//     }
-//     timeoutIdForBlurTransition = setTimeout(() => {
-//         const selectionsEl = document.getElementById('selectionsWrapper')
-//         while (selectionsEl.firstChild) {
-//             selectionsEl.removeChild(selectionsEl.firstChild)
-//         }
-//         document.getElementById(
-//             'active-selection'
-//         ).innerText = `Active Selection: ${state.activeSelection}`
-//     }, 150)
-// }
-
-const makeSelection = () => {
-    // TODO: deal with if there isn't a valid option
-    console.log('Making selection')
-    const theInput = document.getElementById('selection-text-field')
-    console.log(theInput.innerText)
-    theInput.innerText = ''
+    // const selectionsEl = document.getElementById('awsselectmenu--selections')
+    // while (selectionsEl.firstChild) {
+    //     selectionsEl.removeChild(selectionsEl.firstChild)
+    // }
+    // for (let i = 0; i < 5; i++) {
+    //     const newItem = document.createElement('button')
+    //     const buttonId = `awsselectmenu--choice-id--${options[i].key}`
+    //     newItem.id = buttonId
+    //     newItem.innerHTML = options[i].value
+    //     selectionsEl.appendChild(newItem)
+    // }
 }
 
 const handleKeyup = (event) => {
@@ -125,7 +79,7 @@ const handleKeyup = (event) => {
     const pressedKey = event.key.toLowerCase()
     if (pressedKey === 'enter') {
         console.log('ENTER')
-        // makeSelection()
+        makeSelection()
     } else {
         state.currentSearch = document.getElementById(
             'awsselectmenu--search-text'
@@ -153,6 +107,27 @@ const handleKeyup = (event) => {
     }
 }
 
+const makeSelection = () => {
+    // TODO: deal with if there isn't a valid option
+    console.log('Making selection')
+    for (i = 0; i < options.length; i++) {
+        const pattern = new RegExp(state.currentSearch, 'gi')
+        if (options[i].value.toLowerCase().match(pattern)) {
+            state.activeKey = options[i].key
+            break
+        }
+    }
+    setPlaceholder()
+    removeSelections()
+    defocusInput()
+}
+
+const prepKeys = () => {
+    options.forEach((option) => {
+        state.fullKeys[option.key] = option.value
+    })
+}
+
 const removeSelections = () => {
     const selectionsEl = document.getElementById('awsselectmenu--selections')
     while (selectionsEl.firstChild) {
@@ -163,16 +138,17 @@ const removeSelections = () => {
 const setSelectionFromKey = (key) => {
     state.activeKey = key
     console.log(state.activeKey)
-    removeSelections()
     setPlaceholder()
+    defocusInput()
+    removeSelections()
 }
 
 const setPlaceholder = () => {
     const inputField = document.getElementById('awsselectmenu--search-text')
     if (state.activeKey) {
-        inputField.innerText = state.fullKeys[state.activeKey]
+        inputField.innerHTML = state.fullKeys[state.activeKey]
     } else {
-        inputField.innerText = 'Select a font'
+        inputField.innerHTML = 'Select a font'
     }
 }
 
@@ -189,6 +165,7 @@ const handlePageClick = (event) => {
         } else {
             if (idParts[1] === 'choice-id') {
                 setSelectionFromKey(idParts[2])
+                defocusInput()
             }
         }
     } else {
@@ -202,19 +179,9 @@ const kickoff = () => {
     document
         .getElementById('awsselectmenu--search-text')
         .addEventListener('focus', handleInputFocus)
-
-    // document
-    //     .getElementById('selection-text-field')
-    //     .addEventListener('blur', handleInputBlur)
-
     document
         .getElementById('awsselectmenu--search-text')
         .addEventListener('keyup', handleKeyup)
-
-    // document
-    //     .getElementById('selectionsWrapper')
-    //     .addEventListener('click', handleButtonClick)
-
     document.addEventListener('click', handlePageClick)
     setPlaceholder()
 }

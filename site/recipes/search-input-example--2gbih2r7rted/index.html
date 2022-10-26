@@ -33,27 +33,100 @@
 
     </style>
     <script>
-      document.addEventListener('DOMContentLoaded', () => {
-    console.log('asdf')
-    var input = document.getElementById('fonts')
-    var options = Array.from(document.getElementById('fontList').options).map(
-        function (el) {
-            return el.innerHTML
-        }
-    ) //Optional if you have data
-    input.addEventListener('keypress', function (e) {
-        console.log('here')
-        if (e.keyCode == 13) {
-            console.log('ping')
-            var relevantOptions = options.filter(function (option) {
-                return option.toLowerCase().includes(input.value.toLowerCase())
-            }) // filtering the data list based on input query
-            if (relevantOptions.length > 0) {
-                input.value = relevantOptions.shift() //Taking the first
-            }
-        }
+      const fontsByPopularity = [
+    { key: 'roboto', value: 'Roboto' },
+    { key: 'opensans', value: 'OpenSans' },
+    { key: 'montserrat', value: 'Montserrat' },
+    { key: 'lato', value: 'Lato' },
+    { key: 'poppins', value: 'Poppins' },
+    { key: 'sourcesanspro', value: 'Source Sans Pro' },
+    { key: 'robotocondensed', value: 'Roboto Condensed' },
+    { key: 'oswald', value: 'Oswald' },
+    { key: 'robotomono', value: 'Roboto Mono' },
+    { key: 'raleway', value: 'Raleway' },
+    { key: 'inter', value: 'Inter' },
+    { key: 'notosans', value: 'Noto Sans' },
+    { key: 'ubuntu', value: 'Ubuntu' },
+    { key: 'mukta', value: 'Mukta' },
+    { key: 'robotoslab', value: 'Roboto Slab' },
+    { key: 'nunito', value: 'Nunito' },
+    { key: 'playfairdisplay', value: 'Playfair Display' },
+    { key: 'ptsans', value: 'PT Sans' },
+    { key: 'nunitosans', value: 'Nunito Sans' },
+    { key: 'merriweather', value: 'Merriweather' },
+    { key: 'rubik', value: 'Rubik' },
+    { key: 'notosanskr', value: 'Noto Sans KR' },
+    { key: 'worksans', value: 'Work Sans' },
+    { key: 'lora', value: 'Lora' },
+    { key: 'firasans', value: 'Fira Sans' },
+]
+
+const state = {
+    filter: '',
+    placeholder: 'Pick a font',
+    filterEl: null,
+    optionsEl: null,
+}
+
+const handleFilterBlur = () => {
+    setPlaceholder()
+}
+
+const handleFilterFocus = () => {
+    state.filterEl.placeholder = ''
+}
+
+const handleFilterKeyup = (event) => {
+    const pressedKey = event.key.toLowerCase()
+    if (pressedKey === 'enter') {
+        console.log('ENTER')
+    } else {
+        console.log(state.filterEl.value)
+    }
+}
+
+const handleOptionsInput = (event) => {
+    console.log(event.target.value)
+}
+
+const removeOptions = () => {
+    const selectionsEl = document.getElementById('awsselect--options')
+    while (selectionsEl.firstChild) {
+        selectionsEl.removeChild(selectionsEl.firstChild)
+    }
+}
+
+const setPlaceholder = (newValue = null) => {
+    if (newValue) {
+        state.placeholder = newValue
+    }
+    state.filterEl.placeholder = state.placeholder
+}
+
+const updateOptions = () => {
+    removeOptions()
+    // <select id="awsselect--options" size="3">
+    fontsByPopularity.forEach((font) => {
+        const newOption = document.createElement('option')
+        newOption.value = font.key
+        newOption.innerHTML = font.value
+        state.optionsEl.appendChild(newOption)
     })
-})
+}
+
+const kickoff = () => {
+    console.log('kickoff')
+    state.filterEl = document.getElementById('awsselect--filter')
+    state.filterEl.addEventListener('focus', handleFilterFocus)
+    state.filterEl.addEventListener('blur', handleFilterBlur)
+    state.filterEl.addEventListener('keyup', handleFilterKeyup)
+    state.optionsEl = document.getElementById('awsselect--options')
+    state.optionsEl.addEventListener('input', handleOptionsInput)
+    setPlaceholder()
+    updateOptions()
+}
+
+document.addEventListener('DOMContentLoaded', kickoff)
 
     </script>
   </head>
@@ -68,34 +141,38 @@
     <main>
       <h1>Search Input Example</h1>
       <h2>TL;DR</h2>
-      <input id="fonts" list="fontList" placeholder="Enter a fruit..." />
+      <input
+  id="awsselect--filter"
+  type="text"
+  autocomplete="off"
+  spellcheck="false"
+/>
+<br />
+<select id="awsselect--options" size="5"></select>
 
-<datalist id="fontList">
-  <option>Apple</option>
-  <option>Orange</option>
-  <option>Banana</option>
-</datalist>
-
-link:
-https://stackoverflow.com/questions/54879801/auto-select-first-option-in-datalist-while-typing
-I've tried a bunch of stuff to get this to do what I want, but haven't been able
-to figure it out using the default form elemnt. This almost works, but it safari
-treats it differently so it doesn't go.
+<h4>Notes</h4>
+<ul>
+  <li>
+    This is not current the search input type. I'm playing around with trying to
+  </li>
+</ul>
   
             <h2>HTML</h2>
-            <pre><code class="language-html">&lt;input id=&quot;fonts&quot; list=&quot;fontList&quot; placeholder=&quot;Enter a fruit...&quot; /&gt;
+            <pre><code class="language-html">&lt;input
+  id=&quot;awsselect--filter&quot;
+  type=&quot;text&quot;
+  autocomplete=&quot;off&quot;
+  spellcheck=&quot;false&quot;
+/&gt;
+&lt;br /&gt;
+&lt;select id=&quot;awsselect--options&quot; size=&quot;5&quot;&gt;&lt;/select&gt;
 
-&lt;datalist id=&quot;fontList&quot;&gt;
-  &lt;option&gt;Apple&lt;/option&gt;
-  &lt;option&gt;Orange&lt;/option&gt;
-  &lt;option&gt;Banana&lt;/option&gt;
-&lt;/datalist&gt;
-
-link:
-https://stackoverflow.com/questions/54879801/auto-select-first-option-in-datalist-while-typing
-I&#x27;ve tried a bunch of stuff to get this to do what I want, but haven&#x27;t been able
-to figure it out using the default form elemnt. This almost works, but it safari
-treats it differently so it doesn&#x27;t go.
+&lt;h4&gt;Notes&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    This is not current the search input type. I&#x27;m playing around with trying to
+  &lt;/li&gt;
+&lt;/ul&gt;
 </code></pre>
              
             <h2>CSS</h2>
@@ -103,27 +180,100 @@ treats it differently so it doesn&#x27;t go.
 </code></pre>
              
             <h2>JavaScript</h2>
-            <pre><code class="language-js">document.addEventListener(&#x27;DOMContentLoaded&#x27;, () =&gt; {
-    console.log(&#x27;asdf&#x27;)
-    var input = document.getElementById(&#x27;fonts&#x27;)
-    var options = Array.from(document.getElementById(&#x27;fontList&#x27;).options).map(
-        function (el) {
-            return el.innerHTML
-        }
-    ) //Optional if you have data
-    input.addEventListener(&#x27;keypress&#x27;, function (e) {
-        console.log(&#x27;here&#x27;)
-        if (e.keyCode == 13) {
-            console.log(&#x27;ping&#x27;)
-            var relevantOptions = options.filter(function (option) {
-                return option.toLowerCase().includes(input.value.toLowerCase())
-            }) // filtering the data list based on input query
-            if (relevantOptions.length &gt; 0) {
-                input.value = relevantOptions.shift() //Taking the first
-            }
-        }
+            <pre><code class="language-js">const fontsByPopularity = [
+    { key: &#x27;roboto&#x27;, value: &#x27;Roboto&#x27; },
+    { key: &#x27;opensans&#x27;, value: &#x27;OpenSans&#x27; },
+    { key: &#x27;montserrat&#x27;, value: &#x27;Montserrat&#x27; },
+    { key: &#x27;lato&#x27;, value: &#x27;Lato&#x27; },
+    { key: &#x27;poppins&#x27;, value: &#x27;Poppins&#x27; },
+    { key: &#x27;sourcesanspro&#x27;, value: &#x27;Source Sans Pro&#x27; },
+    { key: &#x27;robotocondensed&#x27;, value: &#x27;Roboto Condensed&#x27; },
+    { key: &#x27;oswald&#x27;, value: &#x27;Oswald&#x27; },
+    { key: &#x27;robotomono&#x27;, value: &#x27;Roboto Mono&#x27; },
+    { key: &#x27;raleway&#x27;, value: &#x27;Raleway&#x27; },
+    { key: &#x27;inter&#x27;, value: &#x27;Inter&#x27; },
+    { key: &#x27;notosans&#x27;, value: &#x27;Noto Sans&#x27; },
+    { key: &#x27;ubuntu&#x27;, value: &#x27;Ubuntu&#x27; },
+    { key: &#x27;mukta&#x27;, value: &#x27;Mukta&#x27; },
+    { key: &#x27;robotoslab&#x27;, value: &#x27;Roboto Slab&#x27; },
+    { key: &#x27;nunito&#x27;, value: &#x27;Nunito&#x27; },
+    { key: &#x27;playfairdisplay&#x27;, value: &#x27;Playfair Display&#x27; },
+    { key: &#x27;ptsans&#x27;, value: &#x27;PT Sans&#x27; },
+    { key: &#x27;nunitosans&#x27;, value: &#x27;Nunito Sans&#x27; },
+    { key: &#x27;merriweather&#x27;, value: &#x27;Merriweather&#x27; },
+    { key: &#x27;rubik&#x27;, value: &#x27;Rubik&#x27; },
+    { key: &#x27;notosanskr&#x27;, value: &#x27;Noto Sans KR&#x27; },
+    { key: &#x27;worksans&#x27;, value: &#x27;Work Sans&#x27; },
+    { key: &#x27;lora&#x27;, value: &#x27;Lora&#x27; },
+    { key: &#x27;firasans&#x27;, value: &#x27;Fira Sans&#x27; },
+]
+
+const state = {
+    filter: &#x27;&#x27;,
+    placeholder: &#x27;Pick a font&#x27;,
+    filterEl: null,
+    optionsEl: null,
+}
+
+const handleFilterBlur = () =&gt; {
+    setPlaceholder()
+}
+
+const handleFilterFocus = () =&gt; {
+    state.filterEl.placeholder = &#x27;&#x27;
+}
+
+const handleFilterKeyup = (event) =&gt; {
+    const pressedKey = event.key.toLowerCase()
+    if (pressedKey === &#x27;enter&#x27;) {
+        console.log(&#x27;ENTER&#x27;)
+    } else {
+        console.log(state.filterEl.value)
+    }
+}
+
+const handleOptionsInput = (event) =&gt; {
+    console.log(event.target.value)
+}
+
+const removeOptions = () =&gt; {
+    const selectionsEl = document.getElementById(&#x27;awsselect--options&#x27;)
+    while (selectionsEl.firstChild) {
+        selectionsEl.removeChild(selectionsEl.firstChild)
+    }
+}
+
+const setPlaceholder = (newValue = null) =&gt; {
+    if (newValue) {
+        state.placeholder = newValue
+    }
+    state.filterEl.placeholder = state.placeholder
+}
+
+const updateOptions = () =&gt; {
+    removeOptions()
+    // &lt;select id=&quot;awsselect--options&quot; size=&quot;3&quot;&gt;
+    fontsByPopularity.forEach((font) =&gt; {
+        const newOption = document.createElement(&#x27;option&#x27;)
+        newOption.value = font.key
+        newOption.innerHTML = font.value
+        state.optionsEl.appendChild(newOption)
     })
-})
+}
+
+const kickoff = () =&gt; {
+    console.log(&#x27;kickoff&#x27;)
+    state.filterEl = document.getElementById(&#x27;awsselect--filter&#x27;)
+    state.filterEl.addEventListener(&#x27;focus&#x27;, handleFilterFocus)
+    state.filterEl.addEventListener(&#x27;blur&#x27;, handleFilterBlur)
+    state.filterEl.addEventListener(&#x27;keyup&#x27;, handleFilterKeyup)
+    state.optionsEl = document.getElementById(&#x27;awsselect--options&#x27;)
+    state.optionsEl.addEventListener(&#x27;input&#x27;, handleOptionsInput)
+    setPlaceholder()
+    updateOptions()
+}
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, kickoff)
 </code></pre>
             
          
