@@ -26,232 +26,191 @@ const options = [
     { key: 'firasans', value: 'Fira Sans' },
 ]
 
-let timeoutIdForBlurTransition = null
+// // let timeoutIdForBlurTransition = null
+// const fullList = []
+// const fullKeys = {}
+// const currentList = []
 
-const fullList = []
-const fullKeys = {}
-const currentList = []
-
-let state = {
+// TODO: Move stuff into this:
+const state = {
     activeSelection: '',
+    // fullList: [],
+    fullKeys: {},
+    // currentList: [],
+    // timeoutIdForBlurTransition: null,
 }
 
-// let activeFont = ''
-
-// // Setup ids for each item
-// const prepIds = () => {
-//     for (const rawItem of rawItems) {
-//         const itemId = rawItem.toLowerCase().replaceAll(/ /g, '')
-//         fullList.push({
-//             id: itemId,
-//             name: rawItem,
-//         })
-//         fullKeys[itemId] = rawItem
-//     }
-// }
-
-// const clearItems = () => {
-//     // Clear any existing items
-//     let itemWrapper = document.getElementById('menuItems')
-//     while (itemWrapper.firstChild) {
-//         console.log('x')
-//         itemWrapper.removeChild(itemWrapper.firstChild)
-//     }
-// }
-
-// const updateItems = (filter) => {
-//     // Get the wrapper
-//     let itemWrapper = document.getElementById('menuItems')
-//     // Clear any existing items
-//     activeList.length = 0
-//     while (itemWrapper.firstChild) {
-//         console.log('x')
-//         itemWrapper.removeChild(itemWrapper.firstChild)
-//     }
-//     // Only add items if there's a filter
-//     if (filter) {
-//         const pattern = new RegExp(filter, 'gi')
-//         listIds.forEach((item) => {
-//             const compareItem = item.name.toLowerCase()
-//             if (item.name.toLowerCase().match(pattern)) {
-//                 activeList.push(item)
-//             }
-//         })
-//     }
-//     // Output zero or more things
-//     const itemCount = Math.min(5, activeList.length)
-//     for (let i = 0; i < itemCount; i++) {
-//         const newItem = document.createElement('button')
-//         newItem.id = `item--${activeList[i].id}`
-//         newItem.innerHTML = activeList[i].name
-//         itemWrapper.appendChild(newItem)
-//     }
-// }
-
-// const handleMenuClick = (event) => {
-//     console.log(event.target.id)
-//     idParts = event.target.id.split('--')
-//     for (const listItem of listIds) {
-//         if (idParts[1] === listItem.id) {
-//             setActiveItem(listItem.name)
-//             updateItems()
-//         }
-//     }
-//     // updateItems(null)
-//     // document.getElementById('font-input-field').contentEditable = false
-//     // document.getElementById('font-input-field').contentEditable = true
-//     // document.getElementById('test-focus-target').focus()
-//     // document.getElementById('font-input-field').blur()
-// }
-
-// const handleMenuInput = (event) => {
-//     console.log(event)
-//     const textFilter = document
-//         .getElementById('font-input-field')
-//         .innerText.trim()
-//     updateItems(textFilter)
-// }
-
-// const setActiveItem = (itemName) => {
-//     console.log(`The new item is: ${itemName}`)
-//     document.getElementById('active-font').innerText = itemName
-//     document.getElementById('font-input-field').innerText = itemName
-//     activeList.length = 0
-//     activeFont = itemName
-//     // See this: for the bounce here to fix the safari bug about
-//     // things not bluring
-//     document.getElementById('font-input-field').blur()
-//     document.getElementById(
-//         'tmp-focus-target-for-safari-fix'
-//     ).contentEditable = true
-//     document.getElementById('tmp-focus-target-for-safari-fix').focus()
-//     document.getElementById('tmp-focus-target-for-safari-fix').blur()
-//     document.getElementById(
-//         'tmp-focus-target-for-safari-fix'
-//     ).contentEditable = false
-// }
-
-// const handleKeyUp = (event) => {
-//     // TODO: Handle escape
-//     // TODO: Handle arrow keys
-//     if (event.key.toLowerCase() === 'enter') {
-//         console.log('Caught enter')
-//         if (activeList[0]) {
-//             setActiveItem(activeList[0].name)
-//             updateItems()
-//         }
-//         document.getElementById('font-input-field').innerText = document
-//             .getElementById('font-input-field')
-//             .innerText.replaceAll(/\n/g, '')
-//     }
-// }
+const prepKeys = () => {
+    options.forEach((option) => {
+        state.fullKeys[option.key] = option.value
+    })
+}
 
 const handleInputFocus = (event) => {
-    if (timeoutIdForBlurTransition) {
-        clearTimeout(timeoutIdForBlurTransition)
-    }
+    // if (timeoutIdForBlurTransition) {
+    //     clearTimeout(timeoutIdForBlurTransition)
+    // }
     event.target.innerText = ''
-    const selectionsEl = document.getElementById('selections')
+    const selectionsEl = document.getElementById('awsselectmenu--selections')
     while (selectionsEl.firstChild) {
         selectionsEl.removeChild(selectionsEl.firstChild)
     }
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         const newItem = document.createElement('button')
-        newItem.id = `option--${options[i].key}`
+        const buttonId = `awsselectmenu--choice-id--${options[i].key}`
+        newItem.id = buttonId
         newItem.innerHTML = options[i].value
-        newItem.className = 'option--button'
-        newItem.addEventListener('focus', handleButtonFocus)
-        newItem.addEventListener('blur', handleButtonBlur)
-        newItem.addEventListener('click', handleButtonClick)
-        selections.appendChild(newItem)
+        // // newItem.addEventListener('focus', handleButtonFocus)
+        // // newItem.addEventListener('blur', handleButtonBlur)
+        // // newItem.addEventListener('click', handleButtonClick)
+        selectionsEl.appendChild(newItem)
+        // // document
+        // //     .getElementById(buttonId)
+        // //     .addEventListener('click', handleButtonClick)
+        // // document.getElementById(buttonId).addEventListener('click', () => {
+        // //     console.log('asdfasdfasdf')
+        // // })
     }
 }
 
-const handleButtonClick = (event) => {
-    const selectionsEl = document.getElementById('selections')
+// const handleButtonClick = (event) => {
+//     console.log('click')
+//     const selectionsEl = document.getElementById('selectionsWrapper')
+//     while (selectionsEl.firstChild) {
+//         selectionsEl.removeChild(selectionsEl.firstChild)
+//     }
+//     const parts = event.target.id.split('--')
+//     console.log(parts)
+//     // state.activeSelection = fullKeys[parts[1]]
+//     // console.log(state.activeSelection)
+//     // document.getElementById(
+//     //     'active-selection'
+//     // ).innerText = `Active Selection: ${state.activeSelection}`
+//     // // document.getElementById('selection-text-field').innerText =
+//     //     state.activeSelection
+// }
+
+// const handleButtonFocus = () => {
+//     if (timeoutIdForBlurTransition) {
+//         clearTimeout(timeoutIdForBlurTransition)
+//     }
+// }
+
+// const handleButtonBlur = () => {
+//     if (timeoutIdForBlurTransition) {
+//         clearTimeout(timeoutIdForBlurTransition)
+//     }
+//     timeoutIdForBlurTransition = setTimeout(() => {
+//         const selectionsEl = document.getElementById('selectionsWrapper')
+//         while (selectionsEl.firstChild) {
+//             selectionsEl.removeChild(selectionsEl.firstChild)
+//         }
+//     }, 30)
+// }
+
+// // This closes things if you don't tab over to a button
+// // Setting time timeout at 30ms was too fast. The
+// // buttons closed before the click registered.
+// const handleInputBlur = () => {
+//     if (timeoutIdForBlurTransition) {
+//         clearTimeout(timeoutIdForBlurTransition)
+//     }
+//     timeoutIdForBlurTransition = setTimeout(() => {
+//         const selectionsEl = document.getElementById('selectionsWrapper')
+//         while (selectionsEl.firstChild) {
+//             selectionsEl.removeChild(selectionsEl.firstChild)
+//         }
+//         document.getElementById(
+//             'active-selection'
+//         ).innerText = `Active Selection: ${state.activeSelection}`
+//     }, 150)
+// }
+
+const makeSelection = () => {
+    // TODO: deal with if there isn't a valid option
+    console.log('Making selection')
+    const theInput = document.getElementById('selection-text-field')
+    console.log(theInput.innerText)
+    theInput.innerText = ''
+}
+
+const handleKeyup = (event) => {
+    // TODO: Handle tab and escape
+    const pressedKey = event.key.toLowerCase()
+    if (pressedKey === 'enter') {
+        makeSelection()
+    } else {
+        state.currentSearch = document.getElementById(
+            'selection-text-field'
+        ).innerText
+        console.log(state.currentSearch)
+    }
+}
+
+const removeSelections = () => {
+    const selectionsEl = document.getElementById('awsselectmenu--selections')
     while (selectionsEl.firstChild) {
         selectionsEl.removeChild(selectionsEl.firstChild)
     }
-    const parts = event.target.id.split('--')
-    state.activeSelection = fullKeys[parts[1]]
-    console.log(state.activeSelection)
-    document.getElementById(
-        'active-selection'
-    ).innerText = `Active Selection: ${state.activeSelection}`
-    document.getElementById('selection-text-field').innerText =
-        state.activeSelection
 }
 
-const handleButtonFocus = () => {
-    if (timeoutIdForBlurTransition) {
-        clearTimeout(timeoutIdForBlurTransition)
+const setSelectionFromKey = (key) => {
+    state.activeKey = key
+    console.log(state.activeKey)
+    removeSelections()
+    setPlaceholder()
+}
+
+const setPlaceholder = () => {
+    const inputField = document.getElementById('awsselectmenu--search-text')
+    if (state.activeKey) {
+        inputField.innerText = state.fullKeys[state.activeKey]
+    } else {
+        inputField.innerText = 'Select a font'
     }
 }
 
-const handleButtonBlur = () => {
-    if (timeoutIdForBlurTransition) {
-        clearTimeout(timeoutIdForBlurTransition)
-    }
-    timeoutIdForBlurTransition = setTimeout(() => {
-        const selectionsEl = document.getElementById('selections')
-        while (selectionsEl.firstChild) {
-            selectionsEl.removeChild(selectionsEl.firstChild)
+// This is here to deal with clicking away from
+// the input field so it can be closed without
+// haveing to set a timer to keep the buttons from
+// closing for a bit before they disappear
+const handlePageClick = (event) => {
+    const clickId = event.target.id
+    if (clickId) {
+        const idParts = clickId.split('--')
+        if (idParts[0] !== 'awsselectmenu') {
+            removeSelections()
+        } else {
+            if (idParts[1] === 'choice-id') {
+                setSelectionFromKey(idParts[2])
+            }
         }
-    }, 30)
-}
-
-const handleInputBlur = () => {
-    console.log('-- Input blur')
-    if (timeoutIdForBlurTransition) {
-        clearTimeout(timeoutIdForBlurTransition)
+    } else {
+        removeSelections()
     }
-    timeoutIdForBlurTransition = setTimeout(() => {
-        const selectionsEl = document.getElementById('selections')
-        while (selectionsEl.firstChild) {
-            selectionsEl.removeChild(selectionsEl.firstChild)
-        }
-        document.getElementById(
-            'active-selection'
-        ).innerText = `Active Selection: ${state.activeSelection}`
-    }, 30)
 }
-
-// const handleBlur = (event) => {
-//     event.target.innerText = activeFont
-//     // if (timeoutIdFixForBlur) {
-//     //     clearTimeout(timeoutIdFixForBlur)
-//     // }
-//     // timeoutIdFixForBlur = setTimeout(() => {
-//     //     event.target.innerText = activeFont
-//     //     let itemWrapper = document.getElementById('menuItems')
-//     //     while (itemWrapper.firstChild) {
-//     //         console.log('x')
-//     //         itemWrapper.removeChild(itemWrapper.firstChild)
-//     //     }
-//     // }, 100)
-// }
 
 const kickoff = () => {
     console.log(`Kickoff: ${new Date().getTime()}`)
-    // prepIds()
+    prepKeys()
     document
-        .getElementById('selection-text-field')
+        .getElementById('awsselectmenu--search-text')
         .addEventListener('focus', handleInputFocus)
-    document
-        .getElementById('selection-text-field')
-        .addEventListener('blur', handleInputBlur)
 
     // document
-    //     .getElementById('menuItems')
-    //     .addEventListener('click', handleMenuClick)
-    // document
-    //     .getElementById('menuWrapper')
-    //     .addEventListener('input', handleMenuInput)
-    // document
-    //     .getElementById('menuWrapper')
-    //     .addEventListener('keyup', handleKeyUp)
+    //     .getElementById('selection-text-field')
+    //     .addEventListener('blur', handleInputBlur)
 
-    // updateItems()
+    // document
+    //     .getElementById('selection-text-field')
+    //     .addEventListener('keyup', handleKeyup)
+
+    // document
+    //     .getElementById('selectionsWrapper')
+    //     .addEventListener('click', handleButtonClick)
+
+    document.addEventListener('click', handlePageClick)
+    setPlaceholder()
 }
 
 document.addEventListener('DOMContentLoaded', kickoff)

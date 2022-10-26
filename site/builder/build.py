@@ -17,7 +17,6 @@ class Builder():
         self.source_dir = "src"
         self.parts = {}
 
-
     def get_directories_and_titles(self):
         recipes_dir = os.path.join('..', 'recipes')
         self.recipe_dirs = [
@@ -34,6 +33,7 @@ class Builder():
             with open(config_file_path) as _config:
                 config = json.load(_config)
                 url_path = f"/recipes/{recipe_dir}/index.html"
+                prefetches.append(f"""<link rel="prefetch" href="{url_path}" as="document" />""")
                 li = f"""<li><a href="{url_path}">{config['TITLE']}</a></li>"""
                 if config['STATUS'] == 'published':
                     published.append(li)
@@ -43,6 +43,8 @@ class Builder():
         drafts.sort()
         self.parts['PUBLISHED'] = f"<ul>{''.join(published)}</ul>"
         self.parts['DRAFTS'] = f"<ul>{''.join(drafts)}</ul>"
+        self.parts['PREFETCH'] = "\n".join(prefetches)
+
         # print(self.parts['PUBLISHED'])
         # print(self.parts['DRAFTS'])
 
@@ -78,14 +80,12 @@ class Builder():
             with open("../../netlify/functions/recipe-redirects/index.js", "w") as _redirects_out:
                 _redirects_out.write(redirects_output)
 
-
 if __name__ == "__main__":
     b = Builder()
     b.content_files = ['TEMPLATE.html']
     # b.load_config()
     b.load_parts()
     b.get_directories_and_titles()
-
 
     # b.escape_parts()
     # b.load_details()
@@ -96,6 +96,4 @@ if __name__ == "__main__":
 
     b.do_output()
     b.build_redirects()
-
-
 

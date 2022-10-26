@@ -19,7 +19,7 @@ class Builder():
                 )
             ), 
         )
-        self.source_dir = f'{self.base_dir}/src'
+        self.source_dir = f'{self.base_dir}/builder/src'
         self.config_file = f'{self.source_dir}/config.json'
         self.content_files = []
         self.parts = {}
@@ -92,7 +92,6 @@ class Builder():
         else:
             self.parts['TODOS'] = ''
 
-
     def load_references(self):
         if len(self.config['REFERENCES']) > 0:
             references = []
@@ -142,33 +141,9 @@ class Builder():
             '''
 
 
-# def load_content():
-#     pass
-
-
-# paths = ['html.html', 'head.html', 'script.js', 'styles.css', 'template.html']
-# parts = {
-#     "TITLE": config['TITLE'],
-#     "DESCRIPTION": config['DESCRIPTION'],
-#     "IMAGESLUG": urllib.parse.quote(config['TITLE']),
-#     "DETAILS": '',
-#     "NOTES": '',
-#     "REFERENCES": '',
-# }
-
-# for path in paths:
-#     parts = path.split('.')
-#     key = parts[0].upper()
 
 
 
-# for part_name in part_names:
-#     tokens = part_name.split('.')
-#     with open(f'{source_dir}/{part_name}') as _file:
-#         file_contents = _file.read()
-#         key = tokens[0].upper()
-#         parts[key] = file_contents
-#         parts[f'ESCAPED_{key}'] = escape(file_contents),
 
 # for part in parts:
 #     print('-----------------')
@@ -226,6 +201,6 @@ if __name__ == "__main__":
     b.load_references()
     b.wrap_escapes()
     b.do_output()
-    print(b.parts)
+    # print(b.parts)
 
 

@@ -3,21 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      Search Input Type Example - The HTML, CSS, and JavaScript Cookbook Of Alan
-    </title>
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:title"
-      content="Search Input Type Example - The HTML, CSS, and JavaScript Cookbook Of Alan"
-    />
-    <meta
-      property="og:description"
-      content="A test run with the search input field"
-    />
+    <title>Search Input Example - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Search Input Example" />
+    <meta property="og:description" content="A quick look at the Search input form field type" />
     <meta
       property="og:image"
-      content="https://html-css-js-cookbook.alanwsmith.com/og-images/main.jpg"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Search%20Input%20Example,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site:id" content="@TheIdOfAlan" />
@@ -34,40 +26,112 @@
       href="/favicons/180x180.png"
     />
     <link rel="stylesheet" href="/styles/global.css" />
-    <script src="script.js"></script>
+    <link rel="stylesheet" href="/styles/prism.css" />
+    
+    <style>
+      /* Any styles for the page go here */
+
+    </style>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+    console.log('asdf')
+    var input = document.getElementById('fonts')
+    var options = Array.from(document.getElementById('fontList').options).map(
+        function (el) {
+            return el.innerHTML
+        }
+    ) //Optional if you have data
+    input.addEventListener('keypress', function (e) {
+        console.log('here')
+        if (e.keyCode == 13) {
+            console.log('ping')
+            var relevantOptions = options.filter(function (option) {
+                return option.toLowerCase().includes(input.value.toLowerCase())
+            }) // filtering the data list based on input query
+            if (relevantOptions.length > 0) {
+                input.value = relevantOptions.shift() //Taking the first
+            }
+        }
+    })
+})
+
+    </script>
   </head>
-  <body>
+  <body class="line-numbers">
     <header>
       <a href="/">Cookbook Home</a> ~
       <a href="https://www.alanwsmith.com/">alanwsmith.com</a> ~
       <a href="https://links.alanwsmith.com">links</a> ~
-      <a href="https://podcast.alanwsmith.com/">podcast</a>
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://https://twitter.com/TheIdOfAlan">twitter</a>
     </header>
     <main>
-      <h1>Input Search Type Example</h1>
-      <hr />
-      <div>
-        <label for="site-search">Search the site:</label>
-        <input list="search-list" type="search" id="site-search" name="q" />
-        <button>Search</button>
-        <datalist id="search-list">
-          <option value="Test"></option>
-        </datalist>
-      </div>
-      <hr />
+      <h1>Search Input Example</h1>
+      <h2>TL;DR</h2>
+      <input id="fonts" list="fontList" placeholder="Enter a fruit..." />
 
-      <h2>Notes</h2>
-      <ul>
-        <li>This is to test autocomplete in search via a data list</li>
-        <li>
-          It shows the word 'Test' if you type 'T', but I'm not sure how to pick
-          that up yet as the first item. It doesn't look like it does what I
-          want so I'm going back to the autocomplete example
-        </li>
-      </ul>
+<datalist id="fontList">
+  <option>Apple</option>
+  <option>Orange</option>
+  <option>Banana</option>
+</datalist>
 
-      <h2>TODO</h2>
-      <ul></ul>
+link:
+https://stackoverflow.com/questions/54879801/auto-select-first-option-in-datalist-while-typing
+I've tried a bunch of stuff to get this to do what I want, but haven't been able
+to figure it out using the default form elemnt. This almost works, but it safari
+treats it differently so it doesn't go.
+  
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;input id=&quot;fonts&quot; list=&quot;fontList&quot; placeholder=&quot;Enter a fruit...&quot; /&gt;
+
+&lt;datalist id=&quot;fontList&quot;&gt;
+  &lt;option&gt;Apple&lt;/option&gt;
+  &lt;option&gt;Orange&lt;/option&gt;
+  &lt;option&gt;Banana&lt;/option&gt;
+&lt;/datalist&gt;
+
+link:
+https://stackoverflow.com/questions/54879801/auto-select-first-option-in-datalist-while-typing
+I&#x27;ve tried a bunch of stuff to get this to do what I want, but haven&#x27;t been able
+to figure it out using the default form elemnt. This almost works, but it safari
+treats it differently so it doesn&#x27;t go.
+</code></pre>
+             
+            <h2>CSS</h2>
+            <pre><code class="language-css">/* Any styles for the page go here */
+</code></pre>
+             
+            <h2>JavaScript</h2>
+            <pre><code class="language-js">document.addEventListener(&#x27;DOMContentLoaded&#x27;, () =&gt; {
+    console.log(&#x27;asdf&#x27;)
+    var input = document.getElementById(&#x27;fonts&#x27;)
+    var options = Array.from(document.getElementById(&#x27;fontList&#x27;).options).map(
+        function (el) {
+            return el.innerHTML
+        }
+    ) //Optional if you have data
+    input.addEventListener(&#x27;keypress&#x27;, function (e) {
+        console.log(&#x27;here&#x27;)
+        if (e.keyCode == 13) {
+            console.log(&#x27;ping&#x27;)
+            var relevantOptions = options.filter(function (option) {
+                return option.toLowerCase().includes(input.value.toLowerCase())
+            }) // filtering the data list based on input query
+            if (relevantOptions.length &gt; 0) {
+                input.value = relevantOptions.shift() //Taking the first
+            }
+        }
+    })
+})
+</code></pre>
+            
+         
+                <h2>References</h2>
+                <ul>
+                    <li><a href=""></a></li>
+                </ul>
+                
     </main>
     <footer>
       made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>
@@ -76,5 +140,6 @@
       <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
       among other <a href="https://links.alanwsmith.com">things</a>
     </footer>
+    <script src="/styles/prism.js"></script>
   </body>
 </html>
