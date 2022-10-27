@@ -38,6 +38,7 @@ const state = {
 
 const deactivateSelector = () => {
     if (state.optionsEl) {
+        state.optionsEl.blur()
         state.optionsEl.remove()
     }
     setPlaceholder()
@@ -45,12 +46,9 @@ const deactivateSelector = () => {
     state.filterEl.blur()
 }
 
-// const handleFilterBlur = () => {
-//     setPlaceholder()
-// }
-
 const handleFilterFocus = () => {
     if (state.optionsEl) {
+        state.optionsEl.blur()
         state.optionsEl.remove()
     }
     state.optionsEl = document.createElement('select')
@@ -66,7 +64,6 @@ const handleFilterKeydown = (event) => {
     const pressedKey = event.key.toLowerCase()
     console.log(pressedKey)
     if (pressedKey === 'tab') {
-        // console.log('tabhhhhhasdf')
         event.preventDefault()
         state.filterEl.blur()
         state.optionsEl.querySelector('option').setAttribute('selected', true)
@@ -75,13 +72,9 @@ const handleFilterKeydown = (event) => {
 }
 
 const handleFilterKeyup = (event) => {
-    // TODO: Handle escape key
-    // TODO: Handle arrow keys
-    // TODO: Make tab key select first item
     const pressedKey = event.key.toLowerCase()
     console.log(pressedKey)
     if (pressedKey === 'enter') {
-        // console.log('ENTER - TODO: Do update here')
         if (state.filterEl.value !== '') {
             pickSelection()
         }
@@ -118,7 +111,6 @@ const handleOptionsKeyup = (event) => {
 }
 
 const handlePageClick = (event) => {
-    // console.log('handlePageClick')
     if (!event.target.id) {
         deactivateSelector()
     } else {
@@ -126,10 +118,7 @@ const handlePageClick = (event) => {
         if (idParts[0] !== 'awsselect') {
             deactivateSelector()
         } else {
-            // console.log('Clicked on menu')
-            // console.log(event.target)
             if (idParts[1] === 'selection') {
-                // console.log(event.target.value)
                 const theValue = event.target.value
                 pickSelection(theValue)
             }
@@ -198,7 +187,6 @@ const updateOptions = () => {
             newOption.value = font.key
             newOption.innerHTML = font.value
             newOption.id = `awsselect--selection--${font.key}`
-            // newOption.removeAttribute('selected')
             if (fontIndex === 0 && state.filterEl.value !== '') {
                 newOption.selected = 'selected'
             }
@@ -229,17 +217,9 @@ const kickoff = () => {
     state.filterEl.addEventListener('focus', handleFilterFocus)
     state.filterEl.addEventListener('keyup', handleFilterKeyup)
     state.filterEl.addEventListener('keydown', handleFilterKeydown)
-
     state.wrapperEl = document.getElementById('awsselect--options-wrapper')
-
-    // state.optionsEl.addEventListener('input', handleOptionsInput)
-
-    // state.optionsEl = document.getElementById('awsselect--options')
-    // state.optionsEl.addEventListener('keyup', handleOptionsKeyup)
-
     setPlaceholder()
     updateOptions()
-
     document.addEventListener('mousedown', handlePageClick)
 }
 

@@ -80,6 +80,7 @@ const state = {
 
 const deactivateSelector = () => {
     if (state.optionsEl) {
+        state.optionsEl.blur()
         state.optionsEl.remove()
     }
     setPlaceholder()
@@ -87,12 +88,9 @@ const deactivateSelector = () => {
     state.filterEl.blur()
 }
 
-// const handleFilterBlur = () => {
-//     setPlaceholder()
-// }
-
 const handleFilterFocus = () => {
     if (state.optionsEl) {
+        state.optionsEl.blur()
         state.optionsEl.remove()
     }
     state.optionsEl = document.createElement('select')
@@ -108,7 +106,6 @@ const handleFilterKeydown = (event) => {
     const pressedKey = event.key.toLowerCase()
     console.log(pressedKey)
     if (pressedKey === 'tab') {
-        // console.log('tabhhhhhasdf')
         event.preventDefault()
         state.filterEl.blur()
         state.optionsEl.querySelector('option').setAttribute('selected', true)
@@ -117,13 +114,9 @@ const handleFilterKeydown = (event) => {
 }
 
 const handleFilterKeyup = (event) => {
-    // TODO: Handle escape key
-    // TODO: Handle arrow keys
-    // TODO: Make tab key select first item
     const pressedKey = event.key.toLowerCase()
     console.log(pressedKey)
     if (pressedKey === 'enter') {
-        // console.log('ENTER - TODO: Do update here')
         if (state.filterEl.value !== '') {
             pickSelection()
         }
@@ -160,7 +153,6 @@ const handleOptionsKeyup = (event) => {
 }
 
 const handlePageClick = (event) => {
-    // console.log('handlePageClick')
     if (!event.target.id) {
         deactivateSelector()
     } else {
@@ -168,10 +160,7 @@ const handlePageClick = (event) => {
         if (idParts[0] !== 'awsselect') {
             deactivateSelector()
         } else {
-            // console.log('Clicked on menu')
-            // console.log(event.target)
             if (idParts[1] === 'selection') {
-                // console.log(event.target.value)
                 const theValue = event.target.value
                 pickSelection(theValue)
             }
@@ -240,7 +229,6 @@ const updateOptions = () => {
             newOption.value = font.key
             newOption.innerHTML = font.value
             newOption.id = `awsselect--selection--${font.key}`
-            // newOption.removeAttribute('selected')
             if (fontIndex === 0 && state.filterEl.value !== '') {
                 newOption.selected = 'selected'
             }
@@ -271,17 +259,9 @@ const kickoff = () => {
     state.filterEl.addEventListener('focus', handleFilterFocus)
     state.filterEl.addEventListener('keyup', handleFilterKeyup)
     state.filterEl.addEventListener('keydown', handleFilterKeydown)
-
     state.wrapperEl = document.getElementById('awsselect--options-wrapper')
-
-    // state.optionsEl.addEventListener('input', handleOptionsInput)
-
-    // state.optionsEl = document.getElementById('awsselect--options')
-    // state.optionsEl.addEventListener('keyup', handleOptionsKeyup)
-
     setPlaceholder()
     updateOptions()
-
     document.addEventListener('mousedown', handlePageClick)
 }
 
@@ -638,6 +618,7 @@ const state = {
 
 const deactivateSelector = () =&gt; {
     if (state.optionsEl) {
+        state.optionsEl.blur()
         state.optionsEl.remove()
     }
     setPlaceholder()
@@ -645,12 +626,9 @@ const deactivateSelector = () =&gt; {
     state.filterEl.blur()
 }
 
-// const handleFilterBlur = () =&gt; {
-//     setPlaceholder()
-// }
-
 const handleFilterFocus = () =&gt; {
     if (state.optionsEl) {
+        state.optionsEl.blur()
         state.optionsEl.remove()
     }
     state.optionsEl = document.createElement(&#x27;select&#x27;)
@@ -666,7 +644,6 @@ const handleFilterKeydown = (event) =&gt; {
     const pressedKey = event.key.toLowerCase()
     console.log(pressedKey)
     if (pressedKey === &#x27;tab&#x27;) {
-        // console.log(&#x27;tabhhhhhasdf&#x27;)
         event.preventDefault()
         state.filterEl.blur()
         state.optionsEl.querySelector(&#x27;option&#x27;).setAttribute(&#x27;selected&#x27;, true)
@@ -675,13 +652,9 @@ const handleFilterKeydown = (event) =&gt; {
 }
 
 const handleFilterKeyup = (event) =&gt; {
-    // TODO: Handle escape key
-    // TODO: Handle arrow keys
-    // TODO: Make tab key select first item
     const pressedKey = event.key.toLowerCase()
     console.log(pressedKey)
     if (pressedKey === &#x27;enter&#x27;) {
-        // console.log(&#x27;ENTER - TODO: Do update here&#x27;)
         if (state.filterEl.value !== &#x27;&#x27;) {
             pickSelection()
         }
@@ -718,7 +691,6 @@ const handleOptionsKeyup = (event) =&gt; {
 }
 
 const handlePageClick = (event) =&gt; {
-    // console.log(&#x27;handlePageClick&#x27;)
     if (!event.target.id) {
         deactivateSelector()
     } else {
@@ -726,10 +698,7 @@ const handlePageClick = (event) =&gt; {
         if (idParts[0] !== &#x27;awsselect&#x27;) {
             deactivateSelector()
         } else {
-            // console.log(&#x27;Clicked on menu&#x27;)
-            // console.log(event.target)
             if (idParts[1] === &#x27;selection&#x27;) {
-                // console.log(event.target.value)
                 const theValue = event.target.value
                 pickSelection(theValue)
             }
@@ -798,7 +767,6 @@ const updateOptions = () =&gt; {
             newOption.value = font.key
             newOption.innerHTML = font.value
             newOption.id = `awsselect--selection--${font.key}`
-            // newOption.removeAttribute(&#x27;selected&#x27;)
             if (fontIndex === 0 &amp;&amp; state.filterEl.value !== &#x27;&#x27;) {
                 newOption.selected = &#x27;selected&#x27;
             }
@@ -829,17 +797,9 @@ const kickoff = () =&gt; {
     state.filterEl.addEventListener(&#x27;focus&#x27;, handleFilterFocus)
     state.filterEl.addEventListener(&#x27;keyup&#x27;, handleFilterKeyup)
     state.filterEl.addEventListener(&#x27;keydown&#x27;, handleFilterKeydown)
-
     state.wrapperEl = document.getElementById(&#x27;awsselect--options-wrapper&#x27;)
-
-    // state.optionsEl.addEventListener(&#x27;input&#x27;, handleOptionsInput)
-
-    // state.optionsEl = document.getElementById(&#x27;awsselect--options&#x27;)
-    // state.optionsEl.addEventListener(&#x27;keyup&#x27;, handleOptionsKeyup)
-
     setPlaceholder()
     updateOptions()
-
     document.addEventListener(&#x27;mousedown&#x27;, handlePageClick)
 }
 
