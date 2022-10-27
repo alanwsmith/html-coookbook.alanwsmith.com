@@ -38,7 +38,9 @@ const state = {
 
 const deactivateSelector = () => {
     // console.log('deactivateSelector')
-    state.optionsEl.style.display = 'none'
+    if (state.optionsEl) {
+        state.optionsEl.remove()
+    }
     setPlaceholder()
     state.filterEl.value = ''
     state.filterEl.blur()
@@ -49,9 +51,28 @@ const deactivateSelector = () => {
 // }
 
 const handleFilterFocus = () => {
-    state.optionsEl.style.display = 'inline'
+    if (state.optionsEl) {
+        state.optionsEl.remove()
+    }
+    state.optionsEl = document.createElement('select')
+    state.optionsEl.size = 5
+    state.optionsEl.id = 'awsselect--options'
+    state.wrapperEl.appendChild(state.optionsEl)
+    // state.optionsEl.style.display = 'inline'
     state.filterEl.placeholder = ''
     setOptions()
+}
+
+const handleFilterKeydown = (event) => {
+    // const pressedKey = event.key.toLowerCase()
+    // console.log(pressedKey)
+    // if (pressedKey === 'tab') {
+    //     // console.log('tabhhhhhasdf')
+    //     event.preventDefault()
+    //     state.filterEl.blur()
+    //     state.optionsEl.querySelector('option').setAttribute('selected', true)
+    //     state.optionsEl.focus()
+    // }
 }
 
 const handleFilterKeyup = (event) => {
@@ -108,7 +129,8 @@ const handlePageClick = (event) => {
             // console.log(event.target)
             if (idParts[1] === 'selection') {
                 // console.log(event.target.value)
-                pickSelection(event.target.value)
+                const theValue = event.target.value
+                pickSelection(theValue)
             }
         }
     }
@@ -136,9 +158,12 @@ const pickSelection = (key = null) => {
 }
 
 const removeOptions = () => {
-    const selectionsEl = document.getElementById('awsselect--options')
-    while (selectionsEl.firstChild) {
-        selectionsEl.removeChild(selectionsEl.firstChild)
+    //// const selectionsEl = document.getElementById('awsselect--options')
+    ////
+    if (state.optionsEl) {
+        while (state.optionsEl.firstChild) {
+            state.optionsEl.removeChild(state.optionsEl.firstChild)
+        }
     }
 }
 
@@ -166,20 +191,23 @@ const setPlaceholder = (newValue = null) => {
 
 const updateOptions = () => {
     removeOptions()
+    // state.optionsEl.name = `new-name-${new Date().getTime()}`
     state.options.forEach((font, fontIndex) => {
         const newOption = document.createElement('option')
         newOption.value = font.key
         newOption.innerHTML = font.value
         newOption.id = `awsselect--selection--${font.key}`
+        newOption.removeAttribute('selected')
         if (fontIndex === 0 && state.filterEl.value !== '') {
             newOption.selected = 'selected'
         }
         state.optionsEl.appendChild(newOption)
     })
-    const spacingOption = document.createElement('option')
-    spacingOption.innerHTML = '-----------------------------'
-    spacingOption.disabled = 'disabled'
-    state.optionsEl.appendChild(spacingOption)
+
+    // const spacingOption = document.createElement('option')
+    // spacingOption.innerHTML = '-----------------------------'
+    // spacingOption.disabled = 'disabled'
+    // state.optionsEl.appendChild(spacingOption)
 }
 
 const kickoff = () => {
@@ -187,14 +215,19 @@ const kickoff = () => {
     state.filterEl = document.getElementById('awsselect--filter')
     state.filterEl.addEventListener('focus', handleFilterFocus)
     state.filterEl.addEventListener('keyup', handleFilterKeyup)
-    state.optionsEl = document.getElementById('awsselect--options')
+    state.filterEl.addEventListener('keydown', handleFilterKeydown)
+
+    state.wrapperEl = document.getElementById('awsselect--options-wrapper')
+
     // state.optionsEl.addEventListener('input', handleOptionsInput)
 
-    state.optionsEl.addEventListener('keyup', handleOptionsKeyup)
+    // state.optionsEl = document.getElementById('awsselect--options')
+    // state.optionsEl.addEventListener('keyup', handleOptionsKeyup)
 
     setPlaceholder()
     updateOptions()
-    document.addEventListener('click', handlePageClick)
+
+    document.addEventListener('mousedown', handlePageClick)
 }
 
 document.addEventListener('DOMContentLoaded', kickoff)

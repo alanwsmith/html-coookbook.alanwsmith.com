@@ -73,7 +73,9 @@ const state = {
 
 const deactivateSelector = () => {
     // console.log('deactivateSelector')
-    state.optionsEl.style.display = 'none'
+    if (state.optionsEl) {
+        state.optionsEl.remove()
+    }
     setPlaceholder()
     state.filterEl.value = ''
     state.filterEl.blur()
@@ -84,9 +86,28 @@ const deactivateSelector = () => {
 // }
 
 const handleFilterFocus = () => {
-    state.optionsEl.style.display = 'inline'
+    if (state.optionsEl) {
+        state.optionsEl.remove()
+    }
+    state.optionsEl = document.createElement('select')
+    state.optionsEl.size = 5
+    state.optionsEl.id = 'awsselect--options'
+    state.wrapperEl.appendChild(state.optionsEl)
+    // state.optionsEl.style.display = 'inline'
     state.filterEl.placeholder = ''
     setOptions()
+}
+
+const handleFilterKeydown = (event) => {
+    // const pressedKey = event.key.toLowerCase()
+    // console.log(pressedKey)
+    // if (pressedKey === 'tab') {
+    //     // console.log('tabhhhhhasdf')
+    //     event.preventDefault()
+    //     state.filterEl.blur()
+    //     state.optionsEl.querySelector('option').setAttribute('selected', true)
+    //     state.optionsEl.focus()
+    // }
 }
 
 const handleFilterKeyup = (event) => {
@@ -143,7 +164,8 @@ const handlePageClick = (event) => {
             // console.log(event.target)
             if (idParts[1] === 'selection') {
                 // console.log(event.target.value)
-                pickSelection(event.target.value)
+                const theValue = event.target.value
+                pickSelection(theValue)
             }
         }
     }
@@ -171,9 +193,12 @@ const pickSelection = (key = null) => {
 }
 
 const removeOptions = () => {
-    const selectionsEl = document.getElementById('awsselect--options')
-    while (selectionsEl.firstChild) {
-        selectionsEl.removeChild(selectionsEl.firstChild)
+    //// const selectionsEl = document.getElementById('awsselect--options')
+    ////
+    if (state.optionsEl) {
+        while (state.optionsEl.firstChild) {
+            state.optionsEl.removeChild(state.optionsEl.firstChild)
+        }
     }
 }
 
@@ -201,20 +226,23 @@ const setPlaceholder = (newValue = null) => {
 
 const updateOptions = () => {
     removeOptions()
+    // state.optionsEl.name = `new-name-${new Date().getTime()}`
     state.options.forEach((font, fontIndex) => {
         const newOption = document.createElement('option')
         newOption.value = font.key
         newOption.innerHTML = font.value
         newOption.id = `awsselect--selection--${font.key}`
+        newOption.removeAttribute('selected')
         if (fontIndex === 0 && state.filterEl.value !== '') {
             newOption.selected = 'selected'
         }
         state.optionsEl.appendChild(newOption)
     })
-    const spacingOption = document.createElement('option')
-    spacingOption.innerHTML = '-----------------------------'
-    spacingOption.disabled = 'disabled'
-    state.optionsEl.appendChild(spacingOption)
+
+    // const spacingOption = document.createElement('option')
+    // spacingOption.innerHTML = '-----------------------------'
+    // spacingOption.disabled = 'disabled'
+    // state.optionsEl.appendChild(spacingOption)
 }
 
 const kickoff = () => {
@@ -222,14 +250,19 @@ const kickoff = () => {
     state.filterEl = document.getElementById('awsselect--filter')
     state.filterEl.addEventListener('focus', handleFilterFocus)
     state.filterEl.addEventListener('keyup', handleFilterKeyup)
-    state.optionsEl = document.getElementById('awsselect--options')
+    state.filterEl.addEventListener('keydown', handleFilterKeydown)
+
+    state.wrapperEl = document.getElementById('awsselect--options-wrapper')
+
     // state.optionsEl.addEventListener('input', handleOptionsInput)
 
-    state.optionsEl.addEventListener('keyup', handleOptionsKeyup)
+    // state.optionsEl = document.getElementById('awsselect--options')
+    // state.optionsEl.addEventListener('keyup', handleOptionsKeyup)
 
     setPlaceholder()
     updateOptions()
-    document.addEventListener('click', handlePageClick)
+
+    document.addEventListener('mousedown', handlePageClick)
 }
 
 document.addEventListener('DOMContentLoaded', kickoff)
@@ -252,9 +285,19 @@ document.addEventListener('DOMContentLoaded', kickoff)
   type="text"
   autocomplete="off"
   spellcheck="false"
+  name="awsselect--this-is-the-input"
 />
 <br />
-<select id="awsselect--options" style="display: none" size="5"></select>
+<div id="awsselect--options-wrapper"></div>
+<!--
+<select
+  id="awsselect--options"
+  style="display: none"
+  size="5"
+  autocomplete="off"
+  name="awsselect--name-goes-here"
+></select>
+-->
 
 <h4>Goals</h4>
 <p>
@@ -334,11 +377,27 @@ document.addEventListener('DOMContentLoaded', kickoff)
     filtering
   </li>
   <li>[ ] - Provide for multiple instances on a page</li>
-  <li>[ ] - If you only go down one option make sure up arrow works</li>
+  <li>[.] - If you only go down one option make sure up arrow works</li>
+  <li>
+    [ ] - If youre in the menu and you click into the text field it needs to
+    close/kill the select menu
+  </li>
 </ul>
 
 <h4>In The Future</h4>
 <ul>
+  <li>
+    [ ] - INprogrss - trying to remove then remake the elemtn (orignal note:
+    There's a behavoir I can't figure out with Safari. If you make a selection
+    down in the menu, the next time you click into the filter text and tab to
+    the list if you hit the down arrow it picks up one ofter thing that that was
+    clicked. It does these even when I expliclty set and remove every element's
+    'selected' attribute and when I change both the key and the value of the
+    options. Doesn't do that in Chrome or Firefox. Next thing I can think of is
+    to change the id of the select element. That might be non-trivial though so
+    I'm not sure if I want to get into it.)
+  </li>
+
   <li>
     [ ] - Investigate if populating the selection list in HTML offers any
     accessability improvements
@@ -377,9 +436,19 @@ document.addEventListener('DOMContentLoaded', kickoff)
   type=&quot;text&quot;
   autocomplete=&quot;off&quot;
   spellcheck=&quot;false&quot;
+  name=&quot;awsselect--this-is-the-input&quot;
 /&gt;
 &lt;br /&gt;
-&lt;select id=&quot;awsselect--options&quot; style=&quot;display: none&quot; size=&quot;5&quot;&gt;&lt;/select&gt;
+&lt;div id=&quot;awsselect--options-wrapper&quot;&gt;&lt;/div&gt;
+&lt;!--
+&lt;select
+  id=&quot;awsselect--options&quot;
+  style=&quot;display: none&quot;
+  size=&quot;5&quot;
+  autocomplete=&quot;off&quot;
+  name=&quot;awsselect--name-goes-here&quot;
+&gt;&lt;/select&gt;
+--&gt;
 
 &lt;h4&gt;Goals&lt;/h4&gt;
 &lt;p&gt;
@@ -459,11 +528,27 @@ document.addEventListener('DOMContentLoaded', kickoff)
     filtering
   &lt;/li&gt;
   &lt;li&gt;[ ] - Provide for multiple instances on a page&lt;/li&gt;
-  &lt;li&gt;[ ] - If you only go down one option make sure up arrow works&lt;/li&gt;
+  &lt;li&gt;[.] - If you only go down one option make sure up arrow works&lt;/li&gt;
+  &lt;li&gt;
+    [ ] - If youre in the menu and you click into the text field it needs to
+    close/kill the select menu
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4&gt;In The Future&lt;/h4&gt;
 &lt;ul&gt;
+  &lt;li&gt;
+    [ ] - INprogrss - trying to remove then remake the elemtn (orignal note:
+    There&#x27;s a behavoir I can&#x27;t figure out with Safari. If you make a selection
+    down in the menu, the next time you click into the filter text and tab to
+    the list if you hit the down arrow it picks up one ofter thing that that was
+    clicked. It does these even when I expliclty set and remove every element&#x27;s
+    &#x27;selected&#x27; attribute and when I change both the key and the value of the
+    options. Doesn&#x27;t do that in Chrome or Firefox. Next thing I can think of is
+    to change the id of the select element. That might be non-trivial though so
+    I&#x27;m not sure if I want to get into it.)
+  &lt;/li&gt;
+
   &lt;li&gt;
     [ ] - Investigate if populating the selection list in HTML offers any
     accessability improvements
@@ -542,7 +627,9 @@ const state = {
 
 const deactivateSelector = () =&gt; {
     // console.log(&#x27;deactivateSelector&#x27;)
-    state.optionsEl.style.display = &#x27;none&#x27;
+    if (state.optionsEl) {
+        state.optionsEl.remove()
+    }
     setPlaceholder()
     state.filterEl.value = &#x27;&#x27;
     state.filterEl.blur()
@@ -553,9 +640,28 @@ const deactivateSelector = () =&gt; {
 // }
 
 const handleFilterFocus = () =&gt; {
-    state.optionsEl.style.display = &#x27;inline&#x27;
+    if (state.optionsEl) {
+        state.optionsEl.remove()
+    }
+    state.optionsEl = document.createElement(&#x27;select&#x27;)
+    state.optionsEl.size = 5
+    state.optionsEl.id = &#x27;awsselect--options&#x27;
+    state.wrapperEl.appendChild(state.optionsEl)
+    // state.optionsEl.style.display = &#x27;inline&#x27;
     state.filterEl.placeholder = &#x27;&#x27;
     setOptions()
+}
+
+const handleFilterKeydown = (event) =&gt; {
+    // const pressedKey = event.key.toLowerCase()
+    // console.log(pressedKey)
+    // if (pressedKey === &#x27;tab&#x27;) {
+    //     // console.log(&#x27;tabhhhhhasdf&#x27;)
+    //     event.preventDefault()
+    //     state.filterEl.blur()
+    //     state.optionsEl.querySelector(&#x27;option&#x27;).setAttribute(&#x27;selected&#x27;, true)
+    //     state.optionsEl.focus()
+    // }
 }
 
 const handleFilterKeyup = (event) =&gt; {
@@ -612,7 +718,8 @@ const handlePageClick = (event) =&gt; {
             // console.log(event.target)
             if (idParts[1] === &#x27;selection&#x27;) {
                 // console.log(event.target.value)
-                pickSelection(event.target.value)
+                const theValue = event.target.value
+                pickSelection(theValue)
             }
         }
     }
@@ -640,9 +747,12 @@ const pickSelection = (key = null) =&gt; {
 }
 
 const removeOptions = () =&gt; {
-    const selectionsEl = document.getElementById(&#x27;awsselect--options&#x27;)
-    while (selectionsEl.firstChild) {
-        selectionsEl.removeChild(selectionsEl.firstChild)
+    //// const selectionsEl = document.getElementById(&#x27;awsselect--options&#x27;)
+    ////
+    if (state.optionsEl) {
+        while (state.optionsEl.firstChild) {
+            state.optionsEl.removeChild(state.optionsEl.firstChild)
+        }
     }
 }
 
@@ -670,20 +780,23 @@ const setPlaceholder = (newValue = null) =&gt; {
 
 const updateOptions = () =&gt; {
     removeOptions()
+    // state.optionsEl.name = `new-name-${new Date().getTime()}`
     state.options.forEach((font, fontIndex) =&gt; {
         const newOption = document.createElement(&#x27;option&#x27;)
         newOption.value = font.key
         newOption.innerHTML = font.value
         newOption.id = `awsselect--selection--${font.key}`
+        newOption.removeAttribute(&#x27;selected&#x27;)
         if (fontIndex === 0 &amp;&amp; state.filterEl.value !== &#x27;&#x27;) {
             newOption.selected = &#x27;selected&#x27;
         }
         state.optionsEl.appendChild(newOption)
     })
-    const spacingOption = document.createElement(&#x27;option&#x27;)
-    spacingOption.innerHTML = &#x27;-----------------------------&#x27;
-    spacingOption.disabled = &#x27;disabled&#x27;
-    state.optionsEl.appendChild(spacingOption)
+
+    // const spacingOption = document.createElement(&#x27;option&#x27;)
+    // spacingOption.innerHTML = &#x27;-----------------------------&#x27;
+    // spacingOption.disabled = &#x27;disabled&#x27;
+    // state.optionsEl.appendChild(spacingOption)
 }
 
 const kickoff = () =&gt; {
@@ -691,14 +804,19 @@ const kickoff = () =&gt; {
     state.filterEl = document.getElementById(&#x27;awsselect--filter&#x27;)
     state.filterEl.addEventListener(&#x27;focus&#x27;, handleFilterFocus)
     state.filterEl.addEventListener(&#x27;keyup&#x27;, handleFilterKeyup)
-    state.optionsEl = document.getElementById(&#x27;awsselect--options&#x27;)
+    state.filterEl.addEventListener(&#x27;keydown&#x27;, handleFilterKeydown)
+
+    state.wrapperEl = document.getElementById(&#x27;awsselect--options-wrapper&#x27;)
+
     // state.optionsEl.addEventListener(&#x27;input&#x27;, handleOptionsInput)
 
-    state.optionsEl.addEventListener(&#x27;keyup&#x27;, handleOptionsKeyup)
+    // state.optionsEl = document.getElementById(&#x27;awsselect--options&#x27;)
+    // state.optionsEl.addEventListener(&#x27;keyup&#x27;, handleOptionsKeyup)
 
     setPlaceholder()
     updateOptions()
-    document.addEventListener(&#x27;click&#x27;, handlePageClick)
+
+    document.addEventListener(&#x27;mousedown&#x27;, handlePageClick)
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, kickoff)
