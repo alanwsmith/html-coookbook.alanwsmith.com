@@ -58,12 +58,20 @@ const handleFilterKeyup = (event) => {
     // TODO: Handle arrow keys
     // TODO: Make tab key select first item
     const pressedKey = event.key.toLowerCase()
-    // console.log(pressedKey)
+    console.log(pressedKey)
     if (pressedKey === 'enter') {
         // console.log('ENTER - TODO: Do update here')
         pickSelection()
     } else if (pressedKey === 'escape') {
         deactivateSelector()
+    } else if (pressedKey === 'arrowdown') {
+        state.optionsEl.focus()
+        if (state.filterEl.value === '') {
+            // TODO: Make this use class names so you can be explict with them
+            state.optionsEl.querySelector('option').selected = 'selected'
+        } else {
+            state.optionsEl.querySelectorAll('option')[1].selected = 'selected'
+        }
     } else {
         setOptions()
     }

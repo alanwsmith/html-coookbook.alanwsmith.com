@@ -93,12 +93,20 @@ const handleFilterKeyup = (event) => {
     // TODO: Handle arrow keys
     // TODO: Make tab key select first item
     const pressedKey = event.key.toLowerCase()
-    // console.log(pressedKey)
+    console.log(pressedKey)
     if (pressedKey === 'enter') {
         // console.log('ENTER - TODO: Do update here')
         pickSelection()
     } else if (pressedKey === 'escape') {
         deactivateSelector()
+    } else if (pressedKey === 'arrowdown') {
+        state.optionsEl.focus()
+        if (state.filterEl.value === '') {
+            // TODO: Make this use class names so you can be explict with them
+            state.optionsEl.querySelector('option').selected = 'selected'
+        } else {
+            state.optionsEl.querySelectorAll('option')[1].selected = 'selected'
+        }
     } else {
         setOptions()
     }
@@ -239,6 +247,10 @@ document.addEventListener('DOMContentLoaded', kickoff)
 <select id="awsselect--options" style="display: none" size="5"></select>
 
 <h4>Goals</h4>
+<p>
+  (NOTE: this is my scratch pad. There's not specific order and there are
+  duplicates, etc...)
+</p>
 <ul>
   <li>[.] - Show a placeholder when there is no initial input</li>
   <li>[.] - Show a placeholder with most recent selected value</li>
@@ -262,7 +274,7 @@ document.addEventListener('DOMContentLoaded', kickoff)
     will be used if you hit enter
   </li>
   <li>[.] - Clicking outside the input resets it to the place holder</li>
-  <li>[ ] - Clicking an item in the list sets the value and closes the list</li>
+  <li>[.] - Clicking an item in the list sets the value and closes the list</li>
   <li>
     [ ] - Hitting enter when there is not valid selection item doesn't do
     anything
@@ -272,9 +284,15 @@ document.addEventListener('DOMContentLoaded', kickoff)
     holder or selected value
   </li>
   <li>
-    [ ] - Pressing the down arrow in the input field takes you to the list items
+    [.] - Pressing the down arrow in the input field takes you to the first list
+    item if there's no filter text
   </li>
-  <li>[ ] - Pressing escape in the input field takes you out and clear it.</li>
+  <li>
+    [.] - Pressing the down arrow in the input field takes you to the second
+    list item if there's a filter (thinking folks would hit enter if they wanted
+    the first one
+  </li>
+  <li>[.] - Pressing escape in the input field takes you out and clear it.</li>
   <li>
     [.] - Clicking an item in the menu selects it, closes the menu, and returns
     the text to the placeholder
@@ -290,17 +308,31 @@ document.addEventListener('DOMContentLoaded', kickoff)
     back to the same menu
   </li>
   <li>
-    [ ] - On arrow down, if there's nothing in the input field, select the first
+    [.] - On arrow down, if there's nothing in the input field, select the first
     option
   </li>
   <li>
-    [ ] - On arrow down, if there is something in the input field, select the
+    [.] - On arrow down, if there is something in the input field, select the
     second option
   </li>
+  <li>
+    [ ] - Reset selection in menu when opening the form so you don't hit the
+    arrow and end up way down the list from the last interaction
+  </li>
+  <li>
+    [ ] - Keep the size of the selection list the same so it doesn't change when
+    filtering
+  </li>
+  <li>[ ] - Provide for multiple instances on a page</li>
 </ul>
 
-<h4>Future Goals</h4>
+<h4>In The Future</h4>
 <ul>
+  <li>
+    [ ] - Investigate if populating the selection list in HTML offers any
+    accessability improvements
+  </li>
+  <li>[ ] - Put a message in when there are no matches.</li>
   <li>[ ] - Put items you've selected before up at the top</li>
   <li>
     [ ] - Add sections to the drop down list to show the current top filterd
@@ -312,6 +344,11 @@ document.addEventListener('DOMContentLoaded', kickoff)
 <ul>
   <li>
     This is not current the search input type. I'm playing around with trying to
+  </li>
+  <li>
+    Considred arrow up going back to the text selection if you do it on the top
+    element. Need to give it some more though, but I'm thinking not so much.
+    Feels like it breaks the context
   </li>
 </ul>
   
@@ -326,6 +363,10 @@ document.addEventListener('DOMContentLoaded', kickoff)
 &lt;select id=&quot;awsselect--options&quot; style=&quot;display: none&quot; size=&quot;5&quot;&gt;&lt;/select&gt;
 
 &lt;h4&gt;Goals&lt;/h4&gt;
+&lt;p&gt;
+  (NOTE: this is my scratch pad. There&#x27;s not specific order and there are
+  duplicates, etc...)
+&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;[.] - Show a placeholder when there is no initial input&lt;/li&gt;
   &lt;li&gt;[.] - Show a placeholder with most recent selected value&lt;/li&gt;
@@ -349,7 +390,7 @@ document.addEventListener('DOMContentLoaded', kickoff)
     will be used if you hit enter
   &lt;/li&gt;
   &lt;li&gt;[.] - Clicking outside the input resets it to the place holder&lt;/li&gt;
-  &lt;li&gt;[ ] - Clicking an item in the list sets the value and closes the list&lt;/li&gt;
+  &lt;li&gt;[.] - Clicking an item in the list sets the value and closes the list&lt;/li&gt;
   &lt;li&gt;
     [ ] - Hitting enter when there is not valid selection item doesn&#x27;t do
     anything
@@ -359,9 +400,15 @@ document.addEventListener('DOMContentLoaded', kickoff)
     holder or selected value
   &lt;/li&gt;
   &lt;li&gt;
-    [ ] - Pressing the down arrow in the input field takes you to the list items
+    [.] - Pressing the down arrow in the input field takes you to the first list
+    item if there&#x27;s no filter text
   &lt;/li&gt;
-  &lt;li&gt;[ ] - Pressing escape in the input field takes you out and clear it.&lt;/li&gt;
+  &lt;li&gt;
+    [.] - Pressing the down arrow in the input field takes you to the second
+    list item if there&#x27;s a filter (thinking folks would hit enter if they wanted
+    the first one
+  &lt;/li&gt;
+  &lt;li&gt;[.] - Pressing escape in the input field takes you out and clear it.&lt;/li&gt;
   &lt;li&gt;
     [.] - Clicking an item in the menu selects it, closes the menu, and returns
     the text to the placeholder
@@ -377,17 +424,31 @@ document.addEventListener('DOMContentLoaded', kickoff)
     back to the same menu
   &lt;/li&gt;
   &lt;li&gt;
-    [ ] - On arrow down, if there&#x27;s nothing in the input field, select the first
+    [.] - On arrow down, if there&#x27;s nothing in the input field, select the first
     option
   &lt;/li&gt;
   &lt;li&gt;
-    [ ] - On arrow down, if there is something in the input field, select the
+    [.] - On arrow down, if there is something in the input field, select the
     second option
   &lt;/li&gt;
+  &lt;li&gt;
+    [ ] - Reset selection in menu when opening the form so you don&#x27;t hit the
+    arrow and end up way down the list from the last interaction
+  &lt;/li&gt;
+  &lt;li&gt;
+    [ ] - Keep the size of the selection list the same so it doesn&#x27;t change when
+    filtering
+  &lt;/li&gt;
+  &lt;li&gt;[ ] - Provide for multiple instances on a page&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4&gt;Future Goals&lt;/h4&gt;
+&lt;h4&gt;In The Future&lt;/h4&gt;
 &lt;ul&gt;
+  &lt;li&gt;
+    [ ] - Investigate if populating the selection list in HTML offers any
+    accessability improvements
+  &lt;/li&gt;
+  &lt;li&gt;[ ] - Put a message in when there are no matches.&lt;/li&gt;
   &lt;li&gt;[ ] - Put items you&#x27;ve selected before up at the top&lt;/li&gt;
   &lt;li&gt;
     [ ] - Add sections to the drop down list to show the current top filterd
@@ -399,6 +460,11 @@ document.addEventListener('DOMContentLoaded', kickoff)
 &lt;ul&gt;
   &lt;li&gt;
     This is not current the search input type. I&#x27;m playing around with trying to
+  &lt;/li&gt;
+  &lt;li&gt;
+    Considred arrow up going back to the text selection if you do it on the top
+    element. Need to give it some more though, but I&#x27;m thinking not so much.
+    Feels like it breaks the context
   &lt;/li&gt;
 &lt;/ul&gt;
 </code></pre>
@@ -468,12 +534,20 @@ const handleFilterKeyup = (event) =&gt; {
     // TODO: Handle arrow keys
     // TODO: Make tab key select first item
     const pressedKey = event.key.toLowerCase()
-    // console.log(pressedKey)
+    console.log(pressedKey)
     if (pressedKey === &#x27;enter&#x27;) {
         // console.log(&#x27;ENTER - TODO: Do update here&#x27;)
         pickSelection()
     } else if (pressedKey === &#x27;escape&#x27;) {
         deactivateSelector()
+    } else if (pressedKey === &#x27;arrowdown&#x27;) {
+        state.optionsEl.focus()
+        if (state.filterEl.value === &#x27;&#x27;) {
+            // TODO: Make this use class names so you can be explict with them
+            state.optionsEl.querySelector(&#x27;option&#x27;).selected = &#x27;selected&#x27;
+        } else {
+            state.optionsEl.querySelectorAll(&#x27;option&#x27;)[1].selected = &#x27;selected&#x27;
+        }
     } else {
         setOptions()
     }
