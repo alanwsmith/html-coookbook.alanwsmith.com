@@ -171,6 +171,10 @@ const updateOptions = () => {
         }
         state.optionsEl.appendChild(newOption)
     })
+    const spacingOption = document.createElement('option')
+    spacingOption.innerHTML = '-----------------------------'
+    spacingOption.disabled = 'disabled'
+    state.optionsEl.appendChild(spacingOption)
 }
 
 const kickoff = () => {
