@@ -206,6 +206,10 @@ const updateOptions = () => {
         }
         state.optionsEl.appendChild(newOption)
     })
+    const spacingOption = document.createElement('option')
+    spacingOption.innerHTML = '-----------------------------'
+    spacingOption.disabled = 'disabled'
+    state.optionsEl.appendChild(spacingOption)
 }
 
 const kickoff = () => {
@@ -321,7 +325,7 @@ document.addEventListener('DOMContentLoaded', kickoff)
     arrow and end up way down the list from the last interaction
   </li>
   <li>
-    [ ] - Keep the size of the selection list the same so it doesn't change when
+    [.] - Keep the size of the selection list the same so it doesn't change when
     filtering
   </li>
   <li>[ ] - Provide for multiple instances on a page</li>
@@ -339,17 +343,25 @@ document.addEventListener('DOMContentLoaded', kickoff)
     [ ] - Add sections to the drop down list to show the current top filterd
     item and previous selections
   </li>
+  <li>[ ] - Set the size of the selection box spacer dynamically</li>
+  <li>
+    [ ] - Truncate the text of items that would extend past whatever spaceing is
+    set
+  </li>
+  <li>
+    Investigate having the uparrow move back to the text if it's hit while on
+    the first element in the list
+  </li>
+  <li>
+    Investigate option to keep primary sort order during inital browse but
+    swtich to alpha when text is in the search field
+  </li>
 </ul>
 
 <h4>Notes</h4>
 <ul>
   <li>
     This is not current the search input type. I'm playing around with trying to
-  </li>
-  <li>
-    Considred arrow up going back to the text selection if you do it on the top
-    element. Need to give it some more though, but I'm thinking not so much.
-    Feels like it breaks the context
   </li>
 </ul>
   
@@ -437,7 +449,7 @@ document.addEventListener('DOMContentLoaded', kickoff)
     arrow and end up way down the list from the last interaction
   &lt;/li&gt;
   &lt;li&gt;
-    [ ] - Keep the size of the selection list the same so it doesn&#x27;t change when
+    [.] - Keep the size of the selection list the same so it doesn&#x27;t change when
     filtering
   &lt;/li&gt;
   &lt;li&gt;[ ] - Provide for multiple instances on a page&lt;/li&gt;
@@ -455,17 +467,25 @@ document.addEventListener('DOMContentLoaded', kickoff)
     [ ] - Add sections to the drop down list to show the current top filterd
     item and previous selections
   &lt;/li&gt;
+  &lt;li&gt;[ ] - Set the size of the selection box spacer dynamically&lt;/li&gt;
+  &lt;li&gt;
+    [ ] - Truncate the text of items that would extend past whatever spaceing is
+    set
+  &lt;/li&gt;
+  &lt;li&gt;
+    Investigate having the uparrow move back to the text if it&#x27;s hit while on
+    the first element in the list
+  &lt;/li&gt;
+  &lt;li&gt;
+    Investigate option to keep primary sort order during inital browse but
+    swtich to alpha when text is in the search field
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4&gt;Notes&lt;/h4&gt;
 &lt;ul&gt;
   &lt;li&gt;
     This is not current the search input type. I&#x27;m playing around with trying to
-  &lt;/li&gt;
-  &lt;li&gt;
-    Considred arrow up going back to the text selection if you do it on the top
-    element. Need to give it some more though, but I&#x27;m thinking not so much.
-    Feels like it breaks the context
   &lt;/li&gt;
 &lt;/ul&gt;
 </code></pre>
@@ -648,6 +668,10 @@ const updateOptions = () =&gt; {
         }
         state.optionsEl.appendChild(newOption)
     })
+    const spacingOption = document.createElement(&#x27;option&#x27;)
+    spacingOption.innerHTML = &#x27;-----------------------------&#x27;
+    spacingOption.disabled = &#x27;disabled&#x27;
+    state.optionsEl.appendChild(spacingOption)
 }
 
 const kickoff = () =&gt; {
