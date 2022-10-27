@@ -67,7 +67,8 @@ const handleFilterKeyup = (event) => {
     } else if (pressedKey === 'arrowdown') {
         state.optionsEl.focus()
         if (state.filterEl.value === '') {
-            // TODO: Make this use class names so you can be explict with them
+            // TODO: Use class selectors for this so you can
+            // multiple on the same page.
             state.optionsEl.querySelector('option').selected = 'selected'
         } else {
             state.optionsEl.querySelectorAll('option')[1].selected = 'selected'

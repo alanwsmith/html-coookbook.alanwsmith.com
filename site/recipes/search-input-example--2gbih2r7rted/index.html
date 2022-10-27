@@ -102,7 +102,8 @@ const handleFilterKeyup = (event) => {
     } else if (pressedKey === 'arrowdown') {
         state.optionsEl.focus()
         if (state.filterEl.value === '') {
-            // TODO: Make this use class names so you can be explict with them
+            // TODO: Use class selectors for this so you can
+            // multiple on the same page.
             state.optionsEl.querySelector('option').selected = 'selected'
         } else {
             state.optionsEl.querySelectorAll('option')[1].selected = 'selected'
@@ -543,7 +544,8 @@ const handleFilterKeyup = (event) =&gt; {
     } else if (pressedKey === &#x27;arrowdown&#x27;) {
         state.optionsEl.focus()
         if (state.filterEl.value === &#x27;&#x27;) {
-            // TODO: Make this use class names so you can be explict with them
+            // TODO: Use class selectors for this so you can
+            // multiple on the same page.
             state.optionsEl.querySelector(&#x27;option&#x27;).selected = &#x27;selected&#x27;
         } else {
             state.optionsEl.querySelectorAll(&#x27;option&#x27;)[1].selected = &#x27;selected&#x27;
