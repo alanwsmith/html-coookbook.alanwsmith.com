@@ -33,6 +33,7 @@ const state = {
     optionsEl: null,
     options: [],
     selection: null,
+    upArrowCheck: null,
 }
 
 const deactivateSelector = () => {
@@ -73,21 +74,25 @@ const handleFilterKeyup = (event) => {
         } else {
             state.optionsEl.querySelectorAll('option')[1].selected = 'selected'
         }
+        state.upArrowCheck = state.optionsEl.value
     } else {
         setOptions()
     }
 }
 
 const handleOptionsKeyup = (event) => {
-    // console.log(event.target.value)
     const pressedKey = event.key.toLowerCase()
     if (pressedKey === 'enter') {
         pickSelection(event.target.value)
     } else if (pressedKey === 'escape') {
         deactivateSelector()
+    } else if (pressedKey === 'arrowup') {
+        console.log(state.optionsEl.value)
+        if (state.upArrowCheck === state.optionsEl.value) {
+            state.filterEl.focus()
+        }
     }
-    // TODO: If this is empty I think you can use that
-    // to set the first item as selected
+    state.upArrowCheck = state.optionsEl.value
 }
 
 const handlePageClick = (event) => {
