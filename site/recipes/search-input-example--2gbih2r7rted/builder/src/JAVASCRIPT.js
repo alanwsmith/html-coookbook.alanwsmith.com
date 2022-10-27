@@ -58,21 +58,21 @@ const handleFilterFocus = () => {
     state.optionsEl.size = 5
     state.optionsEl.id = 'awsselect--options'
     state.wrapperEl.appendChild(state.optionsEl)
-    // state.optionsEl.style.display = 'inline'
+    state.optionsEl.addEventListener('keyup', handleOptionsKeyup)
     state.filterEl.placeholder = ''
     setOptions()
 }
 
 const handleFilterKeydown = (event) => {
-    // const pressedKey = event.key.toLowerCase()
-    // console.log(pressedKey)
-    // if (pressedKey === 'tab') {
-    //     // console.log('tabhhhhhasdf')
-    //     event.preventDefault()
-    //     state.filterEl.blur()
-    //     state.optionsEl.querySelector('option').setAttribute('selected', true)
-    //     state.optionsEl.focus()
-    // }
+    const pressedKey = event.key.toLowerCase()
+    console.log(pressedKey)
+    if (pressedKey === 'tab') {
+        // console.log('tabhhhhhasdf')
+        event.preventDefault()
+        state.filterEl.blur()
+        state.optionsEl.querySelector('option').setAttribute('selected', true)
+        state.optionsEl.focus()
+    }
 }
 
 const handleFilterKeyup = (event) => {
@@ -138,28 +138,28 @@ const handlePageClick = (event) => {
 
 const pickSelection = (key = null) => {
     console.log(`pickSelection: ${key}`)
-    if (key === null) {
-        state.selection = state.options[0]
-    } else {
-        for (
-            let fontIndex = 0;
-            fontIndex < fontsByPopularity.length;
-            fontIndex += 1
-        ) {
-            if (fontsByPopularity[fontIndex].key === key) {
-                state.selection = fontsByPopularity[fontIndex]
-                break
+    if (state.options.length > 0) {
+        if (key === null) {
+            state.selection = state.options[0]
+        } else {
+            for (
+                let fontIndex = 0;
+                fontIndex < fontsByPopularity.length;
+                fontIndex += 1
+            ) {
+                if (fontsByPopularity[fontIndex].key === key) {
+                    state.selection = fontsByPopularity[fontIndex]
+                    break
+                }
             }
         }
+        state.placeholder = state.selection.value
+        console.log(state.placeholder)
+        deactivateSelector()
     }
-    state.placeholder = state.selection.value
-    console.log(state.placeholder)
-    deactivateSelector()
 }
 
 const removeOptions = () => {
-    //// const selectionsEl = document.getElementById('awsselect--options')
-    ////
     if (state.optionsEl) {
         while (state.optionsEl.firstChild) {
             state.optionsEl.removeChild(state.optionsEl.firstChild)
@@ -191,23 +191,35 @@ const setPlaceholder = (newValue = null) => {
 
 const updateOptions = () => {
     removeOptions()
-    // state.optionsEl.name = `new-name-${new Date().getTime()}`
-    state.options.forEach((font, fontIndex) => {
-        const newOption = document.createElement('option')
-        newOption.value = font.key
-        newOption.innerHTML = font.value
-        newOption.id = `awsselect--selection--${font.key}`
-        newOption.removeAttribute('selected')
-        if (fontIndex === 0 && state.filterEl.value !== '') {
-            newOption.selected = 'selected'
-        }
-        state.optionsEl.appendChild(newOption)
-    })
+    if (state.optionsEl) {
+        state.options.forEach((font, fontIndex) => {
+            const newOption = document.createElement('option')
+            newOption.value = font.key
+            newOption.innerHTML = font.value
+            newOption.id = `awsselect--selection--${font.key}`
+            // newOption.removeAttribute('selected')
+            if (fontIndex === 0 && state.filterEl.value !== '') {
+                newOption.selected = 'selected'
+            }
+            state.optionsEl.appendChild(newOption)
+        })
 
-    // const spacingOption = document.createElement('option')
-    // spacingOption.innerHTML = '-----------------------------'
-    // spacingOption.disabled = 'disabled'
-    // state.optionsEl.appendChild(spacingOption)
+        if (state.options.length > 0) {
+            const spacingOption = document.createElement('option')
+            spacingOption.innerHTML = '-----------------------------'
+            spacingOption.disabled = 'disabled'
+            state.optionsEl.appendChild(spacingOption)
+        } else {
+            const errorOption = document.createElement('option')
+            errorOption.innerHTML = '  No Matches'
+            errorOption.disabled = 'disabled'
+            state.optionsEl.appendChild(errorOption)
+            const spacingOption = document.createElement('option')
+            spacingOption.innerHTML = '-----------------------------'
+            spacingOption.disabled = 'disabled'
+            state.optionsEl.appendChild(spacingOption)
+        }
+    }
 }
 
 const kickoff = () => {

@@ -1,21 +1,14 @@
-<input
-  id="awsselect--filter"
-  type="text"
-  autocomplete="off"
-  spellcheck="false"
-  name="awsselect--this-is-the-input"
-/>
-<br />
-<div id="awsselect--options-wrapper"></div>
-<!--
-<select
-  id="awsselect--options"
-  style="display: none"
-  size="5"
-  autocomplete="off"
-  name="awsselect--name-goes-here"
-></select>
--->
+<div id="awsselect--top-wrapper">
+  <input
+    id="awsselect--filter"
+    type="text"
+    autocomplete="off"
+    spellcheck="false"
+    name="awsselect--this-is-the-input"
+  />
+  <br />
+  <div id="awsselect--options-wrapper"></div>
+</div>
 
 <h4>Goals</h4>
 <p>
@@ -47,12 +40,8 @@
   <li>[.] - Clicking outside the input resets it to the place holder</li>
   <li>[.] - Clicking an item in the list sets the value and closes the list</li>
   <li>
-    [ ] - Hitting enter when there is not valid selection item doesn't do
+    [.] - Hitting enter when there is not valid selection item doesn't do
     anything
-  </li>
-  <li>
-    [ ] - Hitting enter on the text field when it's empty doesn't change place
-    holder or selected value
   </li>
   <li>
     [.] - Pressing the down arrow in the input field takes you to the first list
@@ -73,11 +62,7 @@
     text field
   </li>
   <li>[.] - Hitting enter while on the selection list triggers update</li>
-  <li>[ ] - Menu list doesn't shift layout</li>
-  <li>
-    [ ] - When a selection is made, move the tab index so a press of tab goes
-    back to the same menu
-  </li>
+  <li>[.] - Menu list doesn't shift layout</li>
   <li>
     [.] - On arrow down, if there's nothing in the input field, select the first
     option
@@ -87,35 +72,40 @@
     second option
   </li>
   <li>
-    [ ] - Reset selection in menu when opening the form so you don't hit the
-    arrow and end up way down the list from the last interaction
-  </li>
-  <li>
     [.] - Keep the size of the selection list the same so it doesn't change when
     filtering
   </li>
-  <li>[ ] - Provide for multiple instances on a page</li>
   <li>[.] - If you only go down one option make sure up arrow works</li>
   <li>
-    [ ] - If youre in the menu and you click into the text field it needs to
+    [.] - If youre in the menu and you click into the text field it needs to
     close/kill the select menu
+  </li>
+  <li>
+    [.] - Reset selection in menu when opening the form so you don't hit the
+    arrow and end up way down the list from the last interaction
+  </li>
+  <li>
+    [.] - Fix issue with safari where it would keep track of how far down the
+    last selection (even if you reset it) was which was undesireable. (Solution
+    was to remove the element from the DOM and create a new one)
+  </li>
+  <li>[ ] - Provide for multiple instances on a page</li>
+  <li>
+    [ ] - When a selection is made, move the tab index so a press of tab goes
+    back to the same menu
+  </li>
+  <li>
+    [ ] - Hitting enter on the text field when it's empty doesn't change place
+    holder or selected value (right now it'll select the first item)
   </li>
 </ul>
 
 <h4>In The Future</h4>
 <ul>
   <li>
-    [ ] - INprogrss - trying to remove then remake the elemtn (orignal note:
-    There's a behavoir I can't figure out with Safari. If you make a selection
-    down in the menu, the next time you click into the filter text and tab to
-    the list if you hit the down arrow it picks up one ofter thing that that was
-    clicked. It does these even when I expliclty set and remove every element's
-    'selected' attribute and when I change both the key and the value of the
-    options. Doesn't do that in Chrome or Firefox. Next thing I can think of is
-    to change the id of the select element. That might be non-trivial though so
-    I'm not sure if I want to get into it.)
+    [ ] - Right now if you hit enter before typing it closes the menu.
+    Investigate leaving it open
   </li>
-
   <li>
     [ ] - Investigate if populating the selection list in HTML offers any
     accessability improvements
@@ -132,13 +122,18 @@
     set
   </li>
   <li>
-    Investigate having the uparrow move back to the text if it's hit while on
-    the first element in the list
+    [ ] - Investigate having the uparrow move back to the text if it's hit while
+    on the first element in the list
   </li>
   <li>
-    Investigate option to keep primary sort order during inital browse but
+    [ ] - Investigate option to keep primary sort order during inital browse but
     swtich to alpha when text is in the search field
   </li>
+  <li>
+    [ ] - Fix bug where if there's only one option and you hit the down arrow it
+    selects the diabled spacer line
+  </li>
+  <li>[ ] - Investigate a more advanced search algorythim</li>
 </ul>
 
 <h4>Notes</h4>

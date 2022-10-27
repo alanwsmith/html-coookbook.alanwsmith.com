@@ -29,7 +29,18 @@
     <link rel="stylesheet" href="/styles/prism.css" />
     
     <style>
-      /* Any styles for the page go here */
+      #awsselect--filter {
+  position: absolute;
+}
+
+#awsselect--options-wrapper {
+  position: absolute;
+}
+
+#awsselect--top-wrapper {
+  display: inline;
+  position: relative;
+}
 
     </style>
     <script>
@@ -93,21 +104,21 @@ const handleFilterFocus = () => {
     state.optionsEl.size = 5
     state.optionsEl.id = 'awsselect--options'
     state.wrapperEl.appendChild(state.optionsEl)
-    // state.optionsEl.style.display = 'inline'
+    state.optionsEl.addEventListener('keyup', handleOptionsKeyup)
     state.filterEl.placeholder = ''
     setOptions()
 }
 
 const handleFilterKeydown = (event) => {
-    // const pressedKey = event.key.toLowerCase()
-    // console.log(pressedKey)
-    // if (pressedKey === 'tab') {
-    //     // console.log('tabhhhhhasdf')
-    //     event.preventDefault()
-    //     state.filterEl.blur()
-    //     state.optionsEl.querySelector('option').setAttribute('selected', true)
-    //     state.optionsEl.focus()
-    // }
+    const pressedKey = event.key.toLowerCase()
+    console.log(pressedKey)
+    if (pressedKey === 'tab') {
+        // console.log('tabhhhhhasdf')
+        event.preventDefault()
+        state.filterEl.blur()
+        state.optionsEl.querySelector('option').setAttribute('selected', true)
+        state.optionsEl.focus()
+    }
 }
 
 const handleFilterKeyup = (event) => {
@@ -173,28 +184,28 @@ const handlePageClick = (event) => {
 
 const pickSelection = (key = null) => {
     console.log(`pickSelection: ${key}`)
-    if (key === null) {
-        state.selection = state.options[0]
-    } else {
-        for (
-            let fontIndex = 0;
-            fontIndex < fontsByPopularity.length;
-            fontIndex += 1
-        ) {
-            if (fontsByPopularity[fontIndex].key === key) {
-                state.selection = fontsByPopularity[fontIndex]
-                break
+    if (state.options.length > 0) {
+        if (key === null) {
+            state.selection = state.options[0]
+        } else {
+            for (
+                let fontIndex = 0;
+                fontIndex < fontsByPopularity.length;
+                fontIndex += 1
+            ) {
+                if (fontsByPopularity[fontIndex].key === key) {
+                    state.selection = fontsByPopularity[fontIndex]
+                    break
+                }
             }
         }
+        state.placeholder = state.selection.value
+        console.log(state.placeholder)
+        deactivateSelector()
     }
-    state.placeholder = state.selection.value
-    console.log(state.placeholder)
-    deactivateSelector()
 }
 
 const removeOptions = () => {
-    //// const selectionsEl = document.getElementById('awsselect--options')
-    ////
     if (state.optionsEl) {
         while (state.optionsEl.firstChild) {
             state.optionsEl.removeChild(state.optionsEl.firstChild)
@@ -226,23 +237,35 @@ const setPlaceholder = (newValue = null) => {
 
 const updateOptions = () => {
     removeOptions()
-    // state.optionsEl.name = `new-name-${new Date().getTime()}`
-    state.options.forEach((font, fontIndex) => {
-        const newOption = document.createElement('option')
-        newOption.value = font.key
-        newOption.innerHTML = font.value
-        newOption.id = `awsselect--selection--${font.key}`
-        newOption.removeAttribute('selected')
-        if (fontIndex === 0 && state.filterEl.value !== '') {
-            newOption.selected = 'selected'
-        }
-        state.optionsEl.appendChild(newOption)
-    })
+    if (state.optionsEl) {
+        state.options.forEach((font, fontIndex) => {
+            const newOption = document.createElement('option')
+            newOption.value = font.key
+            newOption.innerHTML = font.value
+            newOption.id = `awsselect--selection--${font.key}`
+            // newOption.removeAttribute('selected')
+            if (fontIndex === 0 && state.filterEl.value !== '') {
+                newOption.selected = 'selected'
+            }
+            state.optionsEl.appendChild(newOption)
+        })
 
-    // const spacingOption = document.createElement('option')
-    // spacingOption.innerHTML = '-----------------------------'
-    // spacingOption.disabled = 'disabled'
-    // state.optionsEl.appendChild(spacingOption)
+        if (state.options.length > 0) {
+            const spacingOption = document.createElement('option')
+            spacingOption.innerHTML = '-----------------------------'
+            spacingOption.disabled = 'disabled'
+            state.optionsEl.appendChild(spacingOption)
+        } else {
+            const errorOption = document.createElement('option')
+            errorOption.innerHTML = '  No Matches'
+            errorOption.disabled = 'disabled'
+            state.optionsEl.appendChild(errorOption)
+            const spacingOption = document.createElement('option')
+            spacingOption.innerHTML = '-----------------------------'
+            spacingOption.disabled = 'disabled'
+            state.optionsEl.appendChild(spacingOption)
+        }
+    }
 }
 
 const kickoff = () => {
@@ -280,24 +303,17 @@ document.addEventListener('DOMContentLoaded', kickoff)
     <main>
       <h1>Search Input Example</h1>
       <h2>TL;DR</h2>
-      <input
-  id="awsselect--filter"
-  type="text"
-  autocomplete="off"
-  spellcheck="false"
-  name="awsselect--this-is-the-input"
-/>
-<br />
-<div id="awsselect--options-wrapper"></div>
-<!--
-<select
-  id="awsselect--options"
-  style="display: none"
-  size="5"
-  autocomplete="off"
-  name="awsselect--name-goes-here"
-></select>
--->
+      <div id="awsselect--top-wrapper">
+  <input
+    id="awsselect--filter"
+    type="text"
+    autocomplete="off"
+    spellcheck="false"
+    name="awsselect--this-is-the-input"
+  />
+  <br />
+  <div id="awsselect--options-wrapper"></div>
+</div>
 
 <h4>Goals</h4>
 <p>
@@ -329,12 +345,8 @@ document.addEventListener('DOMContentLoaded', kickoff)
   <li>[.] - Clicking outside the input resets it to the place holder</li>
   <li>[.] - Clicking an item in the list sets the value and closes the list</li>
   <li>
-    [ ] - Hitting enter when there is not valid selection item doesn't do
+    [.] - Hitting enter when there is not valid selection item doesn't do
     anything
-  </li>
-  <li>
-    [ ] - Hitting enter on the text field when it's empty doesn't change place
-    holder or selected value
   </li>
   <li>
     [.] - Pressing the down arrow in the input field takes you to the first list
@@ -355,11 +367,7 @@ document.addEventListener('DOMContentLoaded', kickoff)
     text field
   </li>
   <li>[.] - Hitting enter while on the selection list triggers update</li>
-  <li>[ ] - Menu list doesn't shift layout</li>
-  <li>
-    [ ] - When a selection is made, move the tab index so a press of tab goes
-    back to the same menu
-  </li>
+  <li>[.] - Menu list doesn't shift layout</li>
   <li>
     [.] - On arrow down, if there's nothing in the input field, select the first
     option
@@ -369,35 +377,40 @@ document.addEventListener('DOMContentLoaded', kickoff)
     second option
   </li>
   <li>
-    [ ] - Reset selection in menu when opening the form so you don't hit the
-    arrow and end up way down the list from the last interaction
-  </li>
-  <li>
     [.] - Keep the size of the selection list the same so it doesn't change when
     filtering
   </li>
-  <li>[ ] - Provide for multiple instances on a page</li>
   <li>[.] - If you only go down one option make sure up arrow works</li>
   <li>
-    [ ] - If youre in the menu and you click into the text field it needs to
+    [.] - If youre in the menu and you click into the text field it needs to
     close/kill the select menu
+  </li>
+  <li>
+    [.] - Reset selection in menu when opening the form so you don't hit the
+    arrow and end up way down the list from the last interaction
+  </li>
+  <li>
+    [.] - Fix issue with safari where it would keep track of how far down the
+    last selection (even if you reset it) was which was undesireable. (Solution
+    was to remove the element from the DOM and create a new one)
+  </li>
+  <li>[ ] - Provide for multiple instances on a page</li>
+  <li>
+    [ ] - When a selection is made, move the tab index so a press of tab goes
+    back to the same menu
+  </li>
+  <li>
+    [ ] - Hitting enter on the text field when it's empty doesn't change place
+    holder or selected value (right now it'll select the first item)
   </li>
 </ul>
 
 <h4>In The Future</h4>
 <ul>
   <li>
-    [ ] - INprogrss - trying to remove then remake the elemtn (orignal note:
-    There's a behavoir I can't figure out with Safari. If you make a selection
-    down in the menu, the next time you click into the filter text and tab to
-    the list if you hit the down arrow it picks up one ofter thing that that was
-    clicked. It does these even when I expliclty set and remove every element's
-    'selected' attribute and when I change both the key and the value of the
-    options. Doesn't do that in Chrome or Firefox. Next thing I can think of is
-    to change the id of the select element. That might be non-trivial though so
-    I'm not sure if I want to get into it.)
+    [ ] - Right now if you hit enter before typing it closes the menu.
+    Investigate leaving it open
   </li>
-
   <li>
     [ ] - Investigate if populating the selection list in HTML offers any
     accessability improvements
@@ -414,13 +427,18 @@ document.addEventListener('DOMContentLoaded', kickoff)
     set
   </li>
   <li>
-    Investigate having the uparrow move back to the text if it's hit while on
-    the first element in the list
+    [ ] - Investigate having the uparrow move back to the text if it's hit while
+    on the first element in the list
   </li>
   <li>
-    Investigate option to keep primary sort order during inital browse but
+    [ ] - Investigate option to keep primary sort order during inital browse but
     swtich to alpha when text is in the search field
   </li>
+  <li>
+    [ ] - Fix bug where if there's only one option and you hit the down arrow it
+    selects the diabled spacer line
+  </li>
+  <li>[ ] - Investigate a more advanced search algorythim</li>
 </ul>
 
 <h4>Notes</h4>
@@ -431,24 +449,17 @@ document.addEventListener('DOMContentLoaded', kickoff)
 </ul>
   
             <h2>HTML</h2>
-            <pre><code class="language-html">&lt;input
-  id=&quot;awsselect--filter&quot;
-  type=&quot;text&quot;
-  autocomplete=&quot;off&quot;
-  spellcheck=&quot;false&quot;
-  name=&quot;awsselect--this-is-the-input&quot;
-/&gt;
-&lt;br /&gt;
-&lt;div id=&quot;awsselect--options-wrapper&quot;&gt;&lt;/div&gt;
-&lt;!--
-&lt;select
-  id=&quot;awsselect--options&quot;
-  style=&quot;display: none&quot;
-  size=&quot;5&quot;
-  autocomplete=&quot;off&quot;
-  name=&quot;awsselect--name-goes-here&quot;
-&gt;&lt;/select&gt;
---&gt;
+            <pre><code class="language-html">&lt;div id=&quot;awsselect--top-wrapper&quot;&gt;
+  &lt;input
+    id=&quot;awsselect--filter&quot;
+    type=&quot;text&quot;
+    autocomplete=&quot;off&quot;
+    spellcheck=&quot;false&quot;
+    name=&quot;awsselect--this-is-the-input&quot;
+  /&gt;
+  &lt;br /&gt;
+  &lt;div id=&quot;awsselect--options-wrapper&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
 
 &lt;h4&gt;Goals&lt;/h4&gt;
 &lt;p&gt;
@@ -480,12 +491,8 @@ document.addEventListener('DOMContentLoaded', kickoff)
   &lt;li&gt;[.] - Clicking outside the input resets it to the place holder&lt;/li&gt;
   &lt;li&gt;[.] - Clicking an item in the list sets the value and closes the list&lt;/li&gt;
   &lt;li&gt;
-    [ ] - Hitting enter when there is not valid selection item doesn&#x27;t do
+    [.] - Hitting enter when there is not valid selection item doesn&#x27;t do
     anything
-  &lt;/li&gt;
-  &lt;li&gt;
-    [ ] - Hitting enter on the text field when it&#x27;s empty doesn&#x27;t change place
-    holder or selected value
   &lt;/li&gt;
   &lt;li&gt;
     [.] - Pressing the down arrow in the input field takes you to the first list
@@ -506,11 +513,7 @@ document.addEventListener('DOMContentLoaded', kickoff)
     text field
   &lt;/li&gt;
   &lt;li&gt;[.] - Hitting enter while on the selection list triggers update&lt;/li&gt;
-  &lt;li&gt;[ ] - Menu list doesn&#x27;t shift layout&lt;/li&gt;
-  &lt;li&gt;
-    [ ] - When a selection is made, move the tab index so a press of tab goes
-    back to the same menu
-  &lt;/li&gt;
+  &lt;li&gt;[.] - Menu list doesn&#x27;t shift layout&lt;/li&gt;
   &lt;li&gt;
     [.] - On arrow down, if there&#x27;s nothing in the input field, select the first
     option
@@ -520,35 +523,40 @@ document.addEventListener('DOMContentLoaded', kickoff)
     second option
   &lt;/li&gt;
   &lt;li&gt;
-    [ ] - Reset selection in menu when opening the form so you don&#x27;t hit the
-    arrow and end up way down the list from the last interaction
-  &lt;/li&gt;
-  &lt;li&gt;
     [.] - Keep the size of the selection list the same so it doesn&#x27;t change when
     filtering
   &lt;/li&gt;
-  &lt;li&gt;[ ] - Provide for multiple instances on a page&lt;/li&gt;
   &lt;li&gt;[.] - If you only go down one option make sure up arrow works&lt;/li&gt;
   &lt;li&gt;
-    [ ] - If youre in the menu and you click into the text field it needs to
+    [.] - If youre in the menu and you click into the text field it needs to
     close/kill the select menu
+  &lt;/li&gt;
+  &lt;li&gt;
+    [.] - Reset selection in menu when opening the form so you don&#x27;t hit the
+    arrow and end up way down the list from the last interaction
+  &lt;/li&gt;
+  &lt;li&gt;
+    [.] - Fix issue with safari where it would keep track of how far down the
+    last selection (even if you reset it) was which was undesireable. (Solution
+    was to remove the element from the DOM and create a new one)
+  &lt;/li&gt;
+  &lt;li&gt;[ ] - Provide for multiple instances on a page&lt;/li&gt;
+  &lt;li&gt;
+    [ ] - When a selection is made, move the tab index so a press of tab goes
+    back to the same menu
+  &lt;/li&gt;
+  &lt;li&gt;
+    [ ] - Hitting enter on the text field when it&#x27;s empty doesn&#x27;t change place
+    holder or selected value (right now it&#x27;ll select the first item)
   &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4&gt;In The Future&lt;/h4&gt;
 &lt;ul&gt;
   &lt;li&gt;
-    [ ] - INprogrss - trying to remove then remake the elemtn (orignal note:
-    There&#x27;s a behavoir I can&#x27;t figure out with Safari. If you make a selection
-    down in the menu, the next time you click into the filter text and tab to
-    the list if you hit the down arrow it picks up one ofter thing that that was
-    clicked. It does these even when I expliclty set and remove every element&#x27;s
-    &#x27;selected&#x27; attribute and when I change both the key and the value of the
-    options. Doesn&#x27;t do that in Chrome or Firefox. Next thing I can think of is
-    to change the id of the select element. That might be non-trivial though so
-    I&#x27;m not sure if I want to get into it.)
+    [ ] - Right now if you hit enter before typing it closes the menu.
+    Investigate leaving it open
   &lt;/li&gt;
-
   &lt;li&gt;
     [ ] - Investigate if populating the selection list in HTML offers any
     accessability improvements
@@ -565,13 +573,18 @@ document.addEventListener('DOMContentLoaded', kickoff)
     set
   &lt;/li&gt;
   &lt;li&gt;
-    Investigate having the uparrow move back to the text if it&#x27;s hit while on
-    the first element in the list
+    [ ] - Investigate having the uparrow move back to the text if it&#x27;s hit while
+    on the first element in the list
   &lt;/li&gt;
   &lt;li&gt;
-    Investigate option to keep primary sort order during inital browse but
+    [ ] - Investigate option to keep primary sort order during inital browse but
     swtich to alpha when text is in the search field
   &lt;/li&gt;
+  &lt;li&gt;
+    [ ] - Fix bug where if there&#x27;s only one option and you hit the down arrow it
+    selects the diabled spacer line
+  &lt;/li&gt;
+  &lt;li&gt;[ ] - Investigate a more advanced search algorythim&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4&gt;Notes&lt;/h4&gt;
@@ -583,7 +596,18 @@ document.addEventListener('DOMContentLoaded', kickoff)
 </code></pre>
              
             <h2>CSS</h2>
-            <pre><code class="language-css">/* Any styles for the page go here */
+            <pre><code class="language-css">#awsselect--filter {
+  position: absolute;
+}
+
+#awsselect--options-wrapper {
+  position: absolute;
+}
+
+#awsselect--top-wrapper {
+  display: inline;
+  position: relative;
+}
 </code></pre>
              
             <h2>JavaScript</h2>
@@ -647,21 +671,21 @@ const handleFilterFocus = () =&gt; {
     state.optionsEl.size = 5
     state.optionsEl.id = &#x27;awsselect--options&#x27;
     state.wrapperEl.appendChild(state.optionsEl)
-    // state.optionsEl.style.display = &#x27;inline&#x27;
+    state.optionsEl.addEventListener(&#x27;keyup&#x27;, handleOptionsKeyup)
     state.filterEl.placeholder = &#x27;&#x27;
     setOptions()
 }
 
 const handleFilterKeydown = (event) =&gt; {
-    // const pressedKey = event.key.toLowerCase()
-    // console.log(pressedKey)
-    // if (pressedKey === &#x27;tab&#x27;) {
-    //     // console.log(&#x27;tabhhhhhasdf&#x27;)
-    //     event.preventDefault()
-    //     state.filterEl.blur()
-    //     state.optionsEl.querySelector(&#x27;option&#x27;).setAttribute(&#x27;selected&#x27;, true)
-    //     state.optionsEl.focus()
-    // }
+    const pressedKey = event.key.toLowerCase()
+    console.log(pressedKey)
+    if (pressedKey === &#x27;tab&#x27;) {
+        // console.log(&#x27;tabhhhhhasdf&#x27;)
+        event.preventDefault()
+        state.filterEl.blur()
+        state.optionsEl.querySelector(&#x27;option&#x27;).setAttribute(&#x27;selected&#x27;, true)
+        state.optionsEl.focus()
+    }
 }
 
 const handleFilterKeyup = (event) =&gt; {
@@ -727,28 +751,28 @@ const handlePageClick = (event) =&gt; {
 
 const pickSelection = (key = null) =&gt; {
     console.log(`pickSelection: ${key}`)
-    if (key === null) {
-        state.selection = state.options[0]
-    } else {
-        for (
-            let fontIndex = 0;
-            fontIndex &lt; fontsByPopularity.length;
-            fontIndex += 1
-        ) {
-            if (fontsByPopularity[fontIndex].key === key) {
-                state.selection = fontsByPopularity[fontIndex]
-                break
+    if (state.options.length &gt; 0) {
+        if (key === null) {
+            state.selection = state.options[0]
+        } else {
+            for (
+                let fontIndex = 0;
+                fontIndex &lt; fontsByPopularity.length;
+                fontIndex += 1
+            ) {
+                if (fontsByPopularity[fontIndex].key === key) {
+                    state.selection = fontsByPopularity[fontIndex]
+                    break
+                }
             }
         }
+        state.placeholder = state.selection.value
+        console.log(state.placeholder)
+        deactivateSelector()
     }
-    state.placeholder = state.selection.value
-    console.log(state.placeholder)
-    deactivateSelector()
 }
 
 const removeOptions = () =&gt; {
-    //// const selectionsEl = document.getElementById(&#x27;awsselect--options&#x27;)
-    ////
     if (state.optionsEl) {
         while (state.optionsEl.firstChild) {
             state.optionsEl.removeChild(state.optionsEl.firstChild)
@@ -780,23 +804,35 @@ const setPlaceholder = (newValue = null) =&gt; {
 
 const updateOptions = () =&gt; {
     removeOptions()
-    // state.optionsEl.name = `new-name-${new Date().getTime()}`
-    state.options.forEach((font, fontIndex) =&gt; {
-        const newOption = document.createElement(&#x27;option&#x27;)
-        newOption.value = font.key
-        newOption.innerHTML = font.value
-        newOption.id = `awsselect--selection--${font.key}`
-        newOption.removeAttribute(&#x27;selected&#x27;)
-        if (fontIndex === 0 &amp;&amp; state.filterEl.value !== &#x27;&#x27;) {
-            newOption.selected = &#x27;selected&#x27;
-        }
-        state.optionsEl.appendChild(newOption)
-    })
+    if (state.optionsEl) {
+        state.options.forEach((font, fontIndex) =&gt; {
+            const newOption = document.createElement(&#x27;option&#x27;)
+            newOption.value = font.key
+            newOption.innerHTML = font.value
+            newOption.id = `awsselect--selection--${font.key}`
+            // newOption.removeAttribute(&#x27;selected&#x27;)
+            if (fontIndex === 0 &amp;&amp; state.filterEl.value !== &#x27;&#x27;) {
+                newOption.selected = &#x27;selected&#x27;
+            }
+            state.optionsEl.appendChild(newOption)
+        })
 
-    // const spacingOption = document.createElement(&#x27;option&#x27;)
-    // spacingOption.innerHTML = &#x27;-----------------------------&#x27;
-    // spacingOption.disabled = &#x27;disabled&#x27;
-    // state.optionsEl.appendChild(spacingOption)
+        if (state.options.length &gt; 0) {
+            const spacingOption = document.createElement(&#x27;option&#x27;)
+            spacingOption.innerHTML = &#x27;-----------------------------&#x27;
+            spacingOption.disabled = &#x27;disabled&#x27;
+            state.optionsEl.appendChild(spacingOption)
+        } else {
+            const errorOption = document.createElement(&#x27;option&#x27;)
+            errorOption.innerHTML = &#x27;  No Matches&#x27;
+            errorOption.disabled = &#x27;disabled&#x27;
+            state.optionsEl.appendChild(errorOption)
+            const spacingOption = document.createElement(&#x27;option&#x27;)
+            spacingOption.innerHTML = &#x27;-----------------------------&#x27;
+            spacingOption.disabled = &#x27;disabled&#x27;
+            state.optionsEl.appendChild(spacingOption)
+        }
+    }
 }
 
 const kickoff = () =&gt; {

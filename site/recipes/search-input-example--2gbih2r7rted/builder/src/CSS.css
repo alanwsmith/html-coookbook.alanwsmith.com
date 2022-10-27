@@ -1,1 +1,12 @@
-/* Any styles for the page go here */
+#awsselect--filter {
+  position: absolute;
+}
+
+#awsselect--options-wrapper {
+  position: absolute;
+}
+
+#awsselect--top-wrapper {
+  display: inline;
+  position: relative;
+}
