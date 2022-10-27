@@ -80,15 +80,32 @@ const handlePageClick = (event) => {
         if (idParts[0] !== 'awsselect') {
             deactivateSelector()
         } else {
-            console.log('Clicked on menu')
-            console.log(event.target.value)
+            // console.log('Clicked on menu')
+            // console.log(event.target)
+            if (idParts[1] === 'selection') {
+                // console.log(event.target.value)
+                pickSelection(event.target.value)
+            }
         }
     }
 }
 
-const pickSelection = () => {
-    console.log('pickSelection')
-    state.selection = state.options[0]
+const pickSelection = (key = null) => {
+    console.log(`pickSelection: ${key}`)
+    if (key === null) {
+        state.selection = state.options[0]
+    } else {
+        for (
+            let fontIndex = 0;
+            fontIndex < fontsByPopularity.length;
+            fontIndex += 1
+        ) {
+            if (fontsByPopularity[fontIndex].key === key) {
+                state.selection = fontsByPopularity[fontIndex]
+                break
+            }
+        }
+    }
     state.placeholder = state.selection.value
     console.log(state.placeholder)
     deactivateSelector()
@@ -130,7 +147,7 @@ const updateOptions = () => {
         newOption.value = font.key
         newOption.innerHTML = font.value
         newOption.id = `awsselect--selection--${font.key}`
-        if (fontIndex === 0) {
+        if (fontIndex === 0 && state.filterEl.value !== '') {
             newOption.selected = 'selected'
         }
         state.optionsEl.appendChild(newOption)
@@ -145,7 +162,6 @@ const kickoff = () => {
     state.optionsEl = document.getElementById('awsselect--options')
     // state.optionsEl.addEventListener('input', handleOptionsInput)
     //
-
     // state.optionsEl.addEventListener('keyup', (event) => {
     //     console.log(event.target.id)
     // })

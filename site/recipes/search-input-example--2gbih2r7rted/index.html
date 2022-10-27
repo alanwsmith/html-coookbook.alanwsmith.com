@@ -115,15 +115,32 @@ const handlePageClick = (event) => {
         if (idParts[0] !== 'awsselect') {
             deactivateSelector()
         } else {
-            console.log('Clicked on menu')
-            console.log(event.target.value)
+            // console.log('Clicked on menu')
+            // console.log(event.target)
+            if (idParts[1] === 'selection') {
+                // console.log(event.target.value)
+                pickSelection(event.target.value)
+            }
         }
     }
 }
 
-const pickSelection = () => {
-    console.log('pickSelection')
-    state.selection = state.options[0]
+const pickSelection = (key = null) => {
+    console.log(`pickSelection: ${key}`)
+    if (key === null) {
+        state.selection = state.options[0]
+    } else {
+        for (
+            let fontIndex = 0;
+            fontIndex < fontsByPopularity.length;
+            fontIndex += 1
+        ) {
+            if (fontsByPopularity[fontIndex].key === key) {
+                state.selection = fontsByPopularity[fontIndex]
+                break
+            }
+        }
+    }
     state.placeholder = state.selection.value
     console.log(state.placeholder)
     deactivateSelector()
@@ -165,7 +182,7 @@ const updateOptions = () => {
         newOption.value = font.key
         newOption.innerHTML = font.value
         newOption.id = `awsselect--selection--${font.key}`
-        if (fontIndex === 0) {
+        if (fontIndex === 0 && state.filterEl.value !== '') {
             newOption.selected = 'selected'
         }
         state.optionsEl.appendChild(newOption)
@@ -180,7 +197,6 @@ const kickoff = () => {
     state.optionsEl = document.getElementById('awsselect--options')
     // state.optionsEl.addEventListener('input', handleOptionsInput)
     //
-
     // state.optionsEl.addEventListener('keyup', (event) => {
     //     console.log(event.target.id)
     // })
@@ -256,8 +272,14 @@ document.addEventListener('DOMContentLoaded', kickoff)
     the text to the placeholder
   </li>
   <li>
-    [ ] - Don't select the first item in the list if there is nothing in the
+    [.] - Don't select the first item in the list if there is nothing in the
     text field
+  </li>
+  <li>[ ] - Hitting enter while on the selection list triggers update</li>
+  <li>[ ] - Menu list doesn't shift layout</li>
+  <li>
+    [ ] - When a selection is made, move the tab index so a press of tab goes
+    back to the same menu
   </li>
 </ul>
 
@@ -329,8 +351,14 @@ document.addEventListener('DOMContentLoaded', kickoff)
     the text to the placeholder
   &lt;/li&gt;
   &lt;li&gt;
-    [ ] - Don&#x27;t select the first item in the list if there is nothing in the
+    [.] - Don&#x27;t select the first item in the list if there is nothing in the
     text field
+  &lt;/li&gt;
+  &lt;li&gt;[ ] - Hitting enter while on the selection list triggers update&lt;/li&gt;
+  &lt;li&gt;[ ] - Menu list doesn&#x27;t shift layout&lt;/li&gt;
+  &lt;li&gt;
+    [ ] - When a selection is made, move the tab index so a press of tab goes
+    back to the same menu
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -438,15 +466,32 @@ const handlePageClick = (event) =&gt; {
         if (idParts[0] !== &#x27;awsselect&#x27;) {
             deactivateSelector()
         } else {
-            console.log(&#x27;Clicked on menu&#x27;)
-            console.log(event.target.value)
+            // console.log(&#x27;Clicked on menu&#x27;)
+            // console.log(event.target)
+            if (idParts[1] === &#x27;selection&#x27;) {
+                // console.log(event.target.value)
+                pickSelection(event.target.value)
+            }
         }
     }
 }
 
-const pickSelection = () =&gt; {
-    console.log(&#x27;pickSelection&#x27;)
-    state.selection = state.options[0]
+const pickSelection = (key = null) =&gt; {
+    console.log(`pickSelection: ${key}`)
+    if (key === null) {
+        state.selection = state.options[0]
+    } else {
+        for (
+            let fontIndex = 0;
+            fontIndex &lt; fontsByPopularity.length;
+            fontIndex += 1
+        ) {
+            if (fontsByPopularity[fontIndex].key === key) {
+                state.selection = fontsByPopularity[fontIndex]
+                break
+            }
+        }
+    }
     state.placeholder = state.selection.value
     console.log(state.placeholder)
     deactivateSelector()
@@ -488,7 +533,7 @@ const updateOptions = () =&gt; {
         newOption.value = font.key
         newOption.innerHTML = font.value
         newOption.id = `awsselect--selection--${font.key}`
-        if (fontIndex === 0) {
+        if (fontIndex === 0 &amp;&amp; state.filterEl.value !== &#x27;&#x27;) {
             newOption.selected = &#x27;selected&#x27;
         }
         state.optionsEl.appendChild(newOption)
@@ -503,7 +548,6 @@ const kickoff = () =&gt; {
     state.optionsEl = document.getElementById(&#x27;awsselect--options&#x27;)
     // state.optionsEl.addEventListener(&#x27;input&#x27;, handleOptionsInput)
     //
-
     // state.optionsEl.addEventListener(&#x27;keyup&#x27;, (event) =&gt; {
     //     console.log(event.target.id)
     // })
