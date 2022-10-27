@@ -32,45 +32,27 @@
       
     </style>
     <script>
-      class PopUpInfo extends HTMLElement {
+      class ClickCatcher extends HTMLElement {
     constructor() {
-        // Always call super first in constructor
         super()
 
-        // Create a shadow root
-        this.attachShadow({ mode: 'open' }) // sets and returns 'this.shadowRoot'
+        this.attachShadow({ mode: 'open' })
+        this.clickCount = 0
 
-        // Create (nested) span elements
         const wrapper = document.createElement('span')
-        wrapper.setAttribute('class', 'wrapper')
-        const icon = wrapper.appendChild(document.createElement('span'))
-        icon.setAttribute('class', 'icon')
-        icon.setAttribute('tabindex', 0)
-        // Insert icon from defined attribute or default icon
-        const img = icon.appendChild(document.createElement('img'))
-        img.src = this.hasAttribute('img')
-            ? this.getAttribute('img')
-            : '/favicons/16x16.png'
-        // Always include descriptive text when adding an image
-        img.alt = this.hasAttribute('alt') ? this.getAttribute('alt') : ''
+        wrapper.innerText = this.clickCount
 
-        const info = wrapper.appendChild(document.createElement('span'))
-        info.setAttribute('class', 'info')
-        // Take attribute content and put it inside the info span
-        info.textContent = this.getAttribute('data-text')
+        const handleDocumentClick = () => {
+            this.clickCount += 1
+            wrapper.innerText = this.clickCount
+        }
 
-        // Create some CSS to apply to the shadow DOM
-        const style = document.createElement('style')
-        style.textContent = `.wrapper {
-  /* CSS truncated for brevity */
-}`
-
-        // attach the created elements to the shadow DOM
-        this.shadowRoot.append(style, wrapper)
+        document.addEventListener('click', handleDocumentClick)
+        this.shadowRoot.append(wrapper)
     }
 }
 
-customElements.define('popup-info', PopUpInfo)
+customElements.define('click-catcher', ClickCatcher)
 
     </script>
   </head>
@@ -91,54 +73,34 @@ customElements.define('popup-info', PopUpInfo)
                 </ul>
                 
       <h2>Prototype</h2>
-      <popup-info></popup-info> <click-catcher></click-catcher> -
-<click-catcher></click-catcher>
+      <click-catcher></click-catcher> - <click-catcher></click-catcher>
   
             <h2>HTML</h2>
-            <pre><code class="language-html">&lt;popup-info&gt;&lt;/popup-info&gt; &lt;click-catcher&gt;&lt;/click-catcher&gt; -
-&lt;click-catcher&gt;&lt;/click-catcher&gt;
+            <pre><code class="language-html">&lt;click-catcher&gt;&lt;/click-catcher&gt; - &lt;click-catcher&gt;&lt;/click-catcher&gt;
 </code></pre>
               
             <h2>JavaScript</h2>
-            <pre><code class="language-js">class PopUpInfo extends HTMLElement {
+            <pre><code class="language-js">class ClickCatcher extends HTMLElement {
     constructor() {
-        // Always call super first in constructor
         super()
 
-        // Create a shadow root
-        this.attachShadow({ mode: &#x27;open&#x27; }) // sets and returns &#x27;this.shadowRoot&#x27;
+        this.attachShadow({ mode: &#x27;open&#x27; })
+        this.clickCount = 0
 
-        // Create (nested) span elements
         const wrapper = document.createElement(&#x27;span&#x27;)
-        wrapper.setAttribute(&#x27;class&#x27;, &#x27;wrapper&#x27;)
-        const icon = wrapper.appendChild(document.createElement(&#x27;span&#x27;))
-        icon.setAttribute(&#x27;class&#x27;, &#x27;icon&#x27;)
-        icon.setAttribute(&#x27;tabindex&#x27;, 0)
-        // Insert icon from defined attribute or default icon
-        const img = icon.appendChild(document.createElement(&#x27;img&#x27;))
-        img.src = this.hasAttribute(&#x27;img&#x27;)
-            ? this.getAttribute(&#x27;img&#x27;)
-            : &#x27;/favicons/16x16.png&#x27;
-        // Always include descriptive text when adding an image
-        img.alt = this.hasAttribute(&#x27;alt&#x27;) ? this.getAttribute(&#x27;alt&#x27;) : &#x27;&#x27;
+        wrapper.innerText = this.clickCount
 
-        const info = wrapper.appendChild(document.createElement(&#x27;span&#x27;))
-        info.setAttribute(&#x27;class&#x27;, &#x27;info&#x27;)
-        // Take attribute content and put it inside the info span
-        info.textContent = this.getAttribute(&#x27;data-text&#x27;)
+        const handleDocumentClick = () =&gt; {
+            this.clickCount += 1
+            wrapper.innerText = this.clickCount
+        }
 
-        // Create some CSS to apply to the shadow DOM
-        const style = document.createElement(&#x27;style&#x27;)
-        style.textContent = `.wrapper {
-  /* CSS truncated for brevity */
-}`
-
-        // attach the created elements to the shadow DOM
-        this.shadowRoot.append(style, wrapper)
+        document.addEventListener(&#x27;click&#x27;, handleDocumentClick)
+        this.shadowRoot.append(wrapper)
     }
 }
 
-customElements.define(&#x27;popup-info&#x27;, PopUpInfo)
+customElements.define(&#x27;click-catcher&#x27;, ClickCatcher)
 </code></pre>
              
                 <h2>Notes</h2>

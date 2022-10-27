@@ -1,11 +1,15 @@
 {
-    "TITLE": "Web Component Hello World",
-    "STATUS": "draft",
+    "TITLE": "Web Components -- Hello World",
+    "STATUS": "published",
     "DESCRIPTION": "A simple hello world example with as little stuff in it as possible",
-    "DETAILS": [],
+    "DETAILS": [
+        "This is a basic example 'Hello, World' example of web components. Some of the examples I've seen make it look much more complicated than it really is.",
+        "The example below is built directly from the HTML and JavaScript code snippets that follow"
+    ],
+
     "NOTES": [
         "I had to use both the open and close tags explictly. If I tried with the single tag version (i.e. `&lt;hello-component /&gt;) the rest of the content on the page disappeared",
-        "Something to research: I'm assuming you have to load these before trying to use them with a tag so you can't put them after a DOM Loaded listener."
+        "Something to research: I'm assuming you have to load these before trying to use them with a tag so you can't put them after a DOM Loaded listener"
     ],
     "TODOS": [],
     "REFERENCES": [

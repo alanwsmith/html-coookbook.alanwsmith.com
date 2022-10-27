@@ -58,7 +58,7 @@ class Builder():
             self.parts['DETAILS'] = f'''
                 <h2>Deatils</h2>
                 <ul>
-                    {" ".join(items)}
+                    {" ".join(details)}
                 </ul>
                 '''
         else:
