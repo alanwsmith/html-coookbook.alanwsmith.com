@@ -79,7 +79,6 @@ const state = {
 }
 
 const deactivateSelector = () => {
-    // console.log('deactivateSelector')
     if (state.optionsEl) {
         state.optionsEl.remove()
     }
@@ -125,7 +124,9 @@ const handleFilterKeyup = (event) => {
     console.log(pressedKey)
     if (pressedKey === 'enter') {
         // console.log('ENTER - TODO: Do update here')
-        pickSelection()
+        if (state.filterEl.value !== '') {
+            pickSelection()
+        }
     } else if (pressedKey === 'escape') {
         deactivateSelector()
     } else if (pressedKey === 'arrowdown') {
@@ -390,28 +391,28 @@ document.addEventListener('DOMContentLoaded', kickoff)
     last selection (even if you reset it) was which was undesireable. (Solution
     was to remove the element from the DOM and create a new one)
   </li>
+  <li>
+    [.] - Hitting enter on the text field when it's empty doesn't change place
+    holder or selected value and the filter stays open.
+  </li>
+  <li>
+    [.] - have the uparrow move back to the text if it's hit while on the first
+    element in the list
+  </li>
+  <li>[.] - Put a message in when there are no matches.</li>
   <li>[ ] - Provide for multiple instances on a page</li>
-  <li>
-    [ ] - When a selection is made, move the tab index so a press of tab goes
-    back to the same menu
-  </li>
-  <li>
-    [ ] - Hitting enter on the text field when it's empty doesn't change place
-    holder or selected value (right now it'll select the first item)
-  </li>
 </ul>
 
 <h4>In The Future</h4>
 <ul>
   <li>
-    [ ] - Right now if you hit enter before typing it closes the menu.
-    Investigate leaving it open
+    [ ] - When a selection is made, move the tab index so a press of tab goes
+    back to the same menu
   </li>
   <li>
     [ ] - Investigate if populating the selection list in HTML offers any
     accessability improvements
   </li>
-  <li>[ ] - Put a message in when there are no matches.</li>
   <li>[ ] - Put items you've selected before up at the top</li>
   <li>
     [ ] - Add sections to the drop down list to show the current top filterd
@@ -423,12 +424,8 @@ document.addEventListener('DOMContentLoaded', kickoff)
     set
   </li>
   <li>
-    [ ] - Investigate having the uparrow move back to the text if it's hit while
-    on the first element in the list
-  </li>
-  <li>
-    [ ] - Investigate option to keep primary sort order during inital browse but
-    swtich to alpha when text is in the search field
+    [ ] - Maybe setup to keep primary sort order during inital browse but swtich
+    to alpha when text is in the search field
   </li>
   <li>
     [ ] - Fix bug where if there's only one option and you hit the down arrow it
@@ -441,6 +438,7 @@ document.addEventListener('DOMContentLoaded', kickoff)
 <ul>
   <li>
     This is not current the search input type. I'm playing around with trying to
+    get my custom text selection working for the fonts site
   </li>
 </ul>
   
@@ -536,28 +534,28 @@ document.addEventListener('DOMContentLoaded', kickoff)
     last selection (even if you reset it) was which was undesireable. (Solution
     was to remove the element from the DOM and create a new one)
   &lt;/li&gt;
+  &lt;li&gt;
+    [.] - Hitting enter on the text field when it&#x27;s empty doesn&#x27;t change place
+    holder or selected value and the filter stays open.
+  &lt;/li&gt;
+  &lt;li&gt;
+    [.] - have the uparrow move back to the text if it&#x27;s hit while on the first
+    element in the list
+  &lt;/li&gt;
+  &lt;li&gt;[.] - Put a message in when there are no matches.&lt;/li&gt;
   &lt;li&gt;[ ] - Provide for multiple instances on a page&lt;/li&gt;
-  &lt;li&gt;
-    [ ] - When a selection is made, move the tab index so a press of tab goes
-    back to the same menu
-  &lt;/li&gt;
-  &lt;li&gt;
-    [ ] - Hitting enter on the text field when it&#x27;s empty doesn&#x27;t change place
-    holder or selected value (right now it&#x27;ll select the first item)
-  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4&gt;In The Future&lt;/h4&gt;
 &lt;ul&gt;
   &lt;li&gt;
-    [ ] - Right now if you hit enter before typing it closes the menu.
-    Investigate leaving it open
+    [ ] - When a selection is made, move the tab index so a press of tab goes
+    back to the same menu
   &lt;/li&gt;
   &lt;li&gt;
     [ ] - Investigate if populating the selection list in HTML offers any
     accessability improvements
   &lt;/li&gt;
-  &lt;li&gt;[ ] - Put a message in when there are no matches.&lt;/li&gt;
   &lt;li&gt;[ ] - Put items you&#x27;ve selected before up at the top&lt;/li&gt;
   &lt;li&gt;
     [ ] - Add sections to the drop down list to show the current top filterd
@@ -569,12 +567,8 @@ document.addEventListener('DOMContentLoaded', kickoff)
     set
   &lt;/li&gt;
   &lt;li&gt;
-    [ ] - Investigate having the uparrow move back to the text if it&#x27;s hit while
-    on the first element in the list
-  &lt;/li&gt;
-  &lt;li&gt;
-    [ ] - Investigate option to keep primary sort order during inital browse but
-    swtich to alpha when text is in the search field
+    [ ] - Maybe setup to keep primary sort order during inital browse but swtich
+    to alpha when text is in the search field
   &lt;/li&gt;
   &lt;li&gt;
     [ ] - Fix bug where if there&#x27;s only one option and you hit the down arrow it
@@ -587,6 +581,7 @@ document.addEventListener('DOMContentLoaded', kickoff)
 &lt;ul&gt;
   &lt;li&gt;
     This is not current the search input type. I&#x27;m playing around with trying to
+    get my custom text selection working for the fonts site
   &lt;/li&gt;
 &lt;/ul&gt;
 </code></pre>
@@ -642,7 +637,6 @@ const state = {
 }
 
 const deactivateSelector = () =&gt; {
-    // console.log(&#x27;deactivateSelector&#x27;)
     if (state.optionsEl) {
         state.optionsEl.remove()
     }
@@ -688,7 +682,9 @@ const handleFilterKeyup = (event) =&gt; {
     console.log(pressedKey)
     if (pressedKey === &#x27;enter&#x27;) {
         // console.log(&#x27;ENTER - TODO: Do update here&#x27;)
-        pickSelection()
+        if (state.filterEl.value !== &#x27;&#x27;) {
+            pickSelection()
+        }
     } else if (pressedKey === &#x27;escape&#x27;) {
         deactivateSelector()
     } else if (pressedKey === &#x27;arrowdown&#x27;) {

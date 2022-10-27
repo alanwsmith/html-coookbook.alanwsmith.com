@@ -37,7 +37,6 @@ const state = {
 }
 
 const deactivateSelector = () => {
-    // console.log('deactivateSelector')
     if (state.optionsEl) {
         state.optionsEl.remove()
     }
@@ -83,7 +82,9 @@ const handleFilterKeyup = (event) => {
     console.log(pressedKey)
     if (pressedKey === 'enter') {
         // console.log('ENTER - TODO: Do update here')
-        pickSelection()
+        if (state.filterEl.value !== '') {
+            pickSelection()
+        }
     } else if (pressedKey === 'escape') {
         deactivateSelector()
     } else if (pressedKey === 'arrowdown') {
