@@ -58,17 +58,23 @@ const handleFilterKeyup = (event) => {
     // TODO: Handle arrow keys
     // TODO: Make tab key select first item
     const pressedKey = event.key.toLowerCase()
-    console.log(pressedKey)
+    // console.log(pressedKey)
     if (pressedKey === 'enter') {
-        console.log('ENTER - TODO: Do update here')
+        // console.log('ENTER - TODO: Do update here')
         pickSelection()
     } else {
         setOptions()
     }
 }
 
-const handleOptionsInput = (event) => {
-    console.log(event.target.value)
+const handleOptionsKeyup = (event) => {
+    // console.log(event.target.value)
+    const pressedKey = event.key.toLowerCase()
+    if (pressedKey === 'enter') {
+        pickSelection(event.target.value)
+    }
+    // TODO: If this is empty I think you can use that
+    // to set the first item as selected
 }
 
 const handlePageClick = (event) => {
@@ -161,10 +167,8 @@ const kickoff = () => {
     state.filterEl.addEventListener('keyup', handleFilterKeyup)
     state.optionsEl = document.getElementById('awsselect--options')
     // state.optionsEl.addEventListener('input', handleOptionsInput)
-    //
-    // state.optionsEl.addEventListener('keyup', (event) => {
-    //     console.log(event.target.id)
-    // })
+
+    state.optionsEl.addEventListener('keyup', handleOptionsKeyup)
 
     setPlaceholder()
     updateOptions()

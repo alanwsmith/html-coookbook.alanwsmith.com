@@ -93,17 +93,23 @@ const handleFilterKeyup = (event) => {
     // TODO: Handle arrow keys
     // TODO: Make tab key select first item
     const pressedKey = event.key.toLowerCase()
-    console.log(pressedKey)
+    // console.log(pressedKey)
     if (pressedKey === 'enter') {
-        console.log('ENTER - TODO: Do update here')
+        // console.log('ENTER - TODO: Do update here')
         pickSelection()
     } else {
         setOptions()
     }
 }
 
-const handleOptionsInput = (event) => {
-    console.log(event.target.value)
+const handleOptionsKeyup = (event) => {
+    // console.log(event.target.value)
+    const pressedKey = event.key.toLowerCase()
+    if (pressedKey === 'enter') {
+        pickSelection(event.target.value)
+    }
+    // TODO: If this is empty I think you can use that
+    // to set the first item as selected
 }
 
 const handlePageClick = (event) => {
@@ -196,10 +202,8 @@ const kickoff = () => {
     state.filterEl.addEventListener('keyup', handleFilterKeyup)
     state.optionsEl = document.getElementById('awsselect--options')
     // state.optionsEl.addEventListener('input', handleOptionsInput)
-    //
-    // state.optionsEl.addEventListener('keyup', (event) => {
-    //     console.log(event.target.id)
-    // })
+
+    state.optionsEl.addEventListener('keyup', handleOptionsKeyup)
 
     setPlaceholder()
     updateOptions()
@@ -275,11 +279,19 @@ document.addEventListener('DOMContentLoaded', kickoff)
     [.] - Don't select the first item in the list if there is nothing in the
     text field
   </li>
-  <li>[ ] - Hitting enter while on the selection list triggers update</li>
+  <li>[.] - Hitting enter while on the selection list triggers update</li>
   <li>[ ] - Menu list doesn't shift layout</li>
   <li>
     [ ] - When a selection is made, move the tab index so a press of tab goes
     back to the same menu
+  </li>
+  <li>
+    [ ] - On arrow down, if there's nothing in the input field, select the first
+    option
+  </li>
+  <li>
+    [ ] - On arrow down, if there is something in the input field, select the
+    second option
   </li>
 </ul>
 
@@ -354,11 +366,19 @@ document.addEventListener('DOMContentLoaded', kickoff)
     [.] - Don&#x27;t select the first item in the list if there is nothing in the
     text field
   &lt;/li&gt;
-  &lt;li&gt;[ ] - Hitting enter while on the selection list triggers update&lt;/li&gt;
+  &lt;li&gt;[.] - Hitting enter while on the selection list triggers update&lt;/li&gt;
   &lt;li&gt;[ ] - Menu list doesn&#x27;t shift layout&lt;/li&gt;
   &lt;li&gt;
     [ ] - When a selection is made, move the tab index so a press of tab goes
     back to the same menu
+  &lt;/li&gt;
+  &lt;li&gt;
+    [ ] - On arrow down, if there&#x27;s nothing in the input field, select the first
+    option
+  &lt;/li&gt;
+  &lt;li&gt;
+    [ ] - On arrow down, if there is something in the input field, select the
+    second option
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -444,17 +464,23 @@ const handleFilterKeyup = (event) =&gt; {
     // TODO: Handle arrow keys
     // TODO: Make tab key select first item
     const pressedKey = event.key.toLowerCase()
-    console.log(pressedKey)
+    // console.log(pressedKey)
     if (pressedKey === &#x27;enter&#x27;) {
-        console.log(&#x27;ENTER - TODO: Do update here&#x27;)
+        // console.log(&#x27;ENTER - TODO: Do update here&#x27;)
         pickSelection()
     } else {
         setOptions()
     }
 }
 
-const handleOptionsInput = (event) =&gt; {
-    console.log(event.target.value)
+const handleOptionsKeyup = (event) =&gt; {
+    // console.log(event.target.value)
+    const pressedKey = event.key.toLowerCase()
+    if (pressedKey === &#x27;enter&#x27;) {
+        pickSelection(event.target.value)
+    }
+    // TODO: If this is empty I think you can use that
+    // to set the first item as selected
 }
 
 const handlePageClick = (event) =&gt; {
@@ -547,10 +573,8 @@ const kickoff = () =&gt; {
     state.filterEl.addEventListener(&#x27;keyup&#x27;, handleFilterKeyup)
     state.optionsEl = document.getElementById(&#x27;awsselect--options&#x27;)
     // state.optionsEl.addEventListener(&#x27;input&#x27;, handleOptionsInput)
-    //
-    // state.optionsEl.addEventListener(&#x27;keyup&#x27;, (event) =&gt; {
-    //     console.log(event.target.id)
-    // })
+
+    state.optionsEl.addEventListener(&#x27;keyup&#x27;, handleOptionsKeyup)
 
     setPlaceholder()
     updateOptions()
