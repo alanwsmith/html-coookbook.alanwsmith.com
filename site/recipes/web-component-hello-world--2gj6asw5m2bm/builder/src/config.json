@@ -1,0 +1,23 @@
+{
+    "TITLE": "Web Component Hello World",
+    "STATUS": "draft",
+    "DESCRIPTION": "A simple hello world example with as little stuff in it as possible",
+    "DETAILS": [],
+    "NOTES": [
+        "I had to use both the open and close tags explictly. If I tried with the single tag version (i.e. `&lt;hello-component /&gt;) the rest of the content on the page disappeared",
+        "Something to research: I'm assuming you have to load these before trying to use them with a tag so you can't put them after a DOM Loaded listener."
+    ],
+    "TODOS": [],
+    "REFERENCES": [
+        {
+            "title": "MDN: Using custom elements",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements",
+            "extra": ""
+        },
+        {
+            "title": "MDN: Web Components",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/Web_Components",
+            "extra": ""
+        }
+    ]
+}

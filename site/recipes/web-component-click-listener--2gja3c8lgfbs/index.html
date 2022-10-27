@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Component Click Listener - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Web Component Click Listener" />
+    <meta property="og:description" content="Goal: catch a click anywhere on the document and have the component respond to it via a listener" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Web%20Component%20Click%20Listener,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/prism.css" />
+    
+    <style>
+      
+    </style>
+    <script>
+      class PopUpInfo extends HTMLElement {
+    constructor() {
+        // Always call super first in constructor
+        super()
+
+        // Create a shadow root
+        this.attachShadow({ mode: 'open' }) // sets and returns 'this.shadowRoot'
+
+        // Create (nested) span elements
+        const wrapper = document.createElement('span')
+        wrapper.setAttribute('class', 'wrapper')
+        const icon = wrapper.appendChild(document.createElement('span'))
+        icon.setAttribute('class', 'icon')
+        icon.setAttribute('tabindex', 0)
+        // Insert icon from defined attribute or default icon
+        const img = icon.appendChild(document.createElement('img'))
+        img.src = this.hasAttribute('img')
+            ? this.getAttribute('img')
+            : '/favicons/16x16.png'
+        // Always include descriptive text when adding an image
+        img.alt = this.hasAttribute('alt') ? this.getAttribute('alt') : ''
+
+        const info = wrapper.appendChild(document.createElement('span'))
+        info.setAttribute('class', 'info')
+        // Take attribute content and put it inside the info span
+        info.textContent = this.getAttribute('data-text')
+
+        // Create some CSS to apply to the shadow DOM
+        const style = document.createElement('style')
+        style.textContent = `.wrapper {
+  /* CSS truncated for brevity */
+}`
+
+        // attach the created elements to the shadow DOM
+        this.shadowRoot.append(style, wrapper)
+    }
+}
+
+customElements.define('popup-info', PopUpInfo)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">Cookbook Home</a> ~
+      <a href="https://www.alanwsmith.com/">alanwsmith.com</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://https://twitter.com/TheIdOfAlan">twitter</a>
+    </header>
+    <main>
+      <h1>Web Component Click Listener</h1>
+      
+                <h2>Deatils</h2>
+                <ul>
+                    <li>This code adds an event listener to the entire page that updates a value inside the  component when a click is registered anywhere on the page.</li>
+                </ul>
+                
+      <h2>Prototype</h2>
+      <popup-info></popup-info> <click-catcher></click-catcher> -
+<click-catcher></click-catcher>
+  
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;popup-info&gt;&lt;/popup-info&gt; &lt;click-catcher&gt;&lt;/click-catcher&gt; -
+&lt;click-catcher&gt;&lt;/click-catcher&gt;
+</code></pre>
+              
+            <h2>JavaScript</h2>
+            <pre><code class="language-js">class PopUpInfo extends HTMLElement {
+    constructor() {
+        // Always call super first in constructor
+        super()
+
+        // Create a shadow root
+        this.attachShadow({ mode: &#x27;open&#x27; }) // sets and returns &#x27;this.shadowRoot&#x27;
+
+        // Create (nested) span elements
+        const wrapper = document.createElement(&#x27;span&#x27;)
+        wrapper.setAttribute(&#x27;class&#x27;, &#x27;wrapper&#x27;)
+        const icon = wrapper.appendChild(document.createElement(&#x27;span&#x27;))
+        icon.setAttribute(&#x27;class&#x27;, &#x27;icon&#x27;)
+        icon.setAttribute(&#x27;tabindex&#x27;, 0)
+        // Insert icon from defined attribute or default icon
+        const img = icon.appendChild(document.createElement(&#x27;img&#x27;))
+        img.src = this.hasAttribute(&#x27;img&#x27;)
+            ? this.getAttribute(&#x27;img&#x27;)
+            : &#x27;/favicons/16x16.png&#x27;
+        // Always include descriptive text when adding an image
+        img.alt = this.hasAttribute(&#x27;alt&#x27;) ? this.getAttribute(&#x27;alt&#x27;) : &#x27;&#x27;
+
+        const info = wrapper.appendChild(document.createElement(&#x27;span&#x27;))
+        info.setAttribute(&#x27;class&#x27;, &#x27;info&#x27;)
+        // Take attribute content and put it inside the info span
+        info.textContent = this.getAttribute(&#x27;data-text&#x27;)
+
+        // Create some CSS to apply to the shadow DOM
+        const style = document.createElement(&#x27;style&#x27;)
+        style.textContent = `.wrapper {
+  /* CSS truncated for brevity */
+}`
+
+        // attach the created elements to the shadow DOM
+        this.shadowRoot.append(style, wrapper)
+    }
+}
+
+customElements.define(&#x27;popup-info&#x27;, PopUpInfo)
+</code></pre>
+             
+                <h2>Notes</h2>
+                <ul>
+                    <li>There are two elements on the page to make sure they both pick up the event</li>
+                </ul>
+            
+       
+                <h2>References</h2>
+                <ul>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes">MDN: Classes</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements">MDN: Using custom elements</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components">MDN: Web Components</a></li>
+                </ul>
+                
+    </main>
+    <footer>
+      made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>
+      <br />
+      who has a <a href="https://www.alanwsmith.com">website</a> and a
+      <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
+      among other <a href="https://links.alanwsmith.com">things</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>

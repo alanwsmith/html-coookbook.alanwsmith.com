@@ -47,6 +47,7 @@ const deactivateSelector = () => {
 }
 
 const handleFilterFocus = () => {
+    // aka handleInputFocus
     if (state.optionsEl) {
         state.optionsEl.blur()
         state.optionsEl.remove()

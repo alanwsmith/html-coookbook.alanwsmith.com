@@ -1,0 +1,15 @@
+{
+    "TITLE": "Enforced Selection Form Control",
+    "STATUS": "draft",
+    "DESCRIPTION": "Goal: a form control that lets you pick from a selection by typing but only from the available selections",
+    "DETAILS": [],
+    "NOTES": [],
+    "TODOS": ["remove the prious search and autocompelte test which this runs"],
+    "REFERENCES": [
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        }
+    ]
+}
