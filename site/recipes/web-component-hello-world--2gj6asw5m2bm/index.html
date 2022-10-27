@@ -35,9 +35,11 @@
       class HelloComponent extends HTMLElement {
     constructor() {
         super()
+
         this.attachShadow({ mode: 'open' })
         const wrapper = document.createElement('span')
         wrapper.innerText = 'Hello, Component!'
+
         this.shadowRoot.append(wrapper)
     }
 }
@@ -67,9 +69,11 @@ customElements.define('hello-component', HelloComponent)
             <pre><code class="language-js">class HelloComponent extends HTMLElement {
     constructor() {
         super()
+
         this.attachShadow({ mode: &#x27;open&#x27; })
         const wrapper = document.createElement(&#x27;span&#x27;)
         wrapper.innerText = &#x27;Hello, Component!&#x27;
+
         this.shadowRoot.append(wrapper)
     }
 }
