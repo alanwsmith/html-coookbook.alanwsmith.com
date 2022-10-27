@@ -97,6 +97,8 @@ const handleFilterKeyup = (event) => {
     if (pressedKey === 'enter') {
         // console.log('ENTER - TODO: Do update here')
         pickSelection()
+    } else if (pressedKey === 'escape') {
+        deactivateSelector()
     } else {
         setOptions()
     }
@@ -107,6 +109,8 @@ const handleOptionsKeyup = (event) => {
     const pressedKey = event.key.toLowerCase()
     if (pressedKey === 'enter') {
         pickSelection(event.target.value)
+    } else if (pressedKey === 'escape') {
+        deactivateSelector()
     }
     // TODO: If this is empty I think you can use that
     // to set the first item as selected
@@ -272,7 +276,7 @@ document.addEventListener('DOMContentLoaded', kickoff)
   </li>
   <li>[ ] - Pressing escape in the input field takes you out and clear it.</li>
   <li>
-    [ ] - Clicking an item in the menu selects it, closes the menu, and returns
+    [.] - Clicking an item in the menu selects it, closes the menu, and returns
     the text to the placeholder
   </li>
   <li>
@@ -359,7 +363,7 @@ document.addEventListener('DOMContentLoaded', kickoff)
   &lt;/li&gt;
   &lt;li&gt;[ ] - Pressing escape in the input field takes you out and clear it.&lt;/li&gt;
   &lt;li&gt;
-    [ ] - Clicking an item in the menu selects it, closes the menu, and returns
+    [.] - Clicking an item in the menu selects it, closes the menu, and returns
     the text to the placeholder
   &lt;/li&gt;
   &lt;li&gt;
@@ -468,6 +472,8 @@ const handleFilterKeyup = (event) =&gt; {
     if (pressedKey === &#x27;enter&#x27;) {
         // console.log(&#x27;ENTER - TODO: Do update here&#x27;)
         pickSelection()
+    } else if (pressedKey === &#x27;escape&#x27;) {
+        deactivateSelector()
     } else {
         setOptions()
     }
@@ -478,6 +484,8 @@ const handleOptionsKeyup = (event) =&gt; {
     const pressedKey = event.key.toLowerCase()
     if (pressedKey === &#x27;enter&#x27;) {
         pickSelection(event.target.value)
+    } else if (pressedKey === &#x27;escape&#x27;) {
+        deactivateSelector()
     }
     // TODO: If this is empty I think you can use that
     // to set the first item as selected

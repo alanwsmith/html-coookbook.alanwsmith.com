@@ -62,6 +62,8 @@ const handleFilterKeyup = (event) => {
     if (pressedKey === 'enter') {
         // console.log('ENTER - TODO: Do update here')
         pickSelection()
+    } else if (pressedKey === 'escape') {
+        deactivateSelector()
     } else {
         setOptions()
     }
@@ -72,6 +74,8 @@ const handleOptionsKeyup = (event) => {
     const pressedKey = event.key.toLowerCase()
     if (pressedKey === 'enter') {
         pickSelection(event.target.value)
+    } else if (pressedKey === 'escape') {
+        deactivateSelector()
     }
     // TODO: If this is empty I think you can use that
     // to set the first item as selected
