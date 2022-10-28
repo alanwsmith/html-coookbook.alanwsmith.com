@@ -49,10 +49,7 @@
                 for (const option of this.options) {
                     option.remove()
                 }
-                if (this.select) {
-                    this.select.blur()
-                    this.select.remove()
-                }
+                removeMenu()
             }
         }
 
@@ -61,6 +58,7 @@
             // because sometimes it seems one shows up and doesn't get
             // removed
             log('focus')
+            removeMenu()
             this.select = document.createElement('select')
             this.select.size = 5
 
@@ -82,6 +80,14 @@
                 }
             }
             // log(this.defaultOptions)
+        }
+
+        const removeMenu = () => {
+            log('# RUN: removeMenu')
+            if (this.select) {
+                this.select.blur()
+                this.select.remove()
+            }
         }
 
         this.wrapper = document.createElement('div')
@@ -154,10 +160,7 @@ customElements.define('enforced-selector', EnforcedSelector)
                 for (const option of this.options) {
                     option.remove()
                 }
-                if (this.select) {
-                    this.select.blur()
-                    this.select.remove()
-                }
+                removeMenu()
             }
         }
 
@@ -166,6 +169,7 @@ customElements.define('enforced-selector', EnforcedSelector)
             // because sometimes it seems one shows up and doesn&#x27;t get
             // removed
             log(&#x27;focus&#x27;)
+            removeMenu()
             this.select = document.createElement(&#x27;select&#x27;)
             this.select.size = 5
 
@@ -187,6 +191,14 @@ customElements.define('enforced-selector', EnforcedSelector)
                 }
             }
             // log(this.defaultOptions)
+        }
+
+        const removeMenu = () =&gt; {
+            log(&#x27;# RUN: removeMenu&#x27;)
+            if (this.select) {
+                this.select.blur()
+                this.select.remove()
+            }
         }
 
         this.wrapper = document.createElement(&#x27;div&#x27;)

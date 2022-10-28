@@ -15,10 +15,7 @@ class EnforcedSelector extends HTMLElement {
                 for (const option of this.options) {
                     option.remove()
                 }
-                if (this.select) {
-                    this.select.blur()
-                    this.select.remove()
-                }
+                removeMenu()
             }
         }
 
@@ -27,6 +24,7 @@ class EnforcedSelector extends HTMLElement {
             // because sometimes it seems one shows up and doesn't get
             // removed
             log('focus')
+            removeMenu()
             this.select = document.createElement('select')
             this.select.size = 5
 
@@ -48,6 +46,14 @@ class EnforcedSelector extends HTMLElement {
                 }
             }
             // log(this.defaultOptions)
+        }
+
+        const removeMenu = () => {
+            log('# RUN: removeMenu')
+            if (this.select) {
+                this.select.blur()
+                this.select.remove()
+            }
         }
 
         this.wrapper = document.createElement('div')
