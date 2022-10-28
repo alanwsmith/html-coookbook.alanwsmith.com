@@ -5,6 +5,7 @@ class EnforcedSelector extends HTMLElement {
         this.defaultOptions = {}
         this.placeholder = 'Select'
         this.options = []
+        this.upArrowCheck = null
 
         const log = (msg) => {
             console.log(msg)
@@ -64,9 +65,17 @@ class EnforcedSelector extends HTMLElement {
 
         const handleSelectKeyup = (event) => {
             const keyCheck = event.key.toLowerCase()
+            // TODO: May need to be a check for items in the
+            // options here.
             if (keyCheck === 'enter') {
                 registerSelection()
+            } else if (keyCheck === 'arrowup') {
+                if (this.upArrowCheck === this.select.value) {
+                    this.input.focus()
+                    setSelection(null)
+                }
             }
+            this.upArrowCheck = this.select.value
         }
 
         const registerSelection = () => {
@@ -119,6 +128,8 @@ class EnforcedSelector extends HTMLElement {
             if (this.input.value !== '' && this.options.length > 0) {
                 setSelection(0)
             }
+
+            this.upArrowCheck = null
         }
 
         const setSelection = (index = null) => {

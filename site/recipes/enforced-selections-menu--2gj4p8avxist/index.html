@@ -39,6 +39,7 @@
         this.defaultOptions = {}
         this.placeholder = 'Select'
         this.options = []
+        this.upArrowCheck = null
 
         const log = (msg) => {
             console.log(msg)
@@ -98,9 +99,17 @@
 
         const handleSelectKeyup = (event) => {
             const keyCheck = event.key.toLowerCase()
+            // TODO: May need to be a check for items in the
+            // options here.
             if (keyCheck === 'enter') {
                 registerSelection()
+            } else if (keyCheck === 'arrowup') {
+                if (this.upArrowCheck === this.select.value) {
+                    this.input.focus()
+                    setSelection(null)
+                }
             }
+            this.upArrowCheck = this.select.value
         }
 
         const registerSelection = () => {
@@ -153,6 +162,8 @@
             if (this.input.value !== '' && this.options.length > 0) {
                 setSelection(0)
             }
+
+            this.upArrowCheck = null
         }
 
         const setSelection = (index = null) => {
@@ -244,6 +255,7 @@ customElements.define('enforced-selector', EnforcedSelector)
         this.defaultOptions = {}
         this.placeholder = &#x27;Select&#x27;
         this.options = []
+        this.upArrowCheck = null
 
         const log = (msg) =&gt; {
             console.log(msg)
@@ -303,9 +315,17 @@ customElements.define('enforced-selector', EnforcedSelector)
 
         const handleSelectKeyup = (event) =&gt; {
             const keyCheck = event.key.toLowerCase()
+            // TODO: May need to be a check for items in the
+            // options here.
             if (keyCheck === &#x27;enter&#x27;) {
                 registerSelection()
+            } else if (keyCheck === &#x27;arrowup&#x27;) {
+                if (this.upArrowCheck === this.select.value) {
+                    this.input.focus()
+                    setSelection(null)
+                }
             }
+            this.upArrowCheck = this.select.value
         }
 
         const registerSelection = () =&gt; {
@@ -358,6 +378,8 @@ customElements.define('enforced-selector', EnforcedSelector)
             if (this.input.value !== &#x27;&#x27; &amp;&amp; this.options.length &gt; 0) {
                 setSelection(0)
             }
+
+            this.upArrowCheck = null
         }
 
         const setSelection = (index = null) =&gt; {
@@ -415,7 +437,7 @@ customElements.define(&#x27;enforced-selector&#x27;, EnforcedSelector)
              
                 <h2>TODO</h2>
                 <ul>
-                    <li>[ ] - Don't load the options in at the start. call them dynamically so they can be updated outside the component. May have to keep some type of loader in there for the dom ready to prevent issue where the data doesn't show up on first hitting the open element</li> <li>[ ] - Load data from child &lt;option&gt; elements</li> <li>[ ] - Clicking in opens the selection</li> <li>[ ] - Clicking out closes the selection</li> <li>[ ] - See if you make this off a selection if it can be use in forms directly</li> <li>[ ] - Verify that options can be updated live outside the component</li> <li>[.] - Hitting escape resets the form but keeps you in it</li>
+                    <li>[ ] - Don't load the options in at the start. call them dynamically so they can be updated outside the component. May have to keep some type of loader in there for the dom ready to prevent issue where the data doesn't show up on first hitting the open element</li> <li>[ ] - Load data from child &lt;option&gt; elements</li> <li>[ ] - Clicking in opens the selection</li> <li>[ ] - Clicking out closes the selection</li> <li>[ ] - See if you make this off a selection if it can be use in forms directly</li> <li>[ ] - Verify that options can be updated live outside the component</li> <li>[.] - Hitting escape resets the form but keeps you in it</li> <li>[ ] - Clicking the up arrow when you're at the top of the list takes up back to the input field</li> <li>[ ] - If you mouse all the way back up, the selection is removed until you hit anoter key</li>
                 </ul>
              
                 <h2>References</h2>

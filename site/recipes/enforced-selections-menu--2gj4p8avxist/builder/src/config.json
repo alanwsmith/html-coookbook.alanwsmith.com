@@ -15,7 +15,9 @@
         "[ ] - Clicking out closes the selection",
         "[ ] - See if you make this off a selection if it can be use in forms directly",
         "[ ] - Verify that options can be updated live outside the component",
-        "[.] - Hitting escape resets the form but keeps you in it"
+        "[.] - Hitting escape resets the form but keeps you in it",
+        "[ ] - Clicking the up arrow when you're at the top of the list takes up back to the input field",
+        "[ ] - If you mouse all the way back up, the selection is removed until you hit anoter key"
     ],
     "REFERENCES": [
         {
