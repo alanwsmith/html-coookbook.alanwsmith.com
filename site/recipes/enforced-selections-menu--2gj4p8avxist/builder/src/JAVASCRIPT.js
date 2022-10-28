@@ -38,7 +38,6 @@ class EnforcedSelector extends HTMLElement {
                 removeMenu()
                 this.input.blur()
             } else {
-                log('- to renderOptions')
                 renderOptions()
             }
         }
@@ -76,30 +75,59 @@ class EnforcedSelector extends HTMLElement {
         }
 
         const renderOptions = () => {
-            updateOptions()
-            if (!this.select) {
-                this.select = document.createElement('select')
-                this.select.addEventListener('keydown', handleSelectKeydown)
-                this.select.size = 5
-                this.wrapper.appendChild(this.select)
+            if (this.select) {
+                while (this.select.firstChild) {
+                    this.select.firstChild.remove()
+                }
+                this.select.blur()
+                this.select.remove()
+                this.select = null
             }
 
-            while (this.select.firstChild) {
-                this.select.firstChild.remove()
-            }
+            updateOptions()
+
+            this.select = document.createElement('select')
+            this.select.addEventListener('keydown', handleSelectKeydown)
+            this.select.size = 5
+
             for (let option of this.options) {
-                const optionEl = document.createElement('option')
-                optionEl.value = option.value
-                optionEl.innerText = option.text
-                this.select.appendChild(optionEl)
+                this.select.appendChild(option)
+            }
+
+            this.wrapper.appendChild(this.select)
+
+            // for (let option of this.options) {
+            //     const optionEl = document.createElement('option')
+            //     optionEl.value = option.value
+            //     optionEl.innerText = option.text
+            //     this.select.appendChild(optionEl)
+            // }
+
+            // if (this.input.value !== '') {
+            //     setSelection(0)
+            // }
+        }
+
+        const setSelection = (index = null) => {
+            for (let option of this.options) {
+                option.setAttribute('selected', false)
+            }
+            if (index !== null) {
+                this.options[index].setAttribute('selected', 'selected')
             }
         }
 
+        // this makes new object to avoid having to worry about
+        // stuff with the outside set. but it looks at that
+        // set every time to make it's stuff
         const updateOptions = () => {
             this.options = []
             for (let option of this.getElementsByTagName('option')) {
                 if (option.text.toLowerCase().includes(this.input.value)) {
-                    this.options.push(option)
+                    const optionEl = document.createElement('option')
+                    optionEl.value = option.value
+                    optionEl.innerText = option.text
+                    this.options.push(optionEl)
                 }
             }
         }
