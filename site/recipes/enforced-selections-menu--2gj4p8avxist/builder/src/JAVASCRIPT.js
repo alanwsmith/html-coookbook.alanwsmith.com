@@ -89,6 +89,8 @@ class EnforcedSelector extends HTMLElement {
             // options here.
             if (keyCheck === 'enter') {
                 registerSelection()
+            } else if (keyCheck === 'escape') {
+                this.input.focus()
             } else if (keyCheck === 'arrowup') {
                 if (this.upArrowCheck === this.select.value) {
                     this.input.focus()

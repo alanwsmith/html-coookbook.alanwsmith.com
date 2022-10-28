@@ -123,6 +123,8 @@
             // options here.
             if (keyCheck === 'enter') {
                 registerSelection()
+            } else if (keyCheck === 'escape') {
+                this.input.focus()
             } else if (keyCheck === 'arrowup') {
                 if (this.upArrowCheck === this.select.value) {
                     this.input.focus()
@@ -383,6 +385,8 @@ customElements.define('enforced-selector', EnforcedSelector)
             // options here.
             if (keyCheck === &#x27;enter&#x27;) {
                 registerSelection()
+            } else if (keyCheck === &#x27;escape&#x27;) {
+                this.input.focus()
             } else if (keyCheck === &#x27;arrowup&#x27;) {
                 if (this.upArrowCheck === this.select.value) {
                     this.input.focus()
@@ -534,6 +538,11 @@ customElements.define(&#x27;enforced-selector&#x27;, EnforcedSelector)
         <li>
           [.] - PLACEHOLDER shows default text if no previous SELECTION exists
         </li>
+      </ul>
+
+      <h3>ESCAPE is pressed in the MENU</h3>
+      <ul>
+        <li>[.] - INPUT is focused with existing text remaining in place</li>
       </ul>
 
       <h3>ENTER is pressed while INPUT has focus has a VALUE</h3>
