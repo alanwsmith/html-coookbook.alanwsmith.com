@@ -102,9 +102,14 @@ class EnforcedSelector extends HTMLElement {
             }
         }
 
-        const registerSelection = () => {
+        const handleSelectMouseUp = () => {
+            registerSelection(this.select.value)
+        }
+
+        const registerSelection = (key = null) => {
+            const checkValue = key === null ? this.select.value : key
             for (let option of this.options) {
-                if (this.select.value === option.value) {
+                if (checkValue === option.value) {
                     this.placeholder = option.text
                     this.input.setAttribute('placeholder', this.placeholder)
                     this.input.value = ''
@@ -140,6 +145,7 @@ class EnforcedSelector extends HTMLElement {
             this.select = document.createElement('select')
             this.select.addEventListener('keydown', handleSelectKeydown)
             this.select.addEventListener('keyup', handleSelectKeyup)
+            this.select.addEventListener('mouseup', handleSelectMouseUp)
             this.select.size = 5
             this.select.style.position = 'absolute'
 

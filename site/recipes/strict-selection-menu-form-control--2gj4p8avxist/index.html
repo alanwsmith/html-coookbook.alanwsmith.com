@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Enforced Selection Form Control - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <title>Strict Selection Menu Form Control - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Enforced Selection Form Control" />
+    <meta property="og:title" content="Strict Selection Menu Form Control" />
     <meta property="og:description" content="Goal: a form control that lets you pick from a selection by typing but only from the available selections" />
     <meta
       property="og:image"
-      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Enforced%20Selection%20Form%20Control,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Strict%20Selection%20Menu%20Form%20Control,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site:id" content="@TheIdOfAlan" />
@@ -136,9 +136,14 @@
             }
         }
 
-        const registerSelection = () => {
+        const handleSelectMouseUp = () => {
+            registerSelection(this.select.value)
+        }
+
+        const registerSelection = (key = null) => {
+            const checkValue = key === null ? this.select.value : key
             for (let option of this.options) {
-                if (this.select.value === option.value) {
+                if (checkValue === option.value) {
                     this.placeholder = option.text
                     this.input.setAttribute('placeholder', this.placeholder)
                     this.input.value = ''
@@ -174,6 +179,7 @@
             this.select = document.createElement('select')
             this.select.addEventListener('keydown', handleSelectKeydown)
             this.select.addEventListener('keyup', handleSelectKeyup)
+            this.select.addEventListener('mouseup', handleSelectMouseUp)
             this.select.size = 5
             this.select.style.position = 'absolute'
 
@@ -256,7 +262,7 @@ customElements.define('enforced-selector', EnforcedSelector)
         stages of scuffed depending on the day
       </p>
       <hr />
-      <h1>Enforced Selection Form Control</h1>
+      <h1>Strict Selection Menu Form Control</h1>
       <p>
         I'm building this form control because I haven't been able to figure out
         how toget the default ones to do what I want them to
@@ -398,9 +404,14 @@ customElements.define('enforced-selector', EnforcedSelector)
             }
         }
 
-        const registerSelection = () =&gt; {
+        const handleSelectMouseUp = () =&gt; {
+            registerSelection(this.select.value)
+        }
+
+        const registerSelection = (key = null) =&gt; {
+            const checkValue = key === null ? this.select.value : key
             for (let option of this.options) {
-                if (this.select.value === option.value) {
+                if (checkValue === option.value) {
                     this.placeholder = option.text
                     this.input.setAttribute(&#x27;placeholder&#x27;, this.placeholder)
                     this.input.value = &#x27;&#x27;
@@ -436,6 +447,7 @@ customElements.define('enforced-selector', EnforcedSelector)
             this.select = document.createElement(&#x27;select&#x27;)
             this.select.addEventListener(&#x27;keydown&#x27;, handleSelectKeydown)
             this.select.addEventListener(&#x27;keyup&#x27;, handleSelectKeyup)
+            this.select.addEventListener(&#x27;mouseup&#x27;, handleSelectMouseUp)
             this.select.size = 5
             this.select.style.position = &#x27;absolute&#x27;
 
@@ -553,8 +565,8 @@ customElements.define(&#x27;enforced-selector&#x27;, EnforcedSelector)
 
       <h3>CLICK occurs outside the INPUT and MENU when INPUT has no VALUE</h3>
       <ul>
-        <li>[ ] - MENU is closed</li>
-        <li>[ ] - INPUT PLACEHOLDER returns to its previous value</li>
+        <li>[.] - MENU is closed</li>
+        <li>[.] - INPUT PLACEHOLDER returns to its previous value</li>
       </ul>
 
       <h3>TAB is pressed while MENU is active with VALUE in INPUT</h3>
