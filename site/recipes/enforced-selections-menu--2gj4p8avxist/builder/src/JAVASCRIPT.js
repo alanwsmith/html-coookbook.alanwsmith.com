@@ -31,7 +31,7 @@ class EnforcedSelector extends HTMLElement {
             // log('focus')
 
             // addMenu()
-            showOptions()
+            renderOptions()
 
             // for (const optionKey in this.defaultOptions) {
             //     const option = document.createElement('option')
@@ -64,7 +64,7 @@ class EnforcedSelector extends HTMLElement {
             }
         }
 
-        const showOptions = () => {
+        const renderOptions = () => {
             if (!this.select) {
                 log('- Adding Menu')
                 this.select = document.createElement('select')

@@ -65,7 +65,7 @@
             // log('focus')
 
             // addMenu()
-            showOptions()
+            renderOptions()
 
             // for (const optionKey in this.defaultOptions) {
             //     const option = document.createElement('option')
@@ -98,7 +98,7 @@
             }
         }
 
-        const showOptions = () => {
+        const renderOptions = () => {
             if (!this.select) {
                 log('- Adding Menu')
                 this.select = document.createElement('select')
@@ -201,7 +201,7 @@ customElements.define('enforced-selector', EnforcedSelector)
             // log(&#x27;focus&#x27;)
 
             // addMenu()
-            showOptions()
+            renderOptions()
 
             // for (const optionKey in this.defaultOptions) {
             //     const option = document.createElement(&#x27;option&#x27;)
@@ -234,7 +234,7 @@ customElements.define('enforced-selector', EnforcedSelector)
             }
         }
 
-        const showOptions = () =&gt; {
+        const renderOptions = () =&gt; {
             if (!this.select) {
                 log(&#x27;- Adding Menu&#x27;)
                 this.select = document.createElement(&#x27;select&#x27;)
