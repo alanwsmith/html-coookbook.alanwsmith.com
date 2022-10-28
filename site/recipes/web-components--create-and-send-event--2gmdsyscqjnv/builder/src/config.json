@@ -1,0 +1,17 @@
+{
+    "TITLE": "Web Components - Create And Send Events",
+    "STATUS": "draft",
+    "DESCRIPTION": "",
+    "DETAILS": [
+        "GOAL Send a 'changed' event that mimics what a form would send"
+    ],
+    "NOTES": [],
+    "TODOS": [],
+    "REFERENCES": [
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        }
+    ]
+}
