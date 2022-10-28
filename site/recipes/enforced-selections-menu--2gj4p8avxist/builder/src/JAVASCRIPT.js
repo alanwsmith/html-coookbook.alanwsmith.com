@@ -33,6 +33,14 @@ class EnforcedSelector extends HTMLElement {
             renderOptions()
         }
 
+        const handleInputKeydown = (event) => {
+            const keyCheck = event.key.toLowerCase()
+            if (keyCheck === 'tab') {
+                event.preventDefault()
+                this.select.focus()
+            }
+        }
+
         const handleInputKeyup = (event) => {
             const keyCheck = event.key.toLowerCase()
             if (keyCheck === 'enter') {
@@ -43,6 +51,14 @@ class EnforcedSelector extends HTMLElement {
                 this.input.blur()
             } else {
                 renderOptions()
+            }
+        }
+
+        const handleSelectKeydown = (event) => {
+            const keyCheck = event.key.toLowerCase()
+            if (keyCheck === 'tab') {
+                event.preventDefault()
+                this.input.focus()
             }
         }
 
@@ -83,6 +99,7 @@ class EnforcedSelector extends HTMLElement {
         const renderOptions = () => {
             if (!this.select) {
                 this.select = document.createElement('select')
+                this.select.addEventListener('keydown', handleSelectKeydown)
                 this.select.size = 5
                 this.wrapper.appendChild(this.select)
             }
@@ -91,10 +108,15 @@ class EnforcedSelector extends HTMLElement {
                 this.select.firstChild.remove()
             }
 
+            let firstOption = true
             getFilteredOptions().forEach((option) => {
                 const optionEl = document.createElement('option')
                 optionEl.value = option.value
                 optionEl.innerText = option.text
+                if (firstOption) {
+                    optionEl.setAttribute('selected', true)
+                    firstOption = false
+                }
                 this.select.appendChild(optionEl)
             })
         }
@@ -107,6 +129,7 @@ class EnforcedSelector extends HTMLElement {
         this.input.setAttribute('placeholder', this.placeholder)
         this.input.addEventListener('focus', handleInputFocus)
         this.input.addEventListener('keyup', handleInputKeyup)
+        this.input.addEventListener('keydown', handleInputKeydown)
         this.input.setAttribute('autocorrect', false)
         this.input.setAttribute('spellcheck', false)
 

@@ -67,6 +67,14 @@
             renderOptions()
         }
 
+        const handleInputKeydown = (event) => {
+            const keyCheck = event.key.toLowerCase()
+            if (keyCheck === 'tab') {
+                event.preventDefault()
+                this.select.focus()
+            }
+        }
+
         const handleInputKeyup = (event) => {
             const keyCheck = event.key.toLowerCase()
             if (keyCheck === 'enter') {
@@ -77,6 +85,14 @@
                 this.input.blur()
             } else {
                 renderOptions()
+            }
+        }
+
+        const handleSelectKeydown = (event) => {
+            const keyCheck = event.key.toLowerCase()
+            if (keyCheck === 'tab') {
+                event.preventDefault()
+                this.input.focus()
             }
         }
 
@@ -117,6 +133,7 @@
         const renderOptions = () => {
             if (!this.select) {
                 this.select = document.createElement('select')
+                this.select.addEventListener('keydown', handleSelectKeydown)
                 this.select.size = 5
                 this.wrapper.appendChild(this.select)
             }
@@ -125,10 +142,15 @@
                 this.select.firstChild.remove()
             }
 
+            let firstOption = true
             getFilteredOptions().forEach((option) => {
                 const optionEl = document.createElement('option')
                 optionEl.value = option.value
                 optionEl.innerText = option.text
+                if (firstOption) {
+                    optionEl.setAttribute('selected', true)
+                    firstOption = false
+                }
                 this.select.appendChild(optionEl)
             })
         }
@@ -141,6 +163,7 @@
         this.input.setAttribute('placeholder', this.placeholder)
         this.input.addEventListener('focus', handleInputFocus)
         this.input.addEventListener('keyup', handleInputKeyup)
+        this.input.addEventListener('keydown', handleInputKeydown)
         this.input.setAttribute('autocorrect', false)
         this.input.setAttribute('spellcheck', false)
 
@@ -225,6 +248,14 @@ customElements.define('enforced-selector', EnforcedSelector)
             renderOptions()
         }
 
+        const handleInputKeydown = (event) =&gt; {
+            const keyCheck = event.key.toLowerCase()
+            if (keyCheck === &#x27;tab&#x27;) {
+                event.preventDefault()
+                this.select.focus()
+            }
+        }
+
         const handleInputKeyup = (event) =&gt; {
             const keyCheck = event.key.toLowerCase()
             if (keyCheck === &#x27;enter&#x27;) {
@@ -235,6 +266,14 @@ customElements.define('enforced-selector', EnforcedSelector)
                 this.input.blur()
             } else {
                 renderOptions()
+            }
+        }
+
+        const handleSelectKeydown = (event) =&gt; {
+            const keyCheck = event.key.toLowerCase()
+            if (keyCheck === &#x27;tab&#x27;) {
+                event.preventDefault()
+                this.input.focus()
             }
         }
 
@@ -275,6 +314,7 @@ customElements.define('enforced-selector', EnforcedSelector)
         const renderOptions = () =&gt; {
             if (!this.select) {
                 this.select = document.createElement(&#x27;select&#x27;)
+                this.select.addEventListener(&#x27;keydown&#x27;, handleSelectKeydown)
                 this.select.size = 5
                 this.wrapper.appendChild(this.select)
             }
@@ -283,10 +323,15 @@ customElements.define('enforced-selector', EnforcedSelector)
                 this.select.firstChild.remove()
             }
 
+            let firstOption = true
             getFilteredOptions().forEach((option) =&gt; {
                 const optionEl = document.createElement(&#x27;option&#x27;)
                 optionEl.value = option.value
                 optionEl.innerText = option.text
+                if (firstOption) {
+                    optionEl.setAttribute(&#x27;selected&#x27;, true)
+                    firstOption = false
+                }
                 this.select.appendChild(optionEl)
             })
         }
@@ -299,6 +344,7 @@ customElements.define('enforced-selector', EnforcedSelector)
         this.input.setAttribute(&#x27;placeholder&#x27;, this.placeholder)
         this.input.addEventListener(&#x27;focus&#x27;, handleInputFocus)
         this.input.addEventListener(&#x27;keyup&#x27;, handleInputKeyup)
+        this.input.addEventListener(&#x27;keydown&#x27;, handleInputKeydown)
         this.input.setAttribute(&#x27;autocorrect&#x27;, false)
         this.input.setAttribute(&#x27;spellcheck&#x27;, false)
 
@@ -321,7 +367,7 @@ customElements.define(&#x27;enforced-selector&#x27;, EnforcedSelector)
              
                 <h2>TODO</h2>
                 <ul>
-                    <li>[ ] - Load data from child &lt;option&gt; elements</li> <li>[ ] - Clicking in opens the selection</li> <li>[ ] - Clicking out closes the selection</li> <li>[ ] - See if you make this off a selection if it can be use in forms directly</li>
+                    <li>[ ] - Don't load the options in at the start. call them dynamically so they can be updated outside the component. May have to keep some type of loader in there for the dom ready to prevent issue where the data doesn't show up on first hitting the open element</li> <li>[ ] - Load data from child &lt;option&gt; elements</li> <li>[ ] - Clicking in opens the selection</li> <li>[ ] - Clicking out closes the selection</li> <li>[ ] - See if you make this off a selection if it can be use in forms directly</li>
                 </ul>
              
                 <h2>References</h2>

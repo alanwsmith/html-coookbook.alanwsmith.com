@@ -9,6 +9,7 @@
         "I remove the placeholder text when you first click into the input field because it aways throws me when the text stays there on default forms"
     ],
     "TODOS": [
+        "[ ] - Don't load the options in at the start. call them dynamically so they can be updated outside the component. May have to keep some type of loader in there for the dom ready to prevent issue where the data doesn't show up on first hitting the open element",
         "[ ] - Load data from child &lt;option&gt; elements",
         "[ ] - Clicking in opens the selection",
         "[ ] - Clicking out closes the selection",
