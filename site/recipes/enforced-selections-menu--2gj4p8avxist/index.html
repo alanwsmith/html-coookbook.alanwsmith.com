@@ -39,7 +39,7 @@
         this.defaultOptions = {}
         this.placeholder = 'Select'
         this.options = []
-        this.upArrowCheck = null
+        this.upArrowCheck = ''
 
         const log = (msg) => {
             console.log(msg)
@@ -82,8 +82,14 @@
                 }
                 this.select.focus()
             } else if (keyCheck === 'escape') {
-                this.input.value = ''
-                renderOptions()
+                if (this.input.value !== '') {
+                    this.input.value = ''
+                    renderOptions()
+                } else {
+                    this.input.setAttribute('placeholder', this.placeholder)
+                    removeMenu()
+                    this.input.blur()
+                }
             } else {
                 renderOptions()
             }
@@ -103,13 +109,19 @@
             // options here.
             if (keyCheck === 'enter') {
                 registerSelection()
+
+                // } else if (keyCheck === 'escape') {
+                // log('TODO: Hanlde escape here')
+                // registerSelection()
             } else if (keyCheck === 'arrowup') {
                 if (this.upArrowCheck === this.select.value) {
                     this.input.focus()
                     setSelection(null)
                 }
             }
-            this.upArrowCheck = this.select.value
+            if (this.select) {
+                this.upArrowCheck = this.select.value
+            }
         }
 
         const registerSelection = () => {
@@ -119,10 +131,9 @@
                     this.input.setAttribute('placeholder', this.placeholder)
                     this.input.value = ''
                     this.input.blur()
-                    removeMenu()
-                    break
                 }
             }
+            removeMenu()
         }
 
         const removeMenu = () => {
@@ -171,6 +182,7 @@
                 option.removeAttribute('selected')
             }
             if (index !== null) {
+                this.upArrowCheck = this.options[index].value
                 this.options[index].setAttribute('selected', true)
             }
         }
@@ -255,7 +267,7 @@ customElements.define('enforced-selector', EnforcedSelector)
         this.defaultOptions = {}
         this.placeholder = &#x27;Select&#x27;
         this.options = []
-        this.upArrowCheck = null
+        this.upArrowCheck = &#x27;&#x27;
 
         const log = (msg) =&gt; {
             console.log(msg)
@@ -298,8 +310,14 @@ customElements.define('enforced-selector', EnforcedSelector)
                 }
                 this.select.focus()
             } else if (keyCheck === &#x27;escape&#x27;) {
-                this.input.value = &#x27;&#x27;
-                renderOptions()
+                if (this.input.value !== &#x27;&#x27;) {
+                    this.input.value = &#x27;&#x27;
+                    renderOptions()
+                } else {
+                    this.input.setAttribute(&#x27;placeholder&#x27;, this.placeholder)
+                    removeMenu()
+                    this.input.blur()
+                }
             } else {
                 renderOptions()
             }
@@ -319,13 +337,19 @@ customElements.define('enforced-selector', EnforcedSelector)
             // options here.
             if (keyCheck === &#x27;enter&#x27;) {
                 registerSelection()
+
+                // } else if (keyCheck === &#x27;escape&#x27;) {
+                // log(&#x27;TODO: Hanlde escape here&#x27;)
+                // registerSelection()
             } else if (keyCheck === &#x27;arrowup&#x27;) {
                 if (this.upArrowCheck === this.select.value) {
                     this.input.focus()
                     setSelection(null)
                 }
             }
-            this.upArrowCheck = this.select.value
+            if (this.select) {
+                this.upArrowCheck = this.select.value
+            }
         }
 
         const registerSelection = () =&gt; {
@@ -335,10 +359,9 @@ customElements.define('enforced-selector', EnforcedSelector)
                     this.input.setAttribute(&#x27;placeholder&#x27;, this.placeholder)
                     this.input.value = &#x27;&#x27;
                     this.input.blur()
-                    removeMenu()
-                    break
                 }
             }
+            removeMenu()
         }
 
         const removeMenu = () =&gt; {
@@ -387,6 +410,7 @@ customElements.define('enforced-selector', EnforcedSelector)
                 option.removeAttribute(&#x27;selected&#x27;)
             }
             if (index !== null) {
+                this.upArrowCheck = this.options[index].value
                 this.options[index].setAttribute(&#x27;selected&#x27;, true)
             }
         }
@@ -434,10 +458,58 @@ customElements.define(&#x27;enforced-selector&#x27;, EnforcedSelector)
                 <ul>
                     <li>Remove the previous 'Search' and 'Autocomplete' tests when this is running</li> <li>The reason for removing and adding the 'select' element (instead of just the options) is because of a behavior in safari where it doesn't respect resetting the position of the selected element on arrow movements</li> <li>I remove the placeholder text when you first click into the input field because it aways throws me when the text stays there on default forms</li>
                 </ul>
-             
+            
+      <h2>Functionality</h2>
+      <h3>When Outside The Control</h3>
+      <ul>
+        <li>[ ] - The Input is visible - The Menu is closed</li>
+      </ul>
+      <h3>When The Input Is Not Focused</h3>
+      <ul>
+        <li>
+          [.] - The default PLACEHOLDER is show if no prior SELECTION has been
+          made
+        </li>
+        <li>
+          [.] - If a previous SELECTION has been made, it is shown as the
+          PLACEHOLDER
+        </li>
+      </ul>
+
+      <h3>When The Input Is Focused</h3>
+      <ul>
+        <li>[.] - The PLACEHOLDER is removed</li>
+        <li>[.] - The MENU opens</li>
+        <li>[.] - The Menu shows the default options with none selected</li>
+        <li>
+          [ ] - Hitting ESCAPE
+          <ul>
+            <li>[.] - Closes the MENU</li>
+            <li>[.] - blurs the INPUT</li>
+            <li>
+              [ ] - Displays the default PLACEHOLDER if no previos SELECTION has
+              been made
+            </li>
+            <li>
+              [ ] - Displays the latest SELECTION as the PLACEHOLDER if one has
+              been made
+            </li>
+          </ul>
+        </li>
+        <li>[ ] - Hitting Tab</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+      </ul>
+
+      
                 <h2>TODO</h2>
                 <ul>
-                    <li>[ ] - Don't load the options in at the start. call them dynamically so they can be updated outside the component. May have to keep some type of loader in there for the dom ready to prevent issue where the data doesn't show up on first hitting the open element</li> <li>[ ] - Load data from child &lt;option&gt; elements</li> <li>[ ] - Clicking in opens the selection</li> <li>[ ] - Clicking out closes the selection</li> <li>[ ] - See if you make this off a selection if it can be use in forms directly</li> <li>[ ] - Verify that options can be updated live outside the component</li> <li>[.] - Hitting escape resets the form but keeps you in it</li> <li>[ ] - Clicking the up arrow when you're at the top of the list takes up back to the input field</li> <li>[ ] - If you mouse all the way back up, the selection is removed until you hit anoter key</li>
+                    <li>[.] - Don't load the options in at the start. call them dynamically so they can be updated outside the component. May have to keep some type of loader in there for the dom ready to prevent issue where the data doesn't show up on first hitting the open element</li> <li>[.] - Load data from child &lt;option&gt; elements</li> <li>[.] - Clicking in the input field opens the menu</li> <li>[.] - Clicking outside the input field closes the menu</li> <li>[.] - Clicking outside the menu closes the menu</li> <li>[ ] - Investigate making this a custom built-in form form element so it can have that API</li> <li>[ ] - Verify that options can be updated live outside the component</li> <li>[.] - Hitting escape while inside resets the form but keeps you in it</li> <li>[ ] - Clicking the up arrow when you're at the top of the list takes up back to the input field</li> <li>[ ] - If you mouse all the way back up, the selection is removed until you hit anoter key</li> <li>[ ] - escape with text removes it. escape without text blurs the input</li> <li>[ ] - If you just arrow down and then immediately up, go back to the input</li> <li>[ ] - Don't try to go past the last item with arrow down</li> <li>[ ] - Investigate UX of moving to alpha sort when a search term is in the Input field</li>
                 </ul>
              
                 <h2>References</h2>

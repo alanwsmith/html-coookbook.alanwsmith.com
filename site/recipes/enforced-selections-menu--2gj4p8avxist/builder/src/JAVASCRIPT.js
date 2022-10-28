@@ -5,7 +5,7 @@ class EnforcedSelector extends HTMLElement {
         this.defaultOptions = {}
         this.placeholder = 'Select'
         this.options = []
-        this.upArrowCheck = null
+        this.upArrowCheck = ''
 
         const log = (msg) => {
             console.log(msg)
@@ -48,8 +48,14 @@ class EnforcedSelector extends HTMLElement {
                 }
                 this.select.focus()
             } else if (keyCheck === 'escape') {
-                this.input.value = ''
-                renderOptions()
+                if (this.input.value !== '') {
+                    this.input.value = ''
+                    renderOptions()
+                } else {
+                    this.input.setAttribute('placeholder', this.placeholder)
+                    removeMenu()
+                    this.input.blur()
+                }
             } else {
                 renderOptions()
             }
@@ -69,13 +75,19 @@ class EnforcedSelector extends HTMLElement {
             // options here.
             if (keyCheck === 'enter') {
                 registerSelection()
+
+                // } else if (keyCheck === 'escape') {
+                // log('TODO: Hanlde escape here')
+                // registerSelection()
             } else if (keyCheck === 'arrowup') {
                 if (this.upArrowCheck === this.select.value) {
                     this.input.focus()
                     setSelection(null)
                 }
             }
-            this.upArrowCheck = this.select.value
+            if (this.select) {
+                this.upArrowCheck = this.select.value
+            }
         }
 
         const registerSelection = () => {
@@ -85,10 +97,9 @@ class EnforcedSelector extends HTMLElement {
                     this.input.setAttribute('placeholder', this.placeholder)
                     this.input.value = ''
                     this.input.blur()
-                    removeMenu()
-                    break
                 }
             }
+            removeMenu()
         }
 
         const removeMenu = () => {
@@ -137,6 +148,7 @@ class EnforcedSelector extends HTMLElement {
                 option.removeAttribute('selected')
             }
             if (index !== null) {
+                this.upArrowCheck = this.options[index].value
                 this.options[index].setAttribute('selected', true)
             }
         }
