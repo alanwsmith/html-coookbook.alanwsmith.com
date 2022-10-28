@@ -4,7 +4,8 @@
     "DESCRIPTION": "Goal: a form control that lets you pick from a selection by typing but only from the available selections",
     "DETAILS": [],
     "NOTES": [
-        "Remove the previous 'Search' and 'Autocomplete' tests when this is running"
+        "Remove the previous 'Search' and 'Autocomplete' tests when this is running",
+        "The reason for removing and adding the 'select' element (instead of just the options) is because of a behavior in safari where it doesn't respect resetting the position of the selected element on arrow movements"
     ],
     "TODOS": [
         "[ ] - Load data from child &lt;option&gt; elements",

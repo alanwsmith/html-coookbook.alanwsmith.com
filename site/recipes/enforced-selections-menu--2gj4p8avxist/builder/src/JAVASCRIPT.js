@@ -9,9 +9,17 @@ class EnforcedSelector extends HTMLElement {
             console.log(msg)
         }
 
+        const addMenu = () => {
+            if (!this.select) {
+                log('- Adding Menu')
+                this.select = document.createElement('select')
+                this.select.size = 5
+            }
+        }
+
         const handleDocumentClick = (event) => {
             if (event.target !== this) {
-                log('deactivating')
+                // log('deactivating')
                 for (const option of this.options) {
                     option.remove()
                 }
@@ -20,21 +28,19 @@ class EnforcedSelector extends HTMLElement {
         }
 
         const handleInputFocus = () => {
-            // TODO: Confirm there's no select and delte it if there is
-            // because sometimes it seems one shows up and doesn't get
-            // removed
-            log('focus')
-            removeMenu()
-            this.select = document.createElement('select')
-            this.select.size = 5
+            // log('focus')
 
-            for (const optionKey in this.defaultOptions) {
-                const option = document.createElement('option')
-                option.value = this.defaultOptions[optionKey].value
-                option.innerText = this.defaultOptions[optionKey].text
-                this.select.appendChild(option)
-            }
-            this.wrapper.appendChild(this.select)
+            // addMenu()
+            showOptions()
+
+            // for (const optionKey in this.defaultOptions) {
+            //     const option = document.createElement('option')
+            //     option.value = this.defaultOptions[optionKey].value
+            //     option.innerText = this.defaultOptions[optionKey].text
+            //     this.select.appendChild(option)
+            // }
+
+            // this.wrapper.appendChild(this.select)
         }
 
         const loadDefaultOptions = () => {
@@ -45,15 +51,34 @@ class EnforcedSelector extends HTMLElement {
                     text: defaultOptions[i].innerText,
                 }
             }
-            // log(this.defaultOptions)
         }
 
         const removeMenu = () => {
-            log('# RUN: removeMenu')
             if (this.select) {
+                while (this.select.firstChild) {
+                    this.select.firstChild.remove()
+                }
                 this.select.blur()
                 this.select.remove()
+                this.select = null
             }
+        }
+
+        const showOptions = () => {
+            if (!this.select) {
+                log('- Adding Menu')
+                this.select = document.createElement('select')
+                this.select.size = 5
+            }
+
+            for (const optionKey in this.defaultOptions) {
+                const option = document.createElement('option')
+                option.value = this.defaultOptions[optionKey].value
+                option.innerText = this.defaultOptions[optionKey].text
+                this.select.appendChild(option)
+            }
+
+            this.wrapper.appendChild(this.select)
         }
 
         this.wrapper = document.createElement('div')

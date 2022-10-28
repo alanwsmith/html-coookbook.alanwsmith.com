@@ -43,9 +43,17 @@
             console.log(msg)
         }
 
+        const addMenu = () => {
+            if (!this.select) {
+                log('- Adding Menu')
+                this.select = document.createElement('select')
+                this.select.size = 5
+            }
+        }
+
         const handleDocumentClick = (event) => {
             if (event.target !== this) {
-                log('deactivating')
+                // log('deactivating')
                 for (const option of this.options) {
                     option.remove()
                 }
@@ -54,21 +62,19 @@
         }
 
         const handleInputFocus = () => {
-            // TODO: Confirm there's no select and delte it if there is
-            // because sometimes it seems one shows up and doesn't get
-            // removed
-            log('focus')
-            removeMenu()
-            this.select = document.createElement('select')
-            this.select.size = 5
+            // log('focus')
 
-            for (const optionKey in this.defaultOptions) {
-                const option = document.createElement('option')
-                option.value = this.defaultOptions[optionKey].value
-                option.innerText = this.defaultOptions[optionKey].text
-                this.select.appendChild(option)
-            }
-            this.wrapper.appendChild(this.select)
+            // addMenu()
+            showOptions()
+
+            // for (const optionKey in this.defaultOptions) {
+            //     const option = document.createElement('option')
+            //     option.value = this.defaultOptions[optionKey].value
+            //     option.innerText = this.defaultOptions[optionKey].text
+            //     this.select.appendChild(option)
+            // }
+
+            // this.wrapper.appendChild(this.select)
         }
 
         const loadDefaultOptions = () => {
@@ -79,15 +85,34 @@
                     text: defaultOptions[i].innerText,
                 }
             }
-            // log(this.defaultOptions)
         }
 
         const removeMenu = () => {
-            log('# RUN: removeMenu')
             if (this.select) {
+                while (this.select.firstChild) {
+                    this.select.firstChild.remove()
+                }
                 this.select.blur()
                 this.select.remove()
+                this.select = null
             }
+        }
+
+        const showOptions = () => {
+            if (!this.select) {
+                log('- Adding Menu')
+                this.select = document.createElement('select')
+                this.select.size = 5
+            }
+
+            for (const optionKey in this.defaultOptions) {
+                const option = document.createElement('option')
+                option.value = this.defaultOptions[optionKey].value
+                option.innerText = this.defaultOptions[optionKey].text
+                this.select.appendChild(option)
+            }
+
+            this.wrapper.appendChild(this.select)
         }
 
         this.wrapper = document.createElement('div')
@@ -154,9 +179,17 @@ customElements.define('enforced-selector', EnforcedSelector)
             console.log(msg)
         }
 
+        const addMenu = () =&gt; {
+            if (!this.select) {
+                log(&#x27;- Adding Menu&#x27;)
+                this.select = document.createElement(&#x27;select&#x27;)
+                this.select.size = 5
+            }
+        }
+
         const handleDocumentClick = (event) =&gt; {
             if (event.target !== this) {
-                log(&#x27;deactivating&#x27;)
+                // log(&#x27;deactivating&#x27;)
                 for (const option of this.options) {
                     option.remove()
                 }
@@ -165,21 +198,19 @@ customElements.define('enforced-selector', EnforcedSelector)
         }
 
         const handleInputFocus = () =&gt; {
-            // TODO: Confirm there&#x27;s no select and delte it if there is
-            // because sometimes it seems one shows up and doesn&#x27;t get
-            // removed
-            log(&#x27;focus&#x27;)
-            removeMenu()
-            this.select = document.createElement(&#x27;select&#x27;)
-            this.select.size = 5
+            // log(&#x27;focus&#x27;)
 
-            for (const optionKey in this.defaultOptions) {
-                const option = document.createElement(&#x27;option&#x27;)
-                option.value = this.defaultOptions[optionKey].value
-                option.innerText = this.defaultOptions[optionKey].text
-                this.select.appendChild(option)
-            }
-            this.wrapper.appendChild(this.select)
+            // addMenu()
+            showOptions()
+
+            // for (const optionKey in this.defaultOptions) {
+            //     const option = document.createElement(&#x27;option&#x27;)
+            //     option.value = this.defaultOptions[optionKey].value
+            //     option.innerText = this.defaultOptions[optionKey].text
+            //     this.select.appendChild(option)
+            // }
+
+            // this.wrapper.appendChild(this.select)
         }
 
         const loadDefaultOptions = () =&gt; {
@@ -190,15 +221,34 @@ customElements.define('enforced-selector', EnforcedSelector)
                     text: defaultOptions[i].innerText,
                 }
             }
-            // log(this.defaultOptions)
         }
 
         const removeMenu = () =&gt; {
-            log(&#x27;# RUN: removeMenu&#x27;)
             if (this.select) {
+                while (this.select.firstChild) {
+                    this.select.firstChild.remove()
+                }
                 this.select.blur()
                 this.select.remove()
+                this.select = null
             }
+        }
+
+        const showOptions = () =&gt; {
+            if (!this.select) {
+                log(&#x27;- Adding Menu&#x27;)
+                this.select = document.createElement(&#x27;select&#x27;)
+                this.select.size = 5
+            }
+
+            for (const optionKey in this.defaultOptions) {
+                const option = document.createElement(&#x27;option&#x27;)
+                option.value = this.defaultOptions[optionKey].value
+                option.innerText = this.defaultOptions[optionKey].text
+                this.select.appendChild(option)
+            }
+
+            this.wrapper.appendChild(this.select)
         }
 
         this.wrapper = document.createElement(&#x27;div&#x27;)
@@ -222,7 +272,7 @@ customElements.define(&#x27;enforced-selector&#x27;, EnforcedSelector)
        
                 <h2>Notes</h2>
                 <ul>
-                    <li>Remove the previous 'Search' and 'Autocomplete' tests when this is running</li>
+                    <li>Remove the previous 'Search' and 'Autocomplete' tests when this is running</li> <li>The reason for removing and adding the 'select' element (instead of just the options) is because of a behavior in safari where it doesn't respect resetting the position of the selected element on arrow movements</li>
                 </ul>
              
                 <h2>TODO</h2>
