@@ -18,6 +18,11 @@ class EnforcedSelector extends HTMLElement {
             }
         }
 
+        const handleDOMContentLoaded = () => {
+            this.style.display = 'inline'
+            this.style.position = 'relative'
+        }
+
         const handleInputFocus = () => {
             this.input.setAttribute('placeholder', '')
             renderOptions()
@@ -129,6 +134,7 @@ class EnforcedSelector extends HTMLElement {
             this.select.addEventListener('keydown', handleSelectKeydown)
             this.select.addEventListener('keyup', handleSelectKeyup)
             this.select.size = 5
+            // this.style.position = 'absolute'
 
             for (let option of this.options) {
                 this.select.appendChild(option)
@@ -185,6 +191,7 @@ class EnforcedSelector extends HTMLElement {
         this.shadowRoot.append(this.wrapper)
 
         document.addEventListener('mousedown', handleDocumentClick)
+        document.addEventListener('DOMContentLoaded', handleDOMContentLoaded)
     }
 }
 

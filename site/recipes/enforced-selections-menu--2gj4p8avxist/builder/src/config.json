@@ -6,6 +6,7 @@
     "NOTES": [
         "Remove the previous 'Search' and 'Autocomplete' tests when this is running",
         "The reason for removing and adding the 'select' element (instead of just the options) is because of a behavior in safari where it doesn't respect resetting the position of the selected element on arrow movements",
+        "I'm adding display inline when the DOMContentLoaded fires. Adding it before then throws an error. TBD if that causes a layout shift which would need to be dealt with",
         "I remove the placeholder text when you first click into the input field because it aways throws me when the text stays there on default forms"
     ],
     "TODOS": [

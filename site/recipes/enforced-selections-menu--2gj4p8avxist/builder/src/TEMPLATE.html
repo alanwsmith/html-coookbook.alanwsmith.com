@@ -44,44 +44,72 @@
       <a href="https://https://twitter.com/TheIdOfAlan">twitter</a>
     </header>
     <main>
+      <h1>WORK IN PROGRESS</h1>
+      <hr />
+      <p>
+        I'm still buliding this out. It's very much a DRAFT and is various
+        stages of scuffed depending on the day
+      </p>
+      <hr />
       <h1>$TITLE</h1>
+      <p>
+        I'm building this form control because I haven't been able to figure out
+        how toget the default ones to do what I want them to
+      </p>
+      <p>
+        The primary goal is to have an input field where you can enter text that
+        brings up a drop down menu of possible options. But, I want to limit the
+        possible values from the input field to what's in the selection and I
+        want it so that if you press enter whichever one is first in the list
+        gets selected. There's a bunch of other functionatliy listed below, but
+        those items are the key
+      </p>
+
       <h2>Example</h2>
       $HTML $ESCAPED_HEAD $ESCAPED_HTML $ESCAPED_CSS $ESCAPED_JAVASCRIPT
       $DETAILS $NOTES
       <h2>Functionality</h2>
-      <h3>When neither INPUT or MENU is focused</h3>
+      <h3>Neither the INPUT or the MENU is focused</h3>
       <ul>
-        <li>[.] - The INPUT is visible - The MENU is closed and invisible</li>
+        <li>[.] - INPUT is visible</li>
+        <li>[.] - MENU is invisible</li>
+        <li>[.] - PLACEHOLDER shows previous SELECTION if one exists</li>
         <li>
-          [.] - The default PLACEHOLDER is show if no prior SELECTION has been
-          made
-        </li>
-        <li>
-          [.] - If a previous SELECTION has been made, it is shown as the
-          PLACEHOLDER
+          [.] - PLACEHOLDER shows default text if no previous SELECTION exists
         </li>
       </ul>
 
-      <h3>When The Input Is Focused</h3>
+      <h3>INPUT Becomes Focused</h3>
       <ul>
-        <li>[.] - The PLACEHOLDER is removed</li>
-        <li>[.] - The MENU opens</li>
-        <li>[.] - The Menu shows the default options with none selected</li>
+        <li>[.] - PLACEHOLDER is removed</li>
+        <li>[.] - MENU opens</li>
+        <li>[.] - MENU displays default OPTIONS with making one SELECTED</li>
+      </ul>
+
+      <h3>ENTER is pressed while INPUT has focus with no VALUE</h3>
+      <ul>
+        <li>[.] - no-op</li>
+      </ul>
+
+      <h3>ESCAPE pressed while INPUT has focus with no VALUE</h3>
+      <ul>
+        <li>[.] - Hides the MENU</li>
+        <li>[.] - INPUT is blured</li>
+        <li>[.] - PLACEHOLDER shows previous SELECTION if one exists</li>
         <li>
-          [.] - Hitting ESCAPE in INPUT when INPUT is empty
-          <ul>
-            <li>[.] - Hides the MENU</li>
-            <li>
-              [.] - Displays the default PLACEHOLDER if no previos SELECTION has
-              been made
-            </li>
-            <li>
-              [.] - Displays the previous SELECTION as the PLACEHOLDER if one
-              exists
-            </li>
-            <li>[.] - Blurs the INPUT</li>
-          </ul>
+          [.] - PLACEHOLDER shows default text if no previous SELECTION exists
         </li>
+      </ul>
+
+      <h3>ENTER is pressed while INPUT has focus has a VALUE</h3>
+      <h3>ESCAPE is pressed while INPUT has focus has a VALUE</h3>
+      <h3>CLICK occurs outside INPUT or MENU</h3>
+      <h3>CLICK occurs on MENU OPTION</h3>
+      <h3>CLICK occurs in INPUT while MENU has focus</h3>
+
+      <hr />
+
+      <ul>
         <li>
           [.] - Hitting TAB in INPUT when INPUT is empty
           <ul>
