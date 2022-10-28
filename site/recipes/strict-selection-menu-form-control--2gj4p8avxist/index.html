@@ -32,7 +32,7 @@
       
     </style>
     <script>
-      class EnforcedSelector extends HTMLElement {
+      class StrictSelect extends HTMLElement {
     constructor() {
         super()
         this.attachShadow({ mode: 'open' })
@@ -82,12 +82,14 @@
                     }
                 }
             } else if (keyCheck === 'arrowdown') {
-                if (this.input.value === '') {
-                    setSelection(0)
-                } else {
-                    setSelection(1)
+                if (this.options.length > 0) {
+                    if (this.input.value === '') {
+                        setSelection(0)
+                    } else {
+                        setSelection(1)
+                    }
+                    this.select.focus()
                 }
-                this.select.focus()
             } else if (keyCheck === 'escape') {
                 if (this.input.value !== '') {
                     this.input.value = ''
@@ -242,7 +244,7 @@
     }
 }
 
-customElements.define('enforced-selector', EnforcedSelector)
+customElements.define('strict-select', StrictSelect)
 
     </script>
   </head>
@@ -264,8 +266,8 @@ customElements.define('enforced-selector', EnforcedSelector)
       <hr />
       <h1>Strict Selection Menu Form Control</h1>
       <p>
-        I'm building this form control because I haven't been able to figure out
-        how toget the default ones to do what I want them to
+        I'm building this because I haven't been able to figure out how to get
+        the default form controls to do what I want
       </p>
       <p>
         The primary goal is to have an input field where you can enter text that
@@ -277,7 +279,7 @@ customElements.define('enforced-selector', EnforcedSelector)
       </p>
 
       <h2>Example</h2>
-      <enforced-selector>
+      <strict-select>
   <option value="roboto">Roboto</option>
   <option value="opensans">Open Sans</option>
   <option value="notosansjp">Noto Sans JP</option>
@@ -285,10 +287,10 @@ customElements.define('enforced-selector', EnforcedSelector)
   <option value="lato">Lato</option>
   <option value="poppins">Poppins</option>
   <option value="sourcesanspro">Source Sans Pro</option>
-</enforced-selector>
+</strict-select>
   
             <h2>HTML</h2>
-            <pre><code class="language-html">&lt;enforced-selector&gt;
+            <pre><code class="language-html">&lt;strict-select&gt;
   &lt;option value=&quot;roboto&quot;&gt;Roboto&lt;/option&gt;
   &lt;option value=&quot;opensans&quot;&gt;Open Sans&lt;/option&gt;
   &lt;option value=&quot;notosansjp&quot;&gt;Noto Sans JP&lt;/option&gt;
@@ -296,11 +298,11 @@ customElements.define('enforced-selector', EnforcedSelector)
   &lt;option value=&quot;lato&quot;&gt;Lato&lt;/option&gt;
   &lt;option value=&quot;poppins&quot;&gt;Poppins&lt;/option&gt;
   &lt;option value=&quot;sourcesanspro&quot;&gt;Source Sans Pro&lt;/option&gt;
-&lt;/enforced-selector&gt;
+&lt;/strict-select&gt;
 </code></pre>
               
             <h2>JavaScript</h2>
-            <pre><code class="language-js">class EnforcedSelector extends HTMLElement {
+            <pre><code class="language-js">class StrictSelect extends HTMLElement {
     constructor() {
         super()
         this.attachShadow({ mode: &#x27;open&#x27; })
@@ -350,12 +352,14 @@ customElements.define('enforced-selector', EnforcedSelector)
                     }
                 }
             } else if (keyCheck === &#x27;arrowdown&#x27;) {
-                if (this.input.value === &#x27;&#x27;) {
-                    setSelection(0)
-                } else {
-                    setSelection(1)
+                if (this.options.length &gt; 0) {
+                    if (this.input.value === &#x27;&#x27;) {
+                        setSelection(0)
+                    } else {
+                        setSelection(1)
+                    }
+                    this.select.focus()
                 }
-                this.select.focus()
             } else if (keyCheck === &#x27;escape&#x27;) {
                 if (this.input.value !== &#x27;&#x27;) {
                     this.input.value = &#x27;&#x27;
@@ -510,7 +514,7 @@ customElements.define('enforced-selector', EnforcedSelector)
     }
 }
 
-customElements.define(&#x27;enforced-selector&#x27;, EnforcedSelector)
+customElements.define(&#x27;strict-select&#x27;, StrictSelect)
 </code></pre>
             
        
@@ -577,6 +581,18 @@ customElements.define(&#x27;enforced-selector&#x27;, EnforcedSelector)
         <li>[.] - Focus moves to next tab index as normal</li>
       </ul>
 
+      <h3>
+        TAB is pressed while MENU is active with VALUE in INPUT but no valid
+        OPTIONs available
+      </h3>
+      <li>no-op</li>
+
+      <h3>
+        ARROW DOWN is pressed while MENU is active with VALUE in INPUT but no
+        valid OPTIONs available
+      </h3>
+      <li>no-op</li>
+
       <h3>TAB pressed when VALUE in INPUT has zero MENU results</h3>
       <ul>
         <li>[ ] - no-op</li>
@@ -631,12 +647,12 @@ customElements.define(&#x27;enforced-selector&#x27;, EnforcedSelector)
       
                 <h2>TODO</h2>
                 <ul>
-                    <li>[.] - Don't load the options in at the start. call them dynamically so they can be updated outside the component. May have to keep some type of loader in there for the dom ready to prevent issue where the data doesn't show up on first hitting the open element</li> <li>[.] - Load data from child &lt;option&gt; elements</li> <li>[.] - Clicking in the input field opens the menu</li> <li>[.] - Clicking outside the input field closes the menu</li> <li>[.] - Clicking outside the menu closes the menu</li> <li>[ ] - Investigate making this a custom built-in form form element so it can have that API</li> <li>[ ] - Verify that options can be updated live outside the component</li> <li>[.] - Hitting escape while inside resets the form but keeps you in it</li> <li>[ ] - Clicking the up arrow when you're at the top of the list takes up back to the input field</li> <li>[ ] - If you mouse all the way back up, the selection is removed until you hit anoter key</li> <li>[ ] - escape with text removes it. escape without text blurs the input</li> <li>[ ] - If you just arrow down and then immediately up, go back to the input</li> <li>[ ] - Don't try to go past the last item with arrow down</li> <li>[ ] - Investigate UX of moving to alpha sort when a search term is in the Input field</li> <li>[ ] - Add customization that lets you show the default placeholder instead of the prious selection</li>
+                    <li>[ ] - Clean up and dedupe the requirements</li> <li>[.] - Don't load the options in at the start. call them dynamically so they can be updated outside the component. May have to keep some type of loader in there for the dom ready to prevent issue where the data doesn't show up on first hitting the open element</li> <li>[.] - Load data from child &lt;option&gt; elements</li> <li>[.] - Clicking in the input field opens the menu</li> <li>[.] - Clicking outside the input field closes the menu</li> <li>[.] - Clicking outside the menu closes the menu</li> <li>[ ] - Investigate making this a custom built-in form form element so it can have that API</li> <li>[ ] - Verify that options can be updated live outside the component</li> <li>[.] - Hitting escape while inside resets the form but keeps you in it</li> <li>[ ] - Clicking the up arrow when you're at the top of the list takes up back to the input field</li> <li>[ ] - If you mouse all the way back up, the selection is removed until you hit anoter key</li> <li>[ ] - escape with text removes it. escape without text blurs the input</li> <li>[ ] - If you just arrow down and then immediately up, go back to the input</li> <li>[ ] - Don't try to go past the last item with arrow down</li> <li>[ ] - Investigate UX of moving to alpha sort when a search term is in the Input field</li> <li>[ ] - Add customization that lets you show the default placeholder instead of the prious selection</li> <li>[ ] - Maybe refactor a little after a break</li> <li>[ ] - Display No Matches when there aren't any</li> <li>[ ] - See if there's a way to eliminate the quick blink when tabbing from the menu to the next tab index</li>
                 </ul>
              
                 <h2>References</h2>
                 <ul>
-                    <li><a href=""></a></li>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements">MDN: Using custom elements</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components">MDN: Web Components</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes">MDN: JavaScript Classes</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position">MDN: CSS position</a></li> <li><a href="https://stackoverflow.com/q/596481/102401">Is it possible to simulate key press events programmatically?</a> - I didn't end up using this. Something to look into if the need arises</li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault">MDN: Event.preventDefault()</a></li>
                 </ul>
                 
     </main>

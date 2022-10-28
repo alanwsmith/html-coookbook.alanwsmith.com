@@ -1,4 +1,4 @@
-class EnforcedSelector extends HTMLElement {
+class StrictSelect extends HTMLElement {
     constructor() {
         super()
         this.attachShadow({ mode: 'open' })
@@ -48,12 +48,14 @@ class EnforcedSelector extends HTMLElement {
                     }
                 }
             } else if (keyCheck === 'arrowdown') {
-                if (this.input.value === '') {
-                    setSelection(0)
-                } else {
-                    setSelection(1)
+                if (this.options.length > 0) {
+                    if (this.input.value === '') {
+                        setSelection(0)
+                    } else {
+                        setSelection(1)
+                    }
+                    this.select.focus()
                 }
-                this.select.focus()
             } else if (keyCheck === 'escape') {
                 if (this.input.value !== '') {
                     this.input.value = ''
@@ -208,4 +210,4 @@ class EnforcedSelector extends HTMLElement {
     }
 }
 
-customElements.define('enforced-selector', EnforcedSelector)
+customElements.define('strict-select', StrictSelect)

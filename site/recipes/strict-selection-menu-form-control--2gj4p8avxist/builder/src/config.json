@@ -11,6 +11,7 @@
         "The setTimeout move to the next tab is becaue I haven't found a way to move to the next tab index programatically. Closing the menu first means the tab doesn't move. And closing it after didn't work"
     ],
     "TODOS": [
+        "[ ] - Clean up and dedupe the requirements",
         "[.] - Don't load the options in at the start. call them dynamically so they can be updated outside the component. May have to keep some type of loader in there for the dom ready to prevent issue where the data doesn't show up on first hitting the open element",
         "[.] - Load data from child &lt;option&gt; elements",
         "[.] - Clicking in the input field opens the menu",
@@ -25,12 +26,40 @@
         "[ ] - If you just arrow down and then immediately up, go back to the input",
         "[ ] - Don't try to go past the last item with arrow down",
         "[ ] - Investigate UX of moving to alpha sort when a search term is in the Input field",
-        "[ ] - Add customization that lets you show the default placeholder instead of the prious selection"
+        "[ ] - Add customization that lets you show the default placeholder instead of the prious selection",
+        "[ ] - Maybe refactor a little after a break",
+        "[ ] - Display No Matches when there aren't any",
+        "[ ] - See if there's a way to eliminate the quick blink when tabbing from the menu to the next tab index"
     ],
     "REFERENCES": [
         {
-            "title": "",
-            "url": "",
+            "title": "MDN: Using custom elements",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements",
+            "extra": ""
+        },
+        {
+            "title": "MDN: Web Components",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/Web_Components",
+            "extra": ""
+        },
+        {
+            "title": "MDN: JavaScript Classes",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes",
+            "extra": ""
+        },
+        {
+            "title": "MDN: CSS position",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/position",
+            "extra": ""
+        },
+        {
+            "title": "Is it possible to simulate key press events programmatically?",
+            "url": "https://stackoverflow.com/q/596481/102401",
+            "extra": "I didn't end up using this. Something to look into if the need arises"
+        },
+        {
+            "title": "MDN: Event.preventDefault()",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault",
             "extra": ""
         }
     ]
