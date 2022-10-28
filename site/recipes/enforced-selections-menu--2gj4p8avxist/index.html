@@ -460,12 +460,9 @@ customElements.define(&#x27;enforced-selector&#x27;, EnforcedSelector)
                 </ul>
             
       <h2>Functionality</h2>
-      <h3>When Outside The Control</h3>
+      <h3>When neither INPUT or MENU is focused</h3>
       <ul>
-        <li>[ ] - The Input is visible - The Menu is closed</li>
-      </ul>
-      <h3>When The Input Is Not Focused</h3>
-      <ul>
+        <li>[.] - The INPUT is visible - The MENU is closed and invisible</li>
         <li>
           [.] - The default PLACEHOLDER is show if no prior SELECTION has been
           made
@@ -482,21 +479,54 @@ customElements.define(&#x27;enforced-selector&#x27;, EnforcedSelector)
         <li>[.] - The MENU opens</li>
         <li>[.] - The Menu shows the default options with none selected</li>
         <li>
-          [ ] - Hitting ESCAPE
+          [.] - Hitting ESCAPE in INPUT when INPUT is empty
           <ul>
-            <li>[.] - Closes the MENU</li>
-            <li>[.] - blurs the INPUT</li>
+            <li>[.] - Hides the MENU</li>
             <li>
-              [ ] - Displays the default PLACEHOLDER if no previos SELECTION has
+              [.] - Displays the default PLACEHOLDER if no previos SELECTION has
               been made
             </li>
             <li>
-              [ ] - Displays the latest SELECTION as the PLACEHOLDER if one has
-              been made
+              [.] - Displays the previous SELECTION as the PLACEHOLDER if one
+              exists
             </li>
+            <li>[.] - Blurs the INPUT</li>
           </ul>
         </li>
-        <li>[ ] - Hitting Tab</li>
+        <li>
+          [.] - Hitting TAB in INPUT when INPUT is empty
+          <ul>
+            <li>[.] - Focuses the MENU</li>
+            <li>[.] - Selects the first OPTION</li>
+          </ul>
+        </li>
+        <li>[.] - Hitting TAB in INPUT when INPUT has TEXT</li>
+        <ul>
+          <li>[.] - Focuses the MENU</li>
+          <li>
+            [.] - No adjustement to SELECTION since it will already be on the
+            first OPTION
+          </li>
+        </ul>
+      </ul>
+
+      <h3>[] - Hitting TAB when MENU has focus</h3>
+      <ul>
+        <li>[ ] - Moves to next TAB INDEX</li>
+        <li>[ ] - Closes MENU</li>
+        <li>[ ] - Removes any VALUE from INPUT</li>
+        <li>[ ] - Displays previous SELECTION as PLACEHOLDER if one exists</li>
+        <li>
+          [ ] - Displays default PLACEHOLDER if no previous SELECTION exists
+        </li>
+      </ul>
+
+      <ul>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
         <li>[ ] -</li>
         <li>[ ] -</li>
         <li>[ ] -</li>
@@ -509,7 +539,7 @@ customElements.define(&#x27;enforced-selector&#x27;, EnforcedSelector)
       
                 <h2>TODO</h2>
                 <ul>
-                    <li>[.] - Don't load the options in at the start. call them dynamically so they can be updated outside the component. May have to keep some type of loader in there for the dom ready to prevent issue where the data doesn't show up on first hitting the open element</li> <li>[.] - Load data from child &lt;option&gt; elements</li> <li>[.] - Clicking in the input field opens the menu</li> <li>[.] - Clicking outside the input field closes the menu</li> <li>[.] - Clicking outside the menu closes the menu</li> <li>[ ] - Investigate making this a custom built-in form form element so it can have that API</li> <li>[ ] - Verify that options can be updated live outside the component</li> <li>[.] - Hitting escape while inside resets the form but keeps you in it</li> <li>[ ] - Clicking the up arrow when you're at the top of the list takes up back to the input field</li> <li>[ ] - If you mouse all the way back up, the selection is removed until you hit anoter key</li> <li>[ ] - escape with text removes it. escape without text blurs the input</li> <li>[ ] - If you just arrow down and then immediately up, go back to the input</li> <li>[ ] - Don't try to go past the last item with arrow down</li> <li>[ ] - Investigate UX of moving to alpha sort when a search term is in the Input field</li>
+                    <li>[.] - Don't load the options in at the start. call them dynamically so they can be updated outside the component. May have to keep some type of loader in there for the dom ready to prevent issue where the data doesn't show up on first hitting the open element</li> <li>[.] - Load data from child &lt;option&gt; elements</li> <li>[.] - Clicking in the input field opens the menu</li> <li>[.] - Clicking outside the input field closes the menu</li> <li>[.] - Clicking outside the menu closes the menu</li> <li>[ ] - Investigate making this a custom built-in form form element so it can have that API</li> <li>[ ] - Verify that options can be updated live outside the component</li> <li>[.] - Hitting escape while inside resets the form but keeps you in it</li> <li>[ ] - Clicking the up arrow when you're at the top of the list takes up back to the input field</li> <li>[ ] - If you mouse all the way back up, the selection is removed until you hit anoter key</li> <li>[ ] - escape with text removes it. escape without text blurs the input</li> <li>[ ] - If you just arrow down and then immediately up, go back to the input</li> <li>[ ] - Don't try to go past the last item with arrow down</li> <li>[ ] - Investigate UX of moving to alpha sort when a search term is in the Input field</li> <li>[ ] - Add customization that lets you show the default placeholder instead of the prious selection</li>
                 </ul>
              
                 <h2>References</h2>

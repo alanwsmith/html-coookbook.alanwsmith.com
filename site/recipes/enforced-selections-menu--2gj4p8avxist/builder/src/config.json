@@ -22,7 +22,8 @@
         "[ ] - escape with text removes it. escape without text blurs the input",
         "[ ] - If you just arrow down and then immediately up, go back to the input",
         "[ ] - Don't try to go past the last item with arrow down",
-        "[ ] - Investigate UX of moving to alpha sort when a search term is in the Input field"
+        "[ ] - Investigate UX of moving to alpha sort when a search term is in the Input field",
+        "[ ] - Add customization that lets you show the default placeholder instead of the prious selection"
     ],
     "REFERENCES": [
         {
