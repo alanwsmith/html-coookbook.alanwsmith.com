@@ -46,6 +46,7 @@
 
         const handleDocumentClick = (event) => {
             if (event.target !== this) {
+                this.input.value = ''
                 removeMenu()
             }
         }
@@ -59,6 +60,7 @@
             const keyCheck = event.key.toLowerCase()
             if (keyCheck === 'tab') {
                 event.preventDefault()
+                setSelection(0)
                 this.select.focus()
             }
         }
@@ -66,11 +68,21 @@
         const handleInputKeyup = (event) => {
             const keyCheck = event.key.toLowerCase()
             if (keyCheck === 'enter') {
-                registerSelection()
+                if (this.input.value !== '') {
+                    if (this.options.length > 0) {
+                        registerSelection()
+                    }
+                }
+            } else if (keyCheck === 'arrowdown') {
+                if (this.input.value === '') {
+                    setSelection(0)
+                } else {
+                    setSelection(1)
+                }
+                this.select.focus()
             } else if (keyCheck === 'escape') {
                 this.input.value = ''
-                removeMenu()
-                this.input.blur()
+                renderOptions()
             } else {
                 renderOptions()
             }
@@ -84,17 +96,24 @@
             }
         }
 
+        const handleSelectKeyup = (event) => {
+            const keyCheck = event.key.toLowerCase()
+            if (keyCheck === 'enter') {
+                registerSelection()
+            }
+        }
+
         const registerSelection = () => {
-            // if (this.input.value !== '') {
-            //     if (getFilteredOptions().length > 0) {
-            //         const firstOption = getFilteredOptions()[0]
-            //         this.placeholder = firstOption.text
-            //         this.input.setAttribute('placeholder', this.placeholder)
-            //         this.input.value = ''
-            //         removeMenu()
-            //         this.input.blur()
-            //     }
-            // }
+            for (let option of this.options) {
+                if (this.select.value === option.value) {
+                    this.placeholder = option.text
+                    this.input.setAttribute('placeholder', this.placeholder)
+                    this.input.value = ''
+                    this.input.blur()
+                    removeMenu()
+                    break
+                }
+            }
         }
 
         const removeMenu = () => {
@@ -122,6 +141,7 @@
 
             this.select = document.createElement('select')
             this.select.addEventListener('keydown', handleSelectKeydown)
+            this.select.addEventListener('keyup', handleSelectKeyup)
             this.select.size = 5
 
             for (let option of this.options) {
@@ -130,24 +150,17 @@
 
             this.wrapper.appendChild(this.select)
 
-            // for (let option of this.options) {
-            //     const optionEl = document.createElement('option')
-            //     optionEl.value = option.value
-            //     optionEl.innerText = option.text
-            //     this.select.appendChild(optionEl)
-            // }
-
-            // if (this.input.value !== '') {
-            //     setSelection(0)
-            // }
+            if (this.input.value !== '' && this.options.length > 0) {
+                setSelection(0)
+            }
         }
 
         const setSelection = (index = null) => {
             for (let option of this.options) {
-                option.setAttribute('selected', false)
+                option.removeAttribute('selected')
             }
             if (index !== null) {
-                this.options[index].setAttribute('selected', 'selected')
+                this.options[index].setAttribute('selected', true)
             }
         }
 
@@ -238,6 +251,7 @@ customElements.define('enforced-selector', EnforcedSelector)
 
         const handleDocumentClick = (event) =&gt; {
             if (event.target !== this) {
+                this.input.value = &#x27;&#x27;
                 removeMenu()
             }
         }
@@ -251,6 +265,7 @@ customElements.define('enforced-selector', EnforcedSelector)
             const keyCheck = event.key.toLowerCase()
             if (keyCheck === &#x27;tab&#x27;) {
                 event.preventDefault()
+                setSelection(0)
                 this.select.focus()
             }
         }
@@ -258,11 +273,21 @@ customElements.define('enforced-selector', EnforcedSelector)
         const handleInputKeyup = (event) =&gt; {
             const keyCheck = event.key.toLowerCase()
             if (keyCheck === &#x27;enter&#x27;) {
-                registerSelection()
+                if (this.input.value !== &#x27;&#x27;) {
+                    if (this.options.length &gt; 0) {
+                        registerSelection()
+                    }
+                }
+            } else if (keyCheck === &#x27;arrowdown&#x27;) {
+                if (this.input.value === &#x27;&#x27;) {
+                    setSelection(0)
+                } else {
+                    setSelection(1)
+                }
+                this.select.focus()
             } else if (keyCheck === &#x27;escape&#x27;) {
                 this.input.value = &#x27;&#x27;
-                removeMenu()
-                this.input.blur()
+                renderOptions()
             } else {
                 renderOptions()
             }
@@ -276,17 +301,24 @@ customElements.define('enforced-selector', EnforcedSelector)
             }
         }
 
+        const handleSelectKeyup = (event) =&gt; {
+            const keyCheck = event.key.toLowerCase()
+            if (keyCheck === &#x27;enter&#x27;) {
+                registerSelection()
+            }
+        }
+
         const registerSelection = () =&gt; {
-            // if (this.input.value !== &#x27;&#x27;) {
-            //     if (getFilteredOptions().length &gt; 0) {
-            //         const firstOption = getFilteredOptions()[0]
-            //         this.placeholder = firstOption.text
-            //         this.input.setAttribute(&#x27;placeholder&#x27;, this.placeholder)
-            //         this.input.value = &#x27;&#x27;
-            //         removeMenu()
-            //         this.input.blur()
-            //     }
-            // }
+            for (let option of this.options) {
+                if (this.select.value === option.value) {
+                    this.placeholder = option.text
+                    this.input.setAttribute(&#x27;placeholder&#x27;, this.placeholder)
+                    this.input.value = &#x27;&#x27;
+                    this.input.blur()
+                    removeMenu()
+                    break
+                }
+            }
         }
 
         const removeMenu = () =&gt; {
@@ -314,6 +346,7 @@ customElements.define('enforced-selector', EnforcedSelector)
 
             this.select = document.createElement(&#x27;select&#x27;)
             this.select.addEventListener(&#x27;keydown&#x27;, handleSelectKeydown)
+            this.select.addEventListener(&#x27;keyup&#x27;, handleSelectKeyup)
             this.select.size = 5
 
             for (let option of this.options) {
@@ -322,24 +355,17 @@ customElements.define('enforced-selector', EnforcedSelector)
 
             this.wrapper.appendChild(this.select)
 
-            // for (let option of this.options) {
-            //     const optionEl = document.createElement(&#x27;option&#x27;)
-            //     optionEl.value = option.value
-            //     optionEl.innerText = option.text
-            //     this.select.appendChild(optionEl)
-            // }
-
-            // if (this.input.value !== &#x27;&#x27;) {
-            //     setSelection(0)
-            // }
+            if (this.input.value !== &#x27;&#x27; &amp;&amp; this.options.length &gt; 0) {
+                setSelection(0)
+            }
         }
 
         const setSelection = (index = null) =&gt; {
             for (let option of this.options) {
-                option.setAttribute(&#x27;selected&#x27;, false)
+                option.removeAttribute(&#x27;selected&#x27;)
             }
             if (index !== null) {
-                this.options[index].setAttribute(&#x27;selected&#x27;, &#x27;selected&#x27;)
+                this.options[index].setAttribute(&#x27;selected&#x27;, true)
             }
         }
 
@@ -389,7 +415,7 @@ customElements.define(&#x27;enforced-selector&#x27;, EnforcedSelector)
              
                 <h2>TODO</h2>
                 <ul>
-                    <li>[ ] - Don't load the options in at the start. call them dynamically so they can be updated outside the component. May have to keep some type of loader in there for the dom ready to prevent issue where the data doesn't show up on first hitting the open element</li> <li>[ ] - Load data from child &lt;option&gt; elements</li> <li>[ ] - Clicking in opens the selection</li> <li>[ ] - Clicking out closes the selection</li> <li>[ ] - See if you make this off a selection if it can be use in forms directly</li> <li>[ ] - Verify that options can be updated live outside the component</li>
+                    <li>[ ] - Don't load the options in at the start. call them dynamically so they can be updated outside the component. May have to keep some type of loader in there for the dom ready to prevent issue where the data doesn't show up on first hitting the open element</li> <li>[ ] - Load data from child &lt;option&gt; elements</li> <li>[ ] - Clicking in opens the selection</li> <li>[ ] - Clicking out closes the selection</li> <li>[ ] - See if you make this off a selection if it can be use in forms directly</li> <li>[ ] - Verify that options can be updated live outside the component</li> <li>[.] - Hitting escape resets the form but keeps you in it</li>
                 </ul>
              
                 <h2>References</h2>

@@ -12,6 +12,7 @@ class EnforcedSelector extends HTMLElement {
 
         const handleDocumentClick = (event) => {
             if (event.target !== this) {
+                this.input.value = ''
                 removeMenu()
             }
         }
@@ -25,6 +26,7 @@ class EnforcedSelector extends HTMLElement {
             const keyCheck = event.key.toLowerCase()
             if (keyCheck === 'tab') {
                 event.preventDefault()
+                setSelection(0)
                 this.select.focus()
             }
         }
@@ -32,11 +34,21 @@ class EnforcedSelector extends HTMLElement {
         const handleInputKeyup = (event) => {
             const keyCheck = event.key.toLowerCase()
             if (keyCheck === 'enter') {
-                registerSelection()
+                if (this.input.value !== '') {
+                    if (this.options.length > 0) {
+                        registerSelection()
+                    }
+                }
+            } else if (keyCheck === 'arrowdown') {
+                if (this.input.value === '') {
+                    setSelection(0)
+                } else {
+                    setSelection(1)
+                }
+                this.select.focus()
             } else if (keyCheck === 'escape') {
                 this.input.value = ''
-                removeMenu()
-                this.input.blur()
+                renderOptions()
             } else {
                 renderOptions()
             }
@@ -50,17 +62,24 @@ class EnforcedSelector extends HTMLElement {
             }
         }
 
+        const handleSelectKeyup = (event) => {
+            const keyCheck = event.key.toLowerCase()
+            if (keyCheck === 'enter') {
+                registerSelection()
+            }
+        }
+
         const registerSelection = () => {
-            // if (this.input.value !== '') {
-            //     if (getFilteredOptions().length > 0) {
-            //         const firstOption = getFilteredOptions()[0]
-            //         this.placeholder = firstOption.text
-            //         this.input.setAttribute('placeholder', this.placeholder)
-            //         this.input.value = ''
-            //         removeMenu()
-            //         this.input.blur()
-            //     }
-            // }
+            for (let option of this.options) {
+                if (this.select.value === option.value) {
+                    this.placeholder = option.text
+                    this.input.setAttribute('placeholder', this.placeholder)
+                    this.input.value = ''
+                    this.input.blur()
+                    removeMenu()
+                    break
+                }
+            }
         }
 
         const removeMenu = () => {
@@ -88,6 +107,7 @@ class EnforcedSelector extends HTMLElement {
 
             this.select = document.createElement('select')
             this.select.addEventListener('keydown', handleSelectKeydown)
+            this.select.addEventListener('keyup', handleSelectKeyup)
             this.select.size = 5
 
             for (let option of this.options) {
@@ -96,24 +116,17 @@ class EnforcedSelector extends HTMLElement {
 
             this.wrapper.appendChild(this.select)
 
-            // for (let option of this.options) {
-            //     const optionEl = document.createElement('option')
-            //     optionEl.value = option.value
-            //     optionEl.innerText = option.text
-            //     this.select.appendChild(optionEl)
-            // }
-
-            // if (this.input.value !== '') {
-            //     setSelection(0)
-            // }
+            if (this.input.value !== '' && this.options.length > 0) {
+                setSelection(0)
+            }
         }
 
         const setSelection = (index = null) => {
             for (let option of this.options) {
-                option.setAttribute('selected', false)
+                option.removeAttribute('selected')
             }
             if (index !== null) {
-                this.options[index].setAttribute('selected', 'selected')
+                this.options[index].setAttribute('selected', true)
             }
         }
 

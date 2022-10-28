@@ -14,7 +14,8 @@
         "[ ] - Clicking in opens the selection",
         "[ ] - Clicking out closes the selection",
         "[ ] - See if you make this off a selection if it can be use in forms directly",
-        "[ ] - Verify that options can be updated live outside the component"
+        "[ ] - Verify that options can be updated live outside the component",
+        "[.] - Hitting escape resets the form but keeps you in it"
     ],
     "REFERENCES": [
         {
