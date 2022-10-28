@@ -33,9 +33,13 @@ class StrictSelect extends HTMLElement {
         const handleInputKeydown = (event) => {
             const keyCheck = event.key.toLowerCase()
             if (keyCheck === 'tab') {
-                event.preventDefault()
-                setSelection(0)
-                this.select.focus()
+                if (this.options.length > 0) {
+                    event.preventDefault()
+                    setSelection(0)
+                    this.select.focus()
+                } else {
+                    event.preventDefault()
+                }
             }
         }
 

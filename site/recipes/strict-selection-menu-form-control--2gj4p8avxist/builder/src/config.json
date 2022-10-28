@@ -4,6 +4,7 @@
     "DESCRIPTION": "Goal: a form control that lets you pick from a selection by typing but only from the available selections",
     "DETAILS": [],
     "NOTES": [
+        "The notes below are still in draft form. They are incomplete, sometimes incorrect, and often duplicated. Clean up is in progress",
         "Remove the previous 'Search' and 'Autocomplete' tests when this is running",
         "The reason for removing and adding the 'select' element (instead of just the options) is because of a behavior in safari where it doesn't respect resetting the position of the selected element on arrow movements",
         "I'm adding display inline when the DOMContentLoaded fires. Adding it before then throws an error. TBD if that causes a layout shift which would need to be dealt with",
