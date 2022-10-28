@@ -15,19 +15,25 @@ class EnforcedSelector extends HTMLElement {
                 for (const option of this.options) {
                     option.remove()
                 }
-                this.select.blur()
-                this.select.remove()
+                if (this.select) {
+                    this.select.blur()
+                    this.select.remove()
+                }
             }
         }
 
         const handleInputFocus = () => {
+            // TODO: Confirm there's no select and delte it if there is
+            // because sometimes it seems one shows up and doesn't get
+            // removed
             log('focus')
             this.select = document.createElement('select')
             this.select.size = 5
-            this.options[0] = document.createElement('option')
-            this.options[0].value = 'asdf'
-            this.options[0].innerText = 'asdf'
-            for (const option of this.options) {
+
+            for (const optionKey in this.defaultOptions) {
+                const option = document.createElement('option')
+                option.value = this.defaultOptions[optionKey].value
+                option.innerText = this.defaultOptions[optionKey].text
                 this.select.appendChild(option)
             }
             this.wrapper.appendChild(this.select)
