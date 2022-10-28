@@ -36,45 +36,20 @@
     constructor() {
         super()
         this.attachShadow({ mode: 'open' })
-        this.options = []
         this.defaultOptions = {}
 
         const log = (msg) => {
             console.log(msg)
         }
 
-        const addMenu = () => {
-            if (!this.select) {
-                log('- Adding Menu')
-                this.select = document.createElement('select')
-                this.select.size = 5
-            }
-        }
-
         const handleDocumentClick = (event) => {
             if (event.target !== this) {
-                // log('deactivating')
-                for (const option of this.options) {
-                    option.remove()
-                }
                 removeMenu()
             }
         }
 
         const handleInputFocus = () => {
-            // log('focus')
-
-            // addMenu()
             renderOptions()
-
-            // for (const optionKey in this.defaultOptions) {
-            //     const option = document.createElement('option')
-            //     option.value = this.defaultOptions[optionKey].value
-            //     option.innerText = this.defaultOptions[optionKey].text
-            //     this.select.appendChild(option)
-            // }
-
-            // this.wrapper.appendChild(this.select)
         }
 
         const loadDefaultOptions = () => {
@@ -100,7 +75,7 @@
 
         const renderOptions = () => {
             if (!this.select) {
-                log('- Adding Menu')
+                // log('- Adding Menu')
                 this.select = document.createElement('select')
                 this.select.size = 5
             }
@@ -172,45 +147,20 @@ customElements.define('enforced-selector', EnforcedSelector)
     constructor() {
         super()
         this.attachShadow({ mode: &#x27;open&#x27; })
-        this.options = []
         this.defaultOptions = {}
 
         const log = (msg) =&gt; {
             console.log(msg)
         }
 
-        const addMenu = () =&gt; {
-            if (!this.select) {
-                log(&#x27;- Adding Menu&#x27;)
-                this.select = document.createElement(&#x27;select&#x27;)
-                this.select.size = 5
-            }
-        }
-
         const handleDocumentClick = (event) =&gt; {
             if (event.target !== this) {
-                // log(&#x27;deactivating&#x27;)
-                for (const option of this.options) {
-                    option.remove()
-                }
                 removeMenu()
             }
         }
 
         const handleInputFocus = () =&gt; {
-            // log(&#x27;focus&#x27;)
-
-            // addMenu()
             renderOptions()
-
-            // for (const optionKey in this.defaultOptions) {
-            //     const option = document.createElement(&#x27;option&#x27;)
-            //     option.value = this.defaultOptions[optionKey].value
-            //     option.innerText = this.defaultOptions[optionKey].text
-            //     this.select.appendChild(option)
-            // }
-
-            // this.wrapper.appendChild(this.select)
         }
 
         const loadDefaultOptions = () =&gt; {
@@ -236,7 +186,7 @@ customElements.define('enforced-selector', EnforcedSelector)
 
         const renderOptions = () =&gt; {
             if (!this.select) {
-                log(&#x27;- Adding Menu&#x27;)
+                // log(&#x27;- Adding Menu&#x27;)
                 this.select = document.createElement(&#x27;select&#x27;)
                 this.select.size = 5
             }

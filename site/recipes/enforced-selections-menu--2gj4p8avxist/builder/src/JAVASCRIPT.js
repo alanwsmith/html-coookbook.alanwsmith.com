@@ -2,45 +2,20 @@ class EnforcedSelector extends HTMLElement {
     constructor() {
         super()
         this.attachShadow({ mode: 'open' })
-        this.options = []
         this.defaultOptions = {}
 
         const log = (msg) => {
             console.log(msg)
         }
 
-        const addMenu = () => {
-            if (!this.select) {
-                log('- Adding Menu')
-                this.select = document.createElement('select')
-                this.select.size = 5
-            }
-        }
-
         const handleDocumentClick = (event) => {
             if (event.target !== this) {
-                // log('deactivating')
-                for (const option of this.options) {
-                    option.remove()
-                }
                 removeMenu()
             }
         }
 
         const handleInputFocus = () => {
-            // log('focus')
-
-            // addMenu()
             renderOptions()
-
-            // for (const optionKey in this.defaultOptions) {
-            //     const option = document.createElement('option')
-            //     option.value = this.defaultOptions[optionKey].value
-            //     option.innerText = this.defaultOptions[optionKey].text
-            //     this.select.appendChild(option)
-            // }
-
-            // this.wrapper.appendChild(this.select)
         }
 
         const loadDefaultOptions = () => {
@@ -66,7 +41,7 @@ class EnforcedSelector extends HTMLElement {
 
         const renderOptions = () => {
             if (!this.select) {
-                log('- Adding Menu')
+                // log('- Adding Menu')
                 this.select = document.createElement('select')
                 this.select.size = 5
             }
