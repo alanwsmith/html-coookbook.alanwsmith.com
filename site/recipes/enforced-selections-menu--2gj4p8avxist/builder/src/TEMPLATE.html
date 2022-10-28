@@ -47,7 +47,48 @@
       <h1>$TITLE</h1>
       <h2>Example</h2>
       $HTML $ESCAPED_HEAD $ESCAPED_HTML $ESCAPED_CSS $ESCAPED_JAVASCRIPT
-      $DETAILS $NOTES $TODOS $REFERENCES
+      $DETAILS $NOTES 
+      <h2>Functionality</h2>
+      <h3>When Outside The Control</h3>
+      <ul>
+        <li>[ ] - The Input is visible - The Menu is closed</li>
+      </ul>
+      <h3>When The Input Is Not In Focus</h3>
+      <ul>
+        <li>[.] - The default PLACEHOLDER is show if no prior SELECTION has been made</li> 
+        <li>[.] - If a previous SELECTION has been made, it is shown as the PLACEHOLDER</li>
+      </ul>
+
+      <h3>When The Input Is First Focused</h3>
+      <ul>
+        <li>[.] - The MENU opens</li>
+        <li>[.] - The PLACEHOLDER is removed</li>
+      </ul>
+      <h3>When The Input Is Focused And Is Empty</h3>
+        <li>[ ] - The Menu shows the default options</li>
+        <li>[ ] - Hitting ESCAPE
+          <ul>
+            <li>[ ] - Closes the MENU</li>
+            <li>[ ] - blurs the INPUT</li>
+            <li>[ ] - Displays the default PLACEHOLDER if no previos SELECTION has been made</li>
+            <li>[ ] - Displays the latest SELECTION as the PLACEHOLDER if one has been made</li>
+          </ul>
+        </li>
+        <li>[ ] - Hitting Tab </li>
+        <li>[ ] - </li>
+        <li>[ ] - </li>
+        <li>[ ] - </li>
+        <li>[ ] - </li>
+        <li>[ ] - </li>
+        <li>[ ] - </li>
+        <li>[ ] - </li>
+      </ul>
+
+
+
+
+
+      $TODOS $REFERENCES
     </main>
     <footer>
       made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>

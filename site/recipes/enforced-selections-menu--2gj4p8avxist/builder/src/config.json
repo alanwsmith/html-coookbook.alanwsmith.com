@@ -9,15 +9,20 @@
         "I remove the placeholder text when you first click into the input field because it aways throws me when the text stays there on default forms"
     ],
     "TODOS": [
-        "[ ] - Don't load the options in at the start. call them dynamically so they can be updated outside the component. May have to keep some type of loader in there for the dom ready to prevent issue where the data doesn't show up on first hitting the open element",
-        "[ ] - Load data from child &lt;option&gt; elements",
-        "[ ] - Clicking in opens the selection",
-        "[ ] - Clicking out closes the selection",
-        "[ ] - See if you make this off a selection if it can be use in forms directly",
+        "[.] - Don't load the options in at the start. call them dynamically so they can be updated outside the component. May have to keep some type of loader in there for the dom ready to prevent issue where the data doesn't show up on first hitting the open element",
+        "[.] - Load data from child &lt;option&gt; elements",
+        "[.] - Clicking in the input field opens the menu",
+        "[.] - Clicking outside the input field closes the menu",
+        "[.] - Clicking outside the menu closes the menu",
+        "[ ] - Investigate making this a custom built-in form form element so it can have that API",
         "[ ] - Verify that options can be updated live outside the component",
-        "[.] - Hitting escape resets the form but keeps you in it",
+        "[.] - Hitting escape while inside resets the form but keeps you in it",
         "[ ] - Clicking the up arrow when you're at the top of the list takes up back to the input field",
-        "[ ] - If you mouse all the way back up, the selection is removed until you hit anoter key"
+        "[ ] - If you mouse all the way back up, the selection is removed until you hit anoter key",
+        "[ ] - escape with text removes it. escape without text blurs the input",
+        "[ ] - If you just arrow down and then immediately up, go back to the input",
+        "[ ] - Don't try to go past the last item with arrow down",
+        "[ ] - Investigate UX of moving to alpha sort when a search term is in the Input field"
     ],
     "REFERENCES": [
         {
