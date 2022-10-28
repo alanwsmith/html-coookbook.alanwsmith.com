@@ -4,22 +4,10 @@ class EnforcedSelector extends HTMLElement {
         this.attachShadow({ mode: 'open' })
         this.defaultOptions = {}
         this.placeholder = 'Select'
+        this.options = []
 
         const log = (msg) => {
             console.log(msg)
-        }
-
-        const getFilteredOptions = () => {
-            const filteredOptions = []
-            for (const optionKey in this.defaultOptions) {
-                const defaultOption = this.defaultOptions[optionKey]
-                if (
-                    defaultOption.text.toLowerCase().includes(this.input.value)
-                ) {
-                    filteredOptions.push(defaultOption)
-                }
-            }
-            return filteredOptions
         }
 
         const handleDocumentClick = (event) => {
@@ -50,6 +38,7 @@ class EnforcedSelector extends HTMLElement {
                 removeMenu()
                 this.input.blur()
             } else {
+                log('- to renderOptions')
                 renderOptions()
             }
         }
@@ -62,27 +51,17 @@ class EnforcedSelector extends HTMLElement {
             }
         }
 
-        const loadDefaultOptions = () => {
-            const defaultOptions = this.getElementsByTagName('option')
-            for (let i = 0; i < defaultOptions.length; i++) {
-                this.defaultOptions[defaultOptions[i].value] = {
-                    index: i,
-                    text: defaultOptions[i].innerText,
-                }
-            }
-        }
-
         const registerSelection = () => {
-            if (this.input.value !== '') {
-                if (getFilteredOptions().length > 0) {
-                    const firstOption = getFilteredOptions()[0]
-                    this.placeholder = firstOption.text
-                    this.input.setAttribute('placeholder', this.placeholder)
-                    this.input.value = ''
-                    removeMenu()
-                    this.input.blur()
-                }
-            }
+            // if (this.input.value !== '') {
+            //     if (getFilteredOptions().length > 0) {
+            //         const firstOption = getFilteredOptions()[0]
+            //         this.placeholder = firstOption.text
+            //         this.input.setAttribute('placeholder', this.placeholder)
+            //         this.input.value = ''
+            //         removeMenu()
+            //         this.input.blur()
+            //     }
+            // }
         }
 
         const removeMenu = () => {
@@ -97,6 +76,7 @@ class EnforcedSelector extends HTMLElement {
         }
 
         const renderOptions = () => {
+            updateOptions()
             if (!this.select) {
                 this.select = document.createElement('select')
                 this.select.addEventListener('keydown', handleSelectKeydown)
@@ -107,24 +87,28 @@ class EnforcedSelector extends HTMLElement {
             while (this.select.firstChild) {
                 this.select.firstChild.remove()
             }
-
-            let firstOption = true
-            getFilteredOptions().forEach((option) => {
+            for (let option of this.options) {
                 const optionEl = document.createElement('option')
                 optionEl.value = option.value
                 optionEl.innerText = option.text
-                if (firstOption) {
-                    optionEl.setAttribute('selected', true)
-                    firstOption = false
-                }
                 this.select.appendChild(optionEl)
-            })
+            }
+        }
+
+        const updateOptions = () => {
+            this.options = []
+            for (let option of this.getElementsByTagName('option')) {
+                if (option.text.toLowerCase().includes(this.input.value)) {
+                    this.options.push(option)
+                }
+            }
         }
 
         this.wrapper = document.createElement('div')
         this.wrapper.style.display = 'inline'
 
         this.input = document.createElement('input')
+        this.input.setAttribute('value', '')
         this.input.setAttribute('type', 'text')
         this.input.setAttribute('placeholder', this.placeholder)
         this.input.addEventListener('focus', handleInputFocus)
@@ -137,7 +121,6 @@ class EnforcedSelector extends HTMLElement {
         this.shadowRoot.append(this.wrapper)
 
         document.addEventListener('mousedown', handleDocumentClick)
-        document.addEventListener('DOMContentLoaded', loadDefaultOptions)
     }
 }
 

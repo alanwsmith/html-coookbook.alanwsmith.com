@@ -38,22 +38,10 @@
         this.attachShadow({ mode: 'open' })
         this.defaultOptions = {}
         this.placeholder = 'Select'
+        this.options = []
 
         const log = (msg) => {
             console.log(msg)
-        }
-
-        const getFilteredOptions = () => {
-            const filteredOptions = []
-            for (const optionKey in this.defaultOptions) {
-                const defaultOption = this.defaultOptions[optionKey]
-                if (
-                    defaultOption.text.toLowerCase().includes(this.input.value)
-                ) {
-                    filteredOptions.push(defaultOption)
-                }
-            }
-            return filteredOptions
         }
 
         const handleDocumentClick = (event) => {
@@ -84,6 +72,7 @@
                 removeMenu()
                 this.input.blur()
             } else {
+                log('- to renderOptions')
                 renderOptions()
             }
         }
@@ -96,27 +85,17 @@
             }
         }
 
-        const loadDefaultOptions = () => {
-            const defaultOptions = this.getElementsByTagName('option')
-            for (let i = 0; i < defaultOptions.length; i++) {
-                this.defaultOptions[defaultOptions[i].value] = {
-                    index: i,
-                    text: defaultOptions[i].innerText,
-                }
-            }
-        }
-
         const registerSelection = () => {
-            if (this.input.value !== '') {
-                if (getFilteredOptions().length > 0) {
-                    const firstOption = getFilteredOptions()[0]
-                    this.placeholder = firstOption.text
-                    this.input.setAttribute('placeholder', this.placeholder)
-                    this.input.value = ''
-                    removeMenu()
-                    this.input.blur()
-                }
-            }
+            // if (this.input.value !== '') {
+            //     if (getFilteredOptions().length > 0) {
+            //         const firstOption = getFilteredOptions()[0]
+            //         this.placeholder = firstOption.text
+            //         this.input.setAttribute('placeholder', this.placeholder)
+            //         this.input.value = ''
+            //         removeMenu()
+            //         this.input.blur()
+            //     }
+            // }
         }
 
         const removeMenu = () => {
@@ -131,6 +110,7 @@
         }
 
         const renderOptions = () => {
+            updateOptions()
             if (!this.select) {
                 this.select = document.createElement('select')
                 this.select.addEventListener('keydown', handleSelectKeydown)
@@ -141,24 +121,28 @@
             while (this.select.firstChild) {
                 this.select.firstChild.remove()
             }
-
-            let firstOption = true
-            getFilteredOptions().forEach((option) => {
+            for (let option of this.options) {
                 const optionEl = document.createElement('option')
                 optionEl.value = option.value
                 optionEl.innerText = option.text
-                if (firstOption) {
-                    optionEl.setAttribute('selected', true)
-                    firstOption = false
-                }
                 this.select.appendChild(optionEl)
-            })
+            }
+        }
+
+        const updateOptions = () => {
+            this.options = []
+            for (let option of this.getElementsByTagName('option')) {
+                if (option.text.toLowerCase().includes(this.input.value)) {
+                    this.options.push(option)
+                }
+            }
         }
 
         this.wrapper = document.createElement('div')
         this.wrapper.style.display = 'inline'
 
         this.input = document.createElement('input')
+        this.input.setAttribute('value', '')
         this.input.setAttribute('type', 'text')
         this.input.setAttribute('placeholder', this.placeholder)
         this.input.addEventListener('focus', handleInputFocus)
@@ -171,7 +155,6 @@
         this.shadowRoot.append(this.wrapper)
 
         document.addEventListener('mousedown', handleDocumentClick)
-        document.addEventListener('DOMContentLoaded', loadDefaultOptions)
     }
 }
 
@@ -219,22 +202,10 @@ customElements.define('enforced-selector', EnforcedSelector)
         this.attachShadow({ mode: &#x27;open&#x27; })
         this.defaultOptions = {}
         this.placeholder = &#x27;Select&#x27;
+        this.options = []
 
         const log = (msg) =&gt; {
             console.log(msg)
-        }
-
-        const getFilteredOptions = () =&gt; {
-            const filteredOptions = []
-            for (const optionKey in this.defaultOptions) {
-                const defaultOption = this.defaultOptions[optionKey]
-                if (
-                    defaultOption.text.toLowerCase().includes(this.input.value)
-                ) {
-                    filteredOptions.push(defaultOption)
-                }
-            }
-            return filteredOptions
         }
 
         const handleDocumentClick = (event) =&gt; {
@@ -265,6 +236,7 @@ customElements.define('enforced-selector', EnforcedSelector)
                 removeMenu()
                 this.input.blur()
             } else {
+                log(&#x27;- to renderOptions&#x27;)
                 renderOptions()
             }
         }
@@ -277,27 +249,17 @@ customElements.define('enforced-selector', EnforcedSelector)
             }
         }
 
-        const loadDefaultOptions = () =&gt; {
-            const defaultOptions = this.getElementsByTagName(&#x27;option&#x27;)
-            for (let i = 0; i &lt; defaultOptions.length; i++) {
-                this.defaultOptions[defaultOptions[i].value] = {
-                    index: i,
-                    text: defaultOptions[i].innerText,
-                }
-            }
-        }
-
         const registerSelection = () =&gt; {
-            if (this.input.value !== &#x27;&#x27;) {
-                if (getFilteredOptions().length &gt; 0) {
-                    const firstOption = getFilteredOptions()[0]
-                    this.placeholder = firstOption.text
-                    this.input.setAttribute(&#x27;placeholder&#x27;, this.placeholder)
-                    this.input.value = &#x27;&#x27;
-                    removeMenu()
-                    this.input.blur()
-                }
-            }
+            // if (this.input.value !== &#x27;&#x27;) {
+            //     if (getFilteredOptions().length &gt; 0) {
+            //         const firstOption = getFilteredOptions()[0]
+            //         this.placeholder = firstOption.text
+            //         this.input.setAttribute(&#x27;placeholder&#x27;, this.placeholder)
+            //         this.input.value = &#x27;&#x27;
+            //         removeMenu()
+            //         this.input.blur()
+            //     }
+            // }
         }
 
         const removeMenu = () =&gt; {
@@ -312,6 +274,7 @@ customElements.define('enforced-selector', EnforcedSelector)
         }
 
         const renderOptions = () =&gt; {
+            updateOptions()
             if (!this.select) {
                 this.select = document.createElement(&#x27;select&#x27;)
                 this.select.addEventListener(&#x27;keydown&#x27;, handleSelectKeydown)
@@ -322,24 +285,28 @@ customElements.define('enforced-selector', EnforcedSelector)
             while (this.select.firstChild) {
                 this.select.firstChild.remove()
             }
-
-            let firstOption = true
-            getFilteredOptions().forEach((option) =&gt; {
+            for (let option of this.options) {
                 const optionEl = document.createElement(&#x27;option&#x27;)
                 optionEl.value = option.value
                 optionEl.innerText = option.text
-                if (firstOption) {
-                    optionEl.setAttribute(&#x27;selected&#x27;, true)
-                    firstOption = false
-                }
                 this.select.appendChild(optionEl)
-            })
+            }
+        }
+
+        const updateOptions = () =&gt; {
+            this.options = []
+            for (let option of this.getElementsByTagName(&#x27;option&#x27;)) {
+                if (option.text.toLowerCase().includes(this.input.value)) {
+                    this.options.push(option)
+                }
+            }
         }
 
         this.wrapper = document.createElement(&#x27;div&#x27;)
         this.wrapper.style.display = &#x27;inline&#x27;
 
         this.input = document.createElement(&#x27;input&#x27;)
+        this.input.setAttribute(&#x27;value&#x27;, &#x27;&#x27;)
         this.input.setAttribute(&#x27;type&#x27;, &#x27;text&#x27;)
         this.input.setAttribute(&#x27;placeholder&#x27;, this.placeholder)
         this.input.addEventListener(&#x27;focus&#x27;, handleInputFocus)
@@ -352,7 +319,6 @@ customElements.define('enforced-selector', EnforcedSelector)
         this.shadowRoot.append(this.wrapper)
 
         document.addEventListener(&#x27;mousedown&#x27;, handleDocumentClick)
-        document.addEventListener(&#x27;DOMContentLoaded&#x27;, loadDefaultOptions)
     }
 }
 
@@ -367,7 +333,7 @@ customElements.define(&#x27;enforced-selector&#x27;, EnforcedSelector)
              
                 <h2>TODO</h2>
                 <ul>
-                    <li>[ ] - Don't load the options in at the start. call them dynamically so they can be updated outside the component. May have to keep some type of loader in there for the dom ready to prevent issue where the data doesn't show up on first hitting the open element</li> <li>[ ] - Load data from child &lt;option&gt; elements</li> <li>[ ] - Clicking in opens the selection</li> <li>[ ] - Clicking out closes the selection</li> <li>[ ] - See if you make this off a selection if it can be use in forms directly</li>
+                    <li>[ ] - Don't load the options in at the start. call them dynamically so they can be updated outside the component. May have to keep some type of loader in there for the dom ready to prevent issue where the data doesn't show up on first hitting the open element</li> <li>[ ] - Load data from child &lt;option&gt; elements</li> <li>[ ] - Clicking in opens the selection</li> <li>[ ] - Clicking out closes the selection</li> <li>[ ] - See if you make this off a selection if it can be use in forms directly</li> <li>[ ] - Verify that options can be updated live outside the component</li>
                 </ul>
              
                 <h2>References</h2>
