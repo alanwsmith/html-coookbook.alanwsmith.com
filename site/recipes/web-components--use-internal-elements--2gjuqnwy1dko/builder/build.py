@@ -125,6 +125,7 @@ class Builder():
         if self.parts['HTML'] != '':
             self.parts['ESCAPED_HTML'] = f'''
             <h2>HTML</h2>
+            <p>Here's the HTML:</p>
             <pre><code class="language-html">{escape(self.parts['HTML'])}</code></pre>
             '''
 
@@ -137,11 +138,9 @@ class Builder():
         if self.parts['JAVASCRIPT'] != '':
             self.parts['ESCAPED_JAVASCRIPT'] = f'''
             <h2>JavaScript</h2>
+            <p>And this is the JavaScript</p>
             <pre><code class="language-js">{escape(self.parts['JAVASCRIPT'])}</code></pre>
             '''
-
-
-
 
 
 

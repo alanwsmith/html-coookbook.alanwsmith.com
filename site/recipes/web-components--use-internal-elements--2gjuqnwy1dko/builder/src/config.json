@@ -1,15 +1,31 @@
 {
-    "TITLE": "Web Component -- Read Internal Elements",
+    "TITLE": "Web Component - Use Internal Elements",
     "STATUS": "draft",
-    "DESCRIPTION": "Goal: Access the content of internal element from the main page",
-    "DETAILS": [],
-    "NOTES": [],
-    "TODOS": [],
+    "DESCRIPTION": "",
+    "DETAILS": [
+        "This example accesses &lt;option&gt; elements inside the component on the main page",
+        "Data is pulled out of the &lt;option&gt; elements, updated and delivered back for display in upper case"
+    ],
+    "NOTES": [
+        "Access to the &lt;option&gt; elements is via `.getElementsByTagName('option')` run on the `.this` object",
+        "With some browsers (e.g. Chrome) the `.getElementsByTagName('option')` call is fired when the opening tag of the component (e.g. &lt;wrapper-component&gt;) is hit. At that point, the &lt;option&gt; tags don't exist so it returns and empty list (even though they sometimes show up in the console)",
+        "There is <a href=&quot;https://stackoverflow.com/a/53135530/102401&quot;>a note here</a> about one way to deal with that.",
+        "I'm using a different technique which is to wait until the DOMContentLoaded event before trying to access the &lt;option&gt; tags. It's working in my test cases.",
+        "One aspect of that approach is that potentially nothing would should up until the event fires and the data is load which could cause a content shift. A soltuion for that would be to stub in whatever area is needed on the first locat of the element then updated it when everything is available"
+    ],
+    "TODOS": [
+        "Write up a post about using DOMContentLoaded to get at elements inside a custom component"
+    ],
     "REFERENCES": [
         {
-            "title": "",
-            "url": "",
-            "extra": ""
+            "title": "Answer to: Iterate over HTMLCollection in custom element",
+            "url": "https://stackoverflow.com/a/53135530/102401",
+            "extra": "I'm using a different technique, but this is where I learned about how the `connectedCallback()` event can get fired on the opening tag"
+        },
+        {
+            "title": "Disccsion on ",
+            "url": "https://github.com/WICG/webcomponents/issues/551",
+            "extra": "This is a bunch of discussion about the callback issue linked from the SO answer. "
         }
     ]
 }

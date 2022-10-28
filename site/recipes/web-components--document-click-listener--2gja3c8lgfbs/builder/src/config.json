@@ -1,9 +1,10 @@
 {
-    "TITLE": "Web Components -- Document Click Listener",
+    "TITLE": "Web Components - Document Click Listener",
     "STATUS": "draft",
     "DESCRIPTION": "Goal: catch a click anywhere on the document and have the component respond to it via a listener",
     "DETAILS": [
-        "This code adds an event listener to the entire page that updates a value inside the  component when a click is registered anywhere on the page."
+        "This code adds an event listener to the entire page that updates a value inside the  component when a click is registered anywhere on the page.",
+        "The example below is built directly from the HTML and JavaScript code snippets that follow"
     ],
     "NOTES": [
         "There are two elements on the page to make sure they both pick up the event"

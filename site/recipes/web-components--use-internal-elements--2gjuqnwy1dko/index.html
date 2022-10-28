@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cookbook Recipe Template - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <title>Web Component - Use Internal Elements - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Cookbook Recipe Template" />
+    <meta property="og:title" content="Web Component - Use Internal Elements" />
     <meta property="og:description" content="" />
     <meta
       property="og:image"
-      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Cookbook%20Recipe%20Template,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Web%20Component%20-%20Use%20Internal%20Elements,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site:id" content="@TheIdOfAlan" />
@@ -27,58 +27,107 @@
     />
     <link rel="stylesheet" href="/styles/global.css" />
     <link rel="stylesheet" href="/styles/prism.css" />
-    <!-- Content for &lt;head&gt; goes here -->
-
+    
     <style>
-      /* Any styles for the page go here */
-
+      
     </style>
     <script>
-      const kickoff = () => {
-    console.log("kickoff")
+      class WrapperComponent extends HTMLElement {
+    constructor() {
+        super()
+        this.attachShadow({ mode: 'open' })
+
+        this.upperCasedOptions = []
+        this.output = document.createElement('span')
+
+        const loadOptions = () => {
+            const options = this.getElementsByTagName('option')
+            for (const option of options) {
+                this.upperCasedOptions.push(option.value.toUpperCase())
+            }
+            this.output.innerText = this.upperCasedOptions.join(' ')
+        }
+
+        this.shadowRoot.append(this.output)
+        document.addEventListener('DOMContentLoaded', loadOptions)
+    }
 }
 
-document.addEventListener('DOMContentLoaded', kickoff)
+customElements.define('wrapper-component', WrapperComponent)
 
     </script>
   </head>
   <body class="line-numbers">
     <header>
-      <a href="/">Cookbook Home----------</a> ~
+      <a href="/">Cookbook Home</a> ~
       <a href="https://www.alanwsmith.com/">alanwsmith.com</a> ~
       <a href="https://links.alanwsmith.com">links</a> ~
       <a href="https://podcast.alanwsmith.com/">podcast</a> ~
       <a href="https://https://twitter.com/TheIdOfAlan">twitter</a>
     </header>
     <main>
-      <h1>Cookbook Recipe Template</h1>
-      <h2>TL;DR</h2>
-      <p>A template for making recipes</p>
- 
-            <h2>&lt;head&gt;</h2>
-            <pre><code class="language-html">&lt;!-- Content for &amp;lt;head&amp;gt; goes here --&gt;
-</code></pre>
-             
+      <h1>Web Component - Use Internal Elements</h1>
+      
+                <h2>Deatils</h2>
+                <ul>
+                    <li>This example accesses &lt;option&gt; elements inside the component on the main page</li> <li>Data is pulled out of the &lt;option&gt; elements, updated and delivered back for display in upper case</li>
+                </ul>
+                  
             <h2>HTML</h2>
-            <pre><code class="language-html">&lt;p&gt;A template for making recipes&lt;/p&gt;
+            <p>Here's the HTML:</p>
+            <pre><code class="language-html">&lt;wrapper-component&gt;
+  &lt;option value=&quot;the&quot;&gt;&lt;/option&gt;
+  &lt;option value=&quot;quick&quot;&gt;&lt;/option&gt;
+  &lt;option value=&quot;fox&quot;&gt;&lt;/option&gt;
+&lt;/wrapper-component&gt;
 </code></pre>
-             
-            <h2>CSS</h2>
-            <pre><code class="language-css">/* Any styles for the page go here */
-</code></pre>
-             
+              
             <h2>JavaScript</h2>
-            <pre><code class="language-js">const kickoff = () =&gt; {
-    console.log(&quot;kickoff&quot;)
+            <p>And this is the JavaScript</p>
+            <pre><code class="language-js">class WrapperComponent extends HTMLElement {
+    constructor() {
+        super()
+        this.attachShadow({ mode: &#x27;open&#x27; })
+
+        this.upperCasedOptions = []
+        this.output = document.createElement(&#x27;span&#x27;)
+
+        const loadOptions = () =&gt; {
+            const options = this.getElementsByTagName(&#x27;option&#x27;)
+            for (const option of options) {
+                this.upperCasedOptions.push(option.value.toUpperCase())
+            }
+            this.output.innerText = this.upperCasedOptions.join(&#x27; &#x27;)
+        }
+
+        this.shadowRoot.append(this.output)
+        document.addEventListener(&#x27;DOMContentLoaded&#x27;, loadOptions)
+    }
 }
 
-document.addEventListener(&#x27;DOMContentLoaded&#x27;, kickoff)
+customElements.define(&#x27;wrapper-component&#x27;, WrapperComponent)
 </code></pre>
             
-         
+      <h2>Output Example</h2>
+      <wrapper-component>
+  <option value="the"></option>
+  <option value="quick"></option>
+  <option value="fox"></option>
+</wrapper-component>
+ 
+                <h2>Notes</h2>
+                <ul>
+                    <li>Access to the &lt;option&gt; elements is via `.getElementsByTagName('option')` run on the `.this` object</li> <li>With some browsers (e.g. Chrome) the `.getElementsByTagName('option')` call is fired when the opening tag of the component (e.g. &lt;wrapper-component&gt;) is hit. At that point, the &lt;option&gt; tags don't exist so it returns and empty list (even though they sometimes show up in the console)</li> <li>There is <a href=&quot;https://stackoverflow.com/a/53135530/102401&quot;>a note here</a> about one way to deal with that.</li> <li>I'm using a different technique which is to wait until the DOMContentLoaded event before trying to access the &lt;option&gt; tags. It's working in my test cases.</li> <li>One aspect of that approach is that potentially nothing would should up until the event fires and the data is load which could cause a content shift. A soltuion for that would be to stub in whatever area is needed on the first locat of the element then updated it when everything is available</li>
+                </ul>
+             
+                <h2>TODO</h2>
+                <ul>
+                    <li>Write up a post about using DOMContentLoaded to get at elements inside a custom component</li>
+                </ul>
+             
                 <h2>References</h2>
                 <ul>
-                    <li><a href=""></a></li>
+                    <li><a href="https://stackoverflow.com/a/53135530/102401">Answer to: Iterate over HTMLCollection in custom element</a> - I'm using a different technique, but this is where I learned about how the `connectedCallback()` event can get fired on the opening tag</li> <li><a href="https://github.com/WICG/webcomponents/issues/551">Disccsion on </a> - This is a bunch of discussion about the callback issue linked from the SO answer. </li>
                 </ul>
                 
     </main>
