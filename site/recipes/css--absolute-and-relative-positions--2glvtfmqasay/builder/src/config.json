@@ -1,16 +1,20 @@
 {
-    "TITLE": "-- New Recipe In Progress --",
+    "TITLE": "CSS - Make A Select Menu Float Above Other Content",
     "STATUS": "draft",
     "DESCRIPTION": "",
     "DETAILS": [
-        "The example below is built directly from the HTML and JavaScript code snippets that follow"
+        "How to make something flow above something else",
+        "The field is open full time for now, but the use case is when it would be hidden until some action made it visible at which point it should appear above the other content"
     ],
-    "NOTES": [],
+    "NOTES": [
+        "The wrapper is 'relative' which doesn't change it's normal position but provides and anchor point for the 'absolute' element to associate with",
+        "Per the MDN docs: The element is removed from the normal document flow, and no space is created for the element in the page layout."
+    ],
     "TODOS": [],
     "REFERENCES": [
         {
-            "title": "",
-            "url": "",
+            "title": "MDN: CSS position",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/position",
             "extra": ""
         }
     ]
