@@ -36,19 +36,46 @@
     constructor() {
         super()
         this.attachShadow({ mode: 'open' })
+        this.options = []
+        this.defaultOptions = {}
+
+        const log = (msg) => {
+            console.log(msg)
+        }
 
         const handleDocumentClick = (event) => {
             if (event.target !== this) {
                 log('deactivating')
+                for (const option of this.options) {
+                    option.remove()
+                }
+                this.select.blur()
+                this.select.remove()
             }
         }
 
         const handleInputFocus = () => {
             log('focus')
+            this.select = document.createElement('select')
+            this.select.size = 5
+            this.options[0] = document.createElement('option')
+            this.options[0].value = 'asdf'
+            this.options[0].innerText = 'asdf'
+            for (const option of this.options) {
+                this.select.appendChild(option)
+            }
+            this.wrapper.appendChild(this.select)
         }
 
-        const log = (msg) => {
-            console.log(msg)
+        const loadDefaultOptions = () => {
+            const defaultOptions = this.getElementsByTagName('option')
+            for (let i = 0; i < defaultOptions.length; i++) {
+                this.defaultOptions[defaultOptions[i].value] = {
+                    index: i,
+                    text: defaultOptions[i].innerText,
+                }
+            }
+            // log(this.defaultOptions)
         }
 
         this.wrapper = document.createElement('div')
@@ -58,13 +85,11 @@
         this.input.setAttribute('type', 'text')
         this.input.addEventListener('focus', handleInputFocus)
 
-        this.input.id = 'asdfasdf'
         this.wrapper.appendChild(this.input)
         this.shadowRoot.append(this.wrapper)
 
-        this.state = 'closed'
-
-        document.addEventListener('click', handleDocumentClick)
+        document.addEventListener('mousedown', handleDocumentClick)
+        document.addEventListener('DOMContentLoaded', loadDefaultOptions)
     }
 }
 
@@ -83,10 +108,26 @@ customElements.define('enforced-selector', EnforcedSelector)
     <main>
       <h1>Enforced Selection Form Control</h1>
       <h2>Example</h2>
-      <enforced-selector> </enforced-selector>
+      <enforced-selector>
+  <option value="roboto">Roboto</option>
+  <option value="opensans">Open Sans</option>
+  <option value="notosansjp">Noto Sans JP</option>
+  <option value="montserrat">Montserrat</option>
+  <option value="lato">Lato</option>
+  <option value="poppins">Poppins</option>
+  <option value="sourcesanspro">Source Sans Pro</option>
+</enforced-selector>
   
             <h2>HTML</h2>
-            <pre><code class="language-html">&lt;enforced-selector&gt; &lt;/enforced-selector&gt;
+            <pre><code class="language-html">&lt;enforced-selector&gt;
+  &lt;option value=&quot;roboto&quot;&gt;Roboto&lt;/option&gt;
+  &lt;option value=&quot;opensans&quot;&gt;Open Sans&lt;/option&gt;
+  &lt;option value=&quot;notosansjp&quot;&gt;Noto Sans JP&lt;/option&gt;
+  &lt;option value=&quot;montserrat&quot;&gt;Montserrat&lt;/option&gt;
+  &lt;option value=&quot;lato&quot;&gt;Lato&lt;/option&gt;
+  &lt;option value=&quot;poppins&quot;&gt;Poppins&lt;/option&gt;
+  &lt;option value=&quot;sourcesanspro&quot;&gt;Source Sans Pro&lt;/option&gt;
+&lt;/enforced-selector&gt;
 </code></pre>
               
             <h2>JavaScript</h2>
@@ -94,19 +135,46 @@ customElements.define('enforced-selector', EnforcedSelector)
     constructor() {
         super()
         this.attachShadow({ mode: &#x27;open&#x27; })
+        this.options = []
+        this.defaultOptions = {}
+
+        const log = (msg) =&gt; {
+            console.log(msg)
+        }
 
         const handleDocumentClick = (event) =&gt; {
             if (event.target !== this) {
                 log(&#x27;deactivating&#x27;)
+                for (const option of this.options) {
+                    option.remove()
+                }
+                this.select.blur()
+                this.select.remove()
             }
         }
 
         const handleInputFocus = () =&gt; {
             log(&#x27;focus&#x27;)
+            this.select = document.createElement(&#x27;select&#x27;)
+            this.select.size = 5
+            this.options[0] = document.createElement(&#x27;option&#x27;)
+            this.options[0].value = &#x27;asdf&#x27;
+            this.options[0].innerText = &#x27;asdf&#x27;
+            for (const option of this.options) {
+                this.select.appendChild(option)
+            }
+            this.wrapper.appendChild(this.select)
         }
 
-        const log = (msg) =&gt; {
-            console.log(msg)
+        const loadDefaultOptions = () =&gt; {
+            const defaultOptions = this.getElementsByTagName(&#x27;option&#x27;)
+            for (let i = 0; i &lt; defaultOptions.length; i++) {
+                this.defaultOptions[defaultOptions[i].value] = {
+                    index: i,
+                    text: defaultOptions[i].innerText,
+                }
+            }
+            // log(this.defaultOptions)
         }
 
         this.wrapper = document.createElement(&#x27;div&#x27;)
@@ -116,23 +184,26 @@ customElements.define('enforced-selector', EnforcedSelector)
         this.input.setAttribute(&#x27;type&#x27;, &#x27;text&#x27;)
         this.input.addEventListener(&#x27;focus&#x27;, handleInputFocus)
 
-        this.input.id = &#x27;asdfasdf&#x27;
         this.wrapper.appendChild(this.input)
         this.shadowRoot.append(this.wrapper)
 
-        this.state = &#x27;closed&#x27;
-
-        document.addEventListener(&#x27;click&#x27;, handleDocumentClick)
+        document.addEventListener(&#x27;mousedown&#x27;, handleDocumentClick)
+        document.addEventListener(&#x27;DOMContentLoaded&#x27;, loadDefaultOptions)
     }
 }
 
 customElements.define(&#x27;enforced-selector&#x27;, EnforcedSelector)
 </code></pre>
             
-        
+       
+                <h2>Notes</h2>
+                <ul>
+                    <li>Remove the previous 'Search' and 'Autocomplete' tests when this is running</li>
+                </ul>
+             
                 <h2>TODO</h2>
                 <ul>
-                    <li>remove the prious search and autocompelte test which this runs</li>
+                    <li>[ ] - Load data from child &lt;option&gt; elements</li> <li>[ ] - Clicking in opens the selection</li> <li>[ ] - Clicking out closes the selection</li>
                 </ul>
              
                 <h2>References</h2>
