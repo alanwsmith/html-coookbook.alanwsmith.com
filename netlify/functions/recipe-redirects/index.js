@@ -18,6 +18,7 @@ exports.handler = async function (event, context) {
   "2gc2v5bvvngh": "/recipes/font-download-test--2gc2v5bvvngh/index.html",
   "2ggjxa4tvm9x": "/recipes/mdash-input-select-autocomplete-test--2ggjxa4tvm9x/index.html",
   "2gj4p8avxist": "/recipes/enforced-selections-menu--2gj4p8avxist/index.html",
+  "absolute-and-relative-positions": "/recipes/css--absolute-and-relative-positions--2glvtfmqasay/index.html",
   "document-click-listener": "/recipes/web-components--document-click-listener--2gja3c8lgfbs/index.html",
   "hello-world": "/recipes/web-components--hello-world--2gj6asw5m2bm/index.html",
   "use-internal-elements": "/recipes/web-components--use-internal-elements--2gjuqnwy1dko/index.html"
