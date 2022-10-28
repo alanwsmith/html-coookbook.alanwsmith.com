@@ -1,8 +1,10 @@
 {
-    "TITLE": "Cookbook Recipe Template",
+    "TITLE": "-- New Recipe In Progress --",
     "STATUS": "draft",
     "DESCRIPTION": "",
-    "DETAILS": [],
+    "DETAILS": [
+        "The example below is built directly from the HTML and JavaScript code snippets that follow"
+    ],
     "NOTES": [],
     "TODOS": [],
     "REFERENCES": [
