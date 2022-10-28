@@ -6,6 +6,7 @@ class EnforcedSelector extends HTMLElement {
         this.placeholder = 'Select'
         this.options = []
         this.upArrowCheck = ''
+        this.tabTimeout = null
 
         const log = (msg) => {
             console.log(msg)
@@ -13,6 +14,7 @@ class EnforcedSelector extends HTMLElement {
 
         const handleDocumentClick = (event) => {
             if (event.target !== this) {
+                this.input.placeholder = this.placeholder
                 this.input.value = ''
                 removeMenu()
             }
@@ -69,21 +71,24 @@ class EnforcedSelector extends HTMLElement {
         const handleSelectKeydown = (event) => {
             const keyCheck = event.key.toLowerCase()
             if (keyCheck === 'tab') {
-                event.preventDefault()
-                this.input.focus()
+                if (this.tabTimeout) {
+                    clearTimeout(this.tabTimeout)
+                }
+                this.tabTimeout = setTimeout(() => {
+                    removeMenu()
+                    this.input.value = ''
+                    this.input.placeholder = this.placeholder
+                }, 30)
             }
         }
 
+        // TODO: Handle escape here
         const handleSelectKeyup = (event) => {
             const keyCheck = event.key.toLowerCase()
             // TODO: May need to be a check for items in the
             // options here.
             if (keyCheck === 'enter') {
                 registerSelection()
-
-                // } else if (keyCheck === 'escape') {
-                // log('TODO: Hanlde escape here')
-                // registerSelection()
             } else if (keyCheck === 'arrowup') {
                 if (this.upArrowCheck === this.select.value) {
                     this.input.focus()
@@ -134,7 +139,7 @@ class EnforcedSelector extends HTMLElement {
             this.select.addEventListener('keydown', handleSelectKeydown)
             this.select.addEventListener('keyup', handleSelectKeyup)
             this.select.size = 5
-            // this.style.position = 'absolute'
+            this.select.style.position = 'absolute'
 
             for (let option of this.options) {
                 this.select.appendChild(option)

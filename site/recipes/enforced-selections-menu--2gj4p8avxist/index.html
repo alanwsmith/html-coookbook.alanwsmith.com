@@ -40,6 +40,7 @@
         this.placeholder = 'Select'
         this.options = []
         this.upArrowCheck = ''
+        this.tabTimeout = null
 
         const log = (msg) => {
             console.log(msg)
@@ -47,6 +48,7 @@
 
         const handleDocumentClick = (event) => {
             if (event.target !== this) {
+                this.input.placeholder = this.placeholder
                 this.input.value = ''
                 removeMenu()
             }
@@ -103,21 +105,24 @@
         const handleSelectKeydown = (event) => {
             const keyCheck = event.key.toLowerCase()
             if (keyCheck === 'tab') {
-                event.preventDefault()
-                this.input.focus()
+                if (this.tabTimeout) {
+                    clearTimeout(this.tabTimeout)
+                }
+                this.tabTimeout = setTimeout(() => {
+                    removeMenu()
+                    this.input.value = ''
+                    this.input.placeholder = this.placeholder
+                }, 30)
             }
         }
 
+        // TODO: Handle escape here
         const handleSelectKeyup = (event) => {
             const keyCheck = event.key.toLowerCase()
             // TODO: May need to be a check for items in the
             // options here.
             if (keyCheck === 'enter') {
                 registerSelection()
-
-                // } else if (keyCheck === 'escape') {
-                // log('TODO: Hanlde escape here')
-                // registerSelection()
             } else if (keyCheck === 'arrowup') {
                 if (this.upArrowCheck === this.select.value) {
                     this.input.focus()
@@ -168,7 +173,7 @@
             this.select.addEventListener('keydown', handleSelectKeydown)
             this.select.addEventListener('keyup', handleSelectKeyup)
             this.select.size = 5
-            // this.style.position = 'absolute'
+            this.select.style.position = 'absolute'
 
             for (let option of this.options) {
                 this.select.appendChild(option)
@@ -295,6 +300,7 @@ customElements.define('enforced-selector', EnforcedSelector)
         this.placeholder = &#x27;Select&#x27;
         this.options = []
         this.upArrowCheck = &#x27;&#x27;
+        this.tabTimeout = null
 
         const log = (msg) =&gt; {
             console.log(msg)
@@ -302,6 +308,7 @@ customElements.define('enforced-selector', EnforcedSelector)
 
         const handleDocumentClick = (event) =&gt; {
             if (event.target !== this) {
+                this.input.placeholder = this.placeholder
                 this.input.value = &#x27;&#x27;
                 removeMenu()
             }
@@ -358,21 +365,24 @@ customElements.define('enforced-selector', EnforcedSelector)
         const handleSelectKeydown = (event) =&gt; {
             const keyCheck = event.key.toLowerCase()
             if (keyCheck === &#x27;tab&#x27;) {
-                event.preventDefault()
-                this.input.focus()
+                if (this.tabTimeout) {
+                    clearTimeout(this.tabTimeout)
+                }
+                this.tabTimeout = setTimeout(() =&gt; {
+                    removeMenu()
+                    this.input.value = &#x27;&#x27;
+                    this.input.placeholder = this.placeholder
+                }, 30)
             }
         }
 
+        // TODO: Handle escape here
         const handleSelectKeyup = (event) =&gt; {
             const keyCheck = event.key.toLowerCase()
             // TODO: May need to be a check for items in the
             // options here.
             if (keyCheck === &#x27;enter&#x27;) {
                 registerSelection()
-
-                // } else if (keyCheck === &#x27;escape&#x27;) {
-                // log(&#x27;TODO: Hanlde escape here&#x27;)
-                // registerSelection()
             } else if (keyCheck === &#x27;arrowup&#x27;) {
                 if (this.upArrowCheck === this.select.value) {
                     this.input.focus()
@@ -423,7 +433,7 @@ customElements.define('enforced-selector', EnforcedSelector)
             this.select.addEventListener(&#x27;keydown&#x27;, handleSelectKeydown)
             this.select.addEventListener(&#x27;keyup&#x27;, handleSelectKeyup)
             this.select.size = 5
-            // this.style.position = &#x27;absolute&#x27;
+            this.select.style.position = &#x27;absolute&#x27;
 
             for (let option of this.options) {
                 this.select.appendChild(option)
@@ -490,7 +500,7 @@ customElements.define(&#x27;enforced-selector&#x27;, EnforcedSelector)
        
                 <h2>Notes</h2>
                 <ul>
-                    <li>Remove the previous 'Search' and 'Autocomplete' tests when this is running</li> <li>The reason for removing and adding the 'select' element (instead of just the options) is because of a behavior in safari where it doesn't respect resetting the position of the selected element on arrow movements</li> <li>I'm adding display inline when the DOMContentLoaded fires. Adding it before then throws an error. TBD if that causes a layout shift which would need to be dealt with</li> <li>I remove the placeholder text when you first click into the input field because it aways throws me when the text stays there on default forms</li>
+                    <li>Remove the previous 'Search' and 'Autocomplete' tests when this is running</li> <li>The reason for removing and adding the 'select' element (instead of just the options) is because of a behavior in safari where it doesn't respect resetting the position of the selected element on arrow movements</li> <li>I'm adding display inline when the DOMContentLoaded fires. Adding it before then throws an error. TBD if that causes a layout shift which would need to be dealt with</li> <li>I remove the placeholder text when you first click into the input field because it aways throws me when the text stays there on default forms</li> <li>The setTimeout move to the next tab is becaue I haven't found a way to move to the next tab index programatically. Closing the menu first means the tab doesn't move. And closing it after didn't work</li>
                 </ul>
             
       <h2>Functionality</h2>
@@ -531,6 +541,25 @@ customElements.define(&#x27;enforced-selector&#x27;, EnforcedSelector)
       <h3>CLICK occurs outside INPUT or MENU</h3>
       <h3>CLICK occurs on MENU OPTION</h3>
       <h3>CLICK occurs in INPUT while MENU has focus</h3>
+
+      <h3>CLICK occurs outside the INPUT and MENU when INPUT has no VALUE</h3>
+      <ul>
+        <li>[ ] - MENU is closed</li>
+        <li>[ ] - INPUT PLACEHOLDER returns to its previous value</li>
+      </ul>
+
+      <h3>TAB is pressed while MENU is active with VALUE in INPUT</h3>
+      <ul>
+        <li>[.] - MENU closes</li>
+        <li>[.] - INPUT VALUE is set to nothing</li>
+        <li>[.] - INPUT PLACEHOLDER is returned to previous value</li>
+        <li>[.] - Focus moves to next tab index as normal</li>
+      </ul>
+
+      <h3>TAB pressed when VALUE in INPUT has zero MENU results</h3>
+      <ul>
+        <li>[ ] - no-op</li>
+      </ul>
 
       <hr />
 

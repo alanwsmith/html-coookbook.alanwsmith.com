@@ -107,6 +107,25 @@
       <h3>CLICK occurs on MENU OPTION</h3>
       <h3>CLICK occurs in INPUT while MENU has focus</h3>
 
+      <h3>CLICK occurs outside the INPUT and MENU when INPUT has no VALUE</h3>
+      <ul>
+        <li>[ ] - MENU is closed</li>
+        <li>[ ] - INPUT PLACEHOLDER returns to its previous value</li>
+      </ul>
+
+      <h3>TAB is pressed while MENU is active with VALUE in INPUT</h3>
+      <ul>
+        <li>[.] - MENU closes</li>
+        <li>[.] - INPUT VALUE is set to nothing</li>
+        <li>[.] - INPUT PLACEHOLDER is returned to previous value</li>
+        <li>[.] - Focus moves to next tab index as normal</li>
+      </ul>
+
+      <h3>TAB pressed when VALUE in INPUT has zero MENU results</h3>
+      <ul>
+        <li>[ ] - no-op</li>
+      </ul>
+
       <hr />
 
       <ul>
