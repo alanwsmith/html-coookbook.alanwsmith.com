@@ -52,6 +52,15 @@
             renderOptions()
         }
 
+        const handleInputKeyup = (event) => {
+            const keyCheck = event.key.toLowerCase()
+            if (keyCheck === 'enter') {
+                registerSelection()
+            } else {
+                renderOptions()
+            }
+        }
+
         const loadDefaultOptions = () => {
             const defaultOptions = this.getElementsByTagName('option')
             for (let i = 0; i < defaultOptions.length; i++) {
@@ -60,6 +69,10 @@
                     text: defaultOptions[i].innerText,
                 }
             }
+        }
+
+        const registerSelection = () => {
+            log('asdfasdfasfasdf')
         }
 
         const removeMenu = () => {
@@ -75,16 +88,24 @@
 
         const renderOptions = () => {
             if (!this.select) {
-                // log('- Adding Menu')
                 this.select = document.createElement('select')
                 this.select.size = 5
             }
 
+            while (this.select.firstChild) {
+                this.select.firstChild.remove()
+            }
+
             for (const optionKey in this.defaultOptions) {
-                const option = document.createElement('option')
-                option.value = this.defaultOptions[optionKey].value
-                option.innerText = this.defaultOptions[optionKey].text
-                this.select.appendChild(option)
+                const defaultOption = this.defaultOptions[optionKey]
+                if (
+                    defaultOption.text.toLowerCase().includes(this.input.value)
+                ) {
+                    const option = document.createElement('option')
+                    option.value = this.defaultOptions[optionKey].value
+                    option.innerText = this.defaultOptions[optionKey].text
+                    this.select.appendChild(option)
+                }
             }
 
             this.wrapper.appendChild(this.select)
@@ -96,6 +117,9 @@
         this.input = document.createElement('input')
         this.input.setAttribute('type', 'text')
         this.input.addEventListener('focus', handleInputFocus)
+        this.input.addEventListener('keyup', handleInputKeyup)
+        this.input.setAttribute('autocorrect', false)
+        this.input.setAttribute('spellcheck', false)
 
         this.wrapper.appendChild(this.input)
         this.shadowRoot.append(this.wrapper)
@@ -163,6 +187,15 @@ customElements.define('enforced-selector', EnforcedSelector)
             renderOptions()
         }
 
+        const handleInputKeyup = (event) =&gt; {
+            const keyCheck = event.key.toLowerCase()
+            if (keyCheck === &#x27;enter&#x27;) {
+                registerSelection()
+            } else {
+                renderOptions()
+            }
+        }
+
         const loadDefaultOptions = () =&gt; {
             const defaultOptions = this.getElementsByTagName(&#x27;option&#x27;)
             for (let i = 0; i &lt; defaultOptions.length; i++) {
@@ -171,6 +204,10 @@ customElements.define('enforced-selector', EnforcedSelector)
                     text: defaultOptions[i].innerText,
                 }
             }
+        }
+
+        const registerSelection = () =&gt; {
+            log(&#x27;asdfasdfasfasdf&#x27;)
         }
 
         const removeMenu = () =&gt; {
@@ -186,16 +223,24 @@ customElements.define('enforced-selector', EnforcedSelector)
 
         const renderOptions = () =&gt; {
             if (!this.select) {
-                // log(&#x27;- Adding Menu&#x27;)
                 this.select = document.createElement(&#x27;select&#x27;)
                 this.select.size = 5
             }
 
+            while (this.select.firstChild) {
+                this.select.firstChild.remove()
+            }
+
             for (const optionKey in this.defaultOptions) {
-                const option = document.createElement(&#x27;option&#x27;)
-                option.value = this.defaultOptions[optionKey].value
-                option.innerText = this.defaultOptions[optionKey].text
-                this.select.appendChild(option)
+                const defaultOption = this.defaultOptions[optionKey]
+                if (
+                    defaultOption.text.toLowerCase().includes(this.input.value)
+                ) {
+                    const option = document.createElement(&#x27;option&#x27;)
+                    option.value = this.defaultOptions[optionKey].value
+                    option.innerText = this.defaultOptions[optionKey].text
+                    this.select.appendChild(option)
+                }
             }
 
             this.wrapper.appendChild(this.select)
@@ -207,6 +252,9 @@ customElements.define('enforced-selector', EnforcedSelector)
         this.input = document.createElement(&#x27;input&#x27;)
         this.input.setAttribute(&#x27;type&#x27;, &#x27;text&#x27;)
         this.input.addEventListener(&#x27;focus&#x27;, handleInputFocus)
+        this.input.addEventListener(&#x27;keyup&#x27;, handleInputKeyup)
+        this.input.setAttribute(&#x27;autocorrect&#x27;, false)
+        this.input.setAttribute(&#x27;spellcheck&#x27;, false)
 
         this.wrapper.appendChild(this.input)
         this.shadowRoot.append(this.wrapper)
@@ -227,7 +275,7 @@ customElements.define(&#x27;enforced-selector&#x27;, EnforcedSelector)
              
                 <h2>TODO</h2>
                 <ul>
-                    <li>[ ] - Load data from child &lt;option&gt; elements</li> <li>[ ] - Clicking in opens the selection</li> <li>[ ] - Clicking out closes the selection</li>
+                    <li>[ ] - Load data from child &lt;option&gt; elements</li> <li>[ ] - Clicking in opens the selection</li> <li>[ ] - Clicking out closes the selection</li> <li>[ ] - See if you make this off a selection if it can be use in forms directly</li>
                 </ul>
              
                 <h2>References</h2>
