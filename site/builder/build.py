@@ -70,8 +70,8 @@ class Builder():
     def build_redirects(self):
         redirects = {}
         for recipe_dir in self.recipe_dirs:
-            parts = recipe_dir.split('--')
-            redirects[parts[1]] = f'/recipes/{recipe_dir}/index.html'
+            parts = recipe_dir.split('---')
+            redirects[parts[-1]] = f'/recipes/{recipe_dir}/index.html'
         print(redirects)
 
         with open("src/redirects.js") as _redirects_in:
