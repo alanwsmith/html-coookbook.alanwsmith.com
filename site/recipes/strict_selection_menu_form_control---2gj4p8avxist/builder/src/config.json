@@ -20,6 +20,7 @@
         "[.] - Clicking in the input field opens the menu",
         "[.] - Clicking outside the input field closes the menu",
         "[.] - Clicking outside the menu closes the menu",
+        "[ ] - Investigate setting up so that if you tab into the menu when there's an existing selection and you haven't entered anythign yet it moves to the last item in the menu",
         "[ ] - Investigate making this a custom built-in form form element so it can have that API",
         "[ ] - Verify that options can be updated live outside the component",
         "[.] - Hitting escape while inside resets the form but keeps you in it",
