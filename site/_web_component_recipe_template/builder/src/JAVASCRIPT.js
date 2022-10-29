@@ -1,8 +1,8 @@
 class WebComponent extends HTMLElement {
     constructor() {
         super()
-
         this.attachShadow({ mode: 'open' })
+
         const component = document.createElement('span')
         component.innerText = 'Hello, Component!'
 
