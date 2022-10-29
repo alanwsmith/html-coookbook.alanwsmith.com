@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Component - Send Value With Form Submit - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Web Component - Send Value With Form Submit" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Web%20Component%20-%20Send%20Value%20With%20Form%20Submit,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/prism.css" />
+    
+    <style>
+      
+    </style>
+    <script>
+      class CustomInput extends HTMLElement {
+    constructor() {
+        super()
+        this.attachShadow({ mode: 'open' })
+
+        const gotData = (event) => {
+            console.log(event)
+            event.formData.append('x', 'y')
+        }
+
+        const input = document.createElement('input')
+        input.name = 'customInput'
+        input.value = 'Alfa Bravo'
+
+        this.shadowRoot.append(input)
+
+        document.addEventListener('formdata', gotData)
+    }
+}
+
+customElements.define('custom-input', CustomInput)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">Cookbook Home</a> ~
+      <a href="https://www.alanwsmith.com/">alanwsmith.com</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://https://twitter.com/TheIdOfAlan">twitter</a>
+    </header>
+    <main>
+      <h1>Web Component - Send Value With Form Submit</h1>
+      
+                <h2>Deatils</h2>
+                <ul>
+                    <li>The goal is to have the value in a custom input field send along with a form submission</li>
+                </ul>
+                
+      <h2>EXAMPLE</h2>
+      <form>
+  <custom-input></custom-input>
+  <input type="submit" name="submit" value="submit" />
+</form>
+  
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;form&gt;
+  &lt;custom-input&gt;&lt;/custom-input&gt;
+  &lt;input type=&quot;submit&quot; name=&quot;submit&quot; value=&quot;submit&quot; /&gt;
+&lt;/form&gt;
+</code></pre>
+              
+            <h2>JavaScript</h2>
+            <pre><code class="language-js">class CustomInput extends HTMLElement {
+    constructor() {
+        super()
+        this.attachShadow({ mode: &#x27;open&#x27; })
+
+        const gotData = (event) =&gt; {
+            console.log(event)
+            event.formData.append(&#x27;x&#x27;, &#x27;y&#x27;)
+        }
+
+        const input = document.createElement(&#x27;input&#x27;)
+        input.name = &#x27;customInput&#x27;
+        input.value = &#x27;Alfa Bravo&#x27;
+
+        this.shadowRoot.append(input)
+
+        document.addEventListener(&#x27;formdata&#x27;, gotData)
+    }
+}
+
+customElements.define(&#x27;custom-input&#x27;, CustomInput)
+</code></pre>
+             
+      
+                <h2>References</h2>
+                <ul>
+                    <li><a href=""></a></li>
+                </ul>
+                
+    </main>
+    <footer>
+      made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>
+      <br />
+      who has a <a href="https://www.alanwsmith.com">website</a> and a
+      <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
+      among other <a href="https://links.alanwsmith.com">things</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>

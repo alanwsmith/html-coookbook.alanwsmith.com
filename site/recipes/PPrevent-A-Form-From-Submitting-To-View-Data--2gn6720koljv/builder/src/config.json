@@ -1,0 +1,31 @@
+{
+    "TITLE": "Prevent A Form From Submitting In Order To View The Data",
+    "STATUS": "published",
+    "DESCRIPTION": "",
+    "DETAILS": [
+        "I use this when developing forms to prevent them from actually sending so I can look at the data",
+        "In this example, clicking the 'submit' button ends up sending the values to the console without submitting the form"
+    ],
+    "NOTES": [
+        "This will stop all forms on the page from being submitted",
+        "The code works by watching for the 'submit' event at the document level. It's stopped with 'preventDefault' and then the data is loaded into a new FormData element for examination",
+        "Making the 'FormData' element triggers a 'formdata' event that could be used as a secondary trigger",
+        "Looping through the items is done with `.keys()` and then pulling individual data for an item with `.get(KEY)` on the FormData object",
+        "It would be possible to add another button on the page that continues the submission. Check the Using FormData Objects page below for direction on that",
+        "The name and value of the 'submit' input comes across for me in Safari, but not Chrome on macOS 12. Would need to test to detremine if that's the same thing the server would get"
+    ],
+
+    "TODOS": [],
+    "REFERENCES": [
+        {
+            "title": "MDN: Using FormData Objects",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/FormData/Using_FormData_Objects",
+            "extra": ""
+        },
+        {
+            "title": "MDN: FormData",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/FormData",
+            "extra": ""
+        }
+    ]
+}

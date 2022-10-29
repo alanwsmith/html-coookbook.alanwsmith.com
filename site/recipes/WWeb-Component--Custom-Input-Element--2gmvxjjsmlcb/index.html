@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Component - [Not Currently Possible] - Custom Input Form Control Element - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Web Component - [Not Currently Possible] - Custom Input Form Control Element" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Web%20Component%20-%20%5BNot%20Currently%20Possible%5D%20-%20Custom%20Input%20Form%20Control%20Element,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/prism.css" />
+    
+    <style>
+      ul {
+  list-style-type: none;
+}
+
+li::before {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.25rem;
+  content: '';
+}
+
+.open::before,
+.closed::before {
+  background-size: 1rem 1rem;
+  position: relative;
+  top: 0.25rem;
+  opacity: 0.3;
+}
+
+.open::before {
+  /*
+  background-image: url(img/down.png);
+  */
+}
+
+.closed::before {
+  /*
+  background-image: url(img/right.png);
+  */
+}
+
+.closed .closed::before,
+.closed .open::before {
+  display: none;
+}
+
+    </style>
+    <script>
+      // class CustomInput extends HTMLInputElement {
+//     constructor() {
+//         super()
+//         this.attachShadow({ mode: 'open' })
+//         console.log('opened')
+//         // const input = document.createElement('input')
+//         // input.name = 'CUSTOM'
+//         // input.value = 'testing'
+//         // this.shadowRoot.append(input)
+//     }
+// }
+
+// class CustomHidden extends HTMLInputElement {
+//     constructor() {
+//         super()
+//         this.attachShadow({ mode: 'open' })
+//         const input = document.createElement('input')
+//         input.name = 'CUSTOM'
+//         input.value = 'testing'
+//         this.shadowRoot.append(input)
+//     }
+// }
+
+// class CustomBravo extends HTMLInputElement {
+//     constructor() {
+//         super()
+//         // this.attachShadow({ mode: 'open' })
+//         console.log('Hit BRAVO')
+//     }
+// }
+// customElements.define('custom-bravo', CustomBravo, { extends: 'input' })
+
+// customElements.define('custom-hidden', CustomHidden)
+// customElements.define('custom-input', CustomInput)
+//
+//
+//
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">Cookbook Home</a> ~
+      <a href="https://www.alanwsmith.com/">alanwsmith.com</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://https://twitter.com/TheIdOfAlan">twitter</a>
+    </header>
+    <main>
+      <h1>Web Component - [Not Currently Possible] - Custom Input Form Control Element</h1>
+      
+                <h2>Deatils</h2>
+                <ul>
+                    <li>This is a non-starter. I was going to use the 'is' extension, with HTMLInputElement, but that doesn't work in WebKit: https://github.com/WICG/webcomponents/issues/509</li>
+                </ul>
+                
+      <h2>EXAMPLE</h2>
+      <ul is="expanding-list">
+  <li>
+    UK
+    <ul>
+      <li>
+        Yorkshire
+        <ul>
+          <li>
+            Leeds
+            <ul>
+              <li>Train station</li>
+              <li>Town hall</li>
+              <li>Headrow</li>
+            </ul>
+          </li>
+          <li>Bradford</li>
+          <li>Hull</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    USA
+    <ul>
+      <li>
+        California
+        <ul>
+          <li>Los Angeles</li>
+          <li>San Francisco</li>
+          <li>Berkeley</li>
+        </ul>
+      </li>
+      <li>Nevada</li>
+      <li>Oregon</li>
+    </ul>
+  </li>
+</ul>
+<ul>
+  <li>Not</li>
+  <li>an</li>
+  <li>expanding</li>
+  <li>list</li>
+</ul>
+
+<script>
+  // Create a class for the element
+  class ExpandingList extends HTMLUListElement {
+    constructor() {
+      // Always call super first in constructor
+      // Return value from super() is a reference to this element
+      self = super()
+
+      // Get ul and li elements that are a child of this custom ul element
+      // li elements can be containers if they have uls within them
+      const uls = Array.from(self.querySelectorAll('ul'))
+      const lis = Array.from(self.querySelectorAll('li'))
+
+      console.log('HERERERE')
+      // Hide all child uls
+      // These lists will be shown when the user clicks a higher level container
+      uls.forEach((ul) => {
+        ul.style.display = 'none'
+      })
+
+      // Look through each li element in the ul
+      lis.forEach((li) => {
+        // If this li has a ul as a child, decorate it and add a click handler
+        if (li.querySelectorAll('ul').length > 0) {
+          // Add an attribute which can be used  by the style
+          // to show an open or closed icon
+          li.setAttribute('class', 'closed')
+
+          // Wrap the li element's text in a new span element
+          // so we can assign style and event handlers to the span
+          const childText = li.childNodes[0]
+          const newSpan = document.createElement('span')
+
+          // Copy text from li to span, set cursor style
+          newSpan.textContent = childText.textContent
+          newSpan.style.cursor = 'pointer'
+
+          // Add click handler to this span
+          newSpan.onclick = self.showul
+
+          // Add the span and remove the bare text node from the li
+          childText.parentNode.insertBefore(newSpan, childText)
+          childText.parentNode.removeChild(childText)
+        }
+      })
+    }
+
+    // li click handler
+    showul = function (e) {
+      // next sibling to the span should be the ul
+      const nextul = e.target.nextElementSibling
+
+      // Toggle visible state and update class attribute on ul
+      if (nextul.style.display == 'block') {
+        nextul.style.display = 'none'
+        nextul.parentNode.setAttribute('class', 'closed')
+      } else {
+        nextul.style.display = 'block'
+        nextul.parentNode.setAttribute('class', 'open')
+      }
+    }
+  }
+
+  // Define the new element
+  customElements.define('expanding-list', ExpandingList, { extends: 'ul' })
+</script>
+  
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;ul is=&quot;expanding-list&quot;&gt;
+  &lt;li&gt;
+    UK
+    &lt;ul&gt;
+      &lt;li&gt;
+        Yorkshire
+        &lt;ul&gt;
+          &lt;li&gt;
+            Leeds
+            &lt;ul&gt;
+              &lt;li&gt;Train station&lt;/li&gt;
+              &lt;li&gt;Town hall&lt;/li&gt;
+              &lt;li&gt;Headrow&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;Bradford&lt;/li&gt;
+          &lt;li&gt;Hull&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    USA
+    &lt;ul&gt;
+      &lt;li&gt;
+        California
+        &lt;ul&gt;
+          &lt;li&gt;Los Angeles&lt;/li&gt;
+          &lt;li&gt;San Francisco&lt;/li&gt;
+          &lt;li&gt;Berkeley&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Nevada&lt;/li&gt;
+      &lt;li&gt;Oregon&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+  &lt;li&gt;Not&lt;/li&gt;
+  &lt;li&gt;an&lt;/li&gt;
+  &lt;li&gt;expanding&lt;/li&gt;
+  &lt;li&gt;list&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;script&gt;
+  // Create a class for the element
+  class ExpandingList extends HTMLUListElement {
+    constructor() {
+      // Always call super first in constructor
+      // Return value from super() is a reference to this element
+      self = super()
+
+      // Get ul and li elements that are a child of this custom ul element
+      // li elements can be containers if they have uls within them
+      const uls = Array.from(self.querySelectorAll(&#x27;ul&#x27;))
+      const lis = Array.from(self.querySelectorAll(&#x27;li&#x27;))
+
+      console.log(&#x27;HERERERE&#x27;)
+      // Hide all child uls
+      // These lists will be shown when the user clicks a higher level container
+      uls.forEach((ul) =&gt; {
+        ul.style.display = &#x27;none&#x27;
+      })
+
+      // Look through each li element in the ul
+      lis.forEach((li) =&gt; {
+        // If this li has a ul as a child, decorate it and add a click handler
+        if (li.querySelectorAll(&#x27;ul&#x27;).length &gt; 0) {
+          // Add an attribute which can be used  by the style
+          // to show an open or closed icon
+          li.setAttribute(&#x27;class&#x27;, &#x27;closed&#x27;)
+
+          // Wrap the li element&#x27;s text in a new span element
+          // so we can assign style and event handlers to the span
+          const childText = li.childNodes[0]
+          const newSpan = document.createElement(&#x27;span&#x27;)
+
+          // Copy text from li to span, set cursor style
+          newSpan.textContent = childText.textContent
+          newSpan.style.cursor = &#x27;pointer&#x27;
+
+          // Add click handler to this span
+          newSpan.onclick = self.showul
+
+          // Add the span and remove the bare text node from the li
+          childText.parentNode.insertBefore(newSpan, childText)
+          childText.parentNode.removeChild(childText)
+        }
+      })
+    }
+
+    // li click handler
+    showul = function (e) {
+      // next sibling to the span should be the ul
+      const nextul = e.target.nextElementSibling
+
+      // Toggle visible state and update class attribute on ul
+      if (nextul.style.display == &#x27;block&#x27;) {
+        nextul.style.display = &#x27;none&#x27;
+        nextul.parentNode.setAttribute(&#x27;class&#x27;, &#x27;closed&#x27;)
+      } else {
+        nextul.style.display = &#x27;block&#x27;
+        nextul.parentNode.setAttribute(&#x27;class&#x27;, &#x27;open&#x27;)
+      }
+    }
+  }
+
+  // Define the new element
+  customElements.define(&#x27;expanding-list&#x27;, ExpandingList, { extends: &#x27;ul&#x27; })
+&lt;/script&gt;
+</code></pre>
+             
+            <h2>CSS</h2>
+            <pre><code class="language-css">ul {
+  list-style-type: none;
+}
+
+li::before {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.25rem;
+  content: &#x27;&#x27;;
+}
+
+.open::before,
+.closed::before {
+  background-size: 1rem 1rem;
+  position: relative;
+  top: 0.25rem;
+  opacity: 0.3;
+}
+
+.open::before {
+  /*
+  background-image: url(img/down.png);
+  */
+}
+
+.closed::before {
+  /*
+  background-image: url(img/right.png);
+  */
+}
+
+.closed .closed::before,
+.closed .open::before {
+  display: none;
+}
+</code></pre>
+             
+            <h2>JavaScript</h2>
+            <pre><code class="language-js">// class CustomInput extends HTMLInputElement {
+//     constructor() {
+//         super()
+//         this.attachShadow({ mode: &#x27;open&#x27; })
+//         console.log(&#x27;opened&#x27;)
+//         // const input = document.createElement(&#x27;input&#x27;)
+//         // input.name = &#x27;CUSTOM&#x27;
+//         // input.value = &#x27;testing&#x27;
+//         // this.shadowRoot.append(input)
+//     }
+// }
+
+// class CustomHidden extends HTMLInputElement {
+//     constructor() {
+//         super()
+//         this.attachShadow({ mode: &#x27;open&#x27; })
+//         const input = document.createElement(&#x27;input&#x27;)
+//         input.name = &#x27;CUSTOM&#x27;
+//         input.value = &#x27;testing&#x27;
+//         this.shadowRoot.append(input)
+//     }
+// }
+
+// class CustomBravo extends HTMLInputElement {
+//     constructor() {
+//         super()
+//         // this.attachShadow({ mode: &#x27;open&#x27; })
+//         console.log(&#x27;Hit BRAVO&#x27;)
+//     }
+// }
+// customElements.define(&#x27;custom-bravo&#x27;, CustomBravo, { extends: &#x27;input&#x27; })
+
+// customElements.define(&#x27;custom-hidden&#x27;, CustomHidden)
+// customElements.define(&#x27;custom-input&#x27;, CustomInput)
+//
+//
+//
+</code></pre>
+             
+      
+                <h2>References</h2>
+                <ul>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements">MDN: Using custom elements</a></li>
+                </ul>
+                
+    </main>
+    <footer>
+      made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>
+      <br />
+      who has a <a href="https://www.alanwsmith.com">website</a> and a
+      <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
+      among other <a href="https://links.alanwsmith.com">things</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>

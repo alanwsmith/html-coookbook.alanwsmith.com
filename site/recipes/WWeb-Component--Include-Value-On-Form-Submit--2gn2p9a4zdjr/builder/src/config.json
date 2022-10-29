@@ -1,0 +1,17 @@
+{
+    "TITLE": "Web Component - Send Value With Form Submit",
+    "STATUS": "draft",
+    "DESCRIPTION": "",
+    "DETAILS": [
+        "The goal is to have the value in a custom input field send along with a form submission"
+    ],
+    "NOTES": [],
+    "TODOS": [],
+    "REFERENCES": [
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        }
+    ]
+}

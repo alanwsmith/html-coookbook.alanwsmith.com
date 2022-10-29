@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prevent A Form From Submitting In Order To View The Data - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Prevent A Form From Submitting In Order To View The Data" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Prevent%20A%20Form%20From%20Submitting%20In%20Order%20To%20View%20The%20Data,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/prism.css" />
+    
+    <style>
+      
+    </style>
+    <script>
+      const stopSubmission = (event) => {
+    event.preventDefault()
+    const theData = new FormData(event.target)
+    for (const key of theData.keys()) {
+        console.log(`${key} = ${theData.get(key)}`)
+    }
+}
+
+document.addEventListener('submit', stopSubmission)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">Cookbook Home</a> ~
+      <a href="https://www.alanwsmith.com/">alanwsmith.com</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://https://twitter.com/TheIdOfAlan">twitter</a>
+    </header>
+    <main>
+      <h1>Prevent A Form From Submitting In Order To View The Data</h1>
+      
+                <h2>Deatils</h2>
+                <ul>
+                    <li>I use this when developing forms to prevent them from actually sending so I can look at the data</li> <li>In this example, clicking the 'submit' button ends up sending the values to the console without submitting the form</li>
+                </ul>
+                
+      <h2>EXAMPLE</h2>
+      <form id="target-form">
+  <input type="text" name="alfa" value="bravo" />
+  <input type="submit" name="submit" value="submit" />
+</form>
+  
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;form id=&quot;target-form&quot;&gt;
+  &lt;input type=&quot;text&quot; name=&quot;alfa&quot; value=&quot;bravo&quot; /&gt;
+  &lt;input type=&quot;submit&quot; name=&quot;submit&quot; value=&quot;submit&quot; /&gt;
+&lt;/form&gt;
+</code></pre>
+              
+            <h2>JavaScript</h2>
+            <pre><code class="language-js">const stopSubmission = (event) =&gt; {
+    event.preventDefault()
+    const theData = new FormData(event.target)
+    for (const key of theData.keys()) {
+        console.log(`${key} = ${theData.get(key)}`)
+    }
+}
+
+document.addEventListener(&#x27;submit&#x27;, stopSubmission)
+</code></pre>
+             
+      
+                <h2>Notes</h2>
+                <ul>
+                    <li>This will stop all forms on the page from being submitted</li> <li>The code works by watching for the 'submit' event at the document level. It's stopped with 'preventDefault' and then the data is loaded into a new FormData element for examination</li> <li>Making the 'FormData' element triggers a 'formdata' event that could be used as a secondary trigger</li> <li>Looping through the items is done with `.keys()` and then pulling individual data for an item with `.get(KEY)` on the FormData object</li> <li>It would be possible to add another button on the page that continues the submission. Check the Using FormData Objects page below for direction on that</li> <li>The name and value of the 'submit' input comes across for me in Safari, but not Chrome on macOS 12. Would need to test to detremine if that's the same thing the server would get</li>
+                </ul>
+             
+                <h2>References</h2>
+                <ul>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/FormData/Using_FormData_Objects">MDN: Using FormData Objects</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/FormData">MDN: FormData</a></li>
+                </ul>
+                
+    </main>
+    <footer>
+      made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>
+      <br />
+      who has a <a href="https://www.alanwsmith.com">website</a> and a
+      <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
+      among other <a href="https://links.alanwsmith.com">things</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>
