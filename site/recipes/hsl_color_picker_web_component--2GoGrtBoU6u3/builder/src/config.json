@@ -5,14 +5,19 @@
     "DETAILS": [],
     "NOTES": [
         "This is just the sliders. Showing a preview or doing something with the values is left to the implementation",
-        "I switched the order of the sliders to something that makes more sense to me. I see the hue more as the foundation hence I put it at the bottom of the stack"
+        "I switched the order of the sliders to something that makes more sense to me. I see the hue more as the foundation hence I put it at the bottom of the stack",
+        "The slider color gets a little off from the background at the ends. This is because the slider is based off the center point of the moving piece (aka thumb) but the background colors extend to the full edge. I played around with a design with the gradient ends extending in. I didn't like it. Next up will be to setup so the slider thumb goes out a little."
     ],
     "TODOS": [
+        "[ ] - Adjust so the slider thumb can extend so the center point ends up at the edge of the background boundries",
+        "[ ] - Make it responsive",
         "[ ] - Setup to use arrow keys to bump the value for the last slider that was interacted with",
         "[ ] - Add alpha",
+        "[ ] - Send RBG values and all the various other color formats in raw text and something that can be copied direcly into a stylesheet",
         "[ ] - Add second selection for color to put under alpha",
         "[ ] - Add debouce option to slow down sending event signal",
-        "[ ] - See about using cookies to store values so they are the same on refresh, etc... Guessing sending an ID will be require"
+        "[ ] - See about using cookies to store values so they are the same on refresh, etc... Guessing sending an ID will be require",
+        "[ ] - Make the size of the background configurable"
     ],
     "REFERENCES": [
         {
@@ -38,6 +43,11 @@
         {
             "title": "MDN: hsl()",
             "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl",
+            "extra": ""
+        },
+        {
+            "title": "Creating A Custom Range Input That Looks Consistent Across All Browsers",
+            "url": "https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers/",
             "extra": ""
         }
     ]

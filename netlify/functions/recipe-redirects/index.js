@@ -26,6 +26,7 @@ exports.handler = async function (event, context) {
   "2gmvxjjsmlcb": "/recipes/create_a_custom_input_element_in_a_web_component---2gmvxjjsmlcb/index.html",
   "2gn2p9a4zdjr": "/recipes/send_value_with_web_component_form_submit---2gn2p9a4zdjr/index.html",
   "2gn6720koljv": "/recipes/prevent_a_form_from_submitting_to_view_data---2gn6720koljv/index.html",
+  "apply_styles_to_a_web_component--2Gov695r3d8b": "/recipes/apply_styles_to_a_web_component--2Gov695r3d8b/index.html",
   "hsl_color_picker_web_component--2GoGrtBoU6u3": "/recipes/hsl_color_picker_web_component--2GoGrtBoU6u3/index.html"
 }
   const url_parts = event.path.split('/')
