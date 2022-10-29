@@ -9,6 +9,7 @@
         "Additional notes are below the code"
     ],
     "NOTES": [
+        "The inital color is set by passing in values. Right now, this is not optional",
         "I'm using default form controls, but still need to review the accessability of the component. Probably adding lables would make sense.",
         "I switched the order of the sliders to something that makes more sense to me. I see the hue more as the foundation hence I put it at the bottom of the stack",
         "The slider color gets a little off from the background at the ends. This is because the slider is based off the center point of the moving piece (aka thumb) but the background colors extend to the full edge. I played around with a design with the gradient ends extending in. I didn't like it. Next up will be to setup so the slider thumb goes out a little.",
@@ -18,6 +19,8 @@
         "I check the background colors for the sliders work on Chrome, Firefox, and Safari on macOS 12.x. Other setups TBD"
     ],
     "TODOS": [
+        "[ ] - Add default values so it's not required to send in initail values",
+        "[ ] - Refactor the first addition of the values for the range sliders so the don't get set twice on init",
         "[ ] - Write up details on the functionality",
         "[ ] - Refactor to remove the duplication of creating each slider",
         "[ ] - Adjust so the slider thumb can extend so the center point ends up at the edge of the background boundries",
@@ -74,6 +77,11 @@
         {
             "title": "MDN: Pseudo-classes and pseudo-elements",
             "url": "https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Pseudo-classes_and_pseudo-elements",
+            "extra": ""
+        },
+        {
+            "title": "Rebecca Purple",
+            "url": "https://css-tricks.com/rebbeccapurple-663399/",
             "extra": ""
         },
         {
