@@ -8,73 +8,28 @@
     "TODOS": [],
     "REFERENCES": [
         {
-            "title": "",
-            "url": "",
+            "title": "MDN: &lt;color&gt;",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/color_value",
             "extra": ""
         },
         {
-            "title": "",
-            "url": "",
+            "title": "MDN: hsla()",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsla",
             "extra": ""
         },
         {
-            "title": "",
-            "url": "",
+            "title": "MDN: &lt<input type=&quot;range&quot;&gt;",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range",
             "extra": ""
         },
         {
-            "title": "",
-            "url": "",
+            "title": "MDN: linear-gradient()",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient",
             "extra": ""
         },
         {
-            "title": "",
-            "url": "",
-            "extra": ""
-        },
-        {
-            "title": "",
-            "url": "",
-            "extra": ""
-        },
-        {
-            "title": "",
-            "url": "",
-            "extra": ""
-        },
-        {
-            "title": "",
-            "url": "",
-            "extra": ""
-        },
-        {
-            "title": "",
-            "url": "",
-            "extra": ""
-        },
-        {
-            "title": "",
-            "url": "",
-            "extra": ""
-        },
-        {
-            "title": "",
-            "url": "",
-            "extra": ""
-        },
-        {
-            "title": "",
-            "url": "",
-            "extra": ""
-        },
-        {
-            "title": "",
-            "url": "",
-            "extra": ""
-        },
-        {
-            "title": "",
-            "url": "",
+            "title": "MDN: hsl()",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl",
             "extra": ""
         }
     ]
