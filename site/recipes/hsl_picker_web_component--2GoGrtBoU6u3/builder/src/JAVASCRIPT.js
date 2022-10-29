@@ -2,7 +2,6 @@ class hslaPicker extends HTMLElement {
     constructor() {
         super()
         this.attachShadow({ mode: 'open' })
-
         this.hueValue = 180
         this.saturationValue = 50
         this.lightnessValue = 50
@@ -23,24 +22,28 @@ class hslaPicker extends HTMLElement {
         }
 
         const updateSaturationDisplay = () => {
+            console.log('-----------bbbbbbbbbbbbbbbbbbb')
             this.saturationDisplay.style.background = `linear-gradient(
             0.25turn,
             hsl(${this.hueValue}, 0%, ${this.lightnessValue}%),
             hsl(${this.hueValue}, 100%, ${this.lightnessValue}%))`
+            console.log(this.saturationDisplay.style.background)
         }
 
         const updateHueDisplay = () => {
-            hueDisplay.style.background = `linear-gradient(
+            console.log('-----------aaaaaaaaaaaa')
+            this.hueDisplay.style.background = `linear-gradient(
             0.25turn,
-            hsl(0, 100%, 50%),
-            hsl(45, 100%, 50%),
-            hsl(90, 100%, 50%),
-            hsl(135, 100%, 50%),
-            hsl(180, 100%, 50%),
-            hsl(225, 100%, 50%),
-            hsl(270, 100%, 50%),
-            hsl(315, 100%, 50%),
-            hsl(360, 100%, 50%))`
+            hsl(0, ${this.saturationValue}%, ${this.lightnessValue}%),
+            hsl(45, ${this.saturationValue}%, ${this.lightnessValue}%),
+            hsl(90, ${this.saturationValue}%, ${this.lightnessValue}%),
+            hsl(135, ${this.saturationValue}%, ${this.lightnessValue}%),
+            hsl(180, ${this.saturationValue}%, ${this.lightnessValue}%),
+            hsl(225, ${this.saturationValue}%, ${this.lightnessValue}%),
+            hsl(270, ${this.saturationValue}%, ${this.lightnessValue}%),
+            hsl(315, ${this.saturationValue}%, ${this.lightnessValue}%),
+            hsl(360, ${this.saturationValue}%, ${this.lightnessValue}%))`
+            console.log(this.hueDisplay.style.background)
         }
 
         const handleHueInput = (event) => {
@@ -66,7 +69,7 @@ class hslaPicker extends HTMLElement {
         display.style.height = '30px'
         display.style.border = '2px solid black'
 
-        const hueDiv = document.createElement('div')
+        this.hueDiv = document.createElement('div')
         // hueDiv.style.position = 'relative'
 
         const hueSlider = document.createElement('input')
@@ -82,13 +85,16 @@ class hslaPicker extends HTMLElement {
         hueSlider.style.margin = '0'
         hueSlider.addEventListener('input', handleHueInput)
 
-        const hueDisplay = document.createElement('div')
-        hueDisplay.style.width = '180px'
-        hueDisplay.style.height = '18px'
-        hueDisplay.style.padding = '0'
-        hueDisplay.style.margin = '0'
+        this.hueDisplay = document.createElement('div')
+        this.hueDisplay.style.width = '180px'
+        this.hueDisplay.style.height = '18px'
+        this.hueDisplay.style.padding = '0'
+        this.hueDisplay.style.margin = '0'
         // hueDisplay.style.position = 'absolute'
-        hueDisplay.style.left = '10px'
+        this.hueDisplay.style.left = '10px'
+
+        this.hueDiv.appendChild(this.hueDisplay)
+        this.hueDiv.appendChild(hueSlider)
 
         // background: linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
         // linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
@@ -135,12 +141,14 @@ class hslaPicker extends HTMLElement {
         this.lightnessDiv.appendChild(this.lightnessSlider)
 
         this.shadowRoot.append(display)
-        this.shadowRoot.append(hueDisplay)
-        this.shadowRoot.append(hueSlider)
+
+        // this.shadowRoot.append(hueDisplay)
+        // this.shadowRoot.append(hueSlider)
 
         updateHSL()
         this.shadowRoot.append(this.saturationDiv)
         this.shadowRoot.append(this.lightnessDiv)
+        this.shadowRoot.append(this.hueDiv)
         // this.shadowRoot.append(lightness)
     }
 }
