@@ -6,7 +6,7 @@
     <title>HSL Color Picker Web Component - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
     <meta property="og:type" content="article" />
     <meta property="og:title" content="HSL Color Picker Web Component" />
-    <meta property="og:description" content="GOAL: Create an HSL Picker web component" />
+    <meta property="og:description" content="Making a set of HSL sliders to pick colors in a web component" />
     <meta
       property="og:image"
       content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:HSL%20Color%20Picker%20Web%20Component,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
@@ -239,6 +239,11 @@ document.addEventListener('color-changed', handleColorChanged)
     <main>
       <h1>HSL Color Picker Web Component</h1>
       
+                <h2>Deatils</h2>
+                <ul>
+                    <li>This is where I built the initial color picker for my <a href="https://fonts-and-colors.alanwsmith.com">Fonts and Colors</a> site</li> <li>I decided to limit the component to just the sliders. They fire an event when they change that can be used for functionality on the parent page. For example, the color box above the sliders is generated on the parent page and not in the component</li> <li>The example below is build diretly from the code snippets to ensure evrything works.</li> <li>Additional notes are below the code</li>
+                </ul>
+                
       <h2>Example</h2>
       <div id="preview-block"></div>
 <hsla-picker></hsla-picker>
@@ -449,18 +454,18 @@ document.addEventListener(&#x27;color-changed&#x27;, handleColorChanged)
              
                 <h2>Notes</h2>
                 <ul>
-                    <li>This is just the sliders. Showing a preview or doing something with the values is left to the implementation</li> <li>I switched the order of the sliders to something that makes more sense to me. I see the hue more as the foundation hence I put it at the bottom of the stack</li> <li>The slider color gets a little off from the background at the ends. This is because the slider is based off the center point of the moving piece (aka thumb) but the background colors extend to the full edge. I played around with a design with the gradient ends extending in. I didn't like it. Next up will be to setup so the slider thumb goes out a little.</li>
+                    <li>I'm using default form controls, but still need to review the accessability of the component. Probably adding lables would make sense.</li> <li>I switched the order of the sliders to something that makes more sense to me. I see the hue more as the foundation hence I put it at the bottom of the stack</li> <li>The slider color gets a little off from the background at the ends. This is because the slider is based off the center point of the moving piece (aka thumb) but the background colors extend to the full edge. I played around with a design with the gradient ends extending in. I didn't like it. Next up will be to setup so the slider thumb goes out a little.</li> <li>The CSS is not needed for the component itself, it's there to render the output display block from teh parent page.</li> <li>Same goes for the 'preview-block' div. That's an implementation detail from the parent page</li> <li>The JavaScript block includes both the web compnent and the code that to use it from the parent page (which is at the bottom).</li> <li>I check the background colors for the sliders work on Chrome, Firefox, and Safari on macOS 12.x. Other setups TBD</li>
                 </ul>
             
       
                 <h2>TODO</h2>
                 <ul>
-                    <li>[ ] - Adjust so the slider thumb can extend so the center point ends up at the edge of the background boundries</li> <li>[ ] - Make it responsive</li> <li>[ ] - Setup to use arrow keys to bump the value for the last slider that was interacted with</li> <li>[ ] - Add alpha</li> <li>[ ] - Send RBG values and all the various other color formats in raw text and something that can be copied direcly into a stylesheet</li> <li>[ ] - Add second selection for color to put under alpha</li> <li>[ ] - Add debouce option to slow down sending event signal</li> <li>[ ] - See about using cookies to store values so they are the same on refresh, etc... Guessing sending an ID will be require</li> <li>[ ] - Make the size of the background configurable</li>
+                    <li>[ ] - Write up details on the functionality</li> <li>[ ] - Refactor to remove the duplication of creating each slider</li> <li>[ ] - Adjust so the slider thumb can extend so the center point ends up at the edge of the background boundries</li> <li>[ ] - Make it responsive</li> <li>[ ] - Setup to use arrow keys to bump the value for the last slider that was interacted with</li> <li>[ ] - Add alpha</li> <li>[ ] - Send RBG values and all the various other color formats in raw text and something that can be copied direcly into a stylesheet</li> <li>[ ] - Add second selection for color to put under alpha</li> <li>[ ] - Add debouce option to slow down sending event signal</li> <li>[ ] - See about using cookies to store values so they are the same on refresh, etc... Guessing sending an ID will be require</li> <li>[ ] - Make the size of the background configurable</li>
                 </ul>
              
                 <h2>References</h2>
                 <ul>
-                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">MDN: &lt;color&gt;</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsla">MDN: hsla()</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range">MDN: &lt<input type=&quot;range&quot;&gt;</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient">MDN: linear-gradient()</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl">MDN: hsl()</a></li> <li><a href="https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers/">Creating A Custom Range Input That Looks Consistent Across All Browsers</a></li>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">MDN: &lt;color&gt;</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsla">MDN: hsla()</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range">MDN: &lt;input type=&quot;range&quot;&gt;</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient">MDN: linear-gradient()</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl">MDN: hsl()</a></li> <li><a href="https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers/">Creating A Custom Range Input That Looks Consistent Across All Browsers</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius">MDN: border-radius</a></li> <li><a href="https://stackoverflow.com/questions/9336846/css3-gradients-by-pixel-instead-of-percentage">CSS3 Gradients by pixel, instead of percentage</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Pseudo-classes_and_pseudo-elements">MDN: Pseudo-classes and pseudo-elements</a></li> <li><a href="https://css-tricks.com/creating-an-accessible-range-slider-with-css/">Creating an Accessible Range Slider with CSS</a></li> <li><a href="https://ethercycle.com/blog/328">Everything There Is To Know About Cross-Browser Styling Of The Range Input</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Images/Using_CSS_gradients">MDN: Using CSS gradients</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient">MDN: linear-gradient()</a></li> <li><a href="https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers/">Creating A Custom Range Input That Looks Consistent Across All Browsers</a></li> <li><a href="https://brennaobrien.com/blog/2014/05/style-input-type-range-in-every-browser.html">How to Style Input Type Range in Chrome, Firefox, and IE</a></li>
                 </ul>
                 
     </main>
