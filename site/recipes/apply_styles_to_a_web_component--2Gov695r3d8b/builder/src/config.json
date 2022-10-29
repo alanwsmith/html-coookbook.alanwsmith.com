@@ -1,0 +1,40 @@
+{
+    "TITLE": "Apply CSS Styles To A Web Component",
+    "STATUS": "draft",
+    "DESCRIPTION": "",
+    "DETAILS": [
+        "All of the pages I saw on how to Style CSS components were overly complex. Here's what works for me."
+    ],
+
+    "NOTES": [
+        "It doesn't sound like you can style the compenets directly, but I think you could pass in values maybe?"
+    ],
+    "TODOS": [],
+    "REFERENCES": [
+        {
+            "title": "Styling a Web Component",
+            "url": "https://css-tricks.com/styling-a-web-component/",
+            "extra": "This has some discussion about styling in different ways. I'm not sure if the template approach would isolate the style. I kinda don't this so. "
+        },
+        {
+            "title": "Options for styling web components",
+            "url": "https://nolanlawson.com/2021/01/03/options-for-styling-web-components/",
+            "extra": "Probably some good info here, but I was working on this while I was tired and didn't have the brian to follow"
+        },
+        {
+            "title": "MDN: Web Components",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/Web_Components",
+            "extra": ""
+        },
+        {
+            "title": "MDN: ShadowRoot.styleSheets",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot/styleSheets",
+            "extra": "Not much on this page but need to go through the links to see what's there"
+        },
+        {
+            "title": "Using shadow DOM",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM",
+            "extra": ""
+        }
+    ]
+}

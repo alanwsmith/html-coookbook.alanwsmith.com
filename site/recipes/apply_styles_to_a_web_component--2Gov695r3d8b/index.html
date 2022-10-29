@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apply CSS Styles To A Web Component - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Apply CSS Styles To A Web Component" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Apply%20CSS%20Styles%20To%20A%20Web%20Component,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/prism.css" />
+    
+    <style>
+      
+    </style>
+    <script>
+      class StyledComponent extends HTMLElement {
+    constructor() {
+        super()
+        this.attachShadow({ mode: 'open' })
+
+        const styles = document.createElement('style')
+        styles.innerText = `
+            span{ 
+                background: #123423;
+                color: #873742;
+                font-size: 2rem;
+            }`
+
+        const content = document.createElement('span')
+        content.innerText = 'bravo'
+
+        this.shadowRoot.append(styles)
+        this.shadowRoot.append(content)
+    }
+}
+
+customElements.define('styled-component', StyledComponent)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">Cookbook Home</a> ~
+      <a href="https://www.alanwsmith.com/">alanwsmith.com</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://https://twitter.com/TheIdOfAlan">twitter</a>
+    </header>
+    <main>
+      <h1>Apply CSS Styles To A Web Component</h1>
+      
+                <h2>Deatils</h2>
+                <ul>
+                    <li>All of the pages I saw on how to Style CSS components were overly complex. Here's what works for me.</li>
+                </ul>
+                
+      <h2>Example</h2>
+      <styled-component></styled-component>
+  
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;styled-component&gt;&lt;/styled-component&gt;
+</code></pre>
+              
+            <h2>JavaScript</h2>
+            <pre><code class="language-js">class StyledComponent extends HTMLElement {
+    constructor() {
+        super()
+        this.attachShadow({ mode: &#x27;open&#x27; })
+
+        const styles = document.createElement(&#x27;style&#x27;)
+        styles.innerText = `
+            span{ 
+                background: #123423;
+                color: #873742;
+                font-size: 2rem;
+            }`
+
+        const content = document.createElement(&#x27;span&#x27;)
+        content.innerText = &#x27;bravo&#x27;
+
+        this.shadowRoot.append(styles)
+        this.shadowRoot.append(content)
+    }
+}
+
+customElements.define(&#x27;styled-component&#x27;, StyledComponent)
+</code></pre>
+             
+                <h2>Notes</h2>
+                <ul>
+                    <li>It doesn't sound like you can style the compenets directly, but I think you could pass in values maybe?</li>
+                </ul>
+            
+       
+                <h2>References</h2>
+                <ul>
+                    <li><a href="https://css-tricks.com/styling-a-web-component/">Styling a Web Component</a> - This has some discussion about styling in different ways. I'm not sure if the template approach would isolate the style. I kinda don't this so. </li> <li><a href="https://nolanlawson.com/2021/01/03/options-for-styling-web-components/">Options for styling web components</a> - Probably some good info here, but I was working on this while I was tired and didn't have the brian to follow</li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components">MDN: Web Components</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot/styleSheets">MDN: ShadowRoot.styleSheets</a> - Not much on this page but need to go through the links to see what's there</li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM">Using shadow DOM</a></li>
+                </ul>
+                
+    </main>
+    <footer>
+      made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>
+      <br />
+      who has a <a href="https://www.alanwsmith.com">website</a> and a
+      <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
+      among other <a href="https://links.alanwsmith.com">things</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>
