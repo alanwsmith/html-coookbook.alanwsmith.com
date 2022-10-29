@@ -46,6 +46,7 @@ class hslaPicker extends HTMLElement {
         super()
         this.attachShadow({ mode: 'open' })
 
+        console.log(this.getAttribute('h'))
         this.hueValue = 180
         this.saturationValue = 50
         this.lightnessValue = 50
@@ -59,10 +60,6 @@ input[type="range"] {
     background: transparent;
     cursor: pointer;
     width: 180px;
-}
-
-div { 
-border-radius: 30px;
 }
 `
 
@@ -78,7 +75,7 @@ border-radius: 30px;
             )
         }
 
-        const updateHSL = () => {
+        this.updateHSL = () => {
             const hslValue = `hsla(${this.hueValue}, ${this.saturationValue}%, ${this.lightnessValue}%, ${this.alphaValue})`
             updateHueDisplay()
             updateSaturationDisplay()
@@ -116,21 +113,18 @@ border-radius: 30px;
         }
 
         const handleHueInput = (event) => {
-            // console.log(event.target.value)
             this.hueValue = event.target.value
-            updateHSL()
+            this.updateHSL()
         }
 
         const handleSaturationInput = (event) => {
-            // console.log(event.target.value)
             this.saturationValue = event.target.value
-            updateHSL()
+            this.updateHSL()
         }
 
         const handleLightnessInput = (event) => {
-            // console.log(event.target.value)
             this.lightnessValue = event.target.value
-            updateHSL()
+            this.updateHSL()
         }
 
         this.lightnessDiv = document.createElement('div')
@@ -139,9 +133,11 @@ border-radius: 30px;
         this.lightnessDiv.style.height = '26px'
         this.lightnessDisplay = document.createElement('div')
         this.lightnessDisplay.style.width = '180px'
-        this.lightnessDisplay.style.height = '18px'
+        this.lightnessDisplay.style.height = '15px'
         this.lightnessDisplay.style.padding = '0'
         this.lightnessDisplay.style.margin = '0'
+        this.lightnessDisplay.style.border = '1px solid white'
+        this.lightnessDisplay.style.borderRadius = '30px'
         this.lightnessDisplay.style.position = 'absolute'
         this.lightnessSlider = document.createElement('input')
         this.lightnessSlider.setAttribute('id', 'lightness-slider')
@@ -149,6 +145,7 @@ border-radius: 30px;
         this.lightnessSlider.setAttribute('type', 'range')
         this.lightnessSlider.setAttribute('min', '0')
         this.lightnessSlider.setAttribute('max', '100')
+        this.lightnessSlider.setAttribute('valie', this.lightnessValue)
         this.lightnessSlider.style.position = 'absolute'
         this.lightnessSlider.style.padding = '0'
         this.lightnessSlider.style.margin = '0'
@@ -162,9 +159,11 @@ border-radius: 30px;
         this.saturationDiv.style.height = '26px'
         this.saturationDisplay = document.createElement('div')
         this.saturationDisplay.style.width = '180px'
-        this.saturationDisplay.style.height = '18px'
+        this.saturationDisplay.style.height = '15px'
         this.saturationDisplay.style.padding = '0'
         this.saturationDisplay.style.margin = '0'
+        this.saturationDisplay.style.border = '1px solid white'
+        this.saturationDisplay.style.borderRadius = '30px'
         this.saturationDisplay.style.position = 'absolute'
         this.saturationSlider = document.createElement('input')
         this.saturationSlider.setAttribute('id', 'saturation-slider')
@@ -172,6 +171,7 @@ border-radius: 30px;
         this.saturationSlider.setAttribute('type', 'range')
         this.saturationSlider.setAttribute('min', '0')
         this.saturationSlider.setAttribute('max', '100')
+        this.saturationSlider.setAttribute('value', this.saturationValue)
         this.saturationSlider.addEventListener('input', handleSaturationInput)
         this.saturationSlider.style.padding = '0'
         this.saturationSlider.style.margin = '0'
@@ -183,26 +183,29 @@ border-radius: 30px;
         this.hueDiv.style.position = 'relative'
         this.hueDiv.style.width = '180px'
         this.hueDiv.style.height = '26px'
+        this.hueDisplay = document.createElement('div')
+        this.hueDisplay.style.width = '180px'
+        this.hueDisplay.style.height = '15px'
+        this.hueDisplay.style.padding = '0'
+        this.hueDisplay.style.margin = '0'
+        this.hueDisplay.style.border = '1px solid white'
+        this.hueDisplay.style.borderRadius = '30px'
+        this.hueDisplay.style.position = 'absolute'
         this.hueSlider = document.createElement('input')
         this.hueSlider.setAttribute('id', 'hue-slider')
         this.hueSlider.setAttribute('name', 'hue-slider')
         this.hueSlider.setAttribute('type', 'range')
         this.hueSlider.setAttribute('min', '0')
         this.hueSlider.setAttribute('max', '360')
+        this.hueSlider.setAttribute('value', this.hueValue)
         this.hueSlider.style.position = 'absolute'
         this.hueSlider.style.padding = '0'
         this.hueSlider.style.margin = '0'
         this.hueSlider.addEventListener('input', handleHueInput)
-        this.hueDisplay = document.createElement('div')
-        this.hueDisplay.style.width = '180px'
-        this.hueDisplay.style.height = '18px'
-        this.hueDisplay.style.padding = '0'
-        this.hueDisplay.style.margin = '0'
-        this.hueDisplay.style.position = 'absolute'
         this.hueDiv.appendChild(this.hueDisplay)
         this.hueDiv.appendChild(this.hueSlider)
 
-        updateHSL()
+        this.updateHSL()
         // this.shadowRoot.append(display)
         this.shadowRoot.append(styles)
         this.shadowRoot.append(this.lightnessDiv)
@@ -211,6 +214,29 @@ border-radius: 30px;
 
         // Send the initial color update
         document.addEventListener('DOMContentLoaded', sendColorChanged)
+    }
+
+    connectedCallback() {
+        if (this.hasAttribute('h')) {
+            this.hueValue = parseInt(this.getAttribute('h'), 10)
+        } else {
+            this.hueValue = 140
+        }
+        if (this.hasAttribute('s')) {
+            this.saturationValue = parseInt(this.getAttribute('s'), 10)
+        } else {
+            this.saturationValue = 60
+        }
+        if (this.hasAttribute('l')) {
+            this.lightnessValue = parseInt(this.getAttribute('l'), 10)
+        } else {
+            this.lightnessValue = 30
+        }
+
+        this.updateHSL()
+        this.hueSlider.setAttribute('value', this.hueValue)
+        this.saturationSlider.setAttribute('value', this.saturationValue)
+        this.lightnessSlider.setAttribute('valie', this.lightnessValue)
     }
 }
 
@@ -246,11 +272,11 @@ document.addEventListener('color-changed', handleColorChanged)
                 
       <h2>Example</h2>
       <div id="preview-block"></div>
-<hsla-picker></hsla-picker>
+<hsla-picker h="270" s="50" l="40"></hsla-picker>
   
             <h2>HTML</h2>
             <pre><code class="language-html">&lt;div id=&quot;preview-block&quot;&gt;&lt;/div&gt;
-&lt;hsla-picker&gt;&lt;/hsla-picker&gt;
+&lt;hsla-picker h=&quot;270&quot; s=&quot;50&quot; l=&quot;40&quot;&gt;&lt;/hsla-picker&gt;
 </code></pre>
              
             <h2>CSS</h2>
@@ -271,6 +297,7 @@ class hslaPicker extends HTMLElement {
         super()
         this.attachShadow({ mode: &#x27;open&#x27; })
 
+        console.log(this.getAttribute(&#x27;h&#x27;))
         this.hueValue = 180
         this.saturationValue = 50
         this.lightnessValue = 50
@@ -284,10 +311,6 @@ input[type=&quot;range&quot;] {
     background: transparent;
     cursor: pointer;
     width: 180px;
-}
-
-div { 
-border-radius: 30px;
 }
 `
 
@@ -303,7 +326,7 @@ border-radius: 30px;
             )
         }
 
-        const updateHSL = () =&gt; {
+        this.updateHSL = () =&gt; {
             const hslValue = `hsla(${this.hueValue}, ${this.saturationValue}%, ${this.lightnessValue}%, ${this.alphaValue})`
             updateHueDisplay()
             updateSaturationDisplay()
@@ -341,21 +364,18 @@ border-radius: 30px;
         }
 
         const handleHueInput = (event) =&gt; {
-            // console.log(event.target.value)
             this.hueValue = event.target.value
-            updateHSL()
+            this.updateHSL()
         }
 
         const handleSaturationInput = (event) =&gt; {
-            // console.log(event.target.value)
             this.saturationValue = event.target.value
-            updateHSL()
+            this.updateHSL()
         }
 
         const handleLightnessInput = (event) =&gt; {
-            // console.log(event.target.value)
             this.lightnessValue = event.target.value
-            updateHSL()
+            this.updateHSL()
         }
 
         this.lightnessDiv = document.createElement(&#x27;div&#x27;)
@@ -364,9 +384,11 @@ border-radius: 30px;
         this.lightnessDiv.style.height = &#x27;26px&#x27;
         this.lightnessDisplay = document.createElement(&#x27;div&#x27;)
         this.lightnessDisplay.style.width = &#x27;180px&#x27;
-        this.lightnessDisplay.style.height = &#x27;18px&#x27;
+        this.lightnessDisplay.style.height = &#x27;15px&#x27;
         this.lightnessDisplay.style.padding = &#x27;0&#x27;
         this.lightnessDisplay.style.margin = &#x27;0&#x27;
+        this.lightnessDisplay.style.border = &#x27;1px solid white&#x27;
+        this.lightnessDisplay.style.borderRadius = &#x27;30px&#x27;
         this.lightnessDisplay.style.position = &#x27;absolute&#x27;
         this.lightnessSlider = document.createElement(&#x27;input&#x27;)
         this.lightnessSlider.setAttribute(&#x27;id&#x27;, &#x27;lightness-slider&#x27;)
@@ -374,6 +396,7 @@ border-radius: 30px;
         this.lightnessSlider.setAttribute(&#x27;type&#x27;, &#x27;range&#x27;)
         this.lightnessSlider.setAttribute(&#x27;min&#x27;, &#x27;0&#x27;)
         this.lightnessSlider.setAttribute(&#x27;max&#x27;, &#x27;100&#x27;)
+        this.lightnessSlider.setAttribute(&#x27;valie&#x27;, this.lightnessValue)
         this.lightnessSlider.style.position = &#x27;absolute&#x27;
         this.lightnessSlider.style.padding = &#x27;0&#x27;
         this.lightnessSlider.style.margin = &#x27;0&#x27;
@@ -387,9 +410,11 @@ border-radius: 30px;
         this.saturationDiv.style.height = &#x27;26px&#x27;
         this.saturationDisplay = document.createElement(&#x27;div&#x27;)
         this.saturationDisplay.style.width = &#x27;180px&#x27;
-        this.saturationDisplay.style.height = &#x27;18px&#x27;
+        this.saturationDisplay.style.height = &#x27;15px&#x27;
         this.saturationDisplay.style.padding = &#x27;0&#x27;
         this.saturationDisplay.style.margin = &#x27;0&#x27;
+        this.saturationDisplay.style.border = &#x27;1px solid white&#x27;
+        this.saturationDisplay.style.borderRadius = &#x27;30px&#x27;
         this.saturationDisplay.style.position = &#x27;absolute&#x27;
         this.saturationSlider = document.createElement(&#x27;input&#x27;)
         this.saturationSlider.setAttribute(&#x27;id&#x27;, &#x27;saturation-slider&#x27;)
@@ -397,6 +422,7 @@ border-radius: 30px;
         this.saturationSlider.setAttribute(&#x27;type&#x27;, &#x27;range&#x27;)
         this.saturationSlider.setAttribute(&#x27;min&#x27;, &#x27;0&#x27;)
         this.saturationSlider.setAttribute(&#x27;max&#x27;, &#x27;100&#x27;)
+        this.saturationSlider.setAttribute(&#x27;value&#x27;, this.saturationValue)
         this.saturationSlider.addEventListener(&#x27;input&#x27;, handleSaturationInput)
         this.saturationSlider.style.padding = &#x27;0&#x27;
         this.saturationSlider.style.margin = &#x27;0&#x27;
@@ -408,26 +434,29 @@ border-radius: 30px;
         this.hueDiv.style.position = &#x27;relative&#x27;
         this.hueDiv.style.width = &#x27;180px&#x27;
         this.hueDiv.style.height = &#x27;26px&#x27;
+        this.hueDisplay = document.createElement(&#x27;div&#x27;)
+        this.hueDisplay.style.width = &#x27;180px&#x27;
+        this.hueDisplay.style.height = &#x27;15px&#x27;
+        this.hueDisplay.style.padding = &#x27;0&#x27;
+        this.hueDisplay.style.margin = &#x27;0&#x27;
+        this.hueDisplay.style.border = &#x27;1px solid white&#x27;
+        this.hueDisplay.style.borderRadius = &#x27;30px&#x27;
+        this.hueDisplay.style.position = &#x27;absolute&#x27;
         this.hueSlider = document.createElement(&#x27;input&#x27;)
         this.hueSlider.setAttribute(&#x27;id&#x27;, &#x27;hue-slider&#x27;)
         this.hueSlider.setAttribute(&#x27;name&#x27;, &#x27;hue-slider&#x27;)
         this.hueSlider.setAttribute(&#x27;type&#x27;, &#x27;range&#x27;)
         this.hueSlider.setAttribute(&#x27;min&#x27;, &#x27;0&#x27;)
         this.hueSlider.setAttribute(&#x27;max&#x27;, &#x27;360&#x27;)
+        this.hueSlider.setAttribute(&#x27;value&#x27;, this.hueValue)
         this.hueSlider.style.position = &#x27;absolute&#x27;
         this.hueSlider.style.padding = &#x27;0&#x27;
         this.hueSlider.style.margin = &#x27;0&#x27;
         this.hueSlider.addEventListener(&#x27;input&#x27;, handleHueInput)
-        this.hueDisplay = document.createElement(&#x27;div&#x27;)
-        this.hueDisplay.style.width = &#x27;180px&#x27;
-        this.hueDisplay.style.height = &#x27;18px&#x27;
-        this.hueDisplay.style.padding = &#x27;0&#x27;
-        this.hueDisplay.style.margin = &#x27;0&#x27;
-        this.hueDisplay.style.position = &#x27;absolute&#x27;
         this.hueDiv.appendChild(this.hueDisplay)
         this.hueDiv.appendChild(this.hueSlider)
 
-        updateHSL()
+        this.updateHSL()
         // this.shadowRoot.append(display)
         this.shadowRoot.append(styles)
         this.shadowRoot.append(this.lightnessDiv)
@@ -436,6 +465,29 @@ border-radius: 30px;
 
         // Send the initial color update
         document.addEventListener(&#x27;DOMContentLoaded&#x27;, sendColorChanged)
+    }
+
+    connectedCallback() {
+        if (this.hasAttribute(&#x27;h&#x27;)) {
+            this.hueValue = parseInt(this.getAttribute(&#x27;h&#x27;), 10)
+        } else {
+            this.hueValue = 140
+        }
+        if (this.hasAttribute(&#x27;s&#x27;)) {
+            this.saturationValue = parseInt(this.getAttribute(&#x27;s&#x27;), 10)
+        } else {
+            this.saturationValue = 60
+        }
+        if (this.hasAttribute(&#x27;l&#x27;)) {
+            this.lightnessValue = parseInt(this.getAttribute(&#x27;l&#x27;), 10)
+        } else {
+            this.lightnessValue = 30
+        }
+
+        this.updateHSL()
+        this.hueSlider.setAttribute(&#x27;value&#x27;, this.hueValue)
+        this.saturationSlider.setAttribute(&#x27;value&#x27;, this.saturationValue)
+        this.lightnessSlider.setAttribute(&#x27;valie&#x27;, this.lightnessValue)
     }
 }
 
@@ -454,18 +506,18 @@ document.addEventListener(&#x27;color-changed&#x27;, handleColorChanged)
              
                 <h2>Notes</h2>
                 <ul>
-                    <li>I'm using default form controls, but still need to review the accessability of the component. Probably adding lables would make sense.</li> <li>I switched the order of the sliders to something that makes more sense to me. I see the hue more as the foundation hence I put it at the bottom of the stack</li> <li>The slider color gets a little off from the background at the ends. This is because the slider is based off the center point of the moving piece (aka thumb) but the background colors extend to the full edge. I played around with a design with the gradient ends extending in. I didn't like it. Next up will be to setup so the slider thumb goes out a little.</li> <li>The CSS is not needed for the component itself, it's there to render the output display block from teh parent page.</li> <li>Same goes for the 'preview-block' div. That's an implementation detail from the parent page</li> <li>The JavaScript block includes both the web compnent and the code that to use it from the parent page (which is at the bottom).</li> <li>I check the background colors for the sliders work on Chrome, Firefox, and Safari on macOS 12.x. Other setups TBD</li>
+                    <li>The inital color is set by passing in values. Right now, this is not optional</li> <li>I'm using default form controls, but still need to review the accessability of the component. Probably adding lables would make sense.</li> <li>I switched the order of the sliders to something that makes more sense to me. I see the hue more as the foundation hence I put it at the bottom of the stack</li> <li>The slider color gets a little off from the background at the ends. This is because the slider is based off the center point of the moving piece (aka thumb) but the background colors extend to the full edge. I played around with a design with the gradient ends extending in. I didn't like it. Next up will be to setup so the slider thumb goes out a little.</li> <li>The CSS is not needed for the component itself, it's there to render the output display block from teh parent page.</li> <li>Same goes for the 'preview-block' div. That's an implementation detail from the parent page</li> <li>The JavaScript block includes both the web compnent and the code that to use it from the parent page (which is at the bottom).</li> <li>I check the background colors for the sliders work on Chrome, Firefox, and Safari on macOS 12.x. Other setups TBD</li>
                 </ul>
             
       
                 <h2>TODO</h2>
                 <ul>
-                    <li>[ ] - Write up details on the functionality</li> <li>[ ] - Refactor to remove the duplication of creating each slider</li> <li>[ ] - Adjust so the slider thumb can extend so the center point ends up at the edge of the background boundries</li> <li>[ ] - Make it responsive</li> <li>[ ] - Setup to use arrow keys to bump the value for the last slider that was interacted with</li> <li>[ ] - Add alpha</li> <li>[ ] - Send RBG values and all the various other color formats in raw text and something that can be copied direcly into a stylesheet</li> <li>[ ] - Add second selection for color to put under alpha</li> <li>[ ] - Add debouce option to slow down sending event signal</li> <li>[ ] - See about using cookies to store values so they are the same on refresh, etc... Guessing sending an ID will be require</li> <li>[ ] - Make the size of the background configurable</li>
+                    <li>[ ] - Add default values so it's not required to send in initail values</li> <li>[ ] - Refactor the first addition of the values for the range sliders so the don't get set twice on init</li> <li>[ ] - Write up details on the functionality</li> <li>[ ] - Refactor to remove the duplication of creating each slider</li> <li>[ ] - Adjust so the slider thumb can extend so the center point ends up at the edge of the background boundries</li> <li>[ ] - Make it responsive</li> <li>[ ] - Setup to use arrow keys to bump the value for the last slider that was interacted with</li> <li>[ ] - Add alpha</li> <li>[ ] - Send RBG values and all the various other color formats in raw text and something that can be copied direcly into a stylesheet</li> <li>[ ] - Add second selection for color to put under alpha</li> <li>[ ] - Add debouce option to slow down sending event signal</li> <li>[ ] - See about using cookies to store values so they are the same on refresh, etc... Guessing sending an ID will be require</li> <li>[ ] - Make the size of the background configurable</li>
                 </ul>
              
                 <h2>References</h2>
                 <ul>
-                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">MDN: &lt;color&gt;</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsla">MDN: hsla()</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range">MDN: &lt;input type=&quot;range&quot;&gt;</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient">MDN: linear-gradient()</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl">MDN: hsl()</a></li> <li><a href="https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers/">Creating A Custom Range Input That Looks Consistent Across All Browsers</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius">MDN: border-radius</a></li> <li><a href="https://stackoverflow.com/questions/9336846/css3-gradients-by-pixel-instead-of-percentage">CSS3 Gradients by pixel, instead of percentage</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Pseudo-classes_and_pseudo-elements">MDN: Pseudo-classes and pseudo-elements</a></li> <li><a href="https://css-tricks.com/creating-an-accessible-range-slider-with-css/">Creating an Accessible Range Slider with CSS</a></li> <li><a href="https://ethercycle.com/blog/328">Everything There Is To Know About Cross-Browser Styling Of The Range Input</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Images/Using_CSS_gradients">MDN: Using CSS gradients</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient">MDN: linear-gradient()</a></li> <li><a href="https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers/">Creating A Custom Range Input That Looks Consistent Across All Browsers</a></li> <li><a href="https://brennaobrien.com/blog/2014/05/style-input-type-range-in-every-browser.html">How to Style Input Type Range in Chrome, Firefox, and IE</a></li>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">MDN: &lt;color&gt;</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsla">MDN: hsla()</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range">MDN: &lt;input type=&quot;range&quot;&gt;</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient">MDN: linear-gradient()</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl">MDN: hsl()</a></li> <li><a href="https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers/">Creating A Custom Range Input That Looks Consistent Across All Browsers</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius">MDN: border-radius</a></li> <li><a href="https://stackoverflow.com/questions/9336846/css3-gradients-by-pixel-instead-of-percentage">CSS3 Gradients by pixel, instead of percentage</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Pseudo-classes_and_pseudo-elements">MDN: Pseudo-classes and pseudo-elements</a></li> <li><a href="https://css-tricks.com/rebbeccapurple-663399/">Rebecca Purple</a></li> <li><a href="https://css-tricks.com/creating-an-accessible-range-slider-with-css/">Creating an Accessible Range Slider with CSS</a></li> <li><a href="https://ethercycle.com/blog/328">Everything There Is To Know About Cross-Browser Styling Of The Range Input</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Images/Using_CSS_gradients">MDN: Using CSS gradients</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient">MDN: linear-gradient()</a></li> <li><a href="https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers/">Creating A Custom Range Input That Looks Consistent Across All Browsers</a></li> <li><a href="https://brennaobrien.com/blog/2014/05/style-input-type-range-in-every-browser.html">How to Style Input Type Range in Chrome, Firefox, and IE</a></li>
                 </ul>
                 
     </main>
