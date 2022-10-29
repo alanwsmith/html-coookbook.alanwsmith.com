@@ -13,6 +13,8 @@
     ],
     "TODOS": [
         "[ ] - Clean up and dedupe the requirements",
+        "[ ] - Switch so that escape when there is text in input ejects from it instead of removing it but leving the form focused",
+        "[ ] - Consider tabbing to next tab index if there is text in the input but id doesn't match anything",
         "[.] - Don't load the options in at the start. call them dynamically so they can be updated outside the component. May have to keep some type of loader in there for the dom ready to prevent issue where the data doesn't show up on first hitting the open element",
         "[.] - Load data from child &lt;option&gt; elements",
         "[.] - Clicking in the input field opens the menu",
@@ -30,7 +32,9 @@
         "[ ] - Add customization that lets you show the default placeholder instead of the prious selection",
         "[ ] - Maybe refactor a little after a break",
         "[ ] - Display No Matches when there aren't any",
-        "[ ] - See if there's a way to eliminate the quick blink when tabbing from the menu to the next tab index"
+        "[ ] - See if there's a way to eliminate the quick blink when tabbing from the menu to the next tab index",
+        "Add to refs: https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent",
+        "https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events"
     ],
     "REFERENCES": [
         {
@@ -61,6 +65,11 @@
         {
             "title": "MDN: Event.preventDefault()",
             "url": "https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault",
+            "extra": ""
+        },
+        {
+            "title": "MDN: CustomEvent",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent",
             "extra": ""
         }
     ]
