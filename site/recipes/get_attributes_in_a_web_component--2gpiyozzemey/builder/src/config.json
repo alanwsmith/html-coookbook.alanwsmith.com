@@ -1,0 +1,81 @@
+{
+    "TITLE": "Get And Use Attribute Values In A Web Component",
+    "STATUS": "draft",
+    "DESCRIPTION": "",
+    "DETAILS": ["GOAL: Pull in attribute values and use them"],
+
+    "NOTES": [],
+    "TODOS": [],
+    "REFERENCES": [
+        {
+            "title": "MDN: Using Custom Elements",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements",
+            "extra": ""
+        },
+        {
+            "title": "Learn the Lifecycle of a Web Component by Building a Custom Element",
+            "url": "https://bignerdranch.com/blog/learn-the-lifecycle-of-a-web-component-by-building-a-custom-element/",
+            "extra": ""
+        },
+        {
+            "title": "Custom Element class: this.getAttribute('data-*') returns null",
+            "url": "https://stackoverflow.com/questions/42719914/custom-element-class-this-getattributedata-returns-null",
+            "extra": ""
+        },
+        {
+            "title": "MDN: Example .js",
+            "url": "https://mdn.github.io/web-components-examples/popup-info-box-web-component/main.js",
+            "extra": ""
+        },
+        {
+            "title": "MDN: Popup Example",
+            "url": "https://mdn.github.io/web-components-examples/popup-info-box-web-component/",
+            "extra": ""
+        },
+        {
+            "title": "MDN: Using Custom Element",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        }
+    ]
+}
