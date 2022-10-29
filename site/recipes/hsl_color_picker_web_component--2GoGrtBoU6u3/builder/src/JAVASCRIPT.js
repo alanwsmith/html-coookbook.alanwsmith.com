@@ -105,7 +105,7 @@ input[type="range"] {
         this.lightnessSlider.setAttribute('type', 'range')
         this.lightnessSlider.setAttribute('min', '0')
         this.lightnessSlider.setAttribute('max', '100')
-        this.lightnessSlider.setAttribute('valie', this.lightnessValue)
+        this.lightnessSlider.setAttribute('value', this.lightnessValue)
         this.lightnessSlider.style.position = 'absolute'
         this.lightnessSlider.style.padding = '0'
         this.lightnessSlider.style.margin = '0'
@@ -196,7 +196,7 @@ input[type="range"] {
         this.updateHSL()
         this.hueSlider.setAttribute('value', this.hueValue)
         this.saturationSlider.setAttribute('value', this.saturationValue)
-        this.lightnessSlider.setAttribute('valie', this.lightnessValue)
+        this.lightnessSlider.setAttribute('value', this.lightnessValue)
     }
 }
 
