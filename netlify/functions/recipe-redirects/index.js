@@ -19,6 +19,7 @@ exports.handler = async function (event, context) {
   "2ggjxa4tvm9x": "/recipes/mdash-input-select-autocomplete-test--2ggjxa4tvm9x/index.html",
   "2gj4p8avxist": "/recipes/strict-selection-menu-form-control--2gj4p8avxist/index.html",
   "absolute-and-relative-positions": "/recipes/css--absolute-and-relative-positions--2glvtfmqasay/index.html",
+  "create-and-send-event": "/recipes/web-components--create-and-send-event--2gmdsyscqjnv/index.html",
   "document-click-listener": "/recipes/web-components--document-click-listener--2gja3c8lgfbs/index.html",
   "hello-world": "/recipes/web-components--hello-world--2gj6asw5m2bm/index.html",
   "use-internal-elements": "/recipes/web-components--use-internal-elements--2gjuqnwy1dko/index.html"

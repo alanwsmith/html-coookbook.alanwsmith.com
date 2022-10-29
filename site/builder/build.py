@@ -25,6 +25,7 @@ class Builder():
         ]
 
         published = []
+        ready = []
         drafts = []
         prefetches = []
 
@@ -37,16 +38,17 @@ class Builder():
                 li = f"""<li><a href="{url_path}">{config['TITLE']}</a></li>"""
                 if config['STATUS'] == 'published':
                     published.append(li)
+                if config['STATUS'] == 'ready':
+                    ready.append(li)
                 if config['STATUS'] == 'draft':
                     drafts.append(li)
         published.sort()
         drafts.sort()
         self.parts['PUBLISHED'] = f"<ul>{''.join(published)}</ul>"
+        self.parts['READY'] = f"<ul>{''.join(ready)}</ul>"
         self.parts['DRAFTS'] = f"<ul>{''.join(drafts)}</ul>"
         self.parts['PREFETCH'] = "\n".join(prefetches)
 
-        # print(self.parts['PUBLISHED'])
-        # print(self.parts['DRAFTS'])
 
     def load_parts(self):
         for content_file in self.content_files:
