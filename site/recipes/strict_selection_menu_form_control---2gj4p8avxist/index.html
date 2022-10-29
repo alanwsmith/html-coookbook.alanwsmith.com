@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Strict Selection Menu Form Control - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Strict Selection Menu Form Control" />
+    <meta property="og:description" content="Goal: a form control that lets you pick from a selection by typing but only from the available selections" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Strict%20Selection%20Menu%20Form%20Control,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/prism.css" />
+    
+    <style>
+      
+    </style>
+    <script>
+      class StrictSelect extends HTMLElement {
+    constructor() {
+        super()
+        this.attachShadow({ mode: 'open' })
+        this.defaultOptions = {}
+        this.placeholder = 'Select'
+        this.options = []
+        this.upArrowCheck = ''
+        this.tabTimeout = null
+
+        const log = (msg) => {
+            console.log(msg)
+        }
+
+        const handleDocumentClick = (event) => {
+            if (event.target !== this) {
+                this.input.placeholder = this.placeholder
+                this.input.value = ''
+                removeMenu()
+            }
+        }
+
+        const handleDOMContentLoaded = () => {
+            this.style.display = 'inline'
+            this.style.position = 'relative'
+        }
+
+        const handleInputFocus = () => {
+            this.input.setAttribute('placeholder', '')
+            renderOptions()
+        }
+
+        const handleInputKeydown = (event) => {
+            const keyCheck = event.key.toLowerCase()
+            if (keyCheck === 'tab') {
+                if (this.options.length > 0) {
+                    event.preventDefault()
+                    setSelection(0)
+                    this.select.focus()
+                } else {
+                    event.preventDefault()
+                }
+            }
+        }
+
+        const handleInputKeyup = (event) => {
+            const keyCheck = event.key.toLowerCase()
+            if (keyCheck === 'enter') {
+                if (this.input.value !== '') {
+                    if (this.options.length > 0) {
+                        registerSelection()
+                    }
+                }
+            } else if (keyCheck === 'arrowdown') {
+                if (this.options.length > 0) {
+                    if (this.input.value === '') {
+                        setSelection(0)
+                    } else {
+                        setSelection(1)
+                    }
+                    this.select.focus()
+                }
+            } else if (keyCheck === 'escape') {
+                if (this.input.value !== '') {
+                    this.input.value = ''
+                    renderOptions()
+                } else {
+                    this.input.setAttribute('placeholder', this.placeholder)
+                    removeMenu()
+                    this.input.blur()
+                }
+            } else {
+                renderOptions()
+            }
+        }
+
+        const handleSelectKeydown = (event) => {
+            const keyCheck = event.key.toLowerCase()
+            if (keyCheck === 'tab') {
+                if (this.tabTimeout) {
+                    clearTimeout(this.tabTimeout)
+                }
+                this.tabTimeout = setTimeout(() => {
+                    removeMenu()
+                    this.input.value = ''
+                    this.input.placeholder = this.placeholder
+                }, 30)
+            }
+        }
+
+        // TODO: Handle escape here
+        const handleSelectKeyup = (event) => {
+            const keyCheck = event.key.toLowerCase()
+            // TODO: May need to be a check for items in the
+            // options here.
+            if (keyCheck === 'enter') {
+                registerSelection()
+            } else if (keyCheck === 'escape') {
+                this.input.focus()
+            } else if (keyCheck === 'arrowup') {
+                if (this.upArrowCheck === this.select.value) {
+                    this.input.focus()
+                    setSelection(null)
+                }
+            }
+            if (this.select) {
+                this.upArrowCheck = this.select.value
+            }
+        }
+
+        const handleSelectMouseUp = () => {
+            registerSelection(this.select.value)
+        }
+
+        const registerSelection = (key = null) => {
+            const checkValue = key === null ? this.select.value : key
+            for (let option of this.options) {
+                if (checkValue === option.value) {
+                    this.placeholder = option.text
+                    this.input.setAttribute('placeholder', this.placeholder)
+                    this.input.value = ''
+                    this.input.blur()
+                }
+            }
+            removeMenu()
+        }
+
+        const removeMenu = () => {
+            if (this.select) {
+                while (this.select.firstChild) {
+                    this.select.firstChild.remove()
+                }
+                this.select.blur()
+                this.select.remove()
+                this.select = null
+            }
+        }
+
+        const renderOptions = () => {
+            if (this.select) {
+                while (this.select.firstChild) {
+                    this.select.firstChild.remove()
+                }
+                this.select.blur()
+                this.select.remove()
+                this.select = null
+            }
+
+            updateOptions()
+
+            this.select = document.createElement('select')
+            this.select.addEventListener('keydown', handleSelectKeydown)
+            this.select.addEventListener('keyup', handleSelectKeyup)
+            this.select.addEventListener('mouseup', handleSelectMouseUp)
+            this.select.size = 5
+            this.select.style.position = 'absolute'
+
+            for (let option of this.options) {
+                this.select.appendChild(option)
+            }
+
+            this.wrapper.appendChild(this.select)
+
+            if (this.input.value !== '' && this.options.length > 0) {
+                setSelection(0)
+            }
+
+            this.upArrowCheck = null
+        }
+
+        const setSelection = (index = null) => {
+            for (let option of this.options) {
+                option.removeAttribute('selected')
+            }
+            if (index !== null) {
+                this.upArrowCheck = this.options[index].value
+                this.options[index].setAttribute('selected', true)
+            }
+        }
+
+        // this makes new object to avoid having to worry about
+        // stuff with the outside set. but it looks at that
+        // set every time to make it's stuff
+        const updateOptions = () => {
+            this.options = []
+            for (let option of this.getElementsByTagName('option')) {
+                if (option.text.toLowerCase().includes(this.input.value)) {
+                    const optionEl = document.createElement('option')
+                    optionEl.value = option.value
+                    optionEl.innerText = option.text
+                    this.options.push(optionEl)
+                }
+            }
+        }
+
+        this.wrapper = document.createElement('div')
+        this.wrapper.style.display = 'inline'
+
+        this.input = document.createElement('input')
+        this.input.setAttribute('value', '')
+        this.input.setAttribute('type', 'text')
+        this.input.setAttribute('placeholder', this.placeholder)
+        this.input.addEventListener('focus', handleInputFocus)
+        this.input.addEventListener('keyup', handleInputKeyup)
+        this.input.addEventListener('keydown', handleInputKeydown)
+        this.input.setAttribute('autocorrect', false)
+        this.input.setAttribute('spellcheck', false)
+
+        this.wrapper.appendChild(this.input)
+        this.shadowRoot.append(this.wrapper)
+
+        document.addEventListener('mousedown', handleDocumentClick)
+        document.addEventListener('DOMContentLoaded', handleDOMContentLoaded)
+    }
+}
+
+customElements.define('strict-select', StrictSelect)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">Cookbook Home</a> ~
+      <a href="https://www.alanwsmith.com/">alanwsmith.com</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://https://twitter.com/TheIdOfAlan">twitter</a>
+    </header>
+    <main>
+      <h1>WORK IN PROGRESS</h1>
+      <hr />
+      <p>
+        I'm still buliding this out. It's very much a DRAFT and is various
+        stages of scuffed depending on the day
+      </p>
+      <hr />
+      <h1>Strict Selection Menu Form Control</h1>
+      <p>
+        I'm building this because I haven't been able to figure out how to get
+        the default form controls to do what I want
+      </p>
+      <p>
+        The primary goal is to have an input field where you can enter text that
+        brings up a drop down menu of possible options. But, I want to limit the
+        possible values from the input field to what's in the selection and I
+        want it so that if you press enter whichever one is first in the list
+        gets selected. There's a bunch of other functionatliy listed below, but
+        those items are the key
+      </p>
+
+      <h2>Example</h2>
+      <strict-select>
+  <option value="roboto">Roboto</option>
+  <option value="opensans">Open Sans</option>
+  <option value="notosansjp">Noto Sans JP</option>
+  <option value="montserrat">Montserrat</option>
+  <option value="lato">Lato</option>
+  <option value="poppins">Poppins</option>
+  <option value="sourcesanspro">Source Sans Pro</option>
+</strict-select>
+  
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;strict-select&gt;
+  &lt;option value=&quot;roboto&quot;&gt;Roboto&lt;/option&gt;
+  &lt;option value=&quot;opensans&quot;&gt;Open Sans&lt;/option&gt;
+  &lt;option value=&quot;notosansjp&quot;&gt;Noto Sans JP&lt;/option&gt;
+  &lt;option value=&quot;montserrat&quot;&gt;Montserrat&lt;/option&gt;
+  &lt;option value=&quot;lato&quot;&gt;Lato&lt;/option&gt;
+  &lt;option value=&quot;poppins&quot;&gt;Poppins&lt;/option&gt;
+  &lt;option value=&quot;sourcesanspro&quot;&gt;Source Sans Pro&lt;/option&gt;
+&lt;/strict-select&gt;
+</code></pre>
+              
+            <h2>JavaScript</h2>
+            <pre><code class="language-js">class StrictSelect extends HTMLElement {
+    constructor() {
+        super()
+        this.attachShadow({ mode: &#x27;open&#x27; })
+        this.defaultOptions = {}
+        this.placeholder = &#x27;Select&#x27;
+        this.options = []
+        this.upArrowCheck = &#x27;&#x27;
+        this.tabTimeout = null
+
+        const log = (msg) =&gt; {
+            console.log(msg)
+        }
+
+        const handleDocumentClick = (event) =&gt; {
+            if (event.target !== this) {
+                this.input.placeholder = this.placeholder
+                this.input.value = &#x27;&#x27;
+                removeMenu()
+            }
+        }
+
+        const handleDOMContentLoaded = () =&gt; {
+            this.style.display = &#x27;inline&#x27;
+            this.style.position = &#x27;relative&#x27;
+        }
+
+        const handleInputFocus = () =&gt; {
+            this.input.setAttribute(&#x27;placeholder&#x27;, &#x27;&#x27;)
+            renderOptions()
+        }
+
+        const handleInputKeydown = (event) =&gt; {
+            const keyCheck = event.key.toLowerCase()
+            if (keyCheck === &#x27;tab&#x27;) {
+                if (this.options.length &gt; 0) {
+                    event.preventDefault()
+                    setSelection(0)
+                    this.select.focus()
+                } else {
+                    event.preventDefault()
+                }
+            }
+        }
+
+        const handleInputKeyup = (event) =&gt; {
+            const keyCheck = event.key.toLowerCase()
+            if (keyCheck === &#x27;enter&#x27;) {
+                if (this.input.value !== &#x27;&#x27;) {
+                    if (this.options.length &gt; 0) {
+                        registerSelection()
+                    }
+                }
+            } else if (keyCheck === &#x27;arrowdown&#x27;) {
+                if (this.options.length &gt; 0) {
+                    if (this.input.value === &#x27;&#x27;) {
+                        setSelection(0)
+                    } else {
+                        setSelection(1)
+                    }
+                    this.select.focus()
+                }
+            } else if (keyCheck === &#x27;escape&#x27;) {
+                if (this.input.value !== &#x27;&#x27;) {
+                    this.input.value = &#x27;&#x27;
+                    renderOptions()
+                } else {
+                    this.input.setAttribute(&#x27;placeholder&#x27;, this.placeholder)
+                    removeMenu()
+                    this.input.blur()
+                }
+            } else {
+                renderOptions()
+            }
+        }
+
+        const handleSelectKeydown = (event) =&gt; {
+            const keyCheck = event.key.toLowerCase()
+            if (keyCheck === &#x27;tab&#x27;) {
+                if (this.tabTimeout) {
+                    clearTimeout(this.tabTimeout)
+                }
+                this.tabTimeout = setTimeout(() =&gt; {
+                    removeMenu()
+                    this.input.value = &#x27;&#x27;
+                    this.input.placeholder = this.placeholder
+                }, 30)
+            }
+        }
+
+        // TODO: Handle escape here
+        const handleSelectKeyup = (event) =&gt; {
+            const keyCheck = event.key.toLowerCase()
+            // TODO: May need to be a check for items in the
+            // options here.
+            if (keyCheck === &#x27;enter&#x27;) {
+                registerSelection()
+            } else if (keyCheck === &#x27;escape&#x27;) {
+                this.input.focus()
+            } else if (keyCheck === &#x27;arrowup&#x27;) {
+                if (this.upArrowCheck === this.select.value) {
+                    this.input.focus()
+                    setSelection(null)
+                }
+            }
+            if (this.select) {
+                this.upArrowCheck = this.select.value
+            }
+        }
+
+        const handleSelectMouseUp = () =&gt; {
+            registerSelection(this.select.value)
+        }
+
+        const registerSelection = (key = null) =&gt; {
+            const checkValue = key === null ? this.select.value : key
+            for (let option of this.options) {
+                if (checkValue === option.value) {
+                    this.placeholder = option.text
+                    this.input.setAttribute(&#x27;placeholder&#x27;, this.placeholder)
+                    this.input.value = &#x27;&#x27;
+                    this.input.blur()
+                }
+            }
+            removeMenu()
+        }
+
+        const removeMenu = () =&gt; {
+            if (this.select) {
+                while (this.select.firstChild) {
+                    this.select.firstChild.remove()
+                }
+                this.select.blur()
+                this.select.remove()
+                this.select = null
+            }
+        }
+
+        const renderOptions = () =&gt; {
+            if (this.select) {
+                while (this.select.firstChild) {
+                    this.select.firstChild.remove()
+                }
+                this.select.blur()
+                this.select.remove()
+                this.select = null
+            }
+
+            updateOptions()
+
+            this.select = document.createElement(&#x27;select&#x27;)
+            this.select.addEventListener(&#x27;keydown&#x27;, handleSelectKeydown)
+            this.select.addEventListener(&#x27;keyup&#x27;, handleSelectKeyup)
+            this.select.addEventListener(&#x27;mouseup&#x27;, handleSelectMouseUp)
+            this.select.size = 5
+            this.select.style.position = &#x27;absolute&#x27;
+
+            for (let option of this.options) {
+                this.select.appendChild(option)
+            }
+
+            this.wrapper.appendChild(this.select)
+
+            if (this.input.value !== &#x27;&#x27; &amp;&amp; this.options.length &gt; 0) {
+                setSelection(0)
+            }
+
+            this.upArrowCheck = null
+        }
+
+        const setSelection = (index = null) =&gt; {
+            for (let option of this.options) {
+                option.removeAttribute(&#x27;selected&#x27;)
+            }
+            if (index !== null) {
+                this.upArrowCheck = this.options[index].value
+                this.options[index].setAttribute(&#x27;selected&#x27;, true)
+            }
+        }
+
+        // this makes new object to avoid having to worry about
+        // stuff with the outside set. but it looks at that
+        // set every time to make it&#x27;s stuff
+        const updateOptions = () =&gt; {
+            this.options = []
+            for (let option of this.getElementsByTagName(&#x27;option&#x27;)) {
+                if (option.text.toLowerCase().includes(this.input.value)) {
+                    const optionEl = document.createElement(&#x27;option&#x27;)
+                    optionEl.value = option.value
+                    optionEl.innerText = option.text
+                    this.options.push(optionEl)
+                }
+            }
+        }
+
+        this.wrapper = document.createElement(&#x27;div&#x27;)
+        this.wrapper.style.display = &#x27;inline&#x27;
+
+        this.input = document.createElement(&#x27;input&#x27;)
+        this.input.setAttribute(&#x27;value&#x27;, &#x27;&#x27;)
+        this.input.setAttribute(&#x27;type&#x27;, &#x27;text&#x27;)
+        this.input.setAttribute(&#x27;placeholder&#x27;, this.placeholder)
+        this.input.addEventListener(&#x27;focus&#x27;, handleInputFocus)
+        this.input.addEventListener(&#x27;keyup&#x27;, handleInputKeyup)
+        this.input.addEventListener(&#x27;keydown&#x27;, handleInputKeydown)
+        this.input.setAttribute(&#x27;autocorrect&#x27;, false)
+        this.input.setAttribute(&#x27;spellcheck&#x27;, false)
+
+        this.wrapper.appendChild(this.input)
+        this.shadowRoot.append(this.wrapper)
+
+        document.addEventListener(&#x27;mousedown&#x27;, handleDocumentClick)
+        document.addEventListener(&#x27;DOMContentLoaded&#x27;, handleDOMContentLoaded)
+    }
+}
+
+customElements.define(&#x27;strict-select&#x27;, StrictSelect)
+</code></pre>
+            
+       
+                <h2>Notes</h2>
+                <ul>
+                    <li>The notes below are still in draft form. They are incomplete, sometimes incorrect, and often duplicated. Clean up is in progress</li> <li>Remove the previous 'Search' and 'Autocomplete' tests when this is running</li> <li>The reason for removing and adding the 'select' element (instead of just the options) is because of a behavior in safari where it doesn't respect resetting the position of the selected element on arrow movements</li> <li>I'm adding display inline when the DOMContentLoaded fires. Adding it before then throws an error. TBD if that causes a layout shift which would need to be dealt with</li> <li>I remove the placeholder text when you first click into the input field because it aways throws me when the text stays there on default forms</li> <li>The setTimeout move to the next tab is becaue I haven't found a way to move to the next tab index programatically. Closing the menu first means the tab doesn't move. And closing it after didn't work</li>
+                </ul>
+            
+      <h2>Functionality</h2>
+      <h3>Neither the INPUT or the MENU is focused</h3>
+      <ul>
+        <li>[.] - INPUT is visible</li>
+        <li>[.] - MENU is invisible</li>
+        <li>[.] - PLACEHOLDER shows previous SELECTION if one exists</li>
+        <li>
+          [.] - PLACEHOLDER shows default text if no previous SELECTION exists
+        </li>
+      </ul>
+
+      <h3>INPUT Becomes Focused</h3>
+      <ul>
+        <li>[.] - PLACEHOLDER is removed</li>
+        <li>[.] - MENU opens</li>
+        <li>[.] - MENU displays default OPTIONS with making one SELECTED</li>
+      </ul>
+
+      <h3>ENTER is pressed while INPUT has focus with no VALUE</h3>
+      <ul>
+        <li>[.] - no-op</li>
+      </ul>
+
+      <h3>ESCAPE pressed while INPUT has focus with no VALUE</h3>
+      <ul>
+        <li>[.] - Hides the MENU</li>
+        <li>[.] - INPUT is blured</li>
+        <li>[.] - PLACEHOLDER shows previous SELECTION if one exists</li>
+        <li>
+          [.] - PLACEHOLDER shows default text if no previous SELECTION exists
+        </li>
+      </ul>
+
+      <h3>ESCAPE is pressed in the MENU</h3>
+      <ul>
+        <li>[.] - INPUT is focused with existing text remaining in place</li>
+      </ul>
+
+      <h3>ENTER is pressed while INPUT has focus has a VALUE</h3>
+      <h3>ESCAPE is pressed while INPUT has focus has a VALUE</h3>
+      <h3>CLICK occurs outside INPUT or MENU</h3>
+      <h3>CLICK occurs on MENU OPTION</h3>
+      <h3>CLICK occurs in INPUT while MENU has focus</h3>
+
+      <h3>CLICK occurs outside the INPUT and MENU when INPUT has no VALUE</h3>
+      <ul>
+        <li>[.] - MENU is closed</li>
+        <li>[.] - INPUT PLACEHOLDER returns to its previous value</li>
+      </ul>
+
+      <h3>TAB is pressed while MENU is active with VALUE in INPUT</h3>
+      <ul>
+        <li>[.] - MENU closes</li>
+        <li>[.] - INPUT VALUE is set to nothing</li>
+        <li>[.] - INPUT PLACEHOLDER is returned to previous value</li>
+        <li>[.] - Focus moves to next tab index as normal</li>
+      </ul>
+
+      <h3>
+        TAB is pressed while MENU is active with VALUE in INPUT but no valid
+        OPTIONs available
+      </h3>
+      <li>[.] - no-op</li>
+
+      <h3>
+        ARROW DOWN is pressed while MENU is active with VALUE in INPUT but no
+        valid OPTIONs available
+      </h3>
+      <li>[.] - no-op</li>
+
+      <h3>TAB pressed when VALUE in INPUT has zero MENU results</h3>
+      <ul>
+        <li>[.] - no-op</li>
+      </ul>
+
+      <hr />
+
+      <ul>
+        <li>
+          [.] - Hitting TAB in INPUT when INPUT is empty
+          <ul>
+            <li>[.] - Focuses the MENU</li>
+            <li>[.] - Selects the first OPTION</li>
+          </ul>
+        </li>
+        <li>[.] - Hitting TAB in INPUT when INPUT has TEXT</li>
+        <ul>
+          <li>[.] - Focuses the MENU</li>
+          <li>
+            [.] - No adjustement to SELECTION since it will already be on the
+            first OPTION
+          </li>
+        </ul>
+      </ul>
+
+      <h3>[] - Hitting TAB when MENU has focus</h3>
+      <ul>
+        <li>[ ] - Moves to next TAB INDEX</li>
+        <li>[ ] - Closes MENU</li>
+        <li>[ ] - Removes any VALUE from INPUT</li>
+        <li>[ ] - Displays previous SELECTION as PLACEHOLDER if one exists</li>
+        <li>
+          [ ] - Displays default PLACEHOLDER if no previous SELECTION exists
+        </li>
+      </ul>
+
+      <ul>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+      </ul>
+
+      
+                <h2>TODO</h2>
+                <ul>
+                    <li>[ ] - Clean up and dedupe the requirements</li> <li>[ ] - Switch so that escape when there is text in input ejects from it instead of removing it but leving the form focused</li> <li>[ ] - Consider tabbing to next tab index if there is text in the input but id doesn't match anything</li> <li>[.] - Don't load the options in at the start. call them dynamically so they can be updated outside the component. May have to keep some type of loader in there for the dom ready to prevent issue where the data doesn't show up on first hitting the open element</li> <li>[.] - Load data from child &lt;option&gt; elements</li> <li>[.] - Clicking in the input field opens the menu</li> <li>[.] - Clicking outside the input field closes the menu</li> <li>[.] - Clicking outside the menu closes the menu</li> <li>[ ] - Investigate making this a custom built-in form form element so it can have that API</li> <li>[ ] - Verify that options can be updated live outside the component</li> <li>[.] - Hitting escape while inside resets the form but keeps you in it</li> <li>[ ] - Clicking the up arrow when you're at the top of the list takes up back to the input field</li> <li>[ ] - If you mouse all the way back up, the selection is removed until you hit anoter key</li> <li>[ ] - escape with text removes it. escape without text blurs the input</li> <li>[ ] - If you just arrow down and then immediately up, go back to the input</li> <li>[ ] - Don't try to go past the last item with arrow down</li> <li>[ ] - Investigate UX of moving to alpha sort when a search term is in the Input field</li> <li>[ ] - Add customization that lets you show the default placeholder instead of the prious selection</li> <li>[ ] - Maybe refactor a little after a break</li> <li>[ ] - Display No Matches when there aren't any</li> <li>[ ] - See if there's a way to eliminate the quick blink when tabbing from the menu to the next tab index</li> <li>Add to refs: https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent</li> <li>https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events</li>
+                </ul>
+             
+                <h2>References</h2>
+                <ul>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements">MDN: Using custom elements</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components">MDN: Web Components</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes">MDN: JavaScript Classes</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position">MDN: CSS position</a></li> <li><a href="https://stackoverflow.com/q/596481/102401">Is it possible to simulate key press events programmatically?</a> - I didn't end up using this. Something to look into if the need arises</li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault">MDN: Event.preventDefault()</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent">MDN: CustomEvent</a></li>
+                </ul>
+                
+    </main>
+    <footer>
+      made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>
+      <br />
+      who has a <a href="https://www.alanwsmith.com">website</a> and a
+      <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
+      among other <a href="https://links.alanwsmith.com">things</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>

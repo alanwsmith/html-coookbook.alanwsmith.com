@@ -1,0 +1,36 @@
+<div id="awsselectmenu--wrapper">
+  <div
+    autocomplete="off"
+    spellcheck="false"
+    id="awsselectmenu--search-text"
+    contenteditable="true"
+  ></div>
+  <div id="awsselectmenu--selections"></div>
+  <div id="awsselectmenu--current-selection">Active Selection: None</div>
+</div>
+
+<h4>Hacking</h4>
+<ul>
+  <li>
+    The reason I went through this is I couldn't figure out how to get it so
+    that if you hit enter it would pull the first item in the list and use it.
+  </li>
+  <li>
+    Simply couldn't figure out how to get access to the first filtered item
+  </li>
+</ul>
+
+<h4>Didn't work</h4>
+<ul>
+  <li>
+    Was going to try just using a filter on the input and pulling the value
+    based off that, but there's no guarantee that the filter used by the
+    selection data-list would match
+  </li>
+  <li>https://stackoverflow.com/a/31831776/102401</li>
+  <li>
+    Tried setting up to add an innerHTML with a space or letter then remove it
+    to blank, but that didn't work
+  </li>
+  <li>Tried: user-select: text; in the css, but that didn't work</li>
+</ul>

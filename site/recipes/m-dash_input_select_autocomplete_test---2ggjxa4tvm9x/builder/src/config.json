@@ -1,0 +1,21 @@
+{
+    "TITLE": "Mdash Input Select Autocomplete Test",
+    "STATUS": "draft",
+    "DESCRIPTION": "",
+    "DETAILS": [],
+    "NOTES": [
+        "The docs had `defer` for the call to the .js file. When I did that I got an error updated the Autocomplete prototype",
+        "I don't see a way to turn off spell check?",
+        "Initial view: I'm not seeing a way to trigger events on just hitting enter. All I see is based of clicking an item",
+        "It looks like you might be able to catch an 'enter' key and work off of that.",
+        "Tabbig and using arrows to move down don't work for me in Safari or Chrome on the offical site. The means it's a non-starter for me"
+    ],
+    "TODOS": [],
+    "REFERENCES": [
+        {
+            "title": "Mdash Autocomplete",
+            "url": "https://m-docs.org/autocomplete",
+            "extra": ""
+        }
+    ]
+}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Component Click Listener - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Web Component Click Listener" />
+    <meta property="og:description" content="Goal: catch a click anywhere on the document and have the component respond to it via a listener" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Web%20Component%20Click%20Listener,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/prism.css" />
+    
+    <style>
+      
+    </style>
+    <script>
+      class ClickCatcher extends HTMLElement {
+    constructor() {
+        super()
+
+        this.attachShadow({ mode: 'open' })
+        this.clickCount = 0
+
+        const wrapper = document.createElement('span')
+        wrapper.innerText = this.clickCount
+
+        const handleDocumentClick = () => {
+            this.clickCount += 1
+            wrapper.innerText = this.clickCount
+        }
+
+        document.addEventListener('click', handleDocumentClick)
+        this.shadowRoot.append(wrapper)
+    }
+}
+
+customElements.define('click-catcher', ClickCatcher)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">Cookbook Home</a> ~
+      <a href="https://www.alanwsmith.com/">alanwsmith.com</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://https://twitter.com/TheIdOfAlan">twitter</a>
+    </header>
+    <main>
+      <h1>Web Component Click Listener</h1>
+      
+                <h2>Deatils</h2>
+                <ul>
+                    <li>This code adds an event listener to the entire page that updates a value inside the  component when a click is registered anywhere on the page.</li>
+                </ul>
+                
+      <h2>Prototype</h2>
+      <click-catcher></click-catcher> - <click-catcher></click-catcher>
+  
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;click-catcher&gt;&lt;/click-catcher&gt; - &lt;click-catcher&gt;&lt;/click-catcher&gt;
+</code></pre>
+              
+            <h2>JavaScript</h2>
+            <pre><code class="language-js">class ClickCatcher extends HTMLElement {
+    constructor() {
+        super()
+
+        this.attachShadow({ mode: &#x27;open&#x27; })
+        this.clickCount = 0
+
+        const wrapper = document.createElement(&#x27;span&#x27;)
+        wrapper.innerText = this.clickCount
+
+        const handleDocumentClick = () =&gt; {
+            this.clickCount += 1
+            wrapper.innerText = this.clickCount
+        }
+
+        document.addEventListener(&#x27;click&#x27;, handleDocumentClick)
+        this.shadowRoot.append(wrapper)
+    }
+}
+
+customElements.define(&#x27;click-catcher&#x27;, ClickCatcher)
+</code></pre>
+             
+                <h2>Notes</h2>
+                <ul>
+                    <li>There are two elements on the page to make sure they both pick up the event</li>
+                </ul>
+            
+       
+                <h2>References</h2>
+                <ul>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes">MDN: Classes</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements">MDN: Using custom elements</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components">MDN: Web Components</a></li>
+                </ul>
+                
+    </main>
+    <footer>
+      made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>
+      <br />
+      who has a <a href="https://www.alanwsmith.com">website</a> and a
+      <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
+      among other <a href="https://links.alanwsmith.com">things</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>

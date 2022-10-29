@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Autocomplete Selection Menu - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Autocomplete Selection Menu" />
+    <meta property="og:description" content="An selection menu with autocompletion that only allows for the configure values to be selected" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Autocomplete%20Selection%20Menu,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/prism.css" />
+    
+    <style>
+      #awsselectmenu--wrapper {
+    background-color: white;
+    /* height: 1.4rem; */
+    padding: 4px;
+    color: black;
+}
+
+#awsselectmenu--search-text {
+    /* user-select: text; */
+    user-select: text;
+}
+
+    </style>
+    <script>
+      const options = [
+    { key: 'roboto', value: 'Roboto' },
+    { key: 'opensans', value: 'OpenSans' },
+    { key: 'montserrat', value: 'Montserrat' },
+    { key: 'lato', value: 'Lato' },
+    { key: 'poppins', value: 'Poppins' },
+    { key: 'sourcesanspro', value: 'Source Sans Pro' },
+    { key: 'robotocondensed', value: 'Roboto Condensed' },
+    { key: 'oswald', value: 'Oswald' },
+    { key: 'robotomono', value: 'Roboto Mono' },
+    { key: 'raleway', value: 'Raleway' },
+    { key: 'inter', value: 'Inter' },
+    { key: 'notosans', value: 'Noto Sans' },
+    { key: 'ubuntu', value: 'Ubuntu' },
+    { key: 'mukta', value: 'Mukta' },
+    { key: 'robotoslab', value: 'Roboto Slab' },
+    { key: 'nunito', value: 'Nunito' },
+    { key: 'playfairdisplay', value: 'Playfair Display' },
+    { key: 'ptsans', value: 'PT Sans' },
+    { key: 'nunitosans', value: 'Nunito Sans' },
+    { key: 'merriweather', value: 'Merriweather' },
+    { key: 'rubik', value: 'Rubik' },
+    { key: 'notosanskr', value: 'Noto Sans KR' },
+    { key: 'worksans', value: 'Work Sans' },
+    { key: 'lora', value: 'Lora' },
+    { key: 'firasans', value: 'Fira Sans' },
+]
+
+const state = {
+    activeKey: null,
+    fullKeys: {},
+}
+
+const defocusInput = () => {
+    const actualElement = document.getElementById('awsselectmenu--search-text')
+    const fixElement = document.getElementById(
+        'awsselectmenu--current-selection'
+    )
+    actualElement.blur()
+    fixElement.setAttribute('contenteditable', 'true')
+    fixElement.focus()
+    fixElement.blur()
+    fixElement.setAttribute('contenteditable', 'false')
+}
+
+const handleInputFocus = (event) => {
+    console.log('focus')
+    /////////////////
+    // Trying to fix safari issue where blanking text
+    // removes the caret
+    //
+    // this didn't work for for getting the
+    // caret to focus properly
+    // jevent.target.innerHTML = '-'
+    // event.target.innerHTML = ''
+    //
+    //
+    // doing it explicitly by element didn't work
+    const input = document.getElementById('awsselectmenu--search-text')
+    input.innerText = 'a'
+    // input.innerText = ''
+    //
+
+    // const selectionsEl = document.getElementById('awsselectmenu--selections')
+    // while (selectionsEl.firstChild) {
+    //     selectionsEl.removeChild(selectionsEl.firstChild)
+    // }
+    // for (let i = 0; i < 5; i++) {
+    //     const newItem = document.createElement('button')
+    //     const buttonId = `awsselectmenu--choice-id--${options[i].key}`
+    //     newItem.id = buttonId
+    //     newItem.innerHTML = options[i].value
+    //     selectionsEl.appendChild(newItem)
+    // }
+}
+
+const handleKeyup = (event) => {
+    // TODO: Handle tab and escape
+    const pressedKey = event.key.toLowerCase()
+    if (pressedKey === 'enter') {
+        console.log('ENTER')
+        makeSelection()
+    } else {
+        state.currentSearch = document.getElementById(
+            'awsselectmenu--search-text'
+        ).innerText
+        removeSelections()
+        const selectionsEl = document.getElementById(
+            'awsselectmenu--selections'
+        )
+        let counter = 0
+        for (i = 0; i < options.length; i++) {
+            const pattern = new RegExp(state.currentSearch, 'gi')
+            if (options[i].value.toLowerCase().match(pattern)) {
+                const newItem = document.createElement('button')
+                const buttonId = `awsselectmenu--choice-id--${options[i].key}`
+                newItem.id = buttonId
+                newItem.innerHTML = options[i].value
+                selectionsEl.appendChild(newItem)
+                counter += 1
+            }
+            if (counter === 5) {
+                break
+            }
+        }
+        console.log(state.currentSearch)
+    }
+}
+
+const makeSelection = () => {
+    // TODO: deal with if there isn't a valid option
+    console.log('Making selection')
+    for (i = 0; i < options.length; i++) {
+        const pattern = new RegExp(state.currentSearch, 'gi')
+        if (options[i].value.toLowerCase().match(pattern)) {
+            state.activeKey = options[i].key
+            break
+        }
+    }
+    setPlaceholder()
+    removeSelections()
+    defocusInput()
+}
+
+const prepKeys = () => {
+    options.forEach((option) => {
+        state.fullKeys[option.key] = option.value
+    })
+}
+
+const removeSelections = () => {
+    const selectionsEl = document.getElementById('awsselectmenu--selections')
+    while (selectionsEl.firstChild) {
+        selectionsEl.removeChild(selectionsEl.firstChild)
+    }
+}
+
+const setSelectionFromKey = (key) => {
+    state.activeKey = key
+    console.log(state.activeKey)
+    setPlaceholder()
+    defocusInput()
+    removeSelections()
+}
+
+const setPlaceholder = () => {
+    const inputField = document.getElementById('awsselectmenu--search-text')
+    if (state.activeKey) {
+        inputField.innerHTML = state.fullKeys[state.activeKey]
+    } else {
+        inputField.innerHTML = 'Select a font'
+    }
+}
+
+// This is here to deal with clicking away from
+// the input field so it can be closed without
+// haveing to set a timer to keep the buttons from
+// closing for a bit before they disappear
+const handlePageClick = (event) => {
+    const clickId = event.target.id
+    if (clickId) {
+        const idParts = clickId.split('--')
+        if (idParts[0] !== 'awsselectmenu') {
+            removeSelections()
+        } else {
+            if (idParts[1] === 'choice-id') {
+                setSelectionFromKey(idParts[2])
+                defocusInput()
+            }
+        }
+    } else {
+        removeSelections()
+    }
+}
+
+const kickoff = () => {
+    console.log(`Kickoff: ${new Date().getTime()}`)
+    prepKeys()
+    document
+        .getElementById('awsselectmenu--search-text')
+        .addEventListener('focus', handleInputFocus)
+    document
+        .getElementById('awsselectmenu--search-text')
+        .addEventListener('keyup', handleKeyup)
+    document.addEventListener('click', handlePageClick)
+    setPlaceholder()
+}
+
+document.addEventListener('DOMContentLoaded', kickoff)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+
+    <header>
+      <a href="/">Cookbook Home</a> ~
+      <a href="https://www.alanwsmith.com/">alanwsmith.com</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a>
+    </header>
+
+    <main>
+      <h1>Autocomplete Select Menu</h1>
+      <p>This is a work in progress. (aka: it doesn't work yet)</p>
+      <div id="tmp-focus-target-for-safari-fix"></div>
+
+      <div id="awsselectmenu--wrapper">
+  <div
+    autocomplete="off"
+    spellcheck="false"
+    id="awsselectmenu--search-text"
+    contenteditable="true"
+  ></div>
+  <div id="awsselectmenu--selections"></div>
+  <div id="awsselectmenu--current-selection">Active Selection: None</div>
+</div>
+
+<h4>Hacking</h4>
+<ul>
+  <li>
+    The reason I went through this is I couldn't figure out how to get it so
+    that if you hit enter it would pull the first item in the list and use it.
+  </li>
+  <li>
+    Simply couldn't figure out how to get access to the first filtered item
+  </li>
+</ul>
+
+<h4>Didn't work</h4>
+<ul>
+  <li>
+    Was going to try just using a filter on the input and pulling the value
+    based off that, but there's no guarantee that the filter used by the
+    selection data-list would match
+  </li>
+  <li>https://stackoverflow.com/a/31831776/102401</li>
+  <li>
+    Tried setting up to add an innerHTML with a space or letter then remove it
+    to blank, but that didn't work
+  </li>
+  <li>Tried: user-select: text; in the css, but that didn't work</li>
+</ul>
+
+
+       
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;div id=&quot;awsselectmenu--wrapper&quot;&gt;
+  &lt;div
+    autocomplete=&quot;off&quot;
+    spellcheck=&quot;false&quot;
+    id=&quot;awsselectmenu--search-text&quot;
+    contenteditable=&quot;true&quot;
+  &gt;&lt;/div&gt;
+  &lt;div id=&quot;awsselectmenu--selections&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;awsselectmenu--current-selection&quot;&gt;Active Selection: None&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h4&gt;Hacking&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    The reason I went through this is I couldn&#x27;t figure out how to get it so
+    that if you hit enter it would pull the first item in the list and use it.
+  &lt;/li&gt;
+  &lt;li&gt;
+    Simply couldn&#x27;t figure out how to get access to the first filtered item
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4&gt;Didn&#x27;t work&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    Was going to try just using a filter on the input and pulling the value
+    based off that, but there&#x27;s no guarantee that the filter used by the
+    selection data-list would match
+  &lt;/li&gt;
+  &lt;li&gt;https://stackoverflow.com/a/31831776/102401&lt;/li&gt;
+  &lt;li&gt;
+    Tried setting up to add an innerHTML with a space or letter then remove it
+    to blank, but that didn&#x27;t work
+  &lt;/li&gt;
+  &lt;li&gt;Tried: user-select: text; in the css, but that didn&#x27;t work&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+             
+            <h2>CSS</h2>
+            <pre><code class="language-css">#awsselectmenu--wrapper {
+    background-color: white;
+    /* height: 1.4rem; */
+    padding: 4px;
+    color: black;
+}
+
+#awsselectmenu--search-text {
+    /* user-select: text; */
+    user-select: text;
+}
+</code></pre>
+             
+            <h2>JavaScript</h2>
+            <pre><code class="language-js">const options = [
+    { key: &#x27;roboto&#x27;, value: &#x27;Roboto&#x27; },
+    { key: &#x27;opensans&#x27;, value: &#x27;OpenSans&#x27; },
+    { key: &#x27;montserrat&#x27;, value: &#x27;Montserrat&#x27; },
+    { key: &#x27;lato&#x27;, value: &#x27;Lato&#x27; },
+    { key: &#x27;poppins&#x27;, value: &#x27;Poppins&#x27; },
+    { key: &#x27;sourcesanspro&#x27;, value: &#x27;Source Sans Pro&#x27; },
+    { key: &#x27;robotocondensed&#x27;, value: &#x27;Roboto Condensed&#x27; },
+    { key: &#x27;oswald&#x27;, value: &#x27;Oswald&#x27; },
+    { key: &#x27;robotomono&#x27;, value: &#x27;Roboto Mono&#x27; },
+    { key: &#x27;raleway&#x27;, value: &#x27;Raleway&#x27; },
+    { key: &#x27;inter&#x27;, value: &#x27;Inter&#x27; },
+    { key: &#x27;notosans&#x27;, value: &#x27;Noto Sans&#x27; },
+    { key: &#x27;ubuntu&#x27;, value: &#x27;Ubuntu&#x27; },
+    { key: &#x27;mukta&#x27;, value: &#x27;Mukta&#x27; },
+    { key: &#x27;robotoslab&#x27;, value: &#x27;Roboto Slab&#x27; },
+    { key: &#x27;nunito&#x27;, value: &#x27;Nunito&#x27; },
+    { key: &#x27;playfairdisplay&#x27;, value: &#x27;Playfair Display&#x27; },
+    { key: &#x27;ptsans&#x27;, value: &#x27;PT Sans&#x27; },
+    { key: &#x27;nunitosans&#x27;, value: &#x27;Nunito Sans&#x27; },
+    { key: &#x27;merriweather&#x27;, value: &#x27;Merriweather&#x27; },
+    { key: &#x27;rubik&#x27;, value: &#x27;Rubik&#x27; },
+    { key: &#x27;notosanskr&#x27;, value: &#x27;Noto Sans KR&#x27; },
+    { key: &#x27;worksans&#x27;, value: &#x27;Work Sans&#x27; },
+    { key: &#x27;lora&#x27;, value: &#x27;Lora&#x27; },
+    { key: &#x27;firasans&#x27;, value: &#x27;Fira Sans&#x27; },
+]
+
+const state = {
+    activeKey: null,
+    fullKeys: {},
+}
+
+const defocusInput = () =&gt; {
+    const actualElement = document.getElementById(&#x27;awsselectmenu--search-text&#x27;)
+    const fixElement = document.getElementById(
+        &#x27;awsselectmenu--current-selection&#x27;
+    )
+    actualElement.blur()
+    fixElement.setAttribute(&#x27;contenteditable&#x27;, &#x27;true&#x27;)
+    fixElement.focus()
+    fixElement.blur()
+    fixElement.setAttribute(&#x27;contenteditable&#x27;, &#x27;false&#x27;)
+}
+
+const handleInputFocus = (event) =&gt; {
+    console.log(&#x27;focus&#x27;)
+    /////////////////
+    // Trying to fix safari issue where blanking text
+    // removes the caret
+    //
+    // this didn&#x27;t work for for getting the
+    // caret to focus properly
+    // jevent.target.innerHTML = &#x27;-&#x27;
+    // event.target.innerHTML = &#x27;&#x27;
+    //
+    //
+    // doing it explicitly by element didn&#x27;t work
+    const input = document.getElementById(&#x27;awsselectmenu--search-text&#x27;)
+    input.innerText = &#x27;a&#x27;
+    // input.innerText = &#x27;&#x27;
+    //
+
+    // const selectionsEl = document.getElementById(&#x27;awsselectmenu--selections&#x27;)
+    // while (selectionsEl.firstChild) {
+    //     selectionsEl.removeChild(selectionsEl.firstChild)
+    // }
+    // for (let i = 0; i &lt; 5; i++) {
+    //     const newItem = document.createElement(&#x27;button&#x27;)
+    //     const buttonId = `awsselectmenu--choice-id--${options[i].key}`
+    //     newItem.id = buttonId
+    //     newItem.innerHTML = options[i].value
+    //     selectionsEl.appendChild(newItem)
+    // }
+}
+
+const handleKeyup = (event) =&gt; {
+    // TODO: Handle tab and escape
+    const pressedKey = event.key.toLowerCase()
+    if (pressedKey === &#x27;enter&#x27;) {
+        console.log(&#x27;ENTER&#x27;)
+        makeSelection()
+    } else {
+        state.currentSearch = document.getElementById(
+            &#x27;awsselectmenu--search-text&#x27;
+        ).innerText
+        removeSelections()
+        const selectionsEl = document.getElementById(
+            &#x27;awsselectmenu--selections&#x27;
+        )
+        let counter = 0
+        for (i = 0; i &lt; options.length; i++) {
+            const pattern = new RegExp(state.currentSearch, &#x27;gi&#x27;)
+            if (options[i].value.toLowerCase().match(pattern)) {
+                const newItem = document.createElement(&#x27;button&#x27;)
+                const buttonId = `awsselectmenu--choice-id--${options[i].key}`
+                newItem.id = buttonId
+                newItem.innerHTML = options[i].value
+                selectionsEl.appendChild(newItem)
+                counter += 1
+            }
+            if (counter === 5) {
+                break
+            }
+        }
+        console.log(state.currentSearch)
+    }
+}
+
+const makeSelection = () =&gt; {
+    // TODO: deal with if there isn&#x27;t a valid option
+    console.log(&#x27;Making selection&#x27;)
+    for (i = 0; i &lt; options.length; i++) {
+        const pattern = new RegExp(state.currentSearch, &#x27;gi&#x27;)
+        if (options[i].value.toLowerCase().match(pattern)) {
+            state.activeKey = options[i].key
+            break
+        }
+    }
+    setPlaceholder()
+    removeSelections()
+    defocusInput()
+}
+
+const prepKeys = () =&gt; {
+    options.forEach((option) =&gt; {
+        state.fullKeys[option.key] = option.value
+    })
+}
+
+const removeSelections = () =&gt; {
+    const selectionsEl = document.getElementById(&#x27;awsselectmenu--selections&#x27;)
+    while (selectionsEl.firstChild) {
+        selectionsEl.removeChild(selectionsEl.firstChild)
+    }
+}
+
+const setSelectionFromKey = (key) =&gt; {
+    state.activeKey = key
+    console.log(state.activeKey)
+    setPlaceholder()
+    defocusInput()
+    removeSelections()
+}
+
+const setPlaceholder = () =&gt; {
+    const inputField = document.getElementById(&#x27;awsselectmenu--search-text&#x27;)
+    if (state.activeKey) {
+        inputField.innerHTML = state.fullKeys[state.activeKey]
+    } else {
+        inputField.innerHTML = &#x27;Select a font&#x27;
+    }
+}
+
+// This is here to deal with clicking away from
+// the input field so it can be closed without
+// haveing to set a timer to keep the buttons from
+// closing for a bit before they disappear
+const handlePageClick = (event) =&gt; {
+    const clickId = event.target.id
+    if (clickId) {
+        const idParts = clickId.split(&#x27;--&#x27;)
+        if (idParts[0] !== &#x27;awsselectmenu&#x27;) {
+            removeSelections()
+        } else {
+            if (idParts[1] === &#x27;choice-id&#x27;) {
+                setSelectionFromKey(idParts[2])
+                defocusInput()
+            }
+        }
+    } else {
+        removeSelections()
+    }
+}
+
+const kickoff = () =&gt; {
+    console.log(`Kickoff: ${new Date().getTime()}`)
+    prepKeys()
+    document
+        .getElementById(&#x27;awsselectmenu--search-text&#x27;)
+        .addEventListener(&#x27;focus&#x27;, handleInputFocus)
+    document
+        .getElementById(&#x27;awsselectmenu--search-text&#x27;)
+        .addEventListener(&#x27;keyup&#x27;, handleKeyup)
+    document.addEventListener(&#x27;click&#x27;, handlePageClick)
+    setPlaceholder()
+}
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, kickoff)
+</code></pre>
+             
+                <h2>Deatils</h2>
+                <ul>
+                    <li>GOAL: [ ] Accepts an array of key-value pairs to use as selections</li> <li>GOAL: [ ] Filter selections based on text input</li> <li>GOAL: [ ] Proper accessability</li> <li>GOAL: [ ] Show autocompete when typing</li> <li>GOAL: [ ] Show first option in text area if autocomplete doesn't match exactly</li> <li>GOAL: [ ] Clicking enter selects first item</li> <li>GOAL: [ ] Tabbing to secondary selections</li> <li>GOAL: [ ] Hitting enter on a secondary selection chooses it</li> <li>GOAL: [ ] Clicking a secondary button selects it</li> <li>GOAL: [ ] Show the last select item as a placeholder when the field isn't focused</li> <li>GOAL: [ ] Ability to select a placeholder on load</li> <li>GOAL: [ ] Scrollable list of selections</li> <li>GOAL: [ ] Multiple instances on the same page</li>
+                </ul>
+                 
+                <h2>Notes</h2>
+                <ul>
+                    <li>This is currently a very naive approach to the matching selections. If the string in the input field matches anywhere in the item list it gets included.</li>
+                </ul>
+             
+                <h2>TODO</h2>
+                <ul>
+                    <li>Dig through this for multiline suppression: https://stackoverflow.com/questions/6831482/contenteditable-single-line-input</li>
+                </ul>
+             
+                <h2>References</h2>
+                <ul>
+                    <li><a href="https://stackoverflow.com/questions/33985130/create-a-custom-autocomplete-list-for-an-input-field">Create a custom autocomplete list for an input field</a></li> <li><a href="https://stackoverflow.com/q/30499199/102401">html5 datalist to select only predefined options</a></li> <li><a href="https://gomakethings.com/how-to-create-an-autocomplete-input-with-only-html/">How to create an autocomplete input with only HTML</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event">HTMLElement: input event</a></li> <li><a href="https://stackoverflow.com/q/7060750/102401">Detect the Enter key in a text input field</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/contentEditable">HTMLElement.contentEditable</a></li> <li><a href="https://stackoverflow.com/q/6831482/102401">contenteditable single-line input</a></li> <li><a href="https://stackoverflow.com/q/1391278">contenteditable change events</a></li> <li><a href="https://html.com/attributes/input-autocomplete/">When To Use Input Autocomplete In HTML (And When List Or Datalist)</a></li> <li><a href="https://stackoverflow.com/q/43579748/102401">How to achieve autocomplete feature over HTML drop-down or select element?</a></li> <li><a href="https://stackoverflow.com/q/72510983/102401">HTMLElement.blur() does not remove focus in Safari when used on contenteditable elements?</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/contenteditable">contenteditable</a></li> <li><a href="https://stackoverflow.com/q/61245883/102401">Why blur and focus doesn't work on Safari?</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/enterKeyHint">HTMLElement.enterKeyHint</a></li> <li><a href="https://stackoverflow.com/q/37478727/102401">How can I make a browser display all datalist options when a default value is set?</a></li> <li><a href="https://www.jotform.com/blog/html5-datalists-what-you-need-to-know-78024/">HTML5 Datalist: What You Need To Know</a></li> <li><a href="https://tkacz.pro/htmljs-input-datalist-with-validation-instead-of-selects/">[HTML][JS] Input + datalist with validation instead of selects</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/required">HTML attribute: required</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#required">&lt;input&gt;': The Input (Form Input) element</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist">&lt;datalist&gt;: The HTML Data List element</a></li> <li><a href="https://stackoverflow.com/q/24934669/102401">How can i validate the input from a html5 Datalist?</a></li> <li><a href="https://www.sitepoint.com/community/t/validate-data-value-in-a-html-datalist/355469">Validate 'data-value' in a html 'datalist'</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes">Using data attributes</a></li> <li><a href="https://stackoverflow.com/q/26103285/102401">Find selected item in Datalist in HTML</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*">data-*</a></li> <li><a href="https://stackoverflow.com/q/38794712/102401">Javascript: Match datalist options based on input</a></li> <li><a href="https://html.spec.whatwg.org/multipage/form-elements.html#the-datalist-element">HTML - Living Standard - datalist element</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_categories#phrasing_content">Content categories</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes">Using data attributes</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Constraint_validation">Constraint validation</a></li> <li><a href="https://blog.teamtreehouse.com/creating-autocomplete-dropdowns-datalist-element">How to Create Autocomplete Dropdowns with the Datalist Element</a></li> <li><a href="https://stackoverflow.com/q/54879801/102401">Auto select first option in datalist while typing</a></li> <li><a href="https://stackoverflow.com/q/26484432/102401">How to auto select the first item in datalist (html 5)?</a></li> <li><a href="https://www.sitepoint.com/html5-datalist-autocomplete/">Lightweight Autocomplete Controls with the HTML5 Datalist</a></li> <li><a href="https://www.plus2net.com/html_tutorial/datalist.php">Datalist element in HTML 5</a></li> <li><a href="https://stackoverflow.com/q/26103285/102401">Find selected item in Datalist in HTML</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/formdata_event">HTMLFormElement: formdata event</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection">Selection</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection_API">Selection API</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/activeElement">Document.activeElement</a></li> <li><a href="https://stackoverflow.com/q/72510983/102401">HTMLElement.blur() does not remove focus in Safari when used on contenteditable elements?</a></li> <li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=904846">Caret positioning is incorrect in an empty contenteditable element with ::before pseudo</a></li> <li><a href="https://stackoverflow.com/q/70565449/102401">Why is the caret invisible in a contenteditable with position:relative?</a></li> <li><a href="https://stackoverflow.com/q/20435166/102401">contenteditable not working in safari but works in chrome</a></li> <li><a href="https://github.com/codemirror/codemirror5/issues/6167">setCursor doesn't work well with inputStyle: 'contenteditable', #6167</a></li> <li><a href="https://gist.github.com/shimondoodkin/1081133">WebKit contentEditable focus bug workaround.html</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/setSelectionRange">HTMLInputElement.setSelectionRange()</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/contentEditable">HTMLElement.contentEditable</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes#contenteditable">Global attributes</a></li> <li><a href="https://jscurious.com/html-datalist-tag-for-filter-search/">The HTML datalist tag for filter search</a></li> <li><a href="https://stackoverflow.com/q/41678677/102401">Avoid filtering of datalist items in an input element</a></li> <li><a href="https://stackoverflow.com/q/30190588/102401">HTML: Select multiple as dropdown</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select">&lt;select&gt;: The HTML Select element</a></li> <li><a href="https://w3c.github.io/aria/#combobox">Accessible Rich Internet Applications (WAI-ARIA) 1.3</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event">HTMLElement: input event</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup">&lt;optgroup&gt;: The Option Group element</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event">HTMLElement: change event</a></li> <li><a href="https://m-docs.org/autocomplete">m- Autocomplete</a></li>
+                </ul>
+                
+
+    </main>
+    <footer>
+      made by <a href="https://twitter.com/TheIdOfAlan">
+      <br />
+      who has a <a href="https://www.alanwsmith.com">website</a> and a
+      <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
+      among other <a href="https://links.alanwsmith.com">things</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>

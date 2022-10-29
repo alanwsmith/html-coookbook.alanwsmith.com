@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Components - Create And Send Events - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Web Components - Create And Send Events" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Web%20Components%20-%20Create%20And%20Send%20Events,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/prism.css" />
+    
+    <style>
+      
+    </style>
+    <script>
+      ///////////////////////////////////////////////////////
+// The Component
+//
+class EventExample extends HTMLElement {
+    constructor() {
+        super()
+        this.attachShadow({ mode: 'open' })
+        // const event = new Event('build')
+        // // Listen for the event.
+        // this.addEventListener(
+        //     'build',
+        //     (e) => {
+        //         console.log('asdf')
+        //     },
+        //     false
+        // )
+        // // Dispatch the event.
+        // this.dispatchEvent(event)
+
+        // const wrapper = document.createElement('span')
+        // wrapper.innerText = 'Hello, Component!'
+
+        const sendEvent = (event) => {
+            const componentEvent = new CustomEvent('componentActivated', {
+                detail: {
+                    value: new Date().getTime(),
+                },
+                composed: true,
+                bubbles: true,
+            })
+            this.dispatchEvent(componentEvent)
+        }
+
+        const button = document.createElement('button')
+        button.addEventListener('click', sendEvent)
+        button.innerHTML = 'Click Here'
+
+        // () => {
+
+        // // const bbb = new Event('bbb')
+        // const bbb = new CustomEvent('bbb', {
+        //     detail: 'this is the detail',
+        //     // cancelable: true,
+        //     composed: true,
+        //     bubbles: true,
+        // })
+        // this.addEventListener('bbb', (e) => {
+        //     console.log(`caught locallly: ${e.detail}`)
+        // })
+        // // this.addEventListener('bbb', (e) => {}, false)
+        // setTimeout(() => {
+        //     console.log('timout triggered')
+        //     this.dispatchEvent(bbb)
+        // }, 1000)
+
+        this.shadowRoot.append(button)
+    }
+}
+
+customElements.define('event-example', EventExample)
+
+///////////////////////////////////////////////////////
+// Global
+
+const updateValue = (event) => {
+    const display = document.getElementById('display')
+    display.innerHTML = `New Value: ${event.detail.value}`
+}
+
+document.addEventListener('componentActivated', updateValue)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">Cookbook Home</a> ~
+      <a href="https://www.alanwsmith.com/">alanwsmith.com</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://https://twitter.com/TheIdOfAlan">twitter</a>
+    </header>
+    <main>
+      <h1>Web Components - Create And Send Events</h1>
+      
+                <h2>Deatils</h2>
+                <ul>
+                    <li>GOAL Send a 'changed' event that mimics what a form would send</li>
+                </ul>
+                
+      <h2>EXAMPLE</h2>
+      <event-example></event-example>
+<div id="display">Ready...</div>
+  
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;event-example&gt;&lt;/event-example&gt;
+&lt;div id=&quot;display&quot;&gt;Ready...&lt;/div&gt;
+</code></pre>
+              
+            <h2>JavaScript</h2>
+            <pre><code class="language-js">///////////////////////////////////////////////////////
+// The Component
+//
+class EventExample extends HTMLElement {
+    constructor() {
+        super()
+        this.attachShadow({ mode: &#x27;open&#x27; })
+        // const event = new Event(&#x27;build&#x27;)
+        // // Listen for the event.
+        // this.addEventListener(
+        //     &#x27;build&#x27;,
+        //     (e) =&gt; {
+        //         console.log(&#x27;asdf&#x27;)
+        //     },
+        //     false
+        // )
+        // // Dispatch the event.
+        // this.dispatchEvent(event)
+
+        // const wrapper = document.createElement(&#x27;span&#x27;)
+        // wrapper.innerText = &#x27;Hello, Component!&#x27;
+
+        const sendEvent = (event) =&gt; {
+            const componentEvent = new CustomEvent(&#x27;componentActivated&#x27;, {
+                detail: {
+                    value: new Date().getTime(),
+                },
+                composed: true,
+                bubbles: true,
+            })
+            this.dispatchEvent(componentEvent)
+        }
+
+        const button = document.createElement(&#x27;button&#x27;)
+        button.addEventListener(&#x27;click&#x27;, sendEvent)
+        button.innerHTML = &#x27;Click Here&#x27;
+
+        // () =&gt; {
+
+        // // const bbb = new Event(&#x27;bbb&#x27;)
+        // const bbb = new CustomEvent(&#x27;bbb&#x27;, {
+        //     detail: &#x27;this is the detail&#x27;,
+        //     // cancelable: true,
+        //     composed: true,
+        //     bubbles: true,
+        // })
+        // this.addEventListener(&#x27;bbb&#x27;, (e) =&gt; {
+        //     console.log(`caught locallly: ${e.detail}`)
+        // })
+        // // this.addEventListener(&#x27;bbb&#x27;, (e) =&gt; {}, false)
+        // setTimeout(() =&gt; {
+        //     console.log(&#x27;timout triggered&#x27;)
+        //     this.dispatchEvent(bbb)
+        // }, 1000)
+
+        this.shadowRoot.append(button)
+    }
+}
+
+customElements.define(&#x27;event-example&#x27;, EventExample)
+
+///////////////////////////////////////////////////////
+// Global
+
+const updateValue = (event) =&gt; {
+    const display = document.getElementById(&#x27;display&#x27;)
+    display.innerHTML = `New Value: ${event.detail.value}`
+}
+
+document.addEventListener(&#x27;componentActivated&#x27;, updateValue)
+</code></pre>
+             
+      
+                <h2>Notes</h2>
+                <ul>
+                    <li>Add these links</li> <li>https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent</li> <li>https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent</li> <li>https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent</li> <li>https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent</li> <li>https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent</li> <li>https://developer.mozilla.org/en-US/docs/Web/API/Document/createEvent</li> <li>https://developer.mozilla.org/en-US/docs/Web/API/Event</li> <li>https://developer.mozilla.org/en-US/docs/Web/API/Event/Event</li> <li>https://developer.mozilla.org/en-US/docs/Web/API/Event/Event</li> <li>https://developer.mozilla.org/en-US/docs/Web/API/Event/bubbles</li> <li>https://developer.mozilla.org/en-US/docs/Web/API/Event/cancelable</li> <li>https://developer.mozilla.org/en-US/docs/Web/API/Event/composed</li> <li>https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener</li> <li>https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/dispatchEvent</li> <li>https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/dispatchEvent</li> <li>https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event</li> <li>https://developer.mozilla.org/en-US/docs/Web/API/InputEvent</li> <li>https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events</li> <li>https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events</li> <li>https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events</li> <li>https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes</li>
+                </ul>
+             
+                <h2>References</h2>
+                <ul>
+                    <li><a href=""></a></li>
+                </ul>
+                
+    </main>
+    <footer>
+      made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>
+      <br />
+      who has a <a href="https://www.alanwsmith.com">website</a> and a
+      <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
+      among other <a href="https://links.alanwsmith.com">things</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>

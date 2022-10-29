@@ -1,0 +1,9 @@
+#awsselect--top-wrapper {
+  display: inline;
+  position: relative;
+}
+
+
+#awsselect--options-wrapper {
+  position: absolute;
+}

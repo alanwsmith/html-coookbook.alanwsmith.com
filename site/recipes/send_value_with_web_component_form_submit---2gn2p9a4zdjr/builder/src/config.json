@@ -1,0 +1,58 @@
+{
+    "TITLE": "Send A Web Component Value When Submitting A Form",
+    "STATUS": "ready",
+    "DESCRIPTION": "",
+    "DETAILS": [
+        "This mehod uses an 'input' element inside a web component whose value is included when the form is submitted",
+        "Details on the methodology are below the example"
+    ],
+    "NOTES": [
+        "TODO: write up the details of functionality",
+        "The .name isn't required on the element. It could be set directly in the response",
+        "The plainenglish post talked about using 'ElementInternals' but those aren't supported in Safar at press time"
+    ],
+
+    "TODOS": [],
+    "REFERENCES": [
+        {
+            "title": "MDN: ElementInternals",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals",
+            "extra": ""
+        },
+        {
+            "title": "Web Components Can Now Be Native Form Elements - plainenglish",
+            "url": "https://javascript.plainenglish.io/web-components-can-now-be-native-form-elements-107c7a93386",
+            "extra": ""
+        },
+        {
+            "title": "MDN: Using FormData Objects",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/FormData/Using_FormData_Objects",
+            "extra": ""
+        },
+        {
+            "title": "MDN: FormData()",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/FormData/FormData",
+            "extra": ""
+        },
+        {
+            "title": "MDN: FormData",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/FormData",
+            "extra": ""
+        },
+        {
+            "title": "Shadow DOM v1 - Self-Contained Web Components",
+            "url": "https://web.dev/shadowdom-v1/",
+            "extra": ""
+        },
+        {
+            "title": "Introduction To Web Components",
+            "url": "https://www.webcomponents.org/introduction",
+            "extra": ""
+        },
+        {
+            "title": "Custom elements, shadow DOM and implicit form submission",
+            "url": "https://www.hjorthhansen.dev/shadow-dom-and-forms/",
+            "extra": ""
+        }
+    ]
+}

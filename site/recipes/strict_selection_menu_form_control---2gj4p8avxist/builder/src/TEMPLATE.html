@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>$TITLE - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="$TITLE" />
+    <meta property="og:description" content="$DESCRIPTION" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:$IMAGESLUG,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/prism.css" />
+    $HEAD
+    <style>
+      $CSS
+    </style>
+    <script>
+      $JAVASCRIPT
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">Cookbook Home</a> ~
+      <a href="https://www.alanwsmith.com/">alanwsmith.com</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://https://twitter.com/TheIdOfAlan">twitter</a>
+    </header>
+    <main>
+      <h1>WORK IN PROGRESS</h1>
+      <hr />
+      <p>
+        I'm still buliding this out. It's very much a DRAFT and is various
+        stages of scuffed depending on the day
+      </p>
+      <hr />
+      <h1>$TITLE</h1>
+      <p>
+        I'm building this because I haven't been able to figure out how to get
+        the default form controls to do what I want
+      </p>
+      <p>
+        The primary goal is to have an input field where you can enter text that
+        brings up a drop down menu of possible options. But, I want to limit the
+        possible values from the input field to what's in the selection and I
+        want it so that if you press enter whichever one is first in the list
+        gets selected. There's a bunch of other functionatliy listed below, but
+        those items are the key
+      </p>
+
+      <h2>Example</h2>
+      $HTML $ESCAPED_HEAD $ESCAPED_HTML $ESCAPED_CSS $ESCAPED_JAVASCRIPT
+      $DETAILS $NOTES
+      <h2>Functionality</h2>
+      <h3>Neither the INPUT or the MENU is focused</h3>
+      <ul>
+        <li>[.] - INPUT is visible</li>
+        <li>[.] - MENU is invisible</li>
+        <li>[.] - PLACEHOLDER shows previous SELECTION if one exists</li>
+        <li>
+          [.] - PLACEHOLDER shows default text if no previous SELECTION exists
+        </li>
+      </ul>
+
+      <h3>INPUT Becomes Focused</h3>
+      <ul>
+        <li>[.] - PLACEHOLDER is removed</li>
+        <li>[.] - MENU opens</li>
+        <li>[.] - MENU displays default OPTIONS with making one SELECTED</li>
+      </ul>
+
+      <h3>ENTER is pressed while INPUT has focus with no VALUE</h3>
+      <ul>
+        <li>[.] - no-op</li>
+      </ul>
+
+      <h3>ESCAPE pressed while INPUT has focus with no VALUE</h3>
+      <ul>
+        <li>[.] - Hides the MENU</li>
+        <li>[.] - INPUT is blured</li>
+        <li>[.] - PLACEHOLDER shows previous SELECTION if one exists</li>
+        <li>
+          [.] - PLACEHOLDER shows default text if no previous SELECTION exists
+        </li>
+      </ul>
+
+      <h3>ESCAPE is pressed in the MENU</h3>
+      <ul>
+        <li>[.] - INPUT is focused with existing text remaining in place</li>
+      </ul>
+
+      <h3>ENTER is pressed while INPUT has focus has a VALUE</h3>
+      <h3>ESCAPE is pressed while INPUT has focus has a VALUE</h3>
+      <h3>CLICK occurs outside INPUT or MENU</h3>
+      <h3>CLICK occurs on MENU OPTION</h3>
+      <h3>CLICK occurs in INPUT while MENU has focus</h3>
+
+      <h3>CLICK occurs outside the INPUT and MENU when INPUT has no VALUE</h3>
+      <ul>
+        <li>[.] - MENU is closed</li>
+        <li>[.] - INPUT PLACEHOLDER returns to its previous value</li>
+      </ul>
+
+      <h3>TAB is pressed while MENU is active with VALUE in INPUT</h3>
+      <ul>
+        <li>[.] - MENU closes</li>
+        <li>[.] - INPUT VALUE is set to nothing</li>
+        <li>[.] - INPUT PLACEHOLDER is returned to previous value</li>
+        <li>[.] - Focus moves to next tab index as normal</li>
+      </ul>
+
+      <h3>
+        TAB is pressed while MENU is active with VALUE in INPUT but no valid
+        OPTIONs available
+      </h3>
+      <li>[.] - no-op</li>
+
+      <h3>
+        ARROW DOWN is pressed while MENU is active with VALUE in INPUT but no
+        valid OPTIONs available
+      </h3>
+      <li>[.] - no-op</li>
+
+      <h3>TAB pressed when VALUE in INPUT has zero MENU results</h3>
+      <ul>
+        <li>[.] - no-op</li>
+      </ul>
+
+      <hr />
+
+      <ul>
+        <li>
+          [.] - Hitting TAB in INPUT when INPUT is empty
+          <ul>
+            <li>[.] - Focuses the MENU</li>
+            <li>[.] - Selects the first OPTION</li>
+          </ul>
+        </li>
+        <li>[.] - Hitting TAB in INPUT when INPUT has TEXT</li>
+        <ul>
+          <li>[.] - Focuses the MENU</li>
+          <li>
+            [.] - No adjustement to SELECTION since it will already be on the
+            first OPTION
+          </li>
+        </ul>
+      </ul>
+
+      <h3>[] - Hitting TAB when MENU has focus</h3>
+      <ul>
+        <li>[ ] - Moves to next TAB INDEX</li>
+        <li>[ ] - Closes MENU</li>
+        <li>[ ] - Removes any VALUE from INPUT</li>
+        <li>[ ] - Displays previous SELECTION as PLACEHOLDER if one exists</li>
+        <li>
+          [ ] - Displays default PLACEHOLDER if no previous SELECTION exists
+        </li>
+      </ul>
+
+      <ul>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+        <li>[ ] -</li>
+      </ul>
+
+      $TODOS $REFERENCES
+    </main>
+    <footer>
+      made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>
+      <br />
+      who has a <a href="https://www.alanwsmith.com">website</a> and a
+      <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
+      among other <a href="https://links.alanwsmith.com">things</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>

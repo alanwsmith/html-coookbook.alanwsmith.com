@@ -1,0 +1,40 @@
+{
+    "TITLE": "Create And Send Events From A Web Component",
+    "STATUS": "ready",
+    "DESCRIPTION": "",
+    "DETAILS": [
+        "GOAL Send a 'changed' event that mimics what a form would send"
+    ],
+    "NOTES": [
+        "Add these links",
+        "https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent",
+        "https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent",
+        "https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent",
+        "https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent",
+        "https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent",
+        "https://developer.mozilla.org/en-US/docs/Web/API/Document/createEvent",
+        "https://developer.mozilla.org/en-US/docs/Web/API/Event",
+        "https://developer.mozilla.org/en-US/docs/Web/API/Event/Event",
+        "https://developer.mozilla.org/en-US/docs/Web/API/Event/Event",
+        "https://developer.mozilla.org/en-US/docs/Web/API/Event/bubbles",
+        "https://developer.mozilla.org/en-US/docs/Web/API/Event/cancelable",
+        "https://developer.mozilla.org/en-US/docs/Web/API/Event/composed",
+        "https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener",
+        "https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/dispatchEvent",
+        "https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/dispatchEvent",
+        "https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event",
+        "https://developer.mozilla.org/en-US/docs/Web/API/InputEvent",
+        "https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events",
+        "https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events",
+        "https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events",
+        "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes"
+    ],
+    "TODOS": [],
+    "REFERENCES": [
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        }
+    ]
+}

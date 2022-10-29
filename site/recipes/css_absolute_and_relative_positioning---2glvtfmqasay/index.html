@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS - Make A Select Menu Float Above Other Content - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="CSS - Make A Select Menu Float Above Other Content" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:CSS%20-%20Make%20A%20Select%20Menu%20Float%20Above%20Other%20Content,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/prism.css" />
+    
+    <style>
+      #target-wrapper {
+  position: relative;
+}
+
+#target-select {
+  position: absolute;
+}
+
+    </style>
+    <script>
+      const kickoff = () => {
+    console.log("kickoff")
+}
+
+document.addEventListener('DOMContentLoaded', kickoff)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">Cookbook Home</a> ~
+      <a href="https://www.alanwsmith.com/">alanwsmith.com</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://https://twitter.com/TheIdOfAlan">twitter</a>
+    </header>
+    <main>
+      <h1>CSS - Make A Select Menu Float Above Other Content</h1>
+      
+                <h2>Deatils</h2>
+                <ul>
+                    <li>How to make something flow above something else</li> <li>The field is open full time for now, but the use case is when it would be hidden until some action made it visible at which point it should appear above the other content</li>
+                </ul>
+                
+      <h2>EXAMPLE</h2>
+      <div id="target-wrapper">
+  <select size="5" id="target-select">
+    <option value="alpha">Alpha</option>
+    <option value="bravo">Bravo</option>
+    <option value="charlie">Charlie</option>
+    <option value="delta">Delta</option>
+    <option value="echo">Echo</option>
+    <option value="foxtrot">Foxtrot</option>
+    <option value="golf">Golf</option>
+    <option value="hotel">Hotel</option>
+    <option value="india">India</option>
+    <option value="juliett">Juliett</option>
+    <option value="kilo">Kilo</option>
+    <option value="lima">Lima</option>
+    <option value="mike">Mike</option>
+    <option value="november">November</option>
+    <option value="oscar">Oscar</option>
+    <option value="papa">Papa</option>
+    <option value="quebec">Quebec</option>
+    <option value="romeo">Romeo</option>
+    <option value="sierra">Sierra</option>
+    <option value="tango">Tango</option>
+    <option value="uniform">Uniform</option>
+    <option value="victor">Victor</option>
+    <option value="whiskey">Whiskey</option>
+    <option value="x-ray">X-ray</option>
+    <option value="yankee">Yankee</option>
+    <option value="zulu">Zulu</option>
+  </select>
+</div>
+<div>
+  This is the text that should be overwritten. This is the text that should be
+  overwritten. This is the text that should be overwritten. This is the text
+  that should be overwritten. This is the text that should be overwritten. This
+  is the text that should be overwritten.
+</div>
+  
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;div id=&quot;target-wrapper&quot;&gt;
+  &lt;select size=&quot;5&quot; id=&quot;target-select&quot;&gt;
+    &lt;option value=&quot;alpha&quot;&gt;Alpha&lt;/option&gt;
+    &lt;option value=&quot;bravo&quot;&gt;Bravo&lt;/option&gt;
+    &lt;option value=&quot;charlie&quot;&gt;Charlie&lt;/option&gt;
+    &lt;option value=&quot;delta&quot;&gt;Delta&lt;/option&gt;
+    &lt;option value=&quot;echo&quot;&gt;Echo&lt;/option&gt;
+    &lt;option value=&quot;foxtrot&quot;&gt;Foxtrot&lt;/option&gt;
+    &lt;option value=&quot;golf&quot;&gt;Golf&lt;/option&gt;
+    &lt;option value=&quot;hotel&quot;&gt;Hotel&lt;/option&gt;
+    &lt;option value=&quot;india&quot;&gt;India&lt;/option&gt;
+    &lt;option value=&quot;juliett&quot;&gt;Juliett&lt;/option&gt;
+    &lt;option value=&quot;kilo&quot;&gt;Kilo&lt;/option&gt;
+    &lt;option value=&quot;lima&quot;&gt;Lima&lt;/option&gt;
+    &lt;option value=&quot;mike&quot;&gt;Mike&lt;/option&gt;
+    &lt;option value=&quot;november&quot;&gt;November&lt;/option&gt;
+    &lt;option value=&quot;oscar&quot;&gt;Oscar&lt;/option&gt;
+    &lt;option value=&quot;papa&quot;&gt;Papa&lt;/option&gt;
+    &lt;option value=&quot;quebec&quot;&gt;Quebec&lt;/option&gt;
+    &lt;option value=&quot;romeo&quot;&gt;Romeo&lt;/option&gt;
+    &lt;option value=&quot;sierra&quot;&gt;Sierra&lt;/option&gt;
+    &lt;option value=&quot;tango&quot;&gt;Tango&lt;/option&gt;
+    &lt;option value=&quot;uniform&quot;&gt;Uniform&lt;/option&gt;
+    &lt;option value=&quot;victor&quot;&gt;Victor&lt;/option&gt;
+    &lt;option value=&quot;whiskey&quot;&gt;Whiskey&lt;/option&gt;
+    &lt;option value=&quot;x-ray&quot;&gt;X-ray&lt;/option&gt;
+    &lt;option value=&quot;yankee&quot;&gt;Yankee&lt;/option&gt;
+    &lt;option value=&quot;zulu&quot;&gt;Zulu&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  This is the text that should be overwritten. This is the text that should be
+  overwritten. This is the text that should be overwritten. This is the text
+  that should be overwritten. This is the text that should be overwritten. This
+  is the text that should be overwritten.
+&lt;/div&gt;
+</code></pre>
+             
+            <h2>CSS</h2>
+            <pre><code class="language-css">#target-wrapper {
+  position: relative;
+}
+
+#target-select {
+  position: absolute;
+}
+</code></pre>
+             
+            <h2>JavaScript</h2>
+            <pre><code class="language-js">const kickoff = () =&gt; {
+    console.log(&quot;kickoff&quot;)
+}
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, kickoff)
+</code></pre>
+             
+      
+                <h2>References</h2>
+                <ul>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position">MDN: CSS position</a></li>
+                </ul>
+                
+    </main>
+    <footer>
+      made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>
+      <br />
+      who has a <a href="https://www.alanwsmith.com">website</a> and a
+      <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
+      among other <a href="https://links.alanwsmith.com">things</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>

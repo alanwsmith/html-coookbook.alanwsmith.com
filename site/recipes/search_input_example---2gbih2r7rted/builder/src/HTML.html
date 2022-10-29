@@ -1,0 +1,143 @@
+<div id="awsselect--top-wrapper">
+  <input
+    id="awsselect--filter"
+    type="text"
+    autocomplete="off"
+    spellcheck="false"
+    name="awsselect--this-is-the-input"
+  />
+  <br />
+  <div id="awsselect--options-wrapper"></div>
+</div>
+
+<h4>Goals</h4>
+<p>
+  (NOTE: this is my scratch pad. There's not specific order and there are
+  duplicates, etc...)
+</p>
+<ul>
+  <li>[.] - Show a placeholder when there is no initial input</li>
+  <li>[.] - Show a placeholder with most recent selected value</li>
+  <li>
+    [.] - Don't show the selection list if either it or the text field are not
+    selected
+  </li>
+  <li>[.] - Clicking into the field clears the placeholder</li>
+  <li>
+    [.] - Clicking into the field opens the selection list with unfiltered
+    options
+  </li>
+  <li>[.] - Don't show the drop down until the cursor is in the input field</li>
+  <li>[.] - Typing in the input field filters the items in the menu</li>
+  <li>
+    [.] - Hitting enter in the text field selets the top value from the
+    selection list
+  </li>
+  <li>
+    [.] - The first item in the list is selected as you type to identify what
+    will be used if you hit enter
+  </li>
+  <li>[.] - Clicking outside the input resets it to the place holder</li>
+  <li>[.] - Clicking an item in the list sets the value and closes the list</li>
+  <li>
+    [.] - Hitting enter when there is not valid selection item doesn't do
+    anything
+  </li>
+  <li>
+    [.] - Pressing the down arrow in the input field takes you to the first list
+    item if there's no filter text
+  </li>
+  <li>
+    [.] - Pressing the down arrow in the input field takes you to the second
+    list item if there's a filter (thinking folks would hit enter if they wanted
+    the first one
+  </li>
+  <li>[.] - Pressing escape in the input field takes you out and clear it.</li>
+  <li>
+    [.] - Clicking an item in the menu selects it, closes the menu, and returns
+    the text to the placeholder
+  </li>
+  <li>
+    [.] - Don't select the first item in the list if there is nothing in the
+    text field
+  </li>
+  <li>[.] - Hitting enter while on the selection list triggers update</li>
+  <li>[.] - Menu list doesn't shift layout</li>
+  <li>
+    [.] - On arrow down, if there's nothing in the input field, select the first
+    option
+  </li>
+  <li>
+    [.] - On arrow down, if there is something in the input field, select the
+    second option
+  </li>
+  <li>
+    [.] - Keep the size of the selection list the same so it doesn't change when
+    filtering
+  </li>
+  <li>[.] - If you only go down one option make sure up arrow works</li>
+  <li>
+    [.] - If youre in the menu and you click into the text field it needs to
+    close/kill the select menu
+  </li>
+  <li>
+    [.] - Reset selection in menu when opening the form so you don't hit the
+    arrow and end up way down the list from the last interaction
+  </li>
+  <li>
+    [.] - Fix issue with safari where it would keep track of how far down the
+    last selection (even if you reset it) was which was undesireable. (Solution
+    was to remove the element from the DOM and create a new one)
+  </li>
+  <li>
+    [.] - Hitting enter on the text field when it's empty doesn't change place
+    holder or selected value and the filter stays open.
+  </li>
+  <li>
+    [.] - have the uparrow move back to the text if it's hit while on the first
+    element in the list
+  </li>
+  <li>[.] - Put a message in when there are no matches.</li>
+  <li>[ ] - Provide for multiple instances on a page</li>
+</ul>
+
+<h4>In The Future</h4>
+<ul>
+  <li>[ ] - Investigate using fieldset</li>
+  <li>[ ] - Investigate using custom element name for wrapper</li>
+  <li>
+    [ ] - When a selection is made, move the tab index so a press of tab goes
+    back to the same menu
+  </li>
+  <li>
+    [ ] - Investigate if populating the selection list in HTML offers any
+    accessability improvements
+  </li>
+  <li>[ ] - Put items you've selected before up at the top</li>
+  <li>
+    [ ] - Add sections to the drop down list to show the current top filterd
+    item and previous selections
+  </li>
+  <li>[ ] - Set the size of the selection box spacer dynamically</li>
+  <li>
+    [ ] - Truncate the text of items that would extend past whatever spaceing is
+    set
+  </li>
+  <li>
+    [ ] - Maybe setup to keep primary sort order during inital browse but swtich
+    to alpha when text is in the search field
+  </li>
+  <li>
+    [ ] - Fix bug where if there's only one option and you hit the down arrow it
+    selects the diabled spacer line
+  </li>
+  <li>[ ] - Investigate a more advanced search algorythim</li>
+</ul>
+
+<h4>Notes</h4>
+<ul>
+  <li>
+    This is not current the search input type. I'm playing around with trying to
+    get my custom text selection working for the fonts site
+  </li>
+</ul>

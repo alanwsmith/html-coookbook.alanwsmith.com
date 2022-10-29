@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Components - Hello World - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Web Components - Hello World" />
+    <meta property="og:description" content="A simple hello world example with as little stuff in it as possible" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Web%20Components%20-%20Hello%20World,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/prism.css" />
+    
+    <style>
+      
+    </style>
+    <script>
+      class HelloComponent extends HTMLElement {
+    constructor() {
+        super()
+
+        this.attachShadow({ mode: 'open' })
+        const wrapper = document.createElement('span')
+        wrapper.innerText = 'Hello, Component!'
+
+        this.shadowRoot.append(wrapper)
+    }
+}
+
+customElements.define('hello-component', HelloComponent)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">Cookbook Home</a> ~
+      <a href="https://www.alanwsmith.com/">alanwsmith.com</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://https://twitter.com/TheIdOfAlan">twitter</a>
+    </header>
+    <main>
+      <h1>Web Components - Hello World</h1>
+      
+                <h2>Deatils</h2>
+                <ul>
+                    <li>This is a basic example 'Hello, World' example of web components. Some of the examples I've seen make it look much more complicated than it really is.</li> <li>The example below is built directly from the HTML and JavaScript code snippets that follow</li>
+                </ul>
+                
+      <h2>Example</h2>
+      <hello-component></hello-component>
+  
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;hello-component&gt;&lt;/hello-component&gt;
+</code></pre>
+              
+            <h2>JavaScript</h2>
+            <pre><code class="language-js">class HelloComponent extends HTMLElement {
+    constructor() {
+        super()
+
+        this.attachShadow({ mode: &#x27;open&#x27; })
+        const wrapper = document.createElement(&#x27;span&#x27;)
+        wrapper.innerText = &#x27;Hello, Component!&#x27;
+
+        this.shadowRoot.append(wrapper)
+    }
+}
+
+customElements.define(&#x27;hello-component&#x27;, HelloComponent)
+</code></pre>
+             
+                <h2>Notes</h2>
+                <ul>
+                    <li>I had to use both the open and close tags explictly. If I tried with the single tag version (i.e. `&lt;hello-component /&gt;) the rest of the content on the page disappeared</li> <li>Something to research: I'm assuming you have to load these before trying to use them with a tag so you can't put them after a DOM Loaded listener</li>
+                </ul>
+            
+       
+                <h2>References</h2>
+                <ul>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements">MDN: Using custom elements</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components">MDN: Web Components</a></li>
+                </ul>
+                
+    </main>
+    <footer>
+      made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>
+      <br />
+      who has a <a href="https://www.alanwsmith.com">website</a> and a
+      <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
+      among other <a href="https://links.alanwsmith.com">things</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>

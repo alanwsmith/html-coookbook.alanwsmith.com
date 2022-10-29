@@ -1,0 +1,38 @@
+<input list="typesOfFruit" placeholder="Enter a fruit..." />
+
+<datalist id="typesOfFruit">
+  <option>Apple</option>
+  <option>Orange</option>
+  <option>Banana</option>
+</datalist>
+
+<form action="./index.html" method="get">
+  <label for="ice-cream-choice">Choose a flavor:</label>
+  <inpuxt
+    type="text"
+    list="ice-cream-flavors"
+    id="ice-cream-choice"
+    name="ice-cream-choice"
+    required="required"
+    data-thing="asdf"
+    value=""
+  />
+
+  <datalist id="ice-cream-flavors">
+    <option name="aaaaaa" id="eeeee" data-theid="1" value="Chocolate"></option>
+    <option name="bbbbbb" id="fffff" data-theid="2" value="Coconut"></option>
+    <option name="cccccc" id="ggggg" data-theid="3" value="Vanilla"></option>
+    <option name="wwwwww" id="gaaaa" data-theid="4" value="Volvo"></option>
+    <option name="xxxxxx" id="gbbbb" data-theid="5" value="Saab"></option>
+    <option name="yyyyyy" id="gcccc" data-theid="6" value="Mercedes"></option>
+    <option name="zzzzzz" id="gdddd" data-theid="7" value="Audi"></option>
+  </datalist>
+  <input type="submit" value="submit" />
+</form>
+
+<ul>
+  <li>
+    Note: even if you try to submit the form, it allows for the single letters
+    to come thru
+  </li>
+</ul>

@@ -1,0 +1,76 @@
+{
+    "TITLE": "Strict Selection Menu Form Control",
+    "STATUS": "draft",
+    "DESCRIPTION": "Goal: a form control that lets you pick from a selection by typing but only from the available selections",
+    "DETAILS": [],
+    "NOTES": [
+        "The notes below are still in draft form. They are incomplete, sometimes incorrect, and often duplicated. Clean up is in progress",
+        "Remove the previous 'Search' and 'Autocomplete' tests when this is running",
+        "The reason for removing and adding the 'select' element (instead of just the options) is because of a behavior in safari where it doesn't respect resetting the position of the selected element on arrow movements",
+        "I'm adding display inline when the DOMContentLoaded fires. Adding it before then throws an error. TBD if that causes a layout shift which would need to be dealt with",
+        "I remove the placeholder text when you first click into the input field because it aways throws me when the text stays there on default forms",
+        "The setTimeout move to the next tab is becaue I haven't found a way to move to the next tab index programatically. Closing the menu first means the tab doesn't move. And closing it after didn't work"
+    ],
+    "TODOS": [
+        "[ ] - Clean up and dedupe the requirements",
+        "[ ] - Switch so that escape when there is text in input ejects from it instead of removing it but leving the form focused",
+        "[ ] - Consider tabbing to next tab index if there is text in the input but id doesn't match anything",
+        "[.] - Don't load the options in at the start. call them dynamically so they can be updated outside the component. May have to keep some type of loader in there for the dom ready to prevent issue where the data doesn't show up on first hitting the open element",
+        "[.] - Load data from child &lt;option&gt; elements",
+        "[.] - Clicking in the input field opens the menu",
+        "[.] - Clicking outside the input field closes the menu",
+        "[.] - Clicking outside the menu closes the menu",
+        "[ ] - Investigate making this a custom built-in form form element so it can have that API",
+        "[ ] - Verify that options can be updated live outside the component",
+        "[.] - Hitting escape while inside resets the form but keeps you in it",
+        "[ ] - Clicking the up arrow when you're at the top of the list takes up back to the input field",
+        "[ ] - If you mouse all the way back up, the selection is removed until you hit anoter key",
+        "[ ] - escape with text removes it. escape without text blurs the input",
+        "[ ] - If you just arrow down and then immediately up, go back to the input",
+        "[ ] - Don't try to go past the last item with arrow down",
+        "[ ] - Investigate UX of moving to alpha sort when a search term is in the Input field",
+        "[ ] - Add customization that lets you show the default placeholder instead of the prious selection",
+        "[ ] - Maybe refactor a little after a break",
+        "[ ] - Display No Matches when there aren't any",
+        "[ ] - See if there's a way to eliminate the quick blink when tabbing from the menu to the next tab index",
+        "Add to refs: https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent",
+        "https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events"
+    ],
+    "REFERENCES": [
+        {
+            "title": "MDN: Using custom elements",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements",
+            "extra": ""
+        },
+        {
+            "title": "MDN: Web Components",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/Web_Components",
+            "extra": ""
+        },
+        {
+            "title": "MDN: JavaScript Classes",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes",
+            "extra": ""
+        },
+        {
+            "title": "MDN: CSS position",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/position",
+            "extra": ""
+        },
+        {
+            "title": "Is it possible to simulate key press events programmatically?",
+            "url": "https://stackoverflow.com/q/596481/102401",
+            "extra": "I didn't end up using this. Something to look into if the need arises"
+        },
+        {
+            "title": "MDN: Event.preventDefault()",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault",
+            "extra": ""
+        },
+        {
+            "title": "MDN: CustomEvent",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent",
+            "extra": ""
+        }
+    ]
+}

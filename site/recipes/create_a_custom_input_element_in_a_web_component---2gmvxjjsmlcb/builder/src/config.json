@@ -1,0 +1,27 @@
+{
+    "TITLE": "Web Component - [Not Currently Possible] - Custom Input Form Control Element",
+    "STATUS": "draft",
+    "DESCRIPTION": "",
+    "DETAILS": [
+        "This is a non-starter. I was going to use the 'is' extension, with HTMLInputElement, but that doesn't work in WebKit: https://github.com/WICG/webcomponents/issues/509"
+    ],
+    "NOTES": [
+        "I was going to try to extend the 'input' field, but based on this post it seems you can't used the 'is' extension type of custom components: https://www.reddit.com/r/webdev/comments/oma8fx/help_custom_elements_not_working_on_ios_safari/ - that one ate an hour of time copying and pasting code directly from the example on MDN",
+        "https://www.reddit.com/r/webdev/comments/oma8fx/help_custom_elements_not_working_on_ios_safari/",
+        "https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event",
+        "https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement",
+        "https://github.com/mdn/web-components-examples/tree/main/expanding-list-web-component",
+        "https://github.com/WICG/webcomponents/issues/509",
+        "https://www.reddit.com/r/webdev/comments/oma8fx/help_custom_elements_not_working_on_ios_safari/",
+        "https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement"
+
+    ],
+    "TODOS": [],
+    "REFERENCES": [
+        {
+            "title": "MDN: Using custom elements",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements",
+            "extra": ""
+        }
+    ]
+}

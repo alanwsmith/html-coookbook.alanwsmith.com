@@ -1,0 +1,328 @@
+{
+    "TITLE": "Autocomplete Selection Menu",
+    "STATUS": "draft",
+    "DESCRIPTION": "An selection menu with autocompletion that only allows for the configure values to be selected",
+    "DETAILS": [
+        "GOAL: [ ] Accepts an array of key-value pairs to use as selections",
+        "GOAL: [ ] Filter selections based on text input",
+        "GOAL: [ ] Proper accessability",
+        "GOAL: [ ] Show autocompete when typing",
+        "GOAL: [ ] Show first option in text area if autocomplete doesn't match exactly",
+        "GOAL: [ ] Clicking enter selects first item",
+        "GOAL: [ ] Tabbing to secondary selections",
+        "GOAL: [ ] Hitting enter on a secondary selection chooses it",
+        "GOAL: [ ] Clicking a secondary button selects it",
+        "GOAL: [ ] Show the last select item as a placeholder when the field isn't focused",
+        "GOAL: [ ] Ability to select a placeholder on load",
+        "GOAL: [ ] Scrollable list of selections",
+        "GOAL: [ ] Multiple instances on the same page"
+    ],
+    "NOTES": [
+        "This is currently a very naive approach to the matching selections. If the string in the input field matches anywhere in the item list it gets included."
+    ],
+    "TODOS": [
+        "Dig through this for multiline suppression: https://stackoverflow.com/questions/6831482/contenteditable-single-line-input"
+    ],
+    "REFERENCES": [
+        {
+            "title": "Create a custom autocomplete list for an input field",
+            "url": "https://stackoverflow.com/questions/33985130/create-a-custom-autocomplete-list-for-an-input-field",
+            "extra": ""
+        },
+        {
+            "title": "html5 datalist to select only predefined options",
+            "url": "https://stackoverflow.com/q/30499199/102401",
+            "extra": ""
+        },
+        {
+            "title": "How to create an autocomplete input with only HTML",
+            "url": "https://gomakethings.com/how-to-create-an-autocomplete-input-with-only-html/",
+            "extra": ""
+        },
+        {
+            "title": "HTMLElement: input event",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event",
+            "extra": ""
+        },
+        {
+            "title": "Detect the Enter key in a text input field",
+            "url": "https://stackoverflow.com/q/7060750/102401",
+            "extra": ""
+        },
+        {
+            "title": "HTMLElement.contentEditable",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/contentEditable",
+            "extra": ""
+        },
+        {
+            "title": "contenteditable single-line input",
+            "url": "https://stackoverflow.com/q/6831482/102401",
+            "extra": ""
+        },
+        {
+            "title": "contenteditable change events",
+            "url": "https://stackoverflow.com/q/1391278",
+            "extra": ""
+        },
+        {
+            "title": "When To Use Input Autocomplete In HTML (And When List Or Datalist)",
+            "url": "https://html.com/attributes/input-autocomplete/",
+            "extra": ""
+        },
+        {
+            "title": "How to achieve autocomplete feature over HTML drop-down or select element?",
+            "url": "https://stackoverflow.com/q/43579748/102401",
+            "extra": ""
+        },
+        {
+            "title": "HTMLElement.blur() does not remove focus in Safari when used on contenteditable elements?",
+            "url": "https://stackoverflow.com/q/72510983/102401",
+            "extra": ""
+        },
+        {
+            "title": "contenteditable",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/contenteditable",
+            "extra": ""
+        },
+        {
+            "title": "Why blur and focus doesn't work on Safari?",
+            "url": "https://stackoverflow.com/q/61245883/102401",
+            "extra": ""
+        },
+        {
+            "title": "HTMLElement.enterKeyHint",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/enterKeyHint",
+            "extra": ""
+        },
+        {
+            "title": "How can I make a browser display all datalist options when a default value is set?",
+            "url": "https://stackoverflow.com/q/37478727/102401",
+            "extra": ""
+        },
+        {
+            "title": "HTML5 Datalist: What You Need To Know",
+            "url": "https://www.jotform.com/blog/html5-datalists-what-you-need-to-know-78024/",
+            "extra": ""
+        },
+        {
+            "title": "[HTML][JS] Input + datalist with validation instead of selects",
+            "url": "https://tkacz.pro/htmljs-input-datalist-with-validation-instead-of-selects/",
+            "extra": ""
+        },
+        {
+            "title": "HTML attribute: required",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/required",
+            "extra": ""
+        },
+        {
+            "title": "&lt;input&gt;': The Input (Form Input) element",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#required",
+            "extra": ""
+        },
+        {
+            "title": "&lt;datalist&gt;: The HTML Data List element",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist",
+            "extra": ""
+        },
+        {
+            "title": "How can i validate the input from a html5 Datalist?",
+            "url": "https://stackoverflow.com/q/24934669/102401",
+            "extra": ""
+        },
+        {
+            "title": "Validate 'data-value' in a html 'datalist'",
+            "url": "https://www.sitepoint.com/community/t/validate-data-value-in-a-html-datalist/355469",
+            "extra": ""
+        },
+        {
+            "title": "Using data attributes",
+            "url": "https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes",
+            "extra": ""
+        },
+        {
+            "title": "Find selected item in Datalist in HTML",
+            "url": "https://stackoverflow.com/q/26103285/102401",
+            "extra": ""
+        },
+        {
+            "title": "data-*",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*",
+            "extra": ""
+        },
+        {
+            "title": "Javascript: Match datalist options based on input",
+            "url": "https://stackoverflow.com/q/38794712/102401",
+            "extra": ""
+        },
+        {
+            "title": "HTML - Living Standard - datalist element",
+            "url": "https://html.spec.whatwg.org/multipage/form-elements.html#the-datalist-element",
+            "extra": ""
+        },
+        {
+            "title": "Content categories",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_categories#phrasing_content",
+            "extra": ""
+        },
+        {
+            "title": "Using data attributes",
+            "url": "https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes",
+            "extra": ""
+        },
+        {
+            "title": "Constraint validation",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Constraint_validation",
+            "extra": ""
+        },
+        {
+            "title": "How to Create Autocomplete Dropdowns with the Datalist Element",
+            "url": "https://blog.teamtreehouse.com/creating-autocomplete-dropdowns-datalist-element",
+            "extra": ""
+        },
+        {
+            "title": "Auto select first option in datalist while typing",
+            "url": "https://stackoverflow.com/q/54879801/102401",
+            "extra": ""
+        },
+        {
+            "title": "How to auto select the first item in datalist (html 5)?",
+            "url": "https://stackoverflow.com/q/26484432/102401",
+            "extra": ""
+        },
+        {
+            "title": "Lightweight Autocomplete Controls with the HTML5 Datalist",
+            "url": "https://www.sitepoint.com/html5-datalist-autocomplete/",
+            "extra": ""
+        },
+        {
+            "title": "Datalist element in HTML 5",
+            "url": "https://www.plus2net.com/html_tutorial/datalist.php",
+            "extra": ""
+        },
+        {
+            "title": "Find selected item in Datalist in HTML",
+            "url": "https://stackoverflow.com/q/26103285/102401",
+            "extra": ""
+        },
+        {
+            "title": "HTMLFormElement: formdata event",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/formdata_event",
+            "extra": ""
+        },
+        {
+            "title": "Selection",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/Selection",
+            "extra": ""
+        },
+        {
+            "title": "Selection API",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/Selection_API",
+            "extra": ""
+        },
+        {
+            "title": "Document.activeElement",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/Document/activeElement",
+            "extra": ""
+        },
+        {
+            "title": "HTMLElement.blur() does not remove focus in Safari when used on contenteditable elements?",
+            "url": "https://stackoverflow.com/q/72510983/102401",
+            "extra": ""
+        },
+        {
+            "title": "Caret positioning is incorrect in an empty contenteditable element with ::before pseudo",
+            "url": "https://bugzilla.mozilla.org/show_bug.cgi?id=904846",
+            "extra": ""
+        },
+        {
+            "title": "Why is the caret invisible in a contenteditable with position:relative?",
+            "url": "https://stackoverflow.com/q/70565449/102401",
+            "extra": ""
+        },
+        {
+            "title": "contenteditable not working in safari but works in chrome",
+            "url": "https://stackoverflow.com/q/20435166/102401",
+            "extra": ""
+        },
+        {
+            "title": "setCursor doesn't work well with inputStyle: 'contenteditable', #6167",
+            "url": "https://github.com/codemirror/codemirror5/issues/6167",
+            "extra": ""
+        },
+        {
+            "title": "WebKit contentEditable focus bug workaround.html",
+            "url": "https://gist.github.com/shimondoodkin/1081133",
+            "extra": ""
+        },
+        {
+            "title": "HTMLInputElement.setSelectionRange()",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/setSelectionRange",
+            "extra": ""
+        },
+        {
+            "title": "HTMLElement.contentEditable",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/contentEditable",
+            "extra": ""
+        },
+        {
+            "title": "Global attributes",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes#contenteditable",
+            "extra": ""
+        },
+        {
+            "title": "The HTML datalist tag for filter search",
+            "url": "https://jscurious.com/html-datalist-tag-for-filter-search/",
+            "extra": ""
+        },
+        {
+            "title": "Avoid filtering of datalist items in an input element",
+            "url": "https://stackoverflow.com/q/41678677/102401",
+            "extra": ""
+        },
+        {
+            "title": "HTML: Select multiple as dropdown",
+            "url": "https://stackoverflow.com/q/30190588/102401",
+            "extra": ""
+        },
+        {
+            "title": "&lt;select&gt;: The HTML Select element",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select",
+            "extra": ""
+        },
+        {
+            "title": "Accessible Rich Internet Applications (WAI-ARIA) 1.3",
+            "url": "https://w3c.github.io/aria/#combobox",
+            "extra": ""
+        },
+        {
+            "title": "HTMLElement: input event",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event",
+            "extra": ""
+        },
+        {
+            "title": "&lt;optgroup&gt;: The Option Group element",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup",
+            "extra": ""
+        },
+        {
+            "title": "HTMLElement: change event",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event",
+            "extra": ""
+        },
+        {
+            "title": "m- Autocomplete",
+            "url": "https://m-docs.org/autocomplete",
+            "extra": ""
+        },
+        {
+            "title": "Find selected item in Datalist in HTML",
+            "url": "https://stackoverflow.com/q/26103285",
+            "extra": ""
+        },
+        {
+            "title": "Auto select first option in datalist while typing",
+            "url": "https://stackoverflow.com/q/54879801",
+            "extra": ""
+        }
+    ]
+}
