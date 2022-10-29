@@ -1,0 +1,110 @@
+{
+    "TITLE": "HSL Color Picker Web Component",
+    "STATUS": "ready",
+    "DESCRIPTION": "Making a set of HSL sliders to pick colors in a web component",
+    "DETAILS": [
+        "This is where I built the initial color picker for my <a href=\"https://fonts-and-colors.alanwsmith.com\">Fonts and Colors</a> site",
+        "I decided to limit the component to just the sliders. They fire an event when they change that can be used for functionality on the parent page. For example, the color box above the sliders is generated on the parent page and not in the component",
+        "The example below is build diretly from the code snippets to ensure evrything works.",
+        "Additional notes are below the code"
+    ],
+    "NOTES": [
+        "I'm using default form controls, but still need to review the accessability of the component. Probably adding lables would make sense.",
+        "I switched the order of the sliders to something that makes more sense to me. I see the hue more as the foundation hence I put it at the bottom of the stack",
+        "The slider color gets a little off from the background at the ends. This is because the slider is based off the center point of the moving piece (aka thumb) but the background colors extend to the full edge. I played around with a design with the gradient ends extending in. I didn't like it. Next up will be to setup so the slider thumb goes out a little.",
+        "The CSS is not needed for the component itself, it's there to render the output display block from teh parent page.",
+        "Same goes for the 'preview-block' div. That's an implementation detail from the parent page",
+        "The JavaScript block includes both the web compnent and the code that to use it from the parent page (which is at the bottom).",
+        "I check the background colors for the sliders work on Chrome, Firefox, and Safari on macOS 12.x. Other setups TBD"
+    ],
+    "TODOS": [
+        "[ ] - Write up details on the functionality",
+        "[ ] - Refactor to remove the duplication of creating each slider",
+        "[ ] - Adjust so the slider thumb can extend so the center point ends up at the edge of the background boundries",
+        "[ ] - Make it responsive",
+        "[ ] - Setup to use arrow keys to bump the value for the last slider that was interacted with",
+        "[ ] - Add alpha",
+        "[ ] - Send RBG values and all the various other color formats in raw text and something that can be copied direcly into a stylesheet",
+        "[ ] - Add second selection for color to put under alpha",
+        "[ ] - Add debouce option to slow down sending event signal",
+        "[ ] - See about using cookies to store values so they are the same on refresh, etc... Guessing sending an ID will be require",
+        "[ ] - Make the size of the background configurable"
+    ],
+    "REFERENCES": [
+        {
+            "title": "MDN: &lt;color&gt;",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/color_value",
+            "extra": ""
+        },
+        {
+            "title": "MDN: hsla()",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsla",
+            "extra": ""
+        },
+        {
+            "title": "MDN: &lt;input type=&quot;range&quot;&gt;",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range",
+            "extra": ""
+        },
+        {
+            "title": "MDN: linear-gradient()",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient",
+            "extra": ""
+        },
+        {
+            "title": "MDN: hsl()",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl",
+            "extra": ""
+        },
+        {
+            "title": "Creating A Custom Range Input That Looks Consistent Across All Browsers",
+            "url": "https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers/",
+            "extra": ""
+        },
+        {
+            "title": "MDN: border-radius",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius",
+            "extra": ""
+        },
+        {
+            "title": "CSS3 Gradients by pixel, instead of percentage",
+            "url": "https://stackoverflow.com/questions/9336846/css3-gradients-by-pixel-instead-of-percentage",
+            "extra": ""
+        },
+        {
+            "title": "MDN: Pseudo-classes and pseudo-elements",
+            "url": "https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Pseudo-classes_and_pseudo-elements",
+            "extra": ""
+        },
+        {
+            "title": "Creating an Accessible Range Slider with CSS",
+            "url": "https://css-tricks.com/creating-an-accessible-range-slider-with-css/",
+            "extra": ""
+        },
+        {
+            "title": "Everything There Is To Know About Cross-Browser Styling Of The Range Input",
+            "url": "https://ethercycle.com/blog/328",
+            "extra": ""
+        },
+        {
+            "title": "MDN: Using CSS gradients",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Images/Using_CSS_gradients",
+            "extra": ""
+        },
+        {
+            "title": "MDN: linear-gradient()",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient",
+            "extra": ""
+        },
+        {
+            "title": "Creating A Custom Range Input That Looks Consistent Across All Browsers",
+            "url": "https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers/",
+            "extra": ""
+        },
+        {
+            "title": "How to Style Input Type Range in Chrome, Firefox, and IE",
+            "url": "https://brennaobrien.com/blog/2014/05/style-input-type-range-in-every-browser.html",
+            "extra": ""
+        }
+    ]
+}

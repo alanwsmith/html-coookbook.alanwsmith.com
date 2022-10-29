@@ -18,14 +18,16 @@ exports.handler = async function (event, context) {
   "2gc2v5bvvngh": "/recipes/font_download_test---2gc2v5bvvngh/index.html",
   "2ggjxa4tvm9x": "/recipes/m-dash_input_select_autocomplete_test---2ggjxa4tvm9x/index.html",
   "2gj4p8avxist": "/recipes/strict_selection_menu_form_control---2gj4p8avxist/index.html",
-  "2gj6asw5m2bm": "/recipes/hello_world_web_components_example---2gj6asw5m2bm/index.html",
+  "2gj6asw5m2bm": "/recipes/web_components_hello_world---2gj6asw5m2bm/index.html",
   "2gja3c8lgfbs": "/recipes/document_onclick_listener_for_web_components---2gja3c8lgfbs/index.html",
   "2gjuqnwy1dko": "/recipes/use_internal_elements_in_a_web_component---2gjuqnwy1dko/index.html",
   "2glvtfmqasay": "/recipes/css_absolute_and_relative_positioning---2glvtfmqasay/index.html",
   "2gmdsyscqjnv": "/recipes/create_and_send_events_in_a_web_component---2gmdsyscqjnv/index.html",
   "2gmvxjjsmlcb": "/recipes/create_a_custom_input_element_in_a_web_component---2gmvxjjsmlcb/index.html",
   "2gn2p9a4zdjr": "/recipes/send_value_with_web_component_form_submit---2gn2p9a4zdjr/index.html",
-  "2gn6720koljv": "/recipes/prevent_a_form_from_submitting_to_view_data---2gn6720koljv/index.html"
+  "2gn6720koljv": "/recipes/prevent_a_form_from_submitting_to_view_data---2gn6720koljv/index.html",
+  "apply_styles_to_a_web_component--2Gov695r3d8b": "/recipes/apply_styles_to_a_web_component--2Gov695r3d8b/index.html",
+  "hsl_color_picker_web_component--2GoGrtBoU6u3": "/recipes/hsl_color_picker_web_component--2GoGrtBoU6u3/index.html"
 }
   const url_parts = event.path.split('/')
   // console.log(url_parts)
