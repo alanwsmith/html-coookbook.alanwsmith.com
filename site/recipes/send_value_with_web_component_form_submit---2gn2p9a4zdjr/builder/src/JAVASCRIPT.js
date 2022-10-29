@@ -3,18 +3,17 @@ class CustomInput extends HTMLElement {
         super()
         this.attachShadow({ mode: 'open' })
 
-        const gotData = (event) => {
-            console.log(event)
-            event.formData.append('x', 'y')
+        this.input = document.createElement('input')
+        this.input.name = 'customInput'
+        this.input.value = 'Alfa Bravo'
+
+        const updateData = (event) => {
+            event.formData.append(this.input.name, this.input.value)
         }
 
-        const input = document.createElement('input')
-        input.name = 'customInput'
-        input.value = 'Alfa Bravo'
+        this.shadowRoot.append(this.input)
 
-        this.shadowRoot.append(input)
-
-        document.addEventListener('formdata', gotData)
+        document.addEventListener('formdata', updateData)
     }
 }
 
