@@ -1,11 +1,19 @@
 {
-    "TITLE": "HSL Picker Web Component",
+    "TITLE": "HSL Color Picker Web Component",
     "STATUS": "draft",
     "DESCRIPTION": "GOAL: Create an HSL Picker web component",
     "DETAILS": [],
-
-    "NOTES": [],
-    "TODOS": [],
+    "NOTES": [
+        "This is just the sliders. Showing a preview or doing something with the values is left to the implementation",
+        "I switched the order of the sliders to something that makes more sense to me. I see the hue more as the foundation hence I put it at the bottom of the stack"
+    ],
+    "TODOS": [
+        "[ ] - Setup to use arrow keys to bump the value for the last slider that was interacted with",
+        "[ ] - Add alpha",
+        "[ ] - Add second selection for color to put under alpha",
+        "[ ] - Add debouce option to slow down sending event signal",
+        "[ ] - See about using cookies to store values so they are the same on refresh, etc... Guessing sending an ID will be require"
+    ],
     "REFERENCES": [
         {
             "title": "MDN: &lt;color&gt;",

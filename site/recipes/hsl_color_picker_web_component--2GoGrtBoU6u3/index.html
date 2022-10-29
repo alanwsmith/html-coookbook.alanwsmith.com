@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HSL Picker Web Component - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <title>HSL Color Picker Web Component - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="HSL Picker Web Component" />
+    <meta property="og:title" content="HSL Color Picker Web Component" />
     <meta property="og:description" content="GOAL: Create an HSL Picker web component" />
     <meta
       property="og:image"
-      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:HSL%20Picker%20Web%20Component,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:HSL%20Color%20Picker%20Web%20Component,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site:id" content="@TheIdOfAlan" />
@@ -29,10 +29,18 @@
     <link rel="stylesheet" href="/styles/prism.css" />
     
     <style>
-      
+      #preview-block {
+  width: 200px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
     </style>
     <script>
-      class hslaPicker extends HTMLElement {
+      ////////////////////////////////////////////////////
+// Component
+
+class hslaPicker extends HTMLElement {
     constructor() {
         super()
         this.attachShadow({ mode: 'open' })
@@ -41,19 +49,24 @@
         this.lightnessValue = 50
         this.alphaValue = 1
 
-        // const assembleHSL = () => {
-        //     const hslValue = `hsla(${this.hueValue}, ${this.saturationValue}%, ${this.lightnessValue}%, ${this.alphaValue})`
-        //     // console.log(hslValue)
-        //     return hslValue
-        // }
+        const sendColorChanged = () => {
+            this.dispatchEvent(
+                new CustomEvent('color-changed', {
+                    detail: {
+                        hsla: `hsla(${this.hueValue}, ${this.saturationValue}%, ${this.lightnessValue}%, ${this.alphaValue})`,
+                    },
+                    composed: true,
+                    bubbles: true,
+                })
+            )
+        }
 
         const updateHSL = () => {
             const hslValue = `hsla(${this.hueValue}, ${this.saturationValue}%, ${this.lightnessValue}%, ${this.alphaValue})`
-            // console.log(hslValue)
-            display.style.backgroundColor = hslValue
             updateHueDisplay()
             updateSaturationDisplay()
             updateLightnessDisplay()
+            sendColorChanged()
         }
         const updateHueDisplay = () => {
             this.hueDisplay.style.background = `linear-gradient(
@@ -74,19 +87,14 @@
             0.25turn,
             hsl(${this.hueValue}, 0%, ${this.lightnessValue}%),
             hsl(${this.hueValue}, 100%, ${this.lightnessValue}%))`
-            console.log(this.saturationDisplay.style.background)
         }
 
         const updateLightnessDisplay = () => {
-            // console.log(this.saturationValue)
-            // console.log(this.hueValue)
-
             this.lightnessDisplay.style.background = `linear-gradient(
             0.25turn,
             hsl(${this.hueValue}, ${this.saturationValue}%, 0%),
             hsl(${this.hueValue}, ${this.saturationValue}%, 50%),
             hsl(${this.hueValue}, ${this.saturationValue}%, 100%))`
-            console.log(this.lightnessDisplay.style.background)
         }
 
         const handleHueInput = (event) => {
@@ -106,11 +114,6 @@
             this.lightnessValue = event.target.value
             updateHSL()
         }
-
-        const display = document.createElement('div')
-        display.style.width = '180px'
-        display.style.height = '30px'
-        display.style.border = '2px solid black'
 
         this.hueDiv = document.createElement('div')
         // hueDiv.style.position = 'relative'
@@ -187,14 +190,27 @@
         this.lightnessDiv.appendChild(this.lightnessSlider)
 
         updateHSL()
-        this.shadowRoot.append(display)
+        // this.shadowRoot.append(display)
         this.shadowRoot.append(this.lightnessDiv)
         this.shadowRoot.append(this.saturationDiv)
         this.shadowRoot.append(this.hueDiv)
+
+        // Send the initial color update
+        document.addEventListener('DOMContentLoaded', sendColorChanged)
     }
 }
 
 customElements.define('hsla-picker', hslaPicker)
+
+////////////////////////////////////////////////////
+// Main Script
+
+const handleColorChanged = (event) => {
+    const previewBlock = document.getElementById('preview-block')
+    previewBlock.style.backgroundColor = event.detail.hsla
+}
+
+document.addEventListener('color-changed', handleColorChanged)
 
     </script>
   </head>
@@ -207,17 +223,30 @@ customElements.define('hsla-picker', hslaPicker)
       <a href="https://https://twitter.com/TheIdOfAlan">twitter</a>
     </header>
     <main>
-      <h1>HSL Picker Web Component</h1>
+      <h1>HSL Color Picker Web Component</h1>
       
       <h2>Example</h2>
-      <hsla-picker></hsla-picker>
+      <div id="preview-block"></div>
+<hsla-picker></hsla-picker>
   
             <h2>HTML</h2>
-            <pre><code class="language-html">&lt;hsla-picker&gt;&lt;/hsla-picker&gt;
+            <pre><code class="language-html">&lt;div id=&quot;preview-block&quot;&gt;&lt;/div&gt;
+&lt;hsla-picker&gt;&lt;/hsla-picker&gt;
 </code></pre>
-              
+             
+            <h2>CSS</h2>
+            <pre><code class="language-css">#preview-block {
+  width: 200px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+</code></pre>
+             
             <h2>JavaScript</h2>
-            <pre><code class="language-js">class hslaPicker extends HTMLElement {
+            <pre><code class="language-js">////////////////////////////////////////////////////
+// Component
+
+class hslaPicker extends HTMLElement {
     constructor() {
         super()
         this.attachShadow({ mode: &#x27;open&#x27; })
@@ -226,19 +255,24 @@ customElements.define('hsla-picker', hslaPicker)
         this.lightnessValue = 50
         this.alphaValue = 1
 
-        // const assembleHSL = () =&gt; {
-        //     const hslValue = `hsla(${this.hueValue}, ${this.saturationValue}%, ${this.lightnessValue}%, ${this.alphaValue})`
-        //     // console.log(hslValue)
-        //     return hslValue
-        // }
+        const sendColorChanged = () =&gt; {
+            this.dispatchEvent(
+                new CustomEvent(&#x27;color-changed&#x27;, {
+                    detail: {
+                        hsla: `hsla(${this.hueValue}, ${this.saturationValue}%, ${this.lightnessValue}%, ${this.alphaValue})`,
+                    },
+                    composed: true,
+                    bubbles: true,
+                })
+            )
+        }
 
         const updateHSL = () =&gt; {
             const hslValue = `hsla(${this.hueValue}, ${this.saturationValue}%, ${this.lightnessValue}%, ${this.alphaValue})`
-            // console.log(hslValue)
-            display.style.backgroundColor = hslValue
             updateHueDisplay()
             updateSaturationDisplay()
             updateLightnessDisplay()
+            sendColorChanged()
         }
         const updateHueDisplay = () =&gt; {
             this.hueDisplay.style.background = `linear-gradient(
@@ -259,19 +293,14 @@ customElements.define('hsla-picker', hslaPicker)
             0.25turn,
             hsl(${this.hueValue}, 0%, ${this.lightnessValue}%),
             hsl(${this.hueValue}, 100%, ${this.lightnessValue}%))`
-            console.log(this.saturationDisplay.style.background)
         }
 
         const updateLightnessDisplay = () =&gt; {
-            // console.log(this.saturationValue)
-            // console.log(this.hueValue)
-
             this.lightnessDisplay.style.background = `linear-gradient(
             0.25turn,
             hsl(${this.hueValue}, ${this.saturationValue}%, 0%),
             hsl(${this.hueValue}, ${this.saturationValue}%, 50%),
             hsl(${this.hueValue}, ${this.saturationValue}%, 100%))`
-            console.log(this.lightnessDisplay.style.background)
         }
 
         const handleHueInput = (event) =&gt; {
@@ -291,11 +320,6 @@ customElements.define('hsla-picker', hslaPicker)
             this.lightnessValue = event.target.value
             updateHSL()
         }
-
-        const display = document.createElement(&#x27;div&#x27;)
-        display.style.width = &#x27;180px&#x27;
-        display.style.height = &#x27;30px&#x27;
-        display.style.border = &#x27;2px solid black&#x27;
 
         this.hueDiv = document.createElement(&#x27;div&#x27;)
         // hueDiv.style.position = &#x27;relative&#x27;
@@ -372,17 +396,40 @@ customElements.define('hsla-picker', hslaPicker)
         this.lightnessDiv.appendChild(this.lightnessSlider)
 
         updateHSL()
-        this.shadowRoot.append(display)
+        // this.shadowRoot.append(display)
         this.shadowRoot.append(this.lightnessDiv)
         this.shadowRoot.append(this.saturationDiv)
         this.shadowRoot.append(this.hueDiv)
+
+        // Send the initial color update
+        document.addEventListener(&#x27;DOMContentLoaded&#x27;, sendColorChanged)
     }
 }
 
 customElements.define(&#x27;hsla-picker&#x27;, hslaPicker)
+
+////////////////////////////////////////////////////
+// Main Script
+
+const handleColorChanged = (event) =&gt; {
+    const previewBlock = document.getElementById(&#x27;preview-block&#x27;)
+    previewBlock.style.backgroundColor = event.detail.hsla
+}
+
+document.addEventListener(&#x27;color-changed&#x27;, handleColorChanged)
 </code></pre>
              
-       
+                <h2>Notes</h2>
+                <ul>
+                    <li>This is just the sliders. Showing a preview or doing something with the values is left to the implementation</li> <li>I switched the order of the sliders to something that makes more sense to me. I see the hue more as the foundation hence I put it at the bottom of the stack</li>
+                </ul>
+            
+      
+                <h2>TODO</h2>
+                <ul>
+                    <li>[ ] - Setup to use arrow keys to bump the value for the last slider that was interacted with</li> <li>[ ] - Add alpha</li> <li>[ ] - Add second selection for color to put under alpha</li> <li>[ ] - Add debouce option to slow down sending event signal</li> <li>[ ] - See about using cookies to store values so they are the same on refresh, etc... Guessing sending an ID will be require</li>
+                </ul>
+             
                 <h2>References</h2>
                 <ul>
                     <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">MDN: &lt;color&gt;</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsla">MDN: hsla()</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range">MDN: &lt<input type=&quot;range&quot;&gt;</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient">MDN: linear-gradient()</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl">MDN: hsl()</a></li>

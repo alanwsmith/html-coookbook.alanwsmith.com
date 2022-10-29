@@ -1,3 +1,6 @@
+////////////////////////////////////////////////////
+// Component
+
 class hslaPicker extends HTMLElement {
     constructor() {
         super()
@@ -7,19 +10,24 @@ class hslaPicker extends HTMLElement {
         this.lightnessValue = 50
         this.alphaValue = 1
 
-        // const assembleHSL = () => {
-        //     const hslValue = `hsla(${this.hueValue}, ${this.saturationValue}%, ${this.lightnessValue}%, ${this.alphaValue})`
-        //     // console.log(hslValue)
-        //     return hslValue
-        // }
+        const sendColorChanged = () => {
+            this.dispatchEvent(
+                new CustomEvent('color-changed', {
+                    detail: {
+                        hsla: `hsla(${this.hueValue}, ${this.saturationValue}%, ${this.lightnessValue}%, ${this.alphaValue})`,
+                    },
+                    composed: true,
+                    bubbles: true,
+                })
+            )
+        }
 
         const updateHSL = () => {
             const hslValue = `hsla(${this.hueValue}, ${this.saturationValue}%, ${this.lightnessValue}%, ${this.alphaValue})`
-            // console.log(hslValue)
-            display.style.backgroundColor = hslValue
             updateHueDisplay()
             updateSaturationDisplay()
             updateLightnessDisplay()
+            sendColorChanged()
         }
         const updateHueDisplay = () => {
             this.hueDisplay.style.background = `linear-gradient(
@@ -40,19 +48,14 @@ class hslaPicker extends HTMLElement {
             0.25turn,
             hsl(${this.hueValue}, 0%, ${this.lightnessValue}%),
             hsl(${this.hueValue}, 100%, ${this.lightnessValue}%))`
-            console.log(this.saturationDisplay.style.background)
         }
 
         const updateLightnessDisplay = () => {
-            // console.log(this.saturationValue)
-            // console.log(this.hueValue)
-
             this.lightnessDisplay.style.background = `linear-gradient(
             0.25turn,
             hsl(${this.hueValue}, ${this.saturationValue}%, 0%),
             hsl(${this.hueValue}, ${this.saturationValue}%, 50%),
             hsl(${this.hueValue}, ${this.saturationValue}%, 100%))`
-            console.log(this.lightnessDisplay.style.background)
         }
 
         const handleHueInput = (event) => {
@@ -72,11 +75,6 @@ class hslaPicker extends HTMLElement {
             this.lightnessValue = event.target.value
             updateHSL()
         }
-
-        const display = document.createElement('div')
-        display.style.width = '180px'
-        display.style.height = '30px'
-        display.style.border = '2px solid black'
 
         this.hueDiv = document.createElement('div')
         // hueDiv.style.position = 'relative'
@@ -153,11 +151,24 @@ class hslaPicker extends HTMLElement {
         this.lightnessDiv.appendChild(this.lightnessSlider)
 
         updateHSL()
-        this.shadowRoot.append(display)
+        // this.shadowRoot.append(display)
         this.shadowRoot.append(this.lightnessDiv)
         this.shadowRoot.append(this.saturationDiv)
         this.shadowRoot.append(this.hueDiv)
+
+        // Send the initial color update
+        document.addEventListener('DOMContentLoaded', sendColorChanged)
     }
 }
 
 customElements.define('hsla-picker', hslaPicker)
+
+////////////////////////////////////////////////////
+// Main Script
+
+const handleColorChanged = (event) => {
+    const previewBlock = document.getElementById('preview-block')
+    previewBlock.style.backgroundColor = event.detail.hsla
+}
+
+document.addEventListener('color-changed', handleColorChanged)

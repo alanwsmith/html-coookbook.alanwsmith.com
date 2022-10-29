@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Web Components - Create And Send Events - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <title>Create And Send Events From A Web Component - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Web Components - Create And Send Events" />
+    <meta property="og:title" content="Create And Send Events From A Web Component" />
     <meta property="og:description" content="" />
     <meta
       property="og:image"
-      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Web%20Components%20-%20Create%20And%20Send%20Events,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Create%20And%20Send%20Events%20From%20A%20Web%20Component,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site:id" content="@TheIdOfAlan" />
@@ -39,35 +39,154 @@ class EventExample extends HTMLElement {
     constructor() {
         super()
         this.attachShadow({ mode: 'open' })
-        // const event = new Event('build')
-        // // Listen for the event.
-        // this.addEventListener(
-        //     'build',
-        //     (e) => {
-        //         console.log('asdf')
-        //     },
-        //     false
-        // )
-        // // Dispatch the event.
-        // this.dispatchEvent(event)
 
-        // const wrapper = document.createElement('span')
-        // wrapper.innerText = 'Hello, Component!'
-
-        const sendEvent = (event) => {
-            const componentEvent = new CustomEvent('componentActivated', {
-                detail: {
-                    value: new Date().getTime(),
-                },
-                composed: true,
-                bubbles: true,
-            })
-            this.dispatchEvent(componentEvent)
+        const sendEvent = (name, value) => {
+            console.log('here')
+            this.dispatchEvent(
+                new CustomEvent(name, {
+                    detail: { value: value },
+                    composed: true,
+                    bubbles: true,
+                })
+            )
         }
 
         const button = document.createElement('button')
-        button.addEventListener('click', sendEvent)
         button.innerHTML = 'Click Here'
+        button.addEventListener('click', (event) => {
+            sendEvent('clicked', { event })
+        })
+
+        // const sendEvent = (event) => {
+        //     console.log('EVENT SENT')
+        //     this.button.dispatchEvent(
+        //         new CustomEvent('clicked', {
+        //             detail: {
+        //                 value: new Date().getTime(),
+        //             },
+        //             composed: true,
+        //             bubbles: true,
+        //         })
+        //     )
+        // }
+        // this.button = document.createElement('button')
+        // this.button.innerHTML = 'Click Here'
+        // this.button.addEventListener('click', sendEvent)
+
+        // // This works too
+        // this.button = document.createElement('button')
+        // this.button.innerHTML = 'Click Here'
+        // this.button.addEventListener('click', (event) => {
+        //     console.log('SEND')
+        //     this.button.dispatchEvent(
+        //         new CustomEvent('clicked', {
+        //             detail: {
+        //                 value: new Date().getTime(),
+        //             },
+        //             composed: true,
+        //             bubbles: true,
+        //         })
+        //     )
+        // })
+
+        // // This works too
+        // const sendEvent = (event) => {
+        //     const componentEvent = new CustomEvent('clicked', {
+        //         detail: {
+        //             value: new Date().getTime(),
+        //         },
+        //         composed: true,
+        //         bubbles: true,
+        //     })
+        //     this.dispatchEvent(componentEvent)
+        // }
+        // const button = document.createElement('button')
+        // button.addEventListener('click', sendEvent)
+        // button.innerHTML = 'Click Here'
+
+        // // This works too
+        // const sendEvent = (event) => {
+        //     this.dispatchEvent(
+        //         new CustomEvent('clicked', {
+        //             detail: {
+        //                 value: new Date().getTime(),
+        //             },
+        //             composed: true,
+        //             bubbles: true,
+        //         })
+        //     )
+        // }
+        // const button = document.createElement('button')
+        // button.innerHTML = 'Click Here'
+        // button.addEventListener('click', sendEvent)
+
+        // const button = document.createElement('button')
+        // // button.addEventListener('click', sendEvent)
+        // button.innerHTML = 'Click Here'
+        // const sendTheEvent = (event) => {
+        //     console.log('cccccccccc')
+        //     const theEventThing = new CustomEvent('clicked', {
+        //         detail: {
+        //             value: new Date().getTime(),
+        //             composed: true,
+        //             bubbles: true,
+        //         },
+        //     })
+        //     console.log('werwer')
+        //     button.dispatchEvent(theEventThing)
+        //     console.log('werwer')
+        // }
+        // button.addEventListener('click', sendTheEvent)
+
+        // this.addEventListener('click', (event) => {
+        //     console.log('wwwwwwwwwwwwwwww')
+        //     const newEvent = new CustomEvent('clicked', {
+        //         detail: {
+        //             value: new Date().getTime(),
+        //             composed: true,
+        //             bubbles: true,
+        //         },
+        //     })
+        //     this.dispatchEvent(newEvent)
+        // })
+
+        // this.addEventListener('click', (event) => {
+        //     console.log('wwwwwwwwwwwwwwww')
+        //     const newEvent = new CustomEvent('clicked', {
+        //         detail: {
+        //             value: new Date().getTime(),
+        //             composed: true,
+        //             bubbles: true,
+        //         },
+        //     })
+        //     this.dispatchEvent(newEvent)
+        // })
+
+        // button.addEventListener('click', (event) => {
+        //     console.log('wwwwwwwwwwwwwwww')
+        //     button.dispatchEvent(
+        //         new CustomEvent('componentClicked', {
+        //             detail: {
+        //                 value: new Date().getTime(),
+        //                 composed: true,
+        //                 bubbles: true,
+        //             },
+        //         })
+        //     )
+        // })
+
+        // button.addEventListener('click', () => {
+        //     console.log('here')
+        //     button.dispatchEvent(
+        //         new CustomEvent('componentClicked', {
+        //             detail: {
+        //                 value: new Date().getTime(),
+        //                 composed: true,
+        //                 bubbles: true,
+        //             },
+        //         })
+        //     )
+        // })
 
         // () => {
 
@@ -96,12 +215,13 @@ customElements.define('event-example', EventExample)
 ///////////////////////////////////////////////////////
 // Global
 
-const updateValue = (event) => {
+const handleComponentClicked = (event) => {
+    console.log('EVENT RECEIVED')
     const display = document.getElementById('display')
     display.innerHTML = `New Value: ${event.detail.value}`
 }
 
-document.addEventListener('componentActivated', updateValue)
+document.addEventListener('clicked', handleComponentClicked)
 
     </script>
   </head>
@@ -114,7 +234,7 @@ document.addEventListener('componentActivated', updateValue)
       <a href="https://https://twitter.com/TheIdOfAlan">twitter</a>
     </header>
     <main>
-      <h1>Web Components - Create And Send Events</h1>
+      <h1>Create And Send Events From A Web Component</h1>
       
                 <h2>Deatils</h2>
                 <ul>
@@ -138,35 +258,154 @@ class EventExample extends HTMLElement {
     constructor() {
         super()
         this.attachShadow({ mode: &#x27;open&#x27; })
-        // const event = new Event(&#x27;build&#x27;)
-        // // Listen for the event.
-        // this.addEventListener(
-        //     &#x27;build&#x27;,
-        //     (e) =&gt; {
-        //         console.log(&#x27;asdf&#x27;)
-        //     },
-        //     false
-        // )
-        // // Dispatch the event.
-        // this.dispatchEvent(event)
 
-        // const wrapper = document.createElement(&#x27;span&#x27;)
-        // wrapper.innerText = &#x27;Hello, Component!&#x27;
-
-        const sendEvent = (event) =&gt; {
-            const componentEvent = new CustomEvent(&#x27;componentActivated&#x27;, {
-                detail: {
-                    value: new Date().getTime(),
-                },
-                composed: true,
-                bubbles: true,
-            })
-            this.dispatchEvent(componentEvent)
+        const sendEvent = (name, value) =&gt; {
+            console.log(&#x27;here&#x27;)
+            this.dispatchEvent(
+                new CustomEvent(name, {
+                    detail: { value: value },
+                    composed: true,
+                    bubbles: true,
+                })
+            )
         }
 
         const button = document.createElement(&#x27;button&#x27;)
-        button.addEventListener(&#x27;click&#x27;, sendEvent)
         button.innerHTML = &#x27;Click Here&#x27;
+        button.addEventListener(&#x27;click&#x27;, (event) =&gt; {
+            sendEvent(&#x27;clicked&#x27;, { event })
+        })
+
+        // const sendEvent = (event) =&gt; {
+        //     console.log(&#x27;EVENT SENT&#x27;)
+        //     this.button.dispatchEvent(
+        //         new CustomEvent(&#x27;clicked&#x27;, {
+        //             detail: {
+        //                 value: new Date().getTime(),
+        //             },
+        //             composed: true,
+        //             bubbles: true,
+        //         })
+        //     )
+        // }
+        // this.button = document.createElement(&#x27;button&#x27;)
+        // this.button.innerHTML = &#x27;Click Here&#x27;
+        // this.button.addEventListener(&#x27;click&#x27;, sendEvent)
+
+        // // This works too
+        // this.button = document.createElement(&#x27;button&#x27;)
+        // this.button.innerHTML = &#x27;Click Here&#x27;
+        // this.button.addEventListener(&#x27;click&#x27;, (event) =&gt; {
+        //     console.log(&#x27;SEND&#x27;)
+        //     this.button.dispatchEvent(
+        //         new CustomEvent(&#x27;clicked&#x27;, {
+        //             detail: {
+        //                 value: new Date().getTime(),
+        //             },
+        //             composed: true,
+        //             bubbles: true,
+        //         })
+        //     )
+        // })
+
+        // // This works too
+        // const sendEvent = (event) =&gt; {
+        //     const componentEvent = new CustomEvent(&#x27;clicked&#x27;, {
+        //         detail: {
+        //             value: new Date().getTime(),
+        //         },
+        //         composed: true,
+        //         bubbles: true,
+        //     })
+        //     this.dispatchEvent(componentEvent)
+        // }
+        // const button = document.createElement(&#x27;button&#x27;)
+        // button.addEventListener(&#x27;click&#x27;, sendEvent)
+        // button.innerHTML = &#x27;Click Here&#x27;
+
+        // // This works too
+        // const sendEvent = (event) =&gt; {
+        //     this.dispatchEvent(
+        //         new CustomEvent(&#x27;clicked&#x27;, {
+        //             detail: {
+        //                 value: new Date().getTime(),
+        //             },
+        //             composed: true,
+        //             bubbles: true,
+        //         })
+        //     )
+        // }
+        // const button = document.createElement(&#x27;button&#x27;)
+        // button.innerHTML = &#x27;Click Here&#x27;
+        // button.addEventListener(&#x27;click&#x27;, sendEvent)
+
+        // const button = document.createElement(&#x27;button&#x27;)
+        // // button.addEventListener(&#x27;click&#x27;, sendEvent)
+        // button.innerHTML = &#x27;Click Here&#x27;
+        // const sendTheEvent = (event) =&gt; {
+        //     console.log(&#x27;cccccccccc&#x27;)
+        //     const theEventThing = new CustomEvent(&#x27;clicked&#x27;, {
+        //         detail: {
+        //             value: new Date().getTime(),
+        //             composed: true,
+        //             bubbles: true,
+        //         },
+        //     })
+        //     console.log(&#x27;werwer&#x27;)
+        //     button.dispatchEvent(theEventThing)
+        //     console.log(&#x27;werwer&#x27;)
+        // }
+        // button.addEventListener(&#x27;click&#x27;, sendTheEvent)
+
+        // this.addEventListener(&#x27;click&#x27;, (event) =&gt; {
+        //     console.log(&#x27;wwwwwwwwwwwwwwww&#x27;)
+        //     const newEvent = new CustomEvent(&#x27;clicked&#x27;, {
+        //         detail: {
+        //             value: new Date().getTime(),
+        //             composed: true,
+        //             bubbles: true,
+        //         },
+        //     })
+        //     this.dispatchEvent(newEvent)
+        // })
+
+        // this.addEventListener(&#x27;click&#x27;, (event) =&gt; {
+        //     console.log(&#x27;wwwwwwwwwwwwwwww&#x27;)
+        //     const newEvent = new CustomEvent(&#x27;clicked&#x27;, {
+        //         detail: {
+        //             value: new Date().getTime(),
+        //             composed: true,
+        //             bubbles: true,
+        //         },
+        //     })
+        //     this.dispatchEvent(newEvent)
+        // })
+
+        // button.addEventListener(&#x27;click&#x27;, (event) =&gt; {
+        //     console.log(&#x27;wwwwwwwwwwwwwwww&#x27;)
+        //     button.dispatchEvent(
+        //         new CustomEvent(&#x27;componentClicked&#x27;, {
+        //             detail: {
+        //                 value: new Date().getTime(),
+        //                 composed: true,
+        //                 bubbles: true,
+        //             },
+        //         })
+        //     )
+        // })
+
+        // button.addEventListener(&#x27;click&#x27;, () =&gt; {
+        //     console.log(&#x27;here&#x27;)
+        //     button.dispatchEvent(
+        //         new CustomEvent(&#x27;componentClicked&#x27;, {
+        //             detail: {
+        //                 value: new Date().getTime(),
+        //                 composed: true,
+        //                 bubbles: true,
+        //             },
+        //         })
+        //     )
+        // })
 
         // () =&gt; {
 
@@ -195,12 +434,13 @@ customElements.define(&#x27;event-example&#x27;, EventExample)
 ///////////////////////////////////////////////////////
 // Global
 
-const updateValue = (event) =&gt; {
+const handleComponentClicked = (event) =&gt; {
+    console.log(&#x27;EVENT RECEIVED&#x27;)
     const display = document.getElementById(&#x27;display&#x27;)
     display.innerHTML = `New Value: ${event.detail.value}`
 }
 
-document.addEventListener(&#x27;componentActivated&#x27;, updateValue)
+document.addEventListener(&#x27;clicked&#x27;, handleComponentClicked)
 </code></pre>
              
       
