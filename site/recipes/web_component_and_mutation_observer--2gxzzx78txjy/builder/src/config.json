@@ -1,5 +1,5 @@
 {
-    "TITLE": "Web Component And Element Communication Through A Mutation Observer",
+    "TITLE": "Using Mutation Observers To Setup Communication Between Web Components And The Parent Page",
     "STATUS": "draft",
     "DESCRIPTION": "",
     "DETAILS": [

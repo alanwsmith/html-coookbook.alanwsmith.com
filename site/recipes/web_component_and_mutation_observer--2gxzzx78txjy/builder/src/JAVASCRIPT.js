@@ -5,7 +5,6 @@ class ComLink extends HTMLElement {
 
         const handleInsideUpdate = (event) => {
             this.setAttribute('amount', event.target.value)
-            // console.log(event.target.value)
             this.rangeDisplay.innerText = event.target.value
         }
 
@@ -18,6 +17,18 @@ class ComLink extends HTMLElement {
         this.rangeSlider.addEventListener('input', handleInsideUpdate)
         this.shadowRoot.append(this.rangeSlider)
         this.shadowRoot.append(this.rangeDisplay)
+    }
+
+    static get observedAttributes() {
+        return ['amount']
+    }
+
+    attributeChangedCallback(attribute, oldValue, newValue) {
+        if (newValue !== oldValue) {
+            this.setAttribute('amount', newValue)
+            this.rangeDisplay.innerText = newValue
+            this.rangeSlider.value = newValue
+        }
     }
 }
 

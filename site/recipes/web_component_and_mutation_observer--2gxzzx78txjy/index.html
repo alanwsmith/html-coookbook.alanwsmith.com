@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Web Component And Element Communication Through A Mutation Observer - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <title>Using Mutation Observers To Setup Communication Between Web Components And The Parent Page - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Web Component And Element Communication Through A Mutation Observer" />
+    <meta property="og:title" content="Using Mutation Observers To Setup Communication Between Web Components And The Parent Page" />
     <meta property="og:description" content="" />
     <meta
       property="og:image"
-      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Web%20Component%20And%20Element%20Communication%20Through%20A%20Mutation%20Observer,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Using%20Mutation%20Observers%20To%20Setup%20Communication%20Between%20Web%20Components%20And%20The%20Parent%20Page,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site:id" content="@TheIdOfAlan" />
@@ -39,7 +39,6 @@
 
         const handleInsideUpdate = (event) => {
             this.setAttribute('amount', event.target.value)
-            // console.log(event.target.value)
             this.rangeDisplay.innerText = event.target.value
         }
 
@@ -53,6 +52,18 @@
         this.shadowRoot.append(this.rangeSlider)
         this.shadowRoot.append(this.rangeDisplay)
     }
+
+    static get observedAttributes() {
+        return ['amount']
+    }
+
+    attributeChangedCallback(attribute, oldValue, newValue) {
+        if (newValue !== oldValue) {
+            this.setAttribute('amount', newValue)
+            this.rangeDisplay.innerText = newValue
+            this.rangeSlider.value = newValue
+        }
+    }
 }
 
 customElements.define('com-link', ComLink)
@@ -60,18 +71,35 @@ customElements.define('com-link', ComLink)
 
       const handleInsideMutations = (mutationList, observer) => {
     for (const mutation of mutationList) {
-        if (mutation.type === 'attributes') {
-            console.log(
-                mutation.target.attributes.getNamedItem(mutation.attributeName)
-                    .value
-            )
+        // if (mutation.type === 'attributes') {
+        // Make a note about skipping the 'if' here for attirbute
+        // type check since you're only watching for attribute changes
+        if (mutation.attributeName === 'amount') {
+            const oldValue = mutation.oldValue
+            const newValue = mutation.target.attributes.getNamedItem(
+                mutation.attributeName
+            ).value
+            if (newValue !== oldValue) {
+                document.getElementById('outside-slider').value = newValue
+                document.getElementById('outside-display').innerText = newValue
+            }
         }
-        // console.log(mutation.newValue)
+        // }
     }
+}
+
+const handleOutsideInput = (event) => {
+    // TODO: Figure out if this is going to eat itself
+    const newValue = event.target.value
+    document.getElementById('outside-display').innerText = newValue
+    document.getElementById('the-link').setAttribute('amount', newValue)
 }
 
 const init = () => {
     const theLink = document.getElementById('the-link')
+    document
+        .getElementById('outside-slider')
+        .addEventListener('input', handleOutsideInput)
     const observer = new MutationObserver(handleInsideMutations)
     observer.observe(theLink, { attributes: true })
 }
@@ -89,7 +117,7 @@ document.addEventListener('DOMContentLoaded', init)
       <a href="https://https://twitter.com/TheIdOfAlan">twitter</a>
     </header>
     <main>
-      <h1>Web Component And Element Communication Through A Mutation Observer</h1>
+      <h1>Using Mutation Observers To Setup Communication Between Web Components And The Parent Page</h1>
       
                 <h2>Deatils</h2>
                 <ul>
@@ -99,16 +127,14 @@ document.addEventListener('DOMContentLoaded', init)
       <h2>Example</h2>
       <com-link id="the-link"></com-link>
 
-<br />
-
-<input type="range" id="outside-slider" />
+<input id="outside-slider" type="range" />
+<div id="outside-display">-</div>
   
             <h2>HTML</h2>
             <pre><code class="language-html">&lt;com-link id=&quot;the-link&quot;&gt;&lt;/com-link&gt;
 
-&lt;br /&gt;
-
-&lt;input type=&quot;range&quot; id=&quot;outside-slider&quot; /&gt;
+&lt;input id=&quot;outside-slider&quot; type=&quot;range&quot; /&gt;
+&lt;div id=&quot;outside-display&quot;&gt;-&lt;/div&gt;
 </code></pre>
               
             <h2>JavaScript Web Component</h2>
@@ -119,7 +145,6 @@ document.addEventListener('DOMContentLoaded', init)
 
         const handleInsideUpdate = (event) =&gt; {
             this.setAttribute(&#x27;amount&#x27;, event.target.value)
-            // console.log(event.target.value)
             this.rangeDisplay.innerText = event.target.value
         }
 
@@ -133,6 +158,18 @@ document.addEventListener('DOMContentLoaded', init)
         this.shadowRoot.append(this.rangeSlider)
         this.shadowRoot.append(this.rangeDisplay)
     }
+
+    static get observedAttributes() {
+        return [&#x27;amount&#x27;]
+    }
+
+    attributeChangedCallback(attribute, oldValue, newValue) {
+        if (newValue !== oldValue) {
+            this.setAttribute(&#x27;amount&#x27;, newValue)
+            this.rangeDisplay.innerText = newValue
+            this.rangeSlider.value = newValue
+        }
+    }
 }
 
 customElements.define(&#x27;com-link&#x27;, ComLink)
@@ -142,18 +179,35 @@ customElements.define(&#x27;com-link&#x27;, ComLink)
             <h2>JavaScript Main Page</h2>
             <pre><code class="language-js">const handleInsideMutations = (mutationList, observer) =&gt; {
     for (const mutation of mutationList) {
-        if (mutation.type === &#x27;attributes&#x27;) {
-            console.log(
-                mutation.target.attributes.getNamedItem(mutation.attributeName)
-                    .value
-            )
+        // if (mutation.type === &#x27;attributes&#x27;) {
+        // Make a note about skipping the &#x27;if&#x27; here for attirbute
+        // type check since you&#x27;re only watching for attribute changes
+        if (mutation.attributeName === &#x27;amount&#x27;) {
+            const oldValue = mutation.oldValue
+            const newValue = mutation.target.attributes.getNamedItem(
+                mutation.attributeName
+            ).value
+            if (newValue !== oldValue) {
+                document.getElementById(&#x27;outside-slider&#x27;).value = newValue
+                document.getElementById(&#x27;outside-display&#x27;).innerText = newValue
+            }
         }
-        // console.log(mutation.newValue)
+        // }
     }
+}
+
+const handleOutsideInput = (event) =&gt; {
+    // TODO: Figure out if this is going to eat itself
+    const newValue = event.target.value
+    document.getElementById(&#x27;outside-display&#x27;).innerText = newValue
+    document.getElementById(&#x27;the-link&#x27;).setAttribute(&#x27;amount&#x27;, newValue)
 }
 
 const init = () =&gt; {
     const theLink = document.getElementById(&#x27;the-link&#x27;)
+    document
+        .getElementById(&#x27;outside-slider&#x27;)
+        .addEventListener(&#x27;input&#x27;, handleOutsideInput)
     const observer = new MutationObserver(handleInsideMutations)
     observer.observe(theLink, { attributes: true })
 }
