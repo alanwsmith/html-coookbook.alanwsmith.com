@@ -46,26 +46,49 @@ class hslaPicker extends HTMLElement {
         super()
         this.attachShadow({ mode: 'open' })
 
-        const makeValueObject = (key) => {
-            const valueObject = {
-                wrapper: document.createElement('div'),
-                background: document.createElement('div'),
-                slider: document.createElement('input'),
-            }
+        const styles = document.createElement('style')
+        styles.innerText = `
+input[type="range"] {
+   -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    width: 180px;
+}
+`
 
+        const makeValueObject = (key) => {
+            const valueObject = {}
+
+            valueObject.wrapper = document.createElement('div')
             valueObject.wrapper.style.position = 'relative'
             valueObject.wrapper.style.width = '180px'
             valueObject.wrapper.style.height = '26px'
 
+            valueObject.background = document.createElement('div')
+            valueObject.background.style.position = 'absolute'
             valueObject.background.style.width = '180px'
             valueObject.background.style.height = '15px'
             valueObject.background.style.padding = '0'
             valueObject.background.style.margin = '0'
             valueObject.background.style.border = '1px solid white'
             valueObject.background.style.borderRadius = '30px'
-            valueObject.background.style.position = 'absolute'
+
+            valueObject.slider = document.createElement('input')
+            valueObject.slider.setAttribute('id', 'lightness-slider')
+            valueObject.slider.setAttribute('name', 'lightness-slider')
+            valueObject.slider.setAttribute('type', 'range')
+            valueObject.slider.setAttribute('min', '0')
+            valueObject.slider.setAttribute('max', '100')
+            // valueObject.slider.setAttribute('value', this.lightnessValue)
+            valueObject.slider.style.position = 'absolute'
+            valueObject.slider.style.padding = '0'
+            valueObject.slider.style.margin = '0'
+            // valueObject.slider.addEventListener('input', handleLightnessInput)
+            //
 
             valueObject.wrapper.appendChild(valueObject.background)
+            valueObject.wrapper.appendChild(valueObject.slider)
 
             return valueObject
         }
@@ -77,6 +100,7 @@ class hslaPicker extends HTMLElement {
             a: makeValueObject(),
         }
 
+        this.shadowRoot.append(styles)
         this.shadowRoot.append(this.sliders.s.wrapper)
         this.shadowRoot.append(this.sliders.l.wrapper)
         this.shadowRoot.append(this.sliders.h.wrapper)
@@ -166,26 +190,49 @@ class hslaPicker extends HTMLElement {
         super()
         this.attachShadow({ mode: &#x27;open&#x27; })
 
-        const makeValueObject = (key) =&gt; {
-            const valueObject = {
-                wrapper: document.createElement(&#x27;div&#x27;),
-                background: document.createElement(&#x27;div&#x27;),
-                slider: document.createElement(&#x27;input&#x27;),
-            }
+        const styles = document.createElement(&#x27;style&#x27;)
+        styles.innerText = `
+input[type=&quot;range&quot;] {
+   -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    width: 180px;
+}
+`
 
+        const makeValueObject = (key) =&gt; {
+            const valueObject = {}
+
+            valueObject.wrapper = document.createElement(&#x27;div&#x27;)
             valueObject.wrapper.style.position = &#x27;relative&#x27;
             valueObject.wrapper.style.width = &#x27;180px&#x27;
             valueObject.wrapper.style.height = &#x27;26px&#x27;
 
+            valueObject.background = document.createElement(&#x27;div&#x27;)
+            valueObject.background.style.position = &#x27;absolute&#x27;
             valueObject.background.style.width = &#x27;180px&#x27;
             valueObject.background.style.height = &#x27;15px&#x27;
             valueObject.background.style.padding = &#x27;0&#x27;
             valueObject.background.style.margin = &#x27;0&#x27;
             valueObject.background.style.border = &#x27;1px solid white&#x27;
             valueObject.background.style.borderRadius = &#x27;30px&#x27;
-            valueObject.background.style.position = &#x27;absolute&#x27;
+
+            valueObject.slider = document.createElement(&#x27;input&#x27;)
+            valueObject.slider.setAttribute(&#x27;id&#x27;, &#x27;lightness-slider&#x27;)
+            valueObject.slider.setAttribute(&#x27;name&#x27;, &#x27;lightness-slider&#x27;)
+            valueObject.slider.setAttribute(&#x27;type&#x27;, &#x27;range&#x27;)
+            valueObject.slider.setAttribute(&#x27;min&#x27;, &#x27;0&#x27;)
+            valueObject.slider.setAttribute(&#x27;max&#x27;, &#x27;100&#x27;)
+            // valueObject.slider.setAttribute(&#x27;value&#x27;, this.lightnessValue)
+            valueObject.slider.style.position = &#x27;absolute&#x27;
+            valueObject.slider.style.padding = &#x27;0&#x27;
+            valueObject.slider.style.margin = &#x27;0&#x27;
+            // valueObject.slider.addEventListener(&#x27;input&#x27;, handleLightnessInput)
+            //
 
             valueObject.wrapper.appendChild(valueObject.background)
+            valueObject.wrapper.appendChild(valueObject.slider)
 
             return valueObject
         }
@@ -197,6 +244,7 @@ class hslaPicker extends HTMLElement {
             a: makeValueObject(),
         }
 
+        this.shadowRoot.append(styles)
         this.shadowRoot.append(this.sliders.s.wrapper)
         this.shadowRoot.append(this.sliders.l.wrapper)
         this.shadowRoot.append(this.sliders.h.wrapper)
