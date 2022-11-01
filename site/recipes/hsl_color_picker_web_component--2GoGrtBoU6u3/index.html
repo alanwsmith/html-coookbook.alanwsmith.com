@@ -46,8 +46,8 @@ class hslaPicker extends HTMLElement {
         super()
         this.attachShadow({ mode: 'open' })
 
-        const styles = document.createElement('style')
-        styles.innerText = `
+        this.styles = document.createElement('style')
+        this.styles.innerText = `
 input[type="range"] {
    -webkit-appearance: none;
     appearance: none;
@@ -56,8 +56,52 @@ input[type="range"] {
     width: 180px;
 }
 `
+        this.keys = ['h', 's', 'l']
 
-        const makeValueObject = (key) => {
+        this.doUpdate = () => {
+            this.keys.forEach((key) => {
+                this.values[key].slider.setAttribute(
+                    'value',
+                    this.getAttribute(key)
+                )
+            })
+
+            this.values.h.background.style.background = `linear-gradient(
+                0.25turn,
+                hsl(0, ${this.getAttribute('s')}%, ${this.getAttribute('l')}%),
+                hsl(45, ${this.getAttribute('s')}%, ${this.getAttribute('l')}%),
+                hsl(90, ${this.getAttribute('s')}%, ${this.getAttribute('l')}%),
+                hsl(135, ${this.getAttribute('s')}%, ${this.getAttribute(
+                'l'
+            )}%),
+                hsl(180, ${this.getAttribute('s')}%, ${this.getAttribute(
+                'l'
+            )}%),
+                hsl(225, ${this.getAttribute('s')}%, ${this.getAttribute(
+                'l'
+            )}%),
+                hsl(270, ${this.getAttribute('s')}%, ${this.getAttribute(
+                'l'
+            )}%),
+                hsl(315, ${this.getAttribute('s')}%, ${this.getAttribute(
+                'l'
+            )}%),
+                hsl(360, ${this.getAttribute('s')}%, ${this.getAttribute('l')}%)
+            )`
+
+            this.values.s.background.style.background = `linear-gradient(
+            0.25turn,
+            hsl(${this.getAttribute('h')}, 0%, ${this.getAttribute('l')}%),
+            hsl(${this.getAttribute('h')}, 100%, ${this.getAttribute('l')}%))`
+
+            this.values.l.background.style.background = `linear-gradient(
+            0.25turn,
+            hsl(${this.getAttribute('h')}, ${this.getAttribute('s')}%, 0%),
+            hsl(${this.getAttribute('h')}, ${this.getAttribute('s')}%, 50%),
+            hsl(${this.getAttribute('h')}, ${this.getAttribute('s')}%, 100%)`
+        }
+
+        const makeValueObject = (key, max) => {
             const valueObject = {}
 
             valueObject.wrapper = document.createElement('div')
@@ -75,17 +119,16 @@ input[type="range"] {
             valueObject.background.style.borderRadius = '30px'
 
             valueObject.slider = document.createElement('input')
-            valueObject.slider.setAttribute('id', 'lightness-slider')
-            valueObject.slider.setAttribute('name', 'lightness-slider')
+            valueObject.slider.setAttribute('id', `${key}-slider`)
+            valueObject.slider.setAttribute('name', `${key}-slider`)
             valueObject.slider.setAttribute('type', 'range')
             valueObject.slider.setAttribute('min', '0')
-            valueObject.slider.setAttribute('max', '100')
-            // valueObject.slider.setAttribute('value', this.lightnessValue)
+            valueObject.slider.setAttribute('max', `${max}`)
+            // valueObject.slider.setAttribute('value', '20')
             valueObject.slider.style.position = 'absolute'
             valueObject.slider.style.padding = '0'
             valueObject.slider.style.margin = '0'
             // valueObject.slider.addEventListener('input', handleLightnessInput)
-            //
 
             valueObject.wrapper.appendChild(valueObject.background)
             valueObject.wrapper.appendChild(valueObject.slider)
@@ -93,24 +136,32 @@ input[type="range"] {
             return valueObject
         }
 
-        this.sliders = {
-            h: makeValueObject(),
-            s: makeValueObject(),
-            l: makeValueObject(),
-            a: makeValueObject(),
+        this.values = {
+            h: makeValueObject('h', 360),
+            s: makeValueObject('s', 100),
+            l: makeValueObject('l', 100),
+            // a: makeValueObject('a', 1),
         }
 
-        this.shadowRoot.append(styles)
-        this.shadowRoot.append(this.sliders.s.wrapper)
-        this.shadowRoot.append(this.sliders.l.wrapper)
-        this.shadowRoot.append(this.sliders.h.wrapper)
+        this.shadowRoot.append(this.styles)
     }
 
     connectedCallback() {
         if (!this.hasAttribute('h')) {
-            this.setAttribute('h', 140)
+            this.setAttribute('h', 280)
         }
-        console.log(this)
+        if (!this.hasAttribute('s')) {
+            this.setAttribute('s', 20)
+        }
+        if (!this.hasAttribute('l')) {
+            this.setAttribute('l', 40)
+        }
+
+        this.doUpdate()
+
+        this.shadowRoot.append(this.values.s.wrapper)
+        this.shadowRoot.append(this.values.l.wrapper)
+        this.shadowRoot.append(this.values.h.wrapper)
     }
 }
 
@@ -190,8 +241,8 @@ class hslaPicker extends HTMLElement {
         super()
         this.attachShadow({ mode: &#x27;open&#x27; })
 
-        const styles = document.createElement(&#x27;style&#x27;)
-        styles.innerText = `
+        this.styles = document.createElement(&#x27;style&#x27;)
+        this.styles.innerText = `
 input[type=&quot;range&quot;] {
    -webkit-appearance: none;
     appearance: none;
@@ -200,8 +251,52 @@ input[type=&quot;range&quot;] {
     width: 180px;
 }
 `
+        this.keys = [&#x27;h&#x27;, &#x27;s&#x27;, &#x27;l&#x27;]
 
-        const makeValueObject = (key) =&gt; {
+        this.doUpdate = () =&gt; {
+            this.keys.forEach((key) =&gt; {
+                this.values[key].slider.setAttribute(
+                    &#x27;value&#x27;,
+                    this.getAttribute(key)
+                )
+            })
+
+            this.values.h.background.style.background = `linear-gradient(
+                0.25turn,
+                hsl(0, ${this.getAttribute(&#x27;s&#x27;)}%, ${this.getAttribute(&#x27;l&#x27;)}%),
+                hsl(45, ${this.getAttribute(&#x27;s&#x27;)}%, ${this.getAttribute(&#x27;l&#x27;)}%),
+                hsl(90, ${this.getAttribute(&#x27;s&#x27;)}%, ${this.getAttribute(&#x27;l&#x27;)}%),
+                hsl(135, ${this.getAttribute(&#x27;s&#x27;)}%, ${this.getAttribute(
+                &#x27;l&#x27;
+            )}%),
+                hsl(180, ${this.getAttribute(&#x27;s&#x27;)}%, ${this.getAttribute(
+                &#x27;l&#x27;
+            )}%),
+                hsl(225, ${this.getAttribute(&#x27;s&#x27;)}%, ${this.getAttribute(
+                &#x27;l&#x27;
+            )}%),
+                hsl(270, ${this.getAttribute(&#x27;s&#x27;)}%, ${this.getAttribute(
+                &#x27;l&#x27;
+            )}%),
+                hsl(315, ${this.getAttribute(&#x27;s&#x27;)}%, ${this.getAttribute(
+                &#x27;l&#x27;
+            )}%),
+                hsl(360, ${this.getAttribute(&#x27;s&#x27;)}%, ${this.getAttribute(&#x27;l&#x27;)}%)
+            )`
+
+            this.values.s.background.style.background = `linear-gradient(
+            0.25turn,
+            hsl(${this.getAttribute(&#x27;h&#x27;)}, 0%, ${this.getAttribute(&#x27;l&#x27;)}%),
+            hsl(${this.getAttribute(&#x27;h&#x27;)}, 100%, ${this.getAttribute(&#x27;l&#x27;)}%))`
+
+            this.values.l.background.style.background = `linear-gradient(
+            0.25turn,
+            hsl(${this.getAttribute(&#x27;h&#x27;)}, ${this.getAttribute(&#x27;s&#x27;)}%, 0%),
+            hsl(${this.getAttribute(&#x27;h&#x27;)}, ${this.getAttribute(&#x27;s&#x27;)}%, 50%),
+            hsl(${this.getAttribute(&#x27;h&#x27;)}, ${this.getAttribute(&#x27;s&#x27;)}%, 100%)`
+        }
+
+        const makeValueObject = (key, max) =&gt; {
             const valueObject = {}
 
             valueObject.wrapper = document.createElement(&#x27;div&#x27;)
@@ -219,17 +314,16 @@ input[type=&quot;range&quot;] {
             valueObject.background.style.borderRadius = &#x27;30px&#x27;
 
             valueObject.slider = document.createElement(&#x27;input&#x27;)
-            valueObject.slider.setAttribute(&#x27;id&#x27;, &#x27;lightness-slider&#x27;)
-            valueObject.slider.setAttribute(&#x27;name&#x27;, &#x27;lightness-slider&#x27;)
+            valueObject.slider.setAttribute(&#x27;id&#x27;, `${key}-slider`)
+            valueObject.slider.setAttribute(&#x27;name&#x27;, `${key}-slider`)
             valueObject.slider.setAttribute(&#x27;type&#x27;, &#x27;range&#x27;)
             valueObject.slider.setAttribute(&#x27;min&#x27;, &#x27;0&#x27;)
-            valueObject.slider.setAttribute(&#x27;max&#x27;, &#x27;100&#x27;)
-            // valueObject.slider.setAttribute(&#x27;value&#x27;, this.lightnessValue)
+            valueObject.slider.setAttribute(&#x27;max&#x27;, `${max}`)
+            // valueObject.slider.setAttribute(&#x27;value&#x27;, &#x27;20&#x27;)
             valueObject.slider.style.position = &#x27;absolute&#x27;
             valueObject.slider.style.padding = &#x27;0&#x27;
             valueObject.slider.style.margin = &#x27;0&#x27;
             // valueObject.slider.addEventListener(&#x27;input&#x27;, handleLightnessInput)
-            //
 
             valueObject.wrapper.appendChild(valueObject.background)
             valueObject.wrapper.appendChild(valueObject.slider)
@@ -237,24 +331,32 @@ input[type=&quot;range&quot;] {
             return valueObject
         }
 
-        this.sliders = {
-            h: makeValueObject(),
-            s: makeValueObject(),
-            l: makeValueObject(),
-            a: makeValueObject(),
+        this.values = {
+            h: makeValueObject(&#x27;h&#x27;, 360),
+            s: makeValueObject(&#x27;s&#x27;, 100),
+            l: makeValueObject(&#x27;l&#x27;, 100),
+            // a: makeValueObject(&#x27;a&#x27;, 1),
         }
 
-        this.shadowRoot.append(styles)
-        this.shadowRoot.append(this.sliders.s.wrapper)
-        this.shadowRoot.append(this.sliders.l.wrapper)
-        this.shadowRoot.append(this.sliders.h.wrapper)
+        this.shadowRoot.append(this.styles)
     }
 
     connectedCallback() {
         if (!this.hasAttribute(&#x27;h&#x27;)) {
-            this.setAttribute(&#x27;h&#x27;, 140)
+            this.setAttribute(&#x27;h&#x27;, 280)
         }
-        console.log(this)
+        if (!this.hasAttribute(&#x27;s&#x27;)) {
+            this.setAttribute(&#x27;s&#x27;, 20)
+        }
+        if (!this.hasAttribute(&#x27;l&#x27;)) {
+            this.setAttribute(&#x27;l&#x27;, 40)
+        }
+
+        this.doUpdate()
+
+        this.shadowRoot.append(this.values.s.wrapper)
+        this.shadowRoot.append(this.values.l.wrapper)
+        this.shadowRoot.append(this.values.h.wrapper)
     }
 }
 
