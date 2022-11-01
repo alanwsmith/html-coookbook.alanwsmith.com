@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live Code Documentation Maker - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Live Code Documentation Maker" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Live%20Code%20Documentation%20Maker,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/prism.css" />
+    
+    <style>
+      
+    </style>
+    <script>
+      
+
+
+const kickoff = () => {
+    console.log('kickoff')
+}
+
+document.addEventListener('DOMContentLoaded', kickoff)
+
+    </script>
+  </head>
+  <body>
+    <header>
+      <a href="/">Cookbook Home</a> ~
+      <a href="https://www.alanwsmith.com/">alanwsmith.com</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://https://twitter.com/TheIdOfAlan">twitter</a>
+    </header>
+    <main>
+      <h1>Live Code Documentation Maker</h1>
+      
+                <h2>Deatils</h2>
+                <ul>
+                    <li>Exploring an idea of making a config file to parse code samples into snippets to add commentary to</li>
+                </ul>
+                
+      <h2>EXAMPLE</h2>
+      <p>
+  Setup to use python3 from your local environment. For example, if you're using
+  a
+  <a href="https://docs.python.org/3/tutorial/venv.html">virtual environment</a>
+  which is generaly advisable
+</p>
+
+
+<pre class="language-py"><code class="language-py">
+#!/usr/bin/env python3
+</pre></code>
+<p>This is a second sample</p>
+
+
+<pre class="language-py"><code class="language-py">
+import glob
+import json 
+</pre></code>
+      <hr />
+      <p>the quick brown fox</p>
+ 
+            <h2>Python Source</h2>
+            <pre><code class="language-py">#!/usr/bin/env python3
+
+import glob
+import json 
+import os
+
+class SnippetDocumentor():
+    def __init__(self):
+        self.source = []
+        self.docs = []
+        self.content = []
+
+    def assemble_content(self, output_path):
+        for doc in self.docs:
+            parts = doc.split(&#x27;---&#x27;)
+            meta = json.loads(parts[1])
+            self.content.append(parts[0])
+            self.content.append(&#x27;&lt;pre class=&quot;language-py&quot;&gt;&lt;code class=&quot;language-py&quot;&gt;&#x27;)
+            for line_sets in meta[&#x27;lines&#x27;]:
+                for line_group in line_sets:
+                    for line_index in range(line_group[0] - 1, line_group[1]):
+                        self.content.append(self.source[line_index])
+
+            self.content.append(&#x27;&lt;/pre&gt;&lt;/code&gt;&#x27;)
+            # self.content.append(meta[&#x27;lines&#x27;][0][0])
+
+        with open(output_path, &#x27;w&#x27;) as _out:
+            _out.write(&quot;\n&quot;.join(self.content))
+
+    def load_source(self, source_path):
+        with open(source_path) as _source:
+            self.source = _source.read().split(&quot;\n&quot;)
+
+    def load_docs(self, docs_dir):
+        local_file_list = [
+            file for file in glob.glob(f&quot;{docs_dir}/*&quot;)
+            if os.path.isfile(file)
+        ]
+        local_file_list.sort()
+        for local_file in local_file_list:
+            with open(local_file) as _in:
+                self.docs.append(_in.read())
+
+            # print(local_file)
+
+
+
+
+if __name__ == &quot;__main__&quot;:
+    working_dir = os.path.dirname(os.path.realpath(__file__))
+
+    sd = SnippetDocumentor()
+    sd.load_source(__file__)
+    sd.load_docs(f&quot;{working_dir}/docs&quot;)
+    sd.assemble_content(f&quot;{working_dir}/DOCSCONTENT.html&quot;)
+
+
+</code></pre>
+              
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;p&gt;the quick brown fox&lt;/p&gt;
+</code></pre>
+             
+      
+            <h2>JavaScript</h2>
+            <pre><code class="language-js">
+
+
+const kickoff = () =&gt; {
+    console.log(&#x27;kickoff&#x27;)
+}
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, kickoff)
+</code></pre>
+               
+                <h2>References</h2>
+                <ul>
+                    <li><a href=""></a></li>
+                </ul>
+                
+    </main>
+    <footer>
+      made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>
+      <br />
+      who has a <a href="https://www.alanwsmith.com">website</a> and a
+      <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
+      among other <a href="https://links.alanwsmith.com">things</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>
