@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HSL to RGB Converter - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="HSL to RGB Converter" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:HSL%20to%20RGB%20Converter,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/prism.css" />
+    
+    <style>
+      
+    </style>
+    <script>
+      const convertHSLToRGB = (h, s, l) => {
+    s /= 100
+    l /= 100
+    const k = (n) => (n + h / 30) % 12
+    const a = s * Math.min(l, 1 - l)
+    const f = (n) =>
+        l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)))
+    return [
+        Math.round(255 * f(0)),
+        Math.round(255 * f(8)),
+        Math.round(255 * f(4)),
+    ]
+}
+
+const kickoff = () => {
+    console.log(convertHSLToRGB(140, 20, 80))
+}
+
+document.addEventListener('DOMContentLoaded', kickoff)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">Cookbook Home</a> ~
+      <a href="https://www.alanwsmith.com/">alanwsmith.com</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://https://twitter.com/TheIdOfAlan">twitter</a>
+    </header>
+    <main>
+      <h1>HSL to RGB Converter</h1>
+      
+                <h2>Deatils</h2>
+                <ul>
+                    <li></li>
+                </ul>
+                
+      <h2>EXAMPLE</h2>
+      <p>the quick brown fox</p>
+  
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;p&gt;the quick brown fox&lt;/p&gt;
+</code></pre>
+              
+            <h2>JavaScript</h2>
+            <pre><code class="language-js">const convertHSLToRGB = (h, s, l) =&gt; {
+    s /= 100
+    l /= 100
+    const k = (n) =&gt; (n + h / 30) % 12
+    const a = s * Math.min(l, 1 - l)
+    const f = (n) =&gt;
+        l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)))
+    return [
+        Math.round(255 * f(0)),
+        Math.round(255 * f(8)),
+        Math.round(255 * f(4)),
+    ]
+}
+
+const kickoff = () =&gt; {
+    console.log(convertHSLToRGB(140, 20, 80))
+}
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, kickoff)
+</code></pre>
+             
+      
+                <h2>Notes</h2>
+                <ul>
+                    <li>Got the code from this page. Had to add Math.round to it to get it to return integers</li>
+                </ul>
+             
+                <h2>References</h2>
+                <ul>
+                    <li><a href="https://www.30secondsofcode.org/js/s/hsl-to-rgb">HSL to RGB - 30 Seconds Of Code</a> - This is where I got the initail formula. I had to add Math.round() to produce integers though</li> <li><a href="https://stackoverflow.com/questions/2353211/hsl-to-rgb-color-conversion">HSL to RGB color conversion - Stack Overflow</a> - This is the top ranked stack overflow answer and the first code search result. The formula in there expects HSL values to be inbetween 0 and 1. I can do with with the 's' and 'l' values which are percentages, but I don't want to have to add more math to deal with the hue which is in degrees</li>
+                </ul>
+                
+    </main>
+    <footer>
+      made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>
+      <br />
+      who has a <a href="https://www.alanwsmith.com">website</a> and a
+      <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
+      among other <a href="https://links.alanwsmith.com">things</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>

@@ -6,10 +6,9 @@ class hslaPicker extends HTMLElement {
         super()
         this.attachShadow({ mode: 'open' })
 
-        console.log(this.getAttribute('h'))
-        this.hueValue = 180
-        this.saturationValue = 50
-        this.lightnessValue = 50
+        this.hueValue = 0
+        this.saturationValue = 0
+        this.lightnessValue = 0
         this.alphaValue = 1
 
         const styles = document.createElement('style')
@@ -22,12 +21,63 @@ input[type="range"] {
     width: 180px;
 }
 `
+        // VIA: https://stackoverflow.com/a/44134328/102401
+        const convertHslToHex = (h, s, l) => {
+            l /= 100
+            const a = (s * Math.min(l, 1 - l)) / 100
+            const f = (n) => {
+                const k = (n + h / 30) % 12
+                const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1)
+                return Math.round(255 * color)
+                    .toString(16)
+                    .padStart(2, '0') // convert to Hex and prefix "0" if needed
+            }
+            return `#${f(0)}${f(8)}${f(4)}`
+        }
+
+        // VIA: https://www.30secondsofcode.org/js/s/hsl-to-rgb
+        const convertHslToRgb = (h, s, l) => {
+            s /= 100
+            l /= 100
+            const k = (n) => (n + h / 30) % 12
+            const a = s * Math.min(l, 1 - l)
+            const f = (n) =>
+                l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)))
+            // return [255 * f(0), 255 * f(8), 255 * f(4)]
+            return {
+                r: Math.round(255 * f(0)),
+                g: Math.round(255 * f(8)),
+                b: Math.round(255 * f(4)),
+            }
+        }
 
         const sendColorChanged = () => {
             this.dispatchEvent(
                 new CustomEvent('color-changed', {
                     detail: {
-                        hsla: `hsla(${this.hueValue}, ${this.saturationValue}%, ${this.lightnessValue}%, ${this.alphaValue})`,
+                        // see if this is dupliated
+                        hslaString: `hsla(${this.hueValue}, ${this.saturationValue}%, ${this.lightnessValue}%, ${this.alphaValue})`,
+                        hslaNums: {
+                            h: this.hueValue,
+                            s: this.saturationValue,
+                            l: this.lightnessValue,
+                            a: this.alphaValue,
+                        },
+                        hex: convertHslToHex(
+                            this.hueValue,
+                            this.saturationValue,
+                            this.lightnessValue
+                        ),
+                        hexInt: convertHslToHex(
+                            this.hueValue,
+                            this.saturationValue,
+                            this.lightnessValue
+                        ).replace(/#/, ''),
+                        rgb: convertHslToRgb(
+                            this.hueValue,
+                            this.saturationValue,
+                            this.lightnessValue
+                        ),
                     },
                     composed: true,
                     bubbles: true,
@@ -36,6 +86,8 @@ input[type="range"] {
         }
 
         this.updateHSL = () => {
+            // see if this is duplicated
+            console.log(`updateHSL`)
             const hslValue = `hsla(${this.hueValue}, ${this.saturationValue}%, ${this.lightnessValue}%, ${this.alphaValue})`
             updateHueDisplay()
             updateSaturationDisplay()
@@ -74,16 +126,19 @@ input[type="range"] {
 
         const handleHueInput = (event) => {
             this.hueValue = event.target.value
+            // this.setAttribute('h', event.target.value)
             this.updateHSL()
         }
 
         const handleSaturationInput = (event) => {
             this.saturationValue = event.target.value
+            // this.setAttribute('s', event.target.value)
             this.updateHSL()
         }
 
         const handleLightnessInput = (event) => {
             this.lightnessValue = event.target.value
+            // this.setAttribute('l', event.target.value)
             this.updateHSL()
         }
 
@@ -198,6 +253,38 @@ input[type="range"] {
         this.saturationSlider.setAttribute('value', this.saturationValue)
         this.lightnessSlider.setAttribute('value', this.lightnessValue)
     }
+
+    static get observedAttributes() {
+        return ['h', 's', 'l']
+    }
+
+    attributeChangedCallback(attr, old_value, new_value) {
+        if (old_value !== null) {
+            console.log(`${attr} - ${old_value} - ${new_value}`)
+            if (old_value !== new_value) {
+                if (attr === 'h') {
+                    this.hueValue = new_value
+                    this.hueSlider.setAttribute('value', this.hueValue)
+                    console.log(`h now: ${this.hueValue}`)
+                } else if (attr === 's') {
+                    this.saturationValue = new_value
+                    this.saturationSlider.setAttribute(
+                        'value',
+                        this.saturationValue
+                    )
+                    console.log(`s now: ${this.saturationValue}`)
+                } else if (attr === 'l') {
+                    this.lightnessValue = new_value
+                    this.lightnessSlider.setAttribute(
+                        'value',
+                        this.lightnessValue
+                    )
+                    console.log(`l now: ${this.lightnessValue}`)
+                }
+                this.updateHSL()
+            }
+        }
+    }
 }
 
 customElements.define('hsla-picker', hslaPicker)
@@ -207,7 +294,38 @@ customElements.define('hsla-picker', hslaPicker)
 
 const handleColorChanged = (event) => {
     const previewBlock = document.getElementById('preview-block')
-    previewBlock.style.backgroundColor = event.detail.hsla
+    previewBlock.style.backgroundColor = event.detail.hslaString
+    console.log(event.detail)
 }
 
-document.addEventListener('color-changed', handleColorChanged)
+const handleTheSetterClick = (event) => {
+    console.log('got setter click')
+    const thePicker = document.getElementById('the-picker')
+
+    console.log(event.target)
+    thePicker.setAttribute('h', event.target.getAttribute('h'))
+    thePicker.setAttribute('s', event.target.getAttribute('s'))
+    thePicker.setAttribute('l', event.target.getAttribute('l'))
+    // thePicker.saturationValue = event.target.getAttribute('s')
+    // thePicker.lightnessValue = event.target.getAttribute('l')
+    // console.log(thePicker)
+    // thePicker.hueSlider.setAttribute('value', event.target.getAttribute('h'))
+    //thePicker.saturationSlider.setAttribute(
+    // 'value',
+    // event.target.getAttribute('s')
+    // )
+    // thePicker.lightnessSlider.setAttribute(
+    // 'value',
+    // event.target.getAttribute('l')
+    // )
+    // thePicker.updateHSL()
+}
+
+const init = () => {
+    document.addEventListener('color-changed', handleColorChanged)
+    document
+        .getElementById('the-setter')
+        .addEventListener('click', handleTheSetterClick)
+}
+
+document.addEventListener('DOMContentLoaded', init)
