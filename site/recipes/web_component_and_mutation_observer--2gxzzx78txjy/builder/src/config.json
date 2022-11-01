@@ -1,0 +1,82 @@
+{
+    "TITLE": "Web Component And Element Communication Through A Mutation Observer",
+    "STATUS": "draft",
+    "DESCRIPTION": "",
+    "DETAILS": [
+        "GOAL: An example showing how to pass data between the main DOM and a web component with Mutation Observers"
+    ],
+    "NOTES": [],
+    "TODOS": [],
+    "REFERENCES": [
+        {
+            "title": "Get the new attribute value for the current MutationRecord when using MutationObserver?",
+            "url": "https://stackoverflow.com/questions/60593551/get-the-new-attribute-value-for-the-current-mutationrecord-when-using-mutationob",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        }
+    ]
+}
