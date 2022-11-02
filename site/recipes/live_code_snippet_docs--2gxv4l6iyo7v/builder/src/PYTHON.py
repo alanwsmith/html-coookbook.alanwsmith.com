@@ -5,6 +5,7 @@ import json
 import os
 
 class SnippetDocumentor():
+
     def __init__(self):
         self.source = []
         self.docs = []
@@ -16,13 +17,12 @@ class SnippetDocumentor():
             meta = json.loads(parts[1])
             self.content.append(parts[0])
             self.content.append('<pre class="language-py"><code class="language-py">')
-            for line_sets in meta['lines']:
-                for line_group in line_sets:
-                    for line_index in range(line_group[0] - 1, line_group[1]):
-                        self.content.append(self.source[line_index])
-
+            for line_group in meta['lines']:
+                for line_index in range(line_group[0] - 1, line_group[1]):
+                    self.content.append(
+                        f"{line_index + 1}&nbsp;&nbsp;{self.source[line_index]}"
+                    )
             self.content.append('</pre></code>')
-            # self.content.append(meta['lines'][0][0])
 
         with open(output_path, 'w') as _out:
             _out.write("\n".join(self.content))
@@ -41,11 +41,6 @@ class SnippetDocumentor():
             with open(local_file) as _in:
                 self.docs.append(_in.read())
 
-            # print(local_file)
-
-
-
-
 if __name__ == "__main__":
     working_dir = os.path.dirname(os.path.realpath(__file__))
 
@@ -53,5 +48,4 @@ if __name__ == "__main__":
     sd.load_source(__file__)
     sd.load_docs(f"{working_dir}/docs")
     sd.assemble_content(f"{working_dir}/DOCSCONTENT.html")
-
 

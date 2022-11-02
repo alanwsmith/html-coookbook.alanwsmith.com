@@ -1,18 +1,95 @@
 <p>
-  Setup to use python3 from your local environment. For example, if you're using
-  a
-  <a href="https://docs.python.org/3/tutorial/venv.html">virtual environment</a>
-  which is generaly advisable
+  This is a live example that uses the source code of the pyton script that
+  generated these snippets as it's own target. This is the full file. Snippet
+  examples and more notes are further below.
 </p>
 
 
 <pre class="language-py"><code class="language-py">
-#!/usr/bin/env python3
+1&nbsp;&nbsp;#!/usr/bin/env python3
+2&nbsp;&nbsp;
+3&nbsp;&nbsp;import glob
+4&nbsp;&nbsp;import json 
+5&nbsp;&nbsp;import os
+6&nbsp;&nbsp;
+7&nbsp;&nbsp;class SnippetDocumentor():
+8&nbsp;&nbsp;
+9&nbsp;&nbsp;    def __init__(self):
+10&nbsp;&nbsp;        self.source = []
+11&nbsp;&nbsp;        self.docs = []
+12&nbsp;&nbsp;        self.content = []
+13&nbsp;&nbsp;
+14&nbsp;&nbsp;    def assemble_content(self, output_path):
+15&nbsp;&nbsp;        for doc in self.docs:
+16&nbsp;&nbsp;            parts = doc.split('---')
+17&nbsp;&nbsp;            meta = json.loads(parts[1])
+18&nbsp;&nbsp;            self.content.append(parts[0])
+19&nbsp;&nbsp;            self.content.append('<pre class="language-py"><code class="language-py">')
+20&nbsp;&nbsp;            for line_group in meta['lines']:
+21&nbsp;&nbsp;                for line_index in range(line_group[0] - 1, line_group[1]):
+22&nbsp;&nbsp;                    self.content.append(
+23&nbsp;&nbsp;                        f"{line_index + 1}&nbsp;&nbsp;{self.source[line_index]}"
+24&nbsp;&nbsp;                    )
+25&nbsp;&nbsp;            self.content.append('</pre></code>')
+26&nbsp;&nbsp;
+27&nbsp;&nbsp;        with open(output_path, 'w') as _out:
+28&nbsp;&nbsp;            _out.write("\n".join(self.content))
+29&nbsp;&nbsp;
+30&nbsp;&nbsp;    def load_source(self, source_path):
+31&nbsp;&nbsp;        with open(source_path) as _source:
+32&nbsp;&nbsp;            self.source = _source.read().split("\n")
+33&nbsp;&nbsp;
+34&nbsp;&nbsp;    def load_docs(self, docs_dir):
+35&nbsp;&nbsp;        local_file_list = [
+36&nbsp;&nbsp;            file for file in glob.glob(f"{docs_dir}/*")
+37&nbsp;&nbsp;            if os.path.isfile(file)
+38&nbsp;&nbsp;        ]
+39&nbsp;&nbsp;        local_file_list.sort()
+40&nbsp;&nbsp;        for local_file in local_file_list:
+41&nbsp;&nbsp;            with open(local_file) as _in:
+42&nbsp;&nbsp;                self.docs.append(_in.read())
+43&nbsp;&nbsp;
+44&nbsp;&nbsp;if __name__ == "__main__":
+45&nbsp;&nbsp;    working_dir = os.path.dirname(os.path.realpath(__file__))
+46&nbsp;&nbsp;
+47&nbsp;&nbsp;    sd = SnippetDocumentor()
+48&nbsp;&nbsp;    sd.load_source(__file__)
+49&nbsp;&nbsp;    sd.load_docs(f"{working_dir}/docs")
+50&nbsp;&nbsp;    sd.assemble_content(f"{working_dir}/DOCSCONTENT.html")
+51&nbsp;&nbsp;
 </pre></code>
-<p>This is a second sample</p>
+<p>
+  The docs files pull out lines from the original source for direct display
+  instead of having to copy/paste them. Here's a few lines pulled from the same
+  source file as above.
+</p>
 
 
 <pre class="language-py"><code class="language-py">
-import glob
-import json 
+31&nbsp;&nbsp;        with open(source_path) as _source:
+32&nbsp;&nbsp;            self.source = _source.read().split("\n")
+33&nbsp;&nbsp;
+</pre></code>
+<p>
+  Note that because lines are all coming from the same source it's trivial to
+  show line numbers that match the location of the full file. I'm not sure I'm
+  going to like that in the long term, but my early impression is good.
+</p>
+<p>
+  There's no need for the lines to be consequetive. Here's an example with a
+  split.
+</p>
+
+
+<pre class="language-py"><code class="language-py">
+9&nbsp;&nbsp;    def __init__(self):
+10&nbsp;&nbsp;        self.source = []
+11&nbsp;&nbsp;        self.docs = []
+12&nbsp;&nbsp;        self.content = []
+13&nbsp;&nbsp;
+47&nbsp;&nbsp;    sd = SnippetDocumentor()
+48&nbsp;&nbsp;    sd.load_source(__file__)
+49&nbsp;&nbsp;    sd.load_docs(f"{working_dir}/docs")
+50&nbsp;&nbsp;    sd.assemble_content(f"{working_dir}/DOCSCONTENT.html")
+51&nbsp;&nbsp;
 </pre></code>

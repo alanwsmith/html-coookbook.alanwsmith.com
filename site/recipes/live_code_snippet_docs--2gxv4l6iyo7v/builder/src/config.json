@@ -3,7 +3,7 @@
     "STATUS": "draft",
     "DESCRIPTION": "",
     "DETAILS": [
-        "Exploring an idea of making a config file to parse code samples into snippets to add commentary to"
+        "This is an initail exploration of creating source code documentation with metadata that identifies what lines they apply to. The goal is to make sure the source code you post is the same source code you ran when verifying it works. No more botched examples becase of copy/paste goofs."
     ],
     "NOTES": [],
     "TODOS": [],

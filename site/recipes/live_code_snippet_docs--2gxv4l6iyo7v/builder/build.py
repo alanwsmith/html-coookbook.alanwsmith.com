@@ -56,7 +56,7 @@ class Builder():
             for detail in self.config['DETAILS']:
                 details.append(f'<li>{detail}</li>')
             self.parts['DETAILS'] = f'''
-                <h2>Deatils</h2>
+                <h2>DETAILS</h2>
                 <ul>
                     {" ".join(details)}
                 </ul>
@@ -136,61 +136,22 @@ class Builder():
 
         if self.parts['JAVASCRIPT'] != '':
             self.parts['ESCAPED_JAVASCRIPT'] = f'''
-            <h2>JavaScript</h2>
+            <h2>JAVASCRIPTh2>
             <pre><code class="language-js">{escape(self.parts['JAVASCRIPT'])}</code></pre>
             '''
 
         if self.parts['PYTHON'] != '':
             self.parts['ESCAPED_PYTHON'] = f'''
-            <h2>Python Source</h2>
+            <h2>PYTHON SOURCE</h2>
             <pre><code class="language-py">{escape(self.parts['PYTHON'])}</code></pre>
             '''
 
-
-
-
-# for part in parts:
-#     print('-----------------')
-#     print(parts)
-
-
-# with open(f'{source_dir}/src/head.html') as _head:
-#     head = _head.read()
-# with open(f'{source_dir}/src/script.js') as _script:
-#     script = _script.read()
-# with open(f'{source_dir}/src/css.css') as _css:
-#     css = _css.read()
-# with open(f'{source_dir}/src/template.html') as _template:
-#     template = _template.read()
-
-# references = []
-# for reference in config['references']:
-#     references.append(f'''
-# <li><a href="{reference['url']}">{reference['title']}</a><br />{reference['extra']}</li>
-# ''')
-#     print(reference)
-
-# skeleton = Template(parts['TEMPLATE'])
-
-# output = skeleton.substitute(
-#     parts
-#     # {
-#     #     "TITLE": config['TITLE'],
-#     #     "DESCRIPTION": config['DESCRIPTION'],
-#     #     "IMAGESLUG": urllib.parse.quote(config['TITLE']),
-#     # }
-#     # # CONTENT=content,
-#     # HEAD=parts['HEAD'],
-#     # STYLES=parts['STYLES'],
-#     # SCRIPT=parts['SCRIPT']
-#     # # ESCAPED_HTML=escape(content),
-#     # # ESCAPED_JS=escape(js),
-#     # # REFERENCES="\n".join(references),
-# )
-
-# with open(f'{base_dir}/index.html', 'w') as _output:
-#     _output.write(output)
-
+        if self.parts['a300'] != '':
+            self.parts['ESCAPED_a100'] = f'''
+            <h2>DOCS FILE EXAMPLE</h2>
+            <p>This is an example of the docs file format I'm using. It's plain HTML with a `---` at the end followed by a JSON string that identifes what lines to show.</p>
+            <pre><code class="language-html">{escape(self.parts['a300'])}</code></pre>
+            '''
 
 
 if __name__ == "__main__":
@@ -198,7 +159,7 @@ if __name__ == "__main__":
     b.content_files = [
         'HTML.html', 'HEAD.html', 'JAVASCRIPT.js', 
         'CSS.css', 'TEMPLATE.html', 'PYTHON.py',
-        'DOCSCONTENT.html'
+        'DOCSCONTENT.html', 'a300.html'
     ]
     b.load_config()
     b.load_parts()
