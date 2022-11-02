@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Live Code Documentation Maker - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <title>Live Code Documentation Maker Experiment 1 - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Live Code Documentation Maker" />
+    <meta property="og:title" content="Live Code Documentation Maker Experiment 1" />
     <meta property="og:description" content="" />
     <meta
       property="og:image"
-      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Live%20Code%20Documentation%20Maker,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Live%20Code%20Documentation%20Maker%20Experiment%201,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site:id" content="@TheIdOfAlan" />
@@ -44,11 +44,11 @@
       <a href="https://https://twitter.com/TheIdOfAlan">twitter</a>
     </header>
     <main>
-      <h1>Live Code Documentation Maker</h1>
+      <h1>Live Code Documentation Maker Experiment 1</h1>
       
                 <h2>DETAILS</h2>
                 <ul>
-                    <li>This is an initail exploration of creating source code documentation with metadata that identifies what lines they apply to. The goal is to make sure the source code you post is the same source code you ran when verifying it works. No more botched examples becase of copy/paste goofs.</li>
+                    <li>This is an initial exploration of creating source code documentation with metadata that identifies what lines they apply to. The goal is to make sure the source code you post is the same source code you ran when verifying it works. No more botched examples because of copy/paste goofs.</li>
                 </ul>
                 
       <h2>EXAMPLE</h2>
@@ -148,20 +148,20 @@
 50&nbsp;&nbsp;    sd.assemble_content(f"{working_dir}/DOCSCONTENT.html")
 </pre></code>
       <p>
-        I don't like the way lines 13 and 46 collide. Since this is a prorotype,
+        I don't like the way lines 13 and 46 collide. Since this is a prototype,
         I'm not worrying about it. Going through iterations, that's something
         I'd address so it had an `...` in the middle or something.
       </p>
       
             <h2>DOCS FILE EXAMPLE</h2>
-            <p>This is an example of the docs file format I'm using. It's plain HTML with a `---` at the end followed by a JSON string that identifes what lines to show.</p>
+            <p>This is an example of the docs file format I'm using. It's plain HTML with a `---` at the end followed by a JSON string that identifies what lines to show.</p>
             <pre><code class="language-html">&lt;p&gt;
   Note that because lines are all coming from the same source it&#x27;s trivial to
   show line numbers that match the location of the full file. I&#x27;m not sure I&#x27;m
   going to like that in the long term, but my early impression is good.
 &lt;/p&gt;
 &lt;p&gt;
-  There&#x27;s no need for the lines to be consequetive. Here&#x27;s an example with a
+  There&#x27;s no need for the lines to be consecutive. Here&#x27;s an example with a
   split.
 &lt;/p&gt;
 
@@ -169,17 +169,24 @@
 </code></pre>
             
       <p>
-        It's an array of arrays. The top level representa a code block. The
+        It's an array of arrays. The top level represents a code block. The
         arrays inside that correspond to sections of code (of which there can be
         one or more). And the numbers inside those identify the lines.
       </p>
-      <hr />
-        
-                <h2>References</h2>
-                <ul>
-                    <li><a href=""></a></li>
-                </ul>
-                
+      <p>
+        Having gone through the process it feels like there's potential here but
+        not with this specific approach. Mainly because it's annoying to have to
+        change numbers whenever the source code changes. That's not not
+        surprising, but I wanted to see what it was like.
+      </p>
+      <p>
+        It's possible that tooling could help with the line shifts, but it feels
+        like that would always be fragile. Another approach that's come to mind
+        is pattern matching. For example, looking for function definitions and
+        using those as the search keys on which place the content from the docs.
+        There are tricks there and things are rarely perfect, but based on this
+        experiment the matching approach has some real potential.
+      </p>
     </main>
     <footer>
       made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>

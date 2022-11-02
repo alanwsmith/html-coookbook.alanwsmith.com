@@ -149,7 +149,7 @@ class Builder():
         if self.parts['a300'] != '':
             self.parts['ESCAPED_a100'] = f'''
             <h2>DOCS FILE EXAMPLE</h2>
-            <p>This is an example of the docs file format I'm using. It's plain HTML with a `---` at the end followed by a JSON string that identifes what lines to show.</p>
+            <p>This is an example of the docs file format I'm using. It's plain HTML with a `---` at the end followed by a JSON string that identifies what lines to show.</p>
             <pre><code class="language-html">{escape(self.parts['a300'])}</code></pre>
             '''
 
