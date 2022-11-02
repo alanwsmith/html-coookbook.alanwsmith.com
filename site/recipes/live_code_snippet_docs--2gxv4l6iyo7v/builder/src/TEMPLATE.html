@@ -47,10 +47,20 @@
       <h1>$TITLE</h1>
       $DETAILS
       <h2>EXAMPLE</h2>
-      $DOCSCONTENT $ESCAPED_a100
+      $DOCSCONTENT
+      <p>
+        I don't like the way lines 13 and 46 collide. Since this is a prorotype,
+        I'm not worrying about it. Going through iterations, that's something
+        I'd address so it had an `...` in the middle or something.
+      </p>
+      $ESCAPED_a100
+      <p>
+        It's an array of arrays. The top level representa a code block. The
+        arrays inside that correspond to sections of code (of which there can be
+        one or more). And the numbers inside those identify the lines.
+      </p>
       <hr />
-      $HTML $ESCAPED_PYTHON $ESCAPED_HEAD $ESCAPED_HTML $ESCAPED_CSS
-      $ESCAPED_JAVASCRIPT $TODOS $NOTES $REFERENCES
+      $TODOS $NOTES $REFERENCES
     </main>
     <footer>
       made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>
