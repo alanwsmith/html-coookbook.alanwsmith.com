@@ -18,6 +18,14 @@ input[type="range"] {
 `
         this.keys = ['h', 's', 'l']
 
+        // potential optimzation: debounce
+        const handleSliderMovement = (event) => {
+            this.keys.forEach((key) => {
+                this.setAttribute(key, this.values[key].slider.value)
+            })
+            this.doUpdate()
+        }
+
         this.doUpdate = () => {
             this.keys.forEach((key) => {
                 this.values[key].slider.setAttribute(
@@ -84,11 +92,10 @@ input[type="range"] {
             valueObject.slider.setAttribute('type', 'range')
             valueObject.slider.setAttribute('min', '0')
             valueObject.slider.setAttribute('max', `${max}`)
-            // valueObject.slider.setAttribute('value', '20')
             valueObject.slider.style.position = 'absolute'
             valueObject.slider.style.padding = '0'
             valueObject.slider.style.margin = '0'
-            // valueObject.slider.addEventListener('input', handleLightnessInput)
+            valueObject.slider.addEventListener('input', handleSliderMovement)
 
             valueObject.wrapper.appendChild(valueObject.background)
             valueObject.wrapper.appendChild(valueObject.slider)
@@ -130,6 +137,10 @@ customElements.define('hsla-picker', hslaPicker)
 ////////////////////////////////////////////////////
 // This would to in the main script
 
-const init = () => {}
+const init = () => {
+
+
+
+}
 
 document.addEventListener('DOMContentLoaded', init)

@@ -1,6 +1,6 @@
 {
     "TITLE": "HSL Color Picker Web Component",
-    "STATUS": "ready",
+    "STATUS": "draft",
     "DESCRIPTION": "Making a set of HSL sliders to pick colors in a web component",
     "DETAILS": [
         "This is where I built the initial color picker for my <a href=\"https://fonts-and-colors.alanwsmith.com\">Fonts and Colors</a> site",

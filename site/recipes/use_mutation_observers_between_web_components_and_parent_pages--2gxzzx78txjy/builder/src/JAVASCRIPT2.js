@@ -10,7 +10,6 @@ const handleInsideMutations = (mutationList, observer) => {
             ).value
             if (newValue !== oldValue) {
                 document.getElementById('outside-slider').value = newValue
-                document.getElementById('outside-display').innerText = newValue
             }
         }
         // }
@@ -18,17 +17,16 @@ const handleInsideMutations = (mutationList, observer) => {
 }
 
 const handleOutsideInput = (event) => {
-    // TODO: Figure out if this is going to eat itself
     const newValue = event.target.value
-    document.getElementById('outside-display').innerText = newValue
     document.getElementById('the-link').setAttribute('amount', newValue)
 }
 
 const init = () => {
-    const theLink = document.getElementById('the-link')
     document
         .getElementById('outside-slider')
         .addEventListener('input', handleOutsideInput)
+
+    const theLink = document.getElementById('the-link')
     const observer = new MutationObserver(handleInsideMutations)
     observer.observe(theLink, { attributes: true })
 }

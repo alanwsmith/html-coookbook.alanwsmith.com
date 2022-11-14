@@ -3,24 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Alan's HTML, CSS, and JavaScript Cookbook</title>
+    <title>
+      Detect Enter Key Press In Text Input Field - The HTML, CSS, and JavaScript
+      Cookbook Of Alan
+    </title>
     <meta property="og:type" content="website" />
     <meta
       property="og:title"
-      content="Alan's HTML, CSS, and JavaScript Cookbook"
+      content="Detect Enter Key Press In Text Input Field - The HTML, CSS, and JavaScript Cookbook Of Alan"
     />
     <meta
       property="og:description"
-      content="My collection of recipes for working with HTML, CSS, and JavaScript"
+      content="Figure out when the enter key is pressed in a form field"
     />
     <meta
       property="og:image"
-      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630,o_0,b_rgb:000000/c_fit,w_1020,h_430,co_rgb:eeeeee,l_text:Abhaya%20Libre_116_bold:Alan's%20HTML%252C%20CSS%252C%20and%20JavaScript%20Cookbook/fl_layer_apply,g_north_west,x_65,y_65/co_rgb:666666,l_text:Inconsolata_32_bold:from%20alan%20w.%20smith/fl_layer_apply,g_south_west,x_65,y_45/co_rgb:666666,l_text:Inconsolata_32_bold:html-css-js.alanwsmith.com/fl_layer_apply,g_south_east,x_65,y_45/1x1.png"
+      content="https://html-css-js-cookbook.alanwsmith.com/og-images/main.jpg"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site:id" content="@TheIdOfAlan" />
     <meta name="twitter:creator" content="@TheIdOfAlan" />
-    $PREFETCH
     <link
       rel="icon"
       type="image/png"
@@ -33,27 +35,45 @@
       href="/favicons/180x180.png"
     />
     <link rel="stylesheet" href="/styles/global.css" />
+    <script src="script.js"></script>
   </head>
+
   <body>
     <header>
-      <a href="/">Home</a> ~
+      <a href="/">Cookbook Home</a> ~
       <a href="https://www.alanwsmith.com/">alanwsmith.com</a> ~
       <a href="https://links.alanwsmith.com">links</a> ~
       <a href="https://podcast.alanwsmith.com/">podcast</a>
     </header>
     <main>
-      <h1>Alan's HTML, CSS, and JavaScript Cookbook</h1>
-      <h2>Recipes</h2>
-      <p>These are fully baked and should be ready to go</p>
-      $PUBLISHED
+      <h1>Detect a keypress anywhere on the page</h1>
+      <hr />
+      <div>
+        The Up arrow has been pressed <span id="the-count">0</span> times
+      </div>
+      <hr />
+      <h2>Notes</h2>
+      <ul>
+        <li>
+          This approach uses `keyup` because
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/API/Element/keypress_event"
+            >keypress is deprecated</a
+          >
+        </li>
+      </ul>
 
-      <h2>Under Construction (and probably broken)</h2>
-      <p>
-        This is my active scratchpad area where I'm figuring things out. Each
-        item is likely scuffed in some manner between not being feature complete
-        and being fully broken
-      </p>
-      $DRAFTS
+      <h2>TODO</h2>
+      <ul>
+        <li>Check if there a accessabilty concerns</li>
+        <li>Check on prevent default type stuff here too</li>
+      </ul>
+      <h2>Referneces</h2>
+      <ul>
+        <li>
+          https://developer.mozilla.org/en-US/docs/Web/API/Element/keyup_event
+        </li>
+      </ul>
     </main>
     <footer>
       made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>

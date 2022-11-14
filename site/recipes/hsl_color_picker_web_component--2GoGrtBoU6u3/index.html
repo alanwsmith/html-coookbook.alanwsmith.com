@@ -58,6 +58,14 @@ input[type="range"] {
 `
         this.keys = ['h', 's', 'l']
 
+        // potential optimzation: debounce
+        const handleSliderMovement = (event) => {
+            this.keys.forEach((key) => {
+                this.setAttribute(key, this.values[key].slider.value)
+            })
+            this.doUpdate()
+        }
+
         this.doUpdate = () => {
             this.keys.forEach((key) => {
                 this.values[key].slider.setAttribute(
@@ -124,11 +132,10 @@ input[type="range"] {
             valueObject.slider.setAttribute('type', 'range')
             valueObject.slider.setAttribute('min', '0')
             valueObject.slider.setAttribute('max', `${max}`)
-            // valueObject.slider.setAttribute('value', '20')
             valueObject.slider.style.position = 'absolute'
             valueObject.slider.style.padding = '0'
             valueObject.slider.style.margin = '0'
-            // valueObject.slider.addEventListener('input', handleLightnessInput)
+            valueObject.slider.addEventListener('input', handleSliderMovement)
 
             valueObject.wrapper.appendChild(valueObject.background)
             valueObject.wrapper.appendChild(valueObject.slider)
@@ -170,7 +177,11 @@ customElements.define('hsla-picker', hslaPicker)
 ////////////////////////////////////////////////////
 // This would to in the main script
 
-const init = () => {}
+const init = () => {
+
+
+
+}
 
 document.addEventListener('DOMContentLoaded', init)
 
@@ -197,13 +208,11 @@ document.addEventListener('DOMContentLoaded', init)
 <hsla-picker id="the-picker" h="270" s="50" l="40"></hsla-picker>
 <!-- TODO: Make these labesl -->
 
-h: <input id="h-value" type="text" size="3" value="40" />
+h:<input id="h-value" type="text" size="3" value="" />
 
-s:<input id="s-value" type="text" size="3" value="40" />
+s:<input id="s-value" type="text" size="3" value="" />
 
-l:<input id="l-value" type="text" size="3" value="40" />
-
-a:<input id="a-value" type="text" size="3" value="40" /> |
+l:<input id="l-value" type="text" size="3" value="" />
 
 <input id="hex-value" type="text" size="7" />
   
@@ -212,13 +221,11 @@ a:<input id="a-value" type="text" size="3" value="40" /> |
 &lt;hsla-picker id=&quot;the-picker&quot; h=&quot;270&quot; s=&quot;50&quot; l=&quot;40&quot;&gt;&lt;/hsla-picker&gt;
 &lt;!-- TODO: Make these labesl --&gt;
 
-h: &lt;input id=&quot;h-value&quot; type=&quot;text&quot; size=&quot;3&quot; value=&quot;40&quot; /&gt;
+h:&lt;input id=&quot;h-value&quot; type=&quot;text&quot; size=&quot;3&quot; value=&quot;&quot; /&gt;
 
-s:&lt;input id=&quot;s-value&quot; type=&quot;text&quot; size=&quot;3&quot; value=&quot;40&quot; /&gt;
+s:&lt;input id=&quot;s-value&quot; type=&quot;text&quot; size=&quot;3&quot; value=&quot;&quot; /&gt;
 
-l:&lt;input id=&quot;l-value&quot; type=&quot;text&quot; size=&quot;3&quot; value=&quot;40&quot; /&gt;
-
-a:&lt;input id=&quot;a-value&quot; type=&quot;text&quot; size=&quot;3&quot; value=&quot;40&quot; /&gt; |
+l:&lt;input id=&quot;l-value&quot; type=&quot;text&quot; size=&quot;3&quot; value=&quot;&quot; /&gt;
 
 &lt;input id=&quot;hex-value&quot; type=&quot;text&quot; size=&quot;7&quot; /&gt;
 </code></pre>
@@ -252,6 +259,14 @@ input[type=&quot;range&quot;] {
 }
 `
         this.keys = [&#x27;h&#x27;, &#x27;s&#x27;, &#x27;l&#x27;]
+
+        // potential optimzation: debounce
+        const handleSliderMovement = (event) =&gt; {
+            this.keys.forEach((key) =&gt; {
+                this.setAttribute(key, this.values[key].slider.value)
+            })
+            this.doUpdate()
+        }
 
         this.doUpdate = () =&gt; {
             this.keys.forEach((key) =&gt; {
@@ -319,11 +334,10 @@ input[type=&quot;range&quot;] {
             valueObject.slider.setAttribute(&#x27;type&#x27;, &#x27;range&#x27;)
             valueObject.slider.setAttribute(&#x27;min&#x27;, &#x27;0&#x27;)
             valueObject.slider.setAttribute(&#x27;max&#x27;, `${max}`)
-            // valueObject.slider.setAttribute(&#x27;value&#x27;, &#x27;20&#x27;)
             valueObject.slider.style.position = &#x27;absolute&#x27;
             valueObject.slider.style.padding = &#x27;0&#x27;
             valueObject.slider.style.margin = &#x27;0&#x27;
-            // valueObject.slider.addEventListener(&#x27;input&#x27;, handleLightnessInput)
+            valueObject.slider.addEventListener(&#x27;input&#x27;, handleSliderMovement)
 
             valueObject.wrapper.appendChild(valueObject.background)
             valueObject.wrapper.appendChild(valueObject.slider)
@@ -365,7 +379,11 @@ customElements.define(&#x27;hsla-picker&#x27;, hslaPicker)
 ////////////////////////////////////////////////////
 // This would to in the main script
 
-const init = () =&gt; {}
+const init = () =&gt; {
+
+
+
+}
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
 </code></pre>

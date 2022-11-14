@@ -1,6 +1,6 @@
 {
     "TITLE": "Send A Web Component Value When Submitting A Form",
-    "STATUS": "ready",
+    "STATUS": "draft",
     "DESCRIPTION": "",
     "DETAILS": [
         "This mehod uses an 'input' element inside a web component whose value is included when the form is submitted",

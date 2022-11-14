@@ -1,6 +1,6 @@
 {
-    "TITLE": "Live Code Documentation Maker Experiment 1",
-    "STATUS": "ready",
+    "TITLE": "Live Code Documentation Maker Experiment Alpha",
+    "STATUS": "published",
     "DESCRIPTION": "",
     "DETAILS": [
         "This is an initial exploration of creating source code documentation with metadata that identifies what lines they apply to. The goal is to make sure the source code you post is the same source code you ran when verifying it works. No more botched examples because of copy/paste goofs."
