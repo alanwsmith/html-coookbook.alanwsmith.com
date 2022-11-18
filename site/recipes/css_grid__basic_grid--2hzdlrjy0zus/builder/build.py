@@ -29,6 +29,7 @@ class Builder():
         for part_key in part_keys:
             self.parts[f'ESCAPED_{part_key}'] = escape(self.parts[part_key])
 
+
         print(self.parts.keys())
 
     def load_config(self):

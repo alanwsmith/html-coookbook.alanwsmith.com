@@ -136,10 +136,15 @@ class Builder():
 
         if self.parts['JAVASCRIPT'] != '':
             self.parts['ESCAPED_JAVASCRIPT'] = f'''
-            <h2>JavaScript</h2>
+            <h2>Formula</h2>
             <pre><code class="language-js">{escape(self.parts['JAVASCRIPT'])}</code></pre>
             '''
 
+        if self.parts['JS2'] != '':
+            self.parts['ESCAPED_JS2'] = f'''
+            <h2>Usage</h2>
+            <pre><code class="language-js">{escape(self.parts['JS2'])}</code></pre>
+            '''
 
 
 
@@ -159,39 +164,14 @@ class Builder():
 # with open(f'{source_dir}/src/template.html') as _template:
 #     template = _template.read()
 
-# references = []
-# for reference in config['references']:
-#     references.append(f'''
-# <li><a href="{reference['url']}">{reference['title']}</a><br />{reference['extra']}</li>
-# ''')
-#     print(reference)
 
-# skeleton = Template(parts['TEMPLATE'])
 
-# output = skeleton.substitute(
-#     parts
-#     # {
-#     #     "TITLE": config['TITLE'],
-#     #     "DESCRIPTION": config['DESCRIPTION'],
-#     #     "IMAGESLUG": urllib.parse.quote(config['TITLE']),
-#     # }
-#     # # CONTENT=content,
-#     # HEAD=parts['HEAD'],
-#     # STYLES=parts['STYLES'],
-#     # SCRIPT=parts['SCRIPT']
-#     # # ESCAPED_HTML=escape(content),
-#     # # ESCAPED_JS=escape(js),
-#     # # REFERENCES="\n".join(references),
-# )
-
-# with open(f'{base_dir}/index.html', 'w') as _output:
-#     _output.write(output)
 
 
 
 if __name__ == "__main__":
     b = Builder()
-    b.content_files = ['HTML.html', 'HEAD.html', 'JAVASCRIPT.js', 'CSS.css', 'TEMPLATE.html']
+    b.content_files = ['HTML.html', 'HEAD.html', 'JAVASCRIPT.js', 'CSS.css', 'TEMPLATE.html', 'JS2.js']
     b.load_config()
     b.load_parts()
     b.escape_parts()

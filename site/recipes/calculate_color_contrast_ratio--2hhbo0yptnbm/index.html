@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculate Color Contrast Ratios In JavaScript - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Calculate Color Contrast Ratios In JavaScript" />
+    <meta property="og:description" content="This recipe is the formula for calculating color contrast ratios to use in measuring the accessibility of color choices." />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:003f5c,l_text:Helvetica_122_bold:Calculate%20Color%20Contrast%20Ratios%20In%20JavaScript,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/prism.css" />
+    
+    <style>
+      
+    </style>
+    <script>
+      const prepColor = (hex) => {
+    payload = {
+        hex: hex,
+        hex_r: hex.substr(1, 2),
+        hex_g: hex.substr(3, 2),
+        hex_b: hex.substr(5, 2),
+    }
+    payload.rgb_r = parseInt(payload.hex_r, 16)
+    payload.rgb_g = parseInt(payload.hex_g, 16)
+    payload.rgb_b = parseInt(payload.hex_b, 16)
+
+    payload.tmp_r = payload.rgb_r / 255
+    payload.tmp_g = payload.rgb_g / 255
+    payload.tmp_b = payload.rgb_b / 255
+
+    payload.srgb_r =
+        payload.tmp_r <= 0.03928
+            ? payload.tmp_r / 12.92
+            : Math.pow((payload.tmp_r + 0.055) / 1.055, 2.4)
+
+    payload.srgb_g =
+        payload.tmp_g <= 0.03928
+            ? payload.tmp_g / 12.92
+            : Math.pow((payload.tmp_g + 0.055) / 1.055, 2.4)
+
+    payload.srgb_b =
+        payload.tmp_b <= 0.03928
+            ? payload.tmp_b / 12.92
+            : Math.pow((payload.tmp_b + 0.055) / 1.055, 2.4)
+
+    payload.lum_r = 0.2126 * payload.srgb_r
+    payload.lum_g = 0.7152 * payload.srgb_g
+    payload.lum_b = 0.0722 * payload.srgb_b
+
+    payload.lum = payload.lum_r + payload.lum_g + payload.lum_b
+
+    return payload
+}
+
+const calculateContrastRatio = (a, b) => {
+    const c1 = prepColor(a)
+    const c2 = prepColor(b)
+    const ratio =
+        (Math.max(c1.lum, c2.lum) + 0.05) / (Math.min(c1.lum, c2.lum) + 0.05)
+    return ratio.toFixed(2)
+}
+
+      const inputs = {}
+
+const updateRatio = () => {
+    const color1 = inputs.color1.value
+    const color2 = inputs.color2.value
+
+    if (color1.match(/^#\w{6}$/) && color2.match(/^#\w{6}$/)) {
+        const ratio = calculateContrastRatio(color1, color2)
+        document.getElementById('ratio').innerText = `${ratio}:1`
+    }
+}
+
+const init = () => {
+    inputs.color1 = document.getElementById('color1')
+    inputs.color1.addEventListener('input', updateRatio)
+    inputs.color2 = document.getElementById('color2')
+    inputs.color2.addEventListener('input', updateRatio)
+
+    updateRatio()
+}
+
+document.addEventListener('DOMContentLoaded', init)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">cookbook home</a> ~
+      <a href="https://www.alanwsmith.com/">alanwsmith.com</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://https://twitter.com/TheIdOfAlan">twitter</a> ~
+      <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
+    </header>
+    <main>
+      <h1>Calculate Color Contrast Ratios In JavaScript</h1>
+      
+                <h2>Details</h2>
+                <ul>
+                    <li>This is a JavaScript implementation of the formula to calculate the contrast ratio between two colors</li> <li>These ratios can be used to check for potential accessibility issues. The preliminary checklist from W3C (linked below) says: Web pages should also have a minimum contrast by default: a contrast ratio of at least 4.5:1 for normal-size text.</li> <li>There are other targets of 3:1 and 7:1 depending on the circumstance which are listed in the docs.</li> <li>There are online tools for doing this calculation but I haven't seen a published JavaScript version with just the formula. I need one for another site I'm working on so put this together from the W3C reference</li> <li>The code blocks below are split into two sections. The first is the calculateContrastRatio() fuction that gets called and its supporting prepColor() function</li> <li>The second section of code is an example using the primary functions. It takes two hex values from the input fields and displays the ratio below them</li> <li>There's a bunch of duplication and not a lot of error handling. Addressing that if necessary is left as an exercise for the reader</li>
+                </ul>
+                
+      <h2>Example</h2>
+      C1: <input type="text" size="7" id="color1" value="#3a3845" />
+<br />
+C2: <input type="text" size="7" id="color2" value="#c68b7b" />
+<br />
+Ratio: <span id="ratio"></span>
+ 
+            <h2>Formula</h2>
+            <pre><code class="language-js">const prepColor = (hex) =&gt; {
+    payload = {
+        hex: hex,
+        hex_r: hex.substr(1, 2),
+        hex_g: hex.substr(3, 2),
+        hex_b: hex.substr(5, 2),
+    }
+    payload.rgb_r = parseInt(payload.hex_r, 16)
+    payload.rgb_g = parseInt(payload.hex_g, 16)
+    payload.rgb_b = parseInt(payload.hex_b, 16)
+
+    payload.tmp_r = payload.rgb_r / 255
+    payload.tmp_g = payload.rgb_g / 255
+    payload.tmp_b = payload.rgb_b / 255
+
+    payload.srgb_r =
+        payload.tmp_r &lt;= 0.03928
+            ? payload.tmp_r / 12.92
+            : Math.pow((payload.tmp_r + 0.055) / 1.055, 2.4)
+
+    payload.srgb_g =
+        payload.tmp_g &lt;= 0.03928
+            ? payload.tmp_g / 12.92
+            : Math.pow((payload.tmp_g + 0.055) / 1.055, 2.4)
+
+    payload.srgb_b =
+        payload.tmp_b &lt;= 0.03928
+            ? payload.tmp_b / 12.92
+            : Math.pow((payload.tmp_b + 0.055) / 1.055, 2.4)
+
+    payload.lum_r = 0.2126 * payload.srgb_r
+    payload.lum_g = 0.7152 * payload.srgb_g
+    payload.lum_b = 0.0722 * payload.srgb_b
+
+    payload.lum = payload.lum_r + payload.lum_g + payload.lum_b
+
+    return payload
+}
+
+const calculateContrastRatio = (a, b) =&gt; {
+    const c1 = prepColor(a)
+    const c2 = prepColor(b)
+    const ratio =
+        (Math.max(c1.lum, c2.lum) + 0.05) / (Math.min(c1.lum, c2.lum) + 0.05)
+    return ratio.toFixed(2)
+}
+</code></pre>
+             
+            <h2>Usage</h2>
+            <pre><code class="language-js">const inputs = {}
+
+const updateRatio = () =&gt; {
+    const color1 = inputs.color1.value
+    const color2 = inputs.color2.value
+
+    if (color1.match(/^#\w{6}$/) &amp;&amp; color2.match(/^#\w{6}$/)) {
+        const ratio = calculateContrastRatio(color1, color2)
+        document.getElementById(&#x27;ratio&#x27;).innerText = `${ratio}:1`
+    }
+}
+
+const init = () =&gt; {
+    inputs.color1 = document.getElementById(&#x27;color1&#x27;)
+    inputs.color1.addEventListener(&#x27;input&#x27;, updateRatio)
+    inputs.color2 = document.getElementById(&#x27;color2&#x27;)
+    inputs.color2.addEventListener(&#x27;input&#x27;, updateRatio)
+
+    updateRatio()
+}
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
+</code></pre>
+             
+                <h2>TODO</h2>
+                <ul>
+                    <li>Add link and details: https://www.w3.org/TR/WCAG21/#contrast-minimum</li> <li>Add link and details: https://www.w3.org/TR/WCAG21/#contrast-enhanced</li> <li>https://www.w3.org/TR/WCAG21/#non-text-contrast</li> <li>https://www.w3.org/WAI/standards-guidelines/act/rules/afw4f7/proposed/</li> <li>https://www.w3.org/WAI/standards-guidelines/act/rules/09o5cg/proposed/</li> <li>https://www.w3.org/WAI/test-evaluate/preliminary/#contrast</li>
+                </ul>
+              
+                <h2>References</h2>
+                <ul>
+                    <li><a href="https://www.w3.org/TR/2012/NOTE-WCAG20-TECHS-20120103/G17.html">W3C - Ensuring that a contrast ratio of at least 7:1 exists between text (and images of text) and background behind the text</a></li> <li><a href="https://webaim.org/resources/contrastchecker/">WebAIM Contrast Checker</a> - This is a good example of the online tools that let you check contrast. It links off to a bunch of other good resources as well (including some browser plug-ins)</li> <li><a href="https://www.w3.org/WAI/test-evaluate/preliminary/#contrast">W3C Preliminary Easy Checks – A First Review of Web Accessibility</a></li>
+                </ul>
+                
+    </main>
+    <footer>
+      made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>
+      <br />
+      who has a <a href="https://www.alanwsmith.com">website</a> and a
+      <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
+      among other <a href="https://links.alanwsmith.com">things</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>

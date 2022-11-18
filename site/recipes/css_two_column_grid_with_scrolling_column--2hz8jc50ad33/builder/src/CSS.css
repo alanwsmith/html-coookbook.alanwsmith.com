@@ -1,0 +1,10 @@
+#col-wrapper {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+}
+
+#col-a {
+  border: 1px solid red;
+  height: 300px;
+  overflow-y: scroll;
+}

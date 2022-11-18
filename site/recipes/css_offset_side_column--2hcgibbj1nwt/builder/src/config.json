@@ -1,0 +1,19 @@
+{
+    "TITLE": "CSS Offset Sidebar Column",
+    "STATUS": "draft",
+    "DESCRIPTION": "",
+    "DETAILS": [
+        "Goal is a main column that's centered (or mostly centered) wish a side colum that's offset so the main column stays largely in the center"
+    ],
+    "NOTES": [
+        "I've got Josh Comeau's CSS Reset in place too. The links in the references"
+    ],
+    "TODOS": [],
+    "REFERENCES": [
+        {
+            "title": "Josh Comeau's CSS Reset",
+            "url": "https://www.joshwcomeau.com/css/custom-css-reset/",
+            "extra": ""
+        }
+    ]
+}

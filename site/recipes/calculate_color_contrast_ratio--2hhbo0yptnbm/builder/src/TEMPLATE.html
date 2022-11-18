@@ -9,7 +9,7 @@
     <meta property="og:description" content="$DESCRIPTION" />
     <meta
       property="og:image"
-      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:$IMAGESLUG,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:003f5c,l_text:Helvetica_122_bold:$IMAGESLUG,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site:id" content="@TheIdOfAlan" />
@@ -29,38 +29,11 @@
     <link rel="stylesheet" href="/styles/prism.css" />
     $HEAD
     <style>
-      *, *::before, *::after {
-        box-sizing: border-box;
-      }
-      * {
-        margin: 0;
-      }
-      html, body {
-        height: 100%;
-      }
-      */
-      body {
-        line-height: 1.5;
-        -webkit-font-smoothing: antialiased;
-      }
-      img, picture, video, canvas, svg {
-        display: block;
-        max-width: 100%;
-      }
-      input, button, textarea, select {
-        font: inherit;
-      }
-      p, h1, h2, h3, h4, h5, h6 {
-        overflow-wrap: break-word;
-      }
-      #root, #__next {
-        isolation: isolate;
-      }
-
-            $CSS
+      $CSS
     </style>
     <script>
       $JAVASCRIPT
+      $JS2
     </script>
   </head>
   <body class="line-numbers">
@@ -75,9 +48,8 @@
     <main>
       <h1>$TITLE</h1>
       $DETAILS
-      <h2>EXAMPLE</h2>
-      $HTML $ESCAPED_HEAD $ESCAPED_HTML $ESCAPED_CSS $ESCAPED_JAVASCRIPT $TODOS
-      $NOTES $REFERENCES
+      <h2>Example</h2>
+      $HTML $ESCAPED_JAVASCRIPT $ESCAPED_JS2 $TODOS $NOTES $REFERENCES
     </main>
     <footer>
       made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>

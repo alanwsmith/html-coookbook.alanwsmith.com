@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Offset Sidebar Column - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="CSS Offset Sidebar Column" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:CSS%20Offset%20Sidebar%20Column,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+    <link rel="stylesheet" href="/styles/prism.css" />
+    
+    <style>
+      *, *::before, *::after {
+        box-sizing: border-box;
+      }
+      * {
+        margin: 0;
+      }
+      html, body {
+        height: 100%;
+      }
+      */
+      body {
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+      img, picture, video, canvas, svg {
+        display: block;
+        max-width: 100%;
+      }
+      input, button, textarea, select {
+        font: inherit;
+      }
+      p, h1, h2, h3, h4, h5, h6 {
+        overflow-wrap: break-word;
+      }
+      #root, #__next {
+        isolation: isolate;
+      }
+      body {
+  background-color: #444;
+  color: #ddd;
+}
+
+#wrapper {
+  display: grid;
+  max-width: 1000px;
+  margin-left: max(0px, calc(50vw - 450px - 150px));
+  grid-template-columns: 150px 1fr;
+}
+
+#sidebar {
+  background-color: #444;
+}
+
+#main {
+  background-color: #431223;
+}
+
+    </style>
+    <script>
+      const kickoff = () => {
+    console.log("kickoff")
+}
+
+document.addEventListener('DOMContentLoaded', kickoff)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">Cookbook Home</a> ~
+      <a href="https://www.alanwsmith.com/">alanwsmith.com</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://https://twitter.com/TheIdOfAlan">twitter</a>
+    </header>
+    <main>
+      <h1>CSS Offset Sidebar Column</h1>
+      
+                <h2>Details</h2>
+                <ul>
+                    <li>Goal is a main column that's centered (or mostly centered) wish a side colum that's offset so the main column stays largely in the center</li>
+                </ul>
+                
+      <h2>EXAMPLE</h2>
+      <div id="placeholder">----</div>
+
+<div id="wrapper">
+  <div id="sidebar">
+    The paper box is full of thumb tacks. Lift the square stone over the fence.
+  </div>
+  <div id="main">
+    <p>
+      The ramp led up to the wide highway. No cement will hold hard wood. Smoke
+      poured out of every crack. He crawled with care along the ledge. This
+      plank was made for walking on. Add salt before you fry the egg. The sofa
+      cushion is red and of light weight. Pluck the bright rose without leaves.
+      Split the log with a quick, sharp blow. The ink stain dried on the
+      finished page. The colt reared and threw the tall rider.
+    </p>
+    <p>
+      The point of the steel pen was bent and twisted. No hardship seemed to
+      keep him sad. The sun came up to light the eastern sky. The lake sparkled
+      in the red hot sun. Jazz and swing fans like fast music. Bring your best
+      compass to the third class. Torn scraps littered the stone floor.
+    </p>
+    <p>
+      Once we stood beside the shore. Tend the sheep while the dog wanders. Just
+      hoist it up and take it away, He wrote his last novel there at the inn.
+      The tree top waved in a graceful way. There are more than two factors
+      here. Those words were the cue for the actor to leave.
+    </p>
+  </div>
+</div>
+  
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;div id=&quot;placeholder&quot;&gt;----&lt;/div&gt;
+
+&lt;div id=&quot;wrapper&quot;&gt;
+  &lt;div id=&quot;sidebar&quot;&gt;
+    The paper box is full of thumb tacks. Lift the square stone over the fence.
+  &lt;/div&gt;
+  &lt;div id=&quot;main&quot;&gt;
+    &lt;p&gt;
+      The ramp led up to the wide highway. No cement will hold hard wood. Smoke
+      poured out of every crack. He crawled with care along the ledge. This
+      plank was made for walking on. Add salt before you fry the egg. The sofa
+      cushion is red and of light weight. Pluck the bright rose without leaves.
+      Split the log with a quick, sharp blow. The ink stain dried on the
+      finished page. The colt reared and threw the tall rider.
+    &lt;/p&gt;
+    &lt;p&gt;
+      The point of the steel pen was bent and twisted. No hardship seemed to
+      keep him sad. The sun came up to light the eastern sky. The lake sparkled
+      in the red hot sun. Jazz and swing fans like fast music. Bring your best
+      compass to the third class. Torn scraps littered the stone floor.
+    &lt;/p&gt;
+    &lt;p&gt;
+      Once we stood beside the shore. Tend the sheep while the dog wanders. Just
+      hoist it up and take it away, He wrote his last novel there at the inn.
+      The tree top waved in a graceful way. There are more than two factors
+      here. Those words were the cue for the actor to leave.
+    &lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+             
+            <h2>CSS</h2>
+            <pre><code class="language-css">body {
+  background-color: #444;
+  color: #ddd;
+}
+
+#wrapper {
+  display: grid;
+  max-width: 1000px;
+  margin-left: max(0px, calc(50vw - 450px - 150px));
+  grid-template-columns: 150px 1fr;
+}
+
+#sidebar {
+  background-color: #444;
+}
+
+#main {
+  background-color: #431223;
+}
+</code></pre>
+             
+            <h2>JavaScript</h2>
+            <pre><code class="language-js">const kickoff = () =&gt; {
+    console.log(&quot;kickoff&quot;)
+}
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, kickoff)
+</code></pre>
+             
+      
+                <h2>Notes</h2>
+                <ul>
+                    <li>I've got Josh Comeau's CSS Reset in place too. The links in the references</li>
+                </ul>
+             
+                <h2>References</h2>
+                <ul>
+                    <li><a href="https://www.joshwcomeau.com/css/custom-css-reset/">Josh Comeau's CSS Reset</a></li>
+                </ul>
+                
+    </main>
+    <footer>
+      made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>
+      <br />
+      who has a <a href="https://www.alanwsmith.com">website</a> and a
+      <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
+      among other <a href="https://links.alanwsmith.com">things</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>

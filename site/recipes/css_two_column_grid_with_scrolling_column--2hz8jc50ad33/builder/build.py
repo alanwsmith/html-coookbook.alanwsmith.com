@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#/usr/bin/env python3
 
 import json
 import os
@@ -56,7 +56,7 @@ class Builder():
             for detail in self.config['DETAILS']:
                 details.append(f'<li>{detail}</li>')
             self.parts['DETAILS'] = f'''
-                <h2>Details</h2>
+                <h2>Deatails</h2>
                 <ul>
                     {" ".join(details)}
                 </ul>

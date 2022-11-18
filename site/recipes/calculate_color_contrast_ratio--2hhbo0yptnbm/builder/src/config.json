@@ -1,0 +1,40 @@
+{
+    "TITLE": "Calculate Color Contrast Ratios In JavaScript",
+    "STATUS": "draft",
+    "DESCRIPTION": "This recipe is the formula for calculating color contrast ratios to use in measuring the accessibility of color choices.",
+    "DETAILS": [
+        "This is a JavaScript implementation of the formula to calculate the contrast ratio between two colors",
+        "These ratios can be used to check for potential accessibility issues. The preliminary checklist from W3C (linked below) says: Web pages should also have a minimum contrast by default: a contrast ratio of at least 4.5:1 for normal-size text.",
+        "There are other targets of 3:1 and 7:1 depending on the circumstance which are listed in the docs.",
+        "There are online tools for doing this calculation but I haven't seen a published JavaScript version with just the formula. I need one for another site I'm working on so put this together from the W3C reference",
+        "The code blocks below are split into two sections. The first is the calculateContrastRatio() fuction that gets called and its supporting prepColor() function",
+        "The second section of code is an example using the primary functions. It takes two hex values from the input fields and displays the ratio below them",
+        "There's a bunch of duplication and not a lot of error handling. Addressing that if necessary is left as an exercise for the reader"
+    ],
+    "NOTES": [],
+    "TODOS": [
+        "Add link and details: https://www.w3.org/TR/WCAG21/#contrast-minimum",
+        "Add link and details: https://www.w3.org/TR/WCAG21/#contrast-enhanced",
+        "https://www.w3.org/TR/WCAG21/#non-text-contrast",
+        "https://www.w3.org/WAI/standards-guidelines/act/rules/afw4f7/proposed/",
+        "https://www.w3.org/WAI/standards-guidelines/act/rules/09o5cg/proposed/",
+        "https://www.w3.org/WAI/test-evaluate/preliminary/#contrast"
+    ],
+    "REFERENCES": [
+        {
+            "title": "W3C - Ensuring that a contrast ratio of at least 7:1 exists between text (and images of text) and background behind the text",
+            "url": "https://www.w3.org/TR/2012/NOTE-WCAG20-TECHS-20120103/G17.html",
+            "extra": ""
+        },
+        {
+            "title": "WebAIM Contrast Checker",
+            "url": "https://webaim.org/resources/contrastchecker/",
+            "extra": "This is a good example of the online tools that let you check contrast. It links off to a bunch of other good resources as well (including some browser plug-ins)"
+        },
+        {
+            "url": "https://www.w3.org/WAI/test-evaluate/preliminary/#contrast",
+            "title": "W3C Preliminary Easy Checks – A First Review of Web Accessibility",
+            "extra": ""
+        }
+    ]
+}

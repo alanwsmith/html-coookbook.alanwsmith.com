@@ -1,0 +1,19 @@
+body {
+  background-color: #444;
+  color: #ddd;
+}
+
+#wrapper {
+  display: grid;
+  max-width: 1000px;
+  margin-left: max(0px, calc(50vw - 450px - 150px));
+  grid-template-columns: 150px 1fr;
+}
+
+#sidebar {
+  background-color: #444;
+}
+
+#main {
+  background-color: #431223;
+}
