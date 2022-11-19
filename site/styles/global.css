@@ -9,6 +9,8 @@
 html,
 body {
   height: 100%;
+  background-color: #3c2317;
+  color: #b4cde6;
 }
 */ body {
   line-height: 1.5;
@@ -36,12 +38,17 @@ h4,
 h5,
 h6 {
   overflow-wrap: break-word;
+  color: #628e90;
 }
 
 h1,
 h2 {
   margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.9rem;
+}
+
+h2 {
+  border-bottom: 1px solid;
 }
 
 #root,
@@ -49,16 +56,9 @@ h2 {
   isolation: isolate;
 }
 
-body {
-  background-color: #3a3845;
-  color: #c69b7b;
-}
-h1,
-h2 {
-  color: #826f66;
-}
 a {
-  color: #f7ccac;
+  text-decoration: none;
+  color: #f5efe6;
 }
 
 body {
@@ -68,18 +68,6 @@ body {
   display: grid;
   grid-template-rows: auto 1fr auto;
   font-size: 1.2rem;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  color: #65b4f5;
-}
-a {
-  color: #fffffe;
-  text-decoration: none;
 }
 header {
   padding-top: 18px;
@@ -117,4 +105,13 @@ input {
 
 li {
   margin-bottom: 17px;
+  max-width: 72ch;
+}
+
+ul {
+  padding-top: 20px;
+}
+
+pre {
+  font-size: 0.92rem;
 }

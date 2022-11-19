@@ -26,76 +26,84 @@
       href="/favicons/180x180.png"
     />
     <link rel="stylesheet" href="/styles/global.css" />
-    <link rel="stylesheet" href="/styles/prism.css" />
+    <link rel="stylesheet" href="/styles/prism-customized.css" />
     
     <style>
       
     </style>
     <script>
       const prepColor = (hex) => {
-    payload = {
+    color = {
         hex: hex,
         hex_r: hex.substr(1, 2),
         hex_g: hex.substr(3, 2),
         hex_b: hex.substr(5, 2),
     }
-    payload.rgb_r = parseInt(payload.hex_r, 16)
-    payload.rgb_g = parseInt(payload.hex_g, 16)
-    payload.rgb_b = parseInt(payload.hex_b, 16)
 
-    payload.tmp_r = payload.rgb_r / 255
-    payload.tmp_g = payload.rgb_g / 255
-    payload.tmp_b = payload.rgb_b / 255
+    color.rgb_r = parseInt(color.hex_r, 16)
+    color.rgb_g = parseInt(color.hex_g, 16)
+    color.rgb_b = parseInt(color.hex_b, 16)
 
-    payload.srgb_r =
-        payload.tmp_r <= 0.03928
-            ? payload.tmp_r / 12.92
-            : Math.pow((payload.tmp_r + 0.055) / 1.055, 2.4)
+    color.tmp_r = color.rgb_r / 255
+    color.tmp_g = color.rgb_g / 255
+    color.tmp_b = color.rgb_b / 255
 
-    payload.srgb_g =
-        payload.tmp_g <= 0.03928
-            ? payload.tmp_g / 12.92
-            : Math.pow((payload.tmp_g + 0.055) / 1.055, 2.4)
+    color.srgb_r =
+        color.tmp_r <= 0.03928
+            ? color.tmp_r / 12.92
+            : Math.pow((color.tmp_r + 0.055) / 1.055, 2.4)
 
-    payload.srgb_b =
-        payload.tmp_b <= 0.03928
-            ? payload.tmp_b / 12.92
-            : Math.pow((payload.tmp_b + 0.055) / 1.055, 2.4)
+    color.srgb_g =
+        color.tmp_g <= 0.03928
+            ? color.tmp_g / 12.92
+            : Math.pow((color.tmp_g + 0.055) / 1.055, 2.4)
 
-    payload.lum_r = 0.2126 * payload.srgb_r
-    payload.lum_g = 0.7152 * payload.srgb_g
-    payload.lum_b = 0.0722 * payload.srgb_b
+    color.srgb_b =
+        color.tmp_b <= 0.03928
+            ? color.tmp_b / 12.92
+            : Math.pow((color.tmp_b + 0.055) / 1.055, 2.4)
 
-    payload.lum = payload.lum_r + payload.lum_g + payload.lum_b
+    color.lum_r = 0.2126 * color.srgb_r
+    color.lum_g = 0.7152 * color.srgb_g
+    color.lum_b = 0.0722 * color.srgb_b
 
-    return payload
+    color.lum = color.lum_r + color.lum_g + color.lum_b
+
+    return color
 }
 
-const calculateContrastRatio = (a, b) => {
-    const c1 = prepColor(a)
-    const c2 = prepColor(b)
-    const ratio =
-        (Math.max(c1.lum, c2.lum) + 0.05) / (Math.min(c1.lum, c2.lum) + 0.05)
-    return ratio.toFixed(2)
+const calculateContrastRatioAntecedent = (hex1, hex2) => {
+    const color1 = prepColor(hex1)
+    const color2 = prepColor(hex2)
+    const antecedent =
+        (Math.max(color1.lum, color2.lum) + 0.05) /
+        (Math.min(color1.lum, color2.lum) + 0.05)
+    return antecedent
 }
 
-      const inputs = {}
+      const els = {}
 
 const updateRatio = () => {
-    const color1 = inputs.color1.value
-    const color2 = inputs.color2.value
+    const hex1 = els.in1.value
+    const hex2 = els.in2.value
 
-    if (color1.match(/^#\w{6}$/) && color2.match(/^#\w{6}$/)) {
-        const ratio = calculateContrastRatio(color1, color2)
-        document.getElementById('ratio').innerText = `${ratio}:1`
+    // punt if the inputs don't look like hex values
+    if (!hex1.match(/^#\w\w\w\w\w\w$/) || !hex2.match(/^#\w\w\w\w\w\w$/)) {
+        return null
     }
+
+    const antecedent = calculateContrastRatioAntecedent(hex1, hex2)
+    const ratio = `${antecedent.toFixed(2)}:1`
+    els.ratio.innerHTML = ratio
 }
 
 const init = () => {
-    inputs.color1 = document.getElementById('color1')
-    inputs.color1.addEventListener('input', updateRatio)
-    inputs.color2 = document.getElementById('color2')
-    inputs.color2.addEventListener('input', updateRatio)
+    els.in1 = document.getElementById('in1')
+    els.in2 = document.getElementById('in2')
+    els.ratio = document.getElementById('ratio')
+
+    els.in1.addEventListener('input', updateRatio)
+    els.in2.addEventListener('input', updateRatio)
 
     updateRatio()
 }
@@ -118,98 +126,116 @@ document.addEventListener('DOMContentLoaded', init)
       
                 <h2>Details</h2>
                 <ul>
-                    <li>This is a JavaScript implementation of the formula to calculate the contrast ratio between two colors</li> <li>These ratios can be used to check for potential accessibility issues. The preliminary checklist from W3C (linked below) says: Web pages should also have a minimum contrast by default: a contrast ratio of at least 4.5:1 for normal-size text.</li> <li>There are other targets of 3:1 and 7:1 depending on the circumstance which are listed in the docs.</li> <li>There are online tools for doing this calculation but I haven't seen a published JavaScript version with just the formula. I need one for another site I'm working on so put this together from the W3C reference</li> <li>The code blocks below are split into two sections. The first is the calculateContrastRatio() fuction that gets called and its supporting prepColor() function</li> <li>The second section of code is an example using the primary functions. It takes two hex values from the input fields and displays the ratio below them</li> <li>There's a bunch of duplication and not a lot of error handling. Addressing that if necessary is left as an exercise for the reader</li>
+                    <li>This is a JavaScript implementation of the formula to calculate the contrast ratio between two colors</li> <li>These ratios can be used to check for potential accessibility issues. The preliminary checklist from W3C (linked below) says: Web pages should also have a minimum contrast by default: a contrast ratio of at least 4.5:1 for normal-size text.</li> <li>There are other targets of 3:1 and 7:1 depending on the circumstance which are listed in the docs.</li> <li>There are online tools for doing this calculation but I haven't seen a published JavaScript version that's just the formula for us in other code. I need one for another site I'm working on so put this together from the W3C reference</li> <li>The code blocks below are split into two sections. The first is the calculateContrastRatio() function that gets called and its supporting prepColor() function</li> <li>The second section of code is an example using the primary functions. It takes two hex values from the input fields and displays the ratio below them</li> <li>There's a bunch of duplication and not a lot of error handling. Addressing that if necessary is left as an exercise for the reader</li>
                 </ul>
                 
       <h2>Example</h2>
-      C1: <input type="text" size="7" id="color1" value="#3a3845" />
-<br />
-C2: <input type="text" size="7" id="color2" value="#c68b7b" />
-<br />
-Ratio: <span id="ratio"></span>
+      <table>
+  <thead>
+    <tr>
+      <th>Color 1</th>
+      <th>Color 2</th>
+      <th>Ratio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <input type="text" size="7" id="in1" value="#3c2317" />
+      </td>
+      <td>
+        <input type="text" size="7" id="in2" value="#b4cde6" />
+      </td>
+      <td id="ratio"></td>
+    </tr>
+  </tbody>
+</table>
  
             <h2>Formula</h2>
             <pre><code class="language-js">const prepColor = (hex) =&gt; {
-    payload = {
+    color = {
         hex: hex,
         hex_r: hex.substr(1, 2),
         hex_g: hex.substr(3, 2),
         hex_b: hex.substr(5, 2),
     }
-    payload.rgb_r = parseInt(payload.hex_r, 16)
-    payload.rgb_g = parseInt(payload.hex_g, 16)
-    payload.rgb_b = parseInt(payload.hex_b, 16)
 
-    payload.tmp_r = payload.rgb_r / 255
-    payload.tmp_g = payload.rgb_g / 255
-    payload.tmp_b = payload.rgb_b / 255
+    color.rgb_r = parseInt(color.hex_r, 16)
+    color.rgb_g = parseInt(color.hex_g, 16)
+    color.rgb_b = parseInt(color.hex_b, 16)
 
-    payload.srgb_r =
-        payload.tmp_r &lt;= 0.03928
-            ? payload.tmp_r / 12.92
-            : Math.pow((payload.tmp_r + 0.055) / 1.055, 2.4)
+    color.tmp_r = color.rgb_r / 255
+    color.tmp_g = color.rgb_g / 255
+    color.tmp_b = color.rgb_b / 255
 
-    payload.srgb_g =
-        payload.tmp_g &lt;= 0.03928
-            ? payload.tmp_g / 12.92
-            : Math.pow((payload.tmp_g + 0.055) / 1.055, 2.4)
+    color.srgb_r =
+        color.tmp_r &lt;= 0.03928
+            ? color.tmp_r / 12.92
+            : Math.pow((color.tmp_r + 0.055) / 1.055, 2.4)
 
-    payload.srgb_b =
-        payload.tmp_b &lt;= 0.03928
-            ? payload.tmp_b / 12.92
-            : Math.pow((payload.tmp_b + 0.055) / 1.055, 2.4)
+    color.srgb_g =
+        color.tmp_g &lt;= 0.03928
+            ? color.tmp_g / 12.92
+            : Math.pow((color.tmp_g + 0.055) / 1.055, 2.4)
 
-    payload.lum_r = 0.2126 * payload.srgb_r
-    payload.lum_g = 0.7152 * payload.srgb_g
-    payload.lum_b = 0.0722 * payload.srgb_b
+    color.srgb_b =
+        color.tmp_b &lt;= 0.03928
+            ? color.tmp_b / 12.92
+            : Math.pow((color.tmp_b + 0.055) / 1.055, 2.4)
 
-    payload.lum = payload.lum_r + payload.lum_g + payload.lum_b
+    color.lum_r = 0.2126 * color.srgb_r
+    color.lum_g = 0.7152 * color.srgb_g
+    color.lum_b = 0.0722 * color.srgb_b
 
-    return payload
+    color.lum = color.lum_r + color.lum_g + color.lum_b
+
+    return color
 }
 
-const calculateContrastRatio = (a, b) =&gt; {
-    const c1 = prepColor(a)
-    const c2 = prepColor(b)
-    const ratio =
-        (Math.max(c1.lum, c2.lum) + 0.05) / (Math.min(c1.lum, c2.lum) + 0.05)
-    return ratio.toFixed(2)
+const calculateContrastRatioAntecedent = (hex1, hex2) =&gt; {
+    const color1 = prepColor(hex1)
+    const color2 = prepColor(hex2)
+    const antecedent =
+        (Math.max(color1.lum, color2.lum) + 0.05) /
+        (Math.min(color1.lum, color2.lum) + 0.05)
+    return antecedent
 }
 </code></pre>
              
             <h2>Usage</h2>
-            <pre><code class="language-js">const inputs = {}
+            <pre><code class="language-js">const els = {}
 
 const updateRatio = () =&gt; {
-    const color1 = inputs.color1.value
-    const color2 = inputs.color2.value
+    const hex1 = els.in1.value
+    const hex2 = els.in2.value
 
-    if (color1.match(/^#\w{6}$/) &amp;&amp; color2.match(/^#\w{6}$/)) {
-        const ratio = calculateContrastRatio(color1, color2)
-        document.getElementById(&#x27;ratio&#x27;).innerText = `${ratio}:1`
+    // punt if the inputs don&#x27;t look like hex values
+    if (!hex1.match(/^#\w\w\w\w\w\w$/) || !hex2.match(/^#\w\w\w\w\w\w$/)) {
+        return null
     }
+
+    const antecedent = calculateContrastRatioAntecedent(hex1, hex2)
+    const ratio = `${antecedent.toFixed(2)}:1`
+    els.ratio.innerHTML = ratio
 }
 
 const init = () =&gt; {
-    inputs.color1 = document.getElementById(&#x27;color1&#x27;)
-    inputs.color1.addEventListener(&#x27;input&#x27;, updateRatio)
-    inputs.color2 = document.getElementById(&#x27;color2&#x27;)
-    inputs.color2.addEventListener(&#x27;input&#x27;, updateRatio)
+    els.in1 = document.getElementById(&#x27;in1&#x27;)
+    els.in2 = document.getElementById(&#x27;in2&#x27;)
+    els.ratio = document.getElementById(&#x27;ratio&#x27;)
+
+    els.in1.addEventListener(&#x27;input&#x27;, updateRatio)
+    els.in2.addEventListener(&#x27;input&#x27;, updateRatio)
 
     updateRatio()
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
 </code></pre>
-             
-                <h2>TODO</h2>
-                <ul>
-                    <li>Add link and details: https://www.w3.org/TR/WCAG21/#contrast-minimum</li> <li>Add link and details: https://www.w3.org/TR/WCAG21/#contrast-enhanced</li> <li>https://www.w3.org/TR/WCAG21/#non-text-contrast</li> <li>https://www.w3.org/WAI/standards-guidelines/act/rules/afw4f7/proposed/</li> <li>https://www.w3.org/WAI/standards-guidelines/act/rules/09o5cg/proposed/</li> <li>https://www.w3.org/WAI/test-evaluate/preliminary/#contrast</li>
-                </ul>
-              
+               
                 <h2>References</h2>
                 <ul>
-                    <li><a href="https://www.w3.org/TR/2012/NOTE-WCAG20-TECHS-20120103/G17.html">W3C - Ensuring that a contrast ratio of at least 7:1 exists between text (and images of text) and background behind the text</a></li> <li><a href="https://webaim.org/resources/contrastchecker/">WebAIM Contrast Checker</a> - This is a good example of the online tools that let you check contrast. It links off to a bunch of other good resources as well (including some browser plug-ins)</li> <li><a href="https://www.w3.org/WAI/test-evaluate/preliminary/#contrast">W3C Preliminary Easy Checks – A First Review of Web Accessibility</a></li>
+                    <li><a href="https://www.w3.org/TR/2012/NOTE-WCAG20-TECHS-20120103/G17.html">W3C - Ensuring that a contrast ratio of at least 7:1 exists between text (and images of text) and background behind the text</a></li> <li><a href="https://webaim.org/resources/contrastchecker/">WebAIM Contrast Checker</a> - This is a good example of the online tools that let you check contrast. It links off to a bunch of other good resources as well (including some browser plug-ins)</li> <li><a href="https://www.w3.org/TR/WCAG21/#contrast-minimum">Web Content Accessibility Guidelines (WCAG) 2.1 - Success Criterion 1.4.3 Contrast (Minimum)</a></li> <li><a href="https://www.w3.org/TR/WCAG21/#contrast-enhanced">Web Content Accessibility Guidelines (WCAG) 2.1 - Success Criterion 1.4.6 Contrast (Enhanced)</a></li> <li><a href="https://www.w3.org/TR/WCAG21/#non-text-contrast">Web Content Accessibility Guidelines (WCAG) 2.1 - Success Criterion 1.4.11 Non-text Contrast</a></li> <li><a href="https://www.w3.org/WAI/standards-guidelines/act/rules/afw4f7/proposed/">Rules for accessibility conformance testing (ACT) - Text has minimum contrast</a></li> <li><a href="https://www.w3.org/WAI/standards-guidelines/act/rules/09o5cg/proposed/">Rules for accessibility conformance testing (ACT) - Text has enhanced contrast</a></li> <li><a href="https://www.w3.org/WAI/test-evaluate/preliminary/#contrast">W3C - Easy Checks – A First Review of Web Accessibility - Contrast</a></li>
                 </ul>
                 
     </main>

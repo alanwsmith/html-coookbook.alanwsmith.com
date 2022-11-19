@@ -122,8 +122,8 @@ class Builder():
             <pre><code class="language-html">{escape(self.parts['HEAD'])}</code></pre>
             '''
 
-        if self.parts['BODY'] != '':
-            self.parts['ESCAPED_BODY'] = f'''
+        if self.parts['HTML'] != '':
+            self.parts['ESCAPED_HTML'] = f'''
             <h2>HTML</h2>
             <pre><code class="language-html">{escape(self.parts['HTML'])}</code></pre>
             '''
