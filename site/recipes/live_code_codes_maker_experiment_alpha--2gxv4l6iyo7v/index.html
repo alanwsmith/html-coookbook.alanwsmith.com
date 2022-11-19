@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live Code Documentation Maker Experiment Alpha - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Live Code Documentation Maker Experiment Alpha" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Live%20Code%20Documentation%20Maker%20Experiment%20Alpha,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/prism.css" />
+    
+    <style>
+      
+    </style>
+    <script>
+      
+    </script>
+  </head>
+  <body>
+    <header>
+      <a href="/">Cookbook Home</a> ~
+      <a href="https://www.alanwsmith.com/">alanwsmith.com</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://https://twitter.com/TheIdOfAlan">twitter</a>
+    </header>
+    <main>
+      <h1>Live Code Documentation Maker Experiment Alpha</h1>
+      
+                <h2>DETAILS</h2>
+                <ul>
+                    <li>This is an initial exploration of creating source code documentation with metadata that identifies what lines they apply to. The goal is to make sure the source code you post is the same source code you ran when verifying it works. No more botched examples because of copy/paste goofs.</li>
+                </ul>
+                
+      <h2>EXAMPLE</h2>
+      <p>
+  This is a live example that uses the source code of the pyton script that
+  generated these snippets as it's own target. This is the full file. Snippet
+  examples and more notes are further below.
+</p>
+
+
+<pre class="language-py"><code class="language-py">
+1&nbsp;&nbsp;#!/usr/bin/env python3
+2&nbsp;&nbsp;
+3&nbsp;&nbsp;import glob
+4&nbsp;&nbsp;import json 
+5&nbsp;&nbsp;import os
+6&nbsp;&nbsp;
+7&nbsp;&nbsp;class SnippetDocumentor():
+8&nbsp;&nbsp;
+9&nbsp;&nbsp;    def __init__(self):
+10&nbsp;&nbsp;        self.source = []
+11&nbsp;&nbsp;        self.docs = []
+12&nbsp;&nbsp;        self.content = []
+13&nbsp;&nbsp;
+14&nbsp;&nbsp;    def assemble_content(self, output_path):
+15&nbsp;&nbsp;        for doc in self.docs:
+16&nbsp;&nbsp;            parts = doc.split('---')
+17&nbsp;&nbsp;            meta = json.loads(parts[1])
+18&nbsp;&nbsp;            self.content.append(parts[0])
+19&nbsp;&nbsp;            self.content.append('<pre class="language-py"><code class="language-py">')
+20&nbsp;&nbsp;            for line_group in meta['lines']:
+21&nbsp;&nbsp;                for line_index in range(line_group[0] - 1, line_group[1]):
+22&nbsp;&nbsp;                    self.content.append(
+23&nbsp;&nbsp;                        f"{line_index + 1}&nbsp;&nbsp;{self.source[line_index]}"
+24&nbsp;&nbsp;                    )
+25&nbsp;&nbsp;            self.content.append('</pre></code>')
+26&nbsp;&nbsp;
+27&nbsp;&nbsp;        with open(output_path, 'w') as _out:
+28&nbsp;&nbsp;            _out.write("\n".join(self.content))
+29&nbsp;&nbsp;
+30&nbsp;&nbsp;    def load_source(self, source_path):
+31&nbsp;&nbsp;        with open(source_path) as _source:
+32&nbsp;&nbsp;            self.source = _source.read().split("\n")
+33&nbsp;&nbsp;
+34&nbsp;&nbsp;    def load_docs(self, docs_dir):
+35&nbsp;&nbsp;        local_file_list = [
+36&nbsp;&nbsp;            file for file in glob.glob(f"{docs_dir}/*")
+37&nbsp;&nbsp;            if os.path.isfile(file)
+38&nbsp;&nbsp;        ]
+39&nbsp;&nbsp;        local_file_list.sort()
+40&nbsp;&nbsp;        for local_file in local_file_list:
+41&nbsp;&nbsp;            with open(local_file) as _in:
+42&nbsp;&nbsp;                self.docs.append(_in.read())
+43&nbsp;&nbsp;
+44&nbsp;&nbsp;if __name__ == "__main__":
+45&nbsp;&nbsp;    working_dir = os.path.dirname(os.path.realpath(__file__))
+46&nbsp;&nbsp;
+47&nbsp;&nbsp;    sd = SnippetDocumentor()
+48&nbsp;&nbsp;    sd.load_source(__file__)
+49&nbsp;&nbsp;    sd.load_docs(f"{working_dir}/docs")
+50&nbsp;&nbsp;    sd.assemble_content(f"{working_dir}/DOCSCONTENT.html")
+51&nbsp;&nbsp;
+</pre></code>
+<p>
+  The docs files pull out lines from the original source for direct display
+  instead of having to copy/paste them. Here's a few lines pulled from the same
+  source file as above.
+</p>
+
+
+<pre class="language-py"><code class="language-py">
+30&nbsp;&nbsp;    def load_source(self, source_path):
+31&nbsp;&nbsp;        with open(source_path) as _source:
+32&nbsp;&nbsp;            self.source = _source.read().split("\n")
+</pre></code>
+<p>
+  Note that because lines are all coming from the same source it's trivial to
+  show line numbers that match the location of the full file. I'm not sure I'm
+  going to like that in the long term, but my early impression is good.
+</p>
+<p>
+  There's no need for the lines to be consequetive. Here's an example with a
+  split.
+</p>
+
+
+<pre class="language-py"><code class="language-py">
+9&nbsp;&nbsp;    def __init__(self):
+10&nbsp;&nbsp;        self.source = []
+11&nbsp;&nbsp;        self.docs = []
+12&nbsp;&nbsp;        self.content = []
+13&nbsp;&nbsp;
+46&nbsp;&nbsp;
+47&nbsp;&nbsp;    sd = SnippetDocumentor()
+48&nbsp;&nbsp;    sd.load_source(__file__)
+49&nbsp;&nbsp;    sd.load_docs(f"{working_dir}/docs")
+50&nbsp;&nbsp;    sd.assemble_content(f"{working_dir}/DOCSCONTENT.html")
+</pre></code>
+      <p>
+        I don't like the way lines 13 and 46 collide. Since this is a prototype,
+        I'm not worrying about it. Going through iterations, that's something
+        I'd address so it had an `...` in the middle or something.
+      </p>
+      
+            <h2>DOCS FILE EXAMPLE</h2>
+            <p>This is an example of the docs file format I'm using. It's plain HTML with a `---` at the end followed by a JSON string that identifies what lines to show.</p>
+            <pre><code class="language-html">&lt;p&gt;
+  Note that because lines are all coming from the same source it&#x27;s trivial to
+  show line numbers that match the location of the full file. I&#x27;m not sure I&#x27;m
+  going to like that in the long term, but my early impression is good.
+&lt;/p&gt;
+&lt;p&gt;
+  There&#x27;s no need for the lines to be consecutive. Here&#x27;s an example with a
+  split.
+&lt;/p&gt;
+
+--- { &quot;lines&quot;: [[9,13], [46,50]] }
+</code></pre>
+            
+      <p>
+        It's an array of arrays. The top level represents a code block. The
+        arrays inside that correspond to sections of code (of which there can be
+        one or more). And the numbers inside those identify the lines.
+      </p>
+      <p>
+        Having gone through the process it feels like there's potential here but
+        not with this specific approach. Mainly because it's annoying to have to
+        change numbers whenever the source code changes. That's not not
+        surprising, but I wanted to see what it was like.
+      </p>
+      <p>
+        It's possible that tooling could help with the line shifts, but it feels
+        like that would always be fragile. Another approach that's come to mind
+        is pattern matching. For example, looking for function definitions and
+        using those as the search keys on which place the content from the docs.
+        There are tricks there and things are rarely perfect, but based on this
+        experiment the matching approach has some real potential.
+      </p>
+    </main>
+    <footer>
+      made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>
+      <br />
+      who has a <a href="https://www.alanwsmith.com">website</a> and a
+      <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
+      among other <a href="https://links.alanwsmith.com">things</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>

@@ -1,6 +1,6 @@
 {
     "TITLE": "Create And Send Events From A Web Component",
-    "STATUS": "ready",
+    "STATUS": "draft",
     "DESCRIPTION": "",
     "DETAILS": [
         "GOAL Send a 'changed' event that mimics what a form would send"

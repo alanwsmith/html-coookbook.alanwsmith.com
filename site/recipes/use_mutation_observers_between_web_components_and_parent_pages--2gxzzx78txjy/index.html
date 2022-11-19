@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Using Mutation Observers To Setup Communication Between Web Components And Their Parent Page In Vanilla JS - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Using Mutation Observers To Setup Communication Between Web Components And Their Parent Page In Vanilla JS" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Using%20Mutation%20Observers%20To%20Setup%20Communication%20Between%20Web%20Components%20And%20Their%20Parent%20Page%20In%20Vanilla%20JS,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/prism.css" />
+    
+    <style>
+      
+    </style>
+    <script>
+      class ComLink extends HTMLElement {
+    constructor() {
+        super()
+        this.attachShadow({ mode: 'open' })
+
+        const handleInsideUpdate = (event) => {
+            this.setAttribute('amount', event.target.value)
+        }
+
+        this.rangeSlider = document.createElement('input')
+        this.rangeSlider.addEventListener('input', handleInsideUpdate)
+        this.rangeSlider.type = 'range'
+
+        this.shadowRoot.append(this.rangeSlider)
+    }
+
+    static get observedAttributes() {
+        return ['amount']
+    }
+
+    attributeChangedCallback(attribute, oldValue, newValue) {
+        if (newValue !== oldValue) {
+            this.setAttribute('amount', newValue)
+            this.rangeSlider.value = newValue
+        }
+    }
+}
+
+customElements.define('com-link', ComLink)
+
+
+      const handleInsideMutations = (mutationList, observer) => {
+    for (const mutation of mutationList) {
+        // if (mutation.type === 'attributes') {
+        // Make a note about skipping the 'if' here for attirbute
+        // type check since you're only watching for attribute changes
+        if (mutation.attributeName === 'amount') {
+            const oldValue = mutation.oldValue
+            const newValue = mutation.target.attributes.getNamedItem(
+                mutation.attributeName
+            ).value
+            if (newValue !== oldValue) {
+                document.getElementById('outside-slider').value = newValue
+            }
+        }
+        // }
+    }
+}
+
+const handleOutsideInput = (event) => {
+    const newValue = event.target.value
+    document.getElementById('the-link').setAttribute('amount', newValue)
+}
+
+const init = () => {
+    document
+        .getElementById('outside-slider')
+        .addEventListener('input', handleOutsideInput)
+
+    const theLink = document.getElementById('the-link')
+    const observer = new MutationObserver(handleInsideMutations)
+    observer.observe(theLink, { attributes: true })
+}
+
+document.addEventListener('DOMContentLoaded', init)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">Cookbook Home</a> ~
+      <a href="https://www.alanwsmith.com/">alanwsmith.com</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://https://twitter.com/TheIdOfAlan">twitter</a>
+    </header>
+    <main>
+      <h1>Using Mutation Observers To Setup Communication Between Web Components And Their Parent Page In Vanilla JS</h1>
+      
+                <h2>Deatils</h2>
+                <ul>
+                    <li>This is a basic example showing how to setup bi-directoinal communiation between a web component and elements on the parent page in vanilla js</li> <li>The top input range slider in the example is from the web component. The bottom one lives on the parent page directly. Moving one moves the other by passing a value through an 'amount' attribute on the component</li> <li>The code for the example is directly below it. More notes follow the snippets</li>
+                </ul>
+                
+      <h2>Example</h2>
+      <p>Web Component</p>
+<com-link id="the-link"></com-link>
+
+<p>Parent Page</p>
+<input id="outside-slider" type="range" />
+  
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;p&gt;Web Component&lt;/p&gt;
+&lt;com-link id=&quot;the-link&quot;&gt;&lt;/com-link&gt;
+
+&lt;p&gt;Parent Page&lt;/p&gt;
+&lt;input id=&quot;outside-slider&quot; type=&quot;range&quot; /&gt;
+</code></pre>
+              
+            <h2>JavaScript Web Component</h2>
+            <pre><code class="language-js">class ComLink extends HTMLElement {
+    constructor() {
+        super()
+        this.attachShadow({ mode: &#x27;open&#x27; })
+
+        const handleInsideUpdate = (event) =&gt; {
+            this.setAttribute(&#x27;amount&#x27;, event.target.value)
+        }
+
+        this.rangeSlider = document.createElement(&#x27;input&#x27;)
+        this.rangeSlider.addEventListener(&#x27;input&#x27;, handleInsideUpdate)
+        this.rangeSlider.type = &#x27;range&#x27;
+
+        this.shadowRoot.append(this.rangeSlider)
+    }
+
+    static get observedAttributes() {
+        return [&#x27;amount&#x27;]
+    }
+
+    attributeChangedCallback(attribute, oldValue, newValue) {
+        if (newValue !== oldValue) {
+            this.setAttribute(&#x27;amount&#x27;, newValue)
+            this.rangeSlider.value = newValue
+        }
+    }
+}
+
+customElements.define(&#x27;com-link&#x27;, ComLink)
+</code></pre>
+            
+      
+            <h2>JavaScript Main Page</h2>
+            <pre><code class="language-js">const handleInsideMutations = (mutationList, observer) =&gt; {
+    for (const mutation of mutationList) {
+        // if (mutation.type === &#x27;attributes&#x27;) {
+        // Make a note about skipping the &#x27;if&#x27; here for attirbute
+        // type check since you&#x27;re only watching for attribute changes
+        if (mutation.attributeName === &#x27;amount&#x27;) {
+            const oldValue = mutation.oldValue
+            const newValue = mutation.target.attributes.getNamedItem(
+                mutation.attributeName
+            ).value
+            if (newValue !== oldValue) {
+                document.getElementById(&#x27;outside-slider&#x27;).value = newValue
+            }
+        }
+        // }
+    }
+}
+
+const handleOutsideInput = (event) =&gt; {
+    const newValue = event.target.value
+    document.getElementById(&#x27;the-link&#x27;).setAttribute(&#x27;amount&#x27;, newValue)
+}
+
+const init = () =&gt; {
+    document
+        .getElementById(&#x27;outside-slider&#x27;)
+        .addEventListener(&#x27;input&#x27;, handleOutsideInput)
+
+    const theLink = document.getElementById(&#x27;the-link&#x27;)
+    const observer = new MutationObserver(handleInsideMutations)
+    observer.observe(theLink, { attributes: true })
+}
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
+</code></pre>
+             
+                <h2>Notes</h2>
+                <ul>
+                    <li>First off. Yes. That's a long ass title for a page, but there's not many words to drop and get the point across</li> <li>This is vanilla js stuff. I'm not religious about that. Just exploring</li> <li>I expect there are other ways to do this. If you've got alternaties, please <a href=&quot;https://twitter.com/TheIdOfAlan&quot;>hit me up on twitter</a></li>
+                </ul>
+             
+                <h2>TODO</h2>
+                <ul>
+                    <li>Do a full write up of the code (I made it as clear as I could, but there's still a lot and the process is convoluted)</li>
+                </ul>
+             
+                <h2>References</h2>
+                <ul>
+                    <li><a href="https://stackoverflow.com/questions/60593551/get-the-new-attribute-value-for-the-current-mutationrecord-when-using-mutationob">Get the new attribute value for the current MutationRecord when using MutationObserver?</a></li> <li><a href=""></a></li> <li><a href=""></a></li> <li><a href=""></a></li> <li><a href=""></a></li> <li><a href=""></a></li> <li><a href=""></a></li> <li><a href=""></a></li> <li><a href=""></a></li> <li><a href=""></a></li> <li><a href=""></a></li> <li><a href=""></a></li> <li><a href=""></a></li> <li><a href=""></a></li>
+                </ul>
+                
+    </main>
+    <footer>
+      made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>
+      <br />
+      who has a <a href="https://www.alanwsmith.com">website</a> and a
+      <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
+      among other <a href="https://links.alanwsmith.com">things</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>

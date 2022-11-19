@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Detect Enter Key Press In Text Input Field - The HTML, CSS, and JavaScript
+      Cookbook Of Alan
+    </title>
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Detect Enter Key Press In Text Input Field - The HTML, CSS, and JavaScript Cookbook Of Alan"
+    />
+    <meta
+      property="og:description"
+      content="Figure out when the enter key is pressed in a form field"
+    />
+    <meta
+      property="og:image"
+      content="https://html-css-js-cookbook.alanwsmith.com/og-images/main.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <script src="script.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <a href="/">Cookbook Home</a> ~
+      <a href="https://www.alanwsmith.com/">alanwsmith.com</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a>
+    </header>
+    <main>
+      <h1>Detect a keypress anywhere on the page</h1>
+      <hr />
+      <div>
+        The Up arrow has been pressed <span id="the-count">0</span> times
+      </div>
+      <hr />
+      <h2>Notes</h2>
+      <ul>
+        <li>
+          This approach uses `keyup` because
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/API/Element/keypress_event"
+            >keypress is deprecated</a
+          >
+        </li>
+      </ul>
+
+      <h2>TODO</h2>
+      <ul>
+        <li>Check if there a accessabilty concerns</li>
+        <li>Check on prevent default type stuff here too</li>
+      </ul>
+      <h2>Referneces</h2>
+      <ul>
+        <li>
+          https://developer.mozilla.org/en-US/docs/Web/API/Element/keyup_event
+        </li>
+      </ul>
+    </main>
+    <footer>
+      made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>
+      <br />
+      who has a <a href="https://www.alanwsmith.com">website</a> and a
+      <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
+      among other <a href="https://links.alanwsmith.com">things</a>
+    </footer>
+  </body>
+</html>

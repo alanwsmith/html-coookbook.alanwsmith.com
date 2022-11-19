@@ -56,7 +56,7 @@ class Builder():
             for detail in self.config['DETAILS']:
                 details.append(f'<li>{detail}</li>')
             self.parts['DETAILS'] = f'''
-                <h2>Deatils</h2>
+                <h2>Details</h2>
                 <ul>
                     {" ".join(details)}
                 </ul>
@@ -122,8 +122,8 @@ class Builder():
             <pre><code class="language-html">{escape(self.parts['HEAD'])}</code></pre>
             '''
 
-        if self.parts['HTML'] != '':
-            self.parts['ESCAPED_HTML'] = f'''
+        if self.parts['BODY'] != '':
+            self.parts['ESCAPED_BODY'] = f'''
             <h2>HTML</h2>
             <pre><code class="language-html">{escape(self.parts['HTML'])}</code></pre>
             '''

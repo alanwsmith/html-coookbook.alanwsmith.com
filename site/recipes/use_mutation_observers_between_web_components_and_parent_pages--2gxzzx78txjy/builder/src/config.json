@@ -1,0 +1,90 @@
+{
+    "TITLE": "Using Mutation Observers To Setup Communication Between Web Components And Their Parent Page In Vanilla JS",
+    "STATUS": "draft",
+    "DESCRIPTION": "",
+    "DETAILS": [
+        "This is a basic example showing how to setup bi-directoinal communiation between a web component and elements on the parent page in vanilla js",
+        "The top input range slider in the example is from the web component. The bottom one lives on the parent page directly. Moving one moves the other by passing a value through an 'amount' attribute on the component",
+        "The code for the example is directly below it. More notes follow the snippets"
+    ],
+    "NOTES": [
+        "First off. Yes. That's a long ass title for a page, but there's not many words to drop and get the point across",
+        "This is vanilla js stuff. I'm not religious about that. Just exploring",
+        "I expect there are other ways to do this. If you've got alternaties, please <a href=&quot;https://twitter.com/TheIdOfAlan&quot;>hit me up on twitter</a>"
+    ],
+    "TODOS": [
+        "Do a full write up of the code (I made it as clear as I could, but there's still a lot and the process is convoluted)"
+    ],
+    "REFERENCES": [
+        {
+            "title": "Get the new attribute value for the current MutationRecord when using MutationObserver?",
+            "url": "https://stackoverflow.com/questions/60593551/get-the-new-attribute-value-for-the-current-mutationrecord-when-using-mutationob",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        },
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        }
+    ]
+}

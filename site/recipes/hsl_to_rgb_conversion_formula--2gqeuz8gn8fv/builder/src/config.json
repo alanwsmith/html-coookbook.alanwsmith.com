@@ -1,0 +1,22 @@
+{
+    "TITLE": "HSL to RGB Converter",
+    "STATUS": "draft",
+    "DESCRIPTION": "",
+    "DETAILS": [""],
+    "NOTES": [
+        "Got the code from this page. Had to add Math.round to it to get it to return integers"
+    ],
+    "TODOS": [],
+    "REFERENCES": [
+        {
+            "title": "HSL to RGB - 30 Seconds Of Code",
+            "url": "https://www.30secondsofcode.org/js/s/hsl-to-rgb",
+            "extra": "This is where I got the initail formula. I had to add Math.round() to produce integers though"
+        },
+        {
+            "title": "HSL to RGB color conversion - Stack Overflow",
+            "url": "https://stackoverflow.com/questions/2353211/hsl-to-rgb-color-conversion",
+            "extra": "This is the top ranked stack overflow answer and the first code search result. The formula in there expects HSL values to be inbetween 0 and 1. I can do with with the 's' and 'l' values which are percentages, but I don't want to have to add more math to deal with the hue which is in degrees"
+        }
+    ]
+}
