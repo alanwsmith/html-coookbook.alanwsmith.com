@@ -1,0 +1,17 @@
+{
+    "TITLE": "Change The Browser's URL Without Reloading The Page",
+    "STATUS": "draft",
+    "DESCRIPTION": "",
+    "DETAILS": [
+        "GOAL: Update the URL but stay on the same page"
+    ],
+    "NOTES": [],
+    "TODOS": [],
+    "REFERENCES": [
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        }
+    ]
+}

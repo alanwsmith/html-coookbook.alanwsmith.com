@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>-- New Recipe In Progress -- - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <title>Change The Browser's URL Without Reloading The Page - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="-- New Recipe In Progress --" />
+    <meta property="og:title" content="Change The Browser's URL Without Reloading The Page" />
     <meta property="og:description" content="" />
     <meta
       property="og:image"
-      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:--%20New%20Recipe%20In%20Progress%20--,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Change%20The%20Browser%27s%20URL%20Without%20Reloading%20The%20Page,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site:id" content="@TheIdOfAlan" />
@@ -60,28 +60,15 @@
             
     </style>
     <script>
-      const els = {}
-
-const calculatePct = (a, b) => {
-    return (a / b) * 100
-}
-
-const updatePct = () => {
-    const a = parseInt(els['a'].value, 10)
-    const b = parseInt(els['b'].value, 10)
-    els.pct.innerHTML = calculatePct(a, b)
+      const handleClick = () => {
+    const randomNumber = Math.floor(Math.random() * 1000) + 1
+    const randomUrl = `/recipes/random_number_${randomNumber}_example--2hpup1k3l8qz/index.html`
+    console.log(randomUrl)
 }
 
 const init = () => {
-    console.log('init')
-    els['a'] = document.getElementById('a')
-    els['b'] = document.getElementById('b')
-    els['pct'] = document.getElementById('pct')
-
-    els.a.addEventListener('input', updatePct)
-    els.b.addEventListener('input', updatePct)
-
-    updatePct()
+    const theButton = document.getElementById('urlChanger')
+    theButton.addEventListener('click', handleClick)
 }
 
 document.addEventListener('DOMContentLoaded', init)
@@ -98,45 +85,30 @@ document.addEventListener('DOMContentLoaded', init)
       <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
     </header>
     <main>
-      <h1>-- New Recipe In Progress --</h1>
+      <h1>Change The Browser's URL Without Reloading The Page</h1>
       
                 <h2>Details</h2>
                 <ul>
-                    <li>The example below is built directly from the HTML and JavaScript code snippets that follow</li>
+                    <li>GOAL: Update the URL but stay on the same page</li>
                 </ul>
                 
       <h2>EXAMPLE</h2>
-      <input type="text" id="a" value="10" /> is <span id="pct"></span>% of
-<input type="text" id="b" value="50" />
+      <button id="urlChanger">Change URL</button>
   
             <h2>HTML</h2>
-            <pre><code class="language-html">&lt;input type=&quot;text&quot; id=&quot;a&quot; value=&quot;10&quot; /&gt; is &lt;span id=&quot;pct&quot;&gt;&lt;/span&gt;% of
-&lt;input type=&quot;text&quot; id=&quot;b&quot; value=&quot;50&quot; /&gt;
+            <pre><code class="language-html">&lt;button id=&quot;urlChanger&quot;&gt;Change URL&lt;/button&gt;
 </code></pre>
               
             <h2>JavaScript</h2>
-            <pre><code class="language-js">const els = {}
-
-const calculatePct = (a, b) =&gt; {
-    return (a / b) * 100
-}
-
-const updatePct = () =&gt; {
-    const a = parseInt(els[&#x27;a&#x27;].value, 10)
-    const b = parseInt(els[&#x27;b&#x27;].value, 10)
-    els.pct.innerHTML = calculatePct(a, b)
+            <pre><code class="language-js">const handleClick = () =&gt; {
+    const randomNumber = Math.floor(Math.random() * 1000) + 1
+    const randomUrl = `/recipes/random_number_${randomNumber}_example--2hpup1k3l8qz/index.html`
+    console.log(randomUrl)
 }
 
 const init = () =&gt; {
-    console.log(&#x27;init&#x27;)
-    els[&#x27;a&#x27;] = document.getElementById(&#x27;a&#x27;)
-    els[&#x27;b&#x27;] = document.getElementById(&#x27;b&#x27;)
-    els[&#x27;pct&#x27;] = document.getElementById(&#x27;pct&#x27;)
-
-    els.a.addEventListener(&#x27;input&#x27;, updatePct)
-    els.b.addEventListener(&#x27;input&#x27;, updatePct)
-
-    updatePct()
+    const theButton = document.getElementById(&#x27;urlChanger&#x27;)
+    theButton.addEventListener(&#x27;click&#x27;, handleClick)
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)

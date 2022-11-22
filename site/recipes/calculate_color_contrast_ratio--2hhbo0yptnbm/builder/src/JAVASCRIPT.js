@@ -1,3 +1,38 @@
+////////////////////////////////////////////////////////////////////////
+// calculateContrastRatioAntecedent
+////////////////////////////////////////////////////////////////////////
+//
+// This function the main funciton that gets called with two hex
+// values. It returns the antecedent as a float. Each hex value
+// is first turned into a color object with a luminocity (lum)
+// property via the `prepColor()` function before being used in
+// the core calculation which produces the final value to return
+//
+////////////////////////////////////////////////////////////////////////
+
+const calculateContrastRatioAntecedent = (hex1, hex2) => {
+    const color1 = prepColor(hex1)
+    const color2 = prepColor(hex2)
+
+    const antecedent =
+        (Math.max(color1.lum, color2.lum) + 0.05) /
+        (Math.min(color1.lum, color2.lum) + 0.05)
+
+    return antecedent
+}
+
+////////////////////////////////////////////////////////////////////////
+//prepColor
+////////////////////////////////////////////////////////////////////////
+//
+// This funciton contains all the math for the conversion from hex
+// to a color object with the luminocity value. It starts by pulling
+// the individual pairs of red, green, and blue hex values out of
+// the input string and then runs them through the stack of calcluations
+// before combining them at the end to produce the value
+//
+////////////////////////////////////////////////////////////////////////
+
 const prepColor = (hex) => {
     color = {
         hex: hex,
@@ -36,13 +71,4 @@ const prepColor = (hex) => {
     color.lum = color.lum_r + color.lum_g + color.lum_b
 
     return color
-}
-
-const calculateContrastRatioAntecedent = (hex1, hex2) => {
-    const color1 = prepColor(hex1)
-    const color2 = prepColor(hex2)
-    const antecedent =
-        (Math.max(color1.lum, color2.lum) + 0.05) /
-        (Math.min(color1.lum, color2.lum) + 0.05)
-    return antecedent
 }

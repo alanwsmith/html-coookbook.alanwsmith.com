@@ -136,13 +136,11 @@ class Builder():
 
         if self.parts['JAVASCRIPT'] != '':
             self.parts['ESCAPED_JAVASCRIPT'] = f'''
-            <h2>Formula</h2>
             <pre><code class="language-js">{escape(self.parts['JAVASCRIPT'])}</code></pre>
             '''
 
         if self.parts['JS2'] != '':
             self.parts['ESCAPED_JS2'] = f'''
-            <h2>Usage</h2>
             <pre><code class="language-js">{escape(self.parts['JS2'])}</code></pre>
             '''
 
