@@ -29,6 +29,7 @@ exports.handler = async function (event, context) {
   "apply_styles_to_a_web_component--2Gov695r3d8b": "/recipes/apply_styles_to_a_web_component--2Gov695r3d8b/index.html",
   "calculate_color_contrast_ratio--2hhbo0yptnbm": "/recipes/calculate_color_contrast_ratio--2hhbo0yptnbm/index.html",
   "calculate_percentage_difference_between_two_numbers_in_javascript--2hjncmpdqlyx": "/recipes/calculate_percentage_difference_between_two_numbers_in_javascript--2hjncmpdqlyx/index.html",
+  "change_the_browsers_url_without_reloading_the_page--2hpup1k3l8qz": "/recipes/change_the_browsers_url_without_reloading_the_page--2hpup1k3l8qz/index.html",
   "css_grid__basic_grid--2hzdlrjy0zus": "/recipes/css_grid__basic_grid--2hzdlrjy0zus/index.html",
   "css_offset_side_column--2hcgibbj1nwt": "/recipes/css_offset_side_column--2hcgibbj1nwt/index.html",
   "css_two_column_grid_with_scrolling_column--2hz8jc50ad33": "/recipes/css_two_column_grid_with_scrolling_column--2hz8jc50ad33/index.html",
