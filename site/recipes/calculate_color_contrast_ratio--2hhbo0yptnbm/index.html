@@ -32,7 +32,42 @@
       
     </style>
     <script>
-      const prepColor = (hex) => {
+      ////////////////////////////////////////////////////////////////////////
+// calculateContrastRatioAntecedent
+////////////////////////////////////////////////////////////////////////
+//
+// This function the main funciton that gets called with two hex
+// values. It returns the antecedent as a float. Each hex value
+// is first turned into a color object with a luminocity (lum)
+// property via the `prepColor()` function before being used in
+// the core calculation which produces the final value to return
+//
+////////////////////////////////////////////////////////////////////////
+
+const calculateContrastRatioAntecedent = (hex1, hex2) => {
+    const color1 = prepColor(hex1)
+    const color2 = prepColor(hex2)
+
+    const antecedent =
+        (Math.max(color1.lum, color2.lum) + 0.05) /
+        (Math.min(color1.lum, color2.lum) + 0.05)
+
+    return antecedent
+}
+
+////////////////////////////////////////////////////////////////////////
+//prepColor
+////////////////////////////////////////////////////////////////////////
+//
+// This funciton contains all the math for the conversion from hex
+// to a color object with the luminocity value. It starts by pulling
+// the individual pairs of red, green, and blue hex values out of
+// the input string and then runs them through the stack of calcluations
+// before combining them at the end to produce the value
+//
+////////////////////////////////////////////////////////////////////////
+
+const prepColor = (hex) => {
     color = {
         hex: hex,
         hex_r: hex.substr(1, 2),
@@ -72,30 +107,26 @@
     return color
 }
 
-const calculateContrastRatioAntecedent = (hex1, hex2) => {
-    const color1 = prepColor(hex1)
-    const color2 = prepColor(hex2)
-    const antecedent =
-        (Math.max(color1.lum, color2.lum) + 0.05) /
-        (Math.min(color1.lum, color2.lum) + 0.05)
-    return antecedent
-}
+      ////////////////////////////////////////////////////////////////////////
+// els
+////////////////////////////////////////////////////////////////////////
+//
+// This is a convience object that holds the individual document
+// elements
+//
+////////////////////////////////////////////////////////////////////////
 
-      const els = {}
+const els = {}
 
-const updateRatio = () => {
-    const hex1 = els.in1.value
-    const hex2 = els.in2.value
-
-    // punt if the inputs don't look like hex values
-    if (!hex1.match(/^#\w\w\w\w\w\w$/) || !hex2.match(/^#\w\w\w\w\w\w$/)) {
-        return null
-    }
-
-    const antecedent = calculateContrastRatioAntecedent(hex1, hex2)
-    const ratio = `${antecedent.toFixed(2)}:1`
-    els.ratio.innerHTML = ratio
-}
+////////////////////////////////////////////////////////////////////////
+// init
+////////////////////////////////////////////////////////////////////////
+//
+// The core initilization function. It loads the document elements
+// into the `els` object, attachest listeners to them and then fires
+// off the process once to load the initial values on the page
+//
+////////////////////////////////////////////////////////////////////////
 
 const init = () => {
     els.in1 = document.getElementById('in1')
@@ -108,6 +139,36 @@ const init = () => {
     updateRatio()
 }
 
+////////////////////////////////////////////////////////////////////////
+// updateRatio
+////////////////////////////////////////////////////////////////////////
+//
+// This function grabs the current files from the input fields
+// validates that they look like hex codes and assembles and
+// displays a ratio string if they do.
+//
+// The hex check looks for any word character so it's possible to
+// send in a string of 6 characters but include ones that are
+// outisde of hex (e.g. 'z') which would break. The degree to
+// which that is acceptable or needs to be updates is dependent
+// on implementation.
+//
+////////////////////////////////////////////////////////////////////////
+
+const updateRatio = () => {
+    const hex1 = els.in1.value
+    const hex2 = els.in2.value
+
+    if (!hex1.match(/^#\w\w\w\w\w\w$/) || !hex2.match(/^#\w\w\w\w\w\w$/)) {
+        return null
+    } else {
+        const antecedent = calculateContrastRatioAntecedent(hex1, hex2)
+        const ratio = `${antecedent.toFixed(2)}:1`
+        els.ratio.innerHTML = ratio
+    }
+}
+
+// Kick everything off when the document is ready
 document.addEventListener('DOMContentLoaded', init)
 
     </script>
@@ -150,9 +211,65 @@ document.addEventListener('DOMContentLoaded', init)
     </tr>
   </tbody>
 </table>
- 
-            <h2>Formula</h2>
-            <pre><code class="language-js">const prepColor = (hex) =&gt; {
+
+
+      <h2>Formula</h2>
+      <ul>
+        <li>
+          This is the core formula the does the work. It has two functions
+          `calculateContrastRatioAntecedent` and `prepColor`.
+        </li>
+        <li>
+          The `calculateContrastRatioAntecedent` function is what gets called
+          directly for whatever needs to get the contrast ratio. It takes two
+          hex values as input and returns the antecedent portion of the contrast
+          ratio as a float
+        </li>
+        <li>
+          The antecedent is the left number of a ratio (e.g. `4.2` in `4.2:1`)
+        </li>
+        <li>
+          The float value is all that's returned because the other poriton of
+          the ratio is always `1` for this methodology.
+        </li>
+      </ul>
+      
+            <pre><code class="language-js">////////////////////////////////////////////////////////////////////////
+// calculateContrastRatioAntecedent
+////////////////////////////////////////////////////////////////////////
+//
+// This function the main funciton that gets called with two hex
+// values. It returns the antecedent as a float. Each hex value
+// is first turned into a color object with a luminocity (lum)
+// property via the `prepColor()` function before being used in
+// the core calculation which produces the final value to return
+//
+////////////////////////////////////////////////////////////////////////
+
+const calculateContrastRatioAntecedent = (hex1, hex2) =&gt; {
+    const color1 = prepColor(hex1)
+    const color2 = prepColor(hex2)
+
+    const antecedent =
+        (Math.max(color1.lum, color2.lum) + 0.05) /
+        (Math.min(color1.lum, color2.lum) + 0.05)
+
+    return antecedent
+}
+
+////////////////////////////////////////////////////////////////////////
+//prepColor
+////////////////////////////////////////////////////////////////////////
+//
+// This funciton contains all the math for the conversion from hex
+// to a color object with the luminocity value. It starts by pulling
+// the individual pairs of red, green, and blue hex values out of
+// the input string and then runs them through the stack of calcluations
+// before combining them at the end to produce the value
+//
+////////////////////////////////////////////////////////////////////////
+
+const prepColor = (hex) =&gt; {
     color = {
         hex: hex,
         hex_r: hex.substr(1, 2),
@@ -191,33 +308,32 @@ document.addEventListener('DOMContentLoaded', init)
 
     return color
 }
-
-const calculateContrastRatioAntecedent = (hex1, hex2) =&gt; {
-    const color1 = prepColor(hex1)
-    const color2 = prepColor(hex2)
-    const antecedent =
-        (Math.max(color1.lum, color2.lum) + 0.05) /
-        (Math.min(color1.lum, color2.lum) + 0.05)
-    return antecedent
-}
 </code></pre>
-             
-            <h2>Usage</h2>
-            <pre><code class="language-js">const els = {}
+            
 
-const updateRatio = () =&gt; {
-    const hex1 = els.in1.value
-    const hex2 = els.in2.value
+      <h2>Usage</h2>
 
-    // punt if the inputs don&#x27;t look like hex values
-    if (!hex1.match(/^#\w\w\w\w\w\w$/) || !hex2.match(/^#\w\w\w\w\w\w$/)) {
-        return null
-    }
+      
+            <pre><code class="language-js">////////////////////////////////////////////////////////////////////////
+// els
+////////////////////////////////////////////////////////////////////////
+//
+// This is a convience object that holds the individual document
+// elements
+//
+////////////////////////////////////////////////////////////////////////
 
-    const antecedent = calculateContrastRatioAntecedent(hex1, hex2)
-    const ratio = `${antecedent.toFixed(2)}:1`
-    els.ratio.innerHTML = ratio
-}
+const els = {}
+
+////////////////////////////////////////////////////////////////////////
+// init
+////////////////////////////////////////////////////////////////////////
+//
+// The core initilization function. It loads the document elements
+// into the `els` object, attachest listeners to them and then fires
+// off the process once to load the initial values on the page
+//
+////////////////////////////////////////////////////////////////////////
 
 const init = () =&gt; {
     els.in1 = document.getElementById(&#x27;in1&#x27;)
@@ -230,6 +346,36 @@ const init = () =&gt; {
     updateRatio()
 }
 
+////////////////////////////////////////////////////////////////////////
+// updateRatio
+////////////////////////////////////////////////////////////////////////
+//
+// This function grabs the current files from the input fields
+// validates that they look like hex codes and assembles and
+// displays a ratio string if they do.
+//
+// The hex check looks for any word character so it&#x27;s possible to
+// send in a string of 6 characters but include ones that are
+// outisde of hex (e.g. &#x27;z&#x27;) which would break. The degree to
+// which that is acceptable or needs to be updates is dependent
+// on implementation.
+//
+////////////////////////////////////////////////////////////////////////
+
+const updateRatio = () =&gt; {
+    const hex1 = els.in1.value
+    const hex2 = els.in2.value
+
+    if (!hex1.match(/^#\w\w\w\w\w\w$/) || !hex2.match(/^#\w\w\w\w\w\w$/)) {
+        return null
+    } else {
+        const antecedent = calculateContrastRatioAntecedent(hex1, hex2)
+        const ratio = `${antecedent.toFixed(2)}:1`
+        els.ratio.innerHTML = ratio
+    }
+}
+
+// Kick everything off when the document is ready
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
 </code></pre>
                

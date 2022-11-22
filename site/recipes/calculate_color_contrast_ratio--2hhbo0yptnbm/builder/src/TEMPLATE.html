@@ -49,7 +49,33 @@
       <h1>$TITLE</h1>
       $DETAILS
       <h2>Example</h2>
-      $HTML $ESCAPED_JAVASCRIPT $ESCAPED_JS2 $TODOS $NOTES $REFERENCES
+      $HTML
+
+      <h2>Formula</h2>
+      <ul>
+        <li>
+          This is the core formula the does the work. It has two functions
+          `calculateContrastRatioAntecedent` and `prepColor`.
+        </li>
+        <li>
+          The `calculateContrastRatioAntecedent` function is what gets called
+          directly for whatever needs to get the contrast ratio. It takes two
+          hex values as input and returns the antecedent portion of the contrast
+          ratio as a float
+        </li>
+        <li>
+          The antecedent is the left number of a ratio (e.g. `4.2` in `4.2:1`)
+        </li>
+        <li>
+          The float value is all that's returned because the other poriton of
+          the ratio is always `1` for this methodology.
+        </li>
+      </ul>
+      $ESCAPED_JAVASCRIPT
+
+      <h2>Usage</h2>
+
+      $ESCAPED_JS2 $TODOS $NOTES $REFERENCES
     </main>
     <footer>
       made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>

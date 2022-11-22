@@ -1,5 +1,5 @@
-const kickoff = () => {
-    console.log("kickoff")
+const init = () => {
+    console.log("init")
 }
 
-document.addEventListener('DOMContentLoaded', kickoff)
+document.addEventListener('DOMContentLoaded', init)

@@ -122,10 +122,10 @@ class Builder():
             <pre><code class="language-html">{escape(self.parts['HEAD'])}</code></pre>
             '''
 
-        if self.parts['HTML'] != '':
-            self.parts['ESCAPED_HTML'] = f'''
+        if self.parts['BODY'] != '':
+            self.parts['ESCAPED_BODY'] = f'''
             <h2>HTML</h2>
-            <pre><code class="language-html">{escape(self.parts['HTML'])}</code></pre>
+            <pre><code class="language-html">{escape(self.parts['BODY'])}</code></pre>
             '''
 
         if self.parts['CSS'] != '':
@@ -191,7 +191,7 @@ class Builder():
 
 if __name__ == "__main__":
     b = Builder()
-    b.content_files = ['HTML.html', 'HEAD.html', 'JAVASCRIPT.js', 'CSS.css', 'TEMPLATE.html']
+    b.content_files = ['BODY.html', 'HEAD.html', 'JAVASCRIPT.js', 'CSS.css', 'TEMPLATE.html']
     b.load_config()
     b.load_parts()
     b.escape_parts()
