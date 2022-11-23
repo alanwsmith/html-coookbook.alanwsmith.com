@@ -56,7 +56,7 @@ class Builder():
             for detail in self.config['DETAILS']:
                 details.append(f'<li>{detail}</li>')
             self.parts['DETAILS'] = f'''
-                <h2>Deatils</h2>
+                <h2>Overview</h2>
                 <ul>
                     {" ".join(details)}
                 </ul>
