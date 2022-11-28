@@ -1,0 +1,18 @@
+body {
+  background-color: hsla(233, 20%, 19%, 1);
+  color: hsla(19, 10%, 87%, 1);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: hsla(32, 26%, 44%, 1);
+}
+
+a {
+  text-decoration: none;
+  color: hsla(56, 38%, 51%, 1);
+}

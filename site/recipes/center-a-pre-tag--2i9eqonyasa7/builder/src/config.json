@@ -1,0 +1,19 @@
+{
+    "TITLE": "Center A &lt;pre&gt; Tag",
+    "STATUS": "draft",
+    "DESCRIPTION": "",
+    "DETAILS": [
+        "This is a test to center a &lt;pre&gt; tag inside another element"
+    ],
+    "NOTES": [
+        "I applied background colors and padding outside of the code snippets. They aren't necessary for the centering. They just help show the relationships"
+    ],
+    "TODOS": [],
+    "REFERENCES": [
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        }
+    ]
+}
