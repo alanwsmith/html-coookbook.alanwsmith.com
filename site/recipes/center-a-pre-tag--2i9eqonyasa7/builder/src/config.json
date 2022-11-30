@@ -3,17 +3,13 @@
     "STATUS": "draft",
     "DESCRIPTION": "",
     "DETAILS": [
-        "This is a test to center a &lt;pre&gt; tag inside another element"
+        "This is one way to center a &lt;pre&gt; tag inside another element"
     ],
     "NOTES": [
-        "I applied background colors and padding outside of the code snippets. They aren't necessary for the centering. They just help show the relationships"
+        "I applied background colors and padding outside that aren't shows in the CSS snippets. They aren't necessary for the centering. They just help show the relationships",
+        "This approach uses `justtify-center` on the pre element itself. I think you can also use `justify-content` in the `#wrapper` style but I haven't tested that yet.",
+        "There are also `align-self` and `align-content` that can be used to center/adjust things vertically that can also be looked at"
     ],
     "TODOS": [],
-    "REFERENCES": [
-        {
-            "title": "",
-            "url": "",
-            "extra": ""
-        }
-    ]
+    "REFERENCES": []
 }

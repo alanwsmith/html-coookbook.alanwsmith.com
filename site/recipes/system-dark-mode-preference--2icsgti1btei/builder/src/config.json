@@ -1,0 +1,17 @@
+{
+    "TITLE": "Using System Preferences To Set Dark/Light Mode",
+    "STATUS": "draft",
+    "DESCRIPTION": "GOAL: Use the system setting to set dark/light mode on a web page with an override",
+    "DETAILS": [
+        "The example below is built directly from the HTML and JavaScript code snippets that follow"
+    ],
+    "NOTES": [],
+    "TODOS": [],
+    "REFERENCES": [
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        }
+    ]
+}

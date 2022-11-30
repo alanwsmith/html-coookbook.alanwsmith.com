@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Using System Preferences To Set Dark/Light Mode - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Using System Preferences To Set Dark/Light Mode" />
+    <meta property="og:description" content="GOAL: Use the system setting to set dark/light mode on a web page with an override" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Using%20System%20Preferences%20To%20Set%20Dark/Light%20Mode,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/fonts.css" />
+    <link rel="stylesheet" href="/styles/wrapper.css" />
+    <link rel="stylesheet" href="/styles/prism.css" />
+    
+    <style>
+      body {
+  color: #3c4048;
+  background-color: #eaeaea;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #3c4048;
+    color: #eaeaea;
+  }
+}
+
+    </style>
+    <script>
+      
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">cookbook home</a> ~
+      <a href="https://www.alanwsmith.com/">main site</a> ~
+      <a href="https://links.alanwsmith.com">other sites</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
+    </header>
+    <main>
+      <h1>Using System Preferences To Set Dark/Light Mode</h1>
+      <p>
+        NOTE: It doesn't look like there's a good way to check the user's
+        preference for light or dark and ajust via an override. That is, you can
+        setup to use the system setting, but if they override it, that would
+        make a flash of unstyled content if they chose the non-default the next
+        time they came back. This will work with the system setting though. And,
+        I think, will work without the flash since it loads in from the CSS
+        directly.
+      </p>
+      
+                <h2>Details</h2>
+                <ul>
+                    <li>The example below is built directly from the HTML and JavaScript code snippets that follow</li>
+                </ul>
+                
+      <h2>EXAMPLE</h2>
+         
+            <h2>CSS</h2>
+            <pre><code class="language-css">body {
+  color: #3c4048;
+  background-color: #eaeaea;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #3c4048;
+    color: #eaeaea;
+  }
+}
+</code></pre>
+              
+       
+                <h2>References</h2>
+                <ul>
+                    <li><a href=""></a></li>
+                </ul>
+                
+    </main>
+    <footer>
+      made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>
+      <br />
+      who has a <a href="https://www.alanwsmith.com">website</a> and a
+      <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
+      among other <a href="https://links.alanwsmith.com">things</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>

@@ -66,7 +66,7 @@
 
       #wrapper {
         margin: 2rem 0;
-        background-color: #aaa;
+        background-color: #222;
       }
 
       #theCode {
@@ -75,17 +75,15 @@
       }
 
             #wrapper {
-  text-align: center;
+  display: grid;
 }
-
 #theCode {
-  display: inline-block;
-  text-align: left;
+  justify-self: center;
 }
 
     </style>
   </head>
-  <body>
+  <body class="line-numbers">
     <header>
       <a href="/">home</a> ~
       <a href="https://www.alanwsmith.com/">main site</a> ~
@@ -95,61 +93,60 @@
     </header>
     <main>
       <h1>Center A &lt;pre&gt; Tag</h1>
+      <h2>Overview</h2>
+      <p>
+        Centering a &lt;pre&gt; tag in another element can be done by making the
+        parent element use `display: grid;` and then `justify-self: center;` on
+        the &lt;pre&gt; tag itself. For example, this HTML:
+      </p>
       
-                <h2>Overview</h2>
-                <ul>
-                    <li>This is a test to center a &lt;pre&gt; tag inside another element</li>
-                </ul>
-                
-
-      <h2>Demonstration</h2>
-      <p>This is the example output generated from the code below</p>
-      <div id="wrapper">
-  <pre id="theCode">
-This is the contents 
-of the pre tag</pre
-  >
-</div>
-  
-            <h2>HTML</h2>
-            <p>This is the HTML for the demonstration above</p>
             <pre><code class="language-html">&lt;div id=&quot;wrapper&quot;&gt;
   &lt;pre id=&quot;theCode&quot;&gt;
-This is the contents 
-of the pre tag&lt;/pre
+This is the contents of 
+the pre tag that ends 
+up in the middle
+&lt;/pre
   &gt;
 &lt;/div&gt;
 </code></pre>
-             
-            <h2>CSS</h2>
-            <p>And this is the CSS</p>
-            <pre><code class="language-css">#wrapper {
-  text-align: center;
-}
+            
 
+      <p>and this CSS:</p>
+
+      
+            <pre><code class="language-css">#wrapper {
+  display: grid;
+}
 #theCode {
-  display: inline-block;
-  text-align: left;
+  justify-self: center;
 }
 </code></pre>
-              
+            
+
+      <p>produce this result:</p>
+
+      <div id="wrapper">
+  <pre id="theCode">
+This is the contents of 
+the pre tag that ends 
+up in the middle
+</pre
+  >
+</div>
+ 
                 <h2>Notes</h2>
                 <ul>
-                    <li>I applied background colors and padding outside of the code snippets. They aren't necessary for the centering. They just help show the relationships</li>
+                    <li>I applied background colors and padding outside that aren't shows in the CSS snippets. They aren't necessary for the centering. They just help show the relationships</li> <li>This approach uses `justtify-center` on the pre element itself. I think you can also use `justify-content` in the `#wrapper` style but I haven't tested that yet.</li> <li>There are also `align-self` and `align-content` that can be used to center/adjust things vertically that can also be looked at</li>
                 </ul>
              
-                <h2>References</h2>
-                <ul>
-                    <li><a href=""></a></li>
-                </ul>
-                
     </main>
     <footer>
-      made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>
+      from <a href="https://www.alanwsmith.com/">alan w. smith</a>
       <br />
-      who has a <a href="https://www.alanwsmith.com">website</a> and a
-      <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
-      among other <a href="https://links.alanwsmith.com">things</a>
+      who has <a href="https://links.alanwsmith.com">some websites</a>, a
+      <a href="https://podcast.alanwsmith.com/">podcast</a><br />
+      and is on
+      <a href="https://hachyderm.io/@TheIdOfAlan">mastodon</a>
     </footer>
     <script src="/styles/prism.js"></script>
   </body>

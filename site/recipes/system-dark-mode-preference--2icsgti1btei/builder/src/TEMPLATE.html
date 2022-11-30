@@ -33,53 +33,21 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/fonts.css" />
+    <link rel="stylesheet" href="/styles/wrapper.css" />
     <link rel="stylesheet" href="/styles/prism.css" />
     $HEAD
     <style>
-      *, *::before, *::after {
-        box-sizing: border-box;
-      }
-      * {
-        margin: 0;
-      }
-      html, body {
-        height: 100%;
-      }
-      body {
-        line-height: 1.5;
-        -webkit-font-smoothing: antialiased;
-      }
-      img, picture, video, canvas, svg {
-        display: block;
-        max-width: 100%;
-      }
-      input, button, textarea, select {
-        font: inherit;
-      }
-      p, h1, h2, h3, h4, h5, h6 {
-        overflow-wrap: break-word;
-      }
-      #root, #__next {
-        isolation: isolate;
-      }
-
-      #wrapper {
-        margin: 2rem 0;
-        background-color: #222;
-      }
-
-      #theCode {
-        background-color: #777;
-          font-size: 1.5rem;
-      }
-
-            $CSS
+      $CSS
     </style>
+    <script>
+      $JAVASCRIPT
+    </script>
   </head>
   <body class="line-numbers">
     <header>
-      <a href="/">home</a> ~
+      <a href="/">cookbook home</a> ~
       <a href="https://www.alanwsmith.com/">main site</a> ~
       <a href="https://links.alanwsmith.com">other sites</a> ~
       <a href="https://podcast.alanwsmith.com/">podcast</a> ~
@@ -87,29 +55,26 @@
     </header>
     <main>
       <h1>$TITLE</h1>
-      <h2>Overview</h2>
       <p>
-        Centering a &lt;pre&gt; tag in another element can be done by making the
-        parent element use `display: grid;` and then `justify-self: center;` on
-        the &lt;pre&gt; tag itself. For example, this HTML:
+        NOTE: It doesn't look like there's a good way to check the user's
+        preference for light or dark and ajust via an override. That is, you can
+        setup to use the system setting, but if they override it, that would
+        make a flash of unstyled content if they chose the non-default the next
+        time they came back. This will work with the system setting though. And,
+        I think, will work without the flash since it loads in from the CSS
+        directly.
       </p>
-      $ESCAPED_BODY
-
-      <p>and this CSS:</p>
-
-      $ESCAPED_CSS
-
-      <p>produce this result:</p>
-
-      $BODY $NOTES $REFERENCES
+      $DETAILS
+      <h2>EXAMPLE</h2>
+      $BODY $ESCAPED_HEAD $ESCAPED_BODY $ESCAPED_CSS $ESCAPED_JAVASCRIPT $TODOS
+      $NOTES $REFERENCES
     </main>
     <footer>
-      from <a href="https://www.alanwsmith.com/">alan w. smith</a>
+      made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>
       <br />
-      who has <a href="https://links.alanwsmith.com">some websites</a>, a
-      <a href="https://podcast.alanwsmith.com/">podcast</a><br />
-      and is on
-      <a href="https://hachyderm.io/@TheIdOfAlan">mastodon</a>
+      who has a <a href="https://www.alanwsmith.com">website</a> and a
+      <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
+      among other <a href="https://links.alanwsmith.com">things</a>
     </footer>
     <script src="/styles/prism.js"></script>
   </body>
