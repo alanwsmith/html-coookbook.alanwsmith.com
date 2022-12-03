@@ -3,10 +3,10 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>$TITLE - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+        <title>Back Button With history.pushState() - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
         <meta property="og:type" content="article" />
-        <meta property="og:title" content="$TITLE" />
-        <meta property="og:description" content="$DESCRIPTION" />
+        <meta property="og:title" content="Back Button With history.pushState()" />
+        <meta property="og:description" content="Getting the back button to work with history.pushState()" />
         <meta
             property="og:image"
             content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Back%20Button%20with%20history%20pushState,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
@@ -33,8 +33,11 @@
             rel="stylesheet"
         />
 
-        <link rel="stylesheet" href="/styles/global.css" />
-        <link rel="stylesheet" href="/styles/prism.css" />
+        <link rel="stylesheet" href="/styles/reset.css" />
+        <link rel="stylesheet" href="/styles/fonts.css" />
+        <link rel="stylesheet" href="/styles/colors.css" />
+        <link rel="stylesheet" href="/styles/wrapper.css" />
+        <link rel="stylesheet" href="/styles/prism-customized.css" />
         <style>
             *,
             *::before,
@@ -83,33 +86,36 @@
         <script>
             let number = 0
 
-            const setPage = (pageNum) => {
-                const url = `${pageNum}.html`
-                console.log(`page is now: ${url}`)
-                document.getElementById('currentPage').innerHTML = pageNum
-                history.pushState({}, '', url)
-            }
+const handleNextClick = () => {
+    setPage(number + 1)
+}
 
-            const handlePrevClick = () => {
-                number -= 1
-                setPage(number)
-            }
+const handlePrevClick = () => {
+    setPage(number - 1)
+}
 
-            const handleNextClick = () => {
-                number += 1
-                setPage(number)
-            }
+const handlePopState = () => {
+    console.log('TODO: Figure out if this is gonna work')
+}
 
-            const init = () => {
-                document
-                    .getElementById('prevButton')
-                    .addEventListener('click', handlePrevClick)
-                document
-                    .getElementById('nextButton')
-                    .addEventListener('click', handleNextClick)
-            }
+const init = () => {
+    document
+        .getElementById('prevButton')
+        .addEventListener('click', handlePrevClick)
+    document
+        .getElementById('nextButton')
+        .addEventListener('click', handleNextClick)
+}
 
-            document.addEventListener('DOMContentLoaded', init)
+const setPage = (pageNum) => {
+    number = pageNum
+    document.getElementById('currentPage').innerHTML = number
+    history.pushState({}, '', number + `.html`)
+}
+
+document.addEventListener('DOMContentLoaded', init)
+window.addEventListener('popstate', handlePopState)
+
         </script>
     </head>
     <body class="line-numbers">
@@ -122,12 +128,89 @@
             <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
         </header>
         <main>
-            <h1>Use history.PushState() With The Back Button</h1>
-            <div id="currentPage">0</div>
-            <div>
-                <button id="prevButton">previous</button> ~
-                <button id="nextButton">next</button>
-            </div>
+            <h1>Use history.pushState() With The Back Button</h1>
+            <h2>Overview</h2>
+
+            <ul>
+                <li>
+                    This is a work in progress to get the back button working
+                    with static pages, history.pushState(), and vanilla JS
+                </li>
+                <li>
+                    The buttons update the url and change the page contents to
+                    match what's in the static file at the same location
+                </li>
+                <li>
+                    Clicking back and forth works as expected and refreshing the
+                    page works as expected
+                </li>
+                <li>
+                    Clicking the back button doesn't work though, the contents
+                    don't change
+                </li>
+            </ul>
+            <p>Working to figure that out</p>
+            <p>Here's the HTML and JavaScript I have so far</p>
+
+            <h3>HTML</h3>
+            <pre><code class="language-html">&lt;div&gt;Current Page: &lt;span id=&quot;currentPage&quot;&gt;THE_NUMBER&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+    &lt;button id=&quot;prevButton&quot;&gt;previous&lt;/button&gt; ~
+    &lt;button id=&quot;nextButton&quot;&gt;next&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+
+            <h3>JavaScript</h3>
+            <pre><code class="language-js">let number = THE_NUMBER
+
+const handleNextClick = () =&gt; {
+    setPage(number + 1)
+}
+
+const handlePrevClick = () =&gt; {
+    setPage(number - 1)
+}
+
+const handlePopState = () =&gt; {
+    console.log(&#x27;TODO: Figure out if this is gonna work&#x27;)
+}
+
+const init = () =&gt; {
+    document
+        .getElementById(&#x27;prevButton&#x27;)
+        .addEventListener(&#x27;click&#x27;, handlePrevClick)
+    document
+        .getElementById(&#x27;nextButton&#x27;)
+        .addEventListener(&#x27;click&#x27;, handleNextClick)
+}
+
+const setPage = (pageNum) =&gt; {
+    number = pageNum
+    document.getElementById(&#x27;currentPage&#x27;).innerHTML = number
+    history.pushState({}, &#x27;&#x27;, number + `.html`)
+}
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
+window.addEventListener(&#x27;popstate&#x27;, handlePopState)
+</code></pre>
+
+            <h3>Live Example</h3>
+            <div>Current Page: <span id="currentPage">0</span></div>
+<div>
+    <button id="prevButton">previous</button> ~
+    <button id="nextButton">next</button>
+</div>
+
+
+            <h3>Notes</h3>
+            <ul>
+                <li>
+                    Static files are only generated from -10 to 10. You can go
+                    past that with the buttons but it'll break if you try to
+                    refresh the pages. I didn't add error handling so the base
+                    functionality is easier to see in the example
+                </li>
+            </ul>
         </main>
         <footer>from alan w. smith</footer>
         <script src="/styles/prism.js"></script>
