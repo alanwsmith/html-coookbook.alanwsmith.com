@@ -56,7 +56,7 @@ class Builder():
             for detail in self.config['DETAILS']:
                 details.append(f'<li>{detail}</li>')
             self.parts['DETAILS'] = f'''
-                <h2>Overview</h2>
+                <h2>Details</h2>
                 <ul>
                     {" ".join(details)}
                 </ul>
@@ -124,11 +124,13 @@ class Builder():
 
         if self.parts['BODY'] != '':
             self.parts['ESCAPED_BODY'] = f'''
+            <h2>HTML</h2>
             <pre><code class="language-html">{escape(self.parts['BODY'])}</code></pre>
             '''
 
         if self.parts['CSS'] != '':
             self.parts['ESCAPED_CSS'] = f'''
+            <h2>CSS</h2>
             <pre><code class="language-css">{escape(self.parts['CSS'])}</code></pre>
             '''
 
@@ -189,7 +191,7 @@ class Builder():
 
 if __name__ == "__main__":
     b = Builder()
-    b.content_files = ['BODY.txt', 'HEAD.html', 'JAVASCRIPT.js', 'CSS.css', 'TEMPLATE.html']
+    b.content_files = ['BODY.html', 'HEAD.html', 'JAVASCRIPT.js', 'CSS.css', 'TEMPLATE.html']
     b.load_config()
     b.load_parts()
     b.escape_parts()

@@ -27,6 +27,7 @@ exports.handler = async function (event, context) {
   "2gn2p9a4zdjr": "/recipes/send_value_with_web_component_form_submit---2gn2p9a4zdjr/index.html",
   "2gn6720koljv": "/recipes/prevent_a_form_from_submitting_to_view_data---2gn6720koljv/index.html",
   "apply_styles_to_a_web_component--2Gov695r3d8b": "/recipes/apply_styles_to_a_web_component--2Gov695r3d8b/index.html",
+  "back_button_with_history_push_state--2imrt72t8sdv": "/recipes/back_button_with_history_push_state--2imrt72t8sdv/index.html",
   "calculate_color_contrast_ratio--2hhbo0yptnbm": "/recipes/calculate_color_contrast_ratio--2hhbo0yptnbm/index.html",
   "calculate_percentage_difference_between_two_numbers_in_javascript--2hjncmpdqlyx": "/recipes/calculate_percentage_difference_between_two_numbers_in_javascript--2hjncmpdqlyx/index.html",
   "center-a-pre-tag--2i9eqonyasa7": "/recipes/center-a-pre-tag--2i9eqonyasa7/index.html",

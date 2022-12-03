@@ -1,0 +1,17 @@
+{
+    "TITLE": "Back Button With history.pushState()",
+    "STATUS": "draft",
+    "DESCRIPTION": "",
+    "DETAILS": [
+        "Goal: Get the back button working with history.pushState(0"
+    ],
+    "NOTES": [],
+    "TODOS": [],
+    "REFERENCES": [
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        }
+    ]
+}

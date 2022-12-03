@@ -93,7 +93,6 @@
     </header>
     <main>
       <h1>Center A &lt;pre&gt; Tag</h1>
-      <h2>Overview</h2>
       <p>
         Centering a &lt;pre&gt; tag in another element can be done by making the
         parent element use `display: grid;` and then `justify-self: center;` on
@@ -101,12 +100,7 @@
       </p>
       
             <pre><code class="language-html">&lt;div id=&quot;wrapper&quot;&gt;
-  &lt;pre id=&quot;theCode&quot;&gt;
-This is the contents of 
-the pre tag that ends 
-up in the middle
-&lt;/pre
-  &gt;
+  &lt;pre id=&quot;theCode&quot;&gt;This is the content&lt;/pre&gt;
 &lt;/div&gt;
 </code></pre>
             
@@ -126,12 +120,7 @@ up in the middle
       <p>produce this result:</p>
 
       <div id="wrapper">
-  <pre id="theCode">
-This is the contents of 
-the pre tag that ends 
-up in the middle
-</pre
-  >
+  <pre id="theCode">This is the content</pre>
 </div>
  
                 <h2>Notes</h2>
