@@ -3,6 +3,8 @@
 import os 
 import sys
 
+from datetime import datetime
+from html import escape
 from string import Template
 
 class Builder():
@@ -21,31 +23,36 @@ class Builder():
 
     def make_individual_pages(self):
 
+        with open(f"{self.source_dir}/BODY.html") as _body:
+            self.body_raw = _body.read()
+
+        with open(f"{self.source_dir}/JS.js") as _js:
+            self.js_raw = _js.read()
+
         data = {
                 "TITLE": "Back Button With history.pushState()",
                 "DESCRIPTION": "Getting the back button to work with history.pushState()",
-                "JAVASCRIPT": "js"
                 }
+
 
         with open(self.template_file) as _in:
             skeleton = Template(_in.read())
-            for i in range(1,5):
+            for i in range(-10,10):
+                data['NUMBER'] = i
+                data['BODY'] = self.body_raw.replace('THE_NUMBER', str(i))
+                data['JS'] = self.js_raw.replace('THE_NUMBER', str(i))
+                data['BODY_CODE'] = f"""<pre><code class="language-html">{escape(self.body_raw)}</code></pre>"""
+                data['JS_CODE'] = f"""<pre><code class="language-js">{escape(self.js_raw)}</code></pre>"""
+
+
                 output_path = os.path.join(self.html_dir, f"{i}.html")
                 with open(output_path, 'w') as _out:
                     _out.write(skeleton.substitute(data))
 
 
-
-
-
-
-
-
-
 if __name__ == '__main__':
-    print("Building")
+    print(f"Building {datetime.now()}")
     b = Builder()
     b.make_index_page()
     b.make_individual_pages()
 
-    print('here')
