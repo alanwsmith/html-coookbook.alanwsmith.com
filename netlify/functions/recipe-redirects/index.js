@@ -41,6 +41,7 @@ exports.handler = async function (event, context) {
   "get_attributes_in_a_web_component--2gpiyozzemey": "/recipes/get_attributes_in_a_web_component--2gpiyozzemey/index.html",
   "hsl_color_picker_web_component--2GoGrtBoU6u3": "/recipes/hsl_color_picker_web_component--2GoGrtBoU6u3/index.html",
   "hsl_to_rgb_conversion_formula--2gqeuz8gn8fv": "/recipes/hsl_to_rgb_conversion_formula--2gqeuz8gn8fv/index.html",
+  "html_input_range_type_with_floating_point_number--2itkxa97ogoe": "/recipes/html_input_range_type_with_floating_point_number--2itkxa97ogoe/index.html",
   "live_code_codes_maker_experiment_alpha--2gxv4l6iyo7v": "/recipes/live_code_codes_maker_experiment_alpha--2gxv4l6iyo7v/index.html",
   "system-dark-mode-preference--2icsgti1btei": "/recipes/system-dark-mode-preference--2icsgti1btei/index.html",
   "use_mutation_observers_between_web_components_and_parent_pages--2gxzzx78txjy": "/recipes/use_mutation_observers_between_web_components_and_parent_pages--2gxzzx78txjy/index.html"

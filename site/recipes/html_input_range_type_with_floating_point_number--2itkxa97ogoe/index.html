@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>HTML Input Range Type With Floating Point Number - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="HTML Input Range Type With Floating Point Number" />
+        <meta property="og:description" content="" />
+        <meta
+            property="og:image"
+            content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:HTML%20Input%20Range%20Type%20With%20Floating%20Point%20Number,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site:id" content="@TheIdOfAlan" />
+        <meta name="twitter:creator" content="@TheIdOfAlan" />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="228x228"
+            href="/favicons/228x228.png"
+        />
+        <link
+            rel="apple-touch-icon-precomposed"
+            sizes="180x180"
+            href="/favicons/180x180.png"
+        />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+            rel="stylesheet"
+        />
+
+        <link rel="stylesheet" href="/styles/global.css" />
+        <link rel="stylesheet" href="/styles/prism-customized.css" />
+        
+        <style>
+            *, *::before, *::after {
+              box-sizing: border-box;
+            }
+            * {
+              margin: 0;
+            }
+            html, body {
+              height: 100%;
+            }
+            body {
+              line-height: 1.5;
+              -webkit-font-smoothing: antialiased;
+            }
+            img, picture, video, canvas, svg {
+              display: block;
+              max-width: 100%;
+            }
+            input, button, textarea, select {
+              font: inherit;
+            }
+            p, h1, h2, h3, h4, h5, h6 {
+              overflow-wrap: break-word;
+            }
+            #root, #__next {
+              isolation: isolate;
+            }
+
+                  
+        </style>
+        <script>
+            const handleInput = (event) => {
+    document.getElementById('alfaValue').innerHTML = event.target.value
+}
+
+const init = () => {
+    document.getElementById('alfa').addEventListener('input', handleInput)
+}
+
+document.addEventListener('DOMContentLoaded', init)
+
+        </script>
+    </head>
+    <body class="line-numbers">
+        <header>
+            <a href="/">cookbook home</a> ~
+            <a href="https://www.alanwsmith.com/">main site</a> ~
+            <a href="https://links.alanwsmith.com">other sites</a> ~
+            <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+            <a href="https://https://twitter.com/TheIdOfAlan">twitter</a> ~
+            <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
+        </header>
+        <main>
+            <h1>HTML Input Range Type With Floating Point Number</h1>
+            
+                <h2>Details</h2>
+                <ul>
+                    <li>This example uses the `step` attribute of an range type input element to make a floating point value (e.g. `4.3`) instead of an integer (e.g. `4`)</li>
+                </ul>
+                  
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;input id=&quot;alfa&quot; type=&quot;range&quot; min=&quot;0&quot; max=&quot;10&quot; step=&quot;0.1&quot; value=&quot;0&quot; /&gt;
+</code></pre>
+             
+
+            <h2>EXAMPLE</h2>
+            <input id="alfa" type="range" min="0" max="10" step="0.1" value="0" />
+
+            <div id="alfaValue">0</div>
+
+            
+            <br />
+            <br />
+            <hr />
+            <h2>Demonstration JavaScript</h2>
+            <p>This is the code that powers the example. It's not necessary for the value to be updated. It just makes it easier to see by update a div with the id `alfaValue`</p>
+            <pre><code class="language-js">const handleInput = (event) =&gt; {
+    document.getElementById(&#x27;alfaValue&#x27;).innerHTML = event.target.value
+}
+
+const init = () =&gt; {
+    document.getElementById(&#x27;alfa&#x27;).addEventListener(&#x27;input&#x27;, handleInput)
+}
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
+</code></pre>
+               
+                <h2>References</h2>
+                <ul>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range">MDN: Input range type</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/step">MDN: Input step attribute</a></li>
+                </ul>
+                
+        </main>
+        <footer>
+            from <a href="https://www.alanwsmith.com/">alan w. smith</a>
+        </footer>
+        <script src="/styles/prism.js"></script>
+    </body>
+</html>

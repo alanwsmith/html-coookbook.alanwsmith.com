@@ -1,0 +1,22 @@
+{
+    "TITLE": "HTML Input Range Type With Floating Point Number",
+    "STATUS": "draft",
+    "DESCRIPTION": "",
+    "DETAILS": [
+        "This example uses the `step` attribute of an range type input element to make a floating point value (e.g. `4.3`) instead of an integer (e.g. `4`)"
+    ],
+    "NOTES": [],
+    "TODOS": [],
+    "REFERENCES": [
+        {
+            "title": "MDN: Input range type",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range",
+            "extra": ""
+        },
+        {
+            "title": "MDN: Input step attribute",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/step",
+            "extra": ""
+        }
+    ]
+}
