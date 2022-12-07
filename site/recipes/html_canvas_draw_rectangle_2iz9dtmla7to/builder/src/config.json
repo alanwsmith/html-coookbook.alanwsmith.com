@@ -1,0 +1,15 @@
+{
+    "TITLE": "HTML Canvas - Draw A Rectangle With The Cursor",
+    "STATUS": "draft",
+    "DESCRIPTION": "",
+    "DETAILS": ["GOAL: Draw a rectangle with the cursor"],
+    "NOTES": [],
+    "TODOS": [],
+    "REFERENCES": [
+        {
+            "title": "JSFiddle with jQuery example",
+            "url": "https://jsfiddle.net/richardcwc/ukqhf54k/",
+            "extra": ""
+        }
+    ]
+}

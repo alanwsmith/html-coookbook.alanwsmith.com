@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML Canvas - Draw A Rectangle With The Cursor - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="HTML Canvas - Draw A Rectangle With The Cursor" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:HTML%20Canvas%20-%20Draw%20A%20Rectangle%20With%20The%20Cursor,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+
+  <link rel="stylesheet" href="/styles/reset.css" />
+  <link rel="stylesheet" href="/styles/fonts.css" />
+  <link rel="stylesheet" href="/styles/colors.css" />
+  <link rel="stylesheet" href="/styles/wrapper.css" />
+    <link rel="stylesheet" href="/styles/prism-customized.css" />
+    
+    <style>
+      canvas {
+    background-color: white;
+}
+
+    </style>
+    <script>
+      let canvas = null
+let context = null
+let drawing = false
+let moving = false
+let params = {}
+
+const startDrawing = (event) => {
+    drawing = true
+    params.x = event.offsetX
+    params.y = event.offsetY
+    console.log(event)
+}
+
+const keepDrawing = (event) => {
+    if (drawing) {
+        console.log(event.offsetX)
+        if (moving) {
+            console.log('moving')
+            params.x = event.offsetX - params.width
+            params.y = event.offsetY - params.height
+        } else {
+            console.log('not moving')
+            params.width = event.offsetX - params.x
+            params.height = event.offsetY - params.y
+        }
+        context.clearRect(0, 0, canvas.width, canvas.height)
+        context.beginPath()
+        context.rect(params.x, params.y, params.width, params.height)
+        context.strokeStyle = 'black'
+        context.lineWidth = 1
+        context.stroke()
+    }
+}
+
+const stopDrawing = (event) => {
+    drawing = false
+}
+
+const handleKeyDown = (event) => {
+    if (drawing) {
+        if (event.key === ' ') {
+            event.preventDefault()
+            moving = true
+        }
+    }
+}
+
+const handleKeyUp = (event) => {
+    moving = false
+}
+
+const init = () => {
+    canvas = document.getElementById('workArea')
+    canvas.addEventListener('pointerdown', startDrawing)
+    canvas.addEventListener('pointermove', keepDrawing)
+    canvas.addEventListener('pointerup', stopDrawing)
+    context = canvas.getContext('2d')
+    context.fillStyle = 'green'
+}
+
+document.addEventListener('DOMContentLoaded', init)
+document.addEventListener('keydown', handleKeyDown)
+document.addEventListener('keyup', handleKeyUp)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">cookbook home</a> ~
+      <a href="https://www.alanwsmith.com/">main site</a> ~
+      <a href="https://links.alanwsmith.com">other sites</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://https://twitter.com/TheIdOfAlan">twitter</a> ~
+      <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
+    </header>
+    <main>
+      <h1>HTML Canvas - Draw A Rectangle With The Cursor</h1>
+      
+                <h2>Details</h2>
+                <ul>
+                    <li>GOAL: Draw a rectangle with the cursor</li>
+                </ul>
+                
+      <h2>EXAMPLE</h2>
+      <canvas id="workArea" width="600" height="400"></canvas>
+  
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;canvas id=&quot;workArea&quot; width=&quot;600&quot; height=&quot;400&quot;&gt;&lt;/canvas&gt;
+</code></pre>
+             
+            <h2>CSS</h2>
+            <pre><code class="language-css">canvas {
+    background-color: white;
+}
+</code></pre>
+             
+            <h2>JavaScript</h2>
+            <pre><code class="language-js">let canvas = null
+let context = null
+let drawing = false
+let moving = false
+let params = {}
+
+const startDrawing = (event) =&gt; {
+    drawing = true
+    params.x = event.offsetX
+    params.y = event.offsetY
+    console.log(event)
+}
+
+const keepDrawing = (event) =&gt; {
+    if (drawing) {
+        console.log(event.offsetX)
+        if (moving) {
+            console.log(&#x27;moving&#x27;)
+            params.x = event.offsetX - params.width
+            params.y = event.offsetY - params.height
+        } else {
+            console.log(&#x27;not moving&#x27;)
+            params.width = event.offsetX - params.x
+            params.height = event.offsetY - params.y
+        }
+        context.clearRect(0, 0, canvas.width, canvas.height)
+        context.beginPath()
+        context.rect(params.x, params.y, params.width, params.height)
+        context.strokeStyle = &#x27;black&#x27;
+        context.lineWidth = 1
+        context.stroke()
+    }
+}
+
+const stopDrawing = (event) =&gt; {
+    drawing = false
+}
+
+const handleKeyDown = (event) =&gt; {
+    if (drawing) {
+        if (event.key === &#x27; &#x27;) {
+            event.preventDefault()
+            moving = true
+        }
+    }
+}
+
+const handleKeyUp = (event) =&gt; {
+    moving = false
+}
+
+const init = () =&gt; {
+    canvas = document.getElementById(&#x27;workArea&#x27;)
+    canvas.addEventListener(&#x27;pointerdown&#x27;, startDrawing)
+    canvas.addEventListener(&#x27;pointermove&#x27;, keepDrawing)
+    canvas.addEventListener(&#x27;pointerup&#x27;, stopDrawing)
+    context = canvas.getContext(&#x27;2d&#x27;)
+    context.fillStyle = &#x27;green&#x27;
+}
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
+document.addEventListener(&#x27;keydown&#x27;, handleKeyDown)
+document.addEventListener(&#x27;keyup&#x27;, handleKeyUp)
+</code></pre>
+             
+       
+                <h2>References</h2>
+                <ul>
+                    <li><a href="https://jsfiddle.net/richardcwc/ukqhf54k/">JSFiddle with jQuery example</a></li>
+                </ul>
+                
+    </main>
+    <footer>
+      from <a href="https://www.alanwsmith.com/">alan w. smith</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>
