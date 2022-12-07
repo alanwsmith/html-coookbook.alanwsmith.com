@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>CSS Grid Responsive Columns - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="CSS Grid Responsive Columns" />
+        <meta property="og:description" content="Use auto-fit in repeat with min max to do the setup" />
+        <meta
+            property="og:image"
+            content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:CSS%20Grid%20Responsive%20Columns,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site:id" content="@TheIdOfAlan" />
+        <meta name="twitter:creator" content="@TheIdOfAlan" />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="228x228"
+            href="/favicons/228x228.png"
+        />
+        <link
+            rel="apple-touch-icon-precomposed"
+            sizes="180x180"
+            href="/favicons/180x180.png"
+        />
+
+        <link rel="stylesheet" href="/styles/reset.css" />
+        <link rel="stylesheet" href="/styles/fonts.css" />
+        <link rel="stylesheet" href="/styles/colors.css" />
+        <link rel="stylesheet" href="/styles/wrapper.css" />
+        <link rel="stylesheet" href="/styles/prism-customized.css" />
+        
+        <style>
+            #wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-gap: 1rem;
+}
+
+        </style>
+        <script>
+            
+        </script>
+    </head>
+    <body class="line-numbers">
+        <header>
+            <a href="/">cookbook home</a> ~
+            <a href="https://www.alanwsmith.com/">main site</a> ~
+            <a href="https://links.alanwsmith.com">other sites</a> ~
+            <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+            <a href="https://https://twitter.com/TheIdOfAlan">twitter</a> ~
+            <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
+        </header>
+        <main>
+            <h1>CSS Grid Responsive Columns</h1>
+            
+                <h2>Details</h2>
+                <ul>
+                    <li>Goal: Create Responsive Columns</li>
+                </ul>
+                
+            <h2>EXAMPLE</h2>
+            <div id="wrapper">
+    <div>alfa</div>
+    <div>bravo</div>
+    <div>charlie</div>
+    <div>delta</div>
+    <div>echo</div>
+    <div>foxtrot</div>
+    <div>golf</div>
+    <div>hotel</div>
+    <div>india</div>
+    <div>juliett</div>
+    <div>kilo</div>
+    <div>lima</div>
+    <div>mike</div>
+    <div>november</div>
+    <div>oscar</div>
+    <div>papa</div>
+    <div>quebec</div>
+    <div>romeo</div>
+    <div>sierra</div>
+    <div>tango</div>
+    <div>uniform</div>
+    <div>victor</div>
+    <div>whiskey</div>
+    <div>xray</div>
+    <div>yankee</div>
+    <div>zulu</div>
+</div>
+  
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;div id=&quot;wrapper&quot;&gt;
+    &lt;div&gt;alfa&lt;/div&gt;
+    &lt;div&gt;bravo&lt;/div&gt;
+    &lt;div&gt;charlie&lt;/div&gt;
+    &lt;div&gt;delta&lt;/div&gt;
+    &lt;div&gt;echo&lt;/div&gt;
+    &lt;div&gt;foxtrot&lt;/div&gt;
+    &lt;div&gt;golf&lt;/div&gt;
+    &lt;div&gt;hotel&lt;/div&gt;
+    &lt;div&gt;india&lt;/div&gt;
+    &lt;div&gt;juliett&lt;/div&gt;
+    &lt;div&gt;kilo&lt;/div&gt;
+    &lt;div&gt;lima&lt;/div&gt;
+    &lt;div&gt;mike&lt;/div&gt;
+    &lt;div&gt;november&lt;/div&gt;
+    &lt;div&gt;oscar&lt;/div&gt;
+    &lt;div&gt;papa&lt;/div&gt;
+    &lt;div&gt;quebec&lt;/div&gt;
+    &lt;div&gt;romeo&lt;/div&gt;
+    &lt;div&gt;sierra&lt;/div&gt;
+    &lt;div&gt;tango&lt;/div&gt;
+    &lt;div&gt;uniform&lt;/div&gt;
+    &lt;div&gt;victor&lt;/div&gt;
+    &lt;div&gt;whiskey&lt;/div&gt;
+    &lt;div&gt;xray&lt;/div&gt;
+    &lt;div&gt;yankee&lt;/div&gt;
+    &lt;div&gt;zulu&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+             
+            <h2>CSS</h2>
+            <pre><code class="language-css">#wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-gap: 1rem;
+}
+</code></pre>
+             
+              
+                <h2>References</h2>
+                <ul>
+                    <li><a href=""></a></li>
+                </ul>
+                
+        </main>
+        <footer>
+            from <a href="https://www.alanwsmith.com/">alan w. smith</a>
+        </footer>
+        <script src="/styles/prism.js"></script>
+    </body>
+</html>
