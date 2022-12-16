@@ -1,0 +1,17 @@
+{
+    "TITLE": "CSS Grid Responsive Columns",
+    "STATUS": "draft",
+    "DESCRIPTION": "Use auto-fit in repeat with min max to do the setup",
+    "DETAILS": [
+        "Goal: Create Responsive Columns"
+    ],
+    "NOTES": [],
+    "TODOS": [],
+    "REFERENCES": [
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        }
+    ]
+}

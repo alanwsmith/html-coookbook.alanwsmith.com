@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML Canvas Images - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="HTML Canvas Images" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:HTML%20Canvas%20Images,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+
+  <link rel="stylesheet" href="/styles/reset.css" />
+  <link rel="stylesheet" href="/styles/fonts.css" />
+  <link rel="stylesheet" href="/styles/colors.css" />
+  <link rel="stylesheet" href="/styles/wrapper.css" />
+    <link rel="stylesheet" href="/styles/prism-customized.css" />
+    
+    <style>
+      
+    </style>
+    <script>
+      const state = {
+    images: [],
+    images_loaded: false,
+    started: false,
+    current_image: 0,
+}
+
+const kickoff = () => {
+    state.ctx.clearRect(0, 0, 150, 150)
+    state.ctx.drawImage(state.images[state.current_image], 0, 0)
+    console.log(state.current_image)
+    if (state.current_image < state.images.length - 1) {
+        state.current_image += 1
+    } else {
+        state.current_image = 0
+    }
+}
+
+const checkImagesAreLoaded = () => {
+    if (state.started === false) {
+        state.images_loaded = true
+        for (let i = 0; i < state.images.length; i++) {
+            if (state.images[i].complete === false) {
+                state.images_loaded = false
+                break
+            }
+        }
+        if (state.images_loaded === true) {
+            state.started = true
+            setInterval(kickoff, 33)
+        }
+    }
+}
+
+const init = () => {
+    for (let i = 0; i < 30; i++) {
+        state.images.push(new Image())
+        state.images[i].src = `images/${i}.jpg`
+        state.images[i].addEventListener('load', () => {
+            checkImagesAreLoaded()
+        })
+    }
+    state.canvas = document.getElementById('canvas')
+    state.ctx = canvas.getContext('2d')
+}
+
+document.addEventListener('DOMContentLoaded', init)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">cookbook home</a> ~
+      <a href="https://www.alanwsmith.com/">main site</a> ~
+      <a href="https://links.alanwsmith.com">other sites</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://https://twitter.com/TheIdOfAlan">twitter</a> ~
+      <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
+    </header>
+    <main>
+      <h1>HTML Canvas Images</h1>
+      
+                <h2>Details</h2>
+                <ul>
+                    <li>GOAL: Make something like an animated GIF with images</li>
+                </ul>
+                
+      <h2>EXAMPLE</h2>
+      <html lang="en">
+    <body onload="draw();">
+        <canvas id="canvas" width="150" height="150"></canvas>
+    </body>
+</html>
+  
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;html lang=&quot;en&quot;&gt;
+    &lt;body onload=&quot;draw();&quot;&gt;
+        &lt;canvas id=&quot;canvas&quot; width=&quot;150&quot; height=&quot;150&quot;&gt;&lt;/canvas&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+              
+            <h2>JavaScript</h2>
+            <pre><code class="language-js">const state = {
+    images: [],
+    images_loaded: false,
+    started: false,
+    current_image: 0,
+}
+
+const kickoff = () =&gt; {
+    state.ctx.clearRect(0, 0, 150, 150)
+    state.ctx.drawImage(state.images[state.current_image], 0, 0)
+    console.log(state.current_image)
+    if (state.current_image &lt; state.images.length - 1) {
+        state.current_image += 1
+    } else {
+        state.current_image = 0
+    }
+}
+
+const checkImagesAreLoaded = () =&gt; {
+    if (state.started === false) {
+        state.images_loaded = true
+        for (let i = 0; i &lt; state.images.length; i++) {
+            if (state.images[i].complete === false) {
+                state.images_loaded = false
+                break
+            }
+        }
+        if (state.images_loaded === true) {
+            state.started = true
+            setInterval(kickoff, 33)
+        }
+    }
+}
+
+const init = () =&gt; {
+    for (let i = 0; i &lt; 30; i++) {
+        state.images.push(new Image())
+        state.images[i].src = `images/${i}.jpg`
+        state.images[i].addEventListener(&#x27;load&#x27;, () =&gt; {
+            checkImagesAreLoaded()
+        })
+    }
+    state.canvas = document.getElementById(&#x27;canvas&#x27;)
+    state.ctx = canvas.getContext(&#x27;2d&#x27;)
+}
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
+</code></pre>
+             
+       
+                <h2>References</h2>
+                <ul>
+                    <li><a href=""></a></li>
+                </ul>
+                
+    </main>
+    <footer>
+      from <a href="https://www.alanwsmith.com/">alan w. smith</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>
