@@ -1,10 +1,8 @@
 {
-    "TITLE": "HTML Canvas Images",
+    "TITLE": "HTML Canvas - Simulate An Animated GIF",
     "STATUS": "draft",
     "DESCRIPTION": "",
-    "DETAILS": [
-        "GOAL: Make something like an animated GIF with images"
-    ],
+    "DETAILS": ["GOAL: Make something like an animated GIF with images"],
     "NOTES": [],
     "TODOS": [],
     "REFERENCES": [
