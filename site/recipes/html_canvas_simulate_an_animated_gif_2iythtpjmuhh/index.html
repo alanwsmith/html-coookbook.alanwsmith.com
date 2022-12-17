@@ -36,50 +36,49 @@
       
     </style>
     <script>
-      const state = {
-    images: [],
-    images_loaded: false,
-    started: false,
-    current_image: 0,
-}
+      let canvas = null
+let ctx = null
+let images = []
+let images_loaded = false
+let started = false
+let current_image = 1
 
-const kickoff = () => {
-    state.ctx.clearRect(0, 0, 150, 150)
-    state.ctx.drawImage(state.images[state.current_image], 0, 0)
-    console.log(state.current_image)
-    if (state.current_image < state.images.length - 1) {
-        state.current_image += 1
+const doRender = () => {
+    ctx.clearRect(0, 0, 500, 280)
+    ctx.drawImage(images[current_image], 0, 0)
+    if (current_image < images.length - 1) {
+        current_image += 1
     } else {
-        state.current_image = 0
+        current_image = 0
     }
 }
 
 const checkImagesAreLoaded = () => {
-    if (state.started === false) {
-        state.images_loaded = true
-        for (let i = 0; i < state.images.length; i++) {
-            if (state.images[i].complete === false) {
-                state.images_loaded = false
+    if (started === false) {
+        images_loaded = true
+        for (let i = 0; i < images.length; i++) {
+            if (images[i].complete === false) {
+                images_loaded = false
                 break
             }
         }
-        if (state.images_loaded === true) {
-            state.started = true
-            setInterval(kickoff, 33)
+        if (images_loaded === true) {
+            started = true
+            setInterval(doRender, 33)
         }
     }
 }
 
 const init = () => {
-    for (let i = 0; i < 30; i++) {
-        state.images.push(new Image())
-        state.images[i].src = `images/${i}.jpg`
-        state.images[i].addEventListener('load', () => {
+    for (let i = 0; i <= 60; i++) {
+        images.push(new Image())
+        images[i].src = `images/${i}.jpg`
+        images[i].addEventListener('load', () => {
             checkImagesAreLoaded()
         })
     }
-    state.canvas = document.getElementById('canvas')
-    state.ctx = canvas.getContext('2d')
+    canvas = document.getElementById('canvas')
+    ctx = canvas.getContext('2d')
 }
 
 document.addEventListener('DOMContentLoaded', init)
@@ -104,65 +103,68 @@ document.addEventListener('DOMContentLoaded', init)
                 </ul>
                 
       <h2>EXAMPLE</h2>
-      <html lang="en">
-    <body>
-        <canvas id="canvas" width="150" height="150"></canvas>
-    </body>
-</html>
+      <canvas id="canvas" width="500" height="280"></canvas>
+<!--
+<br />
+<img src="example.gif" width="500" height="280" />
+<br />
+<img src="example.webp" width="500" height="280" />
+-->
   
             <h2>HTML</h2>
-            <pre><code class="language-html">&lt;html lang=&quot;en&quot;&gt;
-    &lt;body&gt;
-        &lt;canvas id=&quot;canvas&quot; width=&quot;150&quot; height=&quot;150&quot;&gt;&lt;/canvas&gt;
-    &lt;/body&gt;
-&lt;/html&gt;
+            <pre><code class="language-html">&lt;canvas id=&quot;canvas&quot; width=&quot;500&quot; height=&quot;280&quot;&gt;&lt;/canvas&gt;
+&lt;!--
+&lt;br /&gt;
+&lt;img src=&quot;example.gif&quot; width=&quot;500&quot; height=&quot;280&quot; /&gt;
+&lt;br /&gt;
+&lt;img src=&quot;example.webp&quot; width=&quot;500&quot; height=&quot;280&quot; /&gt;
+--&gt;
 </code></pre>
               
             <h2>JavaScript</h2>
-            <pre><code class="language-js">const state = {
-    images: [],
-    images_loaded: false,
-    started: false,
-    current_image: 0,
-}
+            <pre><code class="language-js">let canvas = null
+let ctx = null
+let images = []
+let images_loaded = false
+let started = false
+let current_image = 1
 
-const kickoff = () =&gt; {
-    state.ctx.clearRect(0, 0, 150, 150)
-    state.ctx.drawImage(state.images[state.current_image], 0, 0)
-    console.log(state.current_image)
-    if (state.current_image &lt; state.images.length - 1) {
-        state.current_image += 1
+const doRender = () =&gt; {
+    ctx.clearRect(0, 0, 500, 280)
+    ctx.drawImage(images[current_image], 0, 0)
+    if (current_image &lt; images.length - 1) {
+        current_image += 1
     } else {
-        state.current_image = 0
+        current_image = 0
     }
 }
 
 const checkImagesAreLoaded = () =&gt; {
-    if (state.started === false) {
-        state.images_loaded = true
-        for (let i = 0; i &lt; state.images.length; i++) {
-            if (state.images[i].complete === false) {
-                state.images_loaded = false
+    if (started === false) {
+        images_loaded = true
+        for (let i = 0; i &lt; images.length; i++) {
+            if (images[i].complete === false) {
+                images_loaded = false
                 break
             }
         }
-        if (state.images_loaded === true) {
-            state.started = true
-            setInterval(kickoff, 33)
+        if (images_loaded === true) {
+            started = true
+            setInterval(doRender, 33)
         }
     }
 }
 
 const init = () =&gt; {
-    for (let i = 0; i &lt; 30; i++) {
-        state.images.push(new Image())
-        state.images[i].src = `images/${i}.jpg`
-        state.images[i].addEventListener(&#x27;load&#x27;, () =&gt; {
+    for (let i = 0; i &lt;= 60; i++) {
+        images.push(new Image())
+        images[i].src = `images/${i}.jpg`
+        images[i].addEventListener(&#x27;load&#x27;, () =&gt; {
             checkImagesAreLoaded()
         })
     }
-    state.canvas = document.getElementById(&#x27;canvas&#x27;)
-    state.ctx = canvas.getContext(&#x27;2d&#x27;)
+    canvas = document.getElementById(&#x27;canvas&#x27;)
+    ctx = canvas.getContext(&#x27;2d&#x27;)
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
