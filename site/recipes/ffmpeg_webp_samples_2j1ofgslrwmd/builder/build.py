@@ -26,23 +26,206 @@ class Builder():
         self.config_file = f'{self.source_dir}/config.json'
         self.content_files = []
         self.parts = {}
+        self.scale = 'fps=15,scale=400:-2'
+
 
         self.ffmpeg_commands = [
                 {
+                    "name": "alfa",
+                    "notes": "This is the basic command that just does a resize, sets the fps to 15, and triggers an infinate loop. These are the base settings that will be used for the test of the samples unless otherwise noted",
                     "command": ['/opt/homebrew/bin/ffmpeg', 
                         '-i', f"{self.video_dir}/input_1.mp4", 
-                        '-vf', 'fps=15,scale=500:-2',
+                        '-vf', self.scale,
+                        '-loop', '0',
                         '-y', f"{self.base_dir}/samples/alfa.webp"
                     ]
-                }
+                }, 
+                {
+                    "name": "bravo",
+                    "notes": "This sets `-vcodec libwebp`",
+                    "command": ['/opt/homebrew/bin/ffmpeg', 
+                        '-i', f"{self.video_dir}/input_1.mp4", 
+                        '-vf', self.scale,
+                        '-loop', '0',
+                        '-vcodec', 'libwebp',
+                        '-y', f"{self.base_dir}/samples/bravo.webp"
+                    ]
+                },
+
+                {
+                    "name": "charlie",
+                    "notes": "This sets `-compression_level 0`",
+                    "command": ['/opt/homebrew/bin/ffmpeg', 
+                        '-i', f"{self.video_dir}/input_1.mp4", 
+                        '-vf', self.scale,
+                        '-loop', '0',
+                        '-vcodec', 'libwebp',
+                        '-compression_level', '0',
+                        '-y', f"{self.base_dir}/samples/charlie.webp"
+                    ]
+                },
+
+                {
+                    "name": "delta",
+                    "notes": "This sets `-compression_level 6`",
+                    "command": ['/opt/homebrew/bin/ffmpeg', 
+                        '-i', f"{self.video_dir}/input_1.mp4", 
+                        '-vf', self.scale,
+                        '-loop', '0',
+                        '-vcodec', 'libwebp',
+                        '-compression_level', '6',
+                        '-y', f"{self.base_dir}/samples/delta.webp"
+                    ]
+                },
+
+                {
+                    "name": "echo",
+                    "notes": "This sets `-compression_level 6` and `-quality` to 85 (default is 75)",
+                    "command": ['/opt/homebrew/bin/ffmpeg', 
+                        '-i', f"{self.video_dir}/input_1.mp4", 
+                        '-vf', self.scale,
+                        '-loop', '0',
+                        '-vcodec', 'libwebp',
+                        '-compression_level', '6',
+                        '-quality', '85',
+                        '-y', f"{self.base_dir}/samples/echo.webp"
+                    ]
+                },
+
+                {
+                    "name": "foxtrot",
+                    "notes": "This sets `-compression_level 6` and `-quality` to 95 (default is 75)",
+                    "command": ['/opt/homebrew/bin/ffmpeg', 
+                        '-i', f"{self.video_dir}/input_1.mp4", 
+                        '-vf', self.scale,
+                        '-loop', '0',
+                        '-vcodec', 'libwebp',
+                        '-compression_level', '6',
+                        '-quality', '95',
+                        '-y', f"{self.base_dir}/samples/foxtrot.webp"
+                    ]
+                },
+
+                {
+                    "name": "golf",
+                    "notes": "This sets `-compression_level 6` and `-quality` to 100 (default is 75)",
+                    "command": ['/opt/homebrew/bin/ffmpeg', 
+                        '-i', f"{self.video_dir}/input_1.mp4", 
+                        '-vf', self.scale,
+                        '-loop', '0',
+                        '-vcodec', 'libwebp',
+                        '-compression_level', '6',
+                        '-quality', '100',
+                        '-y', f"{self.base_dir}/samples/golf.webp"
+                    ]
+                },
+
+                {
+                    "name": "hotel",
+                    "notes": "This sets `-compression_level 6` and `-quality` to 65 (default is 75)",
+                    "command": ['/opt/homebrew/bin/ffmpeg', 
+                        '-i', f"{self.video_dir}/input_1.mp4", 
+                        '-vf', self.scale,
+                        '-loop', '0',
+                        '-vcodec', 'libwebp',
+                        '-compression_level', '6',
+                        '-quality', '65',
+                        '-y', f"{self.base_dir}/samples/hotel.webp"
+                    ]
+                },
+
+                {
+                    "name": "india",
+                    "notes": "Back to defaut quality but adding `-preset none`",
+                    "command": ['/opt/homebrew/bin/ffmpeg', 
+                        '-i', f"{self.video_dir}/input_1.mp4", 
+                        '-vf', self.scale,
+                        '-loop', '0',
+                        '-vcodec', 'libwebp',
+                        '-compression_level', '6',
+                        '-preset', 'none',
+                        '-y', f"{self.base_dir}/samples/india.webp"
+                    ]
+                },
+
+                {
+                    "name": "juliett",
+                    "notes": "Back to defaut quality but adding `-preset picture`",
+                    "command": ['/opt/homebrew/bin/ffmpeg', 
+                        '-i', f"{self.video_dir}/input_1.mp4", 
+                        '-vf', self.scale,
+                        '-loop', '0',
+                        '-vcodec', 'libwebp',
+                        '-compression_level', '6',
+                        '-preset', 'picture',
+                        '-y', f"{self.base_dir}/samples/juliett.webp"
+                    ]
+                },
+
+                {
+                    "name": "kilo",
+                    "notes": "Back to defaut quality but adding `-preset photo`",
+                    "command": ['/opt/homebrew/bin/ffmpeg', 
+                        '-i', f"{self.video_dir}/input_1.mp4", 
+                        '-vf', self.scale,
+                        '-loop', '0',
+                        '-vcodec', 'libwebp',
+                        '-compression_level', '6',
+                        '-preset', 'photo',
+                        '-y', f"{self.base_dir}/samples/kilo.webp"
+                    ]
+                },
+
+                {
+                    "name": "lima",
+                    "notes": "Back to defaut quality but adding `-preset drawing`",
+                    "command": ['/opt/homebrew/bin/ffmpeg', 
+                        '-i', f"{self.video_dir}/input_1.mp4", 
+                        '-vf', self.scale,
+                        '-loop', '0',
+                        '-vcodec', 'libwebp',
+                        '-compression_level', '6',
+                        '-preset', 'drawing',
+                        '-y', f"{self.base_dir}/samples/lima.webp"
+                    ]
+                },
+
+                {
+                    "name": "mike",
+                    "notes": "Back to defaut quality but adding `-preset icon`",
+                    "command": ['/opt/homebrew/bin/ffmpeg', 
+                        '-i', f"{self.video_dir}/input_1.mp4", 
+                        '-vf', self.scale,
+                        '-loop', '0',
+                        '-vcodec', 'libwebp',
+                        '-compression_level', '6',
+                        '-preset', 'icon',
+                        '-y', f"{self.base_dir}/samples/mike.webp"
+                    ]
+                },
+
+                {
+                    "name": "november",
+                    "notes": "Back to defaut quality but adding `-preset text`",
+                    "command": ['/opt/homebrew/bin/ffmpeg', 
+                        '-i', f"{self.video_dir}/input_1.mp4", 
+                        '-vf', self.scale,
+                        '-loop', '0',
+                        '-vcodec', 'libwebp',
+                        '-compression_level', '6',
+                        '-preset', 'text',
+                        '-y', f"{self.base_dir}/samples/november.webp"
+                    ]
+                },
+
             ]
+
 
 
     def escape_parts(self):
         part_keys = [key for key in self.parts.keys()]
         for part_key in part_keys:
             self.parts[f'ESCAPED_{part_key}'] = escape(self.parts[part_key])
-
         print(self.parts.keys())
 
     def load_config(self):
@@ -63,7 +246,6 @@ class Builder():
             key = content_file.split('.')[0]
             path = f"{self.source_dir}/{content_file}"
             self.parts[key] = self.slurp_file(path)
-
 
 
     def load_details(self):
@@ -132,6 +314,26 @@ class Builder():
             _output.write(output)
 
     def wrap_escapes(self):
+
+        self.parts['BODY'] = ''
+
+        new_stuff = []
+        for cmd in self.ffmpeg_commands:
+            print(cmd)
+            new_stuff.append(f'''
+<div>
+<div>{cmd['name']}</div>
+<img src="samples/{cmd['name']}.webp" >
+<div>{cmd['notes']}</div>
+<div>{" ".join(cmd['command'])}</div>
+</div>
+ <hr />
+                             ''')
+
+
+        self.parts['BODY'] = "\n".join(new_stuff)
+
+
         if self.parts['HEAD'] != '':
             self.parts['ESCAPED_HEAD'] = f'''
             <h2>&lt;head&gt;</h2>
@@ -160,12 +362,17 @@ class Builder():
         for output in self.ffmpeg_commands:
             print(subprocess.run(output['command']))
 
+    def get_file_sizes(self):
+        for source in self.ffmpeg_commands:
+            source_path = f"{self.base_dir}/samples/{source['name']}.webp"
+            source['size'] = f"{os.path.getsize(source_path):,}"
+            # print(source)
 
 
 
 if __name__ == "__main__":
     b = Builder()
-    b.render_files()
+    #b.render_files()
     b.content_files = ['BODY.html', 'HEAD.html', 'JAVASCRIPT.js', 'CSS.css', 'TEMPLATE.html']
     b.load_config()
     b.load_parts()

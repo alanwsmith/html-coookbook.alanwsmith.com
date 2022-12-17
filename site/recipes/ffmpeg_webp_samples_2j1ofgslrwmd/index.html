@@ -62,11 +62,259 @@ document.addEventListener('DOMContentLoaded', init)
                 </ul>
                 
       <h2>EXAMPLE</h2>
-      <p>the quick brown fox</p>
-  
+      
+<div>
+<div>alfa</div>
+<img src="samples/alfa.webp" >
+<div>This is the basic command that just does a resize, sets the fps to 15, and triggers an infinate loop. These are the base settings that will be used for the test of the samples unless otherwise noted</div>
+<div>/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/alfa.webp</div>
+</div>
+ <hr />
+                             
+
+<div>
+<div>bravo</div>
+<img src="samples/bravo.webp" >
+<div>This sets `-vcodec libwebp`</div>
+<div>/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -vcodec libwebp -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/bravo.webp</div>
+</div>
+ <hr />
+                             
+
+<div>
+<div>charlie</div>
+<img src="samples/charlie.webp" >
+<div>This sets `-compression_level 0`</div>
+<div>/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -vcodec libwebp -compression_level 0 -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/charlie.webp</div>
+</div>
+ <hr />
+                             
+
+<div>
+<div>delta</div>
+<img src="samples/delta.webp" >
+<div>This sets `-compression_level 6`</div>
+<div>/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -vcodec libwebp -compression_level 6 -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/delta.webp</div>
+</div>
+ <hr />
+                             
+
+<div>
+<div>echo</div>
+<img src="samples/echo.webp" >
+<div>This sets `-compression_level 6` and `-quality` to 85 (default is 75)</div>
+<div>/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -vcodec libwebp -compression_level 6 -quality 85 -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/echo.webp</div>
+</div>
+ <hr />
+                             
+
+<div>
+<div>foxtrot</div>
+<img src="samples/foxtrot.webp" >
+<div>This sets `-compression_level 6` and `-quality` to 95 (default is 75)</div>
+<div>/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -vcodec libwebp -compression_level 6 -quality 95 -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/foxtrot.webp</div>
+</div>
+ <hr />
+                             
+
+<div>
+<div>golf</div>
+<img src="samples/golf.webp" >
+<div>This sets `-compression_level 6` and `-quality` to 100 (default is 75)</div>
+<div>/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -vcodec libwebp -compression_level 6 -quality 100 -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/golf.webp</div>
+</div>
+ <hr />
+                             
+
+<div>
+<div>hotel</div>
+<img src="samples/hotel.webp" >
+<div>This sets `-compression_level 6` and `-quality` to 65 (default is 75)</div>
+<div>/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -vcodec libwebp -compression_level 6 -quality 65 -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/hotel.webp</div>
+</div>
+ <hr />
+                             
+
+<div>
+<div>india</div>
+<img src="samples/india.webp" >
+<div>Back to defaut quality but adding `-preset none`</div>
+<div>/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -vcodec libwebp -compression_level 6 -preset none -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/india.webp</div>
+</div>
+ <hr />
+                             
+
+<div>
+<div>juliett</div>
+<img src="samples/juliett.webp" >
+<div>Back to defaut quality but adding `-preset picture`</div>
+<div>/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -vcodec libwebp -compression_level 6 -preset picture -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/juliett.webp</div>
+</div>
+ <hr />
+                             
+
+<div>
+<div>kilo</div>
+<img src="samples/kilo.webp" >
+<div>Back to defaut quality but adding `-preset photo`</div>
+<div>/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -vcodec libwebp -compression_level 6 -preset photo -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/kilo.webp</div>
+</div>
+ <hr />
+                             
+
+<div>
+<div>lima</div>
+<img src="samples/lima.webp" >
+<div>Back to defaut quality but adding `-preset drawing`</div>
+<div>/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -vcodec libwebp -compression_level 6 -preset drawing -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/lima.webp</div>
+</div>
+ <hr />
+                             
+
+<div>
+<div>mike</div>
+<img src="samples/mike.webp" >
+<div>Back to defaut quality but adding `-preset icon`</div>
+<div>/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -vcodec libwebp -compression_level 6 -preset icon -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/mike.webp</div>
+</div>
+ <hr />
+                             
+
+<div>
+<div>november</div>
+<img src="samples/november.webp" >
+<div>Back to defaut quality but adding `-preset text`</div>
+<div>/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -vcodec libwebp -compression_level 6 -preset text -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/november.webp</div>
+</div>
+ <hr />
+                               
             <h2>HTML</h2>
-            <pre><code class="language-html">&lt;p&gt;the quick brown fox&lt;/p&gt;
-</code></pre>
+            <pre><code class="language-html">
+&lt;div&gt;
+&lt;div&gt;alfa&lt;/div&gt;
+&lt;img src=&quot;samples/alfa.webp&quot; &gt;
+&lt;div&gt;This is the basic command that just does a resize, sets the fps to 15, and triggers an infinate loop. These are the base settings that will be used for the test of the samples unless otherwise noted&lt;/div&gt;
+&lt;div&gt;/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/alfa.webp&lt;/div&gt;
+&lt;/div&gt;
+ &lt;hr /&gt;
+                             
+
+&lt;div&gt;
+&lt;div&gt;bravo&lt;/div&gt;
+&lt;img src=&quot;samples/bravo.webp&quot; &gt;
+&lt;div&gt;This sets `-vcodec libwebp`&lt;/div&gt;
+&lt;div&gt;/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -vcodec libwebp -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/bravo.webp&lt;/div&gt;
+&lt;/div&gt;
+ &lt;hr /&gt;
+                             
+
+&lt;div&gt;
+&lt;div&gt;charlie&lt;/div&gt;
+&lt;img src=&quot;samples/charlie.webp&quot; &gt;
+&lt;div&gt;This sets `-compression_level 0`&lt;/div&gt;
+&lt;div&gt;/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -vcodec libwebp -compression_level 0 -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/charlie.webp&lt;/div&gt;
+&lt;/div&gt;
+ &lt;hr /&gt;
+                             
+
+&lt;div&gt;
+&lt;div&gt;delta&lt;/div&gt;
+&lt;img src=&quot;samples/delta.webp&quot; &gt;
+&lt;div&gt;This sets `-compression_level 6`&lt;/div&gt;
+&lt;div&gt;/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -vcodec libwebp -compression_level 6 -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/delta.webp&lt;/div&gt;
+&lt;/div&gt;
+ &lt;hr /&gt;
+                             
+
+&lt;div&gt;
+&lt;div&gt;echo&lt;/div&gt;
+&lt;img src=&quot;samples/echo.webp&quot; &gt;
+&lt;div&gt;This sets `-compression_level 6` and `-quality` to 85 (default is 75)&lt;/div&gt;
+&lt;div&gt;/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -vcodec libwebp -compression_level 6 -quality 85 -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/echo.webp&lt;/div&gt;
+&lt;/div&gt;
+ &lt;hr /&gt;
+                             
+
+&lt;div&gt;
+&lt;div&gt;foxtrot&lt;/div&gt;
+&lt;img src=&quot;samples/foxtrot.webp&quot; &gt;
+&lt;div&gt;This sets `-compression_level 6` and `-quality` to 95 (default is 75)&lt;/div&gt;
+&lt;div&gt;/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -vcodec libwebp -compression_level 6 -quality 95 -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/foxtrot.webp&lt;/div&gt;
+&lt;/div&gt;
+ &lt;hr /&gt;
+                             
+
+&lt;div&gt;
+&lt;div&gt;golf&lt;/div&gt;
+&lt;img src=&quot;samples/golf.webp&quot; &gt;
+&lt;div&gt;This sets `-compression_level 6` and `-quality` to 100 (default is 75)&lt;/div&gt;
+&lt;div&gt;/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -vcodec libwebp -compression_level 6 -quality 100 -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/golf.webp&lt;/div&gt;
+&lt;/div&gt;
+ &lt;hr /&gt;
+                             
+
+&lt;div&gt;
+&lt;div&gt;hotel&lt;/div&gt;
+&lt;img src=&quot;samples/hotel.webp&quot; &gt;
+&lt;div&gt;This sets `-compression_level 6` and `-quality` to 65 (default is 75)&lt;/div&gt;
+&lt;div&gt;/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -vcodec libwebp -compression_level 6 -quality 65 -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/hotel.webp&lt;/div&gt;
+&lt;/div&gt;
+ &lt;hr /&gt;
+                             
+
+&lt;div&gt;
+&lt;div&gt;india&lt;/div&gt;
+&lt;img src=&quot;samples/india.webp&quot; &gt;
+&lt;div&gt;Back to defaut quality but adding `-preset none`&lt;/div&gt;
+&lt;div&gt;/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -vcodec libwebp -compression_level 6 -preset none -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/india.webp&lt;/div&gt;
+&lt;/div&gt;
+ &lt;hr /&gt;
+                             
+
+&lt;div&gt;
+&lt;div&gt;juliett&lt;/div&gt;
+&lt;img src=&quot;samples/juliett.webp&quot; &gt;
+&lt;div&gt;Back to defaut quality but adding `-preset picture`&lt;/div&gt;
+&lt;div&gt;/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -vcodec libwebp -compression_level 6 -preset picture -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/juliett.webp&lt;/div&gt;
+&lt;/div&gt;
+ &lt;hr /&gt;
+                             
+
+&lt;div&gt;
+&lt;div&gt;kilo&lt;/div&gt;
+&lt;img src=&quot;samples/kilo.webp&quot; &gt;
+&lt;div&gt;Back to defaut quality but adding `-preset photo`&lt;/div&gt;
+&lt;div&gt;/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -vcodec libwebp -compression_level 6 -preset photo -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/kilo.webp&lt;/div&gt;
+&lt;/div&gt;
+ &lt;hr /&gt;
+                             
+
+&lt;div&gt;
+&lt;div&gt;lima&lt;/div&gt;
+&lt;img src=&quot;samples/lima.webp&quot; &gt;
+&lt;div&gt;Back to defaut quality but adding `-preset drawing`&lt;/div&gt;
+&lt;div&gt;/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -vcodec libwebp -compression_level 6 -preset drawing -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/lima.webp&lt;/div&gt;
+&lt;/div&gt;
+ &lt;hr /&gt;
+                             
+
+&lt;div&gt;
+&lt;div&gt;mike&lt;/div&gt;
+&lt;img src=&quot;samples/mike.webp&quot; &gt;
+&lt;div&gt;Back to defaut quality but adding `-preset icon`&lt;/div&gt;
+&lt;div&gt;/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -vcodec libwebp -compression_level 6 -preset icon -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/mike.webp&lt;/div&gt;
+&lt;/div&gt;
+ &lt;hr /&gt;
+                             
+
+&lt;div&gt;
+&lt;div&gt;november&lt;/div&gt;
+&lt;img src=&quot;samples/november.webp&quot; &gt;
+&lt;div&gt;Back to defaut quality but adding `-preset text`&lt;/div&gt;
+&lt;div&gt;/opt/homebrew/bin/ffmpeg -i /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/builder/videos/input_1.mp4 -vf fps=15,scale=400:-2 -loop 0 -vcodec libwebp -compression_level 6 -preset text -y /Users/alan/workshop/html-css-js.alanwsmith.com/site/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/samples/november.webp&lt;/div&gt;
+&lt;/div&gt;
+ &lt;hr /&gt;
+                             </code></pre>
               
             <h2>JavaScript</h2>
             <pre><code class="language-js">const init = () =&gt; {
@@ -76,10 +324,15 @@ document.addEventListener('DOMContentLoaded', init)
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
 </code></pre>
              
-       
+      
+                <h2>Notes</h2>
+                <ul>
+                    <li>I use '-vcodec', 'libwebp' for everything after the default baseline since it's literally designed for the conversion</li> <li>Setting `-lossless 0` had no effect from the baseline</li> <li>Setting `-lossless 1` turned it on and increased file size by 20x. Removing that from the outputs.</li> <li>-compression_level (0-6, default is 4) is: a quality/speed tradeoff. Higher values give better quality for a given size at the cost of increased encoding time. values go from 0 to 6. I'm not checking timings in this run, just the quality.</li> <li>Based on that description, I move compression_level to 6 for everything except the initial baselines</li> <li>Default `-quality` is 75</li> <li>The presets might be more pronounced on other content types</li>
+                </ul>
+             
                 <h2>References</h2>
                 <ul>
-                    <li><a href="https://www.pexels.com/video/a-man-playing-his-bass-guitar-8042696/">ANTONI SHKRABA - A Man Playing His Bass Guitar</a></li>
+                    <li><a href="https://ffmpeg.org/ffmpeg-codecs.html#libwebp">ffmpeg libwebp documentation</a></li> <li><a href="https://www.pexels.com/video/a-man-playing-his-bass-guitar-8042696/">ANTONI SHKRABA - A Man Playing His Bass Guitar</a></li>
                 </ul>
                 
     </main>
