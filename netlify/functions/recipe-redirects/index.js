@@ -39,6 +39,7 @@ exports.handler = async function (event, context) {
   "css_two_column_grid_with_scrolling_column--2hz8jc50ad33": "/recipes/css_two_column_grid_with_scrolling_column--2hz8jc50ad33/index.html",
   "detect_key_press_anywhere_on_the_page--2hwzw66hch29": "/recipes/detect_key_press_anywhere_on_the_page--2hwzw66hch29/index.html",
   "double-encode-commas-and-slashes-for-cloudinary-text-overlays--2gc8mwmrfaw7": "/recipes/double-encode-commas-and-slashes-for-cloudinary-text-overlays--2gc8mwmrfaw7/index.html",
+  "ffmpeg_webp_samples_2j1ofgslrwmd": "/recipes/ffmpeg_webp_samples_2j1ofgslrwmd/index.html",
   "get_attributes_in_a_web_component--2gpiyozzemey": "/recipes/get_attributes_in_a_web_component--2gpiyozzemey/index.html",
   "hsl_color_picker_web_component--2GoGrtBoU6u3": "/recipes/hsl_color_picker_web_component--2GoGrtBoU6u3/index.html",
   "hsl_to_rgb_conversion_formula--2gqeuz8gn8fv": "/recipes/hsl_to_rgb_conversion_formula--2gqeuz8gn8fv/index.html",
