@@ -32,7 +32,7 @@
         <link rel="stylesheet" href="/styles/prism-customized.css" />
         $HEAD
         <style>
-            #wrapper {
+            .wrapper {
                 display: flex;
                 flex-wrap: wrap;
             }
@@ -44,7 +44,9 @@
             $JAVASCRIPT
         </script>
     </head>
+
     <body class="line-numbers">
+        <div>
             <header>
                 <a href="/">cookbook home</a> ~
                 <a href="https://www.alanwsmith.com/">main site</a> ~
@@ -57,12 +59,15 @@
                 <h1>$TITLE</h1>
                 $DETAILS
                 <h2>EXAMPLE</h2>
-        <div id="wrapper">
-                $BODY 
-        </div>
 
-                $ESCAPED_HEAD $ESCAPED_BODY $ESCAPED_CSS
-                $ESCAPED_JAVASCRIPT $TODOS $NOTES $REFERENCES
+                <div class="wrapper">
+                    <div id="alfa_container" class="webp_container"></div>
+                    <div id="bravo_container" class="webp_container"></div>
+                </div>
+                <div class="wrapper">$BODY</div>
+
+                $ESCAPED_HEAD $ESCAPED_BODY $ESCAPED_CSS $ESCAPED_JAVASCRIPT
+                $TODOS $NOTES $REFERENCES
             </main>
             <footer>
                 from <a href="https://www.alanwsmith.com/">alan w. smith</a>

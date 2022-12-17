@@ -327,10 +327,8 @@ class Builder():
         with open(f"{self.base_dir}/index.html", 'w') as _output:
             _output.write(output)
 
-    def wrap_escapes(self):
-
+    def add_sizes(self):
         self.parts['BODY'] = ''
-
         new_stuff = []
         words = []
         for cmd in self.ffmpeg_commands:
@@ -345,20 +343,22 @@ class Builder():
             words.append(f'''
 <li>{cmd['name']} - {cmd['notes']}</li>
                          ''')
-
-
 # <div>{cmd['notes']}</div>
 # <div>{" ".join(cmd['command'])}</div>
-
         top_string = "\n".join(new_stuff)
         lower_string = "\n".join(words)
-
 
         self.parts['BODY'] = f'''{top_string}
         <ul>
 {lower_string}
         </ul>
         '''
+
+    def wrap_escapes(self):
+
+
+
+
 
 
 
@@ -398,10 +398,11 @@ class Builder():
 
 
 
+
 if __name__ == "__main__":
     b = Builder()
     # b.render_files()
-    b.get_file_sizes()
+    # b.get_file_sizes()
     b.content_files = ['BODY.html', 'HEAD.html', 'JAVASCRIPT.js', 'CSS.css', 'TEMPLATE.html']
     b.load_config()
     b.load_parts()
