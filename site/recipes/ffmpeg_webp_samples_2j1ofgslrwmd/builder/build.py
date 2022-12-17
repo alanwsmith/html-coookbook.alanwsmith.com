@@ -26,11 +26,12 @@ class Builder():
         self.config_file = f'{self.source_dir}/config.json'
         self.content_files = []
         self.parts = {}
-        self.scale = 'fps=15,scale=400:-2'
+        self.scale = 'fps=15,scale=200:-2'
 
 
         self.ffmpeg_commands = [
                 {
+                    "code": "defaults",
                     "name": "alfa",
                     "notes": "This is the basic command that just does a resize, sets the fps to 15, and triggers an infinate loop. These are the base settings that will be used for the test of the samples unless otherwise noted",
                     "command": ['/opt/homebrew/bin/ffmpeg', 
@@ -41,6 +42,7 @@ class Builder():
                     ]
                 }, 
                 {
+                    "code": "libwebp",
                     "name": "bravo",
                     "notes": "This sets `-vcodec libwebp`",
                     "command": ['/opt/homebrew/bin/ffmpeg', 
@@ -53,6 +55,7 @@ class Builder():
                 },
 
                 {
+                    "code": "c0",
                     "name": "charlie",
                     "notes": "This sets `-compression_level 0`",
                     "command": ['/opt/homebrew/bin/ffmpeg', 
@@ -66,6 +69,7 @@ class Builder():
                 },
 
                 {
+                    "code": "c6",
                     "name": "delta",
                     "notes": "This sets `-compression_level 6`",
                     "command": ['/opt/homebrew/bin/ffmpeg', 
@@ -79,6 +83,7 @@ class Builder():
                 },
 
                 {
+                    "code": "q-85",
                     "name": "echo",
                     "notes": "This sets `-compression_level 6` and `-quality` to 85 (default is 75)",
                     "command": ['/opt/homebrew/bin/ffmpeg', 
@@ -93,6 +98,7 @@ class Builder():
                 },
 
                 {
+                    "code": "q-95",
                     "name": "foxtrot",
                     "notes": "This sets `-compression_level 6` and `-quality` to 95 (default is 75)",
                     "command": ['/opt/homebrew/bin/ffmpeg', 
@@ -107,6 +113,7 @@ class Builder():
                 },
 
                 {
+                    "code": "q-100",
                     "name": "golf",
                     "notes": "This sets `-compression_level 6` and `-quality` to 100 (default is 75)",
                     "command": ['/opt/homebrew/bin/ffmpeg', 
@@ -121,6 +128,7 @@ class Builder():
                 },
 
                 {
+                    "code": "q-65",
                     "name": "hotel",
                     "notes": "This sets `-compression_level 6` and `-quality` to 65 (default is 75)",
                     "command": ['/opt/homebrew/bin/ffmpeg', 
@@ -135,6 +143,7 @@ class Builder():
                 },
 
                 {
+                    "code": "p-none",
                     "name": "india",
                     "notes": "Back to defaut quality but adding `-preset none`",
                     "command": ['/opt/homebrew/bin/ffmpeg', 
@@ -149,6 +158,7 @@ class Builder():
                 },
 
                 {
+                    "code": "p-picture",
                     "name": "juliett",
                     "notes": "Back to defaut quality but adding `-preset picture`",
                     "command": ['/opt/homebrew/bin/ffmpeg', 
@@ -163,6 +173,7 @@ class Builder():
                 },
 
                 {
+                    "code": "p-photo",
                     "name": "kilo",
                     "notes": "Back to defaut quality but adding `-preset photo`",
                     "command": ['/opt/homebrew/bin/ffmpeg', 
@@ -177,6 +188,7 @@ class Builder():
                 },
 
                 {
+                    "code": "p-drawing",
                     "name": "lima",
                     "notes": "Back to defaut quality but adding `-preset drawing`",
                     "command": ['/opt/homebrew/bin/ffmpeg', 
@@ -191,6 +203,7 @@ class Builder():
                 },
 
                 {
+                    "code": "p-icon",
                     "name": "mike",
                     "notes": "Back to defaut quality but adding `-preset icon`",
                     "command": ['/opt/homebrew/bin/ffmpeg', 
@@ -205,6 +218,7 @@ class Builder():
                 },
 
                 {
+                    "code": "p-text",
                     "name": "november",
                     "notes": "Back to defaut quality but adding `-preset text`",
                     "command": ['/opt/homebrew/bin/ffmpeg', 
@@ -318,20 +332,35 @@ class Builder():
         self.parts['BODY'] = ''
 
         new_stuff = []
+        words = []
         for cmd in self.ffmpeg_commands:
             print(cmd)
             new_stuff.append(f'''
-<div>
-<div>{cmd['name']}</div>
-<img src="samples/{cmd['name']}.webp" >
-<div>{cmd['notes']}</div>
-<div>{" ".join(cmd['command'])}</div>
+<div class="imgHolder">
+<img src="samples/{cmd['name']}.webp" alt="{cmd['notes']}"  />
+<div>{cmd['name']} - {cmd['code']}<br />{cmd['size']}</div>
 </div>
- <hr />
                              ''')
 
+            words.append(f'''
+<li>{cmd['name']} - {cmd['notes']}</li>
+                         ''')
 
-        self.parts['BODY'] = "\n".join(new_stuff)
+
+# <div>{cmd['notes']}</div>
+# <div>{" ".join(cmd['command'])}</div>
+
+        top_string = "\n".join(new_stuff)
+        lower_string = "\n".join(words)
+
+
+        self.parts['BODY'] = f'''{top_string}
+        <ul>
+{lower_string}
+        </ul>
+        '''
+
+
 
 
         if self.parts['HEAD'] != '':
@@ -366,13 +395,13 @@ class Builder():
         for source in self.ffmpeg_commands:
             source_path = f"{self.base_dir}/samples/{source['name']}.webp"
             source['size'] = f"{os.path.getsize(source_path):,}"
-            # print(source)
 
 
 
 if __name__ == "__main__":
     b = Builder()
-    #b.render_files()
+    # b.render_files()
+    b.get_file_sizes()
     b.content_files = ['BODY.html', 'HEAD.html', 'JAVASCRIPT.js', 'CSS.css', 'TEMPLATE.html']
     b.load_config()
     b.load_parts()
