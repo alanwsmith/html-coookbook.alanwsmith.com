@@ -56,14 +56,55 @@
                 <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
             </header>
             <main>
+
+                <h1>NOTE: Moving this to a page on the www.alanwsmith.com site for an overview. Specifics will be added here when that's done. All the rest of this below is scratch notes for now</h1>
                 <h1>$TITLE</h1>
                 $DETAILS
                 <h2>EXAMPLE</h2>
 
+                <p>
+                    This is what it looks like without any parmas (i.e. just
+                    `.webp` for the file name.) Not something you'd want to use.
+                    I'm only putting it here as a raw reference.
+                </p>
                 <div class="wrapper">
-                    <div id="alfa_container" class="webp_container"></div>
-                    <div id="bravo_container" class="webp_container"></div>
+                    <div id="raw0" class="webp_container"></div>
                 </div>
+                <pre>
+ffmpeg -i input.mp4 \
+    -vf "$$SIZE" \
+    -loop 0 \
+    -y alfa.webp
+                </pre>
+
+                <p>
+                    Here's the raw version followed by a version with `-vcodec
+                    libwebp` added. It sets the codec to the one designed for
+                    WebP. The improvment is dramatic and it'll be included as
+                    the baseline for all the rest of the examples.
+                </p>
+
+                <div class="wrapper">
+                    <div id="raw1" class="webp_container"></div>
+                    <div id="baseline0" class="webp_container"></div>
+                </div>
+
+                <p>
+                    The next step is to look at the `-compression_level`. Valid
+                    values are from 0-6 with 4 being the default. Here's 0-6 in
+                    order.
+                </p>
+
+                <div class="wrapper">
+                    <div id="c00" class="webp_container"></div>
+                    <div id="c10" class="webp_container"></div>
+                    <div id="c20" class="webp_container"></div>
+                    <div id="c30" class="webp_container"></div>
+                    <div id="c40" class="webp_container"></div>
+                    <div id="c50" class="webp_container"></div>
+                    <div id="c60" class="webp_container"></div>
+                </div>
+
                 <div class="wrapper">$BODY</div>
 
                 $ESCAPED_HEAD $ESCAPED_BODY $ESCAPED_CSS $ESCAPED_JAVASCRIPT
