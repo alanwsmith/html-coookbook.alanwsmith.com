@@ -1,91 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ffmpeg WebP Tests - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="ffmpeg WebP Tests" />
-    <meta property="og:description" content="" />
-    <meta
-      property="og:image"
-      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:ffmpeg%20WebP%20Tests,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
-    />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site:id" content="@TheIdOfAlan" />
-    <meta name="twitter:creator" content="@TheIdOfAlan" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="228x228"
-      href="/favicons/228x228.png"
-    />
-    <link
-      rel="apple-touch-icon-precomposed"
-      sizes="180x180"
-      href="/favicons/180x180.png"
-    />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ffmpeg WebP Tests - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="ffmpeg WebP Tests" />
+        <meta property="og:description" content="" />
+        <meta
+            property="og:image"
+            content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:ffmpeg%20WebP%20Tests,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site:id" content="@TheIdOfAlan" />
+        <meta name="twitter:creator" content="@TheIdOfAlan" />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="228x228"
+            href="/favicons/228x228.png"
+        />
+        <link
+            rel="apple-touch-icon-precomposed"
+            sizes="180x180"
+            href="/favicons/180x180.png"
+        />
 
-  <link rel="stylesheet" href="/styles/reset.css" />
-  <link rel="stylesheet" href="/styles/fonts.css" />
-  <link rel="stylesheet" href="/styles/colors.css" />
-  <link rel="stylesheet" href="/styles/wrapper.css" />
-    <link rel="stylesheet" href="/styles/prism-customized.css" />
-    
-    <style>
-      
-    </style>
-    <script>
-      const init = () => {
-    console.log("init")
+        <link rel="stylesheet" href="/styles/reset.css" />
+        <link rel="stylesheet" href="/styles/fonts.css" />
+        <link rel="stylesheet" href="/styles/colors.css" />
+        <link rel="stylesheet" href="/styles/prism-customized.css" />
+        
+        <style>
+            .wrapper {
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .imgHolder {
+                margin-bottom: 16px;
+            }
+        </style>
+        <script>
+            const images = {
+    raw: [],
+    baseline: [],
+    c0: [],
+    c1: [],
+    c2: [],
+    c3: [],
+    c4: [],
+    c5: [],
+    c6: [],
+}
+
+let loaded_images = 0
+
+const checkLoaded = () => {
+    loaded_images += 1
+    if (loaded_images == 9) {
+        showImages()
+    }
+}
+
+const showImages = () => {
+    console.log('showing')
+    for (let image in images) {
+        for (let i = 0; i < image.length; i++) {
+            const id = `${image}${i}`
+            console.log(id)
+            const el = document.getElementById(`${image}${i}`)
+            if (el) {
+                el.appendChild(images[image][i])
+            }
+        }
+    }
+}
+
+const init = () => {
+    console.log('init')
+    for (let name in images) {
+        for (let i = 0; i < 4; i++) {
+            images[name][i] = new Image()
+            images[name][i].src = `samples/${name}.webp`
+            images[name][i].addEventListener('load', checkLoaded)
+        }
+    }
 }
 
 document.addEventListener('DOMContentLoaded', init)
 
-    </script>
-  </head>
-  <body class="line-numbers">
-    <header>
-      <a href="/">cookbook home</a> ~
-      <a href="https://www.alanwsmith.com/">main site</a> ~
-      <a href="https://links.alanwsmith.com">other sites</a> ~
-      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
-      <a href="https://https://twitter.com/TheIdOfAlan">twitter</a> ~
-      <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
-    </header>
-    <main>
-      <h1>ffmpeg WebP Tests</h1>
-      
+        </script>
+    </head>
+
+    <body class="line-numbers">
+        <div>
+            <header>
+                <a href="/">cookbook home</a> ~
+                <a href="https://www.alanwsmith.com/">main site</a> ~
+                <a href="https://links.alanwsmith.com">other sites</a> ~
+                <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+                <a href="https://https://twitter.com/TheIdOfAlan">twitter</a> ~
+                <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
+            </header>
+            <main>
+
+                <h1>NOTE: Moving this to a page on the www.alanwsmith.com site for an overview. Specifics will be added here when that's done. All the rest of this below is scratch notes for now</h1>
+                <h1>ffmpeg WebP Tests</h1>
+                
                 <h2>Details</h2>
                 <ul>
                     <li>This is a series of webp tests from ffmpeg</li>
                 </ul>
                 
-      <h2>EXAMPLE</h2>
-      <p>the quick brown fox</p>
-  
+                <h2>EXAMPLE</h2>
+
+                <p>
+                    This is what it looks like without any parmas (i.e. just
+                    `.webp` for the file name.) Not something you'd want to use.
+                    I'm only putting it here as a raw reference.
+                </p>
+                <div class="wrapper">
+                    <div id="raw0" class="webp_container"></div>
+                </div>
+                <pre>
+ffmpeg -i input.mp4 \
+    -vf "$SIZE" \
+    -loop 0 \
+    -y alfa.webp
+                </pre>
+
+                <p>
+                    Here's the raw version followed by a version with `-vcodec
+                    libwebp` added. It sets the codec to the one designed for
+                    WebP. The improvment is dramatic and it'll be included as
+                    the baseline for all the rest of the examples.
+                </p>
+
+                <div class="wrapper">
+                    <div id="raw1" class="webp_container"></div>
+                    <div id="baseline0" class="webp_container"></div>
+                </div>
+
+                <p>
+                    The next step is to look at the `-compression_level`. Valid
+                    values are from 0-6 with 4 being the default. Here's 0-6 in
+                    order.
+                </p>
+
+                <div class="wrapper">
+                    <div id="c00" class="webp_container"></div>
+                    <div id="c10" class="webp_container"></div>
+                    <div id="c20" class="webp_container"></div>
+                    <div id="c30" class="webp_container"></div>
+                    <div id="c40" class="webp_container"></div>
+                    <div id="c50" class="webp_container"></div>
+                    <div id="c60" class="webp_container"></div>
+                </div>
+
+                <div class="wrapper"><p>the quick brown fox</p>
+</div>
+
+                 
             <h2>HTML</h2>
             <pre><code class="language-html">&lt;p&gt;the quick brown fox&lt;/p&gt;
 </code></pre>
               
             <h2>JavaScript</h2>
-            <pre><code class="language-js">const init = () =&gt; {
-    console.log(&quot;init&quot;)
+            <pre><code class="language-js">const images = {
+    raw: [],
+    baseline: [],
+    c0: [],
+    c1: [],
+    c2: [],
+    c3: [],
+    c4: [],
+    c5: [],
+    c6: [],
+}
+
+let loaded_images = 0
+
+const checkLoaded = () =&gt; {
+    loaded_images += 1
+    if (loaded_images == 9) {
+        showImages()
+    }
+}
+
+const showImages = () =&gt; {
+    console.log(&#x27;showing&#x27;)
+    for (let image in images) {
+        for (let i = 0; i &lt; image.length; i++) {
+            const id = `${image}${i}`
+            console.log(id)
+            const el = document.getElementById(`${image}${i}`)
+            if (el) {
+                el.appendChild(images[image][i])
+            }
+        }
+    }
+}
+
+const init = () =&gt; {
+    console.log(&#x27;init&#x27;)
+    for (let name in images) {
+        for (let i = 0; i &lt; 4; i++) {
+            images[name][i] = new Image()
+            images[name][i].src = `samples/${name}.webp`
+            images[name][i].addEventListener(&#x27;load&#x27;, checkLoaded)
+        }
+    }
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
 </code></pre>
+            
+                 
+                <h2>Notes</h2>
+                <ul>
+                    <li>I use '-vcodec', 'libwebp' for everything after the default baseline since it's literally designed for the conversion</li> <li>Setting `-lossless 0` had no effect from the baseline</li> <li>Setting `-lossless 1` turned it on and increased file size by 20x. Removing that from the outputs.</li> <li>-compression_level (0-6, default is 4) is: a quality/speed tradeoff. Higher values give better quality for a given size at the cost of increased encoding time. values go from 0 to 6. I'm not checking timings in this run, just the quality.</li> <li>Based on that description, I move compression_level to 6 for everything except the initial baselines</li> <li>Default `-quality` is 75</li> <li>The presets might be more pronounced on other content types</li>
+                </ul>
              
-       
                 <h2>References</h2>
                 <ul>
-                    <li><a href="https://www.pexels.com/video/a-man-playing-his-bass-guitar-8042696/">ANTONI SHKRABA - A Man Playing His Bass Guitar</a></li>
+                    <li><a href="https://ffmpeg.org/ffmpeg-codecs.html#libwebp">ffmpeg libwebp documentation</a></li> <li><a href="https://www.pexels.com/video/a-man-playing-his-bass-guitar-8042696/">ANTONI SHKRABA - A Man Playing His Bass Guitar</a></li>
                 </ul>
                 
-    </main>
-    <footer>
-      from <a href="https://www.alanwsmith.com/">alan w. smith</a>
-    </footer>
-    <script src="/styles/prism.js"></script>
-  </body>
+            </main>
+            <footer>
+                from <a href="https://www.alanwsmith.com/">alan w. smith</a>
+            </footer>
+            <script src="/styles/prism.js"></script>
+        </div>
+    </body>
 </html>

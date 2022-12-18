@@ -2,12 +2,23 @@
     "TITLE": "ffmpeg WebP Tests",
     "STATUS": "draft",
     "DESCRIPTION": "",
-    "DETAILS": [
-        "This is a series of webp tests from ffmpeg"
+    "DETAILS": ["This is a series of webp tests from ffmpeg"],
+    "NOTES": [
+        "I use '-vcodec', 'libwebp' for everything after the default baseline since it's literally designed for the conversion",
+        "Setting `-lossless 0` had no effect from the baseline",
+        "Setting `-lossless 1` turned it on and increased file size by 20x. Removing that from the outputs.",
+        "-compression_level (0-6, default is 4) is: a quality/speed tradeoff. Higher values give better quality for a given size at the cost of increased encoding time. values go from 0 to 6. I'm not checking timings in this run, just the quality.",
+        "Based on that description, I move compression_level to 6 for everything except the initial baselines",
+        "Default `-quality` is 75",
+        "The presets might be more pronounced on other content types"
     ],
-    "NOTES": [],
     "TODOS": [],
     "REFERENCES": [
+        {
+            "title": "ffmpeg libwebp documentation",
+            "url": "https://ffmpeg.org/ffmpeg-codecs.html#libwebp",
+            "extra": ""
+        },
         {
             "title": "ANTONI SHKRABA - A Man Playing His Bass Guitar",
             "url": "https://www.pexels.com/video/a-man-playing-his-bass-guitar-8042696/",
