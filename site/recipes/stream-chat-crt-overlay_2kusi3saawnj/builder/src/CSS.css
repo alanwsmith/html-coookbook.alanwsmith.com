@@ -1,7 +1,7 @@
 body {
   background-color: #000;
   color: #138a33;
-  text-shadow: 0 0 2px #138a00, 0 0 4px #138a0055;
+  text-shadow: 0 0 1px #138a00, 0 0 2px #138a0055, 0 0 9px #137700;
 }
 
 body:before {
@@ -15,7 +15,7 @@ body:before {
   background: linear-gradient(
     to bottom,
     rgba(14, 12, 12, 0) 50%,
-    rgba(0, 0, 0, 0.16) 50%
+    rgba(0, 0, 0, 0.12) 50%
   );
   background-size: 100% 8px;
   z-index: 2;

@@ -1,0 +1,18 @@
+{
+  "TITLE": "HEX to RGB and HSL Color Converter",
+  "STATUS": "draft",
+  "DESCRIPTION": "",
+  "DETAILS": [
+    "Work in progress",
+    "The will bed a converter that changes HEX color values into RGB and HSL"
+  ],
+  "NOTES": [],
+  "TODOS": [],
+  "REFERENCES": [
+    {
+      "title": "",
+      "url": "",
+      "extra": ""
+    }
+  ]
+}

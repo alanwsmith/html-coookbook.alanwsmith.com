@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get All Document Elements With IDs - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Get All Document Elements With IDs" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Get%20All%20Document%20Elements%20With%20IDs,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/fonts.css" />
+    <link rel="stylesheet" href="/styles/colors.css" />
+    <link rel="stylesheet" href="/styles/wrapper.css" />
+    <link rel="stylesheet" href="/styles/prism-customized.css" />
+    
+    <style>
+      
+    </style>
+    <script>
+      const els = {}
+
+const loadElements = () => {
+  const treeWalker = document.createTreeWalker(document.body)
+
+  let currentNode = treeWalker.currentNode
+  while (currentNode) {
+    if (currentNode.id !== undefined && currentNode.id !== '') {
+      els[currentNode.id] = currentNode
+    }
+    currentNode = treeWalker.nextNode()
+  }
+}
+
+const updateValues = () => {
+  els.alfa.innerHTML = 'alfa has been updated'
+  els.bravo.innerHTML = 'bravo has been updated'
+}
+
+const init = () => {
+  loadElements()
+  updateValues()
+}
+
+document.addEventListener('DOMContentLoaded', init)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">cookbook home</a> ~
+      <a href="https://www.alanwsmith.com/">main site</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
+    </header>
+    <main>
+      <h1>Get All Document Elements With IDs</h1>
+      <p>
+        This is an experiment in automatically creating an object that contains
+        every element on a page that has the ID. It uses a treewalker to find
+        elements with IDs and adds them to the object using the ID as the key.
+      </p>
+      <p>
+        The idea is to make a vanilla approach simpler because you won't have to
+        load elements independently.
+      </p>
+
+      <p> 
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;p id=&quot;alfa&quot;&gt;&lt;/p&gt;
+&lt;p id=&quot;bravo&quot;&gt;&lt;/p&gt;
+</code></pre>
+              
+            <h2>JavaScript</h2>
+            <pre><code class="language-js">const els = {}
+
+const loadElements = () =&gt; {
+  const treeWalker = document.createTreeWalker(document.body)
+
+  let currentNode = treeWalker.currentNode
+  while (currentNode) {
+    if (currentNode.id !== undefined &amp;&amp; currentNode.id !== &#x27;&#x27;) {
+      els[currentNode.id] = currentNode
+    }
+    currentNode = treeWalker.nextNode()
+  }
+}
+
+const updateValues = () =&gt; {
+  els.alfa.innerHTML = &#x27;alfa has been updated&#x27;
+  els.bravo.innerHTML = &#x27;bravo has been updated&#x27;
+}
+
+const init = () =&gt; {
+  loadElements()
+  updateValues()
+}
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
+</code></pre>
+            </p>
+
+      <h2>EXAMPLE</h2>
+      <p id="alfa"></p>
+<p id="bravo"></p>
+   
+                <h2>References</h2>
+                <ul>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/createTreeWalker">Document.createTreeWalker() - MDN</a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Node">Document Object Model - Node - MDN</a></li>
+                </ul>
+                
+    </main>
+    <footer>
+      from <a href="https://www.alanwsmith.com/">alan w. smith</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>

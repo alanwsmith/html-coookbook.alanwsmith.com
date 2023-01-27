@@ -1,0 +1,22 @@
+{
+  "TITLE": "Get All Document Elements With IDs",
+  "STATUS": "draft",
+  "DESCRIPTION": "",
+  "DETAILS": [
+    "Goal: automatically setup an object with every element on a page that has an ID"
+  ],
+  "NOTES": [],
+  "TODOS": [],
+  "REFERENCES": [
+    {
+      "title": "Document.createTreeWalker() - MDN",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/Document/createTreeWalker",
+      "extra": ""
+    },
+    {
+      "title": "Document Object Model - Node - MDN",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
+      "extra": ""
+    }
+  ]
+}

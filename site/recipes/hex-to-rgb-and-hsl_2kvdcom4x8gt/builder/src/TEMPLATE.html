@@ -26,10 +26,10 @@
       href="/favicons/180x180.png"
     />
 
-    <link rel="stylesheet" href="/styles/reset.css" />
-    <link rel="stylesheet" href="/styles/fonts.css" />
-    <link rel="stylesheet" href="/styles/colors.css" />
-    <link rel="stylesheet" href="/styles/wrapper.css" />
+  <link rel="stylesheet" href="/styles/reset.css" />
+  <link rel="stylesheet" href="/styles/fonts.css" />
+  <link rel="stylesheet" href="/styles/colors.css" />
+  <link rel="stylesheet" href="/styles/wrapper.css" />
     <link rel="stylesheet" href="/styles/prism-customized.css" />
     $HEAD
     <style>
@@ -43,15 +43,17 @@
     <header>
       <a href="/">cookbook home</a> ~
       <a href="https://www.alanwsmith.com/">main site</a> ~
-      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://links.alanwsmith.com">other sites</a> ~
       <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://https://twitter.com/TheIdOfAlan">twitter</a> ~
       <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
     </header>
     <main>
       <h1>$TITLE</h1>
-      $DETAILS $ESCAPED_HEAD $ESCAPED_BODY $ESCAPED_CSS $ESCAPED_JAVASCRIPT
+      $DETAILS
       <h2>EXAMPLE</h2>
-      $BODY $TODOS $NOTES $REFERENCES
+      $BODY $ESCAPED_HEAD $ESCAPED_BODY $ESCAPED_CSS $ESCAPED_JAVASCRIPT $TODOS
+      $NOTES $REFERENCES
     </main>
     <footer>
       from <a href="https://www.alanwsmith.com/">alan w. smith</a>
