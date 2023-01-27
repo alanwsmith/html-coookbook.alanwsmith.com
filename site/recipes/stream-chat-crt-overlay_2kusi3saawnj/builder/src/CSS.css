@@ -1,6 +1,7 @@
 body {
   background-color: #000;
   color: #138a33;
+  text-shadow: 0 0 2px #138a00, 0 0 4px #138a0055;
 }
 
 body:before {

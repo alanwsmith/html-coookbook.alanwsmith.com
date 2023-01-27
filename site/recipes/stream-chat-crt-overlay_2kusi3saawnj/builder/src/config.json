@@ -9,8 +9,13 @@
   "TODOS": [],
   "REFERENCES": [
     {
-      "title": "Source Article",
+      "title": "Retro CRT terminal screen in CSS + JS",
       "url": "https://dev.to/ekeijl/retro-crt-terminal-screen-in-css-js-4afh",
+      "extra": ""
+    },
+    {
+      "title": "How to Create Neon Text With CSS",
+      "url": "https://css-tricks.com/how-to-create-neon-text-with-css/",
       "extra": ""
     }
   ]
