@@ -1,0 +1,17 @@
+{
+  "TITLE": "Stream Chat CRT Overlay",
+  "STATUS": "draft",
+  "DESCRIPTION": "",
+  "DETAILS": [
+    "Trying to make a stream chat overlay that looks like a CRT with Scan lines"
+  ],
+  "NOTES": [],
+  "TODOS": [],
+  "REFERENCES": [
+    {
+      "title": "Source Article",
+      "url": "https://dev.to/ekeijl/retro-crt-terminal-screen-in-css-js-4afh",
+      "extra": ""
+    }
+  ]
+}
