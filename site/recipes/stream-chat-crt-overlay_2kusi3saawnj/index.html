@@ -30,53 +30,38 @@
     <link rel="stylesheet" href="/styles/fonts.css" />
     <!--
   <link rel="stylesheet" href="/styles/colors.css" />
-  <link rel="stylesheet" href="/styles/wrapper.css" />
   -->
     <link rel="stylesheet" href="/styles/prism-customized.css" />
     
     <style>
       body {
-  background-color: #000;
+  background-color: #0e1a0c;
   color: #138a33;
   text-shadow: 0 0 1px #138a00, 0 0 2px #138a0055, 0 0 9px #137700;
 }
 
 body:before {
-  content: ' ';
+  content: '';
   display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
   background: linear-gradient(
     to bottom,
-    rgba(14, 12, 12, 0) 50%,
-    rgba(0, 0, 0, 0.12) 50%
+    rgba(0, 0, 0, 0.2) 20%,
+    rgba(14, 12, 12, 0.2) 80%
   );
-  background-size: 100% 8px;
+  background-size: 100% 10px;
   z-index: 2;
   pointer-events: none;
 }
 
-@keyframes textShadow {
-  0% {
-    text-shadow: 0.4389924193300864px 0 1px rgba(0, 30, 255, 0.5),
-      -0.4389924193300864px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-  }
-  5% {
-    text-shadow: 2.7928974010788217px 0 1px rgba(0, 30, 255, 0.5),
-      -2.7928974010788217px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-  }
-  /** etc */
-}
-
 body:after {
-  content: ' ';
+  content: '';
   display: block;
   width: 100%;
-  height: 100px;
-  z-index: 8;
+  height: 70px;
+  z-index: 3;
   background: linear-gradient(
     0deg,
     rgba(0, 0, 0, 0) 0%,
@@ -84,9 +69,8 @@ body:after {
     rgba(0, 0, 0, 0.1) 100%
   );
   opacity: 0.24;
-  position: absolute;
-  bottom: 0;
-  animation: scanline 8s linear infinite;
+  position: fixed;
+  animation: scanline 7s linear infinite;
 }
 
 @keyframes scanline {
@@ -100,7 +84,9 @@ body:after {
     bottom: 0%;
   }
 }
-
+ p {
+        margin-bottom: 1rem;
+      }
     </style>
   </head>
   <body class="line-numbers">
@@ -113,56 +99,52 @@ body:after {
     </header>
     <main>
       <h1>Stream Chat CRT Overlay</h1>
-      <h2>EXAMPLE</h2>
-      <p>A saw is a tool used for making boards.</p>
 
-<p>Use a pencil to write the first draft.</p>
+      <p>
+        This is a style sheet designed to be used in the Custom CSS property of
+        OBS's Browser Source.
+      </p>
 
-<p>The ink stain dried on the finished page.</p>
- 
+      <p>
+        The styles set a black background with green text that has a little glow
+        to it. There are also scan lines and the a highlight scroll every 7
+        seconds.
+      </p>
+      <p>
+        The style sheet is designed to be applied directly to the body of the
+        browser source which is why the width on this example page isn't set.
+      </p>
+
+      
             <h2>CSS</h2>
             <pre><code class="language-css">body {
-  background-color: #000;
+  background-color: #0e1a0c;
   color: #138a33;
   text-shadow: 0 0 1px #138a00, 0 0 2px #138a0055, 0 0 9px #137700;
 }
 
 body:before {
-  content: &#x27; &#x27;;
+  content: &#x27;&#x27;;
   display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
   background: linear-gradient(
     to bottom,
-    rgba(14, 12, 12, 0) 50%,
-    rgba(0, 0, 0, 0.12) 50%
+    rgba(0, 0, 0, 0.2) 20%,
+    rgba(14, 12, 12, 0.2) 80%
   );
-  background-size: 100% 8px;
+  background-size: 100% 10px;
   z-index: 2;
   pointer-events: none;
 }
 
-@keyframes textShadow {
-  0% {
-    text-shadow: 0.4389924193300864px 0 1px rgba(0, 30, 255, 0.5),
-      -0.4389924193300864px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-  }
-  5% {
-    text-shadow: 2.7928974010788217px 0 1px rgba(0, 30, 255, 0.5),
-      -2.7928974010788217px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
-  }
-  /** etc */
-}
-
 body:after {
-  content: &#x27; &#x27;;
+  content: &#x27;&#x27;;
   display: block;
   width: 100%;
-  height: 100px;
-  z-index: 8;
+  height: 70px;
+  z-index: 3;
   background: linear-gradient(
     0deg,
     rgba(0, 0, 0, 0) 0%,
@@ -170,9 +152,8 @@ body:after {
     rgba(0, 0, 0, 0.1) 100%
   );
   opacity: 0.24;
-  position: absolute;
-  bottom: 0;
-  animation: scanline 8s linear infinite;
+  position: fixed;
+  animation: scanline 7s linear infinite;
 }
 
 @keyframes scanline {

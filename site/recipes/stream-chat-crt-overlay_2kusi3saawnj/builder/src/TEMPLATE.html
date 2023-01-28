@@ -30,12 +30,13 @@
     <link rel="stylesheet" href="/styles/fonts.css" />
     <!--
   <link rel="stylesheet" href="/styles/colors.css" />
-  <link rel="stylesheet" href="/styles/wrapper.css" />
   -->
     <link rel="stylesheet" href="/styles/prism-customized.css" />
     $HEAD
     <style>
-      $CSS
+      $CSS p {
+        margin-bottom: 1rem;
+      }
     </style>
   </head>
   <body class="line-numbers">
@@ -48,8 +49,23 @@
     </header>
     <main>
       <h1>$TITLE</h1>
-      <h2>EXAMPLE</h2>
-      $BODY $ESCAPED_CSS $TODOS $NOTES $REFERENCES
+
+      <p>
+        This is a style sheet designed to be used in the Custom CSS property of
+        OBS's Browser Source.
+      </p>
+
+      <p>
+        The styles set a black background with green text that has a little glow
+        to it. There are also scan lines and the a highlight scroll every 7
+        seconds.
+      </p>
+      <p>
+        The style sheet is designed to be applied directly to the body of the
+        browser source which is why the width on this example page isn't set.
+      </p>
+
+      $ESCAPED_CSS $TODOS $NOTES $REFERENCES
     </main>
     <footer>
       from <a href="https://www.alanwsmith.com/">alan w. smith</a>
