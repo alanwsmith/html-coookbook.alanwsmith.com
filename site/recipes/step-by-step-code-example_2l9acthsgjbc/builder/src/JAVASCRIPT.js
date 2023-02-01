@@ -136,11 +136,19 @@ const makeButtons = () => {
 }
 
 const handlePreviousClick = (event) => {
-  //
+  if (s.currentLineSet > 0) {
+    s.currentLineSet -= 1
+    clearLines()
+    updateLines()
+  }
 }
 
 const handleNextClick = (event) => {
-  //
+  if (s.currentLineSet < lineSets.length - 1) {
+    s.currentLineSet += 1
+    clearLines()
+    updateLines()
+  }
 }
 
 const makeEmptyLines = () => {
