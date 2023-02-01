@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Step By Step Code Example Prototype - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Step By Step Code Example Prototype" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Step%20By%20Step%20Code%20Example%20Prototype,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/fonts.css" />
+    <link rel="stylesheet" href="/styles/colors.css" />
+    <link rel="stylesheet" href="/styles/wrapper.css" />
+    <link rel="stylesheet" href="/styles/prism-customized.css" />
+    
+    <style>
+      .newLine {
+  background-color: black;
+}
+
+    </style>
+    <script>
+      let sourceCode = `fn main() {
+  let mut alfa = String::from("apple");
+  widget(&mut alfa);
+  println!("alfa is {alfa}");
+}
+
+fn widget(thing: &mut String) {
+  thing.push_str("pie");
+}
+
+/// Temp stuff below
+
+fn widget() {
+`.split('\n')
+
+// add spacer to match line numbers
+sourceCode = ['', ...sourceCode]
+
+const log = (msg) => {
+  console.log(msg)
+}
+
+const lineSets = [
+  {
+    nums: [1, 5, 6, 13, 9],
+    text: `<p>Start with empty <code>main</code> and <code>widget</code>
+  functions</p>`,
+  },
+  {
+    nums: [1, 2, 5, 6, 13, 9],
+    text: `<p>Create a mutable <code>alfa</code> varaible bound to 
+  our <code>String</code></p>`,
+  },
+  {
+    nums: [1, 2, 3, 5, 6, 13, 9],
+    text: `<p>Add a call to the <code>widget</code> function using
+  with a mutable reference to <code>alfa</code> as an argument.
+  </p>`,
+  },
+  {
+    nums: [1, 2, 3, 5, 6, 7, 9],
+    text: `<p>Update the <code>widget</code> function to accept the
+  mutable refernce and bind it to a local variable named
+  <code>thing</code></p>`,
+  },
+  {
+    nums: [1, 2, 3, 5, 6, 7, 8, 9],
+    text: `<p>Make an update to the refernce</p>`,
+  },
+  {
+    nums: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+    text: `<p>Output the value of <code>alfa</code> to show it's changed<p>`,
+  },
+]
+
+const makeOutput = () => {
+  let priorLines = []
+  if (s.currentLineSet > 0) {
+    priorLines = lineSets[s.currentLineSet - 1].nums
+  }
+  log(priorLines)
+
+  for (let lineNumber of lineSets[s.currentLineSet].nums) {
+    log(`lineNumber: ${lineNumber}`)
+    const newLineOutputEl = document.createElement('div')
+    let lineClass = 'existingLine'
+    if (!priorLines.includes(lineNumber)) {
+      log(`newLine class: ${lineNumber}`)
+      lineClass = 'newLine'
+    }
+    newLineOutputEl.innerHTML = `<pre class="${lineClass}"><code>${sourceCode[lineNumber]}</code></pre>`
+    window.codeExample.append(newLineOutputEl)
+  }
+}
+
+const s = {}
+
+const init = () => {
+  s.currentLineSet = 0
+  makeOutput()
+}
+
+document.addEventListener('DOMContentLoaded', init)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">cookbook home</a> ~
+      <a href="https://www.alanwsmith.com/">main site</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
+    </header>
+    <main>
+      <h1>Step By Step Code Example Prototype</h1>
+      <h2>EXAMPLE</h2>
+      <div id="codeExample"></div>
+ 
+                <h2>Details</h2>
+                <ul>
+                    <li>An experiment with doing step by step movements for a coding tutorail</li>
+                </ul>
+                  
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;div id=&quot;codeExample&quot;&gt;&lt;/div&gt;
+</code></pre>
+             
+            <h2>CSS</h2>
+            <pre><code class="language-css">.newLine {
+  background-color: black;
+}
+</code></pre>
+            
+      
+            <h2>JavaScript</h2>
+            <pre><code class="language-js">let sourceCode = `fn main() {
+  let mut alfa = String::from(&quot;apple&quot;);
+  widget(&amp;mut alfa);
+  println!(&quot;alfa is {alfa}&quot;);
+}
+
+fn widget(thing: &amp;mut String) {
+  thing.push_str(&quot;pie&quot;);
+}
+
+/// Temp stuff below
+
+fn widget() {
+`.split(&#x27;\n&#x27;)
+
+// add spacer to match line numbers
+sourceCode = [&#x27;&#x27;, ...sourceCode]
+
+const log = (msg) =&gt; {
+  console.log(msg)
+}
+
+const lineSets = [
+  {
+    nums: [1, 5, 6, 13, 9],
+    text: `&lt;p&gt;Start with empty &lt;code&gt;main&lt;/code&gt; and &lt;code&gt;widget&lt;/code&gt;
+  functions&lt;/p&gt;`,
+  },
+  {
+    nums: [1, 2, 5, 6, 13, 9],
+    text: `&lt;p&gt;Create a mutable &lt;code&gt;alfa&lt;/code&gt; varaible bound to 
+  our &lt;code&gt;String&lt;/code&gt;&lt;/p&gt;`,
+  },
+  {
+    nums: [1, 2, 3, 5, 6, 13, 9],
+    text: `&lt;p&gt;Add a call to the &lt;code&gt;widget&lt;/code&gt; function using
+  with a mutable reference to &lt;code&gt;alfa&lt;/code&gt; as an argument.
+  &lt;/p&gt;`,
+  },
+  {
+    nums: [1, 2, 3, 5, 6, 7, 9],
+    text: `&lt;p&gt;Update the &lt;code&gt;widget&lt;/code&gt; function to accept the
+  mutable refernce and bind it to a local variable named
+  &lt;code&gt;thing&lt;/code&gt;&lt;/p&gt;`,
+  },
+  {
+    nums: [1, 2, 3, 5, 6, 7, 8, 9],
+    text: `&lt;p&gt;Make an update to the refernce&lt;/p&gt;`,
+  },
+  {
+    nums: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+    text: `&lt;p&gt;Output the value of &lt;code&gt;alfa&lt;/code&gt; to show it&#x27;s changed&lt;p&gt;`,
+  },
+]
+
+const makeOutput = () =&gt; {
+  let priorLines = []
+  if (s.currentLineSet &gt; 0) {
+    priorLines = lineSets[s.currentLineSet - 1].nums
+  }
+  log(priorLines)
+
+  for (let lineNumber of lineSets[s.currentLineSet].nums) {
+    log(`lineNumber: ${lineNumber}`)
+    const newLineOutputEl = document.createElement(&#x27;div&#x27;)
+    let lineClass = &#x27;existingLine&#x27;
+    if (!priorLines.includes(lineNumber)) {
+      log(`newLine class: ${lineNumber}`)
+      lineClass = &#x27;newLine&#x27;
+    }
+    newLineOutputEl.innerHTML = `&lt;pre class=&quot;${lineClass}&quot;&gt;&lt;code&gt;${sourceCode[lineNumber]}&lt;/code&gt;&lt;/pre&gt;`
+    window.codeExample.append(newLineOutputEl)
+  }
+}
+
+const s = {}
+
+const init = () =&gt; {
+  s.currentLineSet = 0
+  makeOutput()
+}
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
+</code></pre>
+               
+                <h2>References</h2>
+                <ul>
+                    <li><a href=""></a></li>
+                </ul>
+                
+    </main>
+    <footer>
+      from <a href="https://www.alanwsmith.com/">alan w. smith</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>
