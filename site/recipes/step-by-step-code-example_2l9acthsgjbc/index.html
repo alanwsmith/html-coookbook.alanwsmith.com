@@ -34,7 +34,15 @@
     
     <style>
       .newLine {
-  background-color: black;
+  background-color: #050;
+}
+
+.padLine {
+  background-color: #333;
+}
+
+.existingLine {
+  background-color: #333;
 }
 
     </style>
@@ -138,8 +146,8 @@ const countTotalLines = () => {
 }
 
 const s = {
-  currentLineSet: 0,
-  totalLines: 1,
+  currentLineSet: 2,
+  totalLines: 0,
 }
 
 const init = () => {
@@ -176,7 +184,15 @@ document.addEventListener('DOMContentLoaded', init)
              
             <h2>CSS</h2>
             <pre><code class="language-css">.newLine {
-  background-color: black;
+  background-color: #050;
+}
+
+.padLine {
+  background-color: #333;
+}
+
+.existingLine {
+  background-color: #333;
 }
 </code></pre>
             
@@ -281,8 +297,8 @@ const countTotalLines = () =&gt; {
 }
 
 const s = {
-  currentLineSet: 0,
-  totalLines: 1,
+  currentLineSet: 2,
+  totalLines: 0,
 }
 
 const init = () =&gt; {

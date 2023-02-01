@@ -1,3 +1,11 @@
 .newLine {
-  background-color: black;
+  background-color: #050;
+}
+
+.padLine {
+  background-color: #333;
+}
+
+.existingLine {
+  background-color: #333;
 }

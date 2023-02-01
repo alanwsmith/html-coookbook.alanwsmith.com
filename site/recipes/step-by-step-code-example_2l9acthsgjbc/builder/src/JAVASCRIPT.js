@@ -97,8 +97,8 @@ const countTotalLines = () => {
 }
 
 const s = {
-  currentLineSet: 0,
-  totalLines: 1,
+  currentLineSet: 2,
+  totalLines: 0,
 }
 
 const init = () => {
