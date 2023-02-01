@@ -181,7 +181,7 @@ const makeEmptyLines = () => {
     const emptyLineEl = document.createElement('div')
     emptyLineEl.id = `codeLineWrapper${num}`
     emptyLineEl.classList.add('codeLineWrapper')
-    emptyLineEl.innerHTML = `<pre><code id="codeLine${num}">-</code></pre>`
+    emptyLineEl.innerHTML = `<pre id="codeLinePre${num}"><code id="codeLine${num}">&nbsp;</code></pre>`
     window.codeExample.appendChild(emptyLineEl)
   }
 }
@@ -191,9 +191,24 @@ const s = {
   totalLines: 0,
 }
 
+const updateLines = () => {
+  // console.log('updateLines')
+  let targetLine = 1
+  for (let sourceLine of lineSets[s.currentLineSet].nums) {
+    // log(sourceLine)
+    // log(sourceCode[sourceLine])
+    // adding `&nbsp;` for now to make sure line has height
+    window[
+      `codeLine${targetLine}`
+    ].innerHTML = `${sourceCode[sourceLine]}&nbsp;`
+    targetLine += 1
+  }
+}
+
 const init = () => {
   countMaxLines()
   makeEmptyLines()
+  updateLines()
 
   // makeOutput()
   // addPaddingLines()
@@ -376,7 +391,7 @@ const makeEmptyLines = () =&gt; {
     const emptyLineEl = document.createElement(&#x27;div&#x27;)
     emptyLineEl.id = `codeLineWrapper${num}`
     emptyLineEl.classList.add(&#x27;codeLineWrapper&#x27;)
-    emptyLineEl.innerHTML = `&lt;pre&gt;&lt;code id=&quot;codeLine${num}&quot;&gt;-&lt;/code&gt;&lt;/pre&gt;`
+    emptyLineEl.innerHTML = `&lt;pre id=&quot;codeLinePre${num}&quot;&gt;&lt;code id=&quot;codeLine${num}&quot;&gt;&amp;nbsp;&lt;/code&gt;&lt;/pre&gt;`
     window.codeExample.appendChild(emptyLineEl)
   }
 }
@@ -386,9 +401,24 @@ const s = {
   totalLines: 0,
 }
 
+const updateLines = () =&gt; {
+  // console.log(&#x27;updateLines&#x27;)
+  let targetLine = 1
+  for (let sourceLine of lineSets[s.currentLineSet].nums) {
+    // log(sourceLine)
+    // log(sourceCode[sourceLine])
+    // adding `&amp;nbsp;` for now to make sure line has height
+    window[
+      `codeLine${targetLine}`
+    ].innerHTML = `${sourceCode[sourceLine]}&amp;nbsp;`
+    targetLine += 1
+  }
+}
+
 const init = () =&gt; {
   countMaxLines()
   makeEmptyLines()
+  updateLines()
 
   // makeOutput()
   // addPaddingLines()

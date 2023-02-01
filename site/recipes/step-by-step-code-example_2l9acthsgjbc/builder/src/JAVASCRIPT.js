@@ -132,7 +132,7 @@ const makeEmptyLines = () => {
     const emptyLineEl = document.createElement('div')
     emptyLineEl.id = `codeLineWrapper${num}`
     emptyLineEl.classList.add('codeLineWrapper')
-    emptyLineEl.innerHTML = `<pre><code id="codeLine${num}">-</code></pre>`
+    emptyLineEl.innerHTML = `<pre id="codeLinePre${num}"><code id="codeLine${num}">&nbsp;</code></pre>`
     window.codeExample.appendChild(emptyLineEl)
   }
 }
@@ -142,9 +142,24 @@ const s = {
   totalLines: 0,
 }
 
+const updateLines = () => {
+  // console.log('updateLines')
+  let targetLine = 1
+  for (let sourceLine of lineSets[s.currentLineSet].nums) {
+    // log(sourceLine)
+    // log(sourceCode[sourceLine])
+    // adding `&nbsp;` for now to make sure line has height
+    window[
+      `codeLine${targetLine}`
+    ].innerHTML = `${sourceCode[sourceLine]}&nbsp;`
+    targetLine += 1
+  }
+}
+
 const init = () => {
   countMaxLines()
   makeEmptyLines()
+  updateLines()
 
   // makeOutput()
   // addPaddingLines()
