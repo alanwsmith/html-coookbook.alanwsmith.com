@@ -100,7 +100,9 @@ const countMaxLines = () => {
 const handleButtonClick = (event) => {
   s.currentLineSet = event.target.id.split('--')[1] - 1
   clearLines()
-  updateLines()
+  // updateLines()
+  populateLines()
+  highlightLines()
 }
 
 const makeButtons = () => {
@@ -139,7 +141,9 @@ const handlePreviousClick = (event) => {
   if (s.currentLineSet > 0) {
     s.currentLineSet -= 1
     clearLines()
-    updateLines()
+    // updateLines()
+    highlightLines()
+    populateLines()
   }
 }
 
@@ -147,7 +151,9 @@ const handleNextClick = (event) => {
   if (s.currentLineSet < lineSets.length - 1) {
     s.currentLineSet += 1
     clearLines()
-    updateLines()
+    // updateLines()
+    highlightLines()
+    populateLines()
   }
 }
 
@@ -166,28 +172,56 @@ const s = {
   totalLines: 0,
 }
 
-const updateLines = () => {
-  let previousLines = []
-  if (s.currentLineSet > 0) {
-    previousLines = lineSets[s.currentLineSet - 1].nums
-  }
-
+const populateLines = () => {
   let targetLine = 1
   for (let sourceLine of lineSets[s.currentLineSet].nums) {
-    // adding `&nbsp;` for now to make sure line has height
+    // The `&nbsp;` makes sure line has height for now
     window[
       `codeLine${targetLine}`
     ].innerHTML = `${sourceCode[sourceLine]}&nbsp;`
-
-    if (!previousLines.includes(sourceLine)) {
-      window[`codeLinePre${targetLine}`].classList.add('newLine')
-    }
-
     targetLine += 1
   }
 }
 
-// Still need to verify this works when lines are removed
+const highlightLines = () => {
+  // clean up the reaming lines
+  for (let extraLine = 1; extraLine < s.totalLines; extraLine++) {
+    window[`codeLinePre${extraLine}`].classList.remove('newLine')
+  }
+
+  if (s.currentLineSet > 0) {
+    const previousLines = lineSets[s.currentLineSet - 1].nums
+    let targetLine = 1
+    for (let sourceLine of lineSets[s.currentLineSet].nums) {
+      // adding `&nbsp;` for now to make sure line has height
+      if (!previousLines.includes(sourceLine)) {
+        window[`codeLinePre${targetLine}`].classList.add('newLine')
+      } else {
+        window[`codeLinePre${targetLine}`].classList.remove('newLine')
+      }
+      targetLine += 1
+    }
+  }
+}
+
+// const updateLines = () => {
+//   let previousLines = []
+//   if (s.currentLineSet > 0) {
+//     previousLines = lineSets[s.currentLineSet - 1].nums
+//   }
+//   let targetLine = 1
+//   for (let sourceLine of lineSets[s.currentLineSet].nums) {
+//     // adding `&nbsp;` for now to make sure line has height
+//     window[
+//       `codeLine${targetLine}`
+//     ].innerHTML = `${sourceCode[sourceLine]}&nbsp;`
+//     if (!previousLines.includes(sourceLine)) {
+//       window[`codeLinePre${targetLine}`].classList.add('newLine')
+//     }
+//     targetLine += 1
+//   }
+// }
+
 const clearLines = () => {
   for (let lineNum = 1; lineNum <= s.totalLines; lineNum++) {
     window[`codeLinePre${lineNum}`].classList.remove('newLine')
@@ -199,8 +233,11 @@ const init = () => {
   countMaxLines()
   makeEmptyLines()
   makeButtons()
-  clearLines()
-  updateLines()
+  populateLines()
+  highlightLines()
+
+  // clearLines()
+  // updateLines()
 
   // makeOutput()
   // addPaddingLines()
