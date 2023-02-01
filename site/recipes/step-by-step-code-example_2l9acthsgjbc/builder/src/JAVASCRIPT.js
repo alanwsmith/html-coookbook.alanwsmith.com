@@ -97,6 +97,12 @@ const countMaxLines = () => {
   log(`Max lines: ${s.totalLines}`)
 }
 
+const handleButtonClick = (event) => {
+  s.currentLineSet = event.target.id.split('--')[1] - 1
+  clearLines()
+  updateLines()
+}
+
 const makeButtons = () => {
   const buttonRowEl = document.createElement('div')
   buttonRowEl.id = 'buttonRow'
@@ -105,14 +111,24 @@ const makeButtons = () => {
   const previousButtonEl = document.createElement('button')
   previousButtonEl.id = 'previousSet'
   previousButtonEl.innerHTML = '&nbsp;&nbsp;&nbsp;--&nbsp;&nbsp;&nbsp;'
+  buttonRowEl.appendChild(previousButtonEl)
+
+  for (let buttonNumber = 1; buttonNumber <= lineSets.length; buttonNumber++) {
+    console.log(`Button number: ${buttonNumber}`)
+    const newButtonEl = document.createElement('button')
+    newButtonEl.innerHTML = buttonNumber
+    newButtonEl.id = `chooseSet--${buttonNumber}`
+    buttonRowEl.appendChild(newButtonEl)
+
+    newButtonEl.addEventListener('click', handleButtonClick)
+  }
 
   // log('Making buttons')
   const nextButtonEl = document.createElement('button')
   nextButtonEl.id = 'nextSet'
   nextButtonEl.innerHTML = '&nbsp;&nbsp;Next&nbsp;&nbsp;'
-
-  buttonRowEl.appendChild(previousButtonEl)
   buttonRowEl.appendChild(nextButtonEl)
+
   window.codeExample.appendChild(buttonRowEl)
 
   previousButtonEl.addEventListener('click', handlePreviousClick)
@@ -163,23 +179,23 @@ const updateLines = () => {
   }
 }
 
-// Still need to verify this works when lines
-// are removed.
-const clearNewLineHighlights = () => {
+// Still need to verify this works when lines are removed
+const clearLines = () => {
   for (let lineNum = 1; lineNum <= s.totalLines; lineNum++) {
     window[`codeLinePre${lineNum}`].classList.remove('newLine')
+    window[`codeLine${lineNum}`].innerHTML = `&nbsp;`
   }
 }
 
 const init = () => {
   countMaxLines()
   makeEmptyLines()
-  clearNewLineHighlights()
+  makeButtons()
+  clearLines()
   updateLines()
 
   // makeOutput()
   // addPaddingLines()
-  // makeButtons()
 }
 
 document.addEventListener('DOMContentLoaded', init)

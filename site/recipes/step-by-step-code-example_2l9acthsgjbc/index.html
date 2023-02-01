@@ -150,6 +150,12 @@ const countMaxLines = () => {
   log(`Max lines: ${s.totalLines}`)
 }
 
+const handleButtonClick = (event) => {
+  s.currentLineSet = event.target.id.split('--')[1] - 1
+  clearLines()
+  updateLines()
+}
+
 const makeButtons = () => {
   const buttonRowEl = document.createElement('div')
   buttonRowEl.id = 'buttonRow'
@@ -158,14 +164,24 @@ const makeButtons = () => {
   const previousButtonEl = document.createElement('button')
   previousButtonEl.id = 'previousSet'
   previousButtonEl.innerHTML = '&nbsp;&nbsp;&nbsp;--&nbsp;&nbsp;&nbsp;'
+  buttonRowEl.appendChild(previousButtonEl)
+
+  for (let buttonNumber = 1; buttonNumber <= lineSets.length; buttonNumber++) {
+    console.log(`Button number: ${buttonNumber}`)
+    const newButtonEl = document.createElement('button')
+    newButtonEl.innerHTML = buttonNumber
+    newButtonEl.id = `chooseSet--${buttonNumber}`
+    buttonRowEl.appendChild(newButtonEl)
+
+    newButtonEl.addEventListener('click', handleButtonClick)
+  }
 
   // log('Making buttons')
   const nextButtonEl = document.createElement('button')
   nextButtonEl.id = 'nextSet'
   nextButtonEl.innerHTML = '&nbsp;&nbsp;Next&nbsp;&nbsp;'
-
-  buttonRowEl.appendChild(previousButtonEl)
   buttonRowEl.appendChild(nextButtonEl)
+
   window.codeExample.appendChild(buttonRowEl)
 
   previousButtonEl.addEventListener('click', handlePreviousClick)
@@ -216,23 +232,23 @@ const updateLines = () => {
   }
 }
 
-// Still need to verify this works when lines
-// are removed.
-const clearNewLineHighlights = () => {
+// Still need to verify this works when lines are removed
+const clearLines = () => {
   for (let lineNum = 1; lineNum <= s.totalLines; lineNum++) {
     window[`codeLinePre${lineNum}`].classList.remove('newLine')
+    window[`codeLine${lineNum}`].innerHTML = `&nbsp;`
   }
 }
 
 const init = () => {
   countMaxLines()
   makeEmptyLines()
-  clearNewLineHighlights()
+  makeButtons()
+  clearLines()
   updateLines()
 
   // makeOutput()
   // addPaddingLines()
-  // makeButtons()
 }
 
 document.addEventListener('DOMContentLoaded', init)
@@ -380,6 +396,12 @@ const countMaxLines = () =&gt; {
   log(`Max lines: ${s.totalLines}`)
 }
 
+const handleButtonClick = (event) =&gt; {
+  s.currentLineSet = event.target.id.split(&#x27;--&#x27;)[1] - 1
+  clearLines()
+  updateLines()
+}
+
 const makeButtons = () =&gt; {
   const buttonRowEl = document.createElement(&#x27;div&#x27;)
   buttonRowEl.id = &#x27;buttonRow&#x27;
@@ -388,14 +410,24 @@ const makeButtons = () =&gt; {
   const previousButtonEl = document.createElement(&#x27;button&#x27;)
   previousButtonEl.id = &#x27;previousSet&#x27;
   previousButtonEl.innerHTML = &#x27;&amp;nbsp;&amp;nbsp;&amp;nbsp;--&amp;nbsp;&amp;nbsp;&amp;nbsp;&#x27;
+  buttonRowEl.appendChild(previousButtonEl)
+
+  for (let buttonNumber = 1; buttonNumber &lt;= lineSets.length; buttonNumber++) {
+    console.log(`Button number: ${buttonNumber}`)
+    const newButtonEl = document.createElement(&#x27;button&#x27;)
+    newButtonEl.innerHTML = buttonNumber
+    newButtonEl.id = `chooseSet--${buttonNumber}`
+    buttonRowEl.appendChild(newButtonEl)
+
+    newButtonEl.addEventListener(&#x27;click&#x27;, handleButtonClick)
+  }
 
   // log(&#x27;Making buttons&#x27;)
   const nextButtonEl = document.createElement(&#x27;button&#x27;)
   nextButtonEl.id = &#x27;nextSet&#x27;
   nextButtonEl.innerHTML = &#x27;&amp;nbsp;&amp;nbsp;Next&amp;nbsp;&amp;nbsp;&#x27;
-
-  buttonRowEl.appendChild(previousButtonEl)
   buttonRowEl.appendChild(nextButtonEl)
+
   window.codeExample.appendChild(buttonRowEl)
 
   previousButtonEl.addEventListener(&#x27;click&#x27;, handlePreviousClick)
@@ -446,23 +478,23 @@ const updateLines = () =&gt; {
   }
 }
 
-// Still need to verify this works when lines
-// are removed.
-const clearNewLineHighlights = () =&gt; {
+// Still need to verify this works when lines are removed
+const clearLines = () =&gt; {
   for (let lineNum = 1; lineNum &lt;= s.totalLines; lineNum++) {
     window[`codeLinePre${lineNum}`].classList.remove(&#x27;newLine&#x27;)
+    window[`codeLine${lineNum}`].innerHTML = `&amp;nbsp;`
   }
 }
 
 const init = () =&gt; {
   countMaxLines()
   makeEmptyLines()
-  clearNewLineHighlights()
+  makeButtons()
+  clearLines()
   updateLines()
 
   // makeOutput()
   // addPaddingLines()
-  // makeButtons()
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
