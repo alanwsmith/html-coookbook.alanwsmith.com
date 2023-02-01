@@ -71,7 +71,7 @@ const makeOutput = () => {
       lineClass = 'newLine'
     }
     newLineOutputEl.innerHTML = `<pre class="${lineClass}"><code>${sourceCode[lineNumber]}</code></pre>`
-    window.codeExample.append(newLineOutputEl)
+    window.codeExample.appendChild(newLineOutputEl)
   }
 }
 
@@ -81,30 +81,74 @@ const addPaddingLines = () => {
     padNum < s.totalLines;
     padNum++
   ) {
-    log(`Padding line: ${padNum}`)
+    // log(`Padding line: ${padNum}`)
     const padLineEl = document.createElement('div')
     padLineEl.innerHTML = `<pre class="padLine"><code>&nbsp;</code></pre>`
-    window.codeExample.append(padLineEl)
+    window.codeExample.appendChild(padLineEl)
   }
 }
 
-const countTotalLines = () => {
+const countMaxLines = () => {
   lineSets.forEach((lineSet) => {
     if (lineSet.nums.length > s.totalLines) {
       s.totalLines = lineSet.nums.length
     }
   })
+  log(`Max lines: ${s.totalLines}`)
+}
+
+const makeButtons = () => {
+  const buttonRowEl = document.createElement('div')
+  buttonRowEl.id = 'buttonRow'
+
+  // log('Making buttons')
+  const previousButtonEl = document.createElement('button')
+  previousButtonEl.id = 'previousSet'
+  previousButtonEl.innerHTML = '&nbsp;&nbsp;&nbsp;--&nbsp;&nbsp;&nbsp;'
+
+  // log('Making buttons')
+  const nextButtonEl = document.createElement('button')
+  nextButtonEl.id = 'nextSet'
+  nextButtonEl.innerHTML = '&nbsp;&nbsp;Next&nbsp;&nbsp;'
+
+  buttonRowEl.appendChild(previousButtonEl)
+  buttonRowEl.appendChild(nextButtonEl)
+  window.codeExample.appendChild(buttonRowEl)
+
+  previousButtonEl.addEventListener('click', handlePreviousClick)
+  nextButtonEl.addEventListener('click', handleNextClick)
+}
+
+const handlePreviousClick = (event) => {
+  //
+}
+
+const handleNextClick = (event) => {
+  //
+}
+
+const makeEmptyLines = () => {
+  for (let num = 1; num <= s.totalLines; num++) {
+    const emptyLineEl = document.createElement('div')
+    emptyLineEl.id = `codeLineWrapper${num}`
+    emptyLineEl.classList.add('codeLineWrapper')
+    emptyLineEl.innerHTML = `<pre><code id="codeLine${num}">-</code></pre>`
+    window.codeExample.appendChild(emptyLineEl)
+  }
 }
 
 const s = {
-  currentLineSet: 2,
+  currentLineSet: 0,
   totalLines: 0,
 }
 
 const init = () => {
-  countTotalLines()
-  makeOutput()
-  addPaddingLines()
+  countMaxLines()
+  makeEmptyLines()
+
+  // makeOutput()
+  // addPaddingLines()
+  // makeButtons()
 }
 
 document.addEventListener('DOMContentLoaded', init)
