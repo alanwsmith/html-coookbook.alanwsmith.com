@@ -143,22 +143,38 @@ const s = {
 }
 
 const updateLines = () => {
-  // console.log('updateLines')
+  let previousLines = []
+  if (s.currentLineSet > 0) {
+    previousLines = lineSets[s.currentLineSet - 1].nums
+  }
+
   let targetLine = 1
   for (let sourceLine of lineSets[s.currentLineSet].nums) {
-    // log(sourceLine)
-    // log(sourceCode[sourceLine])
     // adding `&nbsp;` for now to make sure line has height
     window[
       `codeLine${targetLine}`
     ].innerHTML = `${sourceCode[sourceLine]}&nbsp;`
+
+    if (!previousLines.includes(sourceLine)) {
+      window[`codeLinePre${targetLine}`].classList.add('newLine')
+    }
+
     targetLine += 1
+  }
+}
+
+// Still need to verify this works when lines
+// are removed.
+const clearNewLineHighlights = () => {
+  for (let lineNum = 1; lineNum <= s.totalLines; lineNum++) {
+    window[`codeLinePre${lineNum}`].classList.remove('newLine')
   }
 }
 
 const init = () => {
   countMaxLines()
   makeEmptyLines()
+  clearNewLineHighlights()
   updateLines()
 
   // makeOutput()

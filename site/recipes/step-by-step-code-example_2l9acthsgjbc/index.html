@@ -45,6 +45,10 @@
   background-color: #333;
 }
 
+.codeLineWrapper {
+  background-color: #333;
+}
+
     </style>
     <script>
       let sourceCode = `fn main() {
@@ -192,22 +196,38 @@ const s = {
 }
 
 const updateLines = () => {
-  // console.log('updateLines')
+  let previousLines = []
+  if (s.currentLineSet > 0) {
+    previousLines = lineSets[s.currentLineSet - 1].nums
+  }
+
   let targetLine = 1
   for (let sourceLine of lineSets[s.currentLineSet].nums) {
-    // log(sourceLine)
-    // log(sourceCode[sourceLine])
     // adding `&nbsp;` for now to make sure line has height
     window[
       `codeLine${targetLine}`
     ].innerHTML = `${sourceCode[sourceLine]}&nbsp;`
+
+    if (!previousLines.includes(sourceLine)) {
+      window[`codeLinePre${targetLine}`].classList.add('newLine')
+    }
+
     targetLine += 1
+  }
+}
+
+// Still need to verify this works when lines
+// are removed.
+const clearNewLineHighlights = () => {
+  for (let lineNum = 1; lineNum <= s.totalLines; lineNum++) {
+    window[`codeLinePre${lineNum}`].classList.remove('newLine')
   }
 }
 
 const init = () => {
   countMaxLines()
   makeEmptyLines()
+  clearNewLineHighlights()
   updateLines()
 
   // makeOutput()
@@ -251,6 +271,10 @@ document.addEventListener('DOMContentLoaded', init)
 }
 
 .existingLine {
+  background-color: #333;
+}
+
+.codeLineWrapper {
   background-color: #333;
 }
 </code></pre>
@@ -402,22 +426,38 @@ const s = {
 }
 
 const updateLines = () =&gt; {
-  // console.log(&#x27;updateLines&#x27;)
+  let previousLines = []
+  if (s.currentLineSet &gt; 0) {
+    previousLines = lineSets[s.currentLineSet - 1].nums
+  }
+
   let targetLine = 1
   for (let sourceLine of lineSets[s.currentLineSet].nums) {
-    // log(sourceLine)
-    // log(sourceCode[sourceLine])
     // adding `&amp;nbsp;` for now to make sure line has height
     window[
       `codeLine${targetLine}`
     ].innerHTML = `${sourceCode[sourceLine]}&amp;nbsp;`
+
+    if (!previousLines.includes(sourceLine)) {
+      window[`codeLinePre${targetLine}`].classList.add(&#x27;newLine&#x27;)
+    }
+
     targetLine += 1
+  }
+}
+
+// Still need to verify this works when lines
+// are removed.
+const clearNewLineHighlights = () =&gt; {
+  for (let lineNum = 1; lineNum &lt;= s.totalLines; lineNum++) {
+    window[`codeLinePre${lineNum}`].classList.remove(&#x27;newLine&#x27;)
   }
 }
 
 const init = () =&gt; {
   countMaxLines()
   makeEmptyLines()
+  clearNewLineHighlights()
   updateLines()
 
   // makeOutput()
