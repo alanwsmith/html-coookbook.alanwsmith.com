@@ -16,6 +16,8 @@ fn widget() {
 // add spacer to match line numbers
 sourceCode = ['', ...sourceCode]
 
+///////////////////////////////////////////////////
+
 const log = (msg) => {
   console.log(msg)
 }
@@ -58,26 +60,187 @@ const makeOutput = () => {
   if (s.currentLineSet > 0) {
     priorLines = lineSets[s.currentLineSet - 1].nums
   }
-  log(priorLines)
+  // log(priorLines)
 
   for (let lineNumber of lineSets[s.currentLineSet].nums) {
-    log(`lineNumber: ${lineNumber}`)
+    // log(`lineNumber: ${lineNumber}`)
     const newLineOutputEl = document.createElement('div')
     let lineClass = 'existingLine'
     if (!priorLines.includes(lineNumber)) {
-      log(`newLine class: ${lineNumber}`)
+      // log(`newLine class: ${lineNumber}`)
       lineClass = 'newLine'
     }
     newLineOutputEl.innerHTML = `<pre class="${lineClass}"><code>${sourceCode[lineNumber]}</code></pre>`
-    window.codeExample.append(newLineOutputEl)
+    window.codeExample.appendChild(newLineOutputEl)
   }
 }
 
-const s = {}
+const addPaddingLines = () => {
+  for (
+    let padNum = lineSets[s.currentLineSet].nums.length;
+    padNum < s.totalLines;
+    padNum++
+  ) {
+    // log(`Padding line: ${padNum}`)
+    const padLineEl = document.createElement('div')
+    padLineEl.innerHTML = `<pre class="padLine"><code>&nbsp;</code></pre>`
+    window.codeExample.appendChild(padLineEl)
+  }
+}
+
+const countMaxLines = () => {
+  lineSets.forEach((lineSet) => {
+    if (lineSet.nums.length > s.totalLines) {
+      s.totalLines = lineSet.nums.length
+    }
+  })
+  log(`Max lines: ${s.totalLines}`)
+}
+
+const handleButtonClick = (event) => {
+  s.currentLineSet = event.target.id.split('--')[1] - 1
+  clearLines()
+  // updateLines()
+  populateLines()
+  highlightLines()
+}
+
+const makeButtons = () => {
+  const buttonRowEl = document.createElement('div')
+  buttonRowEl.id = 'buttonRow'
+
+  // log('Making buttons')
+  const previousButtonEl = document.createElement('button')
+  previousButtonEl.id = 'previousSet'
+  previousButtonEl.innerHTML = '&nbsp;&nbsp;&nbsp;--&nbsp;&nbsp;&nbsp;'
+  buttonRowEl.appendChild(previousButtonEl)
+
+  for (let buttonNumber = 1; buttonNumber <= lineSets.length; buttonNumber++) {
+    console.log(`Button number: ${buttonNumber}`)
+    const newButtonEl = document.createElement('button')
+    newButtonEl.innerHTML = buttonNumber
+    newButtonEl.id = `chooseSet--${buttonNumber}`
+    buttonRowEl.appendChild(newButtonEl)
+
+    newButtonEl.addEventListener('click', handleButtonClick)
+  }
+
+  // log('Making buttons')
+  const nextButtonEl = document.createElement('button')
+  nextButtonEl.id = 'nextSet'
+  nextButtonEl.innerHTML = '&nbsp;&nbsp;Next&nbsp;&nbsp;'
+  buttonRowEl.appendChild(nextButtonEl)
+
+  window.codeExample.appendChild(buttonRowEl)
+
+  previousButtonEl.addEventListener('click', handlePreviousClick)
+  nextButtonEl.addEventListener('click', handleNextClick)
+}
+
+const handlePreviousClick = (event) => {
+  if (s.currentLineSet > 0) {
+    s.currentLineSet -= 1
+    clearLines()
+    // updateLines()
+    highlightLines()
+    populateLines()
+  }
+}
+
+const handleNextClick = (event) => {
+  if (s.currentLineSet < lineSets.length - 1) {
+    s.currentLineSet += 1
+    clearLines()
+    // updateLines()
+    highlightLines()
+    populateLines()
+  }
+}
+
+const makeEmptyLines = () => {
+  for (let num = 1; num <= s.totalLines; num++) {
+    const emptyLineEl = document.createElement('div')
+    emptyLineEl.id = `codeLineWrapper${num}`
+    emptyLineEl.classList.add('codeLineWrapper')
+    emptyLineEl.innerHTML = `<pre id="codeLinePre${num}"><code id="codeLine${num}">&nbsp;</code></pre>`
+    window.codeExample.appendChild(emptyLineEl)
+  }
+}
+
+const s = {
+  currentLineSet: 0,
+  totalLines: 0,
+}
+
+const populateLines = () => {
+  let targetLine = 1
+  for (let sourceLine of lineSets[s.currentLineSet].nums) {
+    // The `&nbsp;` makes sure line has height for now
+    window[
+      `codeLine${targetLine}`
+    ].innerHTML = `${sourceCode[sourceLine]}&nbsp;`
+    targetLine += 1
+  }
+}
+
+const highlightLines = () => {
+  // clean up the reaming lines
+  for (let extraLine = 1; extraLine < s.totalLines; extraLine++) {
+    window[`codeLinePre${extraLine}`].classList.remove('newLine')
+  }
+
+  if (s.currentLineSet > 0) {
+    const previousLines = lineSets[s.currentLineSet - 1].nums
+    let targetLine = 1
+    for (let sourceLine of lineSets[s.currentLineSet].nums) {
+      // adding `&nbsp;` for now to make sure line has height
+      if (!previousLines.includes(sourceLine)) {
+        window[`codeLinePre${targetLine}`].classList.add('newLine')
+      } else {
+        window[`codeLinePre${targetLine}`].classList.remove('newLine')
+      }
+      targetLine += 1
+    }
+  }
+}
+
+// const updateLines = () => {
+//   let previousLines = []
+//   if (s.currentLineSet > 0) {
+//     previousLines = lineSets[s.currentLineSet - 1].nums
+//   }
+//   let targetLine = 1
+//   for (let sourceLine of lineSets[s.currentLineSet].nums) {
+//     // adding `&nbsp;` for now to make sure line has height
+//     window[
+//       `codeLine${targetLine}`
+//     ].innerHTML = `${sourceCode[sourceLine]}&nbsp;`
+//     if (!previousLines.includes(sourceLine)) {
+//       window[`codeLinePre${targetLine}`].classList.add('newLine')
+//     }
+//     targetLine += 1
+//   }
+// }
+
+const clearLines = () => {
+  for (let lineNum = 1; lineNum <= s.totalLines; lineNum++) {
+    window[`codeLinePre${lineNum}`].classList.remove('newLine')
+    window[`codeLine${lineNum}`].innerHTML = `&nbsp;`
+  }
+}
 
 const init = () => {
-  s.currentLineSet = 0
-  makeOutput()
+  countMaxLines()
+  makeEmptyLines()
+  makeButtons()
+  populateLines()
+  highlightLines()
+
+  // clearLines()
+  // updateLines()
+
+  // makeOutput()
+  // addPaddingLines()
 }
 
 document.addEventListener('DOMContentLoaded', init)
