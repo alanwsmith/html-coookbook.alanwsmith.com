@@ -57,6 +57,8 @@ fn widget() {
 // add spacer to match line numbers
 sourceCode = ['', ...sourceCode]
 
+///////////////////////////////////////////////////
+
 const log = (msg) => {
   console.log(msg)
 }
@@ -99,14 +101,14 @@ const makeOutput = () => {
   if (s.currentLineSet > 0) {
     priorLines = lineSets[s.currentLineSet - 1].nums
   }
-  log(priorLines)
+  // log(priorLines)
 
   for (let lineNumber of lineSets[s.currentLineSet].nums) {
-    log(`lineNumber: ${lineNumber}`)
+    // log(`lineNumber: ${lineNumber}`)
     const newLineOutputEl = document.createElement('div')
     let lineClass = 'existingLine'
     if (!priorLines.includes(lineNumber)) {
-      log(`newLine class: ${lineNumber}`)
+      // log(`newLine class: ${lineNumber}`)
       lineClass = 'newLine'
     }
     newLineOutputEl.innerHTML = `<pre class="${lineClass}"><code>${sourceCode[lineNumber]}</code></pre>`
@@ -114,11 +116,36 @@ const makeOutput = () => {
   }
 }
 
-const s = {}
+const addPaddingLines = () => {
+  for (
+    let padNum = lineSets[s.currentLineSet].nums.length;
+    padNum < s.totalLines;
+    padNum++
+  ) {
+    log(`Padding line: ${padNum}`)
+    const padLineEl = document.createElement('div')
+    padLineEl.innerHTML = `<pre class="padLine"><code>&nbsp;</code></pre>`
+    window.codeExample.append(padLineEl)
+  }
+}
+
+const countTotalLines = () => {
+  lineSets.forEach((lineSet) => {
+    if (lineSet.nums.length > s.totalLines) {
+      s.totalLines = lineSet.nums.length
+    }
+  })
+}
+
+const s = {
+  currentLineSet: 0,
+  totalLines: 1,
+}
 
 const init = () => {
-  s.currentLineSet = 0
+  countTotalLines()
   makeOutput()
+  addPaddingLines()
 }
 
 document.addEventListener('DOMContentLoaded', init)
@@ -173,6 +200,8 @@ fn widget() {
 // add spacer to match line numbers
 sourceCode = [&#x27;&#x27;, ...sourceCode]
 
+///////////////////////////////////////////////////
+
 const log = (msg) =&gt; {
   console.log(msg)
 }
@@ -215,14 +244,14 @@ const makeOutput = () =&gt; {
   if (s.currentLineSet &gt; 0) {
     priorLines = lineSets[s.currentLineSet - 1].nums
   }
-  log(priorLines)
+  // log(priorLines)
 
   for (let lineNumber of lineSets[s.currentLineSet].nums) {
-    log(`lineNumber: ${lineNumber}`)
+    // log(`lineNumber: ${lineNumber}`)
     const newLineOutputEl = document.createElement(&#x27;div&#x27;)
     let lineClass = &#x27;existingLine&#x27;
     if (!priorLines.includes(lineNumber)) {
-      log(`newLine class: ${lineNumber}`)
+      // log(`newLine class: ${lineNumber}`)
       lineClass = &#x27;newLine&#x27;
     }
     newLineOutputEl.innerHTML = `&lt;pre class=&quot;${lineClass}&quot;&gt;&lt;code&gt;${sourceCode[lineNumber]}&lt;/code&gt;&lt;/pre&gt;`
@@ -230,11 +259,36 @@ const makeOutput = () =&gt; {
   }
 }
 
-const s = {}
+const addPaddingLines = () =&gt; {
+  for (
+    let padNum = lineSets[s.currentLineSet].nums.length;
+    padNum &lt; s.totalLines;
+    padNum++
+  ) {
+    log(`Padding line: ${padNum}`)
+    const padLineEl = document.createElement(&#x27;div&#x27;)
+    padLineEl.innerHTML = `&lt;pre class=&quot;padLine&quot;&gt;&lt;code&gt;&amp;nbsp;&lt;/code&gt;&lt;/pre&gt;`
+    window.codeExample.append(padLineEl)
+  }
+}
+
+const countTotalLines = () =&gt; {
+  lineSets.forEach((lineSet) =&gt; {
+    if (lineSet.nums.length &gt; s.totalLines) {
+      s.totalLines = lineSet.nums.length
+    }
+  })
+}
+
+const s = {
+  currentLineSet: 0,
+  totalLines: 1,
+}
 
 const init = () =&gt; {
-  s.currentLineSet = 0
+  countTotalLines()
   makeOutput()
+  addPaddingLines()
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)

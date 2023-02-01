@@ -16,6 +16,8 @@ fn widget() {
 // add spacer to match line numbers
 sourceCode = ['', ...sourceCode]
 
+///////////////////////////////////////////////////
+
 const log = (msg) => {
   console.log(msg)
 }
@@ -58,14 +60,14 @@ const makeOutput = () => {
   if (s.currentLineSet > 0) {
     priorLines = lineSets[s.currentLineSet - 1].nums
   }
-  log(priorLines)
+  // log(priorLines)
 
   for (let lineNumber of lineSets[s.currentLineSet].nums) {
-    log(`lineNumber: ${lineNumber}`)
+    // log(`lineNumber: ${lineNumber}`)
     const newLineOutputEl = document.createElement('div')
     let lineClass = 'existingLine'
     if (!priorLines.includes(lineNumber)) {
-      log(`newLine class: ${lineNumber}`)
+      // log(`newLine class: ${lineNumber}`)
       lineClass = 'newLine'
     }
     newLineOutputEl.innerHTML = `<pre class="${lineClass}"><code>${sourceCode[lineNumber]}</code></pre>`
@@ -73,11 +75,36 @@ const makeOutput = () => {
   }
 }
 
-const s = {}
+const addPaddingLines = () => {
+  for (
+    let padNum = lineSets[s.currentLineSet].nums.length;
+    padNum < s.totalLines;
+    padNum++
+  ) {
+    log(`Padding line: ${padNum}`)
+    const padLineEl = document.createElement('div')
+    padLineEl.innerHTML = `<pre class="padLine"><code>&nbsp;</code></pre>`
+    window.codeExample.append(padLineEl)
+  }
+}
+
+const countTotalLines = () => {
+  lineSets.forEach((lineSet) => {
+    if (lineSet.nums.length > s.totalLines) {
+      s.totalLines = lineSet.nums.length
+    }
+  })
+}
+
+const s = {
+  currentLineSet: 0,
+  totalLines: 1,
+}
 
 const init = () => {
-  s.currentLineSet = 0
+  countTotalLines()
   makeOutput()
+  addPaddingLines()
 }
 
 document.addEventListener('DOMContentLoaded', init)
