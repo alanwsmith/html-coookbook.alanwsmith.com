@@ -34,6 +34,7 @@ const lineSets = [
       { source: 'empty' },
       { source: 'main' },
     ],
+    text: `<p>Start with empty <code>main</code> and <code>widget</code>funcitons</p>`,
   },
   {
     lines: [
@@ -48,6 +49,8 @@ const lineSets = [
       { source: 'empty' },
       { source: 'main' },
     ],
+    text: `<p>Create a mutable <code>alfa</code> varaible bound to 
+  our <code>String</code></p>`,
   },
   {
     lines: [
@@ -62,6 +65,9 @@ const lineSets = [
       { source: 'empty' },
       { source: 'main' },
     ],
+    text: `<p>Add a call to the <code>widget</code> function using
+  with a mutable reference to <code>alfa</code> as an argument.
+  </p>`,
   },
   {
     lines: [
@@ -76,6 +82,9 @@ const lineSets = [
       { source: 'empty' },
       { source: 'main' },
     ],
+    text: `<p>Update the <code>widget</code> function to accept the
+  mutable refernce and bind it to a local variable named
+  <code>thing</code></p>`,
   },
   {
     lines: [
@@ -90,6 +99,8 @@ const lineSets = [
       { source: 'main' },
       { source: 'main' },
     ],
+
+    text: `<p>Make an update to the refernce</p>`,
   },
   {
     lines: [
@@ -104,6 +115,8 @@ const lineSets = [
       { source: 'main' },
       { source: 'main' },
     ],
+
+    text: `<p>Output the value of <code>alfa</code> to show it's changed<p>`,
   },
   {
     lines: [
@@ -118,6 +131,7 @@ const lineSets = [
       { source: 'main' },
       { source: 'main' },
     ],
+    text: `<p>This is the final output without highlighting</p>`,
   },
 ]
 

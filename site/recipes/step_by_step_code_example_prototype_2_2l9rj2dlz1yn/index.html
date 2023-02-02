@@ -25,12 +25,11 @@
       sizes="180x180"
       href="/favicons/180x180.png"
     />
-
     <link rel="stylesheet" href="/styles/reset.css" />
     <link rel="stylesheet" href="/styles/fonts.css" />
     <link rel="stylesheet" href="/styles/colors.css" />
     <link rel="stylesheet" href="/styles/wrapper.css" />
-    <link rel="stylesheet" href="/styles/prism-customized.css" />
+    <link rel="stylesheet" href="/styles/prism-step-by-step-2.css" />
     
     <style>
       .newLine {
@@ -87,6 +86,7 @@ const lineSets = [
       { source: 'empty' },
       { source: 'main' },
     ],
+    text: `<p>Start with empty <code>main</code> and <code>widget</code>funcitons</p>`,
   },
   {
     lines: [
@@ -101,6 +101,8 @@ const lineSets = [
       { source: 'empty' },
       { source: 'main' },
     ],
+    text: `<p>Create a mutable <code>alfa</code> varaible bound to 
+  our <code>String</code></p>`,
   },
   {
     lines: [
@@ -115,6 +117,9 @@ const lineSets = [
       { source: 'empty' },
       { source: 'main' },
     ],
+    text: `<p>Add a call to the <code>widget</code> function using
+  with a mutable reference to <code>alfa</code> as an argument.
+  </p>`,
   },
   {
     lines: [
@@ -129,6 +134,9 @@ const lineSets = [
       { source: 'empty' },
       { source: 'main' },
     ],
+    text: `<p>Update the <code>widget</code> function to accept the
+  mutable refernce and bind it to a local variable named
+  <code>thing</code></p>`,
   },
   {
     lines: [
@@ -143,6 +151,8 @@ const lineSets = [
       { source: 'main' },
       { source: 'main' },
     ],
+
+    text: `<p>Make an update to the refernce</p>`,
   },
   {
     lines: [
@@ -157,6 +167,8 @@ const lineSets = [
       { source: 'main' },
       { source: 'main' },
     ],
+
+    text: `<p>Output the value of <code>alfa</code> to show it's changed<p>`,
   },
   {
     lines: [
@@ -171,6 +183,7 @@ const lineSets = [
       { source: 'main' },
       { source: 'main' },
     ],
+    text: `<p>This is the final output without highlighting</p>`,
   },
 ]
 
@@ -496,7 +509,7 @@ document.addEventListener('DOMContentLoaded', init)
 
     </script>
   </head>
-  <body class="line-numbers">
+  <body>
     <header>
       <a href="/">cookbook home</a> ~
       <a href="https://www.alanwsmith.com/">main site</a> ~
@@ -574,6 +587,7 @@ const lineSets = [
       { source: &#x27;empty&#x27; },
       { source: &#x27;main&#x27; },
     ],
+    text: `&lt;p&gt;Start with empty &lt;code&gt;main&lt;/code&gt; and &lt;code&gt;widget&lt;/code&gt;funcitons&lt;/p&gt;`,
   },
   {
     lines: [
@@ -588,6 +602,8 @@ const lineSets = [
       { source: &#x27;empty&#x27; },
       { source: &#x27;main&#x27; },
     ],
+    text: `&lt;p&gt;Create a mutable &lt;code&gt;alfa&lt;/code&gt; varaible bound to 
+  our &lt;code&gt;String&lt;/code&gt;&lt;/p&gt;`,
   },
   {
     lines: [
@@ -602,6 +618,9 @@ const lineSets = [
       { source: &#x27;empty&#x27; },
       { source: &#x27;main&#x27; },
     ],
+    text: `&lt;p&gt;Add a call to the &lt;code&gt;widget&lt;/code&gt; function using
+  with a mutable reference to &lt;code&gt;alfa&lt;/code&gt; as an argument.
+  &lt;/p&gt;`,
   },
   {
     lines: [
@@ -616,6 +635,9 @@ const lineSets = [
       { source: &#x27;empty&#x27; },
       { source: &#x27;main&#x27; },
     ],
+    text: `&lt;p&gt;Update the &lt;code&gt;widget&lt;/code&gt; function to accept the
+  mutable refernce and bind it to a local variable named
+  &lt;code&gt;thing&lt;/code&gt;&lt;/p&gt;`,
   },
   {
     lines: [
@@ -630,6 +652,8 @@ const lineSets = [
       { source: &#x27;main&#x27; },
       { source: &#x27;main&#x27; },
     ],
+
+    text: `&lt;p&gt;Make an update to the refernce&lt;/p&gt;`,
   },
   {
     lines: [
@@ -644,6 +668,8 @@ const lineSets = [
       { source: &#x27;main&#x27; },
       { source: &#x27;main&#x27; },
     ],
+
+    text: `&lt;p&gt;Output the value of &lt;code&gt;alfa&lt;/code&gt; to show it&#x27;s changed&lt;p&gt;`,
   },
   {
     lines: [
@@ -658,6 +684,7 @@ const lineSets = [
       { source: &#x27;main&#x27; },
       { source: &#x27;main&#x27; },
     ],
+    text: `&lt;p&gt;This is the final output without highlighting&lt;/p&gt;`,
   },
 ]
 
