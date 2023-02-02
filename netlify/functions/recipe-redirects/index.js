@@ -53,6 +53,7 @@ exports.handler = async function (event, context) {
   "step_by_step_code_example_prototype_2_2l9rj2dlz1yn": "/recipes/step_by_step_code_example_prototype_2_2l9rj2dlz1yn/index.html",
   "step_by_step_code_example_prototype_3_2la5nzy6th6j": "/recipes/step_by_step_code_example_prototype_3_2la5nzy6th6j/index.html",
   "step_by_step_code_example_prototype_4_2ladxbnu5kld": "/recipes/step_by_step_code_example_prototype_4_2ladxbnu5kld/index.html",
+  "step_by_step_code_example_prototype_5_2lchayo7mlia": "/recipes/step_by_step_code_example_prototype_5_2lchayo7mlia/index.html",
   "stream-chat-crt-overlay_2kusi3saawnj": "/recipes/stream-chat-crt-overlay_2kusi3saawnj/index.html",
   "system-dark-mode-preference--2icsgti1btei": "/recipes/system-dark-mode-preference--2icsgti1btei/index.html",
   "use_mutation_observers_between_web_components_and_parent_pages--2gxzzx78txjy": "/recipes/use_mutation_observers_between_web_components_and_parent_pages--2gxzzx78txjy/index.html"
