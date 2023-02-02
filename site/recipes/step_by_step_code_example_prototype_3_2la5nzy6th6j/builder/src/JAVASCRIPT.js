@@ -1,3 +1,7 @@
+const s = {
+  currentLineSet: 0,
+}
+
 const lineSets = [
   {
     lines: [1, 0, 0, 0, 1, 1, 1, 0, 1],
@@ -7,7 +11,7 @@ const lineSets = [
   },
 ]
 
-const handleNextButtonClick = () => {
+const updateLines = () => {
   const lineDivs = []
   const lineDivEls = window.codeStuff.getElementsByTagName('div')
   for (let lineIndex = 0; lineIndex < lineDivEls.length; lineIndex++) {
@@ -26,8 +30,10 @@ const handleNextButtonClick = () => {
     })
   })
 
-  for (let alfa = 0; alfa < lineSets[0].lines.length; alfa++) {
-    lineDivs[alfa][lineSets[0].lines[alfa]].classList.remove('hideit')
+  for (let alfa = 0; alfa < lineSets[s.currentLineSet].lines.length; alfa++) {
+    lineDivs[alfa][lineSets[s.currentLineSet].lines[alfa]].classList.remove(
+      'hideit'
+    )
     // const bravo = lineSets[0].lines[alfa]
     // lineDivs[bravo[0]][bravo[1]].classList.remove('hideit')
   }
@@ -52,7 +58,8 @@ const handleNextButtonClick = () => {
 }
 
 const init = () => {
-  window.nextView.addEventListener('click', handleNextButtonClick)
+  // window.nextView.addEventListener('click', handleNextButtonClick)
+  updateLines()
 }
 
 document.addEventListener('DOMContentLoaded', init)

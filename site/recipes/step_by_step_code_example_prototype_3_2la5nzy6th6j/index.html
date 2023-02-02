@@ -62,7 +62,11 @@ pre {
 
     </style>
     <script>
-      const lineSets = [
+      const s = {
+  currentLineSet: 0,
+}
+
+const lineSets = [
   {
     lines: [1, 0, 0, 0, 1, 1, 1, 0, 1],
   },
@@ -71,7 +75,7 @@ pre {
   },
 ]
 
-const handleNextButtonClick = () => {
+const updateLines = () => {
   const lineDivs = []
   const lineDivEls = window.codeStuff.getElementsByTagName('div')
   for (let lineIndex = 0; lineIndex < lineDivEls.length; lineIndex++) {
@@ -90,8 +94,10 @@ const handleNextButtonClick = () => {
     })
   })
 
-  for (let alfa = 0; alfa < lineSets[0].lines.length; alfa++) {
-    lineDivs[alfa][lineSets[0].lines[alfa]].classList.remove('hideit')
+  for (let alfa = 0; alfa < lineSets[s.currentLineSet].lines.length; alfa++) {
+    lineDivs[alfa][lineSets[s.currentLineSet].lines[alfa]].classList.remove(
+      'hideit'
+    )
     // const bravo = lineSets[0].lines[alfa]
     // lineDivs[bravo[0]][bravo[1]].classList.remove('hideit')
   }
@@ -116,7 +122,8 @@ const handleNextButtonClick = () => {
 }
 
 const init = () => {
-  window.nextView.addEventListener('click', handleNextButtonClick)
+  // window.nextView.addEventListener('click', handleNextButtonClick)
+  updateLines()
 }
 
 document.addEventListener('DOMContentLoaded', init)
@@ -289,7 +296,11 @@ pre {
             
       
             <h2>JavaScript</h2>
-            <pre><code class="language-js">const lineSets = [
+            <pre><code class="language-js">const s = {
+  currentLineSet: 0,
+}
+
+const lineSets = [
   {
     lines: [1, 0, 0, 0, 1, 1, 1, 0, 1],
   },
@@ -298,7 +309,7 @@ pre {
   },
 ]
 
-const handleNextButtonClick = () =&gt; {
+const updateLines = () =&gt; {
   const lineDivs = []
   const lineDivEls = window.codeStuff.getElementsByTagName(&#x27;div&#x27;)
   for (let lineIndex = 0; lineIndex &lt; lineDivEls.length; lineIndex++) {
@@ -317,8 +328,10 @@ const handleNextButtonClick = () =&gt; {
     })
   })
 
-  for (let alfa = 0; alfa &lt; lineSets[0].lines.length; alfa++) {
-    lineDivs[alfa][lineSets[0].lines[alfa]].classList.remove(&#x27;hideit&#x27;)
+  for (let alfa = 0; alfa &lt; lineSets[s.currentLineSet].lines.length; alfa++) {
+    lineDivs[alfa][lineSets[s.currentLineSet].lines[alfa]].classList.remove(
+      &#x27;hideit&#x27;
+    )
     // const bravo = lineSets[0].lines[alfa]
     // lineDivs[bravo[0]][bravo[1]].classList.remove(&#x27;hideit&#x27;)
   }
@@ -343,7 +356,8 @@ const handleNextButtonClick = () =&gt; {
 }
 
 const init = () =&gt; {
-  window.nextView.addEventListener(&#x27;click&#x27;, handleNextButtonClick)
+  // window.nextView.addEventListener(&#x27;click&#x27;, handleNextButtonClick)
+  updateLines()
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
