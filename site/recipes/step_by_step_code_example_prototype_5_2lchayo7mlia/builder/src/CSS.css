@@ -224,11 +224,12 @@ pre[class*='language-'].line-numbers > code {
 }
 
 #contentArea {
-  min-height: 21rem;
+  font-size: 0.9rem;
+  min-height: 23rem;
   background-color: #667;
-  padding: 0.3rem;
   border-radius: 0.4rem;
   margin-left: 0.6rem;
+  padding-right: 0.7rem;
 }
 
 #codeCol {
@@ -300,5 +301,21 @@ pre {
 }
 
 .gutterItem {
+  padding-left: 0.3rem;
   color: #000;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+ul {
+  margin-left: 0;
+  padding-bottom: 1.15rem;
+}
+
+li {
+  list-style: disc;
+  list-style-position: outside;
+  padding-bottom: 0.7rem;
 }

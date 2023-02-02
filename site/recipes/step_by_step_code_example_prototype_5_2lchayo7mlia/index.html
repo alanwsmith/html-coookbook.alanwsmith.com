@@ -257,11 +257,12 @@ pre[class*='language-'].line-numbers > code {
 }
 
 #contentArea {
-  min-height: 21rem;
+  font-size: 0.9rem;
+  min-height: 23rem;
   background-color: #667;
-  padding: 0.3rem;
   border-radius: 0.4rem;
   margin-left: 0.6rem;
+  padding-right: 0.7rem;
 }
 
 #codeCol {
@@ -333,7 +334,23 @@ pre {
 }
 
 .gutterItem {
+  padding-left: 0.3rem;
   color: #000;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+ul {
+  margin-left: 0;
+  padding-bottom: 1.15rem;
+}
+
+li {
+  list-style: disc;
+  list-style-position: outside;
+  padding-bottom: 0.7rem;
 }
 
     </style>
@@ -573,7 +590,9 @@ const updatePointers = () => {
     let lineCode = lineSets[s.currentLineSet].lines[lineIndex].split('_')[1]
     let numberString = lineIndex < 9 ? `0${lineIndex + 1}` : lineIndex + 1
     if (lineCode === 'r') {
-      window[`pointer_${lineIndex}`].innerHTML = `${numberString} &gt;`
+      window[
+        `pointer_${lineIndex}`
+      ].innerHTML = `${numberString} <code class="bold">&gt;</code>`
     } else {
       window[`pointer_${lineIndex}`].innerHTML = `${numberString}  `
     }
@@ -859,11 +878,12 @@ pre[class*=&#x27;language-&#x27;].line-numbers &gt; code {
 }
 
 #contentArea {
-  min-height: 21rem;
+  font-size: 0.9rem;
+  min-height: 23rem;
   background-color: #667;
-  padding: 0.3rem;
   border-radius: 0.4rem;
   margin-left: 0.6rem;
+  padding-right: 0.7rem;
 }
 
 #codeCol {
@@ -935,7 +955,23 @@ pre {
 }
 
 .gutterItem {
+  padding-left: 0.3rem;
   color: #000;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+ul {
+  margin-left: 0;
+  padding-bottom: 1.15rem;
+}
+
+li {
+  list-style: disc;
+  list-style-position: outside;
+  padding-bottom: 0.7rem;
 }
 </code></pre>
             
@@ -1176,7 +1212,9 @@ const updatePointers = () =&gt; {
     let lineCode = lineSets[s.currentLineSet].lines[lineIndex].split(&#x27;_&#x27;)[1]
     let numberString = lineIndex &lt; 9 ? `0${lineIndex + 1}` : lineIndex + 1
     if (lineCode === &#x27;r&#x27;) {
-      window[`pointer_${lineIndex}`].innerHTML = `${numberString} &amp;gt;`
+      window[
+        `pointer_${lineIndex}`
+      ].innerHTML = `${numberString} &lt;code class=&quot;bold&quot;&gt;&amp;gt;&lt;/code&gt;`
     } else {
       window[`pointer_${lineIndex}`].innerHTML = `${numberString}  `
     }
