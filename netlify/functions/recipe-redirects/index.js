@@ -49,7 +49,8 @@ exports.handler = async function (event, context) {
   "html_canvas_simulate_an_animated_gif_2iythtpjmuhh": "/recipes/html_canvas_simulate_an_animated_gif_2iythtpjmuhh/index.html",
   "html_input_range_type_with_floating_point_number--2itkxa97ogoe": "/recipes/html_input_range_type_with_floating_point_number--2itkxa97ogoe/index.html",
   "live_code_codes_maker_experiment_alpha--2gxv4l6iyo7v": "/recipes/live_code_codes_maker_experiment_alpha--2gxv4l6iyo7v/index.html",
-  "step-by-step-code-example_2l9acthsgjbc": "/recipes/step-by-step-code-example_2l9acthsgjbc/index.html",
+  "step_by_step_code_example_prototype_1_2l9acthsgjbc": "/recipes/step_by_step_code_example_prototype_1_2l9acthsgjbc/index.html",
+  "step_by_step_code_example_prototype_2_2l9rj2dlz1yn": "/recipes/step_by_step_code_example_prototype_2_2l9rj2dlz1yn/index.html",
   "stream-chat-crt-overlay_2kusi3saawnj": "/recipes/stream-chat-crt-overlay_2kusi3saawnj/index.html",
   "system-dark-mode-preference--2icsgti1btei": "/recipes/system-dark-mode-preference--2icsgti1btei/index.html",
   "use_mutation_observers_between_web_components_and_parent_pages--2gxzzx78txjy": "/recipes/use_mutation_observers_between_web_components_and_parent_pages--2gxzzx78txjy/index.html"
