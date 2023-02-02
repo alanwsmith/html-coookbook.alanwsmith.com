@@ -483,15 +483,32 @@ const addButtons = () => {
   newButtonEl.addEventListener('click', handleNumberButtonClick)
 }
 
+const addPreviousButton = () => {
+  const previousButtonEl = document.createElement('button')
+  previousButtonEl.id = 'previousSet'
+  previousButtonEl.innerHTML = 'Previous'
+  window.buttonWrapper.appendChild(previousButtonEl)
+  window.previousSet.addEventListener('click', handlePreviousButtonClick)
+}
+
+const addNextButton = () => {
+  const nextButtonEl = document.createElement('button')
+  nextButtonEl.id = 'nextSet'
+  nextButtonEl.innerHTML = 'Next'
+  window.buttonWrapper.appendChild(nextButtonEl)
+  window.nextSet.addEventListener('click', handleNextButtonClick)
+}
+
 const init = () => {
   loadSourceCode()
   makePreLines()
   makeBaseLines()
   updateLines()
+  addPreviousButton()
   addButtons()
+  addNextButton()
   updateButtons()
   window.nextSet.addEventListener('click', handleNextButtonClick)
-  window.previousSet.addEventListener('click', handlePreviousButtonClick)
 }
 
 document.addEventListener('DOMContentLoaded', init)
@@ -516,15 +533,11 @@ document.addEventListener('DOMContentLoaded', init)
                  <div id="contentArea"></div>
 <div id="codeBlock"></div>
 <div id="buttonWrapper"></div>
-<button id="previousSet">Previous</button>
-<button id="nextSet">Next</button>
   
             <h2>HTML</h2>
             <pre><code class="language-html">&lt;div id=&quot;contentArea&quot;&gt;&lt;/div&gt;
 &lt;div id=&quot;codeBlock&quot;&gt;&lt;/div&gt;
 &lt;div id=&quot;buttonWrapper&quot;&gt;&lt;/div&gt;
-&lt;button id=&quot;previousSet&quot;&gt;Previous&lt;/button&gt;
-&lt;button id=&quot;nextSet&quot;&gt;Next&lt;/button&gt;
 </code></pre>
              
             <h2>CSS</h2>
@@ -981,15 +994,32 @@ const addButtons = () =&gt; {
   newButtonEl.addEventListener(&#x27;click&#x27;, handleNumberButtonClick)
 }
 
+const addPreviousButton = () =&gt; {
+  const previousButtonEl = document.createElement(&#x27;button&#x27;)
+  previousButtonEl.id = &#x27;previousSet&#x27;
+  previousButtonEl.innerHTML = &#x27;Previous&#x27;
+  window.buttonWrapper.appendChild(previousButtonEl)
+  window.previousSet.addEventListener(&#x27;click&#x27;, handlePreviousButtonClick)
+}
+
+const addNextButton = () =&gt; {
+  const nextButtonEl = document.createElement(&#x27;button&#x27;)
+  nextButtonEl.id = &#x27;nextSet&#x27;
+  nextButtonEl.innerHTML = &#x27;Next&#x27;
+  window.buttonWrapper.appendChild(nextButtonEl)
+  window.nextSet.addEventListener(&#x27;click&#x27;, handleNextButtonClick)
+}
+
 const init = () =&gt; {
   loadSourceCode()
   makePreLines()
   makeBaseLines()
   updateLines()
+  addPreviousButton()
   addButtons()
+  addNextButton()
   updateButtons()
   window.nextSet.addEventListener(&#x27;click&#x27;, handleNextButtonClick)
-  window.previousSet.addEventListener(&#x27;click&#x27;, handlePreviousButtonClick)
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)

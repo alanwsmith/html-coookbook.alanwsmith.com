@@ -194,15 +194,32 @@ const addButtons = () => {
   newButtonEl.addEventListener('click', handleNumberButtonClick)
 }
 
+const addPreviousButton = () => {
+  const previousButtonEl = document.createElement('button')
+  previousButtonEl.id = 'previousSet'
+  previousButtonEl.innerHTML = 'Previous'
+  window.buttonWrapper.appendChild(previousButtonEl)
+  window.previousSet.addEventListener('click', handlePreviousButtonClick)
+}
+
+const addNextButton = () => {
+  const nextButtonEl = document.createElement('button')
+  nextButtonEl.id = 'nextSet'
+  nextButtonEl.innerHTML = 'Next'
+  window.buttonWrapper.appendChild(nextButtonEl)
+  window.nextSet.addEventListener('click', handleNextButtonClick)
+}
+
 const init = () => {
   loadSourceCode()
   makePreLines()
   makeBaseLines()
   updateLines()
+  addPreviousButton()
   addButtons()
+  addNextButton()
   updateButtons()
   window.nextSet.addEventListener('click', handleNextButtonClick)
-  window.previousSet.addEventListener('click', handlePreviousButtonClick)
 }
 
 document.addEventListener('DOMContentLoaded', init)
