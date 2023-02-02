@@ -224,20 +224,23 @@ pre[class*='language-'].line-numbers > code {
 }
 
 #contentArea {
-  min-height: 12rem;
+  min-height: 20rem;
   background-color: #667;
   padding: 0.3rem;
   border-radius: 0.4rem;
-  margin-top: 1.4rem;
-  margin-bottom: 0.6rem;
+  margin-left: 0.6rem;
+}
+
+#codeCol {
+  margin: 0.6rem;
 }
 
 #codeBlock {
-  background-color: #566;
-  margin-top: 0.6rem;
-  margin-bottom: 0.6rem;
+  min-height: 20rem;
+  background-color: #000;
   border-radius: 0.4rem;
   padding: 0.7rem;
+  margin-right: 0.4rem;
 }
 
 .hideit {
@@ -245,9 +248,27 @@ pre[class*='language-'].line-numbers > code {
 }
 
 pre {
-  color: #aaa;
+  color: #667;
 }
 
 .activeButton {
-  background-color: #900;
+  background-color: #080;
+  font-weight: bold;
+}
+
+#blockGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#buttonWrapper {
+  margin-top: 0.8rem;
+}
+
+#nextSet {
+  margin-left: 0.6rem;
+}
+
+#previousSet {
+  margin-right: 0.6rem;
 }

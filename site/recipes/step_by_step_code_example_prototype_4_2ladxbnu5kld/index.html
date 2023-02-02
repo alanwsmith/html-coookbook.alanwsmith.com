@@ -257,20 +257,23 @@ pre[class*='language-'].line-numbers > code {
 }
 
 #contentArea {
-  min-height: 12rem;
+  min-height: 20rem;
   background-color: #667;
   padding: 0.3rem;
   border-radius: 0.4rem;
-  margin-top: 1.4rem;
-  margin-bottom: 0.6rem;
+  margin-left: 0.6rem;
+}
+
+#codeCol {
+  margin: 0.6rem;
 }
 
 #codeBlock {
-  background-color: #566;
-  margin-top: 0.6rem;
-  margin-bottom: 0.6rem;
+  min-height: 20rem;
+  background-color: #000;
   border-radius: 0.4rem;
   padding: 0.7rem;
+  margin-right: 0.4rem;
 }
 
 .hideit {
@@ -278,11 +281,29 @@ pre[class*='language-'].line-numbers > code {
 }
 
 pre {
-  color: #aaa;
+  color: #667;
 }
 
 .activeButton {
-  background-color: #900;
+  background-color: #080;
+  font-weight: bold;
+}
+
+#blockGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#buttonWrapper {
+  margin-top: 0.8rem;
+}
+
+#nextSet {
+  margin-left: 0.6rem;
+}
+
+#previousSet {
+  margin-right: 0.6rem;
 }
 
     </style>
@@ -528,16 +549,20 @@ document.addEventListener('DOMContentLoaded', init)
       
                 <h2>Details</h2>
                 <ul>
-                    <li>This is a prototype of an idea for making step-by-step code examples</li> <li>The currently added lines have syntax highlighting. Lines that existed in the prior step aren't</li> <li>Syntax highlighting comes from Prism with some customization to the stylesheet.</li>
+                    <li>This is a prototype of an idea for making step-by-step code examples</li> <li>The currently added lines have syntax highlighting. Lines that existed in the prior step aren't</li> <li>Syntax highlighting comes from Prism with some customization to the stylesheet. They could use some tweaking, but they show the general idea</li>
                 </ul>
-                 <div id="contentArea"></div>
-<div id="codeBlock"></div>
-<div id="buttonWrapper"></div>
+                 <div id="blockGrid">
+  <div id="codeBlock"></div>
+  <div id="contentArea"></div>
+  <div id="buttonWrapper"></div>
+</div>
   
             <h2>HTML</h2>
-            <pre><code class="language-html">&lt;div id=&quot;contentArea&quot;&gt;&lt;/div&gt;
-&lt;div id=&quot;codeBlock&quot;&gt;&lt;/div&gt;
-&lt;div id=&quot;buttonWrapper&quot;&gt;&lt;/div&gt;
+            <pre><code class="language-html">&lt;div id=&quot;blockGrid&quot;&gt;
+  &lt;div id=&quot;codeBlock&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;contentArea&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;buttonWrapper&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
 </code></pre>
              
             <h2>CSS</h2>
@@ -767,20 +792,23 @@ pre[class*=&#x27;language-&#x27;].line-numbers &gt; code {
 }
 
 #contentArea {
-  min-height: 12rem;
+  min-height: 20rem;
   background-color: #667;
   padding: 0.3rem;
   border-radius: 0.4rem;
-  margin-top: 1.4rem;
-  margin-bottom: 0.6rem;
+  margin-left: 0.6rem;
+}
+
+#codeCol {
+  margin: 0.6rem;
 }
 
 #codeBlock {
-  background-color: #566;
-  margin-top: 0.6rem;
-  margin-bottom: 0.6rem;
+  min-height: 20rem;
+  background-color: #000;
   border-radius: 0.4rem;
   padding: 0.7rem;
+  margin-right: 0.4rem;
 }
 
 .hideit {
@@ -788,11 +816,29 @@ pre[class*=&#x27;language-&#x27;].line-numbers &gt; code {
 }
 
 pre {
-  color: #aaa;
+  color: #667;
 }
 
 .activeButton {
-  background-color: #900;
+  background-color: #080;
+  font-weight: bold;
+}
+
+#blockGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#buttonWrapper {
+  margin-top: 0.8rem;
+}
+
+#nextSet {
+  margin-left: 0.6rem;
+}
+
+#previousSet {
+  margin-right: 0.6rem;
 }
 </code></pre>
             
