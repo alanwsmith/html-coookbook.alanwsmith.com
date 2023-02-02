@@ -32,23 +32,7 @@
     <link rel="stylesheet" href="/styles/prism-step-by-step-4.css" />
     
     <style>
-      .newLine {
-  background-color: #050;
-}
-
-.padLine {
-  background-color: #333;
-}
-
-.existingLine {
-  background-color: #333;
-}
-
-.codeLineWrapper {
-  background-color: #333;
-}
-
-.hideit {
+      .hideit {
   display: none;
 }
 
@@ -62,16 +46,30 @@ pre {
 }
 */
 
+/*
 pre {
   background-color: #000;
 }
+*/
 
+/*
 pre[class*='language-'] {
   background-color: #222;
 }
 
 pre[class*='language-rust'] {
-  background-color: #000;
+  background-color: #ccc;
+}
+*/
+
+pre {
+  color: #aaa;
+}
+
+.highlightCode {
+  /*
+  background-color: #333;
+  */
 }
 
     </style>
@@ -123,7 +121,11 @@ const s = {
 
 const lineSets = [
   {
-    lines: [`0_r`, `0_s`, `0_s`, `0_r`, `0_r`, `0_r`, `0_s`, `0_r`],
+    lines: [`0_s`, `0_s`, `0_s`, `0_s`, `0_s`, `0_s`, `0_s`, `0_s`],
+  },
+
+  {
+    lines: [`0_r`, `0_s`, `0_s`, `0_r`, `0_s`, `0_r`, `0_s`, `0_r`],
   },
 
   {
@@ -159,9 +161,15 @@ const log = (msg) => {
 //
 
 const handleNextButtonClick = () => {
-  console.log('Got Next Button Click')
   if (s.currentLineSet < lineSets.length - 1) {
     s.currentLineSet += 1
+  }
+  updateLines()
+}
+
+const handlePreviousButtonClick = () => {
+  if (s.currentLineSet > 0) {
+    s.currentLineSet -= 1
   }
   updateLines()
 }
@@ -170,11 +178,20 @@ const updateLines = () => {
   const codeLineMarkerEls = document.getElementsByClassName('codeLineMarker')
   for (let x = 0; x < codeLineMarkerEls.length; x++) {
     codeLineMarkerEls[x].classList.add('hideit')
+    codeLineMarkerEls[x].classList.remove('highlightCode')
   }
 
   for (let lineIndex = 0; lineIndex < s.sourceCode.length; lineIndex++) {
     const code = lineSets[s.currentLineSet].lines[lineIndex]
     window[`codeLine_${lineIndex}_${code}`].classList.remove('hideit')
+    console.log(s.currentLineSet)
+    if (s.currentLineSet > 0) {
+      console.log(s.currentLineSet)
+      const code_parts = code.split('_')
+      if (code_parts[1] === 'r') {
+        window[`codeLine_${lineIndex}_${code}`].classList.add('highlightCode')
+      }
+    }
   }
   //   s.lineMarkers[lineIndex] +=
   //     lineSets[s.currentLineSet].lineUpdates[lineIndex]
@@ -242,6 +259,7 @@ const init = () => {
   // prepLineMarkers()
   updateLines()
   window.nextSet.addEventListener('click', handleNextButtonClick)
+  window.previousSet.addEventListener('click', handlePreviousButtonClick)
 }
 
 document.addEventListener('DOMContentLoaded', init)
@@ -338,6 +356,7 @@ document.addEventListener('DOMContentLoaded', init)
       <h1>Step-By-Step Code Example Prototype 4</h1>
       <h2>EXAMPLE</h2>
       <div id="codeBlock"></div>
+<button id="previousSet">Previous</button>
 <button id="nextSet">Next</button>
  
                 <h2>Details</h2>
@@ -347,27 +366,12 @@ document.addEventListener('DOMContentLoaded', init)
                   
             <h2>HTML</h2>
             <pre><code class="language-html">&lt;div id=&quot;codeBlock&quot;&gt;&lt;/div&gt;
+&lt;button id=&quot;previousSet&quot;&gt;Previous&lt;/button&gt;
 &lt;button id=&quot;nextSet&quot;&gt;Next&lt;/button&gt;
 </code></pre>
              
             <h2>CSS</h2>
-            <pre><code class="language-css">.newLine {
-  background-color: #050;
-}
-
-.padLine {
-  background-color: #333;
-}
-
-.existingLine {
-  background-color: #333;
-}
-
-.codeLineWrapper {
-  background-color: #333;
-}
-
-.hideit {
+            <pre><code class="language-css">.hideit {
   display: none;
 }
 
@@ -381,16 +385,30 @@ pre {
 }
 */
 
+/*
 pre {
   background-color: #000;
 }
+*/
 
+/*
 pre[class*=&#x27;language-&#x27;] {
   background-color: #222;
 }
 
 pre[class*=&#x27;language-rust&#x27;] {
-  background-color: #000;
+  background-color: #ccc;
+}
+*/
+
+pre {
+  color: #aaa;
+}
+
+.highlightCode {
+  /*
+  background-color: #333;
+  */
 }
 </code></pre>
             
@@ -443,7 +461,11 @@ const s = {
 
 const lineSets = [
   {
-    lines: [`0_r`, `0_s`, `0_s`, `0_r`, `0_r`, `0_r`, `0_s`, `0_r`],
+    lines: [`0_s`, `0_s`, `0_s`, `0_s`, `0_s`, `0_s`, `0_s`, `0_s`],
+  },
+
+  {
+    lines: [`0_r`, `0_s`, `0_s`, `0_r`, `0_s`, `0_r`, `0_s`, `0_r`],
   },
 
   {
@@ -479,9 +501,15 @@ const log = (msg) =&gt; {
 //
 
 const handleNextButtonClick = () =&gt; {
-  console.log(&#x27;Got Next Button Click&#x27;)
   if (s.currentLineSet &lt; lineSets.length - 1) {
     s.currentLineSet += 1
+  }
+  updateLines()
+}
+
+const handlePreviousButtonClick = () =&gt; {
+  if (s.currentLineSet &gt; 0) {
+    s.currentLineSet -= 1
   }
   updateLines()
 }
@@ -490,11 +518,20 @@ const updateLines = () =&gt; {
   const codeLineMarkerEls = document.getElementsByClassName(&#x27;codeLineMarker&#x27;)
   for (let x = 0; x &lt; codeLineMarkerEls.length; x++) {
     codeLineMarkerEls[x].classList.add(&#x27;hideit&#x27;)
+    codeLineMarkerEls[x].classList.remove(&#x27;highlightCode&#x27;)
   }
 
   for (let lineIndex = 0; lineIndex &lt; s.sourceCode.length; lineIndex++) {
     const code = lineSets[s.currentLineSet].lines[lineIndex]
     window[`codeLine_${lineIndex}_${code}`].classList.remove(&#x27;hideit&#x27;)
+    console.log(s.currentLineSet)
+    if (s.currentLineSet &gt; 0) {
+      console.log(s.currentLineSet)
+      const code_parts = code.split(&#x27;_&#x27;)
+      if (code_parts[1] === &#x27;r&#x27;) {
+        window[`codeLine_${lineIndex}_${code}`].classList.add(&#x27;highlightCode&#x27;)
+      }
+    }
   }
   //   s.lineMarkers[lineIndex] +=
   //     lineSets[s.currentLineSet].lineUpdates[lineIndex]
@@ -562,6 +599,7 @@ const init = () =&gt; {
   // prepLineMarkers()
   updateLines()
   window.nextSet.addEventListener(&#x27;click&#x27;, handleNextButtonClick)
+  window.previousSet.addEventListener(&#x27;click&#x27;, handlePreviousButtonClick)
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)

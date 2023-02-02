@@ -45,7 +45,11 @@ const s = {
 
 const lineSets = [
   {
-    lines: [`0_r`, `0_s`, `0_s`, `0_r`, `0_r`, `0_r`, `0_s`, `0_r`],
+    lines: [`0_s`, `0_s`, `0_s`, `0_s`, `0_s`, `0_s`, `0_s`, `0_s`],
+  },
+
+  {
+    lines: [`0_r`, `0_s`, `0_s`, `0_r`, `0_s`, `0_r`, `0_s`, `0_r`],
   },
 
   {
@@ -81,9 +85,15 @@ const log = (msg) => {
 //
 
 const handleNextButtonClick = () => {
-  console.log('Got Next Button Click')
   if (s.currentLineSet < lineSets.length - 1) {
     s.currentLineSet += 1
+  }
+  updateLines()
+}
+
+const handlePreviousButtonClick = () => {
+  if (s.currentLineSet > 0) {
+    s.currentLineSet -= 1
   }
   updateLines()
 }
@@ -92,11 +102,20 @@ const updateLines = () => {
   const codeLineMarkerEls = document.getElementsByClassName('codeLineMarker')
   for (let x = 0; x < codeLineMarkerEls.length; x++) {
     codeLineMarkerEls[x].classList.add('hideit')
+    codeLineMarkerEls[x].classList.remove('highlightCode')
   }
 
   for (let lineIndex = 0; lineIndex < s.sourceCode.length; lineIndex++) {
     const code = lineSets[s.currentLineSet].lines[lineIndex]
     window[`codeLine_${lineIndex}_${code}`].classList.remove('hideit')
+    console.log(s.currentLineSet)
+    if (s.currentLineSet > 0) {
+      console.log(s.currentLineSet)
+      const code_parts = code.split('_')
+      if (code_parts[1] === 'r') {
+        window[`codeLine_${lineIndex}_${code}`].classList.add('highlightCode')
+      }
+    }
   }
   //   s.lineMarkers[lineIndex] +=
   //     lineSets[s.currentLineSet].lineUpdates[lineIndex]
@@ -164,6 +183,7 @@ const init = () => {
   // prepLineMarkers()
   updateLines()
   window.nextSet.addEventListener('click', handleNextButtonClick)
+  window.previousSet.addEventListener('click', handlePreviousButtonClick)
 }
 
 document.addEventListener('DOMContentLoaded', init)
