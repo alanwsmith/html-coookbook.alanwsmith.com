@@ -1,11 +1,22 @@
 const rawSourceCode = `fn main() {
-  println!("here"); //   println!(<code class="language-rust">&quot;there&quot;</code>); //   println!(&quot;there&quot;);
-  widget();
+  let alfa = String::from("apple");
+  println!("alfa is {alfa}");
+
+  show_value(&alfa);
+  println!("alfa is {alfa}");
 }
 
-fn widget() { 
-  println!("there");
+fn show_value(param: &String) { // fn show_value() { // fn show_value<code class="language-rust">(param: &String)</code> {
+  println!("show_value got {param}");
 }`.split('\n')
+
+// const rawSourceCode = `fn main() {
+//   println!("here"); //   println!(<code class="language-rust">&quot;there&quot;</code>); //   println!(&quot;there&quot;);
+//   widget();
+// }
+// fn widget() {
+//   println!("there");
+// }`.split('\n')
 
 // const sourceCodeLines = []
 // rawSourceCode.forEach((rawLine) => {
@@ -45,31 +56,135 @@ const s = {
 
 const lineSets = [
   {
-    lines: [`0_s`, `0_s`, `0_s`, `0_s`, `0_s`, `0_s`, `0_s`, `0_s`],
+    lines: [],
   },
 
   {
-    lines: [`0_r`, `0_s`, `0_s`, `0_r`, `0_s`, `0_r`, `0_s`, `0_r`],
+    lines: [
+      `0_r`,
+      `0_s`,
+      `0_s`,
+      `0_s`,
+      `0_s`,
+      `0_s`,
+      `0_r`,
+      `0_s`,
+      `1_r`,
+      `0_s`,
+      `0_r`,
+    ],
   },
 
   {
-    lines: [`0_c`, `0_r`, `0_s`, `0_c`, `0_c`, `0_c`, `0_s`, `0_c`],
+    lines: [
+      `0_c`,
+      `0_r`,
+      `0_s`,
+      `0_s`,
+      `0_s`,
+      `0_s`,
+      `0_c`,
+      `0_s`,
+      `1_c`,
+      `0_s`,
+      `0_c`,
+    ],
   },
 
   {
-    lines: [`0_c`, `0_c`, `0_r`, `0_c`, `0_c`, `0_c`, `0_s`, `0_c`],
+    lines: [
+      `0_c`,
+      `0_c`,
+      `0_r`,
+      `0_s`,
+      `0_s`,
+      `0_s`,
+      `0_c`,
+      `0_s`,
+      `1_c`,
+      `0_s`,
+      `0_c`,
+    ],
   },
 
   {
-    lines: [`0_c`, `0_c`, `0_c`, `0_c`, `0_c`, `0_c`, `0_r`, `0_c`],
+    lines: [
+      `0_c`,
+      `0_c`,
+      `0_c`,
+      `0_s`,
+      `0_s`,
+      `0_s`,
+      `0_c`,
+      `0_s`,
+      `2_c`,
+      `0_s`,
+      `0_c`,
+    ],
   },
 
   {
-    lines: [`0_c`, `1_c`, `0_c`, `0_c`, `0_c`, `0_c`, `0_c`, `0_c`],
+    lines: [
+      `0_c`,
+      `0_c`,
+      `0_c`,
+      `0_s`,
+      `0_s`,
+      `0_s`,
+      `0_c`,
+      `0_s`,
+      `0_c`,
+      `0_r`,
+      `0_c`,
+    ],
   },
 
   {
-    lines: [`0_c`, `2_c`, `0_c`, `0_c`, `0_c`, `0_c`, `0_c`, `0_c`],
+    lines: [
+      `0_c`,
+      `0_c`,
+      `0_c`,
+      `0_s`,
+      `0_r`,
+      `0_s`,
+      `0_c`,
+      `0_s`,
+      `0_c`,
+      `0_c`,
+      `0_c`,
+    ],
+  },
+
+  {
+    lines: [
+      `0_c`,
+      `0_c`,
+      `0_c`,
+      `0_s`,
+      `0_c`,
+      `0_r`,
+      `0_c`,
+      `0_s`,
+      `0_c`,
+      `0_c`,
+      `0_c`,
+    ],
+  },
+
+  {
+    lines: [
+      `0_c`,
+      `0_c`,
+      `0_c`,
+      `0_s`,
+      `0_c`,
+      `0_c`,
+      `0_c`,
+      `0_s`,
+      `0_c`,
+      `0_c`,
+      `0_c`,
+    ],
   },
 ]
 
@@ -184,7 +299,7 @@ const handleNumberButtonClick = (event) => {
 const addButtons = () => {
   const buttonWrapperEl = document.createElement('div')
   buttonWrapperEl.id = 'buttonWrapper'
-  for (let lineIndex = 1; lineIndex < s.sourceCode.length - 2; lineIndex++) {
+  for (let lineIndex = 1; lineIndex < lineSets.length - 1; lineIndex++) {
     const newButtonEl = document.createElement('button')
     newButtonEl.innerHTML = lineIndex
     newButtonEl.id = `stepButton_${lineIndex}`
@@ -194,7 +309,7 @@ const addButtons = () => {
 
   const newButtonEl = document.createElement('button')
   newButtonEl.innerHTML = `Final`
-  newButtonEl.id = `stepButton_${s.sourceCode.length - 2}`
+  newButtonEl.id = `stepButton_${lineSets.length - 1}`
   buttonWrapperEl.appendChild(newButtonEl)
   newButtonEl.addEventListener('click', handleNumberButtonClick)
 
