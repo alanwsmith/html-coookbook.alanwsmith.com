@@ -18,10 +18,24 @@
   display: none;
 }
 
+/*
 pre {
   background: #272822;
   line-height: 2rem;
   font-weight: 700;
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   font-size: 1.1rem;
+}
+*/
+
+pre {
+  background-color: #667;
+}
+
+pre[class*='language-'] {
+  background-color: #222;
+}
+
+pre[class*='language-rust'] {
+  background-color: #999;
 }

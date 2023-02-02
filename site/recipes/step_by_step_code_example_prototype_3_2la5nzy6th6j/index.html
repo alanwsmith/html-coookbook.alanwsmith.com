@@ -52,12 +52,26 @@
   display: none;
 }
 
+/*
 pre {
   background: #272822;
   line-height: 2rem;
   font-weight: 700;
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   font-size: 1.1rem;
+}
+*/
+
+pre {
+  background-color: #667;
+}
+
+pre[class*='language-'] {
+  background-color: #222;
+}
+
+pre[class*='language-rust'] {
+  background-color: #999;
 }
 
     </style>
@@ -71,9 +85,32 @@ const lineSets = [
     lines: [1, 0, 0, 0, 1, 1, 1, 0, 1],
   },
   {
-    lines: [1, 1, 0, 0, 1, 0, 1, 0, 1],
+    lines: [2, 1, 1, 1, 2, 2, 2, 1, 2],
+  },
+  {
+    lines: [2, 2, 2, 1, 2, 2, 2, 1, 2],
+  },
+  {
+    lines: [2, 2, 3, 1, 2, 2, 3, 1, 2],
+  },
+  {
+    lines: [2, 2, 3, 1, 2, 2, 4, 2, 2],
+  },
+  {
+    lines: [2, 2, 3, 2, 2, 2, 4, 3, 2],
+  },
+  {
+    lines: [2, 2, 3, 3, 2, 2, 4, 3, 2],
   },
 ]
+
+const handleNextButtonClick = () => {
+  console.log('Got Next Button Click')
+  if (s.currentLineSet < lineSets.length - 1) {
+    s.currentLineSet += 1
+  }
+  updateLines()
+}
 
 const updateLines = () => {
   const lineDivs = []
@@ -122,7 +159,7 @@ const updateLines = () => {
 }
 
 const init = () => {
-  // window.nextView.addEventListener('click', handleNextButtonClick)
+  window.nextView.addEventListener('click', handleNextButtonClick)
   updateLines()
 }
 
@@ -158,13 +195,17 @@ document.addEventListener('DOMContentLoaded', init)
   </div>
   <div>
     <pre class="language-rust"><code> </code></pre>
+    <pre class="hideit"><code> </code></pre>
     <pre class="language-rust hideit"><code>  widget(&mut alfa);</code></pre>
+    <pre class="hideit"><code>  widget(&mut alfa);</code></pre>
   </div>
   <div>
     <pre class="language-rust"><code> </code></pre>
+    <pre class="hideit"><code> </code></pre>
     <pre
       class="language-rust hideit"
     ><code>  println!("alfa is {alfa}");</code></pre>
+    <pre class="hideit"><code>  println!("alfa is {alfa}");</code></pre>
   </div>
   <div>
     <pre class="language-rust"><code> </code></pre>
@@ -174,11 +215,12 @@ document.addEventListener('DOMContentLoaded', init)
   <div>
     <pre class="language-rust"><code> </code></pre>
     <pre class="language-rust hideit"><code> </code></pre>
+    <pre class="hideit"><code> </code></pre>
   </div>
   <div>
     <pre class="language-rust"><code> </code></pre>
     <pre class="language-rust hideit"><code>fn widget() {</code></pre>
-    <pre class="hideit"><code>fn widget() {</code></pre>
+    <pre class="hisdeit"><code>fn widget() {</code></pre>
     <pre
       class="language-rust hideit"
     ><code>fn widget(thing: &mut String) {</code></pre>
@@ -186,9 +228,11 @@ document.addEventListener('DOMContentLoaded', init)
   </div>
   <div>
     <pre class="language-rust"><code> </code></pre>
+    <pre class="hideit"><code> </code></pre>
     <pre
       class="language-rust hideit"
     ><code>  thing.push_str("pie");</code></pre>
+    <pre class="hideit"><code>  thing.push_str("pie");</code></pre>
   </div>
   <div>
     <pre class="language-rust"><code> </code></pre>
@@ -222,13 +266,17 @@ document.addEventListener('DOMContentLoaded', init)
   &lt;/div&gt;
   &lt;div&gt;
     &lt;pre class=&quot;language-rust&quot;&gt;&lt;code&gt; &lt;/code&gt;&lt;/pre&gt;
+    &lt;pre class=&quot;hideit&quot;&gt;&lt;code&gt; &lt;/code&gt;&lt;/pre&gt;
     &lt;pre class=&quot;language-rust hideit&quot;&gt;&lt;code&gt;  widget(&amp;mut alfa);&lt;/code&gt;&lt;/pre&gt;
+    &lt;pre class=&quot;hideit&quot;&gt;&lt;code&gt;  widget(&amp;mut alfa);&lt;/code&gt;&lt;/pre&gt;
   &lt;/div&gt;
   &lt;div&gt;
     &lt;pre class=&quot;language-rust&quot;&gt;&lt;code&gt; &lt;/code&gt;&lt;/pre&gt;
+    &lt;pre class=&quot;hideit&quot;&gt;&lt;code&gt; &lt;/code&gt;&lt;/pre&gt;
     &lt;pre
       class=&quot;language-rust hideit&quot;
     &gt;&lt;code&gt;  println!(&quot;alfa is {alfa}&quot;);&lt;/code&gt;&lt;/pre&gt;
+    &lt;pre class=&quot;hideit&quot;&gt;&lt;code&gt;  println!(&quot;alfa is {alfa}&quot;);&lt;/code&gt;&lt;/pre&gt;
   &lt;/div&gt;
   &lt;div&gt;
     &lt;pre class=&quot;language-rust&quot;&gt;&lt;code&gt; &lt;/code&gt;&lt;/pre&gt;
@@ -238,11 +286,12 @@ document.addEventListener('DOMContentLoaded', init)
   &lt;div&gt;
     &lt;pre class=&quot;language-rust&quot;&gt;&lt;code&gt; &lt;/code&gt;&lt;/pre&gt;
     &lt;pre class=&quot;language-rust hideit&quot;&gt;&lt;code&gt; &lt;/code&gt;&lt;/pre&gt;
+    &lt;pre class=&quot;hideit&quot;&gt;&lt;code&gt; &lt;/code&gt;&lt;/pre&gt;
   &lt;/div&gt;
   &lt;div&gt;
     &lt;pre class=&quot;language-rust&quot;&gt;&lt;code&gt; &lt;/code&gt;&lt;/pre&gt;
     &lt;pre class=&quot;language-rust hideit&quot;&gt;&lt;code&gt;fn widget() {&lt;/code&gt;&lt;/pre&gt;
-    &lt;pre class=&quot;hideit&quot;&gt;&lt;code&gt;fn widget() {&lt;/code&gt;&lt;/pre&gt;
+    &lt;pre class=&quot;hisdeit&quot;&gt;&lt;code&gt;fn widget() {&lt;/code&gt;&lt;/pre&gt;
     &lt;pre
       class=&quot;language-rust hideit&quot;
     &gt;&lt;code&gt;fn widget(thing: &amp;mut String) {&lt;/code&gt;&lt;/pre&gt;
@@ -250,9 +299,11 @@ document.addEventListener('DOMContentLoaded', init)
   &lt;/div&gt;
   &lt;div&gt;
     &lt;pre class=&quot;language-rust&quot;&gt;&lt;code&gt; &lt;/code&gt;&lt;/pre&gt;
+    &lt;pre class=&quot;hideit&quot;&gt;&lt;code&gt; &lt;/code&gt;&lt;/pre&gt;
     &lt;pre
       class=&quot;language-rust hideit&quot;
     &gt;&lt;code&gt;  thing.push_str(&quot;pie&quot;);&lt;/code&gt;&lt;/pre&gt;
+    &lt;pre class=&quot;hideit&quot;&gt;&lt;code&gt;  thing.push_str(&quot;pie&quot;);&lt;/code&gt;&lt;/pre&gt;
   &lt;/div&gt;
   &lt;div&gt;
     &lt;pre class=&quot;language-rust&quot;&gt;&lt;code&gt; &lt;/code&gt;&lt;/pre&gt;
@@ -285,12 +336,26 @@ document.addEventListener('DOMContentLoaded', init)
   display: none;
 }
 
+/*
 pre {
   background: #272822;
   line-height: 2rem;
   font-weight: 700;
   font-family: Consolas, Monaco, &#x27;Andale Mono&#x27;, &#x27;Ubuntu Mono&#x27;, monospace;
   font-size: 1.1rem;
+}
+*/
+
+pre {
+  background-color: #667;
+}
+
+pre[class*=&#x27;language-&#x27;] {
+  background-color: #222;
+}
+
+pre[class*=&#x27;language-rust&#x27;] {
+  background-color: #999;
 }
 </code></pre>
             
@@ -305,9 +370,32 @@ const lineSets = [
     lines: [1, 0, 0, 0, 1, 1, 1, 0, 1],
   },
   {
-    lines: [1, 1, 0, 0, 1, 0, 1, 0, 1],
+    lines: [2, 1, 1, 1, 2, 2, 2, 1, 2],
+  },
+  {
+    lines: [2, 2, 2, 1, 2, 2, 2, 1, 2],
+  },
+  {
+    lines: [2, 2, 3, 1, 2, 2, 3, 1, 2],
+  },
+  {
+    lines: [2, 2, 3, 1, 2, 2, 4, 2, 2],
+  },
+  {
+    lines: [2, 2, 3, 2, 2, 2, 4, 3, 2],
+  },
+  {
+    lines: [2, 2, 3, 3, 2, 2, 4, 3, 2],
   },
 ]
+
+const handleNextButtonClick = () =&gt; {
+  console.log(&#x27;Got Next Button Click&#x27;)
+  if (s.currentLineSet &lt; lineSets.length - 1) {
+    s.currentLineSet += 1
+  }
+  updateLines()
+}
 
 const updateLines = () =&gt; {
   const lineDivs = []
@@ -356,7 +444,7 @@ const updateLines = () =&gt; {
 }
 
 const init = () =&gt; {
-  // window.nextView.addEventListener(&#x27;click&#x27;, handleNextButtonClick)
+  window.nextView.addEventListener(&#x27;click&#x27;, handleNextButtonClick)
   updateLines()
 }
 

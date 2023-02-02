@@ -7,9 +7,32 @@ const lineSets = [
     lines: [1, 0, 0, 0, 1, 1, 1, 0, 1],
   },
   {
-    lines: [1, 1, 0, 0, 1, 0, 1, 0, 1],
+    lines: [2, 1, 1, 1, 2, 2, 2, 1, 2],
+  },
+  {
+    lines: [2, 2, 2, 1, 2, 2, 2, 1, 2],
+  },
+  {
+    lines: [2, 2, 3, 1, 2, 2, 3, 1, 2],
+  },
+  {
+    lines: [2, 2, 3, 1, 2, 2, 4, 2, 2],
+  },
+  {
+    lines: [2, 2, 3, 2, 2, 2, 4, 3, 2],
+  },
+  {
+    lines: [2, 2, 3, 3, 2, 2, 4, 3, 2],
   },
 ]
+
+const handleNextButtonClick = () => {
+  console.log('Got Next Button Click')
+  if (s.currentLineSet < lineSets.length - 1) {
+    s.currentLineSet += 1
+  }
+  updateLines()
+}
 
 const updateLines = () => {
   const lineDivs = []
@@ -58,7 +81,7 @@ const updateLines = () => {
 }
 
 const init = () => {
-  // window.nextView.addEventListener('click', handleNextButtonClick)
+  window.nextView.addEventListener('click', handleNextButtonClick)
   updateLines()
 }
 
