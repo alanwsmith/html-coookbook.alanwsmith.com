@@ -1,9 +1,122 @@
+const rawSourceCode = `fn main() {
+  println!("here"); //   println!(<code class="language-rust">&quot;there&quot;</code>); //   println!(&quot;there&quot;);
+  widget();
+}
+
+fn widget() { 
+  println!("there");
+}`.split('\n')
+
+// const sourceCodeLines = []
+// rawSourceCode.forEach((rawLine) => {
+//   // add an empty slot for empty
+//   // stuff on the first render
+//   sourceCodeLines.push(['', rawLine])
+// })
+
+/*
+const sourceCode = `fn main() {
+  println!("here");
+  widget();
+}
+
+fn widget() {
+  println!("there");
+}`.split('\n')
+*/
+
+const loadSourceCode = () => {
+  s.sourceCode = []
+
+  rawSourceCode.forEach((rawLine) => {
+    const lineSplit = rawLine.split(' // ')
+    // add an empty slot for empty
+    // stuff on the first render
+    s.sourceCode.push([...lineSplit])
+  })
+
+  // console.log(s.sourceCode)
+}
+
 const s = {
-  currentLineSet: 0,
+  currentLineSet: 1,
+  lineMarkers: [],
+}
+
+const lineSets = [
+  {
+    status: [0, 0, 0, 0, 0, 0, 0, 0],
+  },
+  {
+    status: [1, 0, 0, 1, 1, 1, 0, 1],
+  },
+]
+
+const log = (msg) => {
+  console.log(msg)
+}
+
+// const prepLineMarkers = () => {
+//   sourceCode.forEach(() => {
+//     s.lineMarkers.push(0)
+//   })
+// }
+
+const updateLines = () => {
+  // for (let lineIndex = 0; lineIndex < sourceCode.length; lineIndex++) {
+  //   s.lineMarkers[lineIndex] +=
+  //     lineSets[s.currentLineSet].lineUpdates[lineIndex]
+  // }
+  // for (let lineIndex = 0; lineIndex < sourceCode.length; lineIndex++) {
+  //   window[`preLine${lineIndex}`].innerHTML =
+  //     s.sourceCode[lineIndex][s.lineMarkers[lineIndex]]
+  // }
+}
+
+const makePreLines = () => {
+  for (let lineIndex = 0; lineIndex < s.sourceCode.length; lineIndex++) {
+    const codeLineEl = document.createElement('div')
+    codeLineEl.id = `codeLineWrapper${lineIndex}`
+    window.codeBlock.appendChild(codeLineEl)
+  }
+}
+
+const makeBaseLines = () => {
+  s.sourceCode.forEach((sourceLineBatch, batchIndex) => {
+    sourceLineBatch.forEach((sourceLine, lineIndex) => {
+      const newLineRust = document.createElement('pre')
+      newLineRust.classList.add('language-rust')
+      newLineRust.id = `codeLine_${batchIndex}_${lineIndex}_rust`
+      newLineRust.innerHTML = `<code>${sourceLine}</code> `
+      window[`codeLineWrapper${batchIndex}`].appendChild(newLineRust)
+
+      // const newLinePlain = document.createElement('pre')
+      // newLinePlain.id = `codeLine_${batchIndex}_${lineIndex}_plain`
+      // newLinePlain.innerHTML = `<code>${sourceLine}</code> `
+      // window[`codeLineWrapper${batchIndex}`].appendChild(newLinePlain)
+
+      const newLineCustom = document.createElement('pre')
+      newLineCustom.id = `codeLine_${batchIndex}_${lineIndex}_custom`
+      newLineCustom.innerHTML = `${sourceLine} `
+      window[`codeLineWrapper${batchIndex}`].appendChild(newLineCustom)
+    })
+  })
+
+  for (let lineIndex = 0; lineIndex < s.sourceCode.length; lineIndex++) {
+    // const lineStatus = lineSets[s.currentLineSet].status[lineIndex]
+    // log(lineStatus)
+    // window[
+    //   `codeLine${lineIndex}`
+    // ].innerHTML = `<pre><code class="language-rust">${s.sourceCode[lineIndex][lineStatus]}</code> </pre>`
+  }
 }
 
 const init = () => {
-  console.log('init')
+  loadSourceCode()
+  makePreLines()
+  makeBaseLines()
+  // prepLineMarkers()
+  // updateLines()
 }
 
 document.addEventListener('DOMContentLoaded', init)
