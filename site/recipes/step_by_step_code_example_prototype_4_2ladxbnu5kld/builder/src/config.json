@@ -1,15 +1,13 @@
 {
   "TITLE": "Step-By-Step Code Example Prototype 4",
-  "STATUS": "draft",
+  "STATUS": "published",
   "DESCRIPTION": "",
-  "DETAILS": ["Working on an idea for doing code examples for tutorials"],
+  "DETAILS": [
+    "This is a prototype of an idea for making step-by-step code examples",
+    "The currently added lines have syntax highlighting. Lines that existed in the prior step aren't",
+    "Syntax highlighting comes from Prism with some customization to the stylesheet."
+  ],
   "NOTES": [],
   "TODOS": [],
-  "REFERENCES": [
-    {
-      "title": "",
-      "url": "",
-      "extra": ""
-    }
-  ]
+  "REFERENCES": []
 }

@@ -29,47 +29,260 @@
     <link rel="stylesheet" href="/styles/fonts.css" />
     <link rel="stylesheet" href="/styles/colors.css" />
     <link rel="stylesheet" href="/styles/wrapper.css" />
-    <link rel="stylesheet" href="/styles/prism-step-by-step-4.css" />
     
     <style>
-      .hideit {
+      /* PrismJS 1.29.0
+https://prismjs.com/download.html#themes=prism-okaidia&languages=markup+css+clike+javascript+applescript+bash+css-extras+go+jq+json+lisp+lua+makefile+markdown+nginx+perl+python+jsx+tsx+regex+ruby+rust+shell-session+sql+typescript+vim+wasm+yaml&plugins=line-highlight+line-numbers+file-highlight+highlight-keywords+remove-initial-line-feed */
+code[class*='language-'],
+pre[class*='language-'] {
+  color: #f8f8f2;
+  /*
+  background: 0 0;
+  */
+  text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  /*
+  line-height: 1.5;
+  */
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+pre[class*='language-'] {
+  /*
+  padding: 1em;
+  margin: 0.5em 0;
+  */
+  overflow: auto;
+  /*
+  border-radius: 0.3em;
+  */
+}
+:not(pre) > code[class*='language-'],
+pre[class*='language-'] {
+  /*
+  background: #272822;
+  */
+}
+:not(pre) > code[class*='language-'] {
+  /*
+  padding: 0.1em;
+  border-radius: 0.3em;
+  */
+  white-space: normal;
+}
+.token.cdata,
+.token.comment,
+.token.doctype,
+.token.prolog {
+  color: #8292a2;
+}
+.token.punctuation {
+  color: #f8f8f2;
+}
+.token.namespace {
+  opacity: 0.7;
+}
+.token.constant,
+.token.deleted,
+.token.property,
+.token.symbol,
+.token.tag {
+  color: #f92672;
+}
+.token.boolean,
+.token.number {
+  color: #ae81ff;
+}
+.token.attr-name,
+.token.builtin,
+.token.char,
+.token.inserted,
+.token.selector,
+.token.string {
+  color: #a6e22e;
+}
+.language-css .token.string,
+.style .token.string,
+.token.entity,
+.token.operator,
+.token.url,
+.token.variable {
+  color: #f8f8f2;
+}
+.token.atrule,
+.token.attr-value,
+.token.class-name,
+.token.function {
+  color: #e6db74;
+}
+.token.keyword {
+  color: #66d9ef;
+}
+.token.important,
+.token.regex {
+  color: #fd971f;
+}
+.token.bold,
+.token.important {
+  font-weight: 700;
+}
+.token.italic {
+  font-style: italic;
+}
+.token.entity {
+  cursor: help;
+}
+pre[data-line] {
+  position: relative;
+  /*
+  padding: 1em 0 1em 3em;
+  */
+}
+.line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  /*
+  padding: inherit 0;
+  margin-top: 1em;
+
+  background: hsla(24, 20%, 50%, 0.08);
+  background: linear-gradient(
+    to right,
+    hsla(24, 20%, 50%, 0.1) 70%,
+    hsla(24, 20%, 50%, 0)
+  );
+  */
+  pointer-events: none;
+  /*
+  line-height: inherit;
+  */
+  white-space: pre;
+}
+@media print {
+  .line-highlight {
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+  }
+}
+.line-highlight:before,
+.line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: 0.4em;
+  left: 0.6em;
+  min-width: 1em;
+  /*
+  padding: 0 0.5em;
+  background-color: hsla(24, 20%, 50%, 0.4);
+  */
+  color: #f4f1ef;
+  text-align: center;
+  vertical-align: 0.3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px #fff;
+}
+.line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  /*
+  bottom: 0.4em;
+  */
+}
+.line-numbers .line-highlight:after,
+.line-numbers .line-highlight:before {
+  content: none;
+}
+pre[id].linkable-line-numbers span.line-numbers-rows {
+  pointer-events: all;
+}
+pre[id].linkable-line-numbers span.line-numbers-rows > span:before {
+  cursor: pointer;
+}
+pre[id].linkable-line-numbers span.line-numbers-rows > span:hover:before {
+  /*
+  background-color: rgba(128, 128, 128, 0.2);
+  */
+}
+pre[class*='language-'].line-numbers {
+  position: relative;
+  /*
+  padding-left: 3.8em;
+  */
+  counter-reset: linenumber;
+}
+pre[class*='language-'].line-numbers > code {
+  position: relative;
+  white-space: inherit;
+}
+.line-numbers .line-numbers-rows {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  /*
+  font-size: 100%;
+  */
+  left: -3.8em;
+  width: 3em;
+  letter-spacing: -1px;
+  border-right: 1px solid #999;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.line-numbers-rows > span {
+  display: block;
+  counter-increment: linenumber;
+}
+.line-numbers-rows > span:before {
+  content: counter(linenumber);
+  color: #999;
+  display: block;
+  /*
+  padding-right: 0.8em;
+  */
+  text-align: right;
+}
+
+#contentArea {
+  min-height: 12rem;
+  background-color: #667;
+  padding: 0.3rem;
+  border-radius: 0.4rem;
+  margin-top: 1.4rem;
+  margin-bottom: 0.6rem;
+}
+
+#codeBlock {
+  background-color: #566;
+  margin-top: 0.6rem;
+  margin-bottom: 0.6rem;
+  border-radius: 0.4rem;
+  padding: 0.7rem;
+}
+
+.hideit {
   display: none;
 }
-
-/*
-pre {
-  background: #272822;
-  line-height: 2rem;
-  font-weight: 700;
-  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-  font-size: 1.1rem;
-}
-*/
-
-/*
-pre {
-  background-color: #000;
-}
-*/
-
-/*
-pre[class*='language-'] {
-  background-color: #222;
-}
-
-pre[class*='language-rust'] {
-  background-color: #ccc;
-}
-*/
 
 pre {
   color: #aaa;
 }
 
-.highlightCode {
-  /*
-  background-color: #333;
-  */
+.activeButton {
+  background-color: #900;
 }
 
     </style>
@@ -171,6 +384,7 @@ const handleNextButtonClick = () => {
     s.currentLineSet += 1
   }
   updateLines()
+  updateButtons()
 }
 
 const handlePreviousButtonClick = () => {
@@ -178,6 +392,7 @@ const handlePreviousButtonClick = () => {
     s.currentLineSet -= 1
   }
   updateLines()
+  updateButtons()
 }
 
 const updateLines = () => {
@@ -197,8 +412,17 @@ const updateLines = () => {
       }
     }
   }
-
   window.contentArea.innerHTML = lineSets[s.currentLineSet].text
+}
+
+const updateButtons = () => {
+  for (let lineSetIndex = 1; lineSetIndex < lineSets.length; lineSetIndex++) {
+    if (s.currentLineSet === lineSetIndex) {
+      window[`stepButton_${lineSetIndex}`].classList.add('activeButton')
+    } else {
+      window[`stepButton_${lineSetIndex}`].classList.remove('activeButton')
+    }
+  }
 }
 
 const makePreLines = () => {
@@ -241,6 +465,7 @@ const makeBaseLines = () => {
 const handleNumberButtonClick = (event) => {
   s.currentLineSet = parseInt(event.target.id.split('_')[1])
   updateLines()
+  updateButtons()
 }
 
 const addButtons = () => {
@@ -264,6 +489,7 @@ const init = () => {
   makeBaseLines()
   updateLines()
   addButtons()
+  updateButtons()
   window.nextSet.addEventListener('click', handleNextButtonClick)
   window.previousSet.addEventListener('click', handlePreviousButtonClick)
 }
@@ -282,18 +508,17 @@ document.addEventListener('DOMContentLoaded', init)
     </header>
     <main>
       <h1>Step-By-Step Code Example Prototype 4</h1>
-      <h2>EXAMPLE</h2>
-      <div id="contentArea"></div>
+      
+                <h2>Details</h2>
+                <ul>
+                    <li>This is a prototype of an idea for making step-by-step code examples</li> <li>The currently added lines have syntax highlighting. Lines that existed in the prior step aren't</li> <li>Syntax highlighting comes from Prism with some customization to the stylesheet.</li>
+                </ul>
+                 <div id="contentArea"></div>
 <div id="codeBlock"></div>
 <div id="buttonWrapper"></div>
 <button id="previousSet">Previous</button>
 <button id="nextSet">Next</button>
- 
-                <h2>Details</h2>
-                <ul>
-                    <li>Working on an idea for doing code examples for tutorials</li>
-                </ul>
-                  
+  
             <h2>HTML</h2>
             <pre><code class="language-html">&lt;div id=&quot;contentArea&quot;&gt;&lt;/div&gt;
 &lt;div id=&quot;codeBlock&quot;&gt;&lt;/div&gt;
@@ -303,44 +528,258 @@ document.addEventListener('DOMContentLoaded', init)
 </code></pre>
              
             <h2>CSS</h2>
-            <pre><code class="language-css">.hideit {
+            <pre><code class="language-css">/* PrismJS 1.29.0
+https://prismjs.com/download.html#themes=prism-okaidia&amp;languages=markup+css+clike+javascript+applescript+bash+css-extras+go+jq+json+lisp+lua+makefile+markdown+nginx+perl+python+jsx+tsx+regex+ruby+rust+shell-session+sql+typescript+vim+wasm+yaml&amp;plugins=line-highlight+line-numbers+file-highlight+highlight-keywords+remove-initial-line-feed */
+code[class*=&#x27;language-&#x27;],
+pre[class*=&#x27;language-&#x27;] {
+  color: #f8f8f2;
+  /*
+  background: 0 0;
+  */
+  text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  /*
+  line-height: 1.5;
+  */
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+pre[class*=&#x27;language-&#x27;] {
+  /*
+  padding: 1em;
+  margin: 0.5em 0;
+  */
+  overflow: auto;
+  /*
+  border-radius: 0.3em;
+  */
+}
+:not(pre) &gt; code[class*=&#x27;language-&#x27;],
+pre[class*=&#x27;language-&#x27;] {
+  /*
+  background: #272822;
+  */
+}
+:not(pre) &gt; code[class*=&#x27;language-&#x27;] {
+  /*
+  padding: 0.1em;
+  border-radius: 0.3em;
+  */
+  white-space: normal;
+}
+.token.cdata,
+.token.comment,
+.token.doctype,
+.token.prolog {
+  color: #8292a2;
+}
+.token.punctuation {
+  color: #f8f8f2;
+}
+.token.namespace {
+  opacity: 0.7;
+}
+.token.constant,
+.token.deleted,
+.token.property,
+.token.symbol,
+.token.tag {
+  color: #f92672;
+}
+.token.boolean,
+.token.number {
+  color: #ae81ff;
+}
+.token.attr-name,
+.token.builtin,
+.token.char,
+.token.inserted,
+.token.selector,
+.token.string {
+  color: #a6e22e;
+}
+.language-css .token.string,
+.style .token.string,
+.token.entity,
+.token.operator,
+.token.url,
+.token.variable {
+  color: #f8f8f2;
+}
+.token.atrule,
+.token.attr-value,
+.token.class-name,
+.token.function {
+  color: #e6db74;
+}
+.token.keyword {
+  color: #66d9ef;
+}
+.token.important,
+.token.regex {
+  color: #fd971f;
+}
+.token.bold,
+.token.important {
+  font-weight: 700;
+}
+.token.italic {
+  font-style: italic;
+}
+.token.entity {
+  cursor: help;
+}
+pre[data-line] {
+  position: relative;
+  /*
+  padding: 1em 0 1em 3em;
+  */
+}
+.line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  /*
+  padding: inherit 0;
+  margin-top: 1em;
+
+  background: hsla(24, 20%, 50%, 0.08);
+  background: linear-gradient(
+    to right,
+    hsla(24, 20%, 50%, 0.1) 70%,
+    hsla(24, 20%, 50%, 0)
+  );
+  */
+  pointer-events: none;
+  /*
+  line-height: inherit;
+  */
+  white-space: pre;
+}
+@media print {
+  .line-highlight {
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+  }
+}
+.line-highlight:before,
+.line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: 0.4em;
+  left: 0.6em;
+  min-width: 1em;
+  /*
+  padding: 0 0.5em;
+  background-color: hsla(24, 20%, 50%, 0.4);
+  */
+  color: #f4f1ef;
+  text-align: center;
+  vertical-align: 0.3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px #fff;
+}
+.line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  /*
+  bottom: 0.4em;
+  */
+}
+.line-numbers .line-highlight:after,
+.line-numbers .line-highlight:before {
+  content: none;
+}
+pre[id].linkable-line-numbers span.line-numbers-rows {
+  pointer-events: all;
+}
+pre[id].linkable-line-numbers span.line-numbers-rows &gt; span:before {
+  cursor: pointer;
+}
+pre[id].linkable-line-numbers span.line-numbers-rows &gt; span:hover:before {
+  /*
+  background-color: rgba(128, 128, 128, 0.2);
+  */
+}
+pre[class*=&#x27;language-&#x27;].line-numbers {
+  position: relative;
+  /*
+  padding-left: 3.8em;
+  */
+  counter-reset: linenumber;
+}
+pre[class*=&#x27;language-&#x27;].line-numbers &gt; code {
+  position: relative;
+  white-space: inherit;
+}
+.line-numbers .line-numbers-rows {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  /*
+  font-size: 100%;
+  */
+  left: -3.8em;
+  width: 3em;
+  letter-spacing: -1px;
+  border-right: 1px solid #999;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.line-numbers-rows &gt; span {
+  display: block;
+  counter-increment: linenumber;
+}
+.line-numbers-rows &gt; span:before {
+  content: counter(linenumber);
+  color: #999;
+  display: block;
+  /*
+  padding-right: 0.8em;
+  */
+  text-align: right;
+}
+
+#contentArea {
+  min-height: 12rem;
+  background-color: #667;
+  padding: 0.3rem;
+  border-radius: 0.4rem;
+  margin-top: 1.4rem;
+  margin-bottom: 0.6rem;
+}
+
+#codeBlock {
+  background-color: #566;
+  margin-top: 0.6rem;
+  margin-bottom: 0.6rem;
+  border-radius: 0.4rem;
+  padding: 0.7rem;
+}
+
+.hideit {
   display: none;
 }
-
-/*
-pre {
-  background: #272822;
-  line-height: 2rem;
-  font-weight: 700;
-  font-family: Consolas, Monaco, &#x27;Andale Mono&#x27;, &#x27;Ubuntu Mono&#x27;, monospace;
-  font-size: 1.1rem;
-}
-*/
-
-/*
-pre {
-  background-color: #000;
-}
-*/
-
-/*
-pre[class*=&#x27;language-&#x27;] {
-  background-color: #222;
-}
-
-pre[class*=&#x27;language-rust&#x27;] {
-  background-color: #ccc;
-}
-*/
 
 pre {
   color: #aaa;
 }
 
-.highlightCode {
-  /*
-  background-color: #333;
-  */
+.activeButton {
+  background-color: #900;
 }
 </code></pre>
             
@@ -443,6 +882,7 @@ const handleNextButtonClick = () =&gt; {
     s.currentLineSet += 1
   }
   updateLines()
+  updateButtons()
 }
 
 const handlePreviousButtonClick = () =&gt; {
@@ -450,6 +890,7 @@ const handlePreviousButtonClick = () =&gt; {
     s.currentLineSet -= 1
   }
   updateLines()
+  updateButtons()
 }
 
 const updateLines = () =&gt; {
@@ -469,8 +910,17 @@ const updateLines = () =&gt; {
       }
     }
   }
-
   window.contentArea.innerHTML = lineSets[s.currentLineSet].text
+}
+
+const updateButtons = () =&gt; {
+  for (let lineSetIndex = 1; lineSetIndex &lt; lineSets.length; lineSetIndex++) {
+    if (s.currentLineSet === lineSetIndex) {
+      window[`stepButton_${lineSetIndex}`].classList.add(&#x27;activeButton&#x27;)
+    } else {
+      window[`stepButton_${lineSetIndex}`].classList.remove(&#x27;activeButton&#x27;)
+    }
+  }
 }
 
 const makePreLines = () =&gt; {
@@ -513,6 +963,7 @@ const makeBaseLines = () =&gt; {
 const handleNumberButtonClick = (event) =&gt; {
   s.currentLineSet = parseInt(event.target.id.split(&#x27;_&#x27;)[1])
   updateLines()
+  updateButtons()
 }
 
 const addButtons = () =&gt; {
@@ -536,6 +987,7 @@ const init = () =&gt; {
   makeBaseLines()
   updateLines()
   addButtons()
+  updateButtons()
   window.nextSet.addEventListener(&#x27;click&#x27;, handleNextButtonClick)
   window.previousSet.addEventListener(&#x27;click&#x27;, handlePreviousButtonClick)
 }
@@ -543,11 +995,6 @@ const init = () =&gt; {
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
 </code></pre>
                
-                <h2>References</h2>
-                <ul>
-                    <li><a href=""></a></li>
-                </ul>
-                
     </main>
     <footer>
       from <a href="https://www.alanwsmith.com/">alan w. smith</a>

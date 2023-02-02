@@ -95,6 +95,7 @@ const handleNextButtonClick = () => {
     s.currentLineSet += 1
   }
   updateLines()
+  updateButtons()
 }
 
 const handlePreviousButtonClick = () => {
@@ -102,6 +103,7 @@ const handlePreviousButtonClick = () => {
     s.currentLineSet -= 1
   }
   updateLines()
+  updateButtons()
 }
 
 const updateLines = () => {
@@ -121,8 +123,17 @@ const updateLines = () => {
       }
     }
   }
-
   window.contentArea.innerHTML = lineSets[s.currentLineSet].text
+}
+
+const updateButtons = () => {
+  for (let lineSetIndex = 1; lineSetIndex < lineSets.length; lineSetIndex++) {
+    if (s.currentLineSet === lineSetIndex) {
+      window[`stepButton_${lineSetIndex}`].classList.add('activeButton')
+    } else {
+      window[`stepButton_${lineSetIndex}`].classList.remove('activeButton')
+    }
+  }
 }
 
 const makePreLines = () => {
@@ -165,6 +176,7 @@ const makeBaseLines = () => {
 const handleNumberButtonClick = (event) => {
   s.currentLineSet = parseInt(event.target.id.split('_')[1])
   updateLines()
+  updateButtons()
 }
 
 const addButtons = () => {
@@ -188,6 +200,7 @@ const init = () => {
   makeBaseLines()
   updateLines()
   addButtons()
+  updateButtons()
   window.nextSet.addEventListener('click', handleNextButtonClick)
   window.previousSet.addEventListener('click', handlePreviousButtonClick)
 }
