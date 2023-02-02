@@ -224,7 +224,7 @@ pre[class*='language-'].line-numbers > code {
 }
 
 #contentArea {
-  min-height: 20rem;
+  min-height: 21rem;
   background-color: #667;
   padding: 0.3rem;
   border-radius: 0.4rem;
