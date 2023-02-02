@@ -117,7 +117,7 @@ const loadSourceCode = () => {
 }
 
 const s = {
-  currentLineSet: 1,
+  currentLineSet: 0,
   lineMarkers: [],
 }
 
@@ -125,14 +125,25 @@ const lineSets = [
   {
     lines: [`0_r`, `0_s`, `0_s`, `0_r`, `0_r`, `0_r`, `0_s`, `0_r`],
   },
+
   {
     lines: [`0_c`, `0_r`, `0_s`, `0_c`, `0_c`, `0_c`, `0_s`, `0_c`],
   },
+
   {
-    lines: [`0_c`, `1_c`, `0_s`, `0_c`, `0_c`, `0_c`, `0_s`, `0_c`],
+    lines: [`0_c`, `0_c`, `0_r`, `0_c`, `0_c`, `0_c`, `0_s`, `0_c`],
   },
+
   {
-    lines: [`0_c`, `2_c`, `0_s`, `0_c`, `0_c`, `0_c`, `0_s`, `0_c`],
+    lines: [`0_c`, `0_c`, `0_c`, `0_c`, `0_c`, `0_c`, `0_r`, `0_c`],
+  },
+
+  {
+    lines: [`0_c`, `1_c`, `0_c`, `0_c`, `0_c`, `0_c`, `0_c`, `0_c`],
+  },
+
+  {
+    lines: [`0_c`, `2_c`, `0_c`, `0_c`, `0_c`, `0_c`, `0_c`, `0_c`],
   },
 ]
 
@@ -145,8 +156,22 @@ const log = (msg) => {
 //     s.lineMarkers.push(0)
 //   })
 // }
+//
+
+const handleNextButtonClick = () => {
+  console.log('Got Next Button Click')
+  if (s.currentLineSet < lineSets.length - 1) {
+    s.currentLineSet += 1
+  }
+  updateLines()
+}
 
 const updateLines = () => {
+  const codeLineMarkerEls = document.getElementsByClassName('codeLineMarker')
+  for (let x = 0; x < codeLineMarkerEls.length; x++) {
+    codeLineMarkerEls[x].classList.add('hideit')
+  }
+
   for (let lineIndex = 0; lineIndex < s.sourceCode.length; lineIndex++) {
     const code = lineSets[s.currentLineSet].lines[lineIndex]
     window[`codeLine_${lineIndex}_${code}`].classList.remove('hideit')
@@ -175,6 +200,7 @@ const makeBaseLines = () => {
       const newLineRust = document.createElement('pre')
       newLineRust.classList.add('language-rust')
       newLineRust.classList.add('hideit')
+      newLineRust.classList.add('codeLineMarker')
       newLineRust.id = `codeLine_${batchIndex}_${lineIndex}_r`
       newLineRust.innerHTML = `<code>${sourceLine}</code> `
       window[`codeLineWrapper${batchIndex}`].appendChild(newLineRust)
@@ -188,12 +214,14 @@ const makeBaseLines = () => {
       newLineCustom.id = `codeLine_${batchIndex}_${lineIndex}_c`
       newLineCustom.innerHTML = `${sourceLine} `
       newLineCustom.classList.add('hideit')
+      newLineCustom.classList.add('codeLineMarker')
       window[`codeLineWrapper${batchIndex}`].appendChild(newLineCustom)
 
       const newLineSpacer = document.createElement('pre')
       newLineSpacer.id = `codeLine_${batchIndex}_${lineIndex}_s`
       newLineSpacer.innerHTML = ` `
       newLineSpacer.classList.add('hideit')
+      newLineSpacer.classList.add('codeLineMarker')
       window[`codeLineWrapper${batchIndex}`].appendChild(newLineSpacer)
     })
   })
@@ -213,6 +241,7 @@ const init = () => {
   makeBaseLines()
   // prepLineMarkers()
   updateLines()
+  window.nextSet.addEventListener('click', handleNextButtonClick)
 }
 
 document.addEventListener('DOMContentLoaded', init)
@@ -309,6 +338,7 @@ document.addEventListener('DOMContentLoaded', init)
       <h1>Step-By-Step Code Example Prototype 4</h1>
       <h2>EXAMPLE</h2>
       <div id="codeBlock"></div>
+<button id="nextSet">Next</button>
  
                 <h2>Details</h2>
                 <ul>
@@ -317,6 +347,7 @@ document.addEventListener('DOMContentLoaded', init)
                   
             <h2>HTML</h2>
             <pre><code class="language-html">&lt;div id=&quot;codeBlock&quot;&gt;&lt;/div&gt;
+&lt;button id=&quot;nextSet&quot;&gt;Next&lt;/button&gt;
 </code></pre>
              
             <h2>CSS</h2>
@@ -406,7 +437,7 @@ const loadSourceCode = () =&gt; {
 }
 
 const s = {
-  currentLineSet: 1,
+  currentLineSet: 0,
   lineMarkers: [],
 }
 
@@ -414,14 +445,25 @@ const lineSets = [
   {
     lines: [`0_r`, `0_s`, `0_s`, `0_r`, `0_r`, `0_r`, `0_s`, `0_r`],
   },
+
   {
     lines: [`0_c`, `0_r`, `0_s`, `0_c`, `0_c`, `0_c`, `0_s`, `0_c`],
   },
+
   {
-    lines: [`0_c`, `1_c`, `0_s`, `0_c`, `0_c`, `0_c`, `0_s`, `0_c`],
+    lines: [`0_c`, `0_c`, `0_r`, `0_c`, `0_c`, `0_c`, `0_s`, `0_c`],
   },
+
   {
-    lines: [`0_c`, `2_c`, `0_s`, `0_c`, `0_c`, `0_c`, `0_s`, `0_c`],
+    lines: [`0_c`, `0_c`, `0_c`, `0_c`, `0_c`, `0_c`, `0_r`, `0_c`],
+  },
+
+  {
+    lines: [`0_c`, `1_c`, `0_c`, `0_c`, `0_c`, `0_c`, `0_c`, `0_c`],
+  },
+
+  {
+    lines: [`0_c`, `2_c`, `0_c`, `0_c`, `0_c`, `0_c`, `0_c`, `0_c`],
   },
 ]
 
@@ -434,8 +476,22 @@ const log = (msg) =&gt; {
 //     s.lineMarkers.push(0)
 //   })
 // }
+//
+
+const handleNextButtonClick = () =&gt; {
+  console.log(&#x27;Got Next Button Click&#x27;)
+  if (s.currentLineSet &lt; lineSets.length - 1) {
+    s.currentLineSet += 1
+  }
+  updateLines()
+}
 
 const updateLines = () =&gt; {
+  const codeLineMarkerEls = document.getElementsByClassName(&#x27;codeLineMarker&#x27;)
+  for (let x = 0; x &lt; codeLineMarkerEls.length; x++) {
+    codeLineMarkerEls[x].classList.add(&#x27;hideit&#x27;)
+  }
+
   for (let lineIndex = 0; lineIndex &lt; s.sourceCode.length; lineIndex++) {
     const code = lineSets[s.currentLineSet].lines[lineIndex]
     window[`codeLine_${lineIndex}_${code}`].classList.remove(&#x27;hideit&#x27;)
@@ -464,6 +520,7 @@ const makeBaseLines = () =&gt; {
       const newLineRust = document.createElement(&#x27;pre&#x27;)
       newLineRust.classList.add(&#x27;language-rust&#x27;)
       newLineRust.classList.add(&#x27;hideit&#x27;)
+      newLineRust.classList.add(&#x27;codeLineMarker&#x27;)
       newLineRust.id = `codeLine_${batchIndex}_${lineIndex}_r`
       newLineRust.innerHTML = `&lt;code&gt;${sourceLine}&lt;/code&gt; `
       window[`codeLineWrapper${batchIndex}`].appendChild(newLineRust)
@@ -477,12 +534,14 @@ const makeBaseLines = () =&gt; {
       newLineCustom.id = `codeLine_${batchIndex}_${lineIndex}_c`
       newLineCustom.innerHTML = `${sourceLine} `
       newLineCustom.classList.add(&#x27;hideit&#x27;)
+      newLineCustom.classList.add(&#x27;codeLineMarker&#x27;)
       window[`codeLineWrapper${batchIndex}`].appendChild(newLineCustom)
 
       const newLineSpacer = document.createElement(&#x27;pre&#x27;)
       newLineSpacer.id = `codeLine_${batchIndex}_${lineIndex}_s`
       newLineSpacer.innerHTML = ` `
       newLineSpacer.classList.add(&#x27;hideit&#x27;)
+      newLineSpacer.classList.add(&#x27;codeLineMarker&#x27;)
       window[`codeLineWrapper${batchIndex}`].appendChild(newLineSpacer)
     })
   })
@@ -502,6 +561,7 @@ const init = () =&gt; {
   makeBaseLines()
   // prepLineMarkers()
   updateLines()
+  window.nextSet.addEventListener(&#x27;click&#x27;, handleNextButtonClick)
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
