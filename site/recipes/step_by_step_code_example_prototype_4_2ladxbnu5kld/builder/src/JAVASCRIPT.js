@@ -73,6 +73,7 @@ const lineSets = [
       `0_s`,
       `0_r`,
     ],
+    text: `<p>Start by created two empty functions for <code>main</code> and <code>show_values</code>.<p>`,
   },
 
   {
@@ -89,6 +90,7 @@ const lineSets = [
       `0_s`,
       `0_c`,
     ],
+    text: `Add a <code>String</code> with &quot;apple&quot; that we can use to demonstrate the reference.<p>`,
   },
 
   {
@@ -105,6 +107,7 @@ const lineSets = [
       `0_s`,
       `0_c`,
     ],
+    text: `<p>Print out the variable so we can see it and have something to compare to.<p>`,
   },
 
   {
@@ -121,6 +124,7 @@ const lineSets = [
       `0_s`,
       `0_c`,
     ],
+    text: `<p>Update the <code>show_value</code> function to accept in incoming <code>String</code> reference and bind it to the local <code>param</code> variable.<p>`,
   },
 
   {
@@ -137,6 +141,7 @@ const lineSets = [
       `0_r`,
       `0_c`,
     ],
+    text: `<p>Print out the values of the <code>String</code> reference that's bound to the <code>param</code> variable.</p>`,
   },
 
   {
@@ -153,6 +158,7 @@ const lineSets = [
       `0_c`,
       `0_c`,
     ],
+    text: `<p>Call the <code>show_value</code> function from <code>main</code> passing the reference to <code>alfa</code>.</p>`,
   },
 
   {
@@ -169,6 +175,7 @@ const lineSets = [
       `0_c`,
       `0_c`,
     ],
+    text: `<p>Print out <code>alfa</code> again to confirm we still have access to the variable and ownership of the string didn't get moved.</p>`,
   },
 
   {
@@ -185,6 +192,7 @@ const lineSets = [
       `0_c`,
       `0_c`,
     ],
+    text: `<p>Run the program to confirm the output.</p>`,
   },
 ]
 
@@ -232,6 +240,9 @@ const updateLines = () => {
       }
     }
   }
+
+  window.contentArea.innerHTML = lineSets[s.currentLineSet].text
+
   //   s.lineMarkers[lineIndex] +=
   //     lineSets[s.currentLineSet].lineUpdates[lineIndex]
   // }
@@ -306,20 +317,25 @@ const addButtons = () => {
     buttonWrapperEl.appendChild(newButtonEl)
     newButtonEl.addEventListener('click', handleNumberButtonClick)
   }
-
   const newButtonEl = document.createElement('button')
   newButtonEl.innerHTML = `Final`
   newButtonEl.id = `stepButton_${lineSets.length - 1}`
   buttonWrapperEl.appendChild(newButtonEl)
   newButtonEl.addEventListener('click', handleNumberButtonClick)
-
   window.codeBlock.appendChild(buttonWrapperEl)
+}
+
+const addContentArea = () => {
+  const contentAreaEl = document.createElement('div')
+  contentAreaEl.id = 'contentArea'
+  window.codeBlock.appendChild(contentAreaEl)
 }
 
 const init = () => {
   loadSourceCode()
   makePreLines()
   makeBaseLines()
+  addContentArea()
   updateLines()
   addButtons()
   window.nextSet.addEventListener('click', handleNextButtonClick)

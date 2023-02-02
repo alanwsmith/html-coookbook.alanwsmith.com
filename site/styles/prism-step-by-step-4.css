@@ -222,3 +222,8 @@ pre[class*='language-'].line-numbers > code {
   */
   text-align: right;
 }
+
+#contentArea {
+  min-height: 10rem;
+  background-color: #667;
+}
