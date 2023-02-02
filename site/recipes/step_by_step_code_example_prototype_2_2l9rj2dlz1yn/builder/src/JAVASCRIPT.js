@@ -130,6 +130,53 @@ const countTotalLines = () => {
   s.totalLines = 9
 }
 
+const handlePreviousClick = (event) => {
+  if (s.currentLineSet > 0) {
+    s.currentLineSet -= 1
+  }
+  populateLines()
+  highlightLines()
+}
+
+const handleNextClick = (event) => {
+  if (s.currentLineSet < lineSets.length - 1) {
+    s.currentLineSet += 1
+  }
+  populateLines()
+  highlightLines()
+}
+
+const handleButtonClick = (event) => {
+  s.currentLineSet = event.target.id.split('--')[1] - 1
+  populateLines()
+  highlightLines()
+}
+
+const makeButtons = () => {
+  const buttonRowEl = document.createElement('div')
+  buttonRowEl.id = 'buttonRow'
+  const previousButtonEl = document.createElement('button')
+  previousButtonEl.id = 'previousSet'
+  previousButtonEl.innerHTML = '&nbsp;&nbsp;&nbsp;--&nbsp;&nbsp;&nbsp;'
+  buttonRowEl.appendChild(previousButtonEl)
+  for (let buttonNumber = 1; buttonNumber <= lineSets.length; buttonNumber++) {
+    console.log(`Button number: ${buttonNumber}`)
+    const newButtonEl = document.createElement('button')
+    newButtonEl.innerHTML = buttonNumber
+    newButtonEl.id = `chooseSet--${buttonNumber}`
+    buttonRowEl.appendChild(newButtonEl)
+    newButtonEl.addEventListener('click', handleButtonClick)
+  }
+  // log('Making buttons')
+  const nextButtonEl = document.createElement('button')
+  nextButtonEl.id = 'nextSet'
+  nextButtonEl.innerHTML = '&nbsp;&nbsp;Next&nbsp;&nbsp;'
+  buttonRowEl.appendChild(nextButtonEl)
+  window.codeExample.appendChild(buttonRowEl)
+  previousButtonEl.addEventListener('click', handlePreviousClick)
+  nextButtonEl.addEventListener('click', handleNextClick)
+}
+
 const makeEmptyLines = () => {
   for (let num = 1; num <= s.totalLines; num++) {
     const emptyLineEl = document.createElement('div')
@@ -166,7 +213,15 @@ const highlightLines = () => {
       const source = lineSets[s.currentLineSet].lines[lineNumber].source
       if (priorSource != source) {
         window[`codeLinePre${lineNumber}`].classList.add('newLine')
+      } else {
+        window[`codeLinePre${lineNumber}`].classList.remove('newLine')
       }
+    }
+  } else {
+    // this clears the first view
+    // probalby a better way to do it, but this works.
+    for (let lineNumber = 1; lineNumber <= s.totalLines; lineNumber++) {
+      window[`codeLinePre${lineNumber}`].classList.remove('newLine')
     }
   }
 }
@@ -174,6 +229,7 @@ const highlightLines = () => {
 const init = () => {
   countTotalLines()
   makeEmptyLines()
+  makeButtons()
   populateLines()
   highlightLines()
 }
@@ -265,7 +321,6 @@ document.addEventListener('DOMContentLoaded', init)
 // const makeButtons = () => {
 //   const buttonRowEl = document.createElement('div')
 //   buttonRowEl.id = 'buttonRow'
-//   // log('Making buttons')
 //   const previousButtonEl = document.createElement('button')
 //   previousButtonEl.id = 'previousSet'
 //   previousButtonEl.innerHTML = '&nbsp;&nbsp;&nbsp;--&nbsp;&nbsp;&nbsp;'

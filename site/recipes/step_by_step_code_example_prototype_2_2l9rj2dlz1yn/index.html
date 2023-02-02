@@ -183,6 +183,53 @@ const countTotalLines = () => {
   s.totalLines = 9
 }
 
+const handlePreviousClick = (event) => {
+  if (s.currentLineSet > 0) {
+    s.currentLineSet -= 1
+  }
+  populateLines()
+  highlightLines()
+}
+
+const handleNextClick = (event) => {
+  if (s.currentLineSet < lineSets.length - 1) {
+    s.currentLineSet += 1
+  }
+  populateLines()
+  highlightLines()
+}
+
+const handleButtonClick = (event) => {
+  s.currentLineSet = event.target.id.split('--')[1] - 1
+  populateLines()
+  highlightLines()
+}
+
+const makeButtons = () => {
+  const buttonRowEl = document.createElement('div')
+  buttonRowEl.id = 'buttonRow'
+  const previousButtonEl = document.createElement('button')
+  previousButtonEl.id = 'previousSet'
+  previousButtonEl.innerHTML = '&nbsp;&nbsp;&nbsp;--&nbsp;&nbsp;&nbsp;'
+  buttonRowEl.appendChild(previousButtonEl)
+  for (let buttonNumber = 1; buttonNumber <= lineSets.length; buttonNumber++) {
+    console.log(`Button number: ${buttonNumber}`)
+    const newButtonEl = document.createElement('button')
+    newButtonEl.innerHTML = buttonNumber
+    newButtonEl.id = `chooseSet--${buttonNumber}`
+    buttonRowEl.appendChild(newButtonEl)
+    newButtonEl.addEventListener('click', handleButtonClick)
+  }
+  // log('Making buttons')
+  const nextButtonEl = document.createElement('button')
+  nextButtonEl.id = 'nextSet'
+  nextButtonEl.innerHTML = '&nbsp;&nbsp;Next&nbsp;&nbsp;'
+  buttonRowEl.appendChild(nextButtonEl)
+  window.codeExample.appendChild(buttonRowEl)
+  previousButtonEl.addEventListener('click', handlePreviousClick)
+  nextButtonEl.addEventListener('click', handleNextClick)
+}
+
 const makeEmptyLines = () => {
   for (let num = 1; num <= s.totalLines; num++) {
     const emptyLineEl = document.createElement('div')
@@ -219,7 +266,15 @@ const highlightLines = () => {
       const source = lineSets[s.currentLineSet].lines[lineNumber].source
       if (priorSource != source) {
         window[`codeLinePre${lineNumber}`].classList.add('newLine')
+      } else {
+        window[`codeLinePre${lineNumber}`].classList.remove('newLine')
       }
+    }
+  } else {
+    // this clears the first view
+    // probalby a better way to do it, but this works.
+    for (let lineNumber = 1; lineNumber <= s.totalLines; lineNumber++) {
+      window[`codeLinePre${lineNumber}`].classList.remove('newLine')
     }
   }
 }
@@ -227,6 +282,7 @@ const highlightLines = () => {
 const init = () => {
   countTotalLines()
   makeEmptyLines()
+  makeButtons()
   populateLines()
   highlightLines()
 }
@@ -318,7 +374,6 @@ document.addEventListener('DOMContentLoaded', init)
 // const makeButtons = () => {
 //   const buttonRowEl = document.createElement('div')
 //   buttonRowEl.id = 'buttonRow'
-//   // log('Making buttons')
 //   const previousButtonEl = document.createElement('button')
 //   previousButtonEl.id = 'previousSet'
 //   previousButtonEl.innerHTML = '&nbsp;&nbsp;&nbsp;--&nbsp;&nbsp;&nbsp;'
@@ -615,6 +670,53 @@ const countTotalLines = () =&gt; {
   s.totalLines = 9
 }
 
+const handlePreviousClick = (event) =&gt; {
+  if (s.currentLineSet &gt; 0) {
+    s.currentLineSet -= 1
+  }
+  populateLines()
+  highlightLines()
+}
+
+const handleNextClick = (event) =&gt; {
+  if (s.currentLineSet &lt; lineSets.length - 1) {
+    s.currentLineSet += 1
+  }
+  populateLines()
+  highlightLines()
+}
+
+const handleButtonClick = (event) =&gt; {
+  s.currentLineSet = event.target.id.split(&#x27;--&#x27;)[1] - 1
+  populateLines()
+  highlightLines()
+}
+
+const makeButtons = () =&gt; {
+  const buttonRowEl = document.createElement(&#x27;div&#x27;)
+  buttonRowEl.id = &#x27;buttonRow&#x27;
+  const previousButtonEl = document.createElement(&#x27;button&#x27;)
+  previousButtonEl.id = &#x27;previousSet&#x27;
+  previousButtonEl.innerHTML = &#x27;&amp;nbsp;&amp;nbsp;&amp;nbsp;--&amp;nbsp;&amp;nbsp;&amp;nbsp;&#x27;
+  buttonRowEl.appendChild(previousButtonEl)
+  for (let buttonNumber = 1; buttonNumber &lt;= lineSets.length; buttonNumber++) {
+    console.log(`Button number: ${buttonNumber}`)
+    const newButtonEl = document.createElement(&#x27;button&#x27;)
+    newButtonEl.innerHTML = buttonNumber
+    newButtonEl.id = `chooseSet--${buttonNumber}`
+    buttonRowEl.appendChild(newButtonEl)
+    newButtonEl.addEventListener(&#x27;click&#x27;, handleButtonClick)
+  }
+  // log(&#x27;Making buttons&#x27;)
+  const nextButtonEl = document.createElement(&#x27;button&#x27;)
+  nextButtonEl.id = &#x27;nextSet&#x27;
+  nextButtonEl.innerHTML = &#x27;&amp;nbsp;&amp;nbsp;Next&amp;nbsp;&amp;nbsp;&#x27;
+  buttonRowEl.appendChild(nextButtonEl)
+  window.codeExample.appendChild(buttonRowEl)
+  previousButtonEl.addEventListener(&#x27;click&#x27;, handlePreviousClick)
+  nextButtonEl.addEventListener(&#x27;click&#x27;, handleNextClick)
+}
+
 const makeEmptyLines = () =&gt; {
   for (let num = 1; num &lt;= s.totalLines; num++) {
     const emptyLineEl = document.createElement(&#x27;div&#x27;)
@@ -651,7 +753,15 @@ const highlightLines = () =&gt; {
       const source = lineSets[s.currentLineSet].lines[lineNumber].source
       if (priorSource != source) {
         window[`codeLinePre${lineNumber}`].classList.add(&#x27;newLine&#x27;)
+      } else {
+        window[`codeLinePre${lineNumber}`].classList.remove(&#x27;newLine&#x27;)
       }
+    }
+  } else {
+    // this clears the first view
+    // probalby a better way to do it, but this works.
+    for (let lineNumber = 1; lineNumber &lt;= s.totalLines; lineNumber++) {
+      window[`codeLinePre${lineNumber}`].classList.remove(&#x27;newLine&#x27;)
     }
   }
 }
@@ -659,6 +769,7 @@ const highlightLines = () =&gt; {
 const init = () =&gt; {
   countTotalLines()
   makeEmptyLines()
+  makeButtons()
   populateLines()
   highlightLines()
 }
@@ -750,7 +861,6 @@ document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
 // const makeButtons = () =&gt; {
 //   const buttonRowEl = document.createElement(&#x27;div&#x27;)
 //   buttonRowEl.id = &#x27;buttonRow&#x27;
-//   // log(&#x27;Making buttons&#x27;)
 //   const previousButtonEl = document.createElement(&#x27;button&#x27;)
 //   previousButtonEl.id = &#x27;previousSet&#x27;
 //   previousButtonEl.innerHTML = &#x27;&amp;nbsp;&amp;nbsp;&amp;nbsp;--&amp;nbsp;&amp;nbsp;&amp;nbsp;&#x27;
