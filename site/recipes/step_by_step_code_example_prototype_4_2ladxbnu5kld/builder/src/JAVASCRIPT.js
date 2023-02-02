@@ -45,10 +45,16 @@ const s = {
 
 const lineSets = [
   {
-    status: [0, 0, 0, 0, 0, 0, 0, 0],
+    lines: [`0_r`, `0_s`, `0_s`, `0_r`, `0_r`, `0_r`, `0_s`, `0_r`],
   },
   {
-    status: [1, 0, 0, 1, 1, 1, 0, 1],
+    lines: [`0_c`, `0_r`, `0_s`, `0_c`, `0_c`, `0_c`, `0_s`, `0_c`],
+  },
+  {
+    lines: [`0_c`, `1_c`, `0_s`, `0_c`, `0_c`, `0_c`, `0_s`, `0_c`],
+  },
+  {
+    lines: [`0_c`, `2_c`, `0_s`, `0_c`, `0_c`, `0_c`, `0_s`, `0_c`],
   },
 ]
 
@@ -63,7 +69,10 @@ const log = (msg) => {
 // }
 
 const updateLines = () => {
-  // for (let lineIndex = 0; lineIndex < sourceCode.length; lineIndex++) {
+  for (let lineIndex = 0; lineIndex < s.sourceCode.length; lineIndex++) {
+    const code = lineSets[s.currentLineSet].lines[lineIndex]
+    window[`codeLine_${lineIndex}_${code}`].classList.remove('hideit')
+  }
   //   s.lineMarkers[lineIndex] +=
   //     lineSets[s.currentLineSet].lineUpdates[lineIndex]
   // }
@@ -76,6 +85,7 @@ const updateLines = () => {
 const makePreLines = () => {
   for (let lineIndex = 0; lineIndex < s.sourceCode.length; lineIndex++) {
     const codeLineEl = document.createElement('div')
+    codeLineEl.classList.add('codeLineWrapper')
     codeLineEl.id = `codeLineWrapper${lineIndex}`
     window.codeBlock.appendChild(codeLineEl)
   }
@@ -86,7 +96,8 @@ const makeBaseLines = () => {
     sourceLineBatch.forEach((sourceLine, lineIndex) => {
       const newLineRust = document.createElement('pre')
       newLineRust.classList.add('language-rust')
-      newLineRust.id = `codeLine_${batchIndex}_${lineIndex}_rust`
+      newLineRust.classList.add('hideit')
+      newLineRust.id = `codeLine_${batchIndex}_${lineIndex}_r`
       newLineRust.innerHTML = `<code>${sourceLine}</code> `
       window[`codeLineWrapper${batchIndex}`].appendChild(newLineRust)
 
@@ -96,9 +107,16 @@ const makeBaseLines = () => {
       // window[`codeLineWrapper${batchIndex}`].appendChild(newLinePlain)
 
       const newLineCustom = document.createElement('pre')
-      newLineCustom.id = `codeLine_${batchIndex}_${lineIndex}_custom`
+      newLineCustom.id = `codeLine_${batchIndex}_${lineIndex}_c`
       newLineCustom.innerHTML = `${sourceLine} `
+      newLineCustom.classList.add('hideit')
       window[`codeLineWrapper${batchIndex}`].appendChild(newLineCustom)
+
+      const newLineSpacer = document.createElement('pre')
+      newLineSpacer.id = `codeLine_${batchIndex}_${lineIndex}_s`
+      newLineSpacer.innerHTML = ` `
+      newLineSpacer.classList.add('hideit')
+      window[`codeLineWrapper${batchIndex}`].appendChild(newLineSpacer)
     })
   })
 
@@ -116,7 +134,7 @@ const init = () => {
   makePreLines()
   makeBaseLines()
   // prepLineMarkers()
-  // updateLines()
+  updateLines()
 }
 
 document.addEventListener('DOMContentLoaded', init)
