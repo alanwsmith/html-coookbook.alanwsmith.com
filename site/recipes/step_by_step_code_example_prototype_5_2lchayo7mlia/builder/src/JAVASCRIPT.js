@@ -233,7 +233,9 @@ const updatePointers = () => {
     let lineCode = lineSets[s.currentLineSet].lines[lineIndex].split('_')[1]
     let numberString = lineIndex < 9 ? `0${lineIndex + 1}` : lineIndex + 1
     if (lineCode === 'r') {
-      window[`pointer_${lineIndex}`].innerHTML = `${numberString} &gt;`
+      window[
+        `pointer_${lineIndex}`
+      ].innerHTML = `${numberString} <code class="bold">&gt;</code>`
     } else {
       window[`pointer_${lineIndex}`].innerHTML = `${numberString}  `
     }
