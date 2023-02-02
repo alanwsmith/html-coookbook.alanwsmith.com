@@ -5,13 +5,14 @@ pre[class*='language-'] {
   color: #f8f8f2;
   background: 0 0;
   text-shadow: 0 1px rgba(0, 0, 0, 0.3);
-  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   text-align: left;
   white-space: pre;
   word-spacing: normal;
   word-break: normal;
   word-wrap: normal;
+  /*
   line-height: 1.5;
+  */
   -moz-tab-size: 4;
   -o-tab-size: 4;
   tab-size: 4;
@@ -27,15 +28,19 @@ pre[class*='language-'] {
   margin: 0.5em 0;
   */
   overflow: auto;
+  /*
   border-radius: 0.3em;
+  */
 }
 :not(pre) > code[class*='language-'],
 pre[class*='language-'] {
   background: #272822;
 }
 :not(pre) > code[class*='language-'] {
+  /*
   padding: 0.1em;
   border-radius: 0.3em;
+  */
   white-space: normal;
 }
 .token.cdata,
@@ -102,14 +107,18 @@ pre[class*='language-'] {
 }
 pre[data-line] {
   position: relative;
+  /*
   padding: 1em 0 1em 3em;
+  */
 }
 .line-highlight {
   position: absolute;
   left: 0;
   right: 0;
+  /*
   padding: inherit 0;
   margin-top: 1em;
+  */
   background: hsla(24, 20%, 50%, 0.08);
   background: linear-gradient(
     to right,
@@ -117,7 +126,9 @@ pre[data-line] {
     hsla(24, 20%, 50%, 0)
   );
   pointer-events: none;
+  /*
   line-height: inherit;
+  */
   white-space: pre;
 }
 @media print {
@@ -133,10 +144,11 @@ pre[data-line] {
   top: 0.4em;
   left: 0.6em;
   min-width: 1em;
+  /*
   padding: 0 0.5em;
+  */
   background-color: hsla(24, 20%, 50%, 0.4);
   color: #f4f1ef;
-  font: bold 65%/1.5 sans-serif;
   text-align: center;
   vertical-align: 0.3em;
   border-radius: 999px;
@@ -146,7 +158,9 @@ pre[data-line] {
 .line-highlight[data-end]:after {
   content: attr(data-end);
   top: auto;
+  /*
   bottom: 0.4em;
+  */
 }
 .line-numbers .line-highlight:after,
 .line-numbers .line-highlight:before {
@@ -163,7 +177,9 @@ pre[id].linkable-line-numbers span.line-numbers-rows > span:hover:before {
 }
 pre[class*='language-'].line-numbers {
   position: relative;
+  /*
   padding-left: 3.8em;
+  */
   counter-reset: linenumber;
 }
 pre[class*='language-'].line-numbers > code {
@@ -194,6 +210,8 @@ pre[class*='language-'].line-numbers > code {
   content: counter(linenumber);
   color: #999;
   display: block;
+  /*
   padding-right: 0.8em;
+  */
   text-align: right;
 }

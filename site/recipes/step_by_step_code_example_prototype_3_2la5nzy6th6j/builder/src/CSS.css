@@ -1,0 +1,27 @@
+.newLine {
+  background-color: #050;
+}
+
+.padLine {
+  background-color: #333;
+}
+
+.existingLine {
+  background-color: #333;
+}
+
+.codeLineWrapper {
+  background-color: #333;
+}
+
+.hideit {
+  display: none;
+}
+
+pre {
+  background: #272822;
+  line-height: 2rem;
+  font-weight: 700;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: 1.1rem;
+}
