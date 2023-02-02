@@ -1,13 +1,11 @@
 const rawSourceCode = `fn main() {
   let alfa = String::from("apple");
-  println!("alfa is {alfa}");
-
   show_value(&alfa);
   println!("alfa is {alfa}");
 }
 
-fn show_value(param: &String) { // fn show_value() { // fn show_value<code class="language-rust">(param: &String)</code> {
-  println!("show_value got {param}");
+fn show_value(value: &String) { 
+  println!("show_value got {value}");
 }`.split('\n')
 
 // const rawSourceCode = `fn main() {
@@ -60,139 +58,64 @@ const lineSets = [
   },
 
   {
-    lines: [
-      `0_r`,
-      `0_s`,
-      `0_s`,
-      `0_s`,
-      `0_s`,
-      `0_s`,
-      `0_r`,
-      `0_s`,
-      `1_r`,
-      `0_s`,
-      `0_r`,
-    ],
-    text: `<p>Start by created two empty functions for <code>main</code> and <code>show_values</code>.<p>`,
+    lines: [`0_r`, `0_s`, `0_s`, `0_s`, `0_r`, `0_s`, `0_s`, `0_s`, `0_s`],
+    text: `<ul>
+    <li>Start with an empty <code>main</code> function.</li>
+    </ul>`,
   },
 
   {
-    lines: [
-      `0_c`,
-      `0_r`,
-      `0_s`,
-      `0_s`,
-      `0_s`,
-      `0_s`,
-      `0_c`,
-      `0_s`,
-      `1_c`,
-      `0_s`,
-      `0_c`,
-    ],
-    text: `Add a <code>String</code> with &quot;apple&quot; that we can use to demonstrate the reference.<p>`,
+    lines: [`0_c`, `0_s`, `0_s`, `0_s`, `0_c`, `0_s`, `0_r`, `0_s`, `0_r`],
+    text: `
+    <ul>
+    <li>The first thing we'll do is to setup a function to demonstrate passing the reference</li>
+    <li>Create a second <code>show_value</code> function that takes one parameter</li>
+    <li>Make the parameter a <code>String</code> reference that gets bound to a function variable named <code>value</code></li>
+    <li>We know a reference because it starts with an <code>&amp;</code></li>
+    </ul>`,
   },
 
   {
-    lines: [
-      `0_c`,
-      `0_c`,
-      `0_r`,
-      `0_s`,
-      `0_s`,
-      `0_s`,
-      `0_c`,
-      `0_s`,
-      `1_c`,
-      `0_s`,
-      `0_c`,
-    ],
-    text: `<p>Print out the variable so we can see it and have something to compare to.<p>`,
+    lines: [`0_c`, `0_s`, `0_s`, `0_s`, `0_c`, `0_s`, `0_c`, `0_r`, `0_c`],
+    text: `<ul>
+    <li>Print out the <code>value</code> reference variable inside <code>show_value</code> to confirm it's available</li>
+    </ul>`,
   },
 
   {
-    lines: [
-      `0_c`,
-      `0_c`,
-      `0_c`,
-      `0_s`,
-      `0_s`,
-      `0_s`,
-      `0_c`,
-      `0_s`,
-      `2_c`,
-      `0_s`,
-      `0_c`,
-    ],
-    text: `<p>Update the <code>show_value</code> function to accept in incoming <code>String</code> reference and bind it to the local <code>param</code> variable.<p>`,
+    lines: [`0_c`, `0_r`, `0_s`, `0_s`, `0_c`, `0_s`, `0_c`, `0_c`, `0_c`],
+    text: `<ul>
+    <li>Back in the <code>main</code> function, create the <code>alfa</code> variable we'll use with a <code>String</code> value of <code>apple</code> bound to it</li>
+    </ul>
+    `,
   },
 
   {
-    lines: [
-      `0_c`,
-      `0_c`,
-      `0_c`,
-      `0_s`,
-      `0_s`,
-      `0_s`,
-      `0_c`,
-      `0_s`,
-      `0_c`,
-      `0_r`,
-      `0_c`,
-    ],
-    text: `<p>Print out the values of the <code>String</code> reference that's bound to the <code>param</code> variable.</p>`,
+    lines: [`0_c`, `0_c`, `0_r`, `0_s`, `0_c`, `0_s`, `0_c`, `0_c`, `0_c`],
+    text: `<ul>
+    <li>Setup the call to the <code>show_value</code> function</li>
+    <li>We pass a reference to <code>main</code>'s <code>alfa</code> variable by using it as an argument with the <code>&amp;</code> sign in front of it</li>
+    </ul>
+    `,
   },
 
   {
-    lines: [
-      `0_c`,
-      `0_c`,
-      `0_c`,
-      `0_s`,
-      `0_r`,
-      `0_s`,
-      `0_c`,
-      `0_s`,
-      `0_c`,
-      `0_c`,
-      `0_c`,
-    ],
-    text: `<p>Call the <code>show_value</code> function from <code>main</code> passing the reference to <code>alfa</code>.</p>`,
+    lines: [`0_c`, `0_c`, `0_c`, `0_r`, `0_c`, `0_s`, `0_c`, `0_c`, `0_c`],
+    text: `<ul>
+    <li>Finally, print out the <code>alfa</code> variable in main.</li>
+    <li>Because we used a reference with <code>show_value</code> ownership of the <code>String</code> value stayed with <code>alfa</code>. That means it can still access it for printing.</li>
+    <li>If we hadn't used a reference, ownership would have been transferred into <code>show_value</code> and this <code>println!()</code> would have caused an error</li>
+    </ul>`,
   },
 
   {
-    lines: [
-      `0_c`,
-      `0_c`,
-      `0_c`,
-      `0_s`,
-      `0_c`,
-      `0_r`,
-      `0_c`,
-      `0_s`,
-      `0_c`,
-      `0_c`,
-      `0_c`,
-    ],
-    text: `<p>Print out <code>alfa</code> again to confirm we still have access to the variable and ownership of the string didn't get moved.</p>`,
-  },
+    lines: [`0_c`, `0_c`, `0_c`, `0_c`, `0_c`, `0_s`, `0_c`, `0_c`, `0_c`],
+    text: `<ul><li>Running the code produces the output</li></ul>
+    <pre>show_value got apple
+alfa is apple</pre>
 
-  {
-    lines: [
-      `0_c`,
-      `0_c`,
-      `0_c`,
-      `0_s`,
-      `0_c`,
-      `0_c`,
-      `0_c`,
-      `0_s`,
-      `0_c`,
-      `0_c`,
-      `0_c`,
-    ],
-    text: `<p>Run the program to confirm the output.</p>`,
+
+    `,
   },
 ]
 
@@ -308,34 +231,36 @@ const handleNumberButtonClick = (event) => {
 }
 
 const addButtons = () => {
-  const buttonWrapperEl = document.createElement('div')
-  buttonWrapperEl.id = 'buttonWrapper'
+  // const buttonWrapperEl = document.createElement('div')
+  // buttonWrapperEl.id = 'buttonWrapper'
+
   for (let lineIndex = 1; lineIndex < lineSets.length - 1; lineIndex++) {
     const newButtonEl = document.createElement('button')
     newButtonEl.innerHTML = lineIndex
     newButtonEl.id = `stepButton_${lineIndex}`
-    buttonWrapperEl.appendChild(newButtonEl)
+    window.buttonWrapper.appendChild(newButtonEl)
     newButtonEl.addEventListener('click', handleNumberButtonClick)
   }
+
   const newButtonEl = document.createElement('button')
   newButtonEl.innerHTML = `Final`
   newButtonEl.id = `stepButton_${lineSets.length - 1}`
-  buttonWrapperEl.appendChild(newButtonEl)
+  window.buttonWrapper.appendChild(newButtonEl)
   newButtonEl.addEventListener('click', handleNumberButtonClick)
-  window.codeBlock.appendChild(buttonWrapperEl)
+  // window.codeBlock.appendChild(buttonWrapperEl)
 }
 
-const addContentArea = () => {
-  const contentAreaEl = document.createElement('div')
-  contentAreaEl.id = 'contentArea'
-  window.codeBlock.appendChild(contentAreaEl)
-}
+// const addContentArea = () => {
+//   const contentAreaEl = document.createElement('div')
+//   contentAreaEl.id = 'contentArea'
+//   window.codeBlock.appendChild(contentAreaEl)
+// }
 
 const init = () => {
   loadSourceCode()
+  // addContentArea()
   makePreLines()
   makeBaseLines()
-  addContentArea()
   updateLines()
   addButtons()
   window.nextSet.addEventListener('click', handleNextButtonClick)

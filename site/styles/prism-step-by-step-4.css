@@ -224,6 +224,18 @@ pre[class*='language-'].line-numbers > code {
 }
 
 #contentArea {
-  min-height: 10rem;
+  min-height: 12rem;
   background-color: #667;
+  padding: 0.3rem;
+  border-radius: 0.4rem;
+  margin-top: 1.4rem;
+  margin-bottom: 0.6rem;
+}
+
+#codeBlock {
+  background-color: #566;
+  margin-top: 0.6rem;
+  margin-bottom: 0.6rem;
+  border-radius: 0.4rem;
+  padding: 0.7rem;
 }
