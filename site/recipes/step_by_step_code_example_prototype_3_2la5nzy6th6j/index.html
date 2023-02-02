@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Step-By-Step Code Example Prototype 3 - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Step-By-Step Code Example Prototype 3" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Step-By-Step%20Code%20Example%20Prototype%203,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/fonts.css" />
+    <link rel="stylesheet" href="/styles/colors.css" />
+    <link rel="stylesheet" href="/styles/wrapper.css" />
+    <link rel="stylesheet" href="/styles/prism-step-by-step-2.css" />
+    
+    <style>
+      .newLine {
+  background-color: #050;
+}
+
+.padLine {
+  background-color: #333;
+}
+
+.existingLine {
+  background-color: #333;
+}
+
+.codeLineWrapper {
+  background-color: #333;
+}
+
+.hideit {
+  display: none;
+}
+
+/*
+pre {
+  background: #272822;
+  line-height: 2rem;
+  font-weight: 700;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: 1.1rem;
+}
+*/
+
+pre {
+  background-color: #667;
+}
+
+pre[class*='language-'] {
+  background-color: #222;
+}
+
+pre[class*='language-rust'] {
+  background-color: #999;
+}
+
+    </style>
+    <script>
+      const s = {
+  currentLineSet: 0,
+}
+
+const lineSets = [
+  {
+    lines: [1, 0, 0, 0, 1, 1, 1, 0, 1],
+  },
+  {
+    lines: [2, 1, 1, 1, 2, 2, 2, 1, 2],
+  },
+  {
+    lines: [2, 2, 2, 1, 2, 2, 2, 1, 2],
+  },
+  {
+    lines: [2, 2, 3, 1, 2, 2, 3, 1, 2],
+  },
+  {
+    lines: [2, 2, 3, 1, 2, 2, 4, 2, 2],
+  },
+  {
+    lines: [2, 2, 3, 2, 2, 2, 4, 3, 2],
+  },
+  {
+    lines: [2, 2, 3, 3, 2, 2, 4, 3, 2],
+  },
+]
+
+const handleNextButtonClick = () => {
+  console.log('Got Next Button Click')
+  if (s.currentLineSet < lineSets.length - 1) {
+    s.currentLineSet += 1
+  }
+  updateLines()
+}
+
+const updateLines = () => {
+  const lineDivs = []
+  const lineDivEls = window.codeStuff.getElementsByTagName('div')
+  for (let lineIndex = 0; lineIndex < lineDivEls.length; lineIndex++) {
+    const preElements = []
+    const preToParse = lineDivEls[lineIndex].getElementsByTagName('pre')
+    for (let i = 0; i < preToParse.length; i++) {
+      preElements.push(preToParse[i])
+    }
+    lineDivs.push(preElements)
+  }
+
+  // hide everything:
+  lineDivs.forEach((lineDiv) => {
+    lineDiv.forEach((el) => {
+      el.classList.add('hideit')
+    })
+  })
+
+  for (let alfa = 0; alfa < lineSets[s.currentLineSet].lines.length; alfa++) {
+    lineDivs[alfa][lineSets[s.currentLineSet].lines[alfa]].classList.remove(
+      'hideit'
+    )
+    // const bravo = lineSets[0].lines[alfa]
+    // lineDivs[bravo[0]][bravo[1]].classList.remove('hideit')
+  }
+
+  // lineDivs[0][0].classList.add('hideit')
+  // lineDivs[0][1].classList.remove('hideit')
+  // lineDivs[1][0].classList.add('hideit')
+  // lineDivs[1][1].classList.remove('hideit')
+  // lineDivs[4][0].classList.add('hideit')
+  // lineDivs[4][1].classList.remove('hideit')
+  // lineDivs[6][0].classList.add('hideit')
+  // lineDivs[6][1].classList.remove('hideit')
+  // lineDivs[8][0].classList.add('hideit')
+  // lineDivs[8][1].classList.remove('hideit')
+
+  // console.log(lineDivs)
+
+  // lines[0].classList.add('hideit')
+  // lines[1].classList.remove('hideit')
+  // lines[10].classList.add('hideit')
+  // lines[11].classList.remove('hideit')
+}
+
+const init = () => {
+  window.nextView.addEventListener('click', handleNextButtonClick)
+  updateLines()
+}
+
+document.addEventListener('DOMContentLoaded', init)
+
+    </script>
+  </head>
+  <body>
+    <header>
+      <a href="/">cookbook home</a> ~
+      <a href="https://www.alanwsmith.com/">main site</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
+    </header>
+    <main>
+      <h1>Step-By-Step Code Example Prototype 3</h1>
+      <h2>EXAMPLE</h2>
+      <div id="codeStuff">
+  <div>
+    <pre class="language-rust"><code> </code></pre>
+    <pre class="language-rust hideit"><code>fn main() {</code></pre>
+    <pre class="hideit"><code>fn main() {</code></pre>
+  </div>
+  <div>
+    <pre class="language-rust"><code> </code></pre>
+    <pre
+      class="language-rust hideit"
+    ><code>  let mut alfa = String::from("apple");</code></pre>
+    <pre
+      class="hideit"
+    ><code>  let mut alfa = String::from("apple");</code></pre>
+  </div>
+  <div>
+    <pre class="language-rust"><code> </code></pre>
+    <pre class="hideit"><code> </code></pre>
+    <pre class="language-rust hideit"><code>  widget(&mut alfa);</code></pre>
+    <pre class="hideit"><code>  widget(&mut alfa);</code></pre>
+  </div>
+  <div>
+    <pre class="language-rust"><code> </code></pre>
+    <pre class="hideit"><code> </code></pre>
+    <pre
+      class="language-rust hideit"
+    ><code>  println!("alfa is {alfa}");</code></pre>
+    <pre class="hideit"><code>  println!("alfa is {alfa}");</code></pre>
+  </div>
+  <div>
+    <pre class="language-rust"><code> </code></pre>
+    <pre class="language-rust hideit"><code>}</code></pre>
+    <pre class="hideit"><code>}</code></pre>
+  </div>
+  <div>
+    <pre class="language-rust"><code> </code></pre>
+    <pre class="language-rust hideit"><code> </code></pre>
+    <pre class="hideit"><code> </code></pre>
+  </div>
+  <div>
+    <pre class="language-rust"><code> </code></pre>
+    <pre class="language-rust hideit"><code>fn widget() {</code></pre>
+    <pre class="hisdeit"><code>fn widget() {</code></pre>
+    <pre
+      class="language-rust hideit"
+    ><code>fn widget(thing: &mut String) {</code></pre>
+    <pre class="hideit"><code>fn widget(thing: &mut String) {</code></pre>
+  </div>
+  <div>
+    <pre class="language-rust"><code> </code></pre>
+    <pre class="hideit"><code> </code></pre>
+    <pre
+      class="language-rust hideit"
+    ><code>  thing.push_str("pie");</code></pre>
+    <pre class="hideit"><code>  thing.push_str("pie");</code></pre>
+  </div>
+  <div>
+    <pre class="language-rust"><code> </code></pre>
+    <pre class="language-rust hideit"><code>}</code></pre>
+    <pre class="hideit"><code>}</code></pre>
+  </div>
+</div>
+
+<button id="nextView">Next</button>
+ 
+                <h2>Details</h2>
+                <ul>
+                    <li>Working on an idea for doing code examples for tutorials</li>
+                </ul>
+                  
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;div id=&quot;codeStuff&quot;&gt;
+  &lt;div&gt;
+    &lt;pre class=&quot;language-rust&quot;&gt;&lt;code&gt; &lt;/code&gt;&lt;/pre&gt;
+    &lt;pre class=&quot;language-rust hideit&quot;&gt;&lt;code&gt;fn main() {&lt;/code&gt;&lt;/pre&gt;
+    &lt;pre class=&quot;hideit&quot;&gt;&lt;code&gt;fn main() {&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;pre class=&quot;language-rust&quot;&gt;&lt;code&gt; &lt;/code&gt;&lt;/pre&gt;
+    &lt;pre
+      class=&quot;language-rust hideit&quot;
+    &gt;&lt;code&gt;  let mut alfa = String::from(&quot;apple&quot;);&lt;/code&gt;&lt;/pre&gt;
+    &lt;pre
+      class=&quot;hideit&quot;
+    &gt;&lt;code&gt;  let mut alfa = String::from(&quot;apple&quot;);&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;pre class=&quot;language-rust&quot;&gt;&lt;code&gt; &lt;/code&gt;&lt;/pre&gt;
+    &lt;pre class=&quot;hideit&quot;&gt;&lt;code&gt; &lt;/code&gt;&lt;/pre&gt;
+    &lt;pre class=&quot;language-rust hideit&quot;&gt;&lt;code&gt;  widget(&amp;mut alfa);&lt;/code&gt;&lt;/pre&gt;
+    &lt;pre class=&quot;hideit&quot;&gt;&lt;code&gt;  widget(&amp;mut alfa);&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;pre class=&quot;language-rust&quot;&gt;&lt;code&gt; &lt;/code&gt;&lt;/pre&gt;
+    &lt;pre class=&quot;hideit&quot;&gt;&lt;code&gt; &lt;/code&gt;&lt;/pre&gt;
+    &lt;pre
+      class=&quot;language-rust hideit&quot;
+    &gt;&lt;code&gt;  println!(&quot;alfa is {alfa}&quot;);&lt;/code&gt;&lt;/pre&gt;
+    &lt;pre class=&quot;hideit&quot;&gt;&lt;code&gt;  println!(&quot;alfa is {alfa}&quot;);&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;pre class=&quot;language-rust&quot;&gt;&lt;code&gt; &lt;/code&gt;&lt;/pre&gt;
+    &lt;pre class=&quot;language-rust hideit&quot;&gt;&lt;code&gt;}&lt;/code&gt;&lt;/pre&gt;
+    &lt;pre class=&quot;hideit&quot;&gt;&lt;code&gt;}&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;pre class=&quot;language-rust&quot;&gt;&lt;code&gt; &lt;/code&gt;&lt;/pre&gt;
+    &lt;pre class=&quot;language-rust hideit&quot;&gt;&lt;code&gt; &lt;/code&gt;&lt;/pre&gt;
+    &lt;pre class=&quot;hideit&quot;&gt;&lt;code&gt; &lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;pre class=&quot;language-rust&quot;&gt;&lt;code&gt; &lt;/code&gt;&lt;/pre&gt;
+    &lt;pre class=&quot;language-rust hideit&quot;&gt;&lt;code&gt;fn widget() {&lt;/code&gt;&lt;/pre&gt;
+    &lt;pre class=&quot;hisdeit&quot;&gt;&lt;code&gt;fn widget() {&lt;/code&gt;&lt;/pre&gt;
+    &lt;pre
+      class=&quot;language-rust hideit&quot;
+    &gt;&lt;code&gt;fn widget(thing: &amp;mut String) {&lt;/code&gt;&lt;/pre&gt;
+    &lt;pre class=&quot;hideit&quot;&gt;&lt;code&gt;fn widget(thing: &amp;mut String) {&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;pre class=&quot;language-rust&quot;&gt;&lt;code&gt; &lt;/code&gt;&lt;/pre&gt;
+    &lt;pre class=&quot;hideit&quot;&gt;&lt;code&gt; &lt;/code&gt;&lt;/pre&gt;
+    &lt;pre
+      class=&quot;language-rust hideit&quot;
+    &gt;&lt;code&gt;  thing.push_str(&quot;pie&quot;);&lt;/code&gt;&lt;/pre&gt;
+    &lt;pre class=&quot;hideit&quot;&gt;&lt;code&gt;  thing.push_str(&quot;pie&quot;);&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;pre class=&quot;language-rust&quot;&gt;&lt;code&gt; &lt;/code&gt;&lt;/pre&gt;
+    &lt;pre class=&quot;language-rust hideit&quot;&gt;&lt;code&gt;}&lt;/code&gt;&lt;/pre&gt;
+    &lt;pre class=&quot;hideit&quot;&gt;&lt;code&gt;}&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;button id=&quot;nextView&quot;&gt;Next&lt;/button&gt;
+</code></pre>
+             
+            <h2>CSS</h2>
+            <pre><code class="language-css">.newLine {
+  background-color: #050;
+}
+
+.padLine {
+  background-color: #333;
+}
+
+.existingLine {
+  background-color: #333;
+}
+
+.codeLineWrapper {
+  background-color: #333;
+}
+
+.hideit {
+  display: none;
+}
+
+/*
+pre {
+  background: #272822;
+  line-height: 2rem;
+  font-weight: 700;
+  font-family: Consolas, Monaco, &#x27;Andale Mono&#x27;, &#x27;Ubuntu Mono&#x27;, monospace;
+  font-size: 1.1rem;
+}
+*/
+
+pre {
+  background-color: #667;
+}
+
+pre[class*=&#x27;language-&#x27;] {
+  background-color: #222;
+}
+
+pre[class*=&#x27;language-rust&#x27;] {
+  background-color: #999;
+}
+</code></pre>
+            
+      
+            <h2>JavaScript</h2>
+            <pre><code class="language-js">const s = {
+  currentLineSet: 0,
+}
+
+const lineSets = [
+  {
+    lines: [1, 0, 0, 0, 1, 1, 1, 0, 1],
+  },
+  {
+    lines: [2, 1, 1, 1, 2, 2, 2, 1, 2],
+  },
+  {
+    lines: [2, 2, 2, 1, 2, 2, 2, 1, 2],
+  },
+  {
+    lines: [2, 2, 3, 1, 2, 2, 3, 1, 2],
+  },
+  {
+    lines: [2, 2, 3, 1, 2, 2, 4, 2, 2],
+  },
+  {
+    lines: [2, 2, 3, 2, 2, 2, 4, 3, 2],
+  },
+  {
+    lines: [2, 2, 3, 3, 2, 2, 4, 3, 2],
+  },
+]
+
+const handleNextButtonClick = () =&gt; {
+  console.log(&#x27;Got Next Button Click&#x27;)
+  if (s.currentLineSet &lt; lineSets.length - 1) {
+    s.currentLineSet += 1
+  }
+  updateLines()
+}
+
+const updateLines = () =&gt; {
+  const lineDivs = []
+  const lineDivEls = window.codeStuff.getElementsByTagName(&#x27;div&#x27;)
+  for (let lineIndex = 0; lineIndex &lt; lineDivEls.length; lineIndex++) {
+    const preElements = []
+    const preToParse = lineDivEls[lineIndex].getElementsByTagName(&#x27;pre&#x27;)
+    for (let i = 0; i &lt; preToParse.length; i++) {
+      preElements.push(preToParse[i])
+    }
+    lineDivs.push(preElements)
+  }
+
+  // hide everything:
+  lineDivs.forEach((lineDiv) =&gt; {
+    lineDiv.forEach((el) =&gt; {
+      el.classList.add(&#x27;hideit&#x27;)
+    })
+  })
+
+  for (let alfa = 0; alfa &lt; lineSets[s.currentLineSet].lines.length; alfa++) {
+    lineDivs[alfa][lineSets[s.currentLineSet].lines[alfa]].classList.remove(
+      &#x27;hideit&#x27;
+    )
+    // const bravo = lineSets[0].lines[alfa]
+    // lineDivs[bravo[0]][bravo[1]].classList.remove(&#x27;hideit&#x27;)
+  }
+
+  // lineDivs[0][0].classList.add(&#x27;hideit&#x27;)
+  // lineDivs[0][1].classList.remove(&#x27;hideit&#x27;)
+  // lineDivs[1][0].classList.add(&#x27;hideit&#x27;)
+  // lineDivs[1][1].classList.remove(&#x27;hideit&#x27;)
+  // lineDivs[4][0].classList.add(&#x27;hideit&#x27;)
+  // lineDivs[4][1].classList.remove(&#x27;hideit&#x27;)
+  // lineDivs[6][0].classList.add(&#x27;hideit&#x27;)
+  // lineDivs[6][1].classList.remove(&#x27;hideit&#x27;)
+  // lineDivs[8][0].classList.add(&#x27;hideit&#x27;)
+  // lineDivs[8][1].classList.remove(&#x27;hideit&#x27;)
+
+  // console.log(lineDivs)
+
+  // lines[0].classList.add(&#x27;hideit&#x27;)
+  // lines[1].classList.remove(&#x27;hideit&#x27;)
+  // lines[10].classList.add(&#x27;hideit&#x27;)
+  // lines[11].classList.remove(&#x27;hideit&#x27;)
+}
+
+const init = () =&gt; {
+  window.nextView.addEventListener(&#x27;click&#x27;, handleNextButtonClick)
+  updateLines()
+}
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
+</code></pre>
+               
+                <h2>References</h2>
+                <ul>
+                    <li><a href=""></a></li>
+                </ul>
+                
+    </main>
+    <footer>
+      from <a href="https://www.alanwsmith.com/">alan w. smith</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>
