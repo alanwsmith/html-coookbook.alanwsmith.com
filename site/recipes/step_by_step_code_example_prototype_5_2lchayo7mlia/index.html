@@ -292,7 +292,7 @@ pre {
 
 #blockGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.2fr 0.8fr;
 }
 
 #buttonWrapper {
@@ -321,12 +321,19 @@ pre {
 
 #codeBucket {
   display: grid;
-  grid-template-columns: 4ch 1fr;
+  grid-template-columns: 5ch 1fr;
 }
 
 #codeGutter {
-  padding: 0.7rem;
+  padding-top: 0.7rem;
+  padding-left: 0.2rem;
   background-color: #777;
+  border-top-left-radius: 0.4rem;
+  border-bottom-left-radius: 0.4rem;
+}
+
+.gutterItem {
+  color: #000;
 }
 
     </style>
@@ -423,12 +430,20 @@ const log = (msg) => {
   console.log(msg)
 }
 
+const handleNumberButtonClick = (event) => {
+  s.currentLineSet = parseInt(event.target.id.split('_')[1])
+  updateLines()
+  updateButtons()
+  updatePointers()
+}
+
 const handleNextButtonClick = () => {
   if (s.currentLineSet < lineSets.length - 1) {
     s.currentLineSet += 1
   }
   updateLines()
   updateButtons()
+  updatePointers()
 }
 
 const handlePreviousButtonClick = () => {
@@ -437,6 +452,7 @@ const handlePreviousButtonClick = () => {
   }
   updateLines()
   updateButtons()
+  updatePointers()
 }
 
 const updateLines = () => {
@@ -506,12 +522,6 @@ const makeBaseLines = () => {
   })
 }
 
-const handleNumberButtonClick = (event) => {
-  s.currentLineSet = parseInt(event.target.id.split('_')[1])
-  updateLines()
-  updateButtons()
-}
-
 const addButtons = () => {
   for (let lineIndex = 1; lineIndex < lineSets.length - 1; lineIndex++) {
     const newButtonEl = document.createElement('button')
@@ -546,17 +556,32 @@ const addNextButton = () => {
 const addPointers = () => {
   for (let lineIndex = 0; lineIndex < s.sourceCode.length; lineIndex++) {
     const newPointerEl = document.createElement('pre')
-    newPointerEl.innerHTML = lineIndex + 1
+    newPointerEl.id = `pointer_${lineIndex}`
+    newPointerEl.classList.add('gutterItem')
+    if (lineIndex < 9) {
+      newPointerEl.innerHTML = `0${lineIndex + 1}`
+    } else {
+      newPointerEl.innerHTML = lineIndex + 1
+    }
     window.codeGutter.appendChild(newPointerEl)
   }
 }
 
-const updatePointer = () => {
-  // for (let lineIndex = 0; lineIndex < s.sourceCode.length; lineIndex++) {
-  //   const newPointerEl = document.createElement('pre')
-  //   newPointerEl.innerHTML = lineIndex + 1
-  //   window.codeGutter.appendChild(newPointerEl)
-  // }
+const updatePointers = () => {
+  for (let lineIndex = 0; lineIndex < s.sourceCode.length; lineIndex++) {
+    // log(lineSets[s.currentLineSet].lines[lineIndex])
+    let lineCode = lineSets[s.currentLineSet].lines[lineIndex].split('_')[1]
+    let numberString = lineIndex < 9 ? `0${lineIndex + 1}` : lineIndex + 1
+    if (lineCode === 'r') {
+      window[`pointer_${lineIndex}`].innerHTML = `${numberString} &gt;`
+    } else {
+      window[`pointer_${lineIndex}`].innerHTML = `${numberString}  `
+    }
+    // log(lineCode)
+    //   const newPointerEl = document.createElement('pre')
+    //   newPointerEl.innerHTML = lineIndex + 1
+    //   window.codeGutter.appendChild(newPointerEl)
+  }
 }
 
 const init = () => {
@@ -565,6 +590,7 @@ const init = () => {
   makeBaseLines()
   updateLines()
   addPointers()
+  updatePointers()
   addPreviousButton()
   addButtons()
   addNextButton()
@@ -868,7 +894,7 @@ pre {
 
 #blockGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.2fr 0.8fr;
 }
 
 #buttonWrapper {
@@ -897,12 +923,19 @@ pre {
 
 #codeBucket {
   display: grid;
-  grid-template-columns: 4ch 1fr;
+  grid-template-columns: 5ch 1fr;
 }
 
 #codeGutter {
-  padding: 0.7rem;
+  padding-top: 0.7rem;
+  padding-left: 0.2rem;
   background-color: #777;
+  border-top-left-radius: 0.4rem;
+  border-bottom-left-radius: 0.4rem;
+}
+
+.gutterItem {
+  color: #000;
 }
 </code></pre>
             
@@ -1000,12 +1033,20 @@ const log = (msg) =&gt; {
   console.log(msg)
 }
 
+const handleNumberButtonClick = (event) =&gt; {
+  s.currentLineSet = parseInt(event.target.id.split(&#x27;_&#x27;)[1])
+  updateLines()
+  updateButtons()
+  updatePointers()
+}
+
 const handleNextButtonClick = () =&gt; {
   if (s.currentLineSet &lt; lineSets.length - 1) {
     s.currentLineSet += 1
   }
   updateLines()
   updateButtons()
+  updatePointers()
 }
 
 const handlePreviousButtonClick = () =&gt; {
@@ -1014,6 +1055,7 @@ const handlePreviousButtonClick = () =&gt; {
   }
   updateLines()
   updateButtons()
+  updatePointers()
 }
 
 const updateLines = () =&gt; {
@@ -1083,12 +1125,6 @@ const makeBaseLines = () =&gt; {
   })
 }
 
-const handleNumberButtonClick = (event) =&gt; {
-  s.currentLineSet = parseInt(event.target.id.split(&#x27;_&#x27;)[1])
-  updateLines()
-  updateButtons()
-}
-
 const addButtons = () =&gt; {
   for (let lineIndex = 1; lineIndex &lt; lineSets.length - 1; lineIndex++) {
     const newButtonEl = document.createElement(&#x27;button&#x27;)
@@ -1123,17 +1159,32 @@ const addNextButton = () =&gt; {
 const addPointers = () =&gt; {
   for (let lineIndex = 0; lineIndex &lt; s.sourceCode.length; lineIndex++) {
     const newPointerEl = document.createElement(&#x27;pre&#x27;)
-    newPointerEl.innerHTML = lineIndex + 1
+    newPointerEl.id = `pointer_${lineIndex}`
+    newPointerEl.classList.add(&#x27;gutterItem&#x27;)
+    if (lineIndex &lt; 9) {
+      newPointerEl.innerHTML = `0${lineIndex + 1}`
+    } else {
+      newPointerEl.innerHTML = lineIndex + 1
+    }
     window.codeGutter.appendChild(newPointerEl)
   }
 }
 
-const updatePointer = () =&gt; {
-  // for (let lineIndex = 0; lineIndex &lt; s.sourceCode.length; lineIndex++) {
-  //   const newPointerEl = document.createElement(&#x27;pre&#x27;)
-  //   newPointerEl.innerHTML = lineIndex + 1
-  //   window.codeGutter.appendChild(newPointerEl)
-  // }
+const updatePointers = () =&gt; {
+  for (let lineIndex = 0; lineIndex &lt; s.sourceCode.length; lineIndex++) {
+    // log(lineSets[s.currentLineSet].lines[lineIndex])
+    let lineCode = lineSets[s.currentLineSet].lines[lineIndex].split(&#x27;_&#x27;)[1]
+    let numberString = lineIndex &lt; 9 ? `0${lineIndex + 1}` : lineIndex + 1
+    if (lineCode === &#x27;r&#x27;) {
+      window[`pointer_${lineIndex}`].innerHTML = `${numberString} &amp;gt;`
+    } else {
+      window[`pointer_${lineIndex}`].innerHTML = `${numberString}  `
+    }
+    // log(lineCode)
+    //   const newPointerEl = document.createElement(&#x27;pre&#x27;)
+    //   newPointerEl.innerHTML = lineIndex + 1
+    //   window.codeGutter.appendChild(newPointerEl)
+  }
 }
 
 const init = () =&gt; {
@@ -1142,6 +1193,7 @@ const init = () =&gt; {
   makeBaseLines()
   updateLines()
   addPointers()
+  updatePointers()
   addPreviousButton()
   addButtons()
   addNextButton()
