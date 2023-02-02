@@ -39,7 +39,7 @@ const loadSourceCode = () => {
 }
 
 const s = {
-  currentLineSet: 0,
+  currentLineSet: 1,
   lineMarkers: [],
 }
 
@@ -92,7 +92,7 @@ const handleNextButtonClick = () => {
 }
 
 const handlePreviousButtonClick = () => {
-  if (s.currentLineSet > 0) {
+  if (s.currentLineSet > 1) {
     s.currentLineSet -= 1
   }
   updateLines()
@@ -108,9 +108,9 @@ const updateLines = () => {
   for (let lineIndex = 0; lineIndex < s.sourceCode.length; lineIndex++) {
     const code = lineSets[s.currentLineSet].lines[lineIndex]
     window[`codeLine_${lineIndex}_${code}`].classList.remove('hideit')
-    console.log(s.currentLineSet)
+    // console.log(s.currentLineSet)
     if (s.currentLineSet > 0) {
-      console.log(s.currentLineSet)
+      // console.log(s.currentLineSet)
       const code_parts = code.split('_')
       if (code_parts[1] === 'r') {
         window[`codeLine_${lineIndex}_${code}`].classList.add('highlightCode')
@@ -176,12 +176,37 @@ const makeBaseLines = () => {
   }
 }
 
+const handleNumberButtonClick = (event) => {
+  s.currentLineSet = parseInt(event.target.id.split('_')[1])
+  updateLines()
+}
+
+const addButtons = () => {
+  const buttonWrapperEl = document.createElement('div')
+  buttonWrapperEl.id = 'buttonWrapper'
+  for (let lineIndex = 1; lineIndex < s.sourceCode.length - 2; lineIndex++) {
+    const newButtonEl = document.createElement('button')
+    newButtonEl.innerHTML = lineIndex
+    newButtonEl.id = `stepButton_${lineIndex}`
+    buttonWrapperEl.appendChild(newButtonEl)
+    newButtonEl.addEventListener('click', handleNumberButtonClick)
+  }
+
+  const newButtonEl = document.createElement('button')
+  newButtonEl.innerHTML = `Final`
+  newButtonEl.id = `stepButton_${s.sourceCode.length - 2}`
+  buttonWrapperEl.appendChild(newButtonEl)
+  newButtonEl.addEventListener('click', handleNumberButtonClick)
+
+  window.codeBlock.appendChild(buttonWrapperEl)
+}
+
 const init = () => {
   loadSourceCode()
   makePreLines()
   makeBaseLines()
-  // prepLineMarkers()
   updateLines()
+  addButtons()
   window.nextSet.addEventListener('click', handleNextButtonClick)
   window.previousSet.addEventListener('click', handlePreviousButtonClick)
 }

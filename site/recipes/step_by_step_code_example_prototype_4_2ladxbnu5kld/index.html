@@ -115,7 +115,7 @@ const loadSourceCode = () => {
 }
 
 const s = {
-  currentLineSet: 0,
+  currentLineSet: 1,
   lineMarkers: [],
 }
 
@@ -168,7 +168,7 @@ const handleNextButtonClick = () => {
 }
 
 const handlePreviousButtonClick = () => {
-  if (s.currentLineSet > 0) {
+  if (s.currentLineSet > 1) {
     s.currentLineSet -= 1
   }
   updateLines()
@@ -184,9 +184,9 @@ const updateLines = () => {
   for (let lineIndex = 0; lineIndex < s.sourceCode.length; lineIndex++) {
     const code = lineSets[s.currentLineSet].lines[lineIndex]
     window[`codeLine_${lineIndex}_${code}`].classList.remove('hideit')
-    console.log(s.currentLineSet)
+    // console.log(s.currentLineSet)
     if (s.currentLineSet > 0) {
-      console.log(s.currentLineSet)
+      // console.log(s.currentLineSet)
       const code_parts = code.split('_')
       if (code_parts[1] === 'r') {
         window[`codeLine_${lineIndex}_${code}`].classList.add('highlightCode')
@@ -252,12 +252,37 @@ const makeBaseLines = () => {
   }
 }
 
+const handleNumberButtonClick = (event) => {
+  s.currentLineSet = parseInt(event.target.id.split('_')[1])
+  updateLines()
+}
+
+const addButtons = () => {
+  const buttonWrapperEl = document.createElement('div')
+  buttonWrapperEl.id = 'buttonWrapper'
+  for (let lineIndex = 1; lineIndex < s.sourceCode.length - 2; lineIndex++) {
+    const newButtonEl = document.createElement('button')
+    newButtonEl.innerHTML = lineIndex
+    newButtonEl.id = `stepButton_${lineIndex}`
+    buttonWrapperEl.appendChild(newButtonEl)
+    newButtonEl.addEventListener('click', handleNumberButtonClick)
+  }
+
+  const newButtonEl = document.createElement('button')
+  newButtonEl.innerHTML = `Final`
+  newButtonEl.id = `stepButton_${s.sourceCode.length - 2}`
+  buttonWrapperEl.appendChild(newButtonEl)
+  newButtonEl.addEventListener('click', handleNumberButtonClick)
+
+  window.codeBlock.appendChild(buttonWrapperEl)
+}
+
 const init = () => {
   loadSourceCode()
   makePreLines()
   makeBaseLines()
-  // prepLineMarkers()
   updateLines()
+  addButtons()
   window.nextSet.addEventListener('click', handleNextButtonClick)
   window.previousSet.addEventListener('click', handlePreviousButtonClick)
 }
@@ -455,7 +480,7 @@ const loadSourceCode = () =&gt; {
 }
 
 const s = {
-  currentLineSet: 0,
+  currentLineSet: 1,
   lineMarkers: [],
 }
 
@@ -508,7 +533,7 @@ const handleNextButtonClick = () =&gt; {
 }
 
 const handlePreviousButtonClick = () =&gt; {
-  if (s.currentLineSet &gt; 0) {
+  if (s.currentLineSet &gt; 1) {
     s.currentLineSet -= 1
   }
   updateLines()
@@ -524,9 +549,9 @@ const updateLines = () =&gt; {
   for (let lineIndex = 0; lineIndex &lt; s.sourceCode.length; lineIndex++) {
     const code = lineSets[s.currentLineSet].lines[lineIndex]
     window[`codeLine_${lineIndex}_${code}`].classList.remove(&#x27;hideit&#x27;)
-    console.log(s.currentLineSet)
+    // console.log(s.currentLineSet)
     if (s.currentLineSet &gt; 0) {
-      console.log(s.currentLineSet)
+      // console.log(s.currentLineSet)
       const code_parts = code.split(&#x27;_&#x27;)
       if (code_parts[1] === &#x27;r&#x27;) {
         window[`codeLine_${lineIndex}_${code}`].classList.add(&#x27;highlightCode&#x27;)
@@ -592,12 +617,37 @@ const makeBaseLines = () =&gt; {
   }
 }
 
+const handleNumberButtonClick = (event) =&gt; {
+  s.currentLineSet = parseInt(event.target.id.split(&#x27;_&#x27;)[1])
+  updateLines()
+}
+
+const addButtons = () =&gt; {
+  const buttonWrapperEl = document.createElement(&#x27;div&#x27;)
+  buttonWrapperEl.id = &#x27;buttonWrapper&#x27;
+  for (let lineIndex = 1; lineIndex &lt; s.sourceCode.length - 2; lineIndex++) {
+    const newButtonEl = document.createElement(&#x27;button&#x27;)
+    newButtonEl.innerHTML = lineIndex
+    newButtonEl.id = `stepButton_${lineIndex}`
+    buttonWrapperEl.appendChild(newButtonEl)
+    newButtonEl.addEventListener(&#x27;click&#x27;, handleNumberButtonClick)
+  }
+
+  const newButtonEl = document.createElement(&#x27;button&#x27;)
+  newButtonEl.innerHTML = `Final`
+  newButtonEl.id = `stepButton_${s.sourceCode.length - 2}`
+  buttonWrapperEl.appendChild(newButtonEl)
+  newButtonEl.addEventListener(&#x27;click&#x27;, handleNumberButtonClick)
+
+  window.codeBlock.appendChild(buttonWrapperEl)
+}
+
 const init = () =&gt; {
   loadSourceCode()
   makePreLines()
   makeBaseLines()
-  // prepLineMarkers()
   updateLines()
+  addButtons()
   window.nextSet.addEventListener(&#x27;click&#x27;, handleNextButtonClick)
   window.previousSet.addEventListener(&#x27;click&#x27;, handlePreviousButtonClick)
 }
