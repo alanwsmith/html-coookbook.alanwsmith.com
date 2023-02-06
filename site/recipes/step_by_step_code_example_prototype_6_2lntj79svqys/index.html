@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Step-By-Step Code Example Prototype 6 - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Step-By-Step Code Example Prototype 6" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Step-By-Step%20Code%20Example%20Prototype%206,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/fonts.css" />
+    <link rel="stylesheet" href="/styles/colors.css" />
+    <link rel="stylesheet" href="/styles/wrapper.css" />
+    <link rel="stylesheet" href="/styles/prism-customized.css" />
+    
+    <style>
+      
+    </style>
+    <script>
+      const s = {
+  currentLineSet: 0,
+    sourceLines: [
+      [
+        `<code>fn main() {</code>`,
+        `fn main() {`
+      ],
+      [
+        `  <code>let alfa =</code>`, 
+        `  let alfa = <code>String::from("apple")</code>;`,
+        `  let alfa = String::from("apple");`,
+      ],
+      [
+        `  <code>println!()</code>;`,
+        `  println!(<code>"alfa is {}"</code>);`,
+        `  println!(<code>"alfa is {alfa}"</code>);`,
+        `  println!("alfa is {alfa}");`
+      ],
+      [
+        `<code>}</code>`,
+        `}`
+      ]
+    ],
+
+    lineSets: [
+      [0, -1, -1, 0],
+      [1, 0, -1, 1],
+      [1, 1, -1, 1],
+      [1, 2, 0, 1],
+      [1, 2, 1, 1],
+      [1, 2, 2, 1],
+      [1, 2, 3, 1],
+    ]
+
+}
+
+const makeLines = () => {
+  for (let i = 0; i < s.lineCount ; i ++) {
+    const newLineEl = document.createElement("div");
+    newLineEl.id = `codeExampleLine_${i}`
+    window.codeExample.appendChild(newLineEl);
+  }
+}
+
+const outputLines = () => {
+
+}
+
+
+const setLineCount = () => {
+  s.lineCount = s.lineSets[0].length
+}
+
+const makeCodeExample = () => {
+  console.log('makeCodeExample')
+  setLineCount()
+  makeLines()
+  outputLines()
+}
+
+document.addEventListener('DOMContentLoaded', makeCodeExample)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">cookbook home</a> ~
+      <a href="https://www.alanwsmith.com/">main site</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
+    </header>
+    <main>
+      <h1>Step-By-Step Code Example Prototype 6</h1>
+      <div id="codeExample"></div>
+
+
+      <hr />
+
+      
+                <h2>Details</h2>
+                <ul>
+                    <li>This is taking a slightly different approach to the previous ones aimed at making it a little easier to add code for each one</li>
+                </ul>
+                  
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;div id=&quot;codeExample&quot;&gt;&lt;/div&gt;
+</code></pre>
+              
+            <h2>JavaScript</h2>
+            <pre><code class="language-js">const s = {
+  currentLineSet: 0,
+    sourceLines: [
+      [
+        `&lt;code&gt;fn main() {&lt;/code&gt;`,
+        `fn main() {`
+      ],
+      [
+        `  &lt;code&gt;let alfa =&lt;/code&gt;`, 
+        `  let alfa = &lt;code&gt;String::from(&quot;apple&quot;)&lt;/code&gt;;`,
+        `  let alfa = String::from(&quot;apple&quot;);`,
+      ],
+      [
+        `  &lt;code&gt;println!()&lt;/code&gt;;`,
+        `  println!(&lt;code&gt;&quot;alfa is {}&quot;&lt;/code&gt;);`,
+        `  println!(&lt;code&gt;&quot;alfa is {alfa}&quot;&lt;/code&gt;);`,
+        `  println!(&quot;alfa is {alfa}&quot;);`
+      ],
+      [
+        `&lt;code&gt;}&lt;/code&gt;`,
+        `}`
+      ]
+    ],
+
+    lineSets: [
+      [0, -1, -1, 0],
+      [1, 0, -1, 1],
+      [1, 1, -1, 1],
+      [1, 2, 0, 1],
+      [1, 2, 1, 1],
+      [1, 2, 2, 1],
+      [1, 2, 3, 1],
+    ]
+
+}
+
+const makeLines = () =&gt; {
+  for (let i = 0; i &lt; s.lineCount ; i ++) {
+    const newLineEl = document.createElement(&quot;div&quot;);
+    newLineEl.id = `codeExampleLine_${i}`
+    window.codeExample.appendChild(newLineEl);
+  }
+}
+
+const outputLines = () =&gt; {
+
+}
+
+
+const setLineCount = () =&gt; {
+  s.lineCount = s.lineSets[0].length
+}
+
+const makeCodeExample = () =&gt; {
+  console.log(&#x27;makeCodeExample&#x27;)
+  setLineCount()
+  makeLines()
+  outputLines()
+}
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, makeCodeExample)
+</code></pre>
+            
+        
+                <h2>References</h2>
+                <ul>
+                    <li><a href=""></a></li>
+                </ul>
+                
+    </main>
+    <footer>
+      from <a href="https://www.alanwsmith.com/">alan w. smith</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>
