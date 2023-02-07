@@ -14,6 +14,15 @@ button {
   border-radius: var(--area-radius);
 }
 
+c-1 {
+  color: red;
+}
+
+c-2 {
+  color: blue;
+}
+
+
 #codeButtonsWrapper {
   padding: 0.6rem var(--area-radius);
   display: flex;
@@ -43,6 +52,15 @@ button {
   border-radius: var(--area-radius);
   margin-right: 0.4rem;
   padding: var(--area-padding);
+  grid-row: 2/span 2;
+}
+
+#headerArea {
+  background-color: #003;
+  border-radius: var(--area-radius);
+  padding: 0.4rem var(--area-padding);
+  margin-bottom: 0.3rem;
+  grid-column: 1/span 2;
 }
 
 #lineNumbersWrapper {
@@ -70,4 +88,6 @@ button {
   font-weight: bold;
   color: var(--pointer-color);
 }
+
+
 

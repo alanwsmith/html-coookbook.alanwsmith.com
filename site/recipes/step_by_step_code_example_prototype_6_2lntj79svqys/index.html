@@ -50,6 +50,15 @@ button {
   border-radius: var(--area-radius);
 }
 
+c-1 {
+  color: red;
+}
+
+c-2 {
+  color: blue;
+}
+
+
 #codeButtonsWrapper {
   padding: 0.6rem var(--area-radius);
   display: flex;
@@ -79,6 +88,15 @@ button {
   border-radius: var(--area-radius);
   margin-right: 0.4rem;
   padding: var(--area-padding);
+  grid-row: 2/span 2;
+}
+
+#headerArea {
+  background-color: #003;
+  border-radius: var(--area-radius);
+  padding: 0.4rem var(--area-padding);
+  margin-bottom: 0.3rem;
+  grid-column: 1/span 2;
 }
 
 #lineNumbersWrapper {
@@ -108,6 +126,8 @@ button {
 }
 
 
+
+
     </style>
 
     <script src="/assets/highlight/highlight.min.js"></script>
@@ -116,47 +136,107 @@ button {
       const s = {
 
   currentLineSet: 0,
+  // string, meta
 
     sourceLines: [
       [
         ` `,
-        `<code class="hljs language-rust">fn main() {</code>`,
-        `fn main() {`
+        `<c-1>use std::env</c-1><c-2>;</c-2>`,
+        `use std::env;`,
+      ],
+      [` `, ` `],
+      [` `,
+      `<c-1>fn main()</c-1> <c-2>{</c-2>`,
+      `fn main() {`,
       ],
       [
         ` `,
-        `  <code>let alfa =</code>`, 
-        `  let alfa = <code class="hljs langauge-rust">String::from("apple")</code>;`,
-        `  let alfa = String::from("apple");`,
+        `  <c-1>let key </c-1><c-2>=</c-2>`,
+        `  let key = <c-1>&quot;HOME&quot;</c-1><c-2>;</c-2>`,
+        `  let key = &quot;HOME&quot;;`,
       ],
       [
         ` `,
-        `  <code>println!()</code>;`,
-        `  println!(<code>"alfa is {}"</code>);`,
-        `  println!(<code>"alfa is {alfa}"</code>);`,
-        `  println!("alfa is {alfa}");`
+        `  <c-1>let returnValueAsResult </c-1><c-2>=</c-2>`,
+        `  let returnValueAsResult = <c-1>env::var<c-1>()<c-2>;</c-2>`,
+        `  let returnValueAsResult = env::var(<c-1>key</c-1>);`,
+        `  let returnValueAsResult = env::var(key);`,
       ],
       [
         ` `,
-        `  <code>println!("alfa is {alfa} again");</code>`,
-        `  println!("alfa is {alfa} again");`
+        `  <c-1>match returnValueAsResult</c-1> <c-2>{</c-2>`,
+        `  match returnValueAsResult {`,
       ],
       [
         ` `,
-        `<code>}</code>`,
+        `    <c-1>Ok() =></c-1> <c-2>{</c-2>`,
+        `    Ok(<c-1>value</c-1>) => {` ,
+        `    Ok(value) => {` ,
+      ],
+      [
+        ` `,
+        `      <c-1>println!()</c-1><c-2>;</c-2>`,
+        `      println!(<c-1>&quot;{} is {}&quot;</c-1>);`,
+        `      println!(&quot;{} is {}&quot;<c-2>,</c-2> <c-1>key</c-1>);`,
+        `      println!(&quot;{} is {}&quot;, key<c-2>,</c-2> <c-1>value</c-1>);`,
+        `      println!(&quot;{} is {}&quot;, key, value);`,
+      ],
+      [ ` `,
+        `    <c-2>}</c-2>`,
+        `    }`,
+      ],
+      [ ` `,
+        `    <c-1>Err() => </c-1><c-2>{</c-2>`,
+        `    Err(<c-1>error</c-1>) => {`,
+        `    Err(error) => {`,
+      ],
+      [
+      ` `,
+        `      <c-1>println!()</c-1><c-2>;</c-2>`,
+        `      println!(<c-1>&quot;{} is {}&quot;</c-1>);`,
+        `      println!(&quot;{} is {}&quot;<c-2>,</c-2> <c-1>key</c-1>);`,
+        `      println!(&quot;{} is {}&quot;, key<c-2>,</c-2> <c-1>error</c-1>);`,
+        `      println!(&quot;{} is {}&quot;, key, error);`,
+      ],
+      [
+        ` `,
+        `    <c-2>}</c-2>`,
+        `    }`
+      ],
+      [
+        ` `,
+        `  <c-2>}</c-2>`,
+        `  }`,
+      ],
+      [
+        ` `,
+        `<c-2>}</c-2>`,
         `}`
       ]
     ],
 
     lineSets: [
-      [1, 0, 0, 0, 1],
-      [2, 1, 0, 0, 2],
-      [2, 2, 0, 0, 2],
-      [2, 3, 1, 0, 2],
-      [2, 3, 2, 0, 2],
-      [2, 3, 3, 0, 2],
-      [2, 3, 4, 1, 2],
-      [2, 3, 4, 2, 2],
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+      [2, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+      [2, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+      [2, 0, 2, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+      [2, 0, 2, 3, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+      [2, 0, 2, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+      [2, 0, 2, 3, 4, 1, 0, 0, 0, 0, 0, 0, 1, 2],
+      [2, 0, 2, 3, 4, 2, 1, 0, 1, 0, 0, 0, 2, 2],
+      [2, 0, 2, 3, 4, 2, 2, 0, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 1, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 2, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 3, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 4, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 5, 2, 1, 0, 1, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 5, 2, 2, 0, 2, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 5, 2, 3, 1, 2, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 5, 2, 3, 2, 2, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 5, 2, 3, 3, 2, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 5, 2, 3, 4, 2, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 5, 2, 4, 4, 2, 2, 2],
     ], 
 
     output: [
@@ -243,7 +323,7 @@ const updateContent = () => {
 
 const updateHeader = () => {
   const header = s.currentLineSet === s.lineSets.length - 1 
-    ? `<h4>Output</h4>` 
+    ? `<h4>Final Output</h4>` 
     : `<h4>Step ${s.currentLineSet + 1}</h4>`
   window.headerArea.innerHTML = header
 }
@@ -255,8 +335,8 @@ const updateEverything = (newIndex) => {
     updateOutput()
   updateContent()
    updateHeader()
-  updateHighlights()
   updateButtonHighlights()
+  updateFinalHighlights()
 
 }
 
@@ -270,7 +350,7 @@ const updateButtonHighlights = () => {
    }
 }
 
-const updateHighlights = () => {
+const updateFinalHighlights = () => {
   if (s.currentLineSet === s.lineSets.length - 1) {
     for (let i = 0; i < s.totalLines; i ++) {
       window[`sourceLine_${i}`].classList.add('hljs')
@@ -299,12 +379,25 @@ const updateLineNumbers = () => {
    }
 }
 
+// TODO: Remove when the line highlights are in
+// // custom highlights selections
+// const updateLineHighlights = () => {
+//   ['keyword', 'variable', 'punctuation', 'string', 'meta'].forEach((hljsKey) => {
+//     const tagEls = window.codeExample.getElementsByTagName(`c-${hljsKey}`)
+//     for (let i = 0; i < tagEls.length; i ++ ) {
+//       tagEls[i].classList.add(`hljs-${hljsKey}`);
+//     }
+//   })
+// }
+
 const updateSourceLines = () => {
   for (let i = 0; i < s.totalLines; i ++) {
     const targetNumber = s.lineSets[s.currentLineSet][i]
     window[`sourceLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
     const codeEls = window[`sourceLine_${i}`].getElementsByTagName('code')
     for (let eIndex = 0; eIndex < codeEls.length; eIndex ++ ) {
+      codeEls[eIndex].classList.add('hljs')
+      codeEls[eIndex].classList.add('language-rust')
       hljs.highlightElement(codeEls[eIndex])
     }
    }
@@ -343,18 +436,14 @@ const updateOutput = () => {
   }
 }
 
-
 const makeAreas = () => {
   makeEl(['div', 'headerArea', '<h4>Step 1</h4>', 'codeExample'])
-  makeEl(['div', 'placeholder_1', '', 'codeExample'])
   makeEl(['div', 'contentArea', 'This is the content area', 'codeExample'])
   makeEl(['div', 'codeArea', '', 'codeExample'])
-  makeEl(['div', 'placeholder_2', '', 'codeExample'])
   makeEl(['div', 'outputArea', '', 'codeExample'])
   makeEl(['div', 'placeholder_3', '', 'codeExample'])
   makeEl(['div', 'codeButtonsWrapper', '', 'codeExample'])
 }
-
 
 const makeCodeExample = () => {
   setLineCount()
@@ -415,6 +504,15 @@ button {
   border-radius: var(--area-radius);
 }
 
+c-1 {
+  color: red;
+}
+
+c-2 {
+  color: blue;
+}
+
+
 #codeButtonsWrapper {
   padding: 0.6rem var(--area-radius);
   display: flex;
@@ -444,6 +542,15 @@ button {
   border-radius: var(--area-radius);
   margin-right: 0.4rem;
   padding: var(--area-padding);
+  grid-row: 2/span 2;
+}
+
+#headerArea {
+  background-color: #003;
+  border-radius: var(--area-radius);
+  padding: 0.4rem var(--area-padding);
+  margin-bottom: 0.3rem;
+  grid-column: 1/span 2;
 }
 
 #lineNumbersWrapper {
@@ -472,53 +579,115 @@ button {
   color: var(--pointer-color);
 }
 
+
+
 </code></pre>
              
             <h2>JavaScript</h2>
             <pre><code class="language-js">const s = {
 
   currentLineSet: 0,
+  // string, meta
 
     sourceLines: [
       [
         ` `,
-        `&lt;code class=&quot;hljs language-rust&quot;&gt;fn main() {&lt;/code&gt;`,
-        `fn main() {`
+        `&lt;c-1&gt;use std::env&lt;/c-1&gt;&lt;c-2&gt;;&lt;/c-2&gt;`,
+        `use std::env;`,
+      ],
+      [` `, ` `],
+      [` `,
+      `&lt;c-1&gt;fn main()&lt;/c-1&gt; &lt;c-2&gt;{&lt;/c-2&gt;`,
+      `fn main() {`,
       ],
       [
         ` `,
-        `  &lt;code&gt;let alfa =&lt;/code&gt;`, 
-        `  let alfa = &lt;code class=&quot;hljs langauge-rust&quot;&gt;String::from(&quot;apple&quot;)&lt;/code&gt;;`,
-        `  let alfa = String::from(&quot;apple&quot;);`,
+        `  &lt;c-1&gt;let key &lt;/c-1&gt;&lt;c-2&gt;=&lt;/c-2&gt;`,
+        `  let key = &lt;c-1&gt;&amp;quot;HOME&amp;quot;&lt;/c-1&gt;&lt;c-2&gt;;&lt;/c-2&gt;`,
+        `  let key = &amp;quot;HOME&amp;quot;;`,
       ],
       [
         ` `,
-        `  &lt;code&gt;println!()&lt;/code&gt;;`,
-        `  println!(&lt;code&gt;&quot;alfa is {}&quot;&lt;/code&gt;);`,
-        `  println!(&lt;code&gt;&quot;alfa is {alfa}&quot;&lt;/code&gt;);`,
-        `  println!(&quot;alfa is {alfa}&quot;);`
+        `  &lt;c-1&gt;let returnValueAsResult &lt;/c-1&gt;&lt;c-2&gt;=&lt;/c-2&gt;`,
+        `  let returnValueAsResult = &lt;c-1&gt;env::var&lt;c-1&gt;()&lt;c-2&gt;;&lt;/c-2&gt;`,
+        `  let returnValueAsResult = env::var(&lt;c-1&gt;key&lt;/c-1&gt;);`,
+        `  let returnValueAsResult = env::var(key);`,
       ],
       [
         ` `,
-        `  &lt;code&gt;println!(&quot;alfa is {alfa} again&quot;);&lt;/code&gt;`,
-        `  println!(&quot;alfa is {alfa} again&quot;);`
+        `  &lt;c-1&gt;match returnValueAsResult&lt;/c-1&gt; &lt;c-2&gt;{&lt;/c-2&gt;`,
+        `  match returnValueAsResult {`,
       ],
       [
         ` `,
-        `&lt;code&gt;}&lt;/code&gt;`,
+        `    &lt;c-1&gt;Ok() =&gt;&lt;/c-1&gt; &lt;c-2&gt;{&lt;/c-2&gt;`,
+        `    Ok(&lt;c-1&gt;value&lt;/c-1&gt;) =&gt; {` ,
+        `    Ok(value) =&gt; {` ,
+      ],
+      [
+        ` `,
+        `      &lt;c-1&gt;println!()&lt;/c-1&gt;&lt;c-2&gt;;&lt;/c-2&gt;`,
+        `      println!(&lt;c-1&gt;&amp;quot;{} is {}&amp;quot;&lt;/c-1&gt;);`,
+        `      println!(&amp;quot;{} is {}&amp;quot;&lt;c-2&gt;,&lt;/c-2&gt; &lt;c-1&gt;key&lt;/c-1&gt;);`,
+        `      println!(&amp;quot;{} is {}&amp;quot;, key&lt;c-2&gt;,&lt;/c-2&gt; &lt;c-1&gt;value&lt;/c-1&gt;);`,
+        `      println!(&amp;quot;{} is {}&amp;quot;, key, value);`,
+      ],
+      [ ` `,
+        `    &lt;c-2&gt;}&lt;/c-2&gt;`,
+        `    }`,
+      ],
+      [ ` `,
+        `    &lt;c-1&gt;Err() =&gt; &lt;/c-1&gt;&lt;c-2&gt;{&lt;/c-2&gt;`,
+        `    Err(&lt;c-1&gt;error&lt;/c-1&gt;) =&gt; {`,
+        `    Err(error) =&gt; {`,
+      ],
+      [
+      ` `,
+        `      &lt;c-1&gt;println!()&lt;/c-1&gt;&lt;c-2&gt;;&lt;/c-2&gt;`,
+        `      println!(&lt;c-1&gt;&amp;quot;{} is {}&amp;quot;&lt;/c-1&gt;);`,
+        `      println!(&amp;quot;{} is {}&amp;quot;&lt;c-2&gt;,&lt;/c-2&gt; &lt;c-1&gt;key&lt;/c-1&gt;);`,
+        `      println!(&amp;quot;{} is {}&amp;quot;, key&lt;c-2&gt;,&lt;/c-2&gt; &lt;c-1&gt;error&lt;/c-1&gt;);`,
+        `      println!(&amp;quot;{} is {}&amp;quot;, key, error);`,
+      ],
+      [
+        ` `,
+        `    &lt;c-2&gt;}&lt;/c-2&gt;`,
+        `    }`
+      ],
+      [
+        ` `,
+        `  &lt;c-2&gt;}&lt;/c-2&gt;`,
+        `  }`,
+      ],
+      [
+        ` `,
+        `&lt;c-2&gt;}&lt;/c-2&gt;`,
         `}`
       ]
     ],
 
     lineSets: [
-      [1, 0, 0, 0, 1],
-      [2, 1, 0, 0, 2],
-      [2, 2, 0, 0, 2],
-      [2, 3, 1, 0, 2],
-      [2, 3, 2, 0, 2],
-      [2, 3, 3, 0, 2],
-      [2, 3, 4, 1, 2],
-      [2, 3, 4, 2, 2],
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+      [2, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+      [2, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+      [2, 0, 2, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+      [2, 0, 2, 3, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+      [2, 0, 2, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+      [2, 0, 2, 3, 4, 1, 0, 0, 0, 0, 0, 0, 1, 2],
+      [2, 0, 2, 3, 4, 2, 1, 0, 1, 0, 0, 0, 2, 2],
+      [2, 0, 2, 3, 4, 2, 2, 0, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 1, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 2, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 3, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 4, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 5, 2, 1, 0, 1, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 5, 2, 2, 0, 2, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 5, 2, 3, 1, 2, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 5, 2, 3, 2, 2, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 5, 2, 3, 3, 2, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 5, 2, 3, 4, 2, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 5, 2, 4, 4, 2, 2, 2],
     ], 
 
     output: [
@@ -605,7 +774,7 @@ const updateContent = () =&gt; {
 
 const updateHeader = () =&gt; {
   const header = s.currentLineSet === s.lineSets.length - 1 
-    ? `&lt;h4&gt;Output&lt;/h4&gt;` 
+    ? `&lt;h4&gt;Final Output&lt;/h4&gt;` 
     : `&lt;h4&gt;Step ${s.currentLineSet + 1}&lt;/h4&gt;`
   window.headerArea.innerHTML = header
 }
@@ -617,8 +786,8 @@ const updateEverything = (newIndex) =&gt; {
     updateOutput()
   updateContent()
    updateHeader()
-  updateHighlights()
   updateButtonHighlights()
+  updateFinalHighlights()
 
 }
 
@@ -632,7 +801,7 @@ const updateButtonHighlights = () =&gt; {
    }
 }
 
-const updateHighlights = () =&gt; {
+const updateFinalHighlights = () =&gt; {
   if (s.currentLineSet === s.lineSets.length - 1) {
     for (let i = 0; i &lt; s.totalLines; i ++) {
       window[`sourceLine_${i}`].classList.add(&#x27;hljs&#x27;)
@@ -661,12 +830,25 @@ const updateLineNumbers = () =&gt; {
    }
 }
 
+// TODO: Remove when the line highlights are in
+// // custom highlights selections
+// const updateLineHighlights = () =&gt; {
+//   [&#x27;keyword&#x27;, &#x27;variable&#x27;, &#x27;punctuation&#x27;, &#x27;string&#x27;, &#x27;meta&#x27;].forEach((hljsKey) =&gt; {
+//     const tagEls = window.codeExample.getElementsByTagName(`c-${hljsKey}`)
+//     for (let i = 0; i &lt; tagEls.length; i ++ ) {
+//       tagEls[i].classList.add(`hljs-${hljsKey}`);
+//     }
+//   })
+// }
+
 const updateSourceLines = () =&gt; {
   for (let i = 0; i &lt; s.totalLines; i ++) {
     const targetNumber = s.lineSets[s.currentLineSet][i]
     window[`sourceLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
     const codeEls = window[`sourceLine_${i}`].getElementsByTagName(&#x27;code&#x27;)
     for (let eIndex = 0; eIndex &lt; codeEls.length; eIndex ++ ) {
+      codeEls[eIndex].classList.add(&#x27;hljs&#x27;)
+      codeEls[eIndex].classList.add(&#x27;language-rust&#x27;)
       hljs.highlightElement(codeEls[eIndex])
     }
    }
@@ -705,18 +887,14 @@ const updateOutput = () =&gt; {
   }
 }
 
-
 const makeAreas = () =&gt; {
   makeEl([&#x27;div&#x27;, &#x27;headerArea&#x27;, &#x27;&lt;h4&gt;Step 1&lt;/h4&gt;&#x27;, &#x27;codeExample&#x27;])
-  makeEl([&#x27;div&#x27;, &#x27;placeholder_1&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
   makeEl([&#x27;div&#x27;, &#x27;contentArea&#x27;, &#x27;This is the content area&#x27;, &#x27;codeExample&#x27;])
   makeEl([&#x27;div&#x27;, &#x27;codeArea&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
-  makeEl([&#x27;div&#x27;, &#x27;placeholder_2&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
   makeEl([&#x27;div&#x27;, &#x27;outputArea&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
   makeEl([&#x27;div&#x27;, &#x27;placeholder_3&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
   makeEl([&#x27;div&#x27;, &#x27;codeButtonsWrapper&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
 }
-
 
 const makeCodeExample = () =&gt; {
   setLineCount()

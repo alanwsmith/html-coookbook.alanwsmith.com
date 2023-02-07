@@ -1,47 +1,107 @@
 const s = {
 
   currentLineSet: 0,
+  // string, meta
 
     sourceLines: [
       [
         ` `,
-        `<code class="hljs language-rust">fn main() {</code>`,
-        `fn main() {`
+        `<c-1>use std::env</c-1><c-2>;</c-2>`,
+        `use std::env;`,
+      ],
+      [` `, ` `],
+      [` `,
+      `<c-1>fn main()</c-1> <c-2>{</c-2>`,
+      `fn main() {`,
       ],
       [
         ` `,
-        `  <code>let alfa =</code>`, 
-        `  let alfa = <code class="hljs langauge-rust">String::from("apple")</code>;`,
-        `  let alfa = String::from("apple");`,
+        `  <c-1>let key </c-1><c-2>=</c-2>`,
+        `  let key = <c-1>&quot;HOME&quot;</c-1><c-2>;</c-2>`,
+        `  let key = &quot;HOME&quot;;`,
       ],
       [
         ` `,
-        `  <code>println!()</code>;`,
-        `  println!(<code>"alfa is {}"</code>);`,
-        `  println!(<code>"alfa is {alfa}"</code>);`,
-        `  println!("alfa is {alfa}");`
+        `  <c-1>let returnValueAsResult </c-1><c-2>=</c-2>`,
+        `  let returnValueAsResult = <c-1>env::var<c-1>()<c-2>;</c-2>`,
+        `  let returnValueAsResult = env::var(<c-1>key</c-1>);`,
+        `  let returnValueAsResult = env::var(key);`,
       ],
       [
         ` `,
-        `  <code>println!("alfa is {alfa} again");</code>`,
-        `  println!("alfa is {alfa} again");`
+        `  <c-1>match returnValueAsResult</c-1> <c-2>{</c-2>`,
+        `  match returnValueAsResult {`,
       ],
       [
         ` `,
-        `<code>}</code>`,
+        `    <c-1>Ok() =></c-1> <c-2>{</c-2>`,
+        `    Ok(<c-1>value</c-1>) => {` ,
+        `    Ok(value) => {` ,
+      ],
+      [
+        ` `,
+        `      <c-1>println!()</c-1><c-2>;</c-2>`,
+        `      println!(<c-1>&quot;{} is {}&quot;</c-1>);`,
+        `      println!(&quot;{} is {}&quot;<c-2>,</c-2> <c-1>key</c-1>);`,
+        `      println!(&quot;{} is {}&quot;, key<c-2>,</c-2> <c-1>value</c-1>);`,
+        `      println!(&quot;{} is {}&quot;, key, value);`,
+      ],
+      [ ` `,
+        `    <c-2>}</c-2>`,
+        `    }`,
+      ],
+      [ ` `,
+        `    <c-1>Err() => </c-1><c-2>{</c-2>`,
+        `    Err(<c-1>error</c-1>) => {`,
+        `    Err(error) => {`,
+      ],
+      [
+      ` `,
+        `      <c-1>println!()</c-1><c-2>;</c-2>`,
+        `      println!(<c-1>&quot;{} is {}&quot;</c-1>);`,
+        `      println!(&quot;{} is {}&quot;<c-2>,</c-2> <c-1>key</c-1>);`,
+        `      println!(&quot;{} is {}&quot;, key<c-2>,</c-2> <c-1>error</c-1>);`,
+        `      println!(&quot;{} is {}&quot;, key, error);`,
+      ],
+      [
+        ` `,
+        `    <c-2>}</c-2>`,
+        `    }`
+      ],
+      [
+        ` `,
+        `  <c-2>}</c-2>`,
+        `  }`,
+      ],
+      [
+        ` `,
+        `<c-2>}</c-2>`,
         `}`
       ]
     ],
 
     lineSets: [
-      [1, 0, 0, 0, 1],
-      [2, 1, 0, 0, 2],
-      [2, 2, 0, 0, 2],
-      [2, 3, 1, 0, 2],
-      [2, 3, 2, 0, 2],
-      [2, 3, 3, 0, 2],
-      [2, 3, 4, 1, 2],
-      [2, 3, 4, 2, 2],
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+      [2, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+      [2, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+      [2, 0, 2, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+      [2, 0, 2, 3, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+      [2, 0, 2, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+      [2, 0, 2, 3, 4, 1, 0, 0, 0, 0, 0, 0, 1, 2],
+      [2, 0, 2, 3, 4, 2, 1, 0, 1, 0, 0, 0, 2, 2],
+      [2, 0, 2, 3, 4, 2, 2, 0, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 1, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 2, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 3, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 4, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 5, 2, 1, 0, 1, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 5, 2, 2, 0, 2, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 5, 2, 3, 1, 2, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 5, 2, 3, 2, 2, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 5, 2, 3, 3, 2, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 5, 2, 3, 4, 2, 2, 2],
+      [2, 0, 2, 3, 4, 2, 3, 5, 2, 4, 4, 2, 2, 2],
     ], 
 
     output: [
@@ -128,7 +188,7 @@ const updateContent = () => {
 
 const updateHeader = () => {
   const header = s.currentLineSet === s.lineSets.length - 1 
-    ? `<h4>Output</h4>` 
+    ? `<h4>Final Output</h4>` 
     : `<h4>Step ${s.currentLineSet + 1}</h4>`
   window.headerArea.innerHTML = header
 }
@@ -140,8 +200,8 @@ const updateEverything = (newIndex) => {
     updateOutput()
   updateContent()
    updateHeader()
-  updateHighlights()
   updateButtonHighlights()
+  updateFinalHighlights()
 
 }
 
@@ -155,7 +215,7 @@ const updateButtonHighlights = () => {
    }
 }
 
-const updateHighlights = () => {
+const updateFinalHighlights = () => {
   if (s.currentLineSet === s.lineSets.length - 1) {
     for (let i = 0; i < s.totalLines; i ++) {
       window[`sourceLine_${i}`].classList.add('hljs')
@@ -184,12 +244,25 @@ const updateLineNumbers = () => {
    }
 }
 
+// TODO: Remove when the line highlights are in
+// // custom highlights selections
+// const updateLineHighlights = () => {
+//   ['keyword', 'variable', 'punctuation', 'string', 'meta'].forEach((hljsKey) => {
+//     const tagEls = window.codeExample.getElementsByTagName(`c-${hljsKey}`)
+//     for (let i = 0; i < tagEls.length; i ++ ) {
+//       tagEls[i].classList.add(`hljs-${hljsKey}`);
+//     }
+//   })
+// }
+
 const updateSourceLines = () => {
   for (let i = 0; i < s.totalLines; i ++) {
     const targetNumber = s.lineSets[s.currentLineSet][i]
     window[`sourceLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
     const codeEls = window[`sourceLine_${i}`].getElementsByTagName('code')
     for (let eIndex = 0; eIndex < codeEls.length; eIndex ++ ) {
+      codeEls[eIndex].classList.add('hljs')
+      codeEls[eIndex].classList.add('language-rust')
       hljs.highlightElement(codeEls[eIndex])
     }
    }
@@ -228,18 +301,14 @@ const updateOutput = () => {
   }
 }
 
-
 const makeAreas = () => {
   makeEl(['div', 'headerArea', '<h4>Step 1</h4>', 'codeExample'])
-  makeEl(['div', 'placeholder_1', '', 'codeExample'])
   makeEl(['div', 'contentArea', 'This is the content area', 'codeExample'])
   makeEl(['div', 'codeArea', '', 'codeExample'])
-  makeEl(['div', 'placeholder_2', '', 'codeExample'])
   makeEl(['div', 'outputArea', '', 'codeExample'])
   makeEl(['div', 'placeholder_3', '', 'codeExample'])
   makeEl(['div', 'codeButtonsWrapper', '', 'codeExample'])
 }
-
 
 const makeCodeExample = () => {
   setLineCount()
