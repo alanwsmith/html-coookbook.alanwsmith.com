@@ -33,7 +33,11 @@
     <link rel="stylesheet" href="/styles/prism-customized.css" />
     
     <style>
-      
+      #codeExample {
+  display: grid;
+  grid-template-columns: 2.6rem 1fr
+}
+
     </style>
     <script>
       const s = {
@@ -151,17 +155,33 @@ const updateSourceLines = () => {
    }
 }
 
-const makeButtons = () => {
-  makeEl(['div', 'codeButtons', '', 'codeExample'])
+const makePreviousButton = () => {
+  makeEl(['button', 'previousButton', 'Previous', 'codeButtonsWrapper', 'click', handlePreviousClick])
+}
 
-  makeEl(['button', 'previousButton', 'Previous', 'codeButtons', 'click', handlePreviousClick])
+const makeNumberButtons = () => {
+
   for (let i = 0; i < s.lineSets.length; i ++) {
-    const buttonId = `numberButton_${i}`
     let buttonText = i === s.lineSets.length -1 ?  "Complete" : i + 1
-    makeEl(['button', buttonId, buttonText, 'codeButtons', 'click', handleNumberClick])
+    makeEl(['button', `numberButton_${i}`, buttonText, 'codeButtonsWrapper', 'click', handleNumberClick])
   }
 
-  makeEl(['button', 'nextButton', 'Next', 'codeButtons', 'click', handleNextClick])
+}
+
+const makeNextButton = () => {
+  makeEl(['button', 'nextButton', 'Next', 'codeButtonsWrapper', 'click', handleNextClick])
+}
+
+const makeButtonsWrapper = () => {
+  makeEl(['div', 'codeButtonsWrapper', '', 'codeExample'])
+}
+
+const makePlaceholder = () => {
+  // there's probably a better way to do this with 
+  // css but for now just taking up the grid slot
+  // with this placeholder 
+  makeEl(['div', 'codePlaceholder', '', 'codeExample'])
+
 }
 
 const setLineCount = () => {
@@ -172,7 +192,11 @@ const makeCodeExample = () => {
   setLineCount()
   makeLineNumbersWrapper()
   makeCodeWrapper()
-  makeButtons()
+  makePlaceholder()
+  makeButtonsWrapper()
+  makePreviousButton()
+  makeNumberButtons()
+  makeNextButton()
   updateLineNumbers()
   updateSourceLines()
 }
@@ -205,7 +229,14 @@ document.addEventListener('DOMContentLoaded', makeCodeExample)
             <h2>HTML</h2>
             <pre><code class="language-html">&lt;div id=&quot;codeExample&quot;&gt;&lt;/div&gt;
 </code></pre>
-              
+             
+            <h2>CSS</h2>
+            <pre><code class="language-css">#codeExample {
+  display: grid;
+  grid-template-columns: 2.6rem 1fr
+}
+</code></pre>
+             
             <h2>JavaScript</h2>
             <pre><code class="language-js">const s = {
   currentLineSet: 0,
@@ -322,17 +353,33 @@ const updateSourceLines = () =&gt; {
    }
 }
 
-const makeButtons = () =&gt; {
-  makeEl([&#x27;div&#x27;, &#x27;codeButtons&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
+const makePreviousButton = () =&gt; {
+  makeEl([&#x27;button&#x27;, &#x27;previousButton&#x27;, &#x27;Previous&#x27;, &#x27;codeButtonsWrapper&#x27;, &#x27;click&#x27;, handlePreviousClick])
+}
 
-  makeEl([&#x27;button&#x27;, &#x27;previousButton&#x27;, &#x27;Previous&#x27;, &#x27;codeButtons&#x27;, &#x27;click&#x27;, handlePreviousClick])
+const makeNumberButtons = () =&gt; {
+
   for (let i = 0; i &lt; s.lineSets.length; i ++) {
-    const buttonId = `numberButton_${i}`
     let buttonText = i === s.lineSets.length -1 ?  &quot;Complete&quot; : i + 1
-    makeEl([&#x27;button&#x27;, buttonId, buttonText, &#x27;codeButtons&#x27;, &#x27;click&#x27;, handleNumberClick])
+    makeEl([&#x27;button&#x27;, `numberButton_${i}`, buttonText, &#x27;codeButtonsWrapper&#x27;, &#x27;click&#x27;, handleNumberClick])
   }
 
-  makeEl([&#x27;button&#x27;, &#x27;nextButton&#x27;, &#x27;Next&#x27;, &#x27;codeButtons&#x27;, &#x27;click&#x27;, handleNextClick])
+}
+
+const makeNextButton = () =&gt; {
+  makeEl([&#x27;button&#x27;, &#x27;nextButton&#x27;, &#x27;Next&#x27;, &#x27;codeButtonsWrapper&#x27;, &#x27;click&#x27;, handleNextClick])
+}
+
+const makeButtonsWrapper = () =&gt; {
+  makeEl([&#x27;div&#x27;, &#x27;codeButtonsWrapper&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
+}
+
+const makePlaceholder = () =&gt; {
+  // there&#x27;s probably a better way to do this with 
+  // css but for now just taking up the grid slot
+  // with this placeholder 
+  makeEl([&#x27;div&#x27;, &#x27;codePlaceholder&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
+
 }
 
 const setLineCount = () =&gt; {
@@ -343,7 +390,11 @@ const makeCodeExample = () =&gt; {
   setLineCount()
   makeLineNumbersWrapper()
   makeCodeWrapper()
-  makeButtons()
+  makePlaceholder()
+  makeButtonsWrapper()
+  makePreviousButton()
+  makeNumberButtons()
+  makeNextButton()
   updateLineNumbers()
   updateSourceLines()
 }

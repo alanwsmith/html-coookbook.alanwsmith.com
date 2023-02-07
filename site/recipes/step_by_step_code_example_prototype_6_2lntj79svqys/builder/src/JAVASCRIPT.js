@@ -113,17 +113,33 @@ const updateSourceLines = () => {
    }
 }
 
-const makeButtons = () => {
-  makeEl(['div', 'codeButtons', '', 'codeExample'])
+const makePreviousButton = () => {
+  makeEl(['button', 'previousButton', 'Previous', 'codeButtonsWrapper', 'click', handlePreviousClick])
+}
 
-  makeEl(['button', 'previousButton', 'Previous', 'codeButtons', 'click', handlePreviousClick])
+const makeNumberButtons = () => {
+
   for (let i = 0; i < s.lineSets.length; i ++) {
-    const buttonId = `numberButton_${i}`
     let buttonText = i === s.lineSets.length -1 ?  "Complete" : i + 1
-    makeEl(['button', buttonId, buttonText, 'codeButtons', 'click', handleNumberClick])
+    makeEl(['button', `numberButton_${i}`, buttonText, 'codeButtonsWrapper', 'click', handleNumberClick])
   }
 
-  makeEl(['button', 'nextButton', 'Next', 'codeButtons', 'click', handleNextClick])
+}
+
+const makeNextButton = () => {
+  makeEl(['button', 'nextButton', 'Next', 'codeButtonsWrapper', 'click', handleNextClick])
+}
+
+const makeButtonsWrapper = () => {
+  makeEl(['div', 'codeButtonsWrapper', '', 'codeExample'])
+}
+
+const makePlaceholder = () => {
+  // there's probably a better way to do this with 
+  // css but for now just taking up the grid slot
+  // with this placeholder 
+  makeEl(['div', 'codePlaceholder', '', 'codeExample'])
+
 }
 
 const setLineCount = () => {
@@ -134,7 +150,11 @@ const makeCodeExample = () => {
   setLineCount()
   makeLineNumbersWrapper()
   makeCodeWrapper()
-  makeButtons()
+  makePlaceholder()
+  makeButtonsWrapper()
+  makePreviousButton()
+  makeNumberButtons()
+  makeNextButton()
   updateLineNumbers()
   updateSourceLines()
 }

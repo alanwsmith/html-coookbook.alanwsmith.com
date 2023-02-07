@@ -1,0 +1,4 @@
+#codeExample {
+  display: grid;
+  grid-template-columns: 2.6rem 1fr
+}
