@@ -33,12 +33,21 @@ const s = {
 
     output: [
       "alfa is apple"
-    ]
+    ], 
 
+  content: [
+    `<p>Create the <code>main</code> function</p>`,
+    `<p>Start creating a variable named <code>alfa</code></p>`,
+    `<p>Bind a <code>String</code> of &quot;apple&quot; to the <code>alfa</code> variable</p>`,
+    `<p>Start making a <code>println!()<code> expression<p>`,
+    `<p>Add the basic format string</p>`,
+    `<p>Use the <code>alfa</code> variable in the format string</p>`,
+  ]
 }
 
 const makeEl = (details) => {
-  // format is: type, id, innerHTML, childOf, event, eventFunction
+  // format is: 
+  // type, id, innerHTML, childOf, event, eventFunction
   const newEl = document.createElement(details[0])
   newEl.id = details[1]
   if (details[2] !== '') {
@@ -51,14 +60,14 @@ const makeEl = (details) => {
 }
 
 const makeCodeWrapper = () => {
-  makeEl(['div', 'codeWrapper', '', 'codeExample'])
+  makeEl(['div', 'codeWrapper', '', 'codeArea'])
    for (let i = 0; i < s.totalLines; i ++) {
      makeEl(['pre', `sourceLine_${i}`, '', 'codeWrapper'])
    }
 }
 
 const makeLineNumbersWrapper = () => {
-  makeEl(['div', 'lineNumbersWrapper', '', 'codeExample'])
+  makeEl(['div', 'lineNumbersWrapper', '', 'codeArea'])
    for (let i = 0; i < s.totalLines; i ++) {
      makeEl(['pre', `lineNumber_${i}`, '', 'lineNumbersWrapper'])
    }
@@ -85,10 +94,26 @@ const handleNumberClick = (event) => {
   updateEverything()
 }
 
+const updateContent = () => {
+  const content = s.content[s.currentLineSet]
+
+  if (s.currentLineSet === s.lineSets.length - 1) {
+   window.contentArea.innerHTML = `<h4>Output</h4>`
+   if (content) {
+    window.contentArea.innerHTML += content
+   }
+  } else {
+   window.contentArea.innerHTML = `<h4>Step ${s.currentLineSet + 1}</h4>`
+   window.contentArea.innerHTML += content
+  }
+
+}
+
 const updateEverything = () => {
-  updateLineNumbers();
+  updateLineNumbers()
   updateSourceLines()
   updateOutput()
+  updateContent()
 }
 
 
@@ -133,14 +158,14 @@ const makeNextButton = () => {
 }
 
 const makeButtonsWrapper = () => {
-  makeEl(['div', 'codeButtonsWrapper', '', 'codeExample'])
+  makeEl(['div', 'codeButtonsWrapper', '', 'codeArea'])
 }
 
 const makePlaceholder = () => {
   // there's probably a better way to do this with 
   // css but for now just taking up the grid slot
   // with this placeholder 
-  makeEl(['div', 'codePlaceholder', '', 'codeExample'])
+  makeEl(['div', 'codePlaceholder', '', 'codeArea'])
 
 }
 
@@ -173,8 +198,17 @@ const updateOutput = () => {
 }
 
 
+
+
+const makeAreas = () => {
+  makeEl(['div', 'contentArea', 'This is the content area', 'codeExample'])
+  makeEl(['div', 'codeArea', '', 'codeExample'])
+}
+
+
 const makeCodeExample = () => {
   setLineCount()
+  makeAreas()
   makeLineNumbersWrapper()
   makeCodeWrapper()
   makeOutputSpacerLines()
@@ -184,11 +218,6 @@ const makeCodeExample = () => {
   makeNumberButtons()
   makeNextButton()
   updateEverything()
-
-  // updateLineNumbers()
-  // updateSourceLines()
-  // updateOutput()
-
 }
 
 document.addEventListener('DOMContentLoaded', makeCodeExample)

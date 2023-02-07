@@ -35,8 +35,16 @@
     <style>
       #codeExample {
   display: grid;
+  grid-template-columns: 1fr 3fr
+}
+
+
+
+#codeArea {
+  display: grid;
   grid-template-columns: 2.6rem 1fr
 }
+
 
     </style>
     <script>
@@ -75,12 +83,21 @@
 
     output: [
       "alfa is apple"
-    ]
+    ], 
 
+  content: [
+    `<p>Create the <code>main</code> function</p>`,
+    `<p>Start creating a variable named <code>alfa</code></p>`,
+    `<p>Bind a <code>String</code> of &quot;apple&quot; to the <code>alfa</code> variable</p>`,
+    `<p>Start making a <code>println!()<code> expression<p>`,
+    `<p>Add the basic format string</p>`,
+    `<p>Use the <code>alfa</code> variable in the format string</p>`,
+  ]
 }
 
 const makeEl = (details) => {
-  // format is: type, id, innerHTML, childOf, event, eventFunction
+  // format is: 
+  // type, id, innerHTML, childOf, event, eventFunction
   const newEl = document.createElement(details[0])
   newEl.id = details[1]
   if (details[2] !== '') {
@@ -93,14 +110,14 @@ const makeEl = (details) => {
 }
 
 const makeCodeWrapper = () => {
-  makeEl(['div', 'codeWrapper', '', 'codeExample'])
+  makeEl(['div', 'codeWrapper', '', 'codeArea'])
    for (let i = 0; i < s.totalLines; i ++) {
      makeEl(['pre', `sourceLine_${i}`, '', 'codeWrapper'])
    }
 }
 
 const makeLineNumbersWrapper = () => {
-  makeEl(['div', 'lineNumbersWrapper', '', 'codeExample'])
+  makeEl(['div', 'lineNumbersWrapper', '', 'codeArea'])
    for (let i = 0; i < s.totalLines; i ++) {
      makeEl(['pre', `lineNumber_${i}`, '', 'lineNumbersWrapper'])
    }
@@ -127,10 +144,26 @@ const handleNumberClick = (event) => {
   updateEverything()
 }
 
+const updateContent = () => {
+  const content = s.content[s.currentLineSet]
+
+  if (s.currentLineSet === s.lineSets.length - 1) {
+   window.contentArea.innerHTML = `<h4>Output</h4>`
+   if (content) {
+    window.contentArea.innerHTML += content
+   }
+  } else {
+   window.contentArea.innerHTML = `<h4>Step ${s.currentLineSet + 1}</h4>`
+   window.contentArea.innerHTML += content
+  }
+
+}
+
 const updateEverything = () => {
-  updateLineNumbers();
+  updateLineNumbers()
   updateSourceLines()
   updateOutput()
+  updateContent()
 }
 
 
@@ -175,14 +208,14 @@ const makeNextButton = () => {
 }
 
 const makeButtonsWrapper = () => {
-  makeEl(['div', 'codeButtonsWrapper', '', 'codeExample'])
+  makeEl(['div', 'codeButtonsWrapper', '', 'codeArea'])
 }
 
 const makePlaceholder = () => {
   // there's probably a better way to do this with 
   // css but for now just taking up the grid slot
   // with this placeholder 
-  makeEl(['div', 'codePlaceholder', '', 'codeExample'])
+  makeEl(['div', 'codePlaceholder', '', 'codeArea'])
 
 }
 
@@ -215,8 +248,17 @@ const updateOutput = () => {
 }
 
 
+
+
+const makeAreas = () => {
+  makeEl(['div', 'contentArea', 'This is the content area', 'codeExample'])
+  makeEl(['div', 'codeArea', '', 'codeExample'])
+}
+
+
 const makeCodeExample = () => {
   setLineCount()
+  makeAreas()
   makeLineNumbersWrapper()
   makeCodeWrapper()
   makeOutputSpacerLines()
@@ -226,11 +268,6 @@ const makeCodeExample = () => {
   makeNumberButtons()
   makeNextButton()
   updateEverything()
-
-  // updateLineNumbers()
-  // updateSourceLines()
-  // updateOutput()
-
 }
 
 document.addEventListener('DOMContentLoaded', makeCodeExample)
@@ -265,8 +302,16 @@ document.addEventListener('DOMContentLoaded', makeCodeExample)
             <h2>CSS</h2>
             <pre><code class="language-css">#codeExample {
   display: grid;
+  grid-template-columns: 1fr 3fr
+}
+
+
+
+#codeArea {
+  display: grid;
   grid-template-columns: 2.6rem 1fr
 }
+
 </code></pre>
              
             <h2>JavaScript</h2>
@@ -305,12 +350,21 @@ document.addEventListener('DOMContentLoaded', makeCodeExample)
 
     output: [
       &quot;alfa is apple&quot;
-    ]
+    ], 
 
+  content: [
+    `&lt;p&gt;Create the &lt;code&gt;main&lt;/code&gt; function&lt;/p&gt;`,
+    `&lt;p&gt;Start creating a variable named &lt;code&gt;alfa&lt;/code&gt;&lt;/p&gt;`,
+    `&lt;p&gt;Bind a &lt;code&gt;String&lt;/code&gt; of &amp;quot;apple&amp;quot; to the &lt;code&gt;alfa&lt;/code&gt; variable&lt;/p&gt;`,
+    `&lt;p&gt;Start making a &lt;code&gt;println!()&lt;code&gt; expression&lt;p&gt;`,
+    `&lt;p&gt;Add the basic format string&lt;/p&gt;`,
+    `&lt;p&gt;Use the &lt;code&gt;alfa&lt;/code&gt; variable in the format string&lt;/p&gt;`,
+  ]
 }
 
 const makeEl = (details) =&gt; {
-  // format is: type, id, innerHTML, childOf, event, eventFunction
+  // format is: 
+  // type, id, innerHTML, childOf, event, eventFunction
   const newEl = document.createElement(details[0])
   newEl.id = details[1]
   if (details[2] !== &#x27;&#x27;) {
@@ -323,14 +377,14 @@ const makeEl = (details) =&gt; {
 }
 
 const makeCodeWrapper = () =&gt; {
-  makeEl([&#x27;div&#x27;, &#x27;codeWrapper&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
+  makeEl([&#x27;div&#x27;, &#x27;codeWrapper&#x27;, &#x27;&#x27;, &#x27;codeArea&#x27;])
    for (let i = 0; i &lt; s.totalLines; i ++) {
      makeEl([&#x27;pre&#x27;, `sourceLine_${i}`, &#x27;&#x27;, &#x27;codeWrapper&#x27;])
    }
 }
 
 const makeLineNumbersWrapper = () =&gt; {
-  makeEl([&#x27;div&#x27;, &#x27;lineNumbersWrapper&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
+  makeEl([&#x27;div&#x27;, &#x27;lineNumbersWrapper&#x27;, &#x27;&#x27;, &#x27;codeArea&#x27;])
    for (let i = 0; i &lt; s.totalLines; i ++) {
      makeEl([&#x27;pre&#x27;, `lineNumber_${i}`, &#x27;&#x27;, &#x27;lineNumbersWrapper&#x27;])
    }
@@ -357,10 +411,26 @@ const handleNumberClick = (event) =&gt; {
   updateEverything()
 }
 
+const updateContent = () =&gt; {
+  const content = s.content[s.currentLineSet]
+
+  if (s.currentLineSet === s.lineSets.length - 1) {
+   window.contentArea.innerHTML = `&lt;h4&gt;Output&lt;/h4&gt;`
+   if (content) {
+    window.contentArea.innerHTML += content
+   }
+  } else {
+   window.contentArea.innerHTML = `&lt;h4&gt;Step ${s.currentLineSet + 1}&lt;/h4&gt;`
+   window.contentArea.innerHTML += content
+  }
+
+}
+
 const updateEverything = () =&gt; {
-  updateLineNumbers();
+  updateLineNumbers()
   updateSourceLines()
   updateOutput()
+  updateContent()
 }
 
 
@@ -405,14 +475,14 @@ const makeNextButton = () =&gt; {
 }
 
 const makeButtonsWrapper = () =&gt; {
-  makeEl([&#x27;div&#x27;, &#x27;codeButtonsWrapper&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
+  makeEl([&#x27;div&#x27;, &#x27;codeButtonsWrapper&#x27;, &#x27;&#x27;, &#x27;codeArea&#x27;])
 }
 
 const makePlaceholder = () =&gt; {
   // there&#x27;s probably a better way to do this with 
   // css but for now just taking up the grid slot
   // with this placeholder 
-  makeEl([&#x27;div&#x27;, &#x27;codePlaceholder&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
+  makeEl([&#x27;div&#x27;, &#x27;codePlaceholder&#x27;, &#x27;&#x27;, &#x27;codeArea&#x27;])
 
 }
 
@@ -445,8 +515,17 @@ const updateOutput = () =&gt; {
 }
 
 
+
+
+const makeAreas = () =&gt; {
+  makeEl([&#x27;div&#x27;, &#x27;contentArea&#x27;, &#x27;This is the content area&#x27;, &#x27;codeExample&#x27;])
+  makeEl([&#x27;div&#x27;, &#x27;codeArea&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
+}
+
+
 const makeCodeExample = () =&gt; {
   setLineCount()
+  makeAreas()
   makeLineNumbersWrapper()
   makeCodeWrapper()
   makeOutputSpacerLines()
@@ -456,11 +535,6 @@ const makeCodeExample = () =&gt; {
   makeNumberButtons()
   makeNextButton()
   updateEverything()
-
-  // updateLineNumbers()
-  // updateSourceLines()
-  // updateOutput()
-
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, makeCodeExample)
