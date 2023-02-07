@@ -2,33 +2,37 @@ const s = {
   currentLineSet: 0,
     sourceLines: [
       [
-        `<code>fn main() {</code>`,
+        ` `,
+        `<code class="hljs language-rust">fn main() {</code>`,
         `fn main() {`
       ],
       [
+        ` `,
         `  <code>let alfa =</code>`, 
-        `  let alfa = <code>String::from("apple")</code>;`,
+        `  let alfa = <code class="hljs langauge-rust">String::from("apple")</code>;`,
         `  let alfa = String::from("apple");`,
       ],
       [
+        ` `,
         `  <code>println!()</code>;`,
         `  println!(<code>"alfa is {}"</code>);`,
         `  println!(<code>"alfa is {alfa}"</code>);`,
         `  println!("alfa is {alfa}");`
       ],
       [
+        ` `,
         `<code>}</code>`,
         `}`
       ]
     ],
+
     lineSets: [
-      [0, -1, -1, 0],
-      [1, 0, -1, 1],
-      [1, 1, -1, 1],
-      [1, 2, 0, 1],
-      [1, 2, 1, 1],
-      [1, 2, 2, 1],
-      [1, 2, 3, 1],
+      [1, 0, 0, 1],
+      [2, 1, 0, 2],
+      [2, 2, 0, 2],
+      [2, 3, 1, 2],
+      [2, 3, 2, 2],
+      [2, 3, 3, 2],
     ], 
 
     output: [
@@ -79,7 +83,7 @@ const handleNextClick = () => {
 
 const handlePreviousClick = () => {
   if (s.currentLineSet > 0) {
-  updateEverything(s.currentLineSet - 1)
+    updateEverything(s.currentLineSet - 1)
   }
 }
 
@@ -116,8 +120,9 @@ const updateLineNumbers = () => {
      const checkIndex = s.sourceLines[i].length - 1;
      const currentIndex = s.lineSets[s.currentLineSet][i]
      const numberString = i + 1 < 10 ? `0${i + 1}` : `${i + 1}`
-     if(currentIndex > -1 && currentIndex < checkIndex) {
-      window[`lineNumber_${i}`].innerHTML = `${numberString} >`
+     if(currentIndex > 0 && currentIndex < checkIndex) {
+      window[`lineNumber_${i}`].innerHTML = 
+         `${numberString} <span class="pointer">&gt;</span>`
      } else {
       window[`lineNumber_${i}`].innerHTML = numberString
      }
@@ -125,14 +130,13 @@ const updateLineNumbers = () => {
 }
 
 const updateSourceLines = () => {
-   for (let i = 0; i < s.totalLines; i ++) {
-     const targetNumber = s.lineSets[s.currentLineSet][i]
-     if (targetNumber !== -1) {
-       window[`sourceLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
-     }
-      else {
-        window[`sourceLine_${i}`].innerHTML = "&nbsp;"
-      }
+  for (let i = 0; i < s.totalLines; i ++) {
+    const targetNumber = s.lineSets[s.currentLineSet][i]
+    window[`sourceLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
+    const codeEls = window[`sourceLine_${i}`].getElementsByTagName('code')
+    for (let eIndex = 0; eIndex < codeEls.length; eIndex ++ ) {
+      hljs.highlightElement(codeEls[eIndex])
+    }
    }
 }
 

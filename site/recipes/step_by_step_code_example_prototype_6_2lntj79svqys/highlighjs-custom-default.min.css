@@ -6,7 +6,6 @@
   Website: https://highlightjs.org/
   License: see project LICENSE
   Touched: 2021
-*/
 pre code.hljs {
   display: block;
   overflow-x: auto;
@@ -19,6 +18,8 @@ code.hljs {
   background: #f3f3f3;
   color: #444;
 }
+*/
+
 .hljs-comment {
   color: #697070;
 }

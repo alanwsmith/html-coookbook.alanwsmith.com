@@ -30,7 +30,8 @@
     <link rel="stylesheet" href="/styles/fonts.css" />
     <link rel="stylesheet" href="/styles/colors.css" />
     <link rel="stylesheet" href="/styles/wrapper.css" />
-    <link rel="stylesheet" href="/styles/prism-customized.css" />
+    <link rel="stylesheet" href="./highlighjs-custom-default.min.css" />
+
     
     <style>
       #codeExample {
@@ -38,47 +39,67 @@
   grid-template-columns: 1fr 3fr
 }
 
-
-
 #codeArea {
   display: grid;
   grid-template-columns: 2.6rem 1fr
 }
 
 
+#contentArea {
+  background-color: #003;
+  border-radius: 1rem;
+  margin-right: 0.4rem;
+  padding: 0.3rem;
+}
+
+
+.pointer {
+  font-weight: bold;
+  color: black;
+}
+
+
+
     </style>
+
+    <script src="/assets/highlight/highlight.min.js"></script>
+
     <script>
       const s = {
   currentLineSet: 0,
     sourceLines: [
       [
-        `<code>fn main() {</code>`,
+        ` `,
+        `<code class="hljs language-rust">fn main() {</code>`,
         `fn main() {`
       ],
       [
+        ` `,
         `  <code>let alfa =</code>`, 
-        `  let alfa = <code>String::from("apple")</code>;`,
+        `  let alfa = <code class="hljs langauge-rust">String::from("apple")</code>;`,
         `  let alfa = String::from("apple");`,
       ],
       [
+        ` `,
         `  <code>println!()</code>;`,
         `  println!(<code>"alfa is {}"</code>);`,
         `  println!(<code>"alfa is {alfa}"</code>);`,
         `  println!("alfa is {alfa}");`
       ],
       [
+        ` `,
         `<code>}</code>`,
         `}`
       ]
     ],
+
     lineSets: [
-      [0, -1, -1, 0],
-      [1, 0, -1, 1],
-      [1, 1, -1, 1],
-      [1, 2, 0, 1],
-      [1, 2, 1, 1],
-      [1, 2, 2, 1],
-      [1, 2, 3, 1],
+      [1, 0, 0, 1],
+      [2, 1, 0, 2],
+      [2, 2, 0, 2],
+      [2, 3, 1, 2],
+      [2, 3, 2, 2],
+      [2, 3, 3, 2],
     ], 
 
     output: [
@@ -129,7 +150,7 @@ const handleNextClick = () => {
 
 const handlePreviousClick = () => {
   if (s.currentLineSet > 0) {
-  updateEverything(s.currentLineSet - 1)
+    updateEverything(s.currentLineSet - 1)
   }
 }
 
@@ -166,8 +187,9 @@ const updateLineNumbers = () => {
      const checkIndex = s.sourceLines[i].length - 1;
      const currentIndex = s.lineSets[s.currentLineSet][i]
      const numberString = i + 1 < 10 ? `0${i + 1}` : `${i + 1}`
-     if(currentIndex > -1 && currentIndex < checkIndex) {
-      window[`lineNumber_${i}`].innerHTML = `${numberString} >`
+     if(currentIndex > 0 && currentIndex < checkIndex) {
+      window[`lineNumber_${i}`].innerHTML = 
+         `${numberString} <span class="pointer">&gt;</span>`
      } else {
       window[`lineNumber_${i}`].innerHTML = numberString
      }
@@ -175,14 +197,13 @@ const updateLineNumbers = () => {
 }
 
 const updateSourceLines = () => {
-   for (let i = 0; i < s.totalLines; i ++) {
-     const targetNumber = s.lineSets[s.currentLineSet][i]
-     if (targetNumber !== -1) {
-       window[`sourceLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
-     }
-      else {
-        window[`sourceLine_${i}`].innerHTML = "&nbsp;"
-      }
+  for (let i = 0; i < s.totalLines; i ++) {
+    const targetNumber = s.lineSets[s.currentLineSet][i]
+    window[`sourceLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
+    const codeEls = window[`sourceLine_${i}`].getElementsByTagName('code')
+    for (let eIndex = 0; eIndex < codeEls.length; eIndex ++ ) {
+      hljs.highlightElement(codeEls[eIndex])
+    }
    }
 }
 
@@ -284,12 +305,25 @@ document.addEventListener('DOMContentLoaded', makeCodeExample)
   grid-template-columns: 1fr 3fr
 }
 
-
-
 #codeArea {
   display: grid;
   grid-template-columns: 2.6rem 1fr
 }
+
+
+#contentArea {
+  background-color: #003;
+  border-radius: 1rem;
+  margin-right: 0.4rem;
+  padding: 0.3rem;
+}
+
+
+.pointer {
+  font-weight: bold;
+  color: black;
+}
+
 
 </code></pre>
              
@@ -298,33 +332,37 @@ document.addEventListener('DOMContentLoaded', makeCodeExample)
   currentLineSet: 0,
     sourceLines: [
       [
-        `&lt;code&gt;fn main() {&lt;/code&gt;`,
+        ` `,
+        `&lt;code class=&quot;hljs language-rust&quot;&gt;fn main() {&lt;/code&gt;`,
         `fn main() {`
       ],
       [
+        ` `,
         `  &lt;code&gt;let alfa =&lt;/code&gt;`, 
-        `  let alfa = &lt;code&gt;String::from(&quot;apple&quot;)&lt;/code&gt;;`,
+        `  let alfa = &lt;code class=&quot;hljs langauge-rust&quot;&gt;String::from(&quot;apple&quot;)&lt;/code&gt;;`,
         `  let alfa = String::from(&quot;apple&quot;);`,
       ],
       [
+        ` `,
         `  &lt;code&gt;println!()&lt;/code&gt;;`,
         `  println!(&lt;code&gt;&quot;alfa is {}&quot;&lt;/code&gt;);`,
         `  println!(&lt;code&gt;&quot;alfa is {alfa}&quot;&lt;/code&gt;);`,
         `  println!(&quot;alfa is {alfa}&quot;);`
       ],
       [
+        ` `,
         `&lt;code&gt;}&lt;/code&gt;`,
         `}`
       ]
     ],
+
     lineSets: [
-      [0, -1, -1, 0],
-      [1, 0, -1, 1],
-      [1, 1, -1, 1],
-      [1, 2, 0, 1],
-      [1, 2, 1, 1],
-      [1, 2, 2, 1],
-      [1, 2, 3, 1],
+      [1, 0, 0, 1],
+      [2, 1, 0, 2],
+      [2, 2, 0, 2],
+      [2, 3, 1, 2],
+      [2, 3, 2, 2],
+      [2, 3, 3, 2],
     ], 
 
     output: [
@@ -375,7 +413,7 @@ const handleNextClick = () =&gt; {
 
 const handlePreviousClick = () =&gt; {
   if (s.currentLineSet &gt; 0) {
-  updateEverything(s.currentLineSet - 1)
+    updateEverything(s.currentLineSet - 1)
   }
 }
 
@@ -412,8 +450,9 @@ const updateLineNumbers = () =&gt; {
      const checkIndex = s.sourceLines[i].length - 1;
      const currentIndex = s.lineSets[s.currentLineSet][i]
      const numberString = i + 1 &lt; 10 ? `0${i + 1}` : `${i + 1}`
-     if(currentIndex &gt; -1 &amp;&amp; currentIndex &lt; checkIndex) {
-      window[`lineNumber_${i}`].innerHTML = `${numberString} &gt;`
+     if(currentIndex &gt; 0 &amp;&amp; currentIndex &lt; checkIndex) {
+      window[`lineNumber_${i}`].innerHTML = 
+         `${numberString} &lt;span class=&quot;pointer&quot;&gt;&amp;gt;&lt;/span&gt;`
      } else {
       window[`lineNumber_${i}`].innerHTML = numberString
      }
@@ -421,14 +460,13 @@ const updateLineNumbers = () =&gt; {
 }
 
 const updateSourceLines = () =&gt; {
-   for (let i = 0; i &lt; s.totalLines; i ++) {
-     const targetNumber = s.lineSets[s.currentLineSet][i]
-     if (targetNumber !== -1) {
-       window[`sourceLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
-     }
-      else {
-        window[`sourceLine_${i}`].innerHTML = &quot;&amp;nbsp;&quot;
-      }
+  for (let i = 0; i &lt; s.totalLines; i ++) {
+    const targetNumber = s.lineSets[s.currentLineSet][i]
+    window[`sourceLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
+    const codeEls = window[`sourceLine_${i}`].getElementsByTagName(&#x27;code&#x27;)
+    for (let eIndex = 0; eIndex &lt; codeEls.length; eIndex ++ ) {
+      hljs.highlightElement(codeEls[eIndex])
+    }
    }
 }
 
@@ -508,6 +546,5 @@ document.addEventListener(&#x27;DOMContentLoaded&#x27;, makeCodeExample)
     <footer>
       from <a href="https://www.alanwsmith.com/">alan w. smith</a>
     </footer>
-    <script src="/styles/prism.js"></script>
   </body>
 </html>

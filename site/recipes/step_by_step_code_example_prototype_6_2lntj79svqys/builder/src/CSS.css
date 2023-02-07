@@ -3,10 +3,23 @@
   grid-template-columns: 1fr 3fr
 }
 
-
-
 #codeArea {
   display: grid;
   grid-template-columns: 2.6rem 1fr
 }
+
+
+#contentArea {
+  background-color: #003;
+  border-radius: 1rem;
+  margin-right: 0.4rem;
+  padding: 0.3rem;
+}
+
+
+.pointer {
+  font-weight: bold;
+  color: black;
+}
+
 
