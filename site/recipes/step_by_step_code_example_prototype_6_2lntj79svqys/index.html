@@ -123,38 +123,42 @@ const makeLineNumbersWrapper = () => {
 
 const handleNextClick = () => {
   if (s.currentLineSet < s.lineSets.length - 1) {
-    s.currentLineSet += 1;
-  updateEverything()
+    updateEverything(s.currentLineSet + 1)
   }
 }
 
 const handlePreviousClick = () => {
   if (s.currentLineSet > 0) {
-    s.currentLineSet -= 1;
-  updateEverything()
+  updateEverything(s.currentLineSet - 1)
   }
 }
 
 const handleNumberClick = (event) => {
-  s.currentLineSet = parseInt(
+  const newIndex = parseInt(
     event.target.id.split("_")[1]
   )
-  updateEverything()
+  updateEverything(newIndex)
 }
 
 const updateContent = () => {
+  window.contentArea.innerHTML = 
+    s.content[s.currentLineSet]
+}
+
+const updateHeader = () => {
   const header = s.currentLineSet === s.lineSets.length - 1 
     ? `<h4>Output</h4>` 
     : `<h4>Step ${s.currentLineSet + 1}</h4>`
-  window.contentArea.innerHTML = 
-    `${header} ${s.content[s.currentLineSet]}`
+  window.headerArea.innerHTML = header
 }
 
-const updateEverything = () => {
+const updateEverything = (newIndex) => {
+  s.currentLineSet = newIndex
   updateLineNumbers()
   updateSourceLines()
   updateOutput()
   updateContent()
+  updateHeader()
 }
 
 const updateLineNumbers = () => {
@@ -197,18 +201,6 @@ const makeNextButton = () => {
   makeEl(['button', 'nextButton', 'Next', 'codeButtonsWrapper', 'click', handleNextClick])
 }
 
-const makeButtonsWrapper = () => {
-  makeEl(['div', 'codeButtonsWrapper', '', 'codeArea'])
-}
-
-const makePlaceholder = () => {
-  // there's probably a better way to do this with 
-  // css but for now just taking up the grid slot
-  // with this placeholder 
-  makeEl(['div', 'codePlaceholder', '', 'codeArea'])
-
-}
-
 const setLineCount = () => {
   s.totalLines = s.lineSets[0].length
 }
@@ -216,7 +208,6 @@ const setLineCount = () => {
 const makeOutputSpacerLines = () => {
   makeEl(['pre', `lineNumberSpacer`, ' ', 'lineNumbersWrapper'])
   makeEl(['pre', `sourceLineSpacer`, ' ', 'codeWrapper'])
-
   for (let i = 0; i < s.output.length; i ++) {
     makeEl(['pre', `lineNumberOutput_${i}`, 'out:', 'lineNumbersWrapper'])
     makeEl(['pre', `sourceLineOutput_${i}`, ' ', 'codeWrapper'])
@@ -238,8 +229,12 @@ const updateOutput = () => {
 }
 
 const makeAreas = () => {
+  makeEl(['div', 'headerArea', '<h4>Step 1</h4>', 'codeExample'])
+  makeEl(['div', 'placeholder_1', '', 'codeExample'])
   makeEl(['div', 'contentArea', 'This is the content area', 'codeExample'])
   makeEl(['div', 'codeArea', '', 'codeExample'])
+  makeEl(['div', 'placeholder_2', '', 'codeExample'])
+  makeEl(['div', 'codeButtonsWrapper', '', 'codeExample'])
 }
 
 const makeCodeExample = () => {
@@ -248,12 +243,10 @@ const makeCodeExample = () => {
   makeLineNumbersWrapper()
   makeCodeWrapper()
   makeOutputSpacerLines()
-  makePlaceholder()
-  makeButtonsWrapper()
   makePreviousButton()
   makeNumberButtons()
   makeNextButton()
-  updateEverything()
+  updateEverything(0)
 }
 
 document.addEventListener('DOMContentLoaded', makeCodeExample)
@@ -376,38 +369,42 @@ const makeLineNumbersWrapper = () =&gt; {
 
 const handleNextClick = () =&gt; {
   if (s.currentLineSet &lt; s.lineSets.length - 1) {
-    s.currentLineSet += 1;
-  updateEverything()
+    updateEverything(s.currentLineSet + 1)
   }
 }
 
 const handlePreviousClick = () =&gt; {
   if (s.currentLineSet &gt; 0) {
-    s.currentLineSet -= 1;
-  updateEverything()
+  updateEverything(s.currentLineSet - 1)
   }
 }
 
 const handleNumberClick = (event) =&gt; {
-  s.currentLineSet = parseInt(
+  const newIndex = parseInt(
     event.target.id.split(&quot;_&quot;)[1]
   )
-  updateEverything()
+  updateEverything(newIndex)
 }
 
 const updateContent = () =&gt; {
+  window.contentArea.innerHTML = 
+    s.content[s.currentLineSet]
+}
+
+const updateHeader = () =&gt; {
   const header = s.currentLineSet === s.lineSets.length - 1 
     ? `&lt;h4&gt;Output&lt;/h4&gt;` 
     : `&lt;h4&gt;Step ${s.currentLineSet + 1}&lt;/h4&gt;`
-  window.contentArea.innerHTML = 
-    `${header} ${s.content[s.currentLineSet]}`
+  window.headerArea.innerHTML = header
 }
 
-const updateEverything = () =&gt; {
+const updateEverything = (newIndex) =&gt; {
+  s.currentLineSet = newIndex
   updateLineNumbers()
   updateSourceLines()
   updateOutput()
   updateContent()
+  updateHeader()
 }
 
 const updateLineNumbers = () =&gt; {
@@ -450,18 +447,6 @@ const makeNextButton = () =&gt; {
   makeEl([&#x27;button&#x27;, &#x27;nextButton&#x27;, &#x27;Next&#x27;, &#x27;codeButtonsWrapper&#x27;, &#x27;click&#x27;, handleNextClick])
 }
 
-const makeButtonsWrapper = () =&gt; {
-  makeEl([&#x27;div&#x27;, &#x27;codeButtonsWrapper&#x27;, &#x27;&#x27;, &#x27;codeArea&#x27;])
-}
-
-const makePlaceholder = () =&gt; {
-  // there&#x27;s probably a better way to do this with 
-  // css but for now just taking up the grid slot
-  // with this placeholder 
-  makeEl([&#x27;div&#x27;, &#x27;codePlaceholder&#x27;, &#x27;&#x27;, &#x27;codeArea&#x27;])
-
-}
-
 const setLineCount = () =&gt; {
   s.totalLines = s.lineSets[0].length
 }
@@ -469,7 +454,6 @@ const setLineCount = () =&gt; {
 const makeOutputSpacerLines = () =&gt; {
   makeEl([&#x27;pre&#x27;, `lineNumberSpacer`, &#x27; &#x27;, &#x27;lineNumbersWrapper&#x27;])
   makeEl([&#x27;pre&#x27;, `sourceLineSpacer`, &#x27; &#x27;, &#x27;codeWrapper&#x27;])
-
   for (let i = 0; i &lt; s.output.length; i ++) {
     makeEl([&#x27;pre&#x27;, `lineNumberOutput_${i}`, &#x27;out:&#x27;, &#x27;lineNumbersWrapper&#x27;])
     makeEl([&#x27;pre&#x27;, `sourceLineOutput_${i}`, &#x27; &#x27;, &#x27;codeWrapper&#x27;])
@@ -491,8 +475,12 @@ const updateOutput = () =&gt; {
 }
 
 const makeAreas = () =&gt; {
+  makeEl([&#x27;div&#x27;, &#x27;headerArea&#x27;, &#x27;&lt;h4&gt;Step 1&lt;/h4&gt;&#x27;, &#x27;codeExample&#x27;])
+  makeEl([&#x27;div&#x27;, &#x27;placeholder_1&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
   makeEl([&#x27;div&#x27;, &#x27;contentArea&#x27;, &#x27;This is the content area&#x27;, &#x27;codeExample&#x27;])
   makeEl([&#x27;div&#x27;, &#x27;codeArea&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
+  makeEl([&#x27;div&#x27;, &#x27;placeholder_2&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
+  makeEl([&#x27;div&#x27;, &#x27;codeButtonsWrapper&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
 }
 
 const makeCodeExample = () =&gt; {
@@ -501,12 +489,10 @@ const makeCodeExample = () =&gt; {
   makeLineNumbersWrapper()
   makeCodeWrapper()
   makeOutputSpacerLines()
-  makePlaceholder()
-  makeButtonsWrapper()
   makePreviousButton()
   makeNumberButtons()
   makeNextButton()
-  updateEverything()
+  updateEverything(0)
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, makeCodeExample)
