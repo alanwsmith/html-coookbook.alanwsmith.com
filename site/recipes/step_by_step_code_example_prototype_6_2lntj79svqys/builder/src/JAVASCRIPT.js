@@ -137,7 +137,7 @@ const s = {
     `<p>Begin creating an immutable <code>key</code> variable</p>`,
     `
       <p>Bind a string literal with <code>HOME</code> to the <code>key</code> variable</p>
-      <p>This matches the <code>HOME</code> environmental variable that's avaialbe in the Code Runners</p>
+      <p>This matches the <code>HOME</code> environmental variable that's available in the Code Runners</p>
     `,
     `<p>Create an initial <code>println!()</code> statement that is just here to help me test multiple line output in this example</p>`,
     `<p>Add the format string</p>`,
@@ -148,7 +148,7 @@ const s = {
       <p>The <code>env::var()</code> method is what's used to access individual environmental variables.</p>
       <p>The expression returns a <code>Result</code> value that will handle with the upcoming <code>match</code> statement</p>
     `,
-    `<p>Insert the <code>key</code> variable name to finish the expression and define that we want the <code>HOME</code> envionmental variable</p>`,
+    `<p>Insert the <code>key</code> variable name to finish the expression and define that we want the <code>HOME</code> environmental variable</p>`,
     `<p>The value for <code>key</code> comes from the variable on line 4</p>`,
     `<p>Begin creating the match expression</p>`,
     `<p>Setup the <code>match</code> expression to examine the <code>returnValueAsResult</code> variable</p>`,
