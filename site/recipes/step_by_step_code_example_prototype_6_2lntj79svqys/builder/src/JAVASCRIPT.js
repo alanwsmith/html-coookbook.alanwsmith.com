@@ -313,11 +313,8 @@ const updateFinalHighlights = () => {
 
 const updateLineNumbers = () => {
    for (let i = 0; i < s.totalLines; i ++) {
-
       const checkIndex = s.sourceLines[i].length - 1;
-      // const currentIndex = s.lineSets[s.currentLineSet][i]
       const currentIndex = s.lineIndexes[i]
-      console.log(`${i} - ${currentIndex} - ${checkIndex}`)
       const numberString = i + 1 < 10 ? `0${i + 1}` : `${i + 1}`
       if(currentIndex > 0 && currentIndex < checkIndex) {
        window[`lineNumber_${i}`].innerHTML = 
@@ -325,23 +322,8 @@ const updateLineNumbers = () => {
       } else {
        window[`lineNumber_${i}`].innerHTML = numberString
       }
-
    }
 }
-
-// const updateLineNumbers = () => {
-//    for (let i = 0; i < s.totalLines; i ++) {
-//      const checkIndex = s.sourceLines[i].length - 1;
-//      const currentIndex = s.lineSets[s.currentLineSet][i]
-//      const numberString = i + 1 < 10 ? `0${i + 1}` : `${i + 1}`
-//      if(currentIndex > 0 && currentIndex < checkIndex) {
-//       window[`lineNumber_${i}`].innerHTML = 
-//          `${numberString} <span class="pointer">&gt;</span>`
-//      } else {
-//       window[`lineNumber_${i}`].innerHTML = numberString
-//      }
-//    }
-// }
 
 const updateSourceLines = () => {
   for (let i = 0; i < s.totalLines; i ++) {
