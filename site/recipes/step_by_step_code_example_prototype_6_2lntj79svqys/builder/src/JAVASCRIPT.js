@@ -95,18 +95,11 @@ const handleNumberClick = (event) => {
 }
 
 const updateContent = () => {
-  const content = s.content[s.currentLineSet]
-
-  if (s.currentLineSet === s.lineSets.length - 1) {
-   window.contentArea.innerHTML = `<h4>Output</h4>`
-   if (content) {
-    window.contentArea.innerHTML += content
-   }
-  } else {
-   window.contentArea.innerHTML = `<h4>Step ${s.currentLineSet + 1}</h4>`
-   window.contentArea.innerHTML += content
-  }
-
+  const header = s.currentLineSet === s.lineSets.length - 1 
+    ? `<h4>Output</h4>` 
+    : `<h4>Step ${s.currentLineSet + 1}</h4>`
+  window.contentArea.innerHTML = 
+    `${header} ${s.content[s.currentLineSet]}`
 }
 
 const updateEverything = () => {
