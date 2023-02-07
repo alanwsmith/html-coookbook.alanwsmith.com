@@ -56,7 +56,7 @@ const makeLines = () => {
 }
 
 const handleNextClick = () => {
-  if (s.currentLineSet < s.totalLines - 1) {
+  if (s.currentLineSet < s.lineSets.length - 1) {
     s.currentLineSet += 1;
     outputLines();
   }
@@ -70,8 +70,11 @@ const handlePreviousClick = () => {
 }
 
 const outputLines = () => {
-  for (let i = 0; i < s.totalLines ; i ++) {
+  for (let i = 0; i < s.totalLines; i ++) {
+    console.log('adf')
+    console.log(s.totalLines)
     const targetNumber = s.lineSets[s.currentLineSet][i]
+    console.log(targetNumber)
     if (targetNumber !== -1) {
       window[`codeSource_${i}`].innerHTML = 
         s.sourceLines[i][targetNumber]
@@ -86,11 +89,24 @@ const outputLines = () => {
   }
 }
 
+const handleNumberClick = (event) => {
+  s.currentLineSet = parseInt(event.target.id.split("_")[1])
+  outputLines()
+}
+
 const makeButtons = () => {
   const previousButtonEl = document.createElement("button")
   previousButtonEl.innerHTML ="Previous"
   previousButtonEl.addEventListener("click",handlePreviousClick)
   window.codeButtons.appendChild(previousButtonEl)
+
+  for (let i = 0; i < s.lineSets.length; i ++) {
+    const numberButtonEl = document.createElement("button")
+    numberButtonEl.id = `numberButton_${i}`
+    numberButtonEl.innerHTML = i + 1
+    numberButtonEl.addEventListener("click", handleNumberClick)
+    window.codeButtons.appendChild(numberButtonEl)
+  }
 
   const nextButtonEl = document.createElement("button")
   nextButtonEl.innerHTML ="Next"
