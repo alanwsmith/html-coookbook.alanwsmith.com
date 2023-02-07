@@ -3,6 +3,7 @@
     --area-padding: 0.9rem;
     --area-radius: 0.4rem;
     --button-font-color: #cca;
+    --next-previous-min-width: 4ch;
     --number-column-width: 4.0rem;
     --pointer-color: white;
 }
@@ -22,12 +23,23 @@ c-2 {
   color: blue;
 }
 
+c-3 {
+  color: green;
+}
+
 #codeArea {
   display: grid;
   grid-template-columns: var(--number-column-width) 1fr;
   background-color: #010;
   border-top-right-radius: var(--area-radius);
   border-top-left-radius: var(--area-radius);
+}
+
+#codeButtonsParent {
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #codeButtonsWrapper {
@@ -40,7 +52,18 @@ c-2 {
 
 #codeExample {
   display: grid;
-  grid-template-columns: 1fr 2.2fr
+  grid-template-columns: 1fr 2.2fr;
+  color: #888;
+}
+
+#codeNextWrapper {
+  min-width: var(--next-previous-min-width);
+  padding: 0.6rem 0;
+}
+
+#codePreviousWrapper {
+  min-width: var(--next-previous-min-width);
+  padding: 0.6rem 0;
 }
 
 #codeWrapper {

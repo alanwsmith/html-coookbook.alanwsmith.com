@@ -39,6 +39,7 @@
     --area-padding: 0.9rem;
     --area-radius: 0.4rem;
     --button-font-color: #cca;
+    --next-previous-min-width: 4ch;
     --number-column-width: 4.0rem;
     --pointer-color: white;
 }
@@ -58,12 +59,23 @@ c-2 {
   color: blue;
 }
 
+c-3 {
+  color: green;
+}
+
 #codeArea {
   display: grid;
   grid-template-columns: var(--number-column-width) 1fr;
   background-color: #010;
   border-top-right-radius: var(--area-radius);
   border-top-left-radius: var(--area-radius);
+}
+
+#codeButtonsParent {
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #codeButtonsWrapper {
@@ -76,7 +88,18 @@ c-2 {
 
 #codeExample {
   display: grid;
-  grid-template-columns: 1fr 2.2fr
+  grid-template-columns: 1fr 2.2fr;
+  color: #888;
+}
+
+#codeNextWrapper {
+  min-width: var(--next-previous-min-width);
+  padding: 0.6rem 0;
+}
+
+#codePreviousWrapper {
+  min-width: var(--next-previous-min-width);
+  padding: 0.6rem 0;
 }
 
 #codeWrapper {
@@ -136,7 +159,6 @@ c-2 {
       const s = {
 
   currentLineSet: 0,
-  // string, meta
 
     sourceLines: [
       [
@@ -153,6 +175,7 @@ c-2 {
         ` `,
         `  <c-1>let key </c-1><c-2>=</c-2>`,
         `  let key = <c-1>&quot;HOME&quot;</c-1><c-2>;</c-2>`,
+        `  let <c-3>key</c-3> = &quot;HOME&quot;;`,
         `  let key = &quot;HOME&quot;;`,
       ],
       [
@@ -160,17 +183,20 @@ c-2 {
         `  <c-1>let returnValueAsResult </c-1><c-2>=</c-2>`,
         `  let returnValueAsResult = <c-1>env::var<c-1>()<c-2>;</c-2>`,
         `  let returnValueAsResult = env::var(<c-1>key</c-1>);`,
+        `  let <c-3>returnValueAsResult</c-3> = env::var(key);`,
         `  let returnValueAsResult = env::var(key);`,
       ],
       [
         ` `,
-        `  <c-1>match returnValueAsResult</c-1> <c-2>{</c-2>`,
+        `  <c-1>match</c-1> <c-2>{</c-2>`,
+        `  match <c-1>returnValueAsResult</c-1> {`,
         `  match returnValueAsResult {`,
       ],
       [
         ` `,
         `    <c-1>Ok() =></c-1> <c-2>{</c-2>`,
         `    Ok(<c-1>value</c-1>) => {` ,
+        `    Ok(<c-3>value</c-3>) => {` ,
         `    Ok(value) => {` ,
       ],
       [
@@ -188,6 +214,7 @@ c-2 {
       [ ` `,
         `    <c-1>Err() => </c-1><c-2>{</c-2>`,
         `    Err(<c-1>error</c-1>) => {`,
+        `    Err(<c-3>error</c-3>) => {`,
         `    Err(error) => {`,
       ],
       [
@@ -215,28 +242,73 @@ c-2 {
       ]
     ],
 
+    sets: [
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 1
+      [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
+      [0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
+      [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 5
+      [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0,-1 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 1, 2, 1, 0, 0, 0, 0, 0, 0, 1, 0], 
+      [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0], // 10
+      [0, 0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+
+//     1  2  3  4  5  6  7  8  9 10 11 12 13 14
+
+      [0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], // 15 
+      [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0], // 20
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], 
+      [0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 25 
+      [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 0,-1, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0], 
+
+//     1  2  3  4  5  6  7  8  9 10 11 12 13 14
+
+    ],
+
     lineSets: [
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 1
       [2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
       [2, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
       [2, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-      [2, 0, 2, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-      [2, 0, 2, 3, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+      [2, 0, 2, 4, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2], // 5
+      [2, 0, 2, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+      [2, 0, 2, 4, 3, 0, 0, 0, 0, 0, 0, 0, 0, 2],
       [2, 0, 2, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-      [2, 0, 2, 3, 4, 1, 0, 0, 0, 0, 0, 0, 1, 2],
-      [2, 0, 2, 3, 4, 2, 1, 0, 1, 0, 0, 0, 2, 2],
-      [2, 0, 2, 3, 4, 2, 2, 0, 2, 0, 0, 0, 2, 2],
-      [2, 0, 2, 3, 4, 2, 3, 1, 2, 0, 0, 0, 2, 2],
-      [2, 0, 2, 3, 4, 2, 3, 2, 2, 0, 0, 0, 2, 2],
-      [2, 0, 2, 3, 4, 2, 3, 3, 2, 0, 0, 0, 2, 2],
-      [2, 0, 2, 3, 4, 2, 3, 4, 2, 0, 0, 0, 2, 2],
-      [2, 0, 2, 3, 4, 2, 3, 5, 2, 1, 0, 1, 2, 2],
-      [2, 0, 2, 3, 4, 2, 3, 5, 2, 2, 0, 2, 2, 2],
-      [2, 0, 2, 3, 4, 2, 3, 5, 2, 3, 1, 2, 2, 2],
-      [2, 0, 2, 3, 4, 2, 3, 5, 2, 3, 2, 2, 2, 2],
-      [2, 0, 2, 3, 4, 2, 3, 5, 2, 3, 3, 2, 2, 2],
-      [2, 0, 2, 3, 4, 2, 3, 5, 2, 3, 4, 2, 2, 2],
-      [2, 0, 2, 3, 4, 2, 3, 5, 2, 4, 4, 2, 2, 2],
+      [2, 0, 2, 4, 4, 1, 0, 0, 0, 0, 0, 0, 1, 2],
+      [2, 0, 2, 4, 4, 2, 1, 0, 1, 0, 0, 0, 2, 2], // 10
+      [2, 0, 2, 4, 4, 2, 2, 0, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 4, 4, 2, 4, 1, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 4, 4, 2, 4, 2, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 4, 4, 2, 4, 3, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 3, 4, 2, 4, 3, 2, 0, 0, 0, 2, 2], // 15
+      [2, 0, 2, 4, 4, 2, 4, 4, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 4, 4, 2, 3, 4, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 4, 4, 2, 4, 5, 2, 1, 0, 1, 2, 2],
+      [2, 0, 2, 4, 4, 2, 4, 5, 2, 2, 0, 2, 2, 2],
+      [2, 0, 2, 4, 4, 2, 4, 5, 2, 4, 1, 2, 2, 2], // 20
+      [2, 0, 2, 4, 4, 2, 4, 5, 2, 4, 2, 2, 2, 2],
+      [2, 0, 2, 4, 4, 2, 4, 5, 2, 4, 3, 2, 2, 2], 
+      [2, 0, 2, 3, 4, 2, 4, 5, 2, 4, 3, 2, 2, 2], 
+      [2, 0, 2, 4, 4, 2, 4, 5, 2, 4, 4, 2, 2, 2],
+      [2, 0, 2, 4, 4, 2, 4, 5, 2, 3, 4, 2, 2, 2], // 25
+      [2, 0, 2, 4, 4, 2, 4, 5, 2, 4, 4, 2, 2, 2],
+      [2, 0, 2, 4, 4, 2, 4, 5, 2, 4, 4, 2, 2, 2],
+      [2, 0, 2, 4, 4, 2, 4, 5, 2, 4, 4, 2, 2, 2],
+
     ], 
 
     output: [
@@ -245,14 +317,33 @@ c-2 {
     ], 
 
   content: [
-    `<p>Create the <code>main</code> function</p>`,
-    `<p>Start creating a variable named <code>alfa</code></p>`,
-    `<p>Bind a <code>String</code> of &quot;apple&quot; to the <code>alfa</code> variable</p>`,
-    `<p>Start making a <code>println!()<code> expression<p>`,
-    `<p>Add the basic format string</p>`,
-    `<p>Use the <code>alfa</code> variable in the format string</p>`,
-    `<p>etc...</p>`,
-    `<p>Closing remarks</p>`
+    `<p>Load the <code>std::env</code> library which gives us access to environmental variables</p>`,
+    `<p>Create the <code>main()</code> function</p>`,
+    `<p>Begin creating an immutable <code>key</code> variable</p>`,
+    `
+      <p>Bind a string literal with <code>HOME</code> to the <code>key</code> variable</p>
+      <p>This matches the <code>HOME</code> environmental variable that's avaialbe in the Code Runners</p>
+    `,
+    `<p>Start creating a <code>returnValueAsResult</code> immutable variable</p>`,
+    `
+      <p>The <code>env::var()</code> method is what's used to access individual environmental variables.</p>
+      <p>The expression returns a <code>Result</code> value that will handle with the upcoming <code>match</code> statement</p>
+    `,
+    `<p>Insert the <code>key</code> variable name to finish the expression.</p>`,
+    `<p>This is the same <code>key</code> variable from the prio line</p>`,
+    `<p>Begin creating the match expression</p>`,
+    `<p></p>`,
+    `<p></p>`,
+    `<p></p>`,
+    `<p></p>`,
+    `<p></p>`,
+    `<p></p>`,
+    `<p></p>`,
+    `<p></p>`,
+    `<p></p>`,
+    `<p></p>`,
+    `<p></p>`,
+    `<p></p>`,
   ]
 }
 
@@ -328,16 +419,30 @@ const updateHeader = () => {
   window.headerArea.innerHTML = header
 }
 
+
+const updateLineIndexes = () => {
+  for (let i = 0; i < s.totalLines; i++) {
+    s.lineIndexes[i] = 0
+    for (let x = 0; x <= s.currentLineSet; x ++) {
+      s.lineIndexes[i] += s.sets[x][i]
+    }
+  }
+  console.log(s.lineIndexes)
+}
+
 const updateEverything = (newIndex) => {
   s.currentLineSet = newIndex
   updateLineNumbers()
-   updateSourceLines()
+  updateLineIndexes()
+  updateSourceLines()
+  updateButtonHighlights()
+
+/*
     updateOutput()
   updateContent()
    updateHeader()
-  updateButtonHighlights()
   updateFinalHighlights()
-
+*/
 }
 
 const updateButtonHighlights = () => {
@@ -379,32 +484,30 @@ const updateLineNumbers = () => {
    }
 }
 
-// TODO: Remove when the line highlights are in
-// // custom highlights selections
-// const updateLineHighlights = () => {
-//   ['keyword', 'variable', 'punctuation', 'string', 'meta'].forEach((hljsKey) => {
-//     const tagEls = window.codeExample.getElementsByTagName(`c-${hljsKey}`)
-//     for (let i = 0; i < tagEls.length; i ++ ) {
-//       tagEls[i].classList.add(`hljs-${hljsKey}`);
-//     }
-//   })
-// }
-
 const updateSourceLines = () => {
   for (let i = 0; i < s.totalLines; i ++) {
-    const targetNumber = s.lineSets[s.currentLineSet][i]
+    const targetNumber = s.lineIndexes[i]
+    console.log(`${i} - ${targetNumber}`)
     window[`sourceLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
-    const codeEls = window[`sourceLine_${i}`].getElementsByTagName('code')
-    for (let eIndex = 0; eIndex < codeEls.length; eIndex ++ ) {
-      codeEls[eIndex].classList.add('hljs')
-      codeEls[eIndex].classList.add('language-rust')
-      hljs.highlightElement(codeEls[eIndex])
-    }
-   }
+    // window[`sourceLine_${i}`].innerHTML = `x`
+  }
 }
 
+// const updateSourceLines = () => {
+//   for (let i = 0; i < s.totalLines; i ++) {
+//     const targetNumber = s.lineSets[s.currentLineSet][i]
+//     window[`sourceLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
+//     const codeEls = window[`sourceLine_${i}`].getElementsByTagName('code')
+//     for (let eIndex = 0; eIndex < codeEls.length; eIndex ++ ) {
+//       codeEls[eIndex].classList.add('hljs')
+//       codeEls[eIndex].classList.add('language-rust')
+//       hljs.highlightElement(codeEls[eIndex])
+//     }
+//    }
+// }
+
 const makePreviousButton = () => {
-  makeEl(['button', 'previousButton', '&lt;-', 'codeButtonsWrapper', 'click', handlePreviousClick])
+  makeEl(['button', 'previousButton', '&lt;-', 'codePreviousWrapper', 'click', handlePreviousClick])
 }
 
 const makeNumberButtons = () => {
@@ -415,7 +518,7 @@ const makeNumberButtons = () => {
 }
 
 const makeNextButton = () => {
-  makeEl(['button', 'nextButton', '-&gt;', 'codeButtonsWrapper', 'click', handleNextClick])
+  makeEl(['button', 'nextButton', '-&gt;', 'codeNextWrapper', 'click', handleNextClick])
 }
 
 const setLineCount = () => {
@@ -423,17 +526,14 @@ const setLineCount = () => {
 }
 
 const updateOutput = () => {
-  if (s.currentLineSet === s.lineSets.length - 1 ) {
     for (let i = 0; i < s.output.length; i ++ ) {
-      window[`outputLine_${i}`].innerHTML = s.output[i]
-    }
-  } 
-  // clear output for moving to previous line sets
-  else {
-    for (let i = 0; i < s.output.length; i ++ ) {
+      if (s.currentLineSet === s.lineSets.length - 1 ) {
+        window[`outputLine_${i}`].innerHTML = s.output[i]
+      } else  {
+      // clear output for moving to previous line sets
       window[`outputLine_${i}`].innerHTML = ' '
+      }
     }
-  }
 }
 
 const makeAreas = () => {
@@ -441,12 +541,19 @@ const makeAreas = () => {
   makeEl(['div', 'contentArea', 'This is the content area', 'codeExample'])
   makeEl(['div', 'codeArea', '', 'codeExample'])
   makeEl(['div', 'outputArea', '', 'codeExample'])
-  makeEl(['div', 'placeholder_3', '', 'codeExample'])
-  makeEl(['div', 'codeButtonsWrapper', '', 'codeExample'])
+  makeEl(['div', 'codeButtonsParent', '', 'codeExample'])
+  makeEl(['div', 'codePreviousWrapper', '', 'codeButtonsParent'])
+  makeEl(['div', 'codeButtonsWrapper', '', 'codeButtonsParent'])
+  makeEl(['div', 'codeNextWrapper', '', 'codeButtonsParent'])
+}
+
+const setupLineIndexes = () => {
+  s.lineIndexes = []
 }
 
 const makeCodeExample = () => {
   setLineCount()
+  setupLineIndexes()
   makeAreas()
   makeLineNumbersWrapper()
   makeCodeWrapper()
@@ -493,6 +600,7 @@ document.addEventListener('DOMContentLoaded', makeCodeExample)
     --area-padding: 0.9rem;
     --area-radius: 0.4rem;
     --button-font-color: #cca;
+    --next-previous-min-width: 4ch;
     --number-column-width: 4.0rem;
     --pointer-color: white;
 }
@@ -512,12 +620,23 @@ c-2 {
   color: blue;
 }
 
+c-3 {
+  color: green;
+}
+
 #codeArea {
   display: grid;
   grid-template-columns: var(--number-column-width) 1fr;
   background-color: #010;
   border-top-right-radius: var(--area-radius);
   border-top-left-radius: var(--area-radius);
+}
+
+#codeButtonsParent {
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #codeButtonsWrapper {
@@ -530,7 +649,18 @@ c-2 {
 
 #codeExample {
   display: grid;
-  grid-template-columns: 1fr 2.2fr
+  grid-template-columns: 1fr 2.2fr;
+  color: #888;
+}
+
+#codeNextWrapper {
+  min-width: var(--next-previous-min-width);
+  padding: 0.6rem 0;
+}
+
+#codePreviousWrapper {
+  min-width: var(--next-previous-min-width);
+  padding: 0.6rem 0;
 }
 
 #codeWrapper {
@@ -587,7 +717,6 @@ c-2 {
             <pre><code class="language-js">const s = {
 
   currentLineSet: 0,
-  // string, meta
 
     sourceLines: [
       [
@@ -604,6 +733,7 @@ c-2 {
         ` `,
         `  &lt;c-1&gt;let key &lt;/c-1&gt;&lt;c-2&gt;=&lt;/c-2&gt;`,
         `  let key = &lt;c-1&gt;&amp;quot;HOME&amp;quot;&lt;/c-1&gt;&lt;c-2&gt;;&lt;/c-2&gt;`,
+        `  let &lt;c-3&gt;key&lt;/c-3&gt; = &amp;quot;HOME&amp;quot;;`,
         `  let key = &amp;quot;HOME&amp;quot;;`,
       ],
       [
@@ -611,17 +741,20 @@ c-2 {
         `  &lt;c-1&gt;let returnValueAsResult &lt;/c-1&gt;&lt;c-2&gt;=&lt;/c-2&gt;`,
         `  let returnValueAsResult = &lt;c-1&gt;env::var&lt;c-1&gt;()&lt;c-2&gt;;&lt;/c-2&gt;`,
         `  let returnValueAsResult = env::var(&lt;c-1&gt;key&lt;/c-1&gt;);`,
+        `  let &lt;c-3&gt;returnValueAsResult&lt;/c-3&gt; = env::var(key);`,
         `  let returnValueAsResult = env::var(key);`,
       ],
       [
         ` `,
-        `  &lt;c-1&gt;match returnValueAsResult&lt;/c-1&gt; &lt;c-2&gt;{&lt;/c-2&gt;`,
+        `  &lt;c-1&gt;match&lt;/c-1&gt; &lt;c-2&gt;{&lt;/c-2&gt;`,
+        `  match &lt;c-1&gt;returnValueAsResult&lt;/c-1&gt; {`,
         `  match returnValueAsResult {`,
       ],
       [
         ` `,
         `    &lt;c-1&gt;Ok() =&gt;&lt;/c-1&gt; &lt;c-2&gt;{&lt;/c-2&gt;`,
         `    Ok(&lt;c-1&gt;value&lt;/c-1&gt;) =&gt; {` ,
+        `    Ok(&lt;c-3&gt;value&lt;/c-3&gt;) =&gt; {` ,
         `    Ok(value) =&gt; {` ,
       ],
       [
@@ -639,6 +772,7 @@ c-2 {
       [ ` `,
         `    &lt;c-1&gt;Err() =&gt; &lt;/c-1&gt;&lt;c-2&gt;{&lt;/c-2&gt;`,
         `    Err(&lt;c-1&gt;error&lt;/c-1&gt;) =&gt; {`,
+        `    Err(&lt;c-3&gt;error&lt;/c-3&gt;) =&gt; {`,
         `    Err(error) =&gt; {`,
       ],
       [
@@ -666,28 +800,73 @@ c-2 {
       ]
     ],
 
+    sets: [
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 1
+      [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
+      [0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
+      [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 5
+      [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0,-1 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 1, 2, 1, 0, 0, 0, 0, 0, 0, 1, 0], 
+      [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0], // 10
+      [0, 0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+
+//     1  2  3  4  5  6  7  8  9 10 11 12 13 14
+
+      [0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], // 15 
+      [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0], // 20
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], 
+      [0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 25 
+      [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 0,-1, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0], 
+
+//     1  2  3  4  5  6  7  8  9 10 11 12 13 14
+
+    ],
+
     lineSets: [
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 1
       [2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
       [2, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
       [2, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-      [2, 0, 2, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-      [2, 0, 2, 3, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+      [2, 0, 2, 4, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2], // 5
+      [2, 0, 2, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+      [2, 0, 2, 4, 3, 0, 0, 0, 0, 0, 0, 0, 0, 2],
       [2, 0, 2, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-      [2, 0, 2, 3, 4, 1, 0, 0, 0, 0, 0, 0, 1, 2],
-      [2, 0, 2, 3, 4, 2, 1, 0, 1, 0, 0, 0, 2, 2],
-      [2, 0, 2, 3, 4, 2, 2, 0, 2, 0, 0, 0, 2, 2],
-      [2, 0, 2, 3, 4, 2, 3, 1, 2, 0, 0, 0, 2, 2],
-      [2, 0, 2, 3, 4, 2, 3, 2, 2, 0, 0, 0, 2, 2],
-      [2, 0, 2, 3, 4, 2, 3, 3, 2, 0, 0, 0, 2, 2],
-      [2, 0, 2, 3, 4, 2, 3, 4, 2, 0, 0, 0, 2, 2],
-      [2, 0, 2, 3, 4, 2, 3, 5, 2, 1, 0, 1, 2, 2],
-      [2, 0, 2, 3, 4, 2, 3, 5, 2, 2, 0, 2, 2, 2],
-      [2, 0, 2, 3, 4, 2, 3, 5, 2, 3, 1, 2, 2, 2],
-      [2, 0, 2, 3, 4, 2, 3, 5, 2, 3, 2, 2, 2, 2],
-      [2, 0, 2, 3, 4, 2, 3, 5, 2, 3, 3, 2, 2, 2],
-      [2, 0, 2, 3, 4, 2, 3, 5, 2, 3, 4, 2, 2, 2],
-      [2, 0, 2, 3, 4, 2, 3, 5, 2, 4, 4, 2, 2, 2],
+      [2, 0, 2, 4, 4, 1, 0, 0, 0, 0, 0, 0, 1, 2],
+      [2, 0, 2, 4, 4, 2, 1, 0, 1, 0, 0, 0, 2, 2], // 10
+      [2, 0, 2, 4, 4, 2, 2, 0, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 4, 4, 2, 4, 1, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 4, 4, 2, 4, 2, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 4, 4, 2, 4, 3, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 3, 4, 2, 4, 3, 2, 0, 0, 0, 2, 2], // 15
+      [2, 0, 2, 4, 4, 2, 4, 4, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 4, 4, 2, 3, 4, 2, 0, 0, 0, 2, 2],
+      [2, 0, 2, 4, 4, 2, 4, 5, 2, 1, 0, 1, 2, 2],
+      [2, 0, 2, 4, 4, 2, 4, 5, 2, 2, 0, 2, 2, 2],
+      [2, 0, 2, 4, 4, 2, 4, 5, 2, 4, 1, 2, 2, 2], // 20
+      [2, 0, 2, 4, 4, 2, 4, 5, 2, 4, 2, 2, 2, 2],
+      [2, 0, 2, 4, 4, 2, 4, 5, 2, 4, 3, 2, 2, 2], 
+      [2, 0, 2, 3, 4, 2, 4, 5, 2, 4, 3, 2, 2, 2], 
+      [2, 0, 2, 4, 4, 2, 4, 5, 2, 4, 4, 2, 2, 2],
+      [2, 0, 2, 4, 4, 2, 4, 5, 2, 3, 4, 2, 2, 2], // 25
+      [2, 0, 2, 4, 4, 2, 4, 5, 2, 4, 4, 2, 2, 2],
+      [2, 0, 2, 4, 4, 2, 4, 5, 2, 4, 4, 2, 2, 2],
+      [2, 0, 2, 4, 4, 2, 4, 5, 2, 4, 4, 2, 2, 2],
+
     ], 
 
     output: [
@@ -696,14 +875,33 @@ c-2 {
     ], 
 
   content: [
-    `&lt;p&gt;Create the &lt;code&gt;main&lt;/code&gt; function&lt;/p&gt;`,
-    `&lt;p&gt;Start creating a variable named &lt;code&gt;alfa&lt;/code&gt;&lt;/p&gt;`,
-    `&lt;p&gt;Bind a &lt;code&gt;String&lt;/code&gt; of &amp;quot;apple&amp;quot; to the &lt;code&gt;alfa&lt;/code&gt; variable&lt;/p&gt;`,
-    `&lt;p&gt;Start making a &lt;code&gt;println!()&lt;code&gt; expression&lt;p&gt;`,
-    `&lt;p&gt;Add the basic format string&lt;/p&gt;`,
-    `&lt;p&gt;Use the &lt;code&gt;alfa&lt;/code&gt; variable in the format string&lt;/p&gt;`,
-    `&lt;p&gt;etc...&lt;/p&gt;`,
-    `&lt;p&gt;Closing remarks&lt;/p&gt;`
+    `&lt;p&gt;Load the &lt;code&gt;std::env&lt;/code&gt; library which gives us access to environmental variables&lt;/p&gt;`,
+    `&lt;p&gt;Create the &lt;code&gt;main()&lt;/code&gt; function&lt;/p&gt;`,
+    `&lt;p&gt;Begin creating an immutable &lt;code&gt;key&lt;/code&gt; variable&lt;/p&gt;`,
+    `
+      &lt;p&gt;Bind a string literal with &lt;code&gt;HOME&lt;/code&gt; to the &lt;code&gt;key&lt;/code&gt; variable&lt;/p&gt;
+      &lt;p&gt;This matches the &lt;code&gt;HOME&lt;/code&gt; environmental variable that&#x27;s avaialbe in the Code Runners&lt;/p&gt;
+    `,
+    `&lt;p&gt;Start creating a &lt;code&gt;returnValueAsResult&lt;/code&gt; immutable variable&lt;/p&gt;`,
+    `
+      &lt;p&gt;The &lt;code&gt;env::var()&lt;/code&gt; method is what&#x27;s used to access individual environmental variables.&lt;/p&gt;
+      &lt;p&gt;The expression returns a &lt;code&gt;Result&lt;/code&gt; value that will handle with the upcoming &lt;code&gt;match&lt;/code&gt; statement&lt;/p&gt;
+    `,
+    `&lt;p&gt;Insert the &lt;code&gt;key&lt;/code&gt; variable name to finish the expression.&lt;/p&gt;`,
+    `&lt;p&gt;This is the same &lt;code&gt;key&lt;/code&gt; variable from the prio line&lt;/p&gt;`,
+    `&lt;p&gt;Begin creating the match expression&lt;/p&gt;`,
+    `&lt;p&gt;&lt;/p&gt;`,
+    `&lt;p&gt;&lt;/p&gt;`,
+    `&lt;p&gt;&lt;/p&gt;`,
+    `&lt;p&gt;&lt;/p&gt;`,
+    `&lt;p&gt;&lt;/p&gt;`,
+    `&lt;p&gt;&lt;/p&gt;`,
+    `&lt;p&gt;&lt;/p&gt;`,
+    `&lt;p&gt;&lt;/p&gt;`,
+    `&lt;p&gt;&lt;/p&gt;`,
+    `&lt;p&gt;&lt;/p&gt;`,
+    `&lt;p&gt;&lt;/p&gt;`,
+    `&lt;p&gt;&lt;/p&gt;`,
   ]
 }
 
@@ -779,16 +977,30 @@ const updateHeader = () =&gt; {
   window.headerArea.innerHTML = header
 }
 
+
+const updateLineIndexes = () =&gt; {
+  for (let i = 0; i &lt; s.totalLines; i++) {
+    s.lineIndexes[i] = 0
+    for (let x = 0; x &lt;= s.currentLineSet; x ++) {
+      s.lineIndexes[i] += s.sets[x][i]
+    }
+  }
+  console.log(s.lineIndexes)
+}
+
 const updateEverything = (newIndex) =&gt; {
   s.currentLineSet = newIndex
   updateLineNumbers()
-   updateSourceLines()
+  updateLineIndexes()
+  updateSourceLines()
+  updateButtonHighlights()
+
+/*
     updateOutput()
   updateContent()
    updateHeader()
-  updateButtonHighlights()
   updateFinalHighlights()
-
+*/
 }
 
 const updateButtonHighlights = () =&gt; {
@@ -830,32 +1042,30 @@ const updateLineNumbers = () =&gt; {
    }
 }
 
-// TODO: Remove when the line highlights are in
-// // custom highlights selections
-// const updateLineHighlights = () =&gt; {
-//   [&#x27;keyword&#x27;, &#x27;variable&#x27;, &#x27;punctuation&#x27;, &#x27;string&#x27;, &#x27;meta&#x27;].forEach((hljsKey) =&gt; {
-//     const tagEls = window.codeExample.getElementsByTagName(`c-${hljsKey}`)
-//     for (let i = 0; i &lt; tagEls.length; i ++ ) {
-//       tagEls[i].classList.add(`hljs-${hljsKey}`);
-//     }
-//   })
-// }
-
 const updateSourceLines = () =&gt; {
   for (let i = 0; i &lt; s.totalLines; i ++) {
-    const targetNumber = s.lineSets[s.currentLineSet][i]
+    const targetNumber = s.lineIndexes[i]
+    console.log(`${i} - ${targetNumber}`)
     window[`sourceLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
-    const codeEls = window[`sourceLine_${i}`].getElementsByTagName(&#x27;code&#x27;)
-    for (let eIndex = 0; eIndex &lt; codeEls.length; eIndex ++ ) {
-      codeEls[eIndex].classList.add(&#x27;hljs&#x27;)
-      codeEls[eIndex].classList.add(&#x27;language-rust&#x27;)
-      hljs.highlightElement(codeEls[eIndex])
-    }
-   }
+    // window[`sourceLine_${i}`].innerHTML = `x`
+  }
 }
 
+// const updateSourceLines = () =&gt; {
+//   for (let i = 0; i &lt; s.totalLines; i ++) {
+//     const targetNumber = s.lineSets[s.currentLineSet][i]
+//     window[`sourceLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
+//     const codeEls = window[`sourceLine_${i}`].getElementsByTagName(&#x27;code&#x27;)
+//     for (let eIndex = 0; eIndex &lt; codeEls.length; eIndex ++ ) {
+//       codeEls[eIndex].classList.add(&#x27;hljs&#x27;)
+//       codeEls[eIndex].classList.add(&#x27;language-rust&#x27;)
+//       hljs.highlightElement(codeEls[eIndex])
+//     }
+//    }
+// }
+
 const makePreviousButton = () =&gt; {
-  makeEl([&#x27;button&#x27;, &#x27;previousButton&#x27;, &#x27;&amp;lt;-&#x27;, &#x27;codeButtonsWrapper&#x27;, &#x27;click&#x27;, handlePreviousClick])
+  makeEl([&#x27;button&#x27;, &#x27;previousButton&#x27;, &#x27;&amp;lt;-&#x27;, &#x27;codePreviousWrapper&#x27;, &#x27;click&#x27;, handlePreviousClick])
 }
 
 const makeNumberButtons = () =&gt; {
@@ -866,7 +1076,7 @@ const makeNumberButtons = () =&gt; {
 }
 
 const makeNextButton = () =&gt; {
-  makeEl([&#x27;button&#x27;, &#x27;nextButton&#x27;, &#x27;-&amp;gt;&#x27;, &#x27;codeButtonsWrapper&#x27;, &#x27;click&#x27;, handleNextClick])
+  makeEl([&#x27;button&#x27;, &#x27;nextButton&#x27;, &#x27;-&amp;gt;&#x27;, &#x27;codeNextWrapper&#x27;, &#x27;click&#x27;, handleNextClick])
 }
 
 const setLineCount = () =&gt; {
@@ -874,17 +1084,14 @@ const setLineCount = () =&gt; {
 }
 
 const updateOutput = () =&gt; {
-  if (s.currentLineSet === s.lineSets.length - 1 ) {
     for (let i = 0; i &lt; s.output.length; i ++ ) {
-      window[`outputLine_${i}`].innerHTML = s.output[i]
-    }
-  } 
-  // clear output for moving to previous line sets
-  else {
-    for (let i = 0; i &lt; s.output.length; i ++ ) {
+      if (s.currentLineSet === s.lineSets.length - 1 ) {
+        window[`outputLine_${i}`].innerHTML = s.output[i]
+      } else  {
+      // clear output for moving to previous line sets
       window[`outputLine_${i}`].innerHTML = &#x27; &#x27;
+      }
     }
-  }
 }
 
 const makeAreas = () =&gt; {
@@ -892,12 +1099,19 @@ const makeAreas = () =&gt; {
   makeEl([&#x27;div&#x27;, &#x27;contentArea&#x27;, &#x27;This is the content area&#x27;, &#x27;codeExample&#x27;])
   makeEl([&#x27;div&#x27;, &#x27;codeArea&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
   makeEl([&#x27;div&#x27;, &#x27;outputArea&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
-  makeEl([&#x27;div&#x27;, &#x27;placeholder_3&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
-  makeEl([&#x27;div&#x27;, &#x27;codeButtonsWrapper&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
+  makeEl([&#x27;div&#x27;, &#x27;codeButtonsParent&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
+  makeEl([&#x27;div&#x27;, &#x27;codePreviousWrapper&#x27;, &#x27;&#x27;, &#x27;codeButtonsParent&#x27;])
+  makeEl([&#x27;div&#x27;, &#x27;codeButtonsWrapper&#x27;, &#x27;&#x27;, &#x27;codeButtonsParent&#x27;])
+  makeEl([&#x27;div&#x27;, &#x27;codeNextWrapper&#x27;, &#x27;&#x27;, &#x27;codeButtonsParent&#x27;])
+}
+
+const setupLineIndexes = () =&gt; {
+  s.lineIndexes = []
 }
 
 const makeCodeExample = () =&gt; {
   setLineCount()
+  setupLineIndexes()
   makeAreas()
   makeLineNumbersWrapper()
   makeCodeWrapper()
