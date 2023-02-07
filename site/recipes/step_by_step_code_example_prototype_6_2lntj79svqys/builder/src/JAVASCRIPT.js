@@ -307,9 +307,7 @@ const updateLineNumbers = () => {
 const updateSourceLines = () => {
   for (let i = 0; i < s.totalLines; i ++) {
     const targetNumber = s.lineIndexes[i]
-    // console.log(`${i} - ${targetNumber}`)
     window[`sourceLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
-    // window[`sourceLine_${i}`].innerHTML = `x`
   }
 }
 
