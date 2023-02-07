@@ -277,13 +277,10 @@ const updateEverything = (newIndex) => {
   updateLineNumbers()
   updateSourceLines()
   updateButtonHighlights()
-
-/*
-    updateOutput()
+  updateOutput()
   updateContent()
-   updateHeader()
+  updateHeader()
   updateFinalHighlights()
-*/
 }
 
 const updateButtonHighlights = () => {
