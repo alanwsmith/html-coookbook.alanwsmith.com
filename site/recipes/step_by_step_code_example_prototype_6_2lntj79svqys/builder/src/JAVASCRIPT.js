@@ -118,12 +118,10 @@ const makePreviousButton = () => {
 }
 
 const makeNumberButtons = () => {
-
   for (let i = 0; i < s.lineSets.length; i ++) {
     let buttonText = i === s.lineSets.length -1 ?  "Complete" : i + 1
     makeEl(['button', `numberButton_${i}`, buttonText, 'codeButtonsWrapper', 'click', handleNumberClick])
   }
-
 }
 
 const makeNextButton = () => {
@@ -146,10 +144,21 @@ const setLineCount = () => {
   s.totalLines = s.lineSets[0].length
 }
 
+const makeOutputSpacerLines = () => {
+  makeEl(['pre', `lineNumberSpacer`, ' ', 'lineNumbersWrapper'])
+  makeEl(['pre', `sourceLineSpacer`, ' ', 'codeWrapper'])
+
+  for (let i = 0; i < s.output.length; i ++) {
+    makeEl(['pre', `lineNumberOutput_${i}`, 'out:', 'lineNumbersWrapper'])
+    makeEl(['pre', `sourceLineOutput_${i}`, ' ', 'codeWrapper'])
+  }
+}
+
 const makeCodeExample = () => {
   setLineCount()
   makeLineNumbersWrapper()
   makeCodeWrapper()
+  makeOutputSpacerLines()
   makePlaceholder()
   makeButtonsWrapper()
   makePreviousButton()

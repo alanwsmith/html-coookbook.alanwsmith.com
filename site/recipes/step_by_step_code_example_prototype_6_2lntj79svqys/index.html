@@ -160,12 +160,10 @@ const makePreviousButton = () => {
 }
 
 const makeNumberButtons = () => {
-
   for (let i = 0; i < s.lineSets.length; i ++) {
     let buttonText = i === s.lineSets.length -1 ?  "Complete" : i + 1
     makeEl(['button', `numberButton_${i}`, buttonText, 'codeButtonsWrapper', 'click', handleNumberClick])
   }
-
 }
 
 const makeNextButton = () => {
@@ -188,10 +186,21 @@ const setLineCount = () => {
   s.totalLines = s.lineSets[0].length
 }
 
+const makeOutputSpacerLines = () => {
+  makeEl(['pre', `lineNumberSpacer`, ' ', 'lineNumbersWrapper'])
+  makeEl(['pre', `sourceLineSpacer`, ' ', 'codeWrapper'])
+
+  for (let i = 0; i < s.output.length; i ++) {
+    makeEl(['pre', `lineNumberOutput_${i}`, 'out:', 'lineNumbersWrapper'])
+    makeEl(['pre', `sourceLineOutput_${i}`, ' ', 'codeWrapper'])
+  }
+}
+
 const makeCodeExample = () => {
   setLineCount()
   makeLineNumbersWrapper()
   makeCodeWrapper()
+  makeOutputSpacerLines()
   makePlaceholder()
   makeButtonsWrapper()
   makePreviousButton()
@@ -358,12 +367,10 @@ const makePreviousButton = () =&gt; {
 }
 
 const makeNumberButtons = () =&gt; {
-
   for (let i = 0; i &lt; s.lineSets.length; i ++) {
     let buttonText = i === s.lineSets.length -1 ?  &quot;Complete&quot; : i + 1
     makeEl([&#x27;button&#x27;, `numberButton_${i}`, buttonText, &#x27;codeButtonsWrapper&#x27;, &#x27;click&#x27;, handleNumberClick])
   }
-
 }
 
 const makeNextButton = () =&gt; {
@@ -386,10 +393,21 @@ const setLineCount = () =&gt; {
   s.totalLines = s.lineSets[0].length
 }
 
+const makeOutputSpacerLines = () =&gt; {
+  makeEl([&#x27;pre&#x27;, `lineNumberSpacer`, &#x27; &#x27;, &#x27;lineNumbersWrapper&#x27;])
+  makeEl([&#x27;pre&#x27;, `sourceLineSpacer`, &#x27; &#x27;, &#x27;codeWrapper&#x27;])
+
+  for (let i = 0; i &lt; s.output.length; i ++) {
+    makeEl([&#x27;pre&#x27;, `lineNumberOutput_${i}`, &#x27;out:&#x27;, &#x27;lineNumbersWrapper&#x27;])
+    makeEl([&#x27;pre&#x27;, `sourceLineOutput_${i}`, &#x27; &#x27;, &#x27;codeWrapper&#x27;])
+  }
+}
+
 const makeCodeExample = () =&gt; {
   setLineCount()
   makeLineNumbersWrapper()
   makeCodeWrapper()
+  makeOutputSpacerLines()
   makePlaceholder()
   makeButtonsWrapper()
   makePreviousButton()
