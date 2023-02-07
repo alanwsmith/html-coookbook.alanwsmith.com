@@ -87,41 +87,52 @@ const makeLineNumbersWrapper = () => {
 const handleNextClick = () => {
   if (s.currentLineSet < s.lineSets.length - 1) {
     s.currentLineSet += 1;
-    outputLines();
+    updateLineNumbers();
+    // outputLines();
   }
 }
 
 const handlePreviousClick = () => {
   if (s.currentLineSet > 0) {
     s.currentLineSet -= 1;
-    outputLines();
+    // outputLines();
   }
 }
 
-const outputLines = () => {
-  for (let i = 0; i < s.totalLines; i ++) {
-    const targetNumber = s.lineSets[s.currentLineSet][i]
-    if (targetNumber !== -1) {
-      window[`codeSource_${i}`].innerHTML = 
-        s.sourceLines[i][targetNumber]
-
-      // window[`codeLine_${i}`].innerHTML = 
-      //   i + 1
-
-    }
-
-    // else {
-    //   window[`codeSource_${i}`].innerHTML = "&nbsp;"
-    //   window[`codeLine_${i}`].innerHTML = 
-    //     i + 1
-    // }
-
-  }
-}
+// const outputLines = () => {
+//   for (let i = 0; i < s.totalLines; i ++) {
+//     const targetNumber = s.lineSets[s.currentLineSet][i]
+//     if (targetNumber !== -1) {
+//       window[`lineSource_${i}`].innerHTML = 
+//         s.sourceLines[i][targetNumber]
+//        window[`lineNumber_${i}`].innerHTML = 
+//          i + 1
+//     }
+//      else {
+//        window[`lineSource_${i}`].innerHTML = "&nbsp;"
+//        window[`lineNumber_${i}`].innerHTML = 
+//          i + 1
+//      }
+//   }
+// }
 
 const handleNumberClick = (event) => {
   s.currentLineSet = parseInt(event.target.id.split("_")[1])
-  outputLines()
+  // outputLines()
+}
+
+const updateLineNumbers = () => {
+   for (let i = 0; i < s.totalLines; i ++) {
+     const checkIndex = s.sourceLines[i].length - 1;
+     const currentIndex = s.lineSets[s.currentLineSet][i]
+     const numberString = i + 1 < 10 ? `0${i + 1}` : `${i + 1}`
+     if(currentIndex > -1 && currentIndex < checkIndex) {
+      window[`lineNumber_${i}`].innerHTML = `${numberString} >`
+     } else {
+      window[`lineNumber_${i}`].innerHTML = numberString
+     }
+
+   }
 }
 
 const makeButtons = () => {
@@ -146,6 +157,7 @@ const makeCodeExample = () => {
   makeLineNumbersWrapper()
   makeCodeWrapper()
   makeButtons()
+  updateLineNumbers()
   // outputLines()
 }
 
