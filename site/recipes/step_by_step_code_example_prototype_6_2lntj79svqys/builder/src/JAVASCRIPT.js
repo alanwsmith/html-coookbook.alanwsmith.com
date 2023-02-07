@@ -103,7 +103,11 @@ const makeButtons = () => {
   for (let i = 0; i < s.lineSets.length; i ++) {
     const numberButtonEl = document.createElement("button")
     numberButtonEl.id = `numberButton_${i}`
-    numberButtonEl.innerHTML = i + 1
+    if (i === s.lineSets.length -1) {
+      numberButtonEl.innerHTML = "Complete"
+    } else {
+      numberButtonEl.innerHTML = i + 1
+    }
     numberButtonEl.addEventListener("click", handleNumberClick)
     window.codeButtons.appendChild(numberButtonEl)
   }
