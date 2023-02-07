@@ -30,17 +30,38 @@
     <link rel="stylesheet" href="/styles/fonts.css" />
     <link rel="stylesheet" href="/styles/colors.css" />
     <link rel="stylesheet" href="/styles/wrapper.css" />
-    <link rel="stylesheet" href="./highlighjs-custom-default.min.css" />
+    <link rel="stylesheet" href="./highlightjs-nord-custom.min.css" />
 
     $HEAD
     <style>
       $CSS
+        .preWrapper {
+          background-color: #001;
+          border-radius: 1rem;
+          border: 1px solid #aaa;
+          padding: 1.6rem;
+        }
+
     </style>
 
     <script src="/assets/highlight/highlight.min.js"></script>
 
     <script>
       $JAVASCRIPT
+
+      const highlightReferenceCode = () => {
+
+        hljs.highlightElement(window.exampleJS)
+        hljs.highlightElement(window.exampleHTMLBody)
+        hljs.highlightElement(window.exampleCSS)
+        /*
+        */
+
+      }
+
+
+      document.addEventListener("DOMContentLoaded", highlightReferenceCode)
+
     </script>
   </head>
   <body class="line-numbers">
@@ -53,6 +74,14 @@
     </header>
     <main>
       <h1>$TITLE</h1>
+      <p>This is a prototype for a step by step code description piece
+      for a project I'm working on called <a href="https://typing-rust.alanwsmith.com/">Typing Rust</a>. 
+      The core functionality is in place even if some styling and layout work could still be done.</p>
+      <p>
+      Use the <code>&lt;-</code> <code>-&gt;</code> arrows or the numbers below the main section to navigate through the code. Changes are highlighed with short notes beside them. The finale &quot;Complete&quot; state shows the entire code example with syntax highlighting and corresponding output.
+      </p>
+
+
       $BODY
 
       <hr />

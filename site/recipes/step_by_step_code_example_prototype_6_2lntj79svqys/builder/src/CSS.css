@@ -3,6 +3,7 @@
     --area-padding: 0.9rem;
     --area-radius: 0.4rem;
     --button-font-color: #cca;
+    --next-previous-min-width: 4ch;
     --number-column-width: 4.0rem;
     --pointer-color: white;
 }
@@ -14,24 +15,59 @@ button {
   border-radius: var(--area-radius);
 }
 
-#codeButtonsWrapper {
-  padding: 0.6rem var(--area-radius);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+c-1 {
+  color: red;
+}
+
+c-2 {
+  color: blue;
+}
+
+c-3 {
+  color: green;
+}
+
+p {
+  margin-bottom: 1.5rem;
 }
 
 #codeArea {
   display: grid;
   grid-template-columns: var(--number-column-width) 1fr;
-  background-color: #010;
+  background-color: black;
   border-top-right-radius: var(--area-radius);
   border-top-left-radius: var(--area-radius);
 }
 
+#codeButtonsParent {
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#codeButtonsWrapper {
+  padding: 0.6rem var(--area-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 #codeExample {
   display: grid;
-  grid-template-columns: 1fr 2.2fr
+  grid-template-columns: 1fr 2.2fr;
+  color: #888;
+}
+
+#codeNextWrapper {
+  min-width: var(--next-previous-min-width);
+  padding: 0.6rem 0;
+}
+
+#codePreviousWrapper {
+  min-width: var(--next-previous-min-width);
+  padding: 0.6rem 0;
 }
 
 #codeWrapper {
@@ -43,10 +79,20 @@ button {
   border-radius: var(--area-radius);
   margin-right: 0.4rem;
   padding: var(--area-padding);
+  grid-row: 2/span 2;
+  color: #dcd;
+}
+
+#headerArea {
+  background-color: #003;
+  border-radius: var(--area-radius);
+  padding: 0.4rem var(--area-padding);
+  margin-bottom: 0.3rem;
+  grid-column: 1/span 2;
 }
 
 #lineNumbersWrapper {
-  background-color: #034;
+  background-color: #101;
   padding: var(--area-padding);
   border-top-left-radius: var(--area-radius);
 }
@@ -54,7 +100,7 @@ button {
 #outputArea {
   display: grid;
   grid-template-columns: var(--number-column-width) 1fr;
-  background-color: #011;
+  background-color: #100;
   padding: var(--area-padding);
   border-bottom-right-radius: var(--area-radius);
   border-bottom-left-radius: var(--area-radius);

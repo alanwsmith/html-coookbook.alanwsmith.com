@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="/styles/fonts.css" />
     <link rel="stylesheet" href="/styles/colors.css" />
     <link rel="stylesheet" href="/styles/wrapper.css" />
-    <link rel="stylesheet" href="./highlighjs-custom-default.min.css" />
+    <link rel="stylesheet" href="./highlightjs-nord-custom.min.css" />
 
     
     <style>
@@ -39,6 +39,7 @@
     --area-padding: 0.9rem;
     --area-radius: 0.4rem;
     --button-font-color: #cca;
+    --next-previous-min-width: 4ch;
     --number-column-width: 4.0rem;
     --pointer-color: white;
 }
@@ -50,24 +51,59 @@ button {
   border-radius: var(--area-radius);
 }
 
-#codeButtonsWrapper {
-  padding: 0.6rem var(--area-radius);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+c-1 {
+  color: red;
+}
+
+c-2 {
+  color: blue;
+}
+
+c-3 {
+  color: green;
+}
+
+p {
+  margin-bottom: 1.5rem;
 }
 
 #codeArea {
   display: grid;
   grid-template-columns: var(--number-column-width) 1fr;
-  background-color: #010;
+  background-color: black;
   border-top-right-radius: var(--area-radius);
   border-top-left-radius: var(--area-radius);
 }
 
+#codeButtonsParent {
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#codeButtonsWrapper {
+  padding: 0.6rem var(--area-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 #codeExample {
   display: grid;
-  grid-template-columns: 1fr 2.2fr
+  grid-template-columns: 1fr 2.2fr;
+  color: #888;
+}
+
+#codeNextWrapper {
+  min-width: var(--next-previous-min-width);
+  padding: 0.6rem 0;
+}
+
+#codePreviousWrapper {
+  min-width: var(--next-previous-min-width);
+  padding: 0.6rem 0;
 }
 
 #codeWrapper {
@@ -79,10 +115,20 @@ button {
   border-radius: var(--area-radius);
   margin-right: 0.4rem;
   padding: var(--area-padding);
+  grid-row: 2/span 2;
+  color: #dcd;
+}
+
+#headerArea {
+  background-color: #003;
+  border-radius: var(--area-radius);
+  padding: 0.4rem var(--area-padding);
+  margin-bottom: 0.3rem;
+  grid-column: 1/span 2;
 }
 
 #lineNumbersWrapper {
-  background-color: #034;
+  background-color: #101;
   padding: var(--area-padding);
   border-top-left-radius: var(--area-radius);
 }
@@ -90,7 +136,7 @@ button {
 #outputArea {
   display: grid;
   grid-template-columns: var(--number-column-width) 1fr;
-  background-color: #011;
+  background-color: #100;
   padding: var(--area-padding);
   border-bottom-right-radius: var(--area-radius);
   border-bottom-left-radius: var(--area-radius);
@@ -108,6 +154,13 @@ button {
 }
 
 
+        .preWrapper {
+          background-color: #001;
+          border-radius: 1rem;
+          border: 1px solid #aaa;
+          padding: 1.6rem;
+        }
+
     </style>
 
     <script src="/assets/highlight/highlight.min.js"></script>
@@ -120,59 +173,169 @@ button {
     sourceLines: [
       [
         ` `,
-        `<code class="hljs language-rust">fn main() {</code>`,
-        `fn main() {`
+        `<c-1>use std::env</c-1><c-2>;</c-2>`,
+        `use std::env;`,
+      ],
+      [` `, ` `],
+      [` `,
+      `<c-1>fn main()</c-1> <c-2>{</c-2>`,
+      `fn main() {`,
       ],
       [
         ` `,
-        `  <code>let alfa =</code>`, 
-        `  let alfa = <code class="hljs langauge-rust">String::from("apple")</code>;`,
-        `  let alfa = String::from("apple");`,
+        `  <c-1>let key </c-1><c-2>=</c-2>`,
+        `  let key = <c-1>&quot;HOME&quot;</c-1><c-2>;</c-2>`,
+        `  let <c-3>key</c-3> = &quot;HOME&quot;;`,
+        `  let key = &quot;HOME&quot;;`,
       ],
       [
         ` `,
-        `  <code>println!()</code>;`,
-        `  println!(<code>"alfa is {}"</code>);`,
-        `  println!(<code>"alfa is {alfa}"</code>);`,
-        `  println!("alfa is {alfa}");`
+        `  <c-1>println!()</c-1><c-2>;</c-2>`,
+        `  println!(<c-1>"checking {}"</c-1>);`,
+        `  println!("checking {}"<c-2>,</c-2> <c-1>key</c-1>);`,
+        `  println!("checking {}", <c-1>key</c-1>);`,
+        `  println!("checking {}", key);`,
       ],
       [
         ` `,
-        `  <code>println!("alfa is {alfa} again");</code>`,
-        `  println!("alfa is {alfa} again");`
+        `  <c-1>let returnValueAsResult </c-1><c-2>=</c-2>`,
+        `  let returnValueAsResult = <c-1>env::var<c-1>()<c-2>;</c-2>`,
+        `  let returnValueAsResult = env::var(<c-1>key</c-1>);`,
+        `  let <c-3>returnValueAsResult</c-3> = env::var(key);`,
+        `  let returnValueAsResult = env::var(key);`,
       ],
       [
         ` `,
-        `<code>}</code>`,
+        `  <c-1>match</c-1> <c-2>{</c-2>`,
+        `  match <c-1>returnValueAsResult</c-1> {`,
+        `  match returnValueAsResult {`,
+      ],
+      [
+        ` `,
+        `    <c-1>Ok() =></c-1> <c-2>{</c-2>`,
+        `    Ok(<c-1>item</c-1>) => {` ,
+        `    Ok(<c-3>item</c-3>) => {` ,
+        `    Ok(item) => {` ,
+      ],
+      [
+        ` `,
+        `      <c-1>println!()</c-1><c-2>;</c-2>`,
+        `      println!(<c-1>&quot;got {}&quot;</c-1>);`,
+        `      println!(&quot;got {}&quot;<c-2>,</c-2> <c-1>item</c-1>);`,
+        `      println!(&quot;got {}&quot;, <c-1>item</c-1>);`,
+        `      println!(&quot;got {}&quot;, item);`,
+      ],
+      [ ` `,
+        `    <c-2>}</c-2>`,
+        `    }`,
+      ],
+      [ ` `,
+        `    <c-1>Err() => </c-1><c-2>{</c-2>`,
+        `    Err(<c-1>error</c-1>) => {`,
+        `    Err(<c-3>error</c-3>) => {`,
+        `    Err(error) => {`,
+      ],
+      [
+      ` `,
+        `      <c-1>println!()</c-1><c-2>;</c-2>`,
+        `      println!(<c-1>&quot;error {}&quot;</c-1>);`,
+        `      println!(&quot;error {}&quot;<c-2>,</c-2> <c-1>error</c-1>);`,
+        `      println!(&quot;error {}&quot;, <c-1>error</c-1>);`,
+        `      println!(&quot;error {}&quot;, error);`,
+      ],
+      [
+        ` `,
+        `    <c-2>}</c-2>`,
+        `    }`
+      ],
+      [
+        ` `,
+        `  <c-2>}</c-2>`,
+        `  }`,
+      ],
+      [
+        ` `,
+        `<c-2>}</c-2>`,
         `}`
       ]
     ],
 
-    lineSets: [
-      [1, 0, 0, 0, 1],
-      [2, 1, 0, 0, 2],
-      [2, 2, 0, 0, 2],
-      [2, 3, 1, 0, 2],
-      [2, 3, 2, 0, 2],
-      [2, 3, 3, 0, 2],
-      [2, 3, 4, 1, 2],
-      [2, 3, 4, 2, 2],
-    ], 
+    sets: [
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 1
+      [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
+      [0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
+      [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 5
+      [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0,-1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 10
+      [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 1, 0, 2, 1, 0, 0, 0, 0, 0, 0, 1, 0], 
+      [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0], 
+//     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
+      [0, 0, 0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 15
+      [0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], // 20
+      [0, 0, 0, 0, 0, 0, 0,-1, 1, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], // 25
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,-1, 1, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0], 
+//     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
+
+    ],
 
     output: [
-      "alfa is apple",
-      "alfa is apple again"
+      "checking HOME",
+      "got /Users/alan"
     ], 
 
   content: [
-    `<p>Create the <code>main</code> function</p>`,
-    `<p>Start creating a variable named <code>alfa</code></p>`,
-    `<p>Bind a <code>String</code> of &quot;apple&quot; to the <code>alfa</code> variable</p>`,
-    `<p>Start making a <code>println!()<code> expression<p>`,
-    `<p>Add the basic format string</p>`,
-    `<p>Use the <code>alfa</code> variable in the format string</p>`,
-    `<p>etc...</p>`,
-    `<p>Closing remarks</p>`
+    `<p>Load the <code>std::env</code> library which gives us access to environmental variables</p>`,
+    `<p>Create the <code>main()</code> function</p>`,
+    `<p>Begin creating an immutable <code>key</code> variable</p>`,
+    `
+      <p>Bind a string literal with <code>HOME</code> to the <code>key</code> variable</p>
+      <p>This matches the <code>HOME</code> environmental variable that's avaialbe in the Code Runners</p>
+    `,
+    `<p>Create an initial <code>println!()</code> statement that is just here to help me test multiple line output in this example</p>`,
+    `<p>Add the format string</p>`,
+    `<p>And setup to use the value from <code>key</code></p>`,
+    `<p>Which comes from the line above it</p>`,
+    `<p>Start creating a <code>returnValueAsResult</code> immutable variable</p>`,
+    `
+      <p>The <code>env::var()</code> method is what's used to access individual environmental variables.</p>
+      <p>The expression returns a <code>Result</code> value that will handle with the upcoming <code>match</code> statement</p>
+    `,
+    `<p>Insert the <code>key</code> variable name to finish the expression and define that we want the <code>HOME</code> envionmental variable</p>`,
+    `<p>The value for <code>key</code> comes from the variable on line 4</p>`,
+    `<p>Begin creating the match expression</p>`,
+    `<p>Setup the <code>match</code> expression to examine the <code>returnValueAsResult</code> variable</p>`,
+    `<p>This is the same <code>returnValueAsResult</code> variable as the one from the line above</p>`,
+    `<p>Now we start creating the <code>Ok()</code> expression which is the first of the two required arms of the <code>match</code> expression when used with a Result value</p>`,
+    `<p>The <code>Ok()</code> portion of a <code>Result</code> contains a value that we can pull out. We're doing that here by assigning the incoming value to a variable named <code>item</code></p>`,
+    `<p>Next we start to fill out the code we want to run if the <code>Result</code> is <code>Ok()</code>. Here were using a <code>println!()</code> expression but we could also call a function or return a value (TODO: Verify values can be returned)</p>`,
+    `<p>Here we're adding two placeholder to the format string that will be used for output if the <code>Ok</code> value is matched because it's what was returned in <code>Result</code></p>`,
+    `<p>Next, setup to use the <code>item</code> variable</p>`,
+    `<p><code>item</code> comes from the variable we set with the value that came in with <code>Ok</code></p>`,
+    `<p>Next we start the second arm of the <code>match</code> statement called <code>Err()</code></p>`,
+    `<p>The <code>Err()</code> arm receives a value in the same way the <code>Ok()</code> arm does. We'll pull this value into a variable named <code>error</code></p>`,
+    `<p>We'll create another <code>println()</code> expression for the <code>Err()</code> arm</p>`,
+    `<p>Next, setup a basic format string similar to the one we did for the <code>Ok()</code> arm</p>`,
+    `<p>And here we'll add the <code>error<code> variable</p>`,
+    `<p>Which we got as the incoming value for the <code>Err()</code> arm</p>`,
+    `
+      <p>Putting it all together, we get our final output.</p>
+      <p>In this case, the sample output is from a case then the environmental variable existed and was read in which means <code>returnValueAsResult</code> received a <code>Result</code> with <code>Ok</code> and the value of the environmental variable (which was <code>/Users/alan</code> in this case)</p>`
   ]
 }
 
@@ -217,7 +380,7 @@ const makeLineNumbersWrapper = () => {
 }
 
 const handleNextClick = () => {
-  if (s.currentLineSet < s.lineSets.length - 1) {
+  if (s.currentLineSet < s.sets.length - 1) {
     updateEverything(s.currentLineSet + 1)
   }
 }
@@ -242,26 +405,36 @@ const updateContent = () => {
 }
 
 const updateHeader = () => {
-  const header = s.currentLineSet === s.lineSets.length - 1 
-    ? `<h4>Output</h4>` 
+  const header = s.currentLineSet === s.sets.length - 1 
+    ? `<h4>Final Output</h4>` 
     : `<h4>Step ${s.currentLineSet + 1}</h4>`
   window.headerArea.innerHTML = header
 }
 
+
+const updateLineIndexes = () => {
+  for (let i = 0; i < s.totalLines; i++) {
+    s.lineIndexes[i] = 0
+    for (let x = 0; x <= s.currentLineSet; x ++) {
+      s.lineIndexes[i] += s.sets[x][i]
+    }
+  }
+}
+
 const updateEverything = (newIndex) => {
   s.currentLineSet = newIndex
+  updateLineIndexes()
   updateLineNumbers()
-   updateSourceLines()
-    updateOutput()
-  updateContent()
-   updateHeader()
-  updateHighlights()
+  updateSourceLines()
   updateButtonHighlights()
-
+  updateOutput()
+  updateContent()
+  updateHeader()
+  updateFinalHighlights()
 }
 
 const updateButtonHighlights = () => {
-   for (let i = 0; i < s.lineSets.length; i ++) {
+   for (let i = 0; i < s.sets.length; i ++) {
      if (i === s.currentLineSet) {
       window[`numberButton_${i}`].classList.add('activeButton')
      } else {
@@ -270,8 +443,8 @@ const updateButtonHighlights = () => {
    }
 }
 
-const updateHighlights = () => {
-  if (s.currentLineSet === s.lineSets.length - 1) {
+const updateFinalHighlights = () => {
+  if (s.currentLineSet === s.sets.length - 1) {
     for (let i = 0; i < s.totalLines; i ++) {
       window[`sourceLine_${i}`].classList.add('hljs')
       window[`sourceLine_${i}`].classList.add('language-rust')
@@ -287,77 +460,75 @@ const updateHighlights = () => {
 
 const updateLineNumbers = () => {
    for (let i = 0; i < s.totalLines; i ++) {
-     const checkIndex = s.sourceLines[i].length - 1;
-     const currentIndex = s.lineSets[s.currentLineSet][i]
-     const numberString = i + 1 < 10 ? `0${i + 1}` : `${i + 1}`
-     if(currentIndex > 0 && currentIndex < checkIndex) {
-      window[`lineNumber_${i}`].innerHTML = 
-         `${numberString} <span class="pointer">&gt;</span>`
-     } else {
-      window[`lineNumber_${i}`].innerHTML = numberString
-     }
+      const checkIndex = s.sourceLines[i].length - 1;
+      const currentIndex = s.lineIndexes[i]
+      const numberString = i + 1 < 10 ? `0${i + 1}` : `${i + 1}`
+      if(currentIndex > 0 && currentIndex < checkIndex) {
+       window[`lineNumber_${i}`].innerHTML = 
+          `${numberString} <span class="pointer">&gt;</span>`
+      } else {
+       window[`lineNumber_${i}`].innerHTML = numberString
+      }
    }
 }
 
 const updateSourceLines = () => {
   for (let i = 0; i < s.totalLines; i ++) {
-    const targetNumber = s.lineSets[s.currentLineSet][i]
+    const targetNumber = s.lineIndexes[i]
+    // console.log(`${i} - ${targetNumber}`)
     window[`sourceLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
-    const codeEls = window[`sourceLine_${i}`].getElementsByTagName('code')
-    for (let eIndex = 0; eIndex < codeEls.length; eIndex ++ ) {
-      hljs.highlightElement(codeEls[eIndex])
-    }
-   }
+    // window[`sourceLine_${i}`].innerHTML = `x`
+  }
 }
 
 const makePreviousButton = () => {
-  makeEl(['button', 'previousButton', '&lt;-', 'codeButtonsWrapper', 'click', handlePreviousClick])
+  makeEl(['button', 'previousButton', '&lt;-', 'codePreviousWrapper', 'click', handlePreviousClick])
 }
 
 const makeNumberButtons = () => {
-  for (let i = 0; i < s.lineSets.length; i ++) {
-    let buttonText = i === s.lineSets.length -1 ?  "Complete" : i + 1
+  for (let i = 0; i < s.sets.length; i ++) {
+    let buttonText = i === s.sets.length -1 ?  "Complete" : i + 1
     makeEl(['button', `numberButton_${i}`, buttonText, 'codeButtonsWrapper', 'click', handleNumberClick])
   }
 }
 
 const makeNextButton = () => {
-  makeEl(['button', 'nextButton', '-&gt;', 'codeButtonsWrapper', 'click', handleNextClick])
+  makeEl(['button', 'nextButton', '-&gt;', 'codeNextWrapper', 'click', handleNextClick])
 }
 
 const setLineCount = () => {
-  s.totalLines = s.lineSets[0].length
+  s.totalLines = s.sets[0].length
 }
 
 const updateOutput = () => {
-  if (s.currentLineSet === s.lineSets.length - 1 ) {
     for (let i = 0; i < s.output.length; i ++ ) {
-      window[`outputLine_${i}`].innerHTML = s.output[i]
-    }
-  } 
-  // clear output for moving to previous line sets
-  else {
-    for (let i = 0; i < s.output.length; i ++ ) {
+      if (s.currentLineSet === s.sets.length - 1 ) {
+        window[`outputLine_${i}`].innerHTML = s.output[i]
+      } else  {
+      // clear output for moving to previous line sets
       window[`outputLine_${i}`].innerHTML = ' '
+      }
     }
-  }
 }
-
 
 const makeAreas = () => {
   makeEl(['div', 'headerArea', '<h4>Step 1</h4>', 'codeExample'])
-  makeEl(['div', 'placeholder_1', '', 'codeExample'])
   makeEl(['div', 'contentArea', 'This is the content area', 'codeExample'])
   makeEl(['div', 'codeArea', '', 'codeExample'])
-  makeEl(['div', 'placeholder_2', '', 'codeExample'])
   makeEl(['div', 'outputArea', '', 'codeExample'])
-  makeEl(['div', 'placeholder_3', '', 'codeExample'])
-  makeEl(['div', 'codeButtonsWrapper', '', 'codeExample'])
+  makeEl(['div', 'codeButtonsParent', '', 'codeExample'])
+  makeEl(['div', 'codePreviousWrapper', '', 'codeButtonsParent'])
+  makeEl(['div', 'codeButtonsWrapper', '', 'codeButtonsParent'])
+  makeEl(['div', 'codeNextWrapper', '', 'codeButtonsParent'])
 }
 
+const setupLineIndexes = () => {
+  s.lineIndexes = []
+}
 
 const makeCodeExample = () => {
   setLineCount()
+  setupLineIndexes()
   makeAreas()
   makeLineNumbersWrapper()
   makeCodeWrapper()
@@ -371,6 +542,22 @@ const makeCodeExample = () => {
 
 document.addEventListener('DOMContentLoaded', makeCodeExample)
 
+
+
+
+      const highlightReferenceCode = () => {
+
+        hljs.highlightElement(window.exampleJS)
+        hljs.highlightElement(window.exampleHTMLBody)
+        hljs.highlightElement(window.exampleCSS)
+        /*
+        */
+
+      }
+
+
+      document.addEventListener("DOMContentLoaded", highlightReferenceCode)
+
     </script>
   </head>
   <body class="line-numbers">
@@ -383,6 +570,14 @@ document.addEventListener('DOMContentLoaded', makeCodeExample)
     </header>
     <main>
       <h1>Step-By-Step Code Example Prototype 6</h1>
+      <p>This is a prototype for a step by step code description piece
+      for a project I'm working on called <a href="https://typing-rust.alanwsmith.com/">Typing Rust</a>. 
+      The core functionality is in place even if some styling and layout work could still be done.</p>
+      <p>
+      Use the <code>&lt;-</code> <code>-&gt;</code> arrows or the numbers below the main section to navigate through the code. Changes are highlighed with short notes beside them. The finale &quot;Complete&quot; state shows the entire code example with syntax highlighting and corresponding output.
+      </p>
+
+
       <div id="codeExample"></div>
 
 
@@ -395,15 +590,16 @@ document.addEventListener('DOMContentLoaded', makeCodeExample)
                 </ul>
                   
             <h2>HTML</h2>
-            <pre><code class="language-html">&lt;div id=&quot;codeExample&quot;&gt;&lt;/div&gt;
+            <pre class="preWrapper"><code id="exampleHTMLBody" class="language-html">&lt;div id=&quot;codeExample&quot;&gt;&lt;/div&gt;
 </code></pre>
              
             <h2>CSS</h2>
-            <pre><code class="language-css">:root {
+            <pre class="preWrapper"><code id="exampleCSS" class="hljs language-css">:root {
     --active-button-background-color: #4677;
     --area-padding: 0.9rem;
     --area-radius: 0.4rem;
     --button-font-color: #cca;
+    --next-previous-min-width: 4ch;
     --number-column-width: 4.0rem;
     --pointer-color: white;
 }
@@ -415,24 +611,59 @@ button {
   border-radius: var(--area-radius);
 }
 
-#codeButtonsWrapper {
-  padding: 0.6rem var(--area-radius);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+c-1 {
+  color: red;
+}
+
+c-2 {
+  color: blue;
+}
+
+c-3 {
+  color: green;
+}
+
+p {
+  margin-bottom: 1.5rem;
 }
 
 #codeArea {
   display: grid;
   grid-template-columns: var(--number-column-width) 1fr;
-  background-color: #010;
+  background-color: black;
   border-top-right-radius: var(--area-radius);
   border-top-left-radius: var(--area-radius);
 }
 
+#codeButtonsParent {
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#codeButtonsWrapper {
+  padding: 0.6rem var(--area-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 #codeExample {
   display: grid;
-  grid-template-columns: 1fr 2.2fr
+  grid-template-columns: 1fr 2.2fr;
+  color: #888;
+}
+
+#codeNextWrapper {
+  min-width: var(--next-previous-min-width);
+  padding: 0.6rem 0;
+}
+
+#codePreviousWrapper {
+  min-width: var(--next-previous-min-width);
+  padding: 0.6rem 0;
 }
 
 #codeWrapper {
@@ -444,10 +675,20 @@ button {
   border-radius: var(--area-radius);
   margin-right: 0.4rem;
   padding: var(--area-padding);
+  grid-row: 2/span 2;
+  color: #dcd;
+}
+
+#headerArea {
+  background-color: #003;
+  border-radius: var(--area-radius);
+  padding: 0.4rem var(--area-padding);
+  margin-bottom: 0.3rem;
+  grid-column: 1/span 2;
 }
 
 #lineNumbersWrapper {
-  background-color: #034;
+  background-color: #101;
   padding: var(--area-padding);
   border-top-left-radius: var(--area-radius);
 }
@@ -455,7 +696,7 @@ button {
 #outputArea {
   display: grid;
   grid-template-columns: var(--number-column-width) 1fr;
-  background-color: #011;
+  background-color: #100;
   padding: var(--area-padding);
   border-bottom-right-radius: var(--area-radius);
   border-bottom-left-radius: var(--area-radius);
@@ -475,66 +716,176 @@ button {
 </code></pre>
              
             <h2>JavaScript</h2>
-            <pre><code class="language-js">const s = {
+            <pre class="preWrapper"><code id="exampleJS" class="hljs language-js">const s = {
 
   currentLineSet: 0,
 
     sourceLines: [
       [
         ` `,
-        `&lt;code class=&quot;hljs language-rust&quot;&gt;fn main() {&lt;/code&gt;`,
-        `fn main() {`
+        `&lt;c-1&gt;use std::env&lt;/c-1&gt;&lt;c-2&gt;;&lt;/c-2&gt;`,
+        `use std::env;`,
+      ],
+      [` `, ` `],
+      [` `,
+      `&lt;c-1&gt;fn main()&lt;/c-1&gt; &lt;c-2&gt;{&lt;/c-2&gt;`,
+      `fn main() {`,
       ],
       [
         ` `,
-        `  &lt;code&gt;let alfa =&lt;/code&gt;`, 
-        `  let alfa = &lt;code class=&quot;hljs langauge-rust&quot;&gt;String::from(&quot;apple&quot;)&lt;/code&gt;;`,
-        `  let alfa = String::from(&quot;apple&quot;);`,
+        `  &lt;c-1&gt;let key &lt;/c-1&gt;&lt;c-2&gt;=&lt;/c-2&gt;`,
+        `  let key = &lt;c-1&gt;&amp;quot;HOME&amp;quot;&lt;/c-1&gt;&lt;c-2&gt;;&lt;/c-2&gt;`,
+        `  let &lt;c-3&gt;key&lt;/c-3&gt; = &amp;quot;HOME&amp;quot;;`,
+        `  let key = &amp;quot;HOME&amp;quot;;`,
       ],
       [
         ` `,
-        `  &lt;code&gt;println!()&lt;/code&gt;;`,
-        `  println!(&lt;code&gt;&quot;alfa is {}&quot;&lt;/code&gt;);`,
-        `  println!(&lt;code&gt;&quot;alfa is {alfa}&quot;&lt;/code&gt;);`,
-        `  println!(&quot;alfa is {alfa}&quot;);`
+        `  &lt;c-1&gt;println!()&lt;/c-1&gt;&lt;c-2&gt;;&lt;/c-2&gt;`,
+        `  println!(&lt;c-1&gt;&quot;checking {}&quot;&lt;/c-1&gt;);`,
+        `  println!(&quot;checking {}&quot;&lt;c-2&gt;,&lt;/c-2&gt; &lt;c-1&gt;key&lt;/c-1&gt;);`,
+        `  println!(&quot;checking {}&quot;, &lt;c-1&gt;key&lt;/c-1&gt;);`,
+        `  println!(&quot;checking {}&quot;, key);`,
       ],
       [
         ` `,
-        `  &lt;code&gt;println!(&quot;alfa is {alfa} again&quot;);&lt;/code&gt;`,
-        `  println!(&quot;alfa is {alfa} again&quot;);`
+        `  &lt;c-1&gt;let returnValueAsResult &lt;/c-1&gt;&lt;c-2&gt;=&lt;/c-2&gt;`,
+        `  let returnValueAsResult = &lt;c-1&gt;env::var&lt;c-1&gt;()&lt;c-2&gt;;&lt;/c-2&gt;`,
+        `  let returnValueAsResult = env::var(&lt;c-1&gt;key&lt;/c-1&gt;);`,
+        `  let &lt;c-3&gt;returnValueAsResult&lt;/c-3&gt; = env::var(key);`,
+        `  let returnValueAsResult = env::var(key);`,
       ],
       [
         ` `,
-        `&lt;code&gt;}&lt;/code&gt;`,
+        `  &lt;c-1&gt;match&lt;/c-1&gt; &lt;c-2&gt;{&lt;/c-2&gt;`,
+        `  match &lt;c-1&gt;returnValueAsResult&lt;/c-1&gt; {`,
+        `  match returnValueAsResult {`,
+      ],
+      [
+        ` `,
+        `    &lt;c-1&gt;Ok() =&gt;&lt;/c-1&gt; &lt;c-2&gt;{&lt;/c-2&gt;`,
+        `    Ok(&lt;c-1&gt;item&lt;/c-1&gt;) =&gt; {` ,
+        `    Ok(&lt;c-3&gt;item&lt;/c-3&gt;) =&gt; {` ,
+        `    Ok(item) =&gt; {` ,
+      ],
+      [
+        ` `,
+        `      &lt;c-1&gt;println!()&lt;/c-1&gt;&lt;c-2&gt;;&lt;/c-2&gt;`,
+        `      println!(&lt;c-1&gt;&amp;quot;got {}&amp;quot;&lt;/c-1&gt;);`,
+        `      println!(&amp;quot;got {}&amp;quot;&lt;c-2&gt;,&lt;/c-2&gt; &lt;c-1&gt;item&lt;/c-1&gt;);`,
+        `      println!(&amp;quot;got {}&amp;quot;, &lt;c-1&gt;item&lt;/c-1&gt;);`,
+        `      println!(&amp;quot;got {}&amp;quot;, item);`,
+      ],
+      [ ` `,
+        `    &lt;c-2&gt;}&lt;/c-2&gt;`,
+        `    }`,
+      ],
+      [ ` `,
+        `    &lt;c-1&gt;Err() =&gt; &lt;/c-1&gt;&lt;c-2&gt;{&lt;/c-2&gt;`,
+        `    Err(&lt;c-1&gt;error&lt;/c-1&gt;) =&gt; {`,
+        `    Err(&lt;c-3&gt;error&lt;/c-3&gt;) =&gt; {`,
+        `    Err(error) =&gt; {`,
+      ],
+      [
+      ` `,
+        `      &lt;c-1&gt;println!()&lt;/c-1&gt;&lt;c-2&gt;;&lt;/c-2&gt;`,
+        `      println!(&lt;c-1&gt;&amp;quot;error {}&amp;quot;&lt;/c-1&gt;);`,
+        `      println!(&amp;quot;error {}&amp;quot;&lt;c-2&gt;,&lt;/c-2&gt; &lt;c-1&gt;error&lt;/c-1&gt;);`,
+        `      println!(&amp;quot;error {}&amp;quot;, &lt;c-1&gt;error&lt;/c-1&gt;);`,
+        `      println!(&amp;quot;error {}&amp;quot;, error);`,
+      ],
+      [
+        ` `,
+        `    &lt;c-2&gt;}&lt;/c-2&gt;`,
+        `    }`
+      ],
+      [
+        ` `,
+        `  &lt;c-2&gt;}&lt;/c-2&gt;`,
+        `  }`,
+      ],
+      [
+        ` `,
+        `&lt;c-2&gt;}&lt;/c-2&gt;`,
         `}`
       ]
     ],
 
-    lineSets: [
-      [1, 0, 0, 0, 1],
-      [2, 1, 0, 0, 2],
-      [2, 2, 0, 0, 2],
-      [2, 3, 1, 0, 2],
-      [2, 3, 2, 0, 2],
-      [2, 3, 3, 0, 2],
-      [2, 3, 4, 1, 2],
-      [2, 3, 4, 2, 2],
-    ], 
+    sets: [
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 1
+      [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
+      [0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
+      [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 5
+      [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0,-1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 10
+      [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 1, 0, 2, 1, 0, 0, 0, 0, 0, 0, 1, 0], 
+      [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0], 
+//     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
+      [0, 0, 0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 15
+      [0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], // 20
+      [0, 0, 0, 0, 0, 0, 0,-1, 1, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], // 25
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,-1, 1, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0], 
+//     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
+
+    ],
 
     output: [
-      &quot;alfa is apple&quot;,
-      &quot;alfa is apple again&quot;
+      &quot;checking HOME&quot;,
+      &quot;got /Users/alan&quot;
     ], 
 
   content: [
-    `&lt;p&gt;Create the &lt;code&gt;main&lt;/code&gt; function&lt;/p&gt;`,
-    `&lt;p&gt;Start creating a variable named &lt;code&gt;alfa&lt;/code&gt;&lt;/p&gt;`,
-    `&lt;p&gt;Bind a &lt;code&gt;String&lt;/code&gt; of &amp;quot;apple&amp;quot; to the &lt;code&gt;alfa&lt;/code&gt; variable&lt;/p&gt;`,
-    `&lt;p&gt;Start making a &lt;code&gt;println!()&lt;code&gt; expression&lt;p&gt;`,
-    `&lt;p&gt;Add the basic format string&lt;/p&gt;`,
-    `&lt;p&gt;Use the &lt;code&gt;alfa&lt;/code&gt; variable in the format string&lt;/p&gt;`,
-    `&lt;p&gt;etc...&lt;/p&gt;`,
-    `&lt;p&gt;Closing remarks&lt;/p&gt;`
+    `&lt;p&gt;Load the &lt;code&gt;std::env&lt;/code&gt; library which gives us access to environmental variables&lt;/p&gt;`,
+    `&lt;p&gt;Create the &lt;code&gt;main()&lt;/code&gt; function&lt;/p&gt;`,
+    `&lt;p&gt;Begin creating an immutable &lt;code&gt;key&lt;/code&gt; variable&lt;/p&gt;`,
+    `
+      &lt;p&gt;Bind a string literal with &lt;code&gt;HOME&lt;/code&gt; to the &lt;code&gt;key&lt;/code&gt; variable&lt;/p&gt;
+      &lt;p&gt;This matches the &lt;code&gt;HOME&lt;/code&gt; environmental variable that&#x27;s avaialbe in the Code Runners&lt;/p&gt;
+    `,
+    `&lt;p&gt;Create an initial &lt;code&gt;println!()&lt;/code&gt; statement that is just here to help me test multiple line output in this example&lt;/p&gt;`,
+    `&lt;p&gt;Add the format string&lt;/p&gt;`,
+    `&lt;p&gt;And setup to use the value from &lt;code&gt;key&lt;/code&gt;&lt;/p&gt;`,
+    `&lt;p&gt;Which comes from the line above it&lt;/p&gt;`,
+    `&lt;p&gt;Start creating a &lt;code&gt;returnValueAsResult&lt;/code&gt; immutable variable&lt;/p&gt;`,
+    `
+      &lt;p&gt;The &lt;code&gt;env::var()&lt;/code&gt; method is what&#x27;s used to access individual environmental variables.&lt;/p&gt;
+      &lt;p&gt;The expression returns a &lt;code&gt;Result&lt;/code&gt; value that will handle with the upcoming &lt;code&gt;match&lt;/code&gt; statement&lt;/p&gt;
+    `,
+    `&lt;p&gt;Insert the &lt;code&gt;key&lt;/code&gt; variable name to finish the expression and define that we want the &lt;code&gt;HOME&lt;/code&gt; envionmental variable&lt;/p&gt;`,
+    `&lt;p&gt;The value for &lt;code&gt;key&lt;/code&gt; comes from the variable on line 4&lt;/p&gt;`,
+    `&lt;p&gt;Begin creating the match expression&lt;/p&gt;`,
+    `&lt;p&gt;Setup the &lt;code&gt;match&lt;/code&gt; expression to examine the &lt;code&gt;returnValueAsResult&lt;/code&gt; variable&lt;/p&gt;`,
+    `&lt;p&gt;This is the same &lt;code&gt;returnValueAsResult&lt;/code&gt; variable as the one from the line above&lt;/p&gt;`,
+    `&lt;p&gt;Now we start creating the &lt;code&gt;Ok()&lt;/code&gt; expression which is the first of the two required arms of the &lt;code&gt;match&lt;/code&gt; expression when used with a Result value&lt;/p&gt;`,
+    `&lt;p&gt;The &lt;code&gt;Ok()&lt;/code&gt; portion of a &lt;code&gt;Result&lt;/code&gt; contains a value that we can pull out. We&#x27;re doing that here by assigning the incoming value to a variable named &lt;code&gt;item&lt;/code&gt;&lt;/p&gt;`,
+    `&lt;p&gt;Next we start to fill out the code we want to run if the &lt;code&gt;Result&lt;/code&gt; is &lt;code&gt;Ok()&lt;/code&gt;. Here were using a &lt;code&gt;println!()&lt;/code&gt; expression but we could also call a function or return a value (TODO: Verify values can be returned)&lt;/p&gt;`,
+    `&lt;p&gt;Here we&#x27;re adding two placeholder to the format string that will be used for output if the &lt;code&gt;Ok&lt;/code&gt; value is matched because it&#x27;s what was returned in &lt;code&gt;Result&lt;/code&gt;&lt;/p&gt;`,
+    `&lt;p&gt;Next, setup to use the &lt;code&gt;item&lt;/code&gt; variable&lt;/p&gt;`,
+    `&lt;p&gt;&lt;code&gt;item&lt;/code&gt; comes from the variable we set with the value that came in with &lt;code&gt;Ok&lt;/code&gt;&lt;/p&gt;`,
+    `&lt;p&gt;Next we start the second arm of the &lt;code&gt;match&lt;/code&gt; statement called &lt;code&gt;Err()&lt;/code&gt;&lt;/p&gt;`,
+    `&lt;p&gt;The &lt;code&gt;Err()&lt;/code&gt; arm receives a value in the same way the &lt;code&gt;Ok()&lt;/code&gt; arm does. We&#x27;ll pull this value into a variable named &lt;code&gt;error&lt;/code&gt;&lt;/p&gt;`,
+    `&lt;p&gt;We&#x27;ll create another &lt;code&gt;println()&lt;/code&gt; expression for the &lt;code&gt;Err()&lt;/code&gt; arm&lt;/p&gt;`,
+    `&lt;p&gt;Next, setup a basic format string similar to the one we did for the &lt;code&gt;Ok()&lt;/code&gt; arm&lt;/p&gt;`,
+    `&lt;p&gt;And here we&#x27;ll add the &lt;code&gt;error&lt;code&gt; variable&lt;/p&gt;`,
+    `&lt;p&gt;Which we got as the incoming value for the &lt;code&gt;Err()&lt;/code&gt; arm&lt;/p&gt;`,
+    `
+      &lt;p&gt;Putting it all together, we get our final output.&lt;/p&gt;
+      &lt;p&gt;In this case, the sample output is from a case then the environmental variable existed and was read in which means &lt;code&gt;returnValueAsResult&lt;/code&gt; received a &lt;code&gt;Result&lt;/code&gt; with &lt;code&gt;Ok&lt;/code&gt; and the value of the environmental variable (which was &lt;code&gt;/Users/alan&lt;/code&gt; in this case)&lt;/p&gt;`
   ]
 }
 
@@ -579,7 +930,7 @@ const makeLineNumbersWrapper = () =&gt; {
 }
 
 const handleNextClick = () =&gt; {
-  if (s.currentLineSet &lt; s.lineSets.length - 1) {
+  if (s.currentLineSet &lt; s.sets.length - 1) {
     updateEverything(s.currentLineSet + 1)
   }
 }
@@ -604,26 +955,36 @@ const updateContent = () =&gt; {
 }
 
 const updateHeader = () =&gt; {
-  const header = s.currentLineSet === s.lineSets.length - 1 
-    ? `&lt;h4&gt;Output&lt;/h4&gt;` 
+  const header = s.currentLineSet === s.sets.length - 1 
+    ? `&lt;h4&gt;Final Output&lt;/h4&gt;` 
     : `&lt;h4&gt;Step ${s.currentLineSet + 1}&lt;/h4&gt;`
   window.headerArea.innerHTML = header
 }
 
+
+const updateLineIndexes = () =&gt; {
+  for (let i = 0; i &lt; s.totalLines; i++) {
+    s.lineIndexes[i] = 0
+    for (let x = 0; x &lt;= s.currentLineSet; x ++) {
+      s.lineIndexes[i] += s.sets[x][i]
+    }
+  }
+}
+
 const updateEverything = (newIndex) =&gt; {
   s.currentLineSet = newIndex
+  updateLineIndexes()
   updateLineNumbers()
-   updateSourceLines()
-    updateOutput()
-  updateContent()
-   updateHeader()
-  updateHighlights()
+  updateSourceLines()
   updateButtonHighlights()
-
+  updateOutput()
+  updateContent()
+  updateHeader()
+  updateFinalHighlights()
 }
 
 const updateButtonHighlights = () =&gt; {
-   for (let i = 0; i &lt; s.lineSets.length; i ++) {
+   for (let i = 0; i &lt; s.sets.length; i ++) {
      if (i === s.currentLineSet) {
       window[`numberButton_${i}`].classList.add(&#x27;activeButton&#x27;)
      } else {
@@ -632,8 +993,8 @@ const updateButtonHighlights = () =&gt; {
    }
 }
 
-const updateHighlights = () =&gt; {
-  if (s.currentLineSet === s.lineSets.length - 1) {
+const updateFinalHighlights = () =&gt; {
+  if (s.currentLineSet === s.sets.length - 1) {
     for (let i = 0; i &lt; s.totalLines; i ++) {
       window[`sourceLine_${i}`].classList.add(&#x27;hljs&#x27;)
       window[`sourceLine_${i}`].classList.add(&#x27;language-rust&#x27;)
@@ -649,77 +1010,75 @@ const updateHighlights = () =&gt; {
 
 const updateLineNumbers = () =&gt; {
    for (let i = 0; i &lt; s.totalLines; i ++) {
-     const checkIndex = s.sourceLines[i].length - 1;
-     const currentIndex = s.lineSets[s.currentLineSet][i]
-     const numberString = i + 1 &lt; 10 ? `0${i + 1}` : `${i + 1}`
-     if(currentIndex &gt; 0 &amp;&amp; currentIndex &lt; checkIndex) {
-      window[`lineNumber_${i}`].innerHTML = 
-         `${numberString} &lt;span class=&quot;pointer&quot;&gt;&amp;gt;&lt;/span&gt;`
-     } else {
-      window[`lineNumber_${i}`].innerHTML = numberString
-     }
+      const checkIndex = s.sourceLines[i].length - 1;
+      const currentIndex = s.lineIndexes[i]
+      const numberString = i + 1 &lt; 10 ? `0${i + 1}` : `${i + 1}`
+      if(currentIndex &gt; 0 &amp;&amp; currentIndex &lt; checkIndex) {
+       window[`lineNumber_${i}`].innerHTML = 
+          `${numberString} &lt;span class=&quot;pointer&quot;&gt;&amp;gt;&lt;/span&gt;`
+      } else {
+       window[`lineNumber_${i}`].innerHTML = numberString
+      }
    }
 }
 
 const updateSourceLines = () =&gt; {
   for (let i = 0; i &lt; s.totalLines; i ++) {
-    const targetNumber = s.lineSets[s.currentLineSet][i]
+    const targetNumber = s.lineIndexes[i]
+    // console.log(`${i} - ${targetNumber}`)
     window[`sourceLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
-    const codeEls = window[`sourceLine_${i}`].getElementsByTagName(&#x27;code&#x27;)
-    for (let eIndex = 0; eIndex &lt; codeEls.length; eIndex ++ ) {
-      hljs.highlightElement(codeEls[eIndex])
-    }
-   }
+    // window[`sourceLine_${i}`].innerHTML = `x`
+  }
 }
 
 const makePreviousButton = () =&gt; {
-  makeEl([&#x27;button&#x27;, &#x27;previousButton&#x27;, &#x27;&amp;lt;-&#x27;, &#x27;codeButtonsWrapper&#x27;, &#x27;click&#x27;, handlePreviousClick])
+  makeEl([&#x27;button&#x27;, &#x27;previousButton&#x27;, &#x27;&amp;lt;-&#x27;, &#x27;codePreviousWrapper&#x27;, &#x27;click&#x27;, handlePreviousClick])
 }
 
 const makeNumberButtons = () =&gt; {
-  for (let i = 0; i &lt; s.lineSets.length; i ++) {
-    let buttonText = i === s.lineSets.length -1 ?  &quot;Complete&quot; : i + 1
+  for (let i = 0; i &lt; s.sets.length; i ++) {
+    let buttonText = i === s.sets.length -1 ?  &quot;Complete&quot; : i + 1
     makeEl([&#x27;button&#x27;, `numberButton_${i}`, buttonText, &#x27;codeButtonsWrapper&#x27;, &#x27;click&#x27;, handleNumberClick])
   }
 }
 
 const makeNextButton = () =&gt; {
-  makeEl([&#x27;button&#x27;, &#x27;nextButton&#x27;, &#x27;-&amp;gt;&#x27;, &#x27;codeButtonsWrapper&#x27;, &#x27;click&#x27;, handleNextClick])
+  makeEl([&#x27;button&#x27;, &#x27;nextButton&#x27;, &#x27;-&amp;gt;&#x27;, &#x27;codeNextWrapper&#x27;, &#x27;click&#x27;, handleNextClick])
 }
 
 const setLineCount = () =&gt; {
-  s.totalLines = s.lineSets[0].length
+  s.totalLines = s.sets[0].length
 }
 
 const updateOutput = () =&gt; {
-  if (s.currentLineSet === s.lineSets.length - 1 ) {
     for (let i = 0; i &lt; s.output.length; i ++ ) {
-      window[`outputLine_${i}`].innerHTML = s.output[i]
-    }
-  } 
-  // clear output for moving to previous line sets
-  else {
-    for (let i = 0; i &lt; s.output.length; i ++ ) {
+      if (s.currentLineSet === s.sets.length - 1 ) {
+        window[`outputLine_${i}`].innerHTML = s.output[i]
+      } else  {
+      // clear output for moving to previous line sets
       window[`outputLine_${i}`].innerHTML = &#x27; &#x27;
+      }
     }
-  }
 }
-
 
 const makeAreas = () =&gt; {
   makeEl([&#x27;div&#x27;, &#x27;headerArea&#x27;, &#x27;&lt;h4&gt;Step 1&lt;/h4&gt;&#x27;, &#x27;codeExample&#x27;])
-  makeEl([&#x27;div&#x27;, &#x27;placeholder_1&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
   makeEl([&#x27;div&#x27;, &#x27;contentArea&#x27;, &#x27;This is the content area&#x27;, &#x27;codeExample&#x27;])
   makeEl([&#x27;div&#x27;, &#x27;codeArea&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
-  makeEl([&#x27;div&#x27;, &#x27;placeholder_2&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
   makeEl([&#x27;div&#x27;, &#x27;outputArea&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
-  makeEl([&#x27;div&#x27;, &#x27;placeholder_3&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
-  makeEl([&#x27;div&#x27;, &#x27;codeButtonsWrapper&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
+  makeEl([&#x27;div&#x27;, &#x27;codeButtonsParent&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
+  makeEl([&#x27;div&#x27;, &#x27;codePreviousWrapper&#x27;, &#x27;&#x27;, &#x27;codeButtonsParent&#x27;])
+  makeEl([&#x27;div&#x27;, &#x27;codeButtonsWrapper&#x27;, &#x27;&#x27;, &#x27;codeButtonsParent&#x27;])
+  makeEl([&#x27;div&#x27;, &#x27;codeNextWrapper&#x27;, &#x27;&#x27;, &#x27;codeButtonsParent&#x27;])
 }
 
+const setupLineIndexes = () =&gt; {
+  s.lineIndexes = []
+}
 
 const makeCodeExample = () =&gt; {
   setLineCount()
+  setupLineIndexes()
   makeAreas()
   makeLineNumbersWrapper()
   makeCodeWrapper()
@@ -732,14 +1091,11 @@ const makeCodeExample = () =&gt; {
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, makeCodeExample)
+
+
 </code></pre>
             
         
-                <h2>References</h2>
-                <ul>
-                    <li><a href=""></a></li>
-                </ul>
-                
     </main>
     <footer>
       from <a href="https://www.alanwsmith.com/">alan w. smith</a>
