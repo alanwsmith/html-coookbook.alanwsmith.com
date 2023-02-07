@@ -108,21 +108,37 @@ const handleNumberClick = (event) => {
 }
 
 const makeButtons = () => {
-  const previousButtonEl = document.createElement("button")
-  previousButtonEl.innerHTML ="Previous"
-  previousButtonEl.addEventListener("click",handlePreviousClick)
-  window.codeButtons.appendChild(previousButtonEl)
+
+  // const previousButtonEl = document.createElement("button")
+  // previousButtonEl.innerHTML ="Previous"
+  // previousButtonEl.addEventListener("click",handlePreviousClick)
+  // window.codeButtons.appendChild(previousButtonEl)
+
+
+  makeEl(['button', 'previousButton', 'Previous', 'codeButtons', 'click', handlePreviousClick])
+
 
   for (let i = 0; i < s.lineSets.length; i ++) {
-    const numberButtonEl = document.createElement("button")
-    numberButtonEl.id = `numberButton_${i}`
+    const buttonId = `numberButton_${i}`
+    let buttonText = i + 1
+
+    // const numberButtonEl = document.createElement("button")
+    // numberButtonEl.id = `numberButton_${i}`
+
     if (i === s.lineSets.length -1) {
-      numberButtonEl.innerHTML = "Complete"
-    } else {
-      numberButtonEl.innerHTML = i + 1
-    }
-    numberButtonEl.addEventListener("click", handleNumberClick)
-    window.codeButtons.appendChild(numberButtonEl)
+      // numberButtonEl.innerHTML = "Complete"
+      buttonText = "Complete"
+    } 
+
+    // else {
+    //   numberButtonEl.innerHTML = i + 1
+    // }
+
+    makeEl(['button', buttonId, buttonText, 'codeButtons', 'click', handleNumberClick])
+
+    // numberButtonEl.addEventListener("click", handleNumberClick)
+    // window.codeButtons.appendChild(numberButtonEl)
+
   }
 
   makeEl(['button', 'nextButton', 'Next', 'codeButtons', 'click', handleNextClick])
