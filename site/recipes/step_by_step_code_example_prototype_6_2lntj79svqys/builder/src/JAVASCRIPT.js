@@ -42,17 +42,15 @@ const s = {
     `<p>Start making a <code>println!()<code> expression<p>`,
     `<p>Add the basic format string</p>`,
     `<p>Use the <code>alfa</code> variable in the format string</p>`,
+    ``
   ]
 }
 
 const makeEl = (details) => {
-  // format is: 
-  // type, id, innerHTML, childOf, event, eventFunction
+  // format: type, id, innerHTML, childOf, event, eventFunction
   const newEl = document.createElement(details[0])
   newEl.id = details[1]
-  if (details[2] !== '') {
-    newEl.innerHTML = details[2]
-  }
+  newEl.innerHTML = details[2] !== '' ? details[2] : ''
   window[details[3]].appendChild(newEl)
   if (details[4] !== undefined) {
     newEl.addEventListener(details[4], details[5])
@@ -108,7 +106,6 @@ const updateEverything = () => {
   updateOutput()
   updateContent()
 }
-
 
 const updateLineNumbers = () => {
    for (let i = 0; i < s.totalLines; i ++) {
@@ -190,14 +187,10 @@ const updateOutput = () => {
   }
 }
 
-
-
-
 const makeAreas = () => {
   makeEl(['div', 'contentArea', 'This is the content area', 'codeExample'])
   makeEl(['div', 'codeArea', '', 'codeExample'])
 }
-
 
 const makeCodeExample = () => {
   setLineCount()
