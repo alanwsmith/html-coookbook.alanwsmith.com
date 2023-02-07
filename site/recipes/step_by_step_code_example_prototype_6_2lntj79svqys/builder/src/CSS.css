@@ -5,9 +5,22 @@
 
 #codeArea {
   display: grid;
-  grid-template-columns: 2.6rem 1fr
+  grid-template-columns: 2.6rem 1fr;
+  background-color: #010;
+  padding: 0.3rem;
+  border-top-right-radius: 0.4rem;
+  border-top-left-radius: 0.4rem;
 }
 
+#outputArea {
+  display: grid;
+  grid-template-columns: 2.6rem 1fr;
+  background-color: #011;
+  padding: 0.3rem;
+  border-bottom-right-radius: 0.4rem;
+  border-bottom-left-radius: 0.4rem;
+  border-top: 1px solid #777;
+}
 
 #contentArea {
   background-color: #003;
@@ -17,9 +30,12 @@
 }
 
 
+
 .pointer {
   font-weight: bold;
-  color: black;
+  color: white;
 }
+
+
 
 

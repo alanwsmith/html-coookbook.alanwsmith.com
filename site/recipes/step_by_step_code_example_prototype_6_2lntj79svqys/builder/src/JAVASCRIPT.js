@@ -1,5 +1,7 @@
 const s = {
+
   currentLineSet: 0,
+
     sourceLines: [
       [
         ` `,
@@ -54,7 +56,8 @@ const s = {
     `<p>Start making a <code>println!()<code> expression<p>`,
     `<p>Add the basic format string</p>`,
     `<p>Use the <code>alfa</code> variable in the format string</p>`,
-    ``
+    `<p>etc...</p>`,
+    `<p>Closing remarks</p>`
   ]
 }
 
@@ -68,6 +71,21 @@ const makeEl = (details) => {
     newEl.addEventListener(details[4], details[5])
   }
 }
+
+const makeOutputHolder = () => {
+  makeEl(['div', 'outputHolder', '', 'outputArea'])
+   for (let i = 0; i < s.output.length; i ++) {
+     makeEl(['pre', `outputLine_${i}`, '', 'outputHolder'])
+   }
+}
+
+const makeOutputGutter = () => {
+  makeEl(['div', 'outputGutter', '', 'outputArea'])
+   for (let i = 0; i < s.output.length; i ++) {
+     makeEl(['pre', `outputGutterLine_${i}`, 'out:', 'outputGutter'])
+   }
+}
+
 
 const makeCodeWrapper = () => {
   makeEl(['div', 'codeWrapper', '', 'codeArea'])
@@ -117,11 +135,12 @@ const updateHeader = () => {
 const updateEverything = (newIndex) => {
   s.currentLineSet = newIndex
   updateLineNumbers()
-  updateSourceLines()
-  updateOutput()
-  updateContent()
-  updateHeader()
+   updateSourceLines()
+    updateOutput()
+  // updateContent()
+   updateHeader()
   updateHighlights()
+
 }
 
 const updateHighlights = () => {
@@ -185,28 +204,33 @@ const setLineCount = () => {
   s.totalLines = s.lineSets[0].length
 }
 
-const makeOutputSpacerLines = () => {
-  makeEl(['pre', `lineNumberSpacer`, ' ', 'lineNumbersWrapper'])
-  makeEl(['pre', `sourceLineSpacer`, ' ', 'codeWrapper'])
+// TODO: Clean up or remove this
+// const makeOutputSpacerLines = () => {
+const makeOutputLines = () => {
+
+  // makeEl(['pre', `lineNumberSpacer`, ' ', 'lineNumbersWrapper'])
+  // makeEl(['pre', `sourceLineSpacer`, ' ', 'codeWrapper'])
   for (let i = 0; i < s.output.length; i ++) {
-    makeEl(['pre', `lineNumberOutput_${i}`, 'out:', 'lineNumbersWrapper'])
-    makeEl(['pre', `sourceLineOutput_${i}`, ' ', 'codeWrapper'])
+    // makeEl(['pre', `lineNumberOutput_${i}`, 'out:', 'lineNumbersWrapper'])
+    // makeEl(['pre', `sourceLineOutput_${i}`, ' ', 'codeWrapper'])
   }
+
 }
 
 const updateOutput = () => {
   if (s.currentLineSet === s.lineSets.length - 1 ) {
     for (let i = 0; i < s.output.length; i ++ ) {
-      window[`sourceLineOutput_${i}`].innerHTML = s.output[i]
+      window[`outputLine_${i}`].innerHTML = s.output[i]
     }
   } 
   // clear output for moving to previous line sets
   else {
     for (let i = 0; i < s.output.length; i ++ ) {
-      window[`sourceLineOutput_${i}`].innerHTML = ' '
+      window[`outputLine_${i}`].innerHTML = ' '
     }
   }
 }
+
 
 const makeAreas = () => {
   makeEl(['div', 'headerArea', '<h4>Step 1</h4>', 'codeExample'])
@@ -214,15 +238,19 @@ const makeAreas = () => {
   makeEl(['div', 'contentArea', 'This is the content area', 'codeExample'])
   makeEl(['div', 'codeArea', '', 'codeExample'])
   makeEl(['div', 'placeholder_2', '', 'codeExample'])
+  makeEl(['div', 'outputArea', '', 'codeExample'])
+  makeEl(['div', 'placeholder_3', '', 'codeExample'])
   makeEl(['div', 'codeButtonsWrapper', '', 'codeExample'])
 }
+
 
 const makeCodeExample = () => {
   setLineCount()
   makeAreas()
   makeLineNumbersWrapper()
   makeCodeWrapper()
-  makeOutputSpacerLines()
+  makeOutputGutter()
+  makeOutputHolder()
   makePreviousButton()
   makeNumberButtons()
   makeNextButton()
