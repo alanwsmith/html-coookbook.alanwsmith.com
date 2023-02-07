@@ -46,7 +46,9 @@ const s = {
         `      <c-1>println!()</c-1><c-2>;</c-2>`,
         `      println!(<c-1>&quot;{} is {}&quot;</c-1>);`,
         `      println!(&quot;{} is {}&quot;<c-2>,</c-2> <c-1>key</c-1>);`,
+        `      println!(&quot;{} is {}&quot;, <c-1>key</c-1>);`,
         `      println!(&quot;{} is {}&quot;, key<c-2>,</c-2> <c-1>value</c-1>);`,
+        `      println!(&quot;{} is {}&quot;, key, <c-1>value</c-1>);`,
         `      println!(&quot;{} is {}&quot;, key, value);`,
       ],
       [ ` `,
@@ -64,7 +66,9 @@ const s = {
         `      <c-1>println!()</c-1><c-2>;</c-2>`,
         `      println!(<c-1>&quot;{} is {}&quot;</c-1>);`,
         `      println!(&quot;{} is {}&quot;<c-2>,</c-2> <c-1>key</c-1>);`,
+        `      println!(&quot;{} is {}&quot;, <c-1>key</c-1>);`,
         `      println!(&quot;{} is {}&quot;, key<c-2>,</c-2> <c-1>error</c-1>);`,
+        `      println!(&quot;{} is {}&quot;, key, <c-1>error</c-1>);`,
         `      println!(&quot;{} is {}&quot;, key, error);`,
       ],
       [
@@ -104,53 +108,22 @@ const s = {
       [0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0], 
       [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], // 15 
       [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], 
-      [0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0,-1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], 
       [0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], 
-      [0, 0, 0, 0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0,-1, 1, 0, 0, 0, 0, 0, 0], 
       [0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0], // 20
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0], 
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0], 
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], 
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], 
-      [0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 25 
+      [0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], // 25 
       [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], 
-      [0, 0, 0, 0, 0, 0, 0, 0, 0,-1, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 0,-1, 1, 0, 0, 0], 
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0], 
 
 //     1  2  3  4  5  6  7  8  9 10 11 12 13 14
 
     ],
-
-    lineSets: [
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 1
-      [2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [2, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-      [2, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-      [2, 0, 2, 4, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2], // 5
-      [2, 0, 2, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-      [2, 0, 2, 4, 3, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-      [2, 0, 2, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-      [2, 0, 2, 4, 4, 1, 0, 0, 0, 0, 0, 0, 1, 2],
-      [2, 0, 2, 4, 4, 2, 1, 0, 1, 0, 0, 0, 2, 2], // 10
-      [2, 0, 2, 4, 4, 2, 2, 0, 2, 0, 0, 0, 2, 2],
-      [2, 0, 2, 4, 4, 2, 4, 1, 2, 0, 0, 0, 2, 2],
-      [2, 0, 2, 4, 4, 2, 4, 2, 2, 0, 0, 0, 2, 2],
-      [2, 0, 2, 4, 4, 2, 4, 3, 2, 0, 0, 0, 2, 2],
-      [2, 0, 2, 3, 4, 2, 4, 3, 2, 0, 0, 0, 2, 2], // 15
-      [2, 0, 2, 4, 4, 2, 4, 4, 2, 0, 0, 0, 2, 2],
-      [2, 0, 2, 4, 4, 2, 3, 4, 2, 0, 0, 0, 2, 2],
-      [2, 0, 2, 4, 4, 2, 4, 5, 2, 1, 0, 1, 2, 2],
-      [2, 0, 2, 4, 4, 2, 4, 5, 2, 2, 0, 2, 2, 2],
-      [2, 0, 2, 4, 4, 2, 4, 5, 2, 4, 1, 2, 2, 2], // 20
-      [2, 0, 2, 4, 4, 2, 4, 5, 2, 4, 2, 2, 2, 2],
-      [2, 0, 2, 4, 4, 2, 4, 5, 2, 4, 3, 2, 2, 2], 
-      [2, 0, 2, 3, 4, 2, 4, 5, 2, 4, 3, 2, 2, 2], 
-      [2, 0, 2, 4, 4, 2, 4, 5, 2, 4, 4, 2, 2, 2],
-      [2, 0, 2, 4, 4, 2, 4, 5, 2, 3, 4, 2, 2, 2], // 25
-      [2, 0, 2, 4, 4, 2, 4, 5, 2, 4, 4, 2, 2, 2],
-      [2, 0, 2, 4, 4, 2, 4, 5, 2, 4, 4, 2, 2, 2],
-      [2, 0, 2, 4, 4, 2, 4, 5, 2, 4, 4, 2, 2, 2],
-    ], 
 
     output: [
       "alfa is apple",
@@ -229,7 +202,7 @@ const makeLineNumbersWrapper = () => {
 }
 
 const handleNextClick = () => {
-  if (s.currentLineSet < s.lineSets.length - 1) {
+  if (s.currentLineSet < s.sets.length - 1) {
     updateEverything(s.currentLineSet + 1)
   }
 }
@@ -254,7 +227,7 @@ const updateContent = () => {
 }
 
 const updateHeader = () => {
-  const header = s.currentLineSet === s.lineSets.length - 1 
+  const header = s.currentLineSet === s.sets.length - 1 
     ? `<h4>Final Output</h4>` 
     : `<h4>Step ${s.currentLineSet + 1}</h4>`
   window.headerArea.innerHTML = header
@@ -268,7 +241,6 @@ const updateLineIndexes = () => {
       s.lineIndexes[i] += s.sets[x][i]
     }
   }
-  console.log(s.lineIndexes)
 }
 
 const updateEverything = (newIndex) => {
@@ -284,7 +256,7 @@ const updateEverything = (newIndex) => {
 }
 
 const updateButtonHighlights = () => {
-   for (let i = 0; i < s.lineSets.length; i ++) {
+   for (let i = 0; i < s.sets.length; i ++) {
      if (i === s.currentLineSet) {
       window[`numberButton_${i}`].classList.add('activeButton')
      } else {
@@ -294,7 +266,7 @@ const updateButtonHighlights = () => {
 }
 
 const updateFinalHighlights = () => {
-  if (s.currentLineSet === s.lineSets.length - 1) {
+  if (s.currentLineSet === s.sets.length - 1) {
     for (let i = 0; i < s.totalLines; i ++) {
       window[`sourceLine_${i}`].classList.add('hljs')
       window[`sourceLine_${i}`].classList.add('language-rust')
@@ -349,8 +321,8 @@ const makePreviousButton = () => {
 }
 
 const makeNumberButtons = () => {
-  for (let i = 0; i < s.lineSets.length; i ++) {
-    let buttonText = i === s.lineSets.length -1 ?  "Complete" : i + 1
+  for (let i = 0; i < s.sets.length; i ++) {
+    let buttonText = i === s.sets.length -1 ?  "Complete" : i + 1
     makeEl(['button', `numberButton_${i}`, buttonText, 'codeButtonsWrapper', 'click', handleNumberClick])
   }
 }
@@ -360,12 +332,12 @@ const makeNextButton = () => {
 }
 
 const setLineCount = () => {
-  s.totalLines = s.lineSets[0].length
+  s.totalLines = s.sets[0].length
 }
 
 const updateOutput = () => {
     for (let i = 0; i < s.output.length; i ++ ) {
-      if (s.currentLineSet === s.lineSets.length - 1 ) {
+      if (s.currentLineSet === s.sets.length - 1 ) {
         window[`outputLine_${i}`].innerHTML = s.output[i]
       } else  {
       // clear output for moving to previous line sets
