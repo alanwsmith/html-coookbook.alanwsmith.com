@@ -67,16 +67,14 @@ const makeLineNumbersWrapper = () => {
 const handleNextClick = () => {
   if (s.currentLineSet < s.lineSets.length - 1) {
     s.currentLineSet += 1;
-    updateLineNumbers();
-    updateSourceLines()
+  updateEverything()
   }
 }
 
 const handlePreviousClick = () => {
   if (s.currentLineSet > 0) {
     s.currentLineSet -= 1;
-    updateLineNumbers();
-    updateSourceLines()
+  updateEverything()
   }
 }
 
@@ -84,9 +82,15 @@ const handleNumberClick = (event) => {
   s.currentLineSet = parseInt(
     event.target.id.split("_")[1]
   )
+  updateEverything()
+}
+
+const updateEverything = () => {
   updateLineNumbers();
   updateSourceLines()
+  updateOutput()
 }
+
 
 const updateLineNumbers = () => {
    for (let i = 0; i < s.totalLines; i ++) {
@@ -154,6 +158,21 @@ const makeOutputSpacerLines = () => {
   }
 }
 
+const updateOutput = () => {
+  if (s.currentLineSet === s.lineSets.length - 1 ) {
+    for (let i = 0; i < s.output.length; i ++ ) {
+      window[`sourceLineOutput_${i}`].innerHTML = s.output[i]
+    }
+  } 
+  // clear output for moving to previous line sets
+  else {
+    for (let i = 0; i < s.output.length; i ++ ) {
+      window[`sourceLineOutput_${i}`].innerHTML = ' '
+    }
+  }
+}
+
+
 const makeCodeExample = () => {
   setLineCount()
   makeLineNumbersWrapper()
@@ -164,8 +183,12 @@ const makeCodeExample = () => {
   makePreviousButton()
   makeNumberButtons()
   makeNextButton()
-  updateLineNumbers()
-  updateSourceLines()
+  updateEverything()
+
+  // updateLineNumbers()
+  // updateSourceLines()
+  // updateOutput()
+
 }
 
 document.addEventListener('DOMContentLoaded', makeCodeExample)
