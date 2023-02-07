@@ -91,72 +91,39 @@ const makeEl = (details) => {
 const makeCodeWrapper = () => {
   makeEl(['div', 'codeWrapper', '', 'codeExample'])
    for (let i = 0; i < s.totalLines; i ++) {
-     makeEl(['pre', `lineSource_${i}`, '', 'codeWrapper'])
+     makeEl(['pre', `sourceLine_${i}`, '', 'codeWrapper'])
    }
 }
 
 const makeLineNumbersWrapper = () => {
   makeEl(['div', 'lineNumbersWrapper', '', 'codeExample'])
-  // makeEl(['div', 'codeSouceWrapper', '', 'codeExample', ''])
    for (let i = 0; i < s.totalLines; i ++) {
      makeEl(['pre', `lineNumber_${i}`, '', 'lineNumbersWrapper'])
    }
-
-  // const codeSourcesEl = document.createElement("div")
-  // const codeLinesEl= document.createElement("div")
-  // for (let i = 0; i < s.totalLines; i ++) {
-  //   const codeSourceEl = document.createElement("div");
-  //   codeSourceEl.id = `codeSource_${i}`
-  //   const codeLineEl = document.createElement("div");
-  //   codeLineEl.id = `codeLine_${i}`
-  //    codeSourcesEl.appendChild(codeSourceEl);
-  //    codeLinesEl.appendChild(codeLineEl);
-  // }
-  //   window.codeExample.appendChild(codeLinesEl);
-  //    window.codeExample.appendChild(codeSourcesEl);
-  // const placeholderEl = document.createElement("div");
-  //    window.codeExample.appendChild(placeholderEl);
-  // const codeButtonsEl = document.createElement("div");
-  // codeButtonsEl.id = "codeButtons"
-  // window.codeExample.appendChild(codeButtonsEl);
-
 }
 
 const handleNextClick = () => {
   if (s.currentLineSet < s.lineSets.length - 1) {
     s.currentLineSet += 1;
     updateLineNumbers();
-    // outputLines();
+    updateSourceLines()
   }
 }
 
 const handlePreviousClick = () => {
   if (s.currentLineSet > 0) {
     s.currentLineSet -= 1;
-    // outputLines();
+    updateLineNumbers();
+    updateSourceLines()
   }
 }
 
-// const outputLines = () => {
-//   for (let i = 0; i < s.totalLines; i ++) {
-//     const targetNumber = s.lineSets[s.currentLineSet][i]
-//     if (targetNumber !== -1) {
-//       window[`lineSource_${i}`].innerHTML = 
-//         s.sourceLines[i][targetNumber]
-//        window[`lineNumber_${i}`].innerHTML = 
-//          i + 1
-//     }
-//      else {
-//        window[`lineSource_${i}`].innerHTML = "&nbsp;"
-//        window[`lineNumber_${i}`].innerHTML = 
-//          i + 1
-//      }
-//   }
-// }
-
 const handleNumberClick = (event) => {
-  s.currentLineSet = parseInt(event.target.id.split("_")[1])
-  // outputLines()
+  s.currentLineSet = parseInt(
+    event.target.id.split("_")[1]
+  )
+  updateLineNumbers();
+  updateSourceLines()
 }
 
 const updateLineNumbers = () => {
@@ -169,7 +136,18 @@ const updateLineNumbers = () => {
      } else {
       window[`lineNumber_${i}`].innerHTML = numberString
      }
+   }
+}
 
+const updateSourceLines = () => {
+   for (let i = 0; i < s.totalLines; i ++) {
+     const targetNumber = s.lineSets[s.currentLineSet][i]
+     if (targetNumber !== -1) {
+       window[`sourceLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
+     }
+      else {
+        window[`sourceLine_${i}`].innerHTML = "&nbsp;"
+      }
    }
 }
 
@@ -196,7 +174,7 @@ const makeCodeExample = () => {
   makeCodeWrapper()
   makeButtons()
   updateLineNumbers()
-  // outputLines()
+  updateSourceLines()
 }
 
 document.addEventListener('DOMContentLoaded', makeCodeExample)
@@ -284,72 +262,39 @@ const makeEl = (details) =&gt; {
 const makeCodeWrapper = () =&gt; {
   makeEl([&#x27;div&#x27;, &#x27;codeWrapper&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
    for (let i = 0; i &lt; s.totalLines; i ++) {
-     makeEl([&#x27;pre&#x27;, `lineSource_${i}`, &#x27;&#x27;, &#x27;codeWrapper&#x27;])
+     makeEl([&#x27;pre&#x27;, `sourceLine_${i}`, &#x27;&#x27;, &#x27;codeWrapper&#x27;])
    }
 }
 
 const makeLineNumbersWrapper = () =&gt; {
   makeEl([&#x27;div&#x27;, &#x27;lineNumbersWrapper&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
-  // makeEl([&#x27;div&#x27;, &#x27;codeSouceWrapper&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;, &#x27;&#x27;])
    for (let i = 0; i &lt; s.totalLines; i ++) {
      makeEl([&#x27;pre&#x27;, `lineNumber_${i}`, &#x27;&#x27;, &#x27;lineNumbersWrapper&#x27;])
    }
-
-  // const codeSourcesEl = document.createElement(&quot;div&quot;)
-  // const codeLinesEl= document.createElement(&quot;div&quot;)
-  // for (let i = 0; i &lt; s.totalLines; i ++) {
-  //   const codeSourceEl = document.createElement(&quot;div&quot;);
-  //   codeSourceEl.id = `codeSource_${i}`
-  //   const codeLineEl = document.createElement(&quot;div&quot;);
-  //   codeLineEl.id = `codeLine_${i}`
-  //    codeSourcesEl.appendChild(codeSourceEl);
-  //    codeLinesEl.appendChild(codeLineEl);
-  // }
-  //   window.codeExample.appendChild(codeLinesEl);
-  //    window.codeExample.appendChild(codeSourcesEl);
-  // const placeholderEl = document.createElement(&quot;div&quot;);
-  //    window.codeExample.appendChild(placeholderEl);
-  // const codeButtonsEl = document.createElement(&quot;div&quot;);
-  // codeButtonsEl.id = &quot;codeButtons&quot;
-  // window.codeExample.appendChild(codeButtonsEl);
-
 }
 
 const handleNextClick = () =&gt; {
   if (s.currentLineSet &lt; s.lineSets.length - 1) {
     s.currentLineSet += 1;
     updateLineNumbers();
-    // outputLines();
+    updateSourceLines()
   }
 }
 
 const handlePreviousClick = () =&gt; {
   if (s.currentLineSet &gt; 0) {
     s.currentLineSet -= 1;
-    // outputLines();
+    updateLineNumbers();
+    updateSourceLines()
   }
 }
 
-// const outputLines = () =&gt; {
-//   for (let i = 0; i &lt; s.totalLines; i ++) {
-//     const targetNumber = s.lineSets[s.currentLineSet][i]
-//     if (targetNumber !== -1) {
-//       window[`lineSource_${i}`].innerHTML = 
-//         s.sourceLines[i][targetNumber]
-//        window[`lineNumber_${i}`].innerHTML = 
-//          i + 1
-//     }
-//      else {
-//        window[`lineSource_${i}`].innerHTML = &quot;&amp;nbsp;&quot;
-//        window[`lineNumber_${i}`].innerHTML = 
-//          i + 1
-//      }
-//   }
-// }
-
 const handleNumberClick = (event) =&gt; {
-  s.currentLineSet = parseInt(event.target.id.split(&quot;_&quot;)[1])
-  // outputLines()
+  s.currentLineSet = parseInt(
+    event.target.id.split(&quot;_&quot;)[1]
+  )
+  updateLineNumbers();
+  updateSourceLines()
 }
 
 const updateLineNumbers = () =&gt; {
@@ -362,7 +307,18 @@ const updateLineNumbers = () =&gt; {
      } else {
       window[`lineNumber_${i}`].innerHTML = numberString
      }
+   }
+}
 
+const updateSourceLines = () =&gt; {
+   for (let i = 0; i &lt; s.totalLines; i ++) {
+     const targetNumber = s.lineSets[s.currentLineSet][i]
+     if (targetNumber !== -1) {
+       window[`sourceLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
+     }
+      else {
+        window[`sourceLine_${i}`].innerHTML = &quot;&amp;nbsp;&quot;
+      }
    }
 }
 
@@ -389,7 +345,7 @@ const makeCodeExample = () =&gt; {
   makeCodeWrapper()
   makeButtons()
   updateLineNumbers()
-  // outputLines()
+  updateSourceLines()
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, makeCodeExample)
