@@ -21,6 +21,16 @@ const s = {
         `  let key = &quot;HOME&quot;;`,
       ],
       [
+
+        ` `,
+        `  <c-1>println!()</c-1><c-2>;</c-2>`,
+        `  println!(<c-1>"checking {}"</c-1>);`,
+        `  println!("checking {}"<c-2>,</c-2> <c-1>key</c-1>);`,
+        `  println!("checking {}", <c-1>key</c-1>);`,
+        `  println!("checking {}", key);`,
+
+      ],
+      [
         ` `,
         `  <c-1>let returnValueAsResult </c-1><c-2>=</c-2>`,
         `  let returnValueAsResult = <c-1>env::var<c-1>()<c-2>;</c-2>`,
@@ -37,19 +47,17 @@ const s = {
       [
         ` `,
         `    <c-1>Ok() =></c-1> <c-2>{</c-2>`,
-        `    Ok(<c-1>value</c-1>) => {` ,
-        `    Ok(<c-3>value</c-3>) => {` ,
-        `    Ok(value) => {` ,
+        `    Ok(<c-1>item</c-1>) => {` ,
+        `    Ok(<c-3>item</c-3>) => {` ,
+        `    Ok(item) => {` ,
       ],
       [
         ` `,
         `      <c-1>println!()</c-1><c-2>;</c-2>`,
-        `      println!(<c-1>&quot;{} is {}&quot;</c-1>);`,
-        `      println!(&quot;{} is {}&quot;<c-2>,</c-2> <c-1>key</c-1>);`,
-        `      println!(&quot;{} is {}&quot;, <c-1>key</c-1>);`,
-        `      println!(&quot;{} is {}&quot;, key<c-2>,</c-2> <c-1>value</c-1>);`,
-        `      println!(&quot;{} is {}&quot;, key, <c-1>value</c-1>);`,
-        `      println!(&quot;{} is {}&quot;, key, value);`,
+        `      println!(<c-1>&quot;got {}&quot;</c-1>);`,
+        `      println!(&quot;got {}&quot;<c-2>,</c-2> <c-1>item</c-1>);`,
+        `      println!(&quot;got {}&quot;, <c-1>item</c-1>);`,
+        `      println!(&quot;got {}&quot;, item);`,
       ],
       [ ` `,
         `    <c-2>}</c-2>`,
@@ -64,12 +72,10 @@ const s = {
       [
       ` `,
         `      <c-1>println!()</c-1><c-2>;</c-2>`,
-        `      println!(<c-1>&quot;{} is {}&quot;</c-1>);`,
-        `      println!(&quot;{} is {}&quot;<c-2>,</c-2> <c-1>key</c-1>);`,
-        `      println!(&quot;{} is {}&quot;, <c-1>key</c-1>);`,
-        `      println!(&quot;{} is {}&quot;, key<c-2>,</c-2> <c-1>error</c-1>);`,
-        `      println!(&quot;{} is {}&quot;, key, <c-1>error</c-1>);`,
-        `      println!(&quot;{} is {}&quot;, key, error);`,
+        `      println!(<c-1>&quot;error {}&quot;</c-1>);`,
+        `      println!(&quot;error {}&quot;<c-2>,</c-2> <c-1>error</c-1>);`,
+        `      println!(&quot;error {}&quot;, <c-1>error</c-1>);`,
+        `      println!(&quot;error {}&quot;, error);`,
       ],
       [
         ` `,
@@ -89,45 +95,45 @@ const s = {
     ],
 
     sets: [
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 1
-      [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
-      [0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
-      [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-      [0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 5
-      [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-      [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-      [0, 0, 0,-1 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-      [0, 0, 0, 1, 2, 1, 0, 0, 0, 0, 0, 0, 1, 0], 
-      [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0], // 10
-      [0, 0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 1
+      [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
+      [0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
+      [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 5
+      [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0,-1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 10
+      [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 1, 0, 2, 1, 0, 0, 0, 0, 0, 0, 1, 0], 
+      [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0], 
 
-//     1  2  3  4  5  6  7  8  9 10 11 12 13 14
+//     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
 
-      [0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0], 
-      [0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0], 
-      [0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0], 
-      [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], // 15 
-      [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], 
-      [0, 0, 0,-1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], 
-      [0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], 
-      [0, 0, 0, 0, 0, 0,-1, 1, 0, 0, 0, 0, 0, 0], 
-      [0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0], // 20
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0], 
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0], 
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], 
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], 
-      [0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], // 25 
-      [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], 
-      [0, 0, 0, 0, 0, 0, 0, 0, 0,-1, 1, 0, 0, 0], 
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0], 
+      [0, 0, 0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 15
+      [0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], // 20
+      [0, 0, 0, 0, 0, 0, 0,-1, 1, 0, 0, 0, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], // 25
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,-1, 1, 0, 0, 0], 
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0], 
 
-//     1  2  3  4  5  6  7  8  9 10 11 12 13 14
+//     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
 
     ],
 
     output: [
-      "alfa is apple",
-      "alfa is apple again"
+      "checking HOME",
+      "got /Users/alan"
     ], 
 
   content: [
@@ -138,26 +144,36 @@ const s = {
       <p>Bind a string literal with <code>HOME</code> to the <code>key</code> variable</p>
       <p>This matches the <code>HOME</code> environmental variable that's avaialbe in the Code Runners</p>
     `,
+    `<p>Create an initial <code>println!()</code> statement that is just here to help me test multiple line output in this example</p>`,
+    `<p>Add the format string</p>`,
+    `<p>And setup to use the value from <code>key</code></p>`,
+    `<p>Which comes from the line above it</p>`,
     `<p>Start creating a <code>returnValueAsResult</code> immutable variable</p>`,
     `
       <p>The <code>env::var()</code> method is what's used to access individual environmental variables.</p>
       <p>The expression returns a <code>Result</code> value that will handle with the upcoming <code>match</code> statement</p>
     `,
-    `<p>Insert the <code>key</code> variable name to finish the expression.</p>`,
-    `<p>This is the same <code>key</code> variable from the prio line</p>`,
+    `<p>Insert the <code>key</code> variable name to finish the expression and define that we want the <code>HOME</code> envionmental variable</p>`,
+    `<p>The value for <code>key</code> comes from the variable on line 4</p>`,
     `<p>Begin creating the match expression</p>`,
-    `<p></p>`,
-    `<p></p>`,
-    `<p></p>`,
-    `<p></p>`,
-    `<p></p>`,
-    `<p></p>`,
-    `<p></p>`,
-    `<p></p>`,
-    `<p></p>`,
-    `<p></p>`,
-    `<p></p>`,
-    `<p></p>`,
+    `<p>Setup the <code>match</code> expression to examine the <code>returnValueAsResult</code> variable</p>`,
+    `<p>This is the same <code>returnValueAsResult</code> variable as the one from the line above</p>`,
+    `<p>Now we start creating the <code>Ok()</code> expression which is the first of the two required arms of the <code>match</code> expression when used with a Result value</p>`,
+    `<p>The <code>Ok()</code> portion of a <code>Result</code> contains a value that we can pull out. We're doing that here by assigning the incoming value to a variable named <code>item</code></p>`,
+    `<p>Next we start to fill out the code we want to run if the <code>Result</code> is <code>Ok()</code>. Here were using a <code>println!()</code> expression but we could also call a function or return a value (TODO: Verify values can be returned)</p>`,
+    `<p>Here we're adding two placeholder to the format string that will be used for output if the <code>Ok</code> value is matched because it's what was returned in <code>Result</code></p>`,
+    `<p>Next, setup to use the <code>item</code> variable</p>`,
+    `<p><code>item</code> comes from the variable we set with the value that came in with <code>Ok</code></p>`,
+    `<p>Next we start the second arm of the <code>match</code> statement called <code>Err()</code></p>`,
+    `<p>The <code>Err()</code> arm receives a value in the same way the <code>Ok()</code> arm does. We'll pull this value into a variable named <code>error</code></p>`,
+    `<p>We'll create another <code>println()</code> expression for the <code>Err()</code> arm</p>`,
+    `<p>Next, setup a basic format string similar to the one we did for the <code>Ok()</code> arm</p>`,
+    `<p>And here we'll add the <code>error<code> variable</p>`,
+    `<p>Which we got as the incoming value for the <code>Err()</code> arm</p>`,
+    `
+      <p>Putting it all together, we get our final output.</p>
+      <p>In this case, the sample output is from a case then the environmental variable existed and was read in which means <code>returnValueAsResult</code> received a <code>Result</code> with <code>Ok</code> and the value of the environmental variable (which was <code>/Users/alan</code> in this case)</p>
+    <p>If the environmental variable couldn't be retreived for some reason the <code>Result</code> that was returned would have contained an <code>Err</code> whose value contained details on the error</p>`,
   ]
 }
 
