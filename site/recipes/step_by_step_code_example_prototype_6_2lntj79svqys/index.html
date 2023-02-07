@@ -67,8 +67,24 @@
       [1, 2, 1, 1],
       [1, 2, 2, 1],
       [1, 2, 3, 1],
+    ], 
+
+    output: [
+      "alfa is apple"
     ]
+
 }
+
+
+const makeEl = (details) => {
+  // format is: type, id, innerHTML, childOf, {extra}
+  const newEl = document.createElement(details[0])
+  newEl.id = details[1]
+  newEl.innerHTML = details[2]
+  window[details[3]].appendChild(newEl)
+  newEl.addEventListener(details[4], details[5])
+}
+
 
 const makeLines = () => {
   const codeSourcesEl = document.createElement("div")
@@ -109,10 +125,7 @@ const handlePreviousClick = () => {
 
 const outputLines = () => {
   for (let i = 0; i < s.totalLines; i ++) {
-    console.log('adf')
-    console.log(s.totalLines)
     const targetNumber = s.lineSets[s.currentLineSet][i]
-    console.log(targetNumber)
     if (targetNumber !== -1) {
       window[`codeSource_${i}`].innerHTML = 
         s.sourceLines[i][targetNumber]
@@ -150,10 +163,13 @@ const makeButtons = () => {
     window.codeButtons.appendChild(numberButtonEl)
   }
 
-  const nextButtonEl = document.createElement("button")
-  nextButtonEl.innerHTML ="Next"
-  nextButtonEl.addEventListener("click",handleNextClick)
-  window.codeButtons.appendChild(nextButtonEl)
+  makeEl(['button', 'nextButton', 'Next', 'codeButtons', 'click', handleNextClick])
+
+  // const nextButtonEl = document.createElement("button")
+  // nextButtonEl.innerHTML ="Next"
+  // nextButtonEl.addEventListener("click",handleNextClick)
+  // window.codeButtons.appendChild(nextButtonEl)
+
 }
 
 const setLineCount = () => {
@@ -228,8 +244,24 @@ document.addEventListener('DOMContentLoaded', makeCodeExample)
       [1, 2, 1, 1],
       [1, 2, 2, 1],
       [1, 2, 3, 1],
+    ], 
+
+    output: [
+      &quot;alfa is apple&quot;
     ]
+
 }
+
+
+const makeEl = (details) =&gt; {
+  // format is: type, id, innerHTML, childOf, {extra}
+  const newEl = document.createElement(details[0])
+  newEl.id = details[1]
+  newEl.innerHTML = details[2]
+  window[details[3]].appendChild(newEl)
+  newEl.addEventListener(details[4], details[5])
+}
+
 
 const makeLines = () =&gt; {
   const codeSourcesEl = document.createElement(&quot;div&quot;)
@@ -270,10 +302,7 @@ const handlePreviousClick = () =&gt; {
 
 const outputLines = () =&gt; {
   for (let i = 0; i &lt; s.totalLines; i ++) {
-    console.log(&#x27;adf&#x27;)
-    console.log(s.totalLines)
     const targetNumber = s.lineSets[s.currentLineSet][i]
-    console.log(targetNumber)
     if (targetNumber !== -1) {
       window[`codeSource_${i}`].innerHTML = 
         s.sourceLines[i][targetNumber]
@@ -311,10 +340,13 @@ const makeButtons = () =&gt; {
     window.codeButtons.appendChild(numberButtonEl)
   }
 
-  const nextButtonEl = document.createElement(&quot;button&quot;)
-  nextButtonEl.innerHTML =&quot;Next&quot;
-  nextButtonEl.addEventListener(&quot;click&quot;,handleNextClick)
-  window.codeButtons.appendChild(nextButtonEl)
+  makeEl([&#x27;button&#x27;, &#x27;nextButton&#x27;, &#x27;Next&#x27;, &#x27;codeButtons&#x27;, &#x27;click&#x27;, handleNextClick])
+
+  // const nextButtonEl = document.createElement(&quot;button&quot;)
+  // nextButtonEl.innerHTML =&quot;Next&quot;
+  // nextButtonEl.addEventListener(&quot;click&quot;,handleNextClick)
+  // window.codeButtons.appendChild(nextButtonEl)
+
 }
 
 const setLineCount = () =&gt; {
