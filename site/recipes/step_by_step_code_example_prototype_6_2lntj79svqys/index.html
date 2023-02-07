@@ -75,38 +75,51 @@
 
 }
 
-
 const makeEl = (details) => {
-  // format is: type, id, innerHTML, childOf, {extra}
+  // format is: type, id, innerHTML, childOf, event, eventFunction
   const newEl = document.createElement(details[0])
   newEl.id = details[1]
-  newEl.innerHTML = details[2]
+  if (details[2] !== '') {
+    newEl.innerHTML = details[2]
+  }
   window[details[3]].appendChild(newEl)
-  newEl.addEventListener(details[4], details[5])
+  if (details[4] !== undefined) {
+    newEl.addEventListener(details[4], details[5])
+  }
 }
 
+const makeCodeWrapper = () => {
+  makeEl(['div', 'codeWrapper', '', 'codeExample'])
+   for (let i = 0; i < s.totalLines; i ++) {
+     makeEl(['pre', `lineSource_${i}`, '', 'codeWrapper'])
+   }
+}
 
-const makeLines = () => {
-  const codeSourcesEl = document.createElement("div")
-  const codeLinesEl= document.createElement("div")
-  for (let i = 0; i < s.totalLines; i ++) {
-    const codeSourceEl = document.createElement("div");
-    codeSourceEl.id = `codeSource_${i}`
-    const codeLineEl = document.createElement("div");
-    codeLineEl.id = `codeLine_${i}`
+const makeLineNumbersWrapper = () => {
+  makeEl(['div', 'lineNumbersWrapper', '', 'codeExample'])
+  // makeEl(['div', 'codeSouceWrapper', '', 'codeExample', ''])
+   for (let i = 0; i < s.totalLines; i ++) {
+     makeEl(['pre', `lineNumber_${i}`, '', 'lineNumbersWrapper'])
+   }
 
-     codeSourcesEl.appendChild(codeSourceEl);
-     codeLinesEl.appendChild(codeLineEl);
-  }
-    window.codeExample.appendChild(codeLinesEl);
-     window.codeExample.appendChild(codeSourcesEl);
+  // const codeSourcesEl = document.createElement("div")
+  // const codeLinesEl= document.createElement("div")
+  // for (let i = 0; i < s.totalLines; i ++) {
+  //   const codeSourceEl = document.createElement("div");
+  //   codeSourceEl.id = `codeSource_${i}`
+  //   const codeLineEl = document.createElement("div");
+  //   codeLineEl.id = `codeLine_${i}`
+  //    codeSourcesEl.appendChild(codeSourceEl);
+  //    codeLinesEl.appendChild(codeLineEl);
+  // }
+  //   window.codeExample.appendChild(codeLinesEl);
+  //    window.codeExample.appendChild(codeSourcesEl);
+  // const placeholderEl = document.createElement("div");
+  //    window.codeExample.appendChild(placeholderEl);
+  // const codeButtonsEl = document.createElement("div");
+  // codeButtonsEl.id = "codeButtons"
+  // window.codeExample.appendChild(codeButtonsEl);
 
-  const placeholderEl = document.createElement("div");
-     window.codeExample.appendChild(placeholderEl);
-
-  const codeButtonsEl = document.createElement("div");
-  codeButtonsEl.id = "codeButtons"
-  window.codeExample.appendChild(codeButtonsEl);
 }
 
 const handleNextClick = () => {
@@ -129,14 +142,18 @@ const outputLines = () => {
     if (targetNumber !== -1) {
       window[`codeSource_${i}`].innerHTML = 
         s.sourceLines[i][targetNumber]
-      window[`codeLine_${i}`].innerHTML = 
-        i + 1
+
+      // window[`codeLine_${i}`].innerHTML = 
+      //   i + 1
+
     }
-    else {
-      window[`codeSource_${i}`].innerHTML = "&nbsp;"
-      window[`codeLine_${i}`].innerHTML = 
-        i + 1
-    }
+
+    // else {
+    //   window[`codeSource_${i}`].innerHTML = "&nbsp;"
+    //   window[`codeLine_${i}`].innerHTML = 
+    //     i + 1
+    // }
+
   }
 }
 
@@ -146,46 +163,16 @@ const handleNumberClick = (event) => {
 }
 
 const makeButtons = () => {
-
-  // const previousButtonEl = document.createElement("button")
-  // previousButtonEl.innerHTML ="Previous"
-  // previousButtonEl.addEventListener("click",handlePreviousClick)
-  // window.codeButtons.appendChild(previousButtonEl)
-
+  makeEl(['div', 'codeButtons', '', 'codeExample'])
 
   makeEl(['button', 'previousButton', 'Previous', 'codeButtons', 'click', handlePreviousClick])
-
-
   for (let i = 0; i < s.lineSets.length; i ++) {
     const buttonId = `numberButton_${i}`
-    let buttonText = i + 1
-
-    // const numberButtonEl = document.createElement("button")
-    // numberButtonEl.id = `numberButton_${i}`
-
-    if (i === s.lineSets.length -1) {
-      // numberButtonEl.innerHTML = "Complete"
-      buttonText = "Complete"
-    } 
-
-    // else {
-    //   numberButtonEl.innerHTML = i + 1
-    // }
-
+    let buttonText = i === s.lineSets.length -1 ?  "Complete" : i + 1
     makeEl(['button', buttonId, buttonText, 'codeButtons', 'click', handleNumberClick])
-
-    // numberButtonEl.addEventListener("click", handleNumberClick)
-    // window.codeButtons.appendChild(numberButtonEl)
-
   }
 
   makeEl(['button', 'nextButton', 'Next', 'codeButtons', 'click', handleNextClick])
-
-  // const nextButtonEl = document.createElement("button")
-  // nextButtonEl.innerHTML ="Next"
-  // nextButtonEl.addEventListener("click",handleNextClick)
-  // window.codeButtons.appendChild(nextButtonEl)
-
 }
 
 const setLineCount = () => {
@@ -194,9 +181,10 @@ const setLineCount = () => {
 
 const makeCodeExample = () => {
   setLineCount()
-  makeLines()
+  makeLineNumbersWrapper()
+  makeCodeWrapper()
   makeButtons()
-  outputLines()
+  // outputLines()
 }
 
 document.addEventListener('DOMContentLoaded', makeCodeExample)
@@ -268,38 +256,51 @@ document.addEventListener('DOMContentLoaded', makeCodeExample)
 
 }
 
-
 const makeEl = (details) =&gt; {
-  // format is: type, id, innerHTML, childOf, {extra}
+  // format is: type, id, innerHTML, childOf, event, eventFunction
   const newEl = document.createElement(details[0])
   newEl.id = details[1]
-  newEl.innerHTML = details[2]
+  if (details[2] !== &#x27;&#x27;) {
+    newEl.innerHTML = details[2]
+  }
   window[details[3]].appendChild(newEl)
-  newEl.addEventListener(details[4], details[5])
+  if (details[4] !== undefined) {
+    newEl.addEventListener(details[4], details[5])
+  }
 }
 
+const makeCodeWrapper = () =&gt; {
+  makeEl([&#x27;div&#x27;, &#x27;codeWrapper&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
+   for (let i = 0; i &lt; s.totalLines; i ++) {
+     makeEl([&#x27;pre&#x27;, `lineSource_${i}`, &#x27;&#x27;, &#x27;codeWrapper&#x27;])
+   }
+}
 
-const makeLines = () =&gt; {
-  const codeSourcesEl = document.createElement(&quot;div&quot;)
-  const codeLinesEl= document.createElement(&quot;div&quot;)
-  for (let i = 0; i &lt; s.totalLines; i ++) {
-    const codeSourceEl = document.createElement(&quot;div&quot;);
-    codeSourceEl.id = `codeSource_${i}`
-    const codeLineEl = document.createElement(&quot;div&quot;);
-    codeLineEl.id = `codeLine_${i}`
+const makeLineNumbersWrapper = () =&gt; {
+  makeEl([&#x27;div&#x27;, &#x27;lineNumbersWrapper&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
+  // makeEl([&#x27;div&#x27;, &#x27;codeSouceWrapper&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;, &#x27;&#x27;])
+   for (let i = 0; i &lt; s.totalLines; i ++) {
+     makeEl([&#x27;pre&#x27;, `lineNumber_${i}`, &#x27;&#x27;, &#x27;lineNumbersWrapper&#x27;])
+   }
 
-     codeSourcesEl.appendChild(codeSourceEl);
-     codeLinesEl.appendChild(codeLineEl);
-  }
-    window.codeExample.appendChild(codeLinesEl);
-     window.codeExample.appendChild(codeSourcesEl);
+  // const codeSourcesEl = document.createElement(&quot;div&quot;)
+  // const codeLinesEl= document.createElement(&quot;div&quot;)
+  // for (let i = 0; i &lt; s.totalLines; i ++) {
+  //   const codeSourceEl = document.createElement(&quot;div&quot;);
+  //   codeSourceEl.id = `codeSource_${i}`
+  //   const codeLineEl = document.createElement(&quot;div&quot;);
+  //   codeLineEl.id = `codeLine_${i}`
+  //    codeSourcesEl.appendChild(codeSourceEl);
+  //    codeLinesEl.appendChild(codeLineEl);
+  // }
+  //   window.codeExample.appendChild(codeLinesEl);
+  //    window.codeExample.appendChild(codeSourcesEl);
+  // const placeholderEl = document.createElement(&quot;div&quot;);
+  //    window.codeExample.appendChild(placeholderEl);
+  // const codeButtonsEl = document.createElement(&quot;div&quot;);
+  // codeButtonsEl.id = &quot;codeButtons&quot;
+  // window.codeExample.appendChild(codeButtonsEl);
 
-  const placeholderEl = document.createElement(&quot;div&quot;);
-     window.codeExample.appendChild(placeholderEl);
-
-  const codeButtonsEl = document.createElement(&quot;div&quot;);
-  codeButtonsEl.id = &quot;codeButtons&quot;
-  window.codeExample.appendChild(codeButtonsEl);
 }
 
 const handleNextClick = () =&gt; {
@@ -322,14 +323,18 @@ const outputLines = () =&gt; {
     if (targetNumber !== -1) {
       window[`codeSource_${i}`].innerHTML = 
         s.sourceLines[i][targetNumber]
-      window[`codeLine_${i}`].innerHTML = 
-        i + 1
+
+      // window[`codeLine_${i}`].innerHTML = 
+      //   i + 1
+
     }
-    else {
-      window[`codeSource_${i}`].innerHTML = &quot;&amp;nbsp;&quot;
-      window[`codeLine_${i}`].innerHTML = 
-        i + 1
-    }
+
+    // else {
+    //   window[`codeSource_${i}`].innerHTML = &quot;&amp;nbsp;&quot;
+    //   window[`codeLine_${i}`].innerHTML = 
+    //     i + 1
+    // }
+
   }
 }
 
@@ -339,46 +344,16 @@ const handleNumberClick = (event) =&gt; {
 }
 
 const makeButtons = () =&gt; {
-
-  // const previousButtonEl = document.createElement(&quot;button&quot;)
-  // previousButtonEl.innerHTML =&quot;Previous&quot;
-  // previousButtonEl.addEventListener(&quot;click&quot;,handlePreviousClick)
-  // window.codeButtons.appendChild(previousButtonEl)
-
+  makeEl([&#x27;div&#x27;, &#x27;codeButtons&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
 
   makeEl([&#x27;button&#x27;, &#x27;previousButton&#x27;, &#x27;Previous&#x27;, &#x27;codeButtons&#x27;, &#x27;click&#x27;, handlePreviousClick])
-
-
   for (let i = 0; i &lt; s.lineSets.length; i ++) {
     const buttonId = `numberButton_${i}`
-    let buttonText = i + 1
-
-    // const numberButtonEl = document.createElement(&quot;button&quot;)
-    // numberButtonEl.id = `numberButton_${i}`
-
-    if (i === s.lineSets.length -1) {
-      // numberButtonEl.innerHTML = &quot;Complete&quot;
-      buttonText = &quot;Complete&quot;
-    } 
-
-    // else {
-    //   numberButtonEl.innerHTML = i + 1
-    // }
-
+    let buttonText = i === s.lineSets.length -1 ?  &quot;Complete&quot; : i + 1
     makeEl([&#x27;button&#x27;, buttonId, buttonText, &#x27;codeButtons&#x27;, &#x27;click&#x27;, handleNumberClick])
-
-    // numberButtonEl.addEventListener(&quot;click&quot;, handleNumberClick)
-    // window.codeButtons.appendChild(numberButtonEl)
-
   }
 
   makeEl([&#x27;button&#x27;, &#x27;nextButton&#x27;, &#x27;Next&#x27;, &#x27;codeButtons&#x27;, &#x27;click&#x27;, handleNextClick])
-
-  // const nextButtonEl = document.createElement(&quot;button&quot;)
-  // nextButtonEl.innerHTML =&quot;Next&quot;
-  // nextButtonEl.addEventListener(&quot;click&quot;,handleNextClick)
-  // window.codeButtons.appendChild(nextButtonEl)
-
 }
 
 const setLineCount = () =&gt; {
@@ -387,9 +362,10 @@ const setLineCount = () =&gt; {
 
 const makeCodeExample = () =&gt; {
   setLineCount()
-  makeLines()
+  makeLineNumbersWrapper()
+  makeCodeWrapper()
   makeButtons()
-  outputLines()
+  // outputLines()
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, makeCodeExample)
