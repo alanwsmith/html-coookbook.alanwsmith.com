@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Step-By-Step Code Example Prototype 6 - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Step-By-Step Code Example Prototype 6" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Step-By-Step%20Code%20Example%20Prototype%206,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/fonts.css" />
+    <link rel="stylesheet" href="/styles/colors.css" />
+    <link rel="stylesheet" href="/styles/wrapper.css" />
+    <link rel="stylesheet" href="./highlighjs-custom-default.min.css" />
+
+    
+    <style>
+      :root {
+    --active-button-background-color: #4677;
+    --area-padding: 0.9rem;
+    --area-radius: 0.4rem;
+    --button-font-color: #cca;
+    --number-column-width: 4.0rem;
+    --pointer-color: white;
+}
+
+button {
+  background: none;
+  border: none;
+  color: var(--button-font-color);
+  border-radius: var(--area-radius);
+}
+
+#codeButtonsWrapper {
+  padding: 0.6rem var(--area-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#codeArea {
+  display: grid;
+  grid-template-columns: var(--number-column-width) 1fr;
+  background-color: #010;
+  border-top-right-radius: var(--area-radius);
+  border-top-left-radius: var(--area-radius);
+}
+
+#codeExample {
+  display: grid;
+  grid-template-columns: 1fr 2.2fr
+}
+
+#codeWrapper {
+  padding: var(--area-padding);
+}
+
+#contentArea {
+  background-color: #003;
+  border-radius: var(--area-radius);
+  margin-right: 0.4rem;
+  padding: var(--area-padding);
+}
+
+#lineNumbersWrapper {
+  background-color: #034;
+  padding: var(--area-padding);
+  border-top-left-radius: var(--area-radius);
+}
+
+#outputArea {
+  display: grid;
+  grid-template-columns: var(--number-column-width) 1fr;
+  background-color: #011;
+  padding: var(--area-padding);
+  border-bottom-right-radius: var(--area-radius);
+  border-bottom-left-radius: var(--area-radius);
+  border-top: 1px solid #777;
+}
+
+.activeButton {
+  background-color: var(--active-button-background-color);
+  font-weight: bold;
+}
+
+.pointer {
+  font-weight: bold;
+  color: var(--pointer-color);
+}
+
+
+    </style>
+
+    <script src="/assets/highlight/highlight.min.js"></script>
+
+    <script>
+      const s = {
+
+  currentLineSet: 0,
+
+    sourceLines: [
+      [
+        ` `,
+        `<code class="hljs language-rust">fn main() {</code>`,
+        `fn main() {`
+      ],
+      [
+        ` `,
+        `  <code>let alfa =</code>`, 
+        `  let alfa = <code class="hljs langauge-rust">String::from("apple")</code>;`,
+        `  let alfa = String::from("apple");`,
+      ],
+      [
+        ` `,
+        `  <code>println!()</code>;`,
+        `  println!(<code>"alfa is {}"</code>);`,
+        `  println!(<code>"alfa is {alfa}"</code>);`,
+        `  println!("alfa is {alfa}");`
+      ],
+      [
+        ` `,
+        `  <code>println!("alfa is {alfa} again");</code>`,
+        `  println!("alfa is {alfa} again");`
+      ],
+      [
+        ` `,
+        `<code>}</code>`,
+        `}`
+      ]
+    ],
+
+    lineSets: [
+      [1, 0, 0, 0, 1],
+      [2, 1, 0, 0, 2],
+      [2, 2, 0, 0, 2],
+      [2, 3, 1, 0, 2],
+      [2, 3, 2, 0, 2],
+      [2, 3, 3, 0, 2],
+      [2, 3, 4, 1, 2],
+      [2, 3, 4, 2, 2],
+    ], 
+
+    output: [
+      "alfa is apple",
+      "alfa is apple again"
+    ], 
+
+  content: [
+    `<p>Create the <code>main</code> function</p>`,
+    `<p>Start creating a variable named <code>alfa</code></p>`,
+    `<p>Bind a <code>String</code> of &quot;apple&quot; to the <code>alfa</code> variable</p>`,
+    `<p>Start making a <code>println!()<code> expression<p>`,
+    `<p>Add the basic format string</p>`,
+    `<p>Use the <code>alfa</code> variable in the format string</p>`,
+    `<p>etc...</p>`,
+    `<p>Closing remarks</p>`
+  ]
+}
+
+const makeEl = (details) => {
+  // format: type, id, innerHTML, childOf, event, eventFunction
+  const newEl = document.createElement(details[0])
+  newEl.id = details[1]
+  newEl.innerHTML = details[2] !== '' ? details[2] : ''
+  window[details[3]].appendChild(newEl)
+  if (details[4] !== undefined) {
+    newEl.addEventListener(details[4], details[5])
+  }
+}
+
+const makeOutputHolder = () => {
+  makeEl(['div', 'outputHolder', '', 'outputArea'])
+   for (let i = 0; i < s.output.length; i ++) {
+     makeEl(['pre', `outputLine_${i}`, '', 'outputHolder'])
+   }
+}
+
+const makeOutputGutter = () => {
+  makeEl(['div', 'outputGutter', '', 'outputArea'])
+   for (let i = 0; i < s.output.length; i ++) {
+     makeEl(['pre', `outputGutterLine_${i}`, 'out:', 'outputGutter'])
+   }
+}
+
+
+const makeCodeWrapper = () => {
+  makeEl(['div', 'codeWrapper', '', 'codeArea'])
+   for (let i = 0; i < s.totalLines; i ++) {
+     makeEl(['pre', `sourceLine_${i}`, '', 'codeWrapper'])
+   }
+}
+
+const makeLineNumbersWrapper = () => {
+  makeEl(['div', 'lineNumbersWrapper', '', 'codeArea'])
+   for (let i = 0; i < s.totalLines; i ++) {
+     makeEl(['pre', `lineNumber_${i}`, '', 'lineNumbersWrapper'])
+   }
+}
+
+const handleNextClick = () => {
+  if (s.currentLineSet < s.lineSets.length - 1) {
+    updateEverything(s.currentLineSet + 1)
+  }
+}
+
+const handlePreviousClick = () => {
+  if (s.currentLineSet > 0) {
+    updateEverything(s.currentLineSet - 1)
+  }
+}
+
+const handleNumberClick = (event) => {
+  const newIndex = parseInt(
+    event.target.id.split("_")[1]
+  )
+  updateEverything(newIndex)
+}
+
+
+const updateContent = () => {
+  window.contentArea.innerHTML = 
+    s.content[s.currentLineSet]
+}
+
+const updateHeader = () => {
+  const header = s.currentLineSet === s.lineSets.length - 1 
+    ? `<h4>Output</h4>` 
+    : `<h4>Step ${s.currentLineSet + 1}</h4>`
+  window.headerArea.innerHTML = header
+}
+
+const updateEverything = (newIndex) => {
+  s.currentLineSet = newIndex
+  updateLineNumbers()
+   updateSourceLines()
+    updateOutput()
+  updateContent()
+   updateHeader()
+  updateHighlights()
+  updateButtonHighlights()
+
+}
+
+const updateButtonHighlights = () => {
+   for (let i = 0; i < s.lineSets.length; i ++) {
+     if (i === s.currentLineSet) {
+      window[`numberButton_${i}`].classList.add('activeButton')
+     } else {
+      window[`numberButton_${i}`].classList.remove('activeButton')
+     }
+   }
+}
+
+const updateHighlights = () => {
+  if (s.currentLineSet === s.lineSets.length - 1) {
+    for (let i = 0; i < s.totalLines; i ++) {
+      window[`sourceLine_${i}`].classList.add('hljs')
+      window[`sourceLine_${i}`].classList.add('language-rust')
+      hljs.highlightElement(window[`sourceLine_${i}`])
+    }
+  } else {
+    for (let i = 0; i < s.totalLines; i ++) {
+      window[`sourceLine_${i}`].classList.remove('hljs')
+      window[`sourceLine_${i}`].classList.remove('language-rust')
+    }
+  }
+}
+
+const updateLineNumbers = () => {
+   for (let i = 0; i < s.totalLines; i ++) {
+     const checkIndex = s.sourceLines[i].length - 1;
+     const currentIndex = s.lineSets[s.currentLineSet][i]
+     const numberString = i + 1 < 10 ? `0${i + 1}` : `${i + 1}`
+     if(currentIndex > 0 && currentIndex < checkIndex) {
+      window[`lineNumber_${i}`].innerHTML = 
+         `${numberString} <span class="pointer">&gt;</span>`
+     } else {
+      window[`lineNumber_${i}`].innerHTML = numberString
+     }
+   }
+}
+
+const updateSourceLines = () => {
+  for (let i = 0; i < s.totalLines; i ++) {
+    const targetNumber = s.lineSets[s.currentLineSet][i]
+    window[`sourceLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
+    const codeEls = window[`sourceLine_${i}`].getElementsByTagName('code')
+    for (let eIndex = 0; eIndex < codeEls.length; eIndex ++ ) {
+      hljs.highlightElement(codeEls[eIndex])
+    }
+   }
+}
+
+const makePreviousButton = () => {
+  makeEl(['button', 'previousButton', '&lt;-', 'codeButtonsWrapper', 'click', handlePreviousClick])
+}
+
+const makeNumberButtons = () => {
+  for (let i = 0; i < s.lineSets.length; i ++) {
+    let buttonText = i === s.lineSets.length -1 ?  "Complete" : i + 1
+    makeEl(['button', `numberButton_${i}`, buttonText, 'codeButtonsWrapper', 'click', handleNumberClick])
+  }
+}
+
+const makeNextButton = () => {
+  makeEl(['button', 'nextButton', '-&gt;', 'codeButtonsWrapper', 'click', handleNextClick])
+}
+
+const setLineCount = () => {
+  s.totalLines = s.lineSets[0].length
+}
+
+const updateOutput = () => {
+  if (s.currentLineSet === s.lineSets.length - 1 ) {
+    for (let i = 0; i < s.output.length; i ++ ) {
+      window[`outputLine_${i}`].innerHTML = s.output[i]
+    }
+  } 
+  // clear output for moving to previous line sets
+  else {
+    for (let i = 0; i < s.output.length; i ++ ) {
+      window[`outputLine_${i}`].innerHTML = ' '
+    }
+  }
+}
+
+
+const makeAreas = () => {
+  makeEl(['div', 'headerArea', '<h4>Step 1</h4>', 'codeExample'])
+  makeEl(['div', 'placeholder_1', '', 'codeExample'])
+  makeEl(['div', 'contentArea', 'This is the content area', 'codeExample'])
+  makeEl(['div', 'codeArea', '', 'codeExample'])
+  makeEl(['div', 'placeholder_2', '', 'codeExample'])
+  makeEl(['div', 'outputArea', '', 'codeExample'])
+  makeEl(['div', 'placeholder_3', '', 'codeExample'])
+  makeEl(['div', 'codeButtonsWrapper', '', 'codeExample'])
+}
+
+
+const makeCodeExample = () => {
+  setLineCount()
+  makeAreas()
+  makeLineNumbersWrapper()
+  makeCodeWrapper()
+  makeOutputGutter()
+  makeOutputHolder()
+  makePreviousButton()
+  makeNumberButtons()
+  makeNextButton()
+  updateEverything(0)
+}
+
+document.addEventListener('DOMContentLoaded', makeCodeExample)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">cookbook home</a> ~
+      <a href="https://www.alanwsmith.com/">main site</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
+    </header>
+    <main>
+      <h1>Step-By-Step Code Example Prototype 6</h1>
+      <div id="codeExample"></div>
+
+
+      <hr />
+
+      
+                <h2>Details</h2>
+                <ul>
+                    <li>This is taking a slightly different approach to the previous ones aimed at making it a little easier to add code for each one</li>
+                </ul>
+                  
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;div id=&quot;codeExample&quot;&gt;&lt;/div&gt;
+</code></pre>
+             
+            <h2>CSS</h2>
+            <pre><code class="language-css">:root {
+    --active-button-background-color: #4677;
+    --area-padding: 0.9rem;
+    --area-radius: 0.4rem;
+    --button-font-color: #cca;
+    --number-column-width: 4.0rem;
+    --pointer-color: white;
+}
+
+button {
+  background: none;
+  border: none;
+  color: var(--button-font-color);
+  border-radius: var(--area-radius);
+}
+
+#codeButtonsWrapper {
+  padding: 0.6rem var(--area-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#codeArea {
+  display: grid;
+  grid-template-columns: var(--number-column-width) 1fr;
+  background-color: #010;
+  border-top-right-radius: var(--area-radius);
+  border-top-left-radius: var(--area-radius);
+}
+
+#codeExample {
+  display: grid;
+  grid-template-columns: 1fr 2.2fr
+}
+
+#codeWrapper {
+  padding: var(--area-padding);
+}
+
+#contentArea {
+  background-color: #003;
+  border-radius: var(--area-radius);
+  margin-right: 0.4rem;
+  padding: var(--area-padding);
+}
+
+#lineNumbersWrapper {
+  background-color: #034;
+  padding: var(--area-padding);
+  border-top-left-radius: var(--area-radius);
+}
+
+#outputArea {
+  display: grid;
+  grid-template-columns: var(--number-column-width) 1fr;
+  background-color: #011;
+  padding: var(--area-padding);
+  border-bottom-right-radius: var(--area-radius);
+  border-bottom-left-radius: var(--area-radius);
+  border-top: 1px solid #777;
+}
+
+.activeButton {
+  background-color: var(--active-button-background-color);
+  font-weight: bold;
+}
+
+.pointer {
+  font-weight: bold;
+  color: var(--pointer-color);
+}
+
+</code></pre>
+             
+            <h2>JavaScript</h2>
+            <pre><code class="language-js">const s = {
+
+  currentLineSet: 0,
+
+    sourceLines: [
+      [
+        ` `,
+        `&lt;code class=&quot;hljs language-rust&quot;&gt;fn main() {&lt;/code&gt;`,
+        `fn main() {`
+      ],
+      [
+        ` `,
+        `  &lt;code&gt;let alfa =&lt;/code&gt;`, 
+        `  let alfa = &lt;code class=&quot;hljs langauge-rust&quot;&gt;String::from(&quot;apple&quot;)&lt;/code&gt;;`,
+        `  let alfa = String::from(&quot;apple&quot;);`,
+      ],
+      [
+        ` `,
+        `  &lt;code&gt;println!()&lt;/code&gt;;`,
+        `  println!(&lt;code&gt;&quot;alfa is {}&quot;&lt;/code&gt;);`,
+        `  println!(&lt;code&gt;&quot;alfa is {alfa}&quot;&lt;/code&gt;);`,
+        `  println!(&quot;alfa is {alfa}&quot;);`
+      ],
+      [
+        ` `,
+        `  &lt;code&gt;println!(&quot;alfa is {alfa} again&quot;);&lt;/code&gt;`,
+        `  println!(&quot;alfa is {alfa} again&quot;);`
+      ],
+      [
+        ` `,
+        `&lt;code&gt;}&lt;/code&gt;`,
+        `}`
+      ]
+    ],
+
+    lineSets: [
+      [1, 0, 0, 0, 1],
+      [2, 1, 0, 0, 2],
+      [2, 2, 0, 0, 2],
+      [2, 3, 1, 0, 2],
+      [2, 3, 2, 0, 2],
+      [2, 3, 3, 0, 2],
+      [2, 3, 4, 1, 2],
+      [2, 3, 4, 2, 2],
+    ], 
+
+    output: [
+      &quot;alfa is apple&quot;,
+      &quot;alfa is apple again&quot;
+    ], 
+
+  content: [
+    `&lt;p&gt;Create the &lt;code&gt;main&lt;/code&gt; function&lt;/p&gt;`,
+    `&lt;p&gt;Start creating a variable named &lt;code&gt;alfa&lt;/code&gt;&lt;/p&gt;`,
+    `&lt;p&gt;Bind a &lt;code&gt;String&lt;/code&gt; of &amp;quot;apple&amp;quot; to the &lt;code&gt;alfa&lt;/code&gt; variable&lt;/p&gt;`,
+    `&lt;p&gt;Start making a &lt;code&gt;println!()&lt;code&gt; expression&lt;p&gt;`,
+    `&lt;p&gt;Add the basic format string&lt;/p&gt;`,
+    `&lt;p&gt;Use the &lt;code&gt;alfa&lt;/code&gt; variable in the format string&lt;/p&gt;`,
+    `&lt;p&gt;etc...&lt;/p&gt;`,
+    `&lt;p&gt;Closing remarks&lt;/p&gt;`
+  ]
+}
+
+const makeEl = (details) =&gt; {
+  // format: type, id, innerHTML, childOf, event, eventFunction
+  const newEl = document.createElement(details[0])
+  newEl.id = details[1]
+  newEl.innerHTML = details[2] !== &#x27;&#x27; ? details[2] : &#x27;&#x27;
+  window[details[3]].appendChild(newEl)
+  if (details[4] !== undefined) {
+    newEl.addEventListener(details[4], details[5])
+  }
+}
+
+const makeOutputHolder = () =&gt; {
+  makeEl([&#x27;div&#x27;, &#x27;outputHolder&#x27;, &#x27;&#x27;, &#x27;outputArea&#x27;])
+   for (let i = 0; i &lt; s.output.length; i ++) {
+     makeEl([&#x27;pre&#x27;, `outputLine_${i}`, &#x27;&#x27;, &#x27;outputHolder&#x27;])
+   }
+}
+
+const makeOutputGutter = () =&gt; {
+  makeEl([&#x27;div&#x27;, &#x27;outputGutter&#x27;, &#x27;&#x27;, &#x27;outputArea&#x27;])
+   for (let i = 0; i &lt; s.output.length; i ++) {
+     makeEl([&#x27;pre&#x27;, `outputGutterLine_${i}`, &#x27;out:&#x27;, &#x27;outputGutter&#x27;])
+   }
+}
+
+
+const makeCodeWrapper = () =&gt; {
+  makeEl([&#x27;div&#x27;, &#x27;codeWrapper&#x27;, &#x27;&#x27;, &#x27;codeArea&#x27;])
+   for (let i = 0; i &lt; s.totalLines; i ++) {
+     makeEl([&#x27;pre&#x27;, `sourceLine_${i}`, &#x27;&#x27;, &#x27;codeWrapper&#x27;])
+   }
+}
+
+const makeLineNumbersWrapper = () =&gt; {
+  makeEl([&#x27;div&#x27;, &#x27;lineNumbersWrapper&#x27;, &#x27;&#x27;, &#x27;codeArea&#x27;])
+   for (let i = 0; i &lt; s.totalLines; i ++) {
+     makeEl([&#x27;pre&#x27;, `lineNumber_${i}`, &#x27;&#x27;, &#x27;lineNumbersWrapper&#x27;])
+   }
+}
+
+const handleNextClick = () =&gt; {
+  if (s.currentLineSet &lt; s.lineSets.length - 1) {
+    updateEverything(s.currentLineSet + 1)
+  }
+}
+
+const handlePreviousClick = () =&gt; {
+  if (s.currentLineSet &gt; 0) {
+    updateEverything(s.currentLineSet - 1)
+  }
+}
+
+const handleNumberClick = (event) =&gt; {
+  const newIndex = parseInt(
+    event.target.id.split(&quot;_&quot;)[1]
+  )
+  updateEverything(newIndex)
+}
+
+
+const updateContent = () =&gt; {
+  window.contentArea.innerHTML = 
+    s.content[s.currentLineSet]
+}
+
+const updateHeader = () =&gt; {
+  const header = s.currentLineSet === s.lineSets.length - 1 
+    ? `&lt;h4&gt;Output&lt;/h4&gt;` 
+    : `&lt;h4&gt;Step ${s.currentLineSet + 1}&lt;/h4&gt;`
+  window.headerArea.innerHTML = header
+}
+
+const updateEverything = (newIndex) =&gt; {
+  s.currentLineSet = newIndex
+  updateLineNumbers()
+   updateSourceLines()
+    updateOutput()
+  updateContent()
+   updateHeader()
+  updateHighlights()
+  updateButtonHighlights()
+
+}
+
+const updateButtonHighlights = () =&gt; {
+   for (let i = 0; i &lt; s.lineSets.length; i ++) {
+     if (i === s.currentLineSet) {
+      window[`numberButton_${i}`].classList.add(&#x27;activeButton&#x27;)
+     } else {
+      window[`numberButton_${i}`].classList.remove(&#x27;activeButton&#x27;)
+     }
+   }
+}
+
+const updateHighlights = () =&gt; {
+  if (s.currentLineSet === s.lineSets.length - 1) {
+    for (let i = 0; i &lt; s.totalLines; i ++) {
+      window[`sourceLine_${i}`].classList.add(&#x27;hljs&#x27;)
+      window[`sourceLine_${i}`].classList.add(&#x27;language-rust&#x27;)
+      hljs.highlightElement(window[`sourceLine_${i}`])
+    }
+  } else {
+    for (let i = 0; i &lt; s.totalLines; i ++) {
+      window[`sourceLine_${i}`].classList.remove(&#x27;hljs&#x27;)
+      window[`sourceLine_${i}`].classList.remove(&#x27;language-rust&#x27;)
+    }
+  }
+}
+
+const updateLineNumbers = () =&gt; {
+   for (let i = 0; i &lt; s.totalLines; i ++) {
+     const checkIndex = s.sourceLines[i].length - 1;
+     const currentIndex = s.lineSets[s.currentLineSet][i]
+     const numberString = i + 1 &lt; 10 ? `0${i + 1}` : `${i + 1}`
+     if(currentIndex &gt; 0 &amp;&amp; currentIndex &lt; checkIndex) {
+      window[`lineNumber_${i}`].innerHTML = 
+         `${numberString} &lt;span class=&quot;pointer&quot;&gt;&amp;gt;&lt;/span&gt;`
+     } else {
+      window[`lineNumber_${i}`].innerHTML = numberString
+     }
+   }
+}
+
+const updateSourceLines = () =&gt; {
+  for (let i = 0; i &lt; s.totalLines; i ++) {
+    const targetNumber = s.lineSets[s.currentLineSet][i]
+    window[`sourceLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
+    const codeEls = window[`sourceLine_${i}`].getElementsByTagName(&#x27;code&#x27;)
+    for (let eIndex = 0; eIndex &lt; codeEls.length; eIndex ++ ) {
+      hljs.highlightElement(codeEls[eIndex])
+    }
+   }
+}
+
+const makePreviousButton = () =&gt; {
+  makeEl([&#x27;button&#x27;, &#x27;previousButton&#x27;, &#x27;&amp;lt;-&#x27;, &#x27;codeButtonsWrapper&#x27;, &#x27;click&#x27;, handlePreviousClick])
+}
+
+const makeNumberButtons = () =&gt; {
+  for (let i = 0; i &lt; s.lineSets.length; i ++) {
+    let buttonText = i === s.lineSets.length -1 ?  &quot;Complete&quot; : i + 1
+    makeEl([&#x27;button&#x27;, `numberButton_${i}`, buttonText, &#x27;codeButtonsWrapper&#x27;, &#x27;click&#x27;, handleNumberClick])
+  }
+}
+
+const makeNextButton = () =&gt; {
+  makeEl([&#x27;button&#x27;, &#x27;nextButton&#x27;, &#x27;-&amp;gt;&#x27;, &#x27;codeButtonsWrapper&#x27;, &#x27;click&#x27;, handleNextClick])
+}
+
+const setLineCount = () =&gt; {
+  s.totalLines = s.lineSets[0].length
+}
+
+const updateOutput = () =&gt; {
+  if (s.currentLineSet === s.lineSets.length - 1 ) {
+    for (let i = 0; i &lt; s.output.length; i ++ ) {
+      window[`outputLine_${i}`].innerHTML = s.output[i]
+    }
+  } 
+  // clear output for moving to previous line sets
+  else {
+    for (let i = 0; i &lt; s.output.length; i ++ ) {
+      window[`outputLine_${i}`].innerHTML = &#x27; &#x27;
+    }
+  }
+}
+
+
+const makeAreas = () =&gt; {
+  makeEl([&#x27;div&#x27;, &#x27;headerArea&#x27;, &#x27;&lt;h4&gt;Step 1&lt;/h4&gt;&#x27;, &#x27;codeExample&#x27;])
+  makeEl([&#x27;div&#x27;, &#x27;placeholder_1&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
+  makeEl([&#x27;div&#x27;, &#x27;contentArea&#x27;, &#x27;This is the content area&#x27;, &#x27;codeExample&#x27;])
+  makeEl([&#x27;div&#x27;, &#x27;codeArea&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
+  makeEl([&#x27;div&#x27;, &#x27;placeholder_2&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
+  makeEl([&#x27;div&#x27;, &#x27;outputArea&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
+  makeEl([&#x27;div&#x27;, &#x27;placeholder_3&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
+  makeEl([&#x27;div&#x27;, &#x27;codeButtonsWrapper&#x27;, &#x27;&#x27;, &#x27;codeExample&#x27;])
+}
+
+
+const makeCodeExample = () =&gt; {
+  setLineCount()
+  makeAreas()
+  makeLineNumbersWrapper()
+  makeCodeWrapper()
+  makeOutputGutter()
+  makeOutputHolder()
+  makePreviousButton()
+  makeNumberButtons()
+  makeNextButton()
+  updateEverything(0)
+}
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, makeCodeExample)
+</code></pre>
+            
+        
+                <h2>References</h2>
+                <ul>
+                    <li><a href=""></a></li>
+                </ul>
+                
+    </main>
+    <footer>
+      from <a href="https://www.alanwsmith.com/">alan w. smith</a>
+    </footer>
+  </body>
+</html>

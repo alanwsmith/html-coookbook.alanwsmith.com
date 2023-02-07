@@ -1,0 +1,73 @@
+:root {
+    --active-button-background-color: #4677;
+    --area-padding: 0.9rem;
+    --area-radius: 0.4rem;
+    --button-font-color: #cca;
+    --number-column-width: 4.0rem;
+    --pointer-color: white;
+}
+
+button {
+  background: none;
+  border: none;
+  color: var(--button-font-color);
+  border-radius: var(--area-radius);
+}
+
+#codeButtonsWrapper {
+  padding: 0.6rem var(--area-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#codeArea {
+  display: grid;
+  grid-template-columns: var(--number-column-width) 1fr;
+  background-color: #010;
+  border-top-right-radius: var(--area-radius);
+  border-top-left-radius: var(--area-radius);
+}
+
+#codeExample {
+  display: grid;
+  grid-template-columns: 1fr 2.2fr
+}
+
+#codeWrapper {
+  padding: var(--area-padding);
+}
+
+#contentArea {
+  background-color: #003;
+  border-radius: var(--area-radius);
+  margin-right: 0.4rem;
+  padding: var(--area-padding);
+}
+
+#lineNumbersWrapper {
+  background-color: #034;
+  padding: var(--area-padding);
+  border-top-left-radius: var(--area-radius);
+}
+
+#outputArea {
+  display: grid;
+  grid-template-columns: var(--number-column-width) 1fr;
+  background-color: #011;
+  padding: var(--area-padding);
+  border-bottom-right-radius: var(--area-radius);
+  border-bottom-left-radius: var(--area-radius);
+  border-top: 1px solid #777;
+}
+
+.activeButton {
+  background-color: var(--active-button-background-color);
+  font-weight: bold;
+}
+
+.pointer {
+  font-weight: bold;
+  color: var(--pointer-color);
+}
+
