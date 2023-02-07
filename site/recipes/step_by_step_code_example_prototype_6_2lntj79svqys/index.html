@@ -88,22 +88,30 @@
       ],
       [
         ` `,
+        `  <code>println!("alfa is {alfa} again");</code>`,
+        `  println!("alfa is {alfa} again");`
+      ],
+      [
+        ` `,
         `<code>}</code>`,
         `}`
       ]
     ],
 
     lineSets: [
-      [1, 0, 0, 1],
-      [2, 1, 0, 2],
-      [2, 2, 0, 2],
-      [2, 3, 1, 2],
-      [2, 3, 2, 2],
-      [2, 3, 3, 2],
+      [1, 0, 0, 0, 1],
+      [2, 1, 0, 0, 2],
+      [2, 2, 0, 0, 2],
+      [2, 3, 1, 0, 2],
+      [2, 3, 2, 0, 2],
+      [2, 3, 3, 0, 2],
+      [2, 3, 4, 1, 2],
+      [2, 3, 4, 2, 2],
     ], 
 
     output: [
-      "alfa is apple"
+      "alfa is apple",
+      "alfa is apple again"
     ], 
 
   content: [
@@ -180,7 +188,25 @@ const updateEverything = (newIndex) => {
   updateOutput()
   updateContent()
   updateHeader()
+  updateHighlights()
 }
+
+const updateHighlights = () => {
+  if (s.currentLineSet === s.lineSets.length - 1) {
+    for (let i = 0; i < s.totalLines; i ++) {
+      window[`sourceLine_${i}`].classList.add('hljs')
+      window[`sourceLine_${i}`].classList.add('language-rust')
+      hljs.highlightElement(window[`sourceLine_${i}`])
+    }
+  } else {
+    for (let i = 0; i < s.totalLines; i ++) {
+      window[`sourceLine_${i}`].classList.remove('hljs')
+      window[`sourceLine_${i}`].classList.remove('language-rust')
+    }
+  }
+}
+
+
 
 const updateLineNumbers = () => {
    for (let i = 0; i < s.totalLines; i ++) {
@@ -351,22 +377,30 @@ document.addEventListener('DOMContentLoaded', makeCodeExample)
       ],
       [
         ` `,
+        `  &lt;code&gt;println!(&quot;alfa is {alfa} again&quot;);&lt;/code&gt;`,
+        `  println!(&quot;alfa is {alfa} again&quot;);`
+      ],
+      [
+        ` `,
         `&lt;code&gt;}&lt;/code&gt;`,
         `}`
       ]
     ],
 
     lineSets: [
-      [1, 0, 0, 1],
-      [2, 1, 0, 2],
-      [2, 2, 0, 2],
-      [2, 3, 1, 2],
-      [2, 3, 2, 2],
-      [2, 3, 3, 2],
+      [1, 0, 0, 0, 1],
+      [2, 1, 0, 0, 2],
+      [2, 2, 0, 0, 2],
+      [2, 3, 1, 0, 2],
+      [2, 3, 2, 0, 2],
+      [2, 3, 3, 0, 2],
+      [2, 3, 4, 1, 2],
+      [2, 3, 4, 2, 2],
     ], 
 
     output: [
-      &quot;alfa is apple&quot;
+      &quot;alfa is apple&quot;,
+      &quot;alfa is apple again&quot;
     ], 
 
   content: [
@@ -443,7 +477,25 @@ const updateEverything = (newIndex) =&gt; {
   updateOutput()
   updateContent()
   updateHeader()
+  updateHighlights()
 }
+
+const updateHighlights = () =&gt; {
+  if (s.currentLineSet === s.lineSets.length - 1) {
+    for (let i = 0; i &lt; s.totalLines; i ++) {
+      window[`sourceLine_${i}`].classList.add(&#x27;hljs&#x27;)
+      window[`sourceLine_${i}`].classList.add(&#x27;language-rust&#x27;)
+      hljs.highlightElement(window[`sourceLine_${i}`])
+    }
+  } else {
+    for (let i = 0; i &lt; s.totalLines; i ++) {
+      window[`sourceLine_${i}`].classList.remove(&#x27;hljs&#x27;)
+      window[`sourceLine_${i}`].classList.remove(&#x27;language-rust&#x27;)
+    }
+  }
+}
+
+
 
 const updateLineNumbers = () =&gt; {
    for (let i = 0; i &lt; s.totalLines; i ++) {
