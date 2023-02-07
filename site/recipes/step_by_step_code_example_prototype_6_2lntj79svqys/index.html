@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="/styles/fonts.css" />
     <link rel="stylesheet" href="/styles/colors.css" />
     <link rel="stylesheet" href="/styles/wrapper.css" />
-    <link rel="stylesheet" href="./highlighjs-custom-default.min.css" />
+    <link rel="stylesheet" href="./highlightjs-nord-custom.min.css" />
 
     
     <style>
@@ -63,10 +63,14 @@ c-3 {
   color: green;
 }
 
+p {
+  margin-bottom: 1.5rem;
+}
+
 #codeArea {
   display: grid;
   grid-template-columns: var(--number-column-width) 1fr;
-  background-color: #010;
+  background-color: black;
   border-top-right-radius: var(--area-radius);
   border-top-left-radius: var(--area-radius);
 }
@@ -112,6 +116,7 @@ c-3 {
   margin-right: 0.4rem;
   padding: var(--area-padding);
   grid-row: 2/span 2;
+  color: #dcd;
 }
 
 #headerArea {
@@ -123,7 +128,7 @@ c-3 {
 }
 
 #lineNumbersWrapper {
-  background-color: #034;
+  background-color: #101;
   padding: var(--area-padding);
   border-top-left-radius: var(--area-radius);
 }
@@ -131,7 +136,7 @@ c-3 {
 #outputArea {
   display: grid;
   grid-template-columns: var(--number-column-width) 1fr;
-  background-color: #011;
+  background-color: #100;
   padding: var(--area-padding);
   border-bottom-right-radius: var(--area-radius);
   border-bottom-left-radius: var(--area-radius);
@@ -149,7 +154,12 @@ c-3 {
 }
 
 
-
+        .preWrapper {
+          background-color: #001;
+          border-radius: 1rem;
+          border: 1px solid #aaa;
+          padding: 1.6rem;
+        }
 
     </style>
 
@@ -179,14 +189,12 @@ c-3 {
         `  let key = &quot;HOME&quot;;`,
       ],
       [
-
         ` `,
         `  <c-1>println!()</c-1><c-2>;</c-2>`,
         `  println!(<c-1>"checking {}"</c-1>);`,
         `  println!("checking {}"<c-2>,</c-2> <c-1>key</c-1>);`,
         `  println!("checking {}", <c-1>key</c-1>);`,
         `  println!("checking {}", key);`,
-
       ],
       [
         ` `,
@@ -267,9 +275,7 @@ c-3 {
       [0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
       [0, 0, 0, 1, 0, 2, 1, 0, 0, 0, 0, 0, 0, 1, 0], 
       [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0], 
-
 //     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
-
       [0, 0, 0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 15
       [0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0], 
       [0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0], 
@@ -284,7 +290,6 @@ c-3 {
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], 
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,-1, 1, 0, 0, 0], 
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0], 
-
 //     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
 
     ],
@@ -330,8 +335,7 @@ c-3 {
     `<p>Which we got as the incoming value for the <code>Err()</code> arm</p>`,
     `
       <p>Putting it all together, we get our final output.</p>
-      <p>In this case, the sample output is from a case then the environmental variable existed and was read in which means <code>returnValueAsResult</code> received a <code>Result</code> with <code>Ok</code> and the value of the environmental variable (which was <code>/Users/alan</code> in this case)</p>
-    <p>If the environmental variable couldn't be retreived for some reason the <code>Result</code> that was returned would have contained an <code>Err</code> whose value contained details on the error</p>`,
+      <p>In this case, the sample output is from a case then the environmental variable existed and was read in which means <code>returnValueAsResult</code> received a <code>Result</code> with <code>Ok</code> and the value of the environmental variable (which was <code>/Users/alan</code> in this case)</p>`
   ]
 }
 
@@ -477,19 +481,6 @@ const updateSourceLines = () => {
   }
 }
 
-// const updateSourceLines = () => {
-//   for (let i = 0; i < s.totalLines; i ++) {
-//     const targetNumber = s.lineSets[s.currentLineSet][i]
-//     window[`sourceLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
-//     const codeEls = window[`sourceLine_${i}`].getElementsByTagName('code')
-//     for (let eIndex = 0; eIndex < codeEls.length; eIndex ++ ) {
-//       codeEls[eIndex].classList.add('hljs')
-//       codeEls[eIndex].classList.add('language-rust')
-//       hljs.highlightElement(codeEls[eIndex])
-//     }
-//    }
-// }
-
 const makePreviousButton = () => {
   makeEl(['button', 'previousButton', '&lt;-', 'codePreviousWrapper', 'click', handlePreviousClick])
 }
@@ -551,6 +542,22 @@ const makeCodeExample = () => {
 
 document.addEventListener('DOMContentLoaded', makeCodeExample)
 
+
+
+
+      const highlightReferenceCode = () => {
+
+        hljs.highlightElement(window.exampleJS)
+        hljs.highlightElement(window.exampleHTMLBody)
+        hljs.highlightElement(window.exampleCSS)
+        /*
+        */
+
+      }
+
+
+      document.addEventListener("DOMContentLoaded", highlightReferenceCode)
+
     </script>
   </head>
   <body class="line-numbers">
@@ -563,6 +570,14 @@ document.addEventListener('DOMContentLoaded', makeCodeExample)
     </header>
     <main>
       <h1>Step-By-Step Code Example Prototype 6</h1>
+      <p>This is a prototype for a step by step code description piece
+      for a project I'm working on called <a href="https://typing-rust.alanwsmith.com/">Typing Rust</a>. 
+      The core functionality is in place even if some styling and layout work could still be done.</p>
+      <p>
+      Use the <code>&lt;-</code> <code>-&gt;</code> arrows or the numbers below the main section to navigate through the code. Changes are highlighed with short notes beside them. The finale &quot;Complete&quot; state shows the entire code example with syntax highlighting and corresponding output.
+      </p>
+
+
       <div id="codeExample"></div>
 
 
@@ -575,11 +590,11 @@ document.addEventListener('DOMContentLoaded', makeCodeExample)
                 </ul>
                   
             <h2>HTML</h2>
-            <pre><code class="language-html">&lt;div id=&quot;codeExample&quot;&gt;&lt;/div&gt;
+            <pre class="preWrapper"><code id="exampleHTMLBody" class="language-html">&lt;div id=&quot;codeExample&quot;&gt;&lt;/div&gt;
 </code></pre>
              
             <h2>CSS</h2>
-            <pre><code class="language-css">:root {
+            <pre class="preWrapper"><code id="exampleCSS" class="hljs language-css">:root {
     --active-button-background-color: #4677;
     --area-padding: 0.9rem;
     --area-radius: 0.4rem;
@@ -608,10 +623,14 @@ c-3 {
   color: green;
 }
 
+p {
+  margin-bottom: 1.5rem;
+}
+
 #codeArea {
   display: grid;
   grid-template-columns: var(--number-column-width) 1fr;
-  background-color: #010;
+  background-color: black;
   border-top-right-radius: var(--area-radius);
   border-top-left-radius: var(--area-radius);
 }
@@ -657,6 +676,7 @@ c-3 {
   margin-right: 0.4rem;
   padding: var(--area-padding);
   grid-row: 2/span 2;
+  color: #dcd;
 }
 
 #headerArea {
@@ -668,7 +688,7 @@ c-3 {
 }
 
 #lineNumbersWrapper {
-  background-color: #034;
+  background-color: #101;
   padding: var(--area-padding);
   border-top-left-radius: var(--area-radius);
 }
@@ -676,7 +696,7 @@ c-3 {
 #outputArea {
   display: grid;
   grid-template-columns: var(--number-column-width) 1fr;
-  background-color: #011;
+  background-color: #100;
   padding: var(--area-padding);
   border-bottom-right-radius: var(--area-radius);
   border-bottom-left-radius: var(--area-radius);
@@ -693,12 +713,10 @@ c-3 {
   color: var(--pointer-color);
 }
 
-
-
 </code></pre>
              
             <h2>JavaScript</h2>
-            <pre><code class="language-js">const s = {
+            <pre class="preWrapper"><code id="exampleJS" class="hljs language-js">const s = {
 
   currentLineSet: 0,
 
@@ -721,14 +739,12 @@ c-3 {
         `  let key = &amp;quot;HOME&amp;quot;;`,
       ],
       [
-
         ` `,
         `  &lt;c-1&gt;println!()&lt;/c-1&gt;&lt;c-2&gt;;&lt;/c-2&gt;`,
         `  println!(&lt;c-1&gt;&quot;checking {}&quot;&lt;/c-1&gt;);`,
         `  println!(&quot;checking {}&quot;&lt;c-2&gt;,&lt;/c-2&gt; &lt;c-1&gt;key&lt;/c-1&gt;);`,
         `  println!(&quot;checking {}&quot;, &lt;c-1&gt;key&lt;/c-1&gt;);`,
         `  println!(&quot;checking {}&quot;, key);`,
-
       ],
       [
         ` `,
@@ -809,9 +825,7 @@ c-3 {
       [0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
       [0, 0, 0, 1, 0, 2, 1, 0, 0, 0, 0, 0, 0, 1, 0], 
       [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0], 
-
 //     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
-
       [0, 0, 0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 15
       [0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0], 
       [0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0], 
@@ -826,7 +840,6 @@ c-3 {
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], 
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,-1, 1, 0, 0, 0], 
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0], 
-
 //     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
 
     ],
@@ -872,8 +885,7 @@ c-3 {
     `&lt;p&gt;Which we got as the incoming value for the &lt;code&gt;Err()&lt;/code&gt; arm&lt;/p&gt;`,
     `
       &lt;p&gt;Putting it all together, we get our final output.&lt;/p&gt;
-      &lt;p&gt;In this case, the sample output is from a case then the environmental variable existed and was read in which means &lt;code&gt;returnValueAsResult&lt;/code&gt; received a &lt;code&gt;Result&lt;/code&gt; with &lt;code&gt;Ok&lt;/code&gt; and the value of the environmental variable (which was &lt;code&gt;/Users/alan&lt;/code&gt; in this case)&lt;/p&gt;
-    &lt;p&gt;If the environmental variable couldn&#x27;t be retreived for some reason the &lt;code&gt;Result&lt;/code&gt; that was returned would have contained an &lt;code&gt;Err&lt;/code&gt; whose value contained details on the error&lt;/p&gt;`,
+      &lt;p&gt;In this case, the sample output is from a case then the environmental variable existed and was read in which means &lt;code&gt;returnValueAsResult&lt;/code&gt; received a &lt;code&gt;Result&lt;/code&gt; with &lt;code&gt;Ok&lt;/code&gt; and the value of the environmental variable (which was &lt;code&gt;/Users/alan&lt;/code&gt; in this case)&lt;/p&gt;`
   ]
 }
 
@@ -1019,19 +1031,6 @@ const updateSourceLines = () =&gt; {
   }
 }
 
-// const updateSourceLines = () =&gt; {
-//   for (let i = 0; i &lt; s.totalLines; i ++) {
-//     const targetNumber = s.lineSets[s.currentLineSet][i]
-//     window[`sourceLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
-//     const codeEls = window[`sourceLine_${i}`].getElementsByTagName(&#x27;code&#x27;)
-//     for (let eIndex = 0; eIndex &lt; codeEls.length; eIndex ++ ) {
-//       codeEls[eIndex].classList.add(&#x27;hljs&#x27;)
-//       codeEls[eIndex].classList.add(&#x27;language-rust&#x27;)
-//       hljs.highlightElement(codeEls[eIndex])
-//     }
-//    }
-// }
-
 const makePreviousButton = () =&gt; {
   makeEl([&#x27;button&#x27;, &#x27;previousButton&#x27;, &#x27;&amp;lt;-&#x27;, &#x27;codePreviousWrapper&#x27;, &#x27;click&#x27;, handlePreviousClick])
 }
@@ -1092,14 +1091,11 @@ const makeCodeExample = () =&gt; {
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, makeCodeExample)
+
+
 </code></pre>
             
         
-                <h2>References</h2>
-                <ul>
-                    <li><a href=""></a></li>
-                </ul>
-                
     </main>
     <footer>
       from <a href="https://www.alanwsmith.com/">alan w. smith</a>

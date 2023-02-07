@@ -27,10 +27,14 @@ c-3 {
   color: green;
 }
 
+p {
+  margin-bottom: 1.5rem;
+}
+
 #codeArea {
   display: grid;
   grid-template-columns: var(--number-column-width) 1fr;
-  background-color: #010;
+  background-color: black;
   border-top-right-radius: var(--area-radius);
   border-top-left-radius: var(--area-radius);
 }
@@ -76,6 +80,7 @@ c-3 {
   margin-right: 0.4rem;
   padding: var(--area-padding);
   grid-row: 2/span 2;
+  color: #dcd;
 }
 
 #headerArea {
@@ -87,7 +92,7 @@ c-3 {
 }
 
 #lineNumbersWrapper {
-  background-color: #034;
+  background-color: #101;
   padding: var(--area-padding);
   border-top-left-radius: var(--area-radius);
 }
@@ -95,7 +100,7 @@ c-3 {
 #outputArea {
   display: grid;
   grid-template-columns: var(--number-column-width) 1fr;
-  background-color: #011;
+  background-color: #100;
   padding: var(--area-padding);
   border-bottom-right-radius: var(--area-radius);
   border-bottom-left-radius: var(--area-radius);
@@ -111,6 +116,4 @@ c-3 {
   font-weight: bold;
   color: var(--pointer-color);
 }
-
-
 

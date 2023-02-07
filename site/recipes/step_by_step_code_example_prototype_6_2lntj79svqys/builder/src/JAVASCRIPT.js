@@ -21,14 +21,12 @@ const s = {
         `  let key = &quot;HOME&quot;;`,
       ],
       [
-
         ` `,
         `  <c-1>println!()</c-1><c-2>;</c-2>`,
         `  println!(<c-1>"checking {}"</c-1>);`,
         `  println!("checking {}"<c-2>,</c-2> <c-1>key</c-1>);`,
         `  println!("checking {}", <c-1>key</c-1>);`,
         `  println!("checking {}", key);`,
-
       ],
       [
         ` `,
@@ -109,9 +107,7 @@ const s = {
       [0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
       [0, 0, 0, 1, 0, 2, 1, 0, 0, 0, 0, 0, 0, 1, 0], 
       [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0], 
-
 //     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
-
       [0, 0, 0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 15
       [0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0], 
       [0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0], 
@@ -126,7 +122,6 @@ const s = {
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], 
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,-1, 1, 0, 0, 0], 
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0], 
-
 //     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
 
     ],
@@ -172,8 +167,7 @@ const s = {
     `<p>Which we got as the incoming value for the <code>Err()</code> arm</p>`,
     `
       <p>Putting it all together, we get our final output.</p>
-      <p>In this case, the sample output is from a case then the environmental variable existed and was read in which means <code>returnValueAsResult</code> received a <code>Result</code> with <code>Ok</code> and the value of the environmental variable (which was <code>/Users/alan</code> in this case)</p>
-    <p>If the environmental variable couldn't be retreived for some reason the <code>Result</code> that was returned would have contained an <code>Err</code> whose value contained details on the error</p>`,
+      <p>In this case, the sample output is from a case then the environmental variable existed and was read in which means <code>returnValueAsResult</code> received a <code>Result</code> with <code>Ok</code> and the value of the environmental variable (which was <code>/Users/alan</code> in this case)</p>`
   ]
 }
 
@@ -319,19 +313,6 @@ const updateSourceLines = () => {
   }
 }
 
-// const updateSourceLines = () => {
-//   for (let i = 0; i < s.totalLines; i ++) {
-//     const targetNumber = s.lineSets[s.currentLineSet][i]
-//     window[`sourceLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
-//     const codeEls = window[`sourceLine_${i}`].getElementsByTagName('code')
-//     for (let eIndex = 0; eIndex < codeEls.length; eIndex ++ ) {
-//       codeEls[eIndex].classList.add('hljs')
-//       codeEls[eIndex].classList.add('language-rust')
-//       hljs.highlightElement(codeEls[eIndex])
-//     }
-//    }
-// }
-
 const makePreviousButton = () => {
   makeEl(['button', 'previousButton', '&lt;-', 'codePreviousWrapper', 'click', handlePreviousClick])
 }
@@ -392,3 +373,5 @@ const makeCodeExample = () => {
 }
 
 document.addEventListener('DOMContentLoaded', makeCodeExample)
+
+
