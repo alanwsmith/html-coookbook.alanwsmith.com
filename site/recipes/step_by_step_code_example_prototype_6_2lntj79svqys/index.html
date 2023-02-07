@@ -34,46 +34,78 @@
 
     
     <style>
-      #codeExample {
-  display: grid;
-  grid-template-columns: 1fr 3fr
+      :root {
+    --active-button-background-color: #4677;
+    --area-padding: 0.9rem;
+    --area-radius: 0.4rem;
+    --button-font-color: #cca;
+    --number-column-width: 4.0rem;
+    --pointer-color: white;
+}
+
+button {
+  background: none;
+  border: none;
+  color: var(--button-font-color);
+  border-radius: var(--area-radius);
+}
+
+#codeButtonsWrapper {
+  padding: 0.6rem var(--area-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #codeArea {
   display: grid;
-  grid-template-columns: 2.6rem 1fr;
+  grid-template-columns: var(--number-column-width) 1fr;
   background-color: #010;
-  padding: 0.3rem;
-  border-top-right-radius: 0.4rem;
-  border-top-left-radius: 0.4rem;
+  border-top-right-radius: var(--area-radius);
+  border-top-left-radius: var(--area-radius);
 }
 
-#outputArea {
+#codeExample {
   display: grid;
-  grid-template-columns: 2.6rem 1fr;
-  background-color: #011;
-  padding: 0.3rem;
-  border-bottom-right-radius: 0.4rem;
-  border-bottom-left-radius: 0.4rem;
-  border-top: 1px solid #777;
+  grid-template-columns: 1fr 2.2fr
+}
+
+#codeWrapper {
+  padding: var(--area-padding);
 }
 
 #contentArea {
   background-color: #003;
-  border-radius: 1rem;
+  border-radius: var(--area-radius);
   margin-right: 0.4rem;
-  padding: 0.3rem;
+  padding: var(--area-padding);
 }
 
+#lineNumbersWrapper {
+  background-color: #034;
+  padding: var(--area-padding);
+  border-top-left-radius: var(--area-radius);
+}
 
+#outputArea {
+  display: grid;
+  grid-template-columns: var(--number-column-width) 1fr;
+  background-color: #011;
+  padding: var(--area-padding);
+  border-bottom-right-radius: var(--area-radius);
+  border-bottom-left-radius: var(--area-radius);
+  border-top: 1px solid #777;
+}
+
+.activeButton {
+  background-color: var(--active-button-background-color);
+  font-weight: bold;
+}
 
 .pointer {
   font-weight: bold;
-  color: white;
+  color: var(--pointer-color);
 }
-
-
-
 
 
     </style>
@@ -203,6 +235,7 @@ const handleNumberClick = (event) => {
   updateEverything(newIndex)
 }
 
+
 const updateContent = () => {
   window.contentArea.innerHTML = 
     s.content[s.currentLineSet]
@@ -223,7 +256,18 @@ const updateEverything = (newIndex) => {
   updateContent()
    updateHeader()
   updateHighlights()
+  updateButtonHighlights()
 
+}
+
+const updateButtonHighlights = () => {
+   for (let i = 0; i < s.lineSets.length; i ++) {
+     if (i === s.currentLineSet) {
+      window[`numberButton_${i}`].classList.add('activeButton')
+     } else {
+      window[`numberButton_${i}`].classList.remove('activeButton')
+     }
+   }
 }
 
 const updateHighlights = () => {
@@ -267,7 +311,7 @@ const updateSourceLines = () => {
 }
 
 const makePreviousButton = () => {
-  makeEl(['button', 'previousButton', 'Previous', 'codeButtonsWrapper', 'click', handlePreviousClick])
+  makeEl(['button', 'previousButton', '&lt;-', 'codeButtonsWrapper', 'click', handlePreviousClick])
 }
 
 const makeNumberButtons = () => {
@@ -278,7 +322,7 @@ const makeNumberButtons = () => {
 }
 
 const makeNextButton = () => {
-  makeEl(['button', 'nextButton', 'Next', 'codeButtonsWrapper', 'click', handleNextClick])
+  makeEl(['button', 'nextButton', '-&gt;', 'codeButtonsWrapper', 'click', handleNextClick])
 }
 
 const setLineCount = () => {
@@ -355,46 +399,78 @@ document.addEventListener('DOMContentLoaded', makeCodeExample)
 </code></pre>
              
             <h2>CSS</h2>
-            <pre><code class="language-css">#codeExample {
-  display: grid;
-  grid-template-columns: 1fr 3fr
+            <pre><code class="language-css">:root {
+    --active-button-background-color: #4677;
+    --area-padding: 0.9rem;
+    --area-radius: 0.4rem;
+    --button-font-color: #cca;
+    --number-column-width: 4.0rem;
+    --pointer-color: white;
+}
+
+button {
+  background: none;
+  border: none;
+  color: var(--button-font-color);
+  border-radius: var(--area-radius);
+}
+
+#codeButtonsWrapper {
+  padding: 0.6rem var(--area-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #codeArea {
   display: grid;
-  grid-template-columns: 2.6rem 1fr;
+  grid-template-columns: var(--number-column-width) 1fr;
   background-color: #010;
-  padding: 0.3rem;
-  border-top-right-radius: 0.4rem;
-  border-top-left-radius: 0.4rem;
+  border-top-right-radius: var(--area-radius);
+  border-top-left-radius: var(--area-radius);
 }
 
-#outputArea {
+#codeExample {
   display: grid;
-  grid-template-columns: 2.6rem 1fr;
-  background-color: #011;
-  padding: 0.3rem;
-  border-bottom-right-radius: 0.4rem;
-  border-bottom-left-radius: 0.4rem;
-  border-top: 1px solid #777;
+  grid-template-columns: 1fr 2.2fr
+}
+
+#codeWrapper {
+  padding: var(--area-padding);
 }
 
 #contentArea {
   background-color: #003;
-  border-radius: 1rem;
+  border-radius: var(--area-radius);
   margin-right: 0.4rem;
-  padding: 0.3rem;
+  padding: var(--area-padding);
 }
 
+#lineNumbersWrapper {
+  background-color: #034;
+  padding: var(--area-padding);
+  border-top-left-radius: var(--area-radius);
+}
 
+#outputArea {
+  display: grid;
+  grid-template-columns: var(--number-column-width) 1fr;
+  background-color: #011;
+  padding: var(--area-padding);
+  border-bottom-right-radius: var(--area-radius);
+  border-bottom-left-radius: var(--area-radius);
+  border-top: 1px solid #777;
+}
+
+.activeButton {
+  background-color: var(--active-button-background-color);
+  font-weight: bold;
+}
 
 .pointer {
   font-weight: bold;
-  color: white;
+  color: var(--pointer-color);
 }
-
-
-
 
 </code></pre>
              
@@ -521,6 +597,7 @@ const handleNumberClick = (event) =&gt; {
   updateEverything(newIndex)
 }
 
+
 const updateContent = () =&gt; {
   window.contentArea.innerHTML = 
     s.content[s.currentLineSet]
@@ -541,7 +618,18 @@ const updateEverything = (newIndex) =&gt; {
   updateContent()
    updateHeader()
   updateHighlights()
+  updateButtonHighlights()
 
+}
+
+const updateButtonHighlights = () =&gt; {
+   for (let i = 0; i &lt; s.lineSets.length; i ++) {
+     if (i === s.currentLineSet) {
+      window[`numberButton_${i}`].classList.add(&#x27;activeButton&#x27;)
+     } else {
+      window[`numberButton_${i}`].classList.remove(&#x27;activeButton&#x27;)
+     }
+   }
 }
 
 const updateHighlights = () =&gt; {
@@ -585,7 +673,7 @@ const updateSourceLines = () =&gt; {
 }
 
 const makePreviousButton = () =&gt; {
-  makeEl([&#x27;button&#x27;, &#x27;previousButton&#x27;, &#x27;Previous&#x27;, &#x27;codeButtonsWrapper&#x27;, &#x27;click&#x27;, handlePreviousClick])
+  makeEl([&#x27;button&#x27;, &#x27;previousButton&#x27;, &#x27;&amp;lt;-&#x27;, &#x27;codeButtonsWrapper&#x27;, &#x27;click&#x27;, handlePreviousClick])
 }
 
 const makeNumberButtons = () =&gt; {
@@ -596,7 +684,7 @@ const makeNumberButtons = () =&gt; {
 }
 
 const makeNextButton = () =&gt; {
-  makeEl([&#x27;button&#x27;, &#x27;nextButton&#x27;, &#x27;Next&#x27;, &#x27;codeButtonsWrapper&#x27;, &#x27;click&#x27;, handleNextClick])
+  makeEl([&#x27;button&#x27;, &#x27;nextButton&#x27;, &#x27;-&amp;gt;&#x27;, &#x27;codeButtonsWrapper&#x27;, &#x27;click&#x27;, handleNextClick])
 }
 
 const setLineCount = () =&gt; {

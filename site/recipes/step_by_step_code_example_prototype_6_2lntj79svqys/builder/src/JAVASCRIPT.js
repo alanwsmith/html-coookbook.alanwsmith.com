@@ -120,6 +120,7 @@ const handleNumberClick = (event) => {
   updateEverything(newIndex)
 }
 
+
 const updateContent = () => {
   window.contentArea.innerHTML = 
     s.content[s.currentLineSet]
@@ -140,7 +141,18 @@ const updateEverything = (newIndex) => {
   updateContent()
    updateHeader()
   updateHighlights()
+  updateButtonHighlights()
 
+}
+
+const updateButtonHighlights = () => {
+   for (let i = 0; i < s.lineSets.length; i ++) {
+     if (i === s.currentLineSet) {
+      window[`numberButton_${i}`].classList.add('activeButton')
+     } else {
+      window[`numberButton_${i}`].classList.remove('activeButton')
+     }
+   }
 }
 
 const updateHighlights = () => {
@@ -184,7 +196,7 @@ const updateSourceLines = () => {
 }
 
 const makePreviousButton = () => {
-  makeEl(['button', 'previousButton', 'Previous', 'codeButtonsWrapper', 'click', handlePreviousClick])
+  makeEl(['button', 'previousButton', '&lt;-', 'codeButtonsWrapper', 'click', handlePreviousClick])
 }
 
 const makeNumberButtons = () => {
@@ -195,7 +207,7 @@ const makeNumberButtons = () => {
 }
 
 const makeNextButton = () => {
-  makeEl(['button', 'nextButton', 'Next', 'codeButtonsWrapper', 'click', handleNextClick])
+  makeEl(['button', 'nextButton', '-&gt;', 'codeButtonsWrapper', 'click', handleNextClick])
 }
 
 const setLineCount = () => {
