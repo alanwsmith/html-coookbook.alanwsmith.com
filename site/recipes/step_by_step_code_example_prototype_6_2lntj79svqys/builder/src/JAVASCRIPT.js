@@ -137,7 +137,7 @@ const updateEverything = (newIndex) => {
   updateLineNumbers()
    updateSourceLines()
     updateOutput()
-  // updateContent()
+  updateContent()
    updateHeader()
   updateHighlights()
 
@@ -157,8 +157,6 @@ const updateHighlights = () => {
     }
   }
 }
-
-
 
 const updateLineNumbers = () => {
    for (let i = 0; i < s.totalLines; i ++) {
@@ -202,19 +200,6 @@ const makeNextButton = () => {
 
 const setLineCount = () => {
   s.totalLines = s.lineSets[0].length
-}
-
-// TODO: Clean up or remove this
-// const makeOutputSpacerLines = () => {
-const makeOutputLines = () => {
-
-  // makeEl(['pre', `lineNumberSpacer`, ' ', 'lineNumbersWrapper'])
-  // makeEl(['pre', `sourceLineSpacer`, ' ', 'codeWrapper'])
-  for (let i = 0; i < s.output.length; i ++) {
-    // makeEl(['pre', `lineNumberOutput_${i}`, 'out:', 'lineNumbersWrapper'])
-    // makeEl(['pre', `sourceLineOutput_${i}`, ' ', 'codeWrapper'])
-  }
-
 }
 
 const updateOutput = () => {

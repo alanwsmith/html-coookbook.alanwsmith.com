@@ -220,7 +220,7 @@ const updateEverything = (newIndex) => {
   updateLineNumbers()
    updateSourceLines()
     updateOutput()
-  // updateContent()
+  updateContent()
    updateHeader()
   updateHighlights()
 
@@ -240,8 +240,6 @@ const updateHighlights = () => {
     }
   }
 }
-
-
 
 const updateLineNumbers = () => {
    for (let i = 0; i < s.totalLines; i ++) {
@@ -285,19 +283,6 @@ const makeNextButton = () => {
 
 const setLineCount = () => {
   s.totalLines = s.lineSets[0].length
-}
-
-// TODO: Clean up or remove this
-// const makeOutputSpacerLines = () => {
-const makeOutputLines = () => {
-
-  // makeEl(['pre', `lineNumberSpacer`, ' ', 'lineNumbersWrapper'])
-  // makeEl(['pre', `sourceLineSpacer`, ' ', 'codeWrapper'])
-  for (let i = 0; i < s.output.length; i ++) {
-    // makeEl(['pre', `lineNumberOutput_${i}`, 'out:', 'lineNumbersWrapper'])
-    // makeEl(['pre', `sourceLineOutput_${i}`, ' ', 'codeWrapper'])
-  }
-
 }
 
 const updateOutput = () => {
@@ -553,7 +538,7 @@ const updateEverything = (newIndex) =&gt; {
   updateLineNumbers()
    updateSourceLines()
     updateOutput()
-  // updateContent()
+  updateContent()
    updateHeader()
   updateHighlights()
 
@@ -573,8 +558,6 @@ const updateHighlights = () =&gt; {
     }
   }
 }
-
-
 
 const updateLineNumbers = () =&gt; {
    for (let i = 0; i &lt; s.totalLines; i ++) {
@@ -618,19 +601,6 @@ const makeNextButton = () =&gt; {
 
 const setLineCount = () =&gt; {
   s.totalLines = s.lineSets[0].length
-}
-
-// TODO: Clean up or remove this
-// const makeOutputSpacerLines = () =&gt; {
-const makeOutputLines = () =&gt; {
-
-  // makeEl([&#x27;pre&#x27;, `lineNumberSpacer`, &#x27; &#x27;, &#x27;lineNumbersWrapper&#x27;])
-  // makeEl([&#x27;pre&#x27;, `sourceLineSpacer`, &#x27; &#x27;, &#x27;codeWrapper&#x27;])
-  for (let i = 0; i &lt; s.output.length; i ++) {
-    // makeEl([&#x27;pre&#x27;, `lineNumberOutput_${i}`, &#x27;out:&#x27;, &#x27;lineNumbersWrapper&#x27;])
-    // makeEl([&#x27;pre&#x27;, `sourceLineOutput_${i}`, &#x27; &#x27;, &#x27;codeWrapper&#x27;])
-  }
-
 }
 
 const updateOutput = () =&gt; {
