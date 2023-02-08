@@ -1,7 +1,6 @@
 const s = {
   currentSet: 0,
   lineIndexes: [],
-  maxSet: 6,
   lines: [
     [` `, `<c-1>use std::env</c-1><c-2>;</c-2>`, `use std::env;`],
     [` `, ` `],
@@ -148,7 +147,7 @@ const s = {
 }
 
 const handleNextClick = () => {
-  if (s.currentSet < s.maxSet) {
+  if (s.currentSet < s.sets.length - 1) {
     updateEverything(s.currentSet + 1)
   }
 }
@@ -218,7 +217,7 @@ const updateEverything = (setIndex) => {
   s.currentSet = setIndex
   updateLineIndexes()
   updateNotes()
-  // updateCodeLines()
+  updateCodeLines()
 }
 
 const updateLineIndexes = () => {
@@ -237,7 +236,7 @@ const updateNotes = () => {
 const updateCodeLines = () => {
   for (let i = 0; i < totalLines(); i++) {
     const targetNumber = s.lineIndexes[i]
-    window[`stepByStepCodeLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
+    window[`stepByStepCodeLine_${i}`].innerHTML = s.lines[i][targetNumber]
   }
 }
 

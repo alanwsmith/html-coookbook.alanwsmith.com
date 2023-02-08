@@ -67,7 +67,6 @@
       const s = {
   currentSet: 0,
   lineIndexes: [],
-  maxSet: 6,
   lines: [
     [` `, `<c-1>use std::env</c-1><c-2>;</c-2>`, `use std::env;`],
     [` `, ` `],
@@ -214,7 +213,7 @@
 }
 
 const handleNextClick = () => {
-  if (s.currentSet < s.maxSet) {
+  if (s.currentSet < s.sets.length - 1) {
     updateEverything(s.currentSet + 1)
   }
 }
@@ -284,7 +283,7 @@ const updateEverything = (setIndex) => {
   s.currentSet = setIndex
   updateLineIndexes()
   updateNotes()
-  // updateCodeLines()
+  updateCodeLines()
 }
 
 const updateLineIndexes = () => {
@@ -303,7 +302,7 @@ const updateNotes = () => {
 const updateCodeLines = () => {
   for (let i = 0; i < totalLines(); i++) {
     const targetNumber = s.lineIndexes[i]
-    window[`stepByStepCodeLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
+    window[`stepByStepCodeLine_${i}`].innerHTML = s.lines[i][targetNumber]
   }
 }
 
@@ -398,7 +397,6 @@ document.addEventListener('DOMContentLoaded', init)
             <pre><code class="language-js">const s = {
   currentSet: 0,
   lineIndexes: [],
-  maxSet: 6,
   lines: [
     [` `, `&lt;c-1&gt;use std::env&lt;/c-1&gt;&lt;c-2&gt;;&lt;/c-2&gt;`, `use std::env;`],
     [` `, ` `],
@@ -545,7 +543,7 @@ document.addEventListener('DOMContentLoaded', init)
 }
 
 const handleNextClick = () =&gt; {
-  if (s.currentSet &lt; s.maxSet) {
+  if (s.currentSet &lt; s.sets.length - 1) {
     updateEverything(s.currentSet + 1)
   }
 }
@@ -615,7 +613,7 @@ const updateEverything = (setIndex) =&gt; {
   s.currentSet = setIndex
   updateLineIndexes()
   updateNotes()
-  // updateCodeLines()
+  updateCodeLines()
 }
 
 const updateLineIndexes = () =&gt; {
@@ -634,7 +632,7 @@ const updateNotes = () =&gt; {
 const updateCodeLines = () =&gt; {
   for (let i = 0; i &lt; totalLines(); i++) {
     const targetNumber = s.lineIndexes[i]
-    window[`stepByStepCodeLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
+    window[`stepByStepCodeLine_${i}`].innerHTML = s.lines[i][targetNumber]
   }
 }
 
