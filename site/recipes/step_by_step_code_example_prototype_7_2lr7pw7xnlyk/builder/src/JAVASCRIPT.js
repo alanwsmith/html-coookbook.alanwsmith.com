@@ -183,6 +183,11 @@ const handleNextButtonClick = () => {
   }
 }
 
+const handleNumberButtonClick = (event) => {
+  const newIndex = parseInt(event.target.id.split('_')[1])
+  updateEverything(newIndex)
+}
+
 const handlePreviousButtonClick = () => {
   if (s.currentSet > 0) {
     updateEverything(s.currentSet - 1)
@@ -235,6 +240,20 @@ const makeNextButton = () => {
     'click',
     handleNextButtonClick
   )
+}
+
+const makeNumberButtons = () => {
+  for (let i = 0; i < s.sets.length; i++) {
+    let buttonText = i === s.sets.length - 1 ? 'Complete' : i + 1
+    makeElement(
+      'button',
+      `stepByStepNumberButton_${i}`,
+      buttonText,
+      'stepByStepButtonWrapper',
+      'click',
+      handleNumberButtonClick
+    )
+  }
 }
 
 const makeOutputLineNumbers = () => {
@@ -402,6 +421,7 @@ const init = () => {
   makePointerRows()
   makeCodeLineRows()
   makePreviousButton()
+  makeNumberButtons()
   makeNextButton()
   makeOutputLineNumbers()
   makeOutputLinePointers()

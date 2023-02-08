@@ -332,6 +332,11 @@ const handleNextButtonClick = () => {
   }
 }
 
+const handleNumberButtonClick = (event) => {
+  const newIndex = parseInt(event.target.id.split('_')[1])
+  updateEverything(newIndex)
+}
+
 const handlePreviousButtonClick = () => {
   if (s.currentSet > 0) {
     updateEverything(s.currentSet - 1)
@@ -384,6 +389,20 @@ const makeNextButton = () => {
     'click',
     handleNextButtonClick
   )
+}
+
+const makeNumberButtons = () => {
+  for (let i = 0; i < s.sets.length; i++) {
+    let buttonText = i === s.sets.length - 1 ? 'Complete' : i + 1
+    makeElement(
+      'button',
+      `stepByStepNumberButton_${i}`,
+      buttonText,
+      'stepByStepButtonWrapper',
+      'click',
+      handleNumberButtonClick
+    )
+  }
 }
 
 const makeOutputLineNumbers = () => {
@@ -551,6 +570,7 @@ const init = () => {
   makePointerRows()
   makeCodeLineRows()
   makePreviousButton()
+  makeNumberButtons()
   makeNextButton()
   makeOutputLineNumbers()
   makeOutputLinePointers()
@@ -920,6 +940,11 @@ const handleNextButtonClick = () =&gt; {
   }
 }
 
+const handleNumberButtonClick = (event) =&gt; {
+  const newIndex = parseInt(event.target.id.split(&#x27;_&#x27;)[1])
+  updateEverything(newIndex)
+}
+
 const handlePreviousButtonClick = () =&gt; {
   if (s.currentSet &gt; 0) {
     updateEverything(s.currentSet - 1)
@@ -972,6 +997,20 @@ const makeNextButton = () =&gt; {
     &#x27;click&#x27;,
     handleNextButtonClick
   )
+}
+
+const makeNumberButtons = () =&gt; {
+  for (let i = 0; i &lt; s.sets.length; i++) {
+    let buttonText = i === s.sets.length - 1 ? &#x27;Complete&#x27; : i + 1
+    makeElement(
+      &#x27;button&#x27;,
+      `stepByStepNumberButton_${i}`,
+      buttonText,
+      &#x27;stepByStepButtonWrapper&#x27;,
+      &#x27;click&#x27;,
+      handleNumberButtonClick
+    )
+  }
 }
 
 const makeOutputLineNumbers = () =&gt; {
@@ -1139,6 +1178,7 @@ const init = () =&gt; {
   makePointerRows()
   makeCodeLineRows()
   makePreviousButton()
+  makeNumberButtons()
   makeNextButton()
   makeOutputLineNumbers()
   makeOutputLinePointers()
