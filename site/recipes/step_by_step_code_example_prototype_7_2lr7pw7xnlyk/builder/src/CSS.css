@@ -1,4 +1,5 @@
 :root {
+  --active-button-color: #381;
   --base-padding: 0.8rem;
   --border-radius: 0.8rem;
   --output-color: #444;
@@ -99,6 +100,10 @@ pre {
   padding-bottom: var(--base-padding);
   padding-left: var(--lines-left-pad);
   border-bottom-right-radius: var(--border-radius);
+}
+
+.activeButton {
+  background-color: var(--active-button-color);
 }
 
 .examplePre {

@@ -34,6 +34,7 @@
     
     <style>
       :root {
+  --active-button-color: #381;
   --base-padding: 0.8rem;
   --border-radius: 0.8rem;
   --output-color: #444;
@@ -134,6 +135,10 @@ pre {
   padding-bottom: var(--base-padding);
   padding-left: var(--lines-left-pad);
   border-bottom-right-radius: var(--border-radius);
+}
+
+.activeButton {
+  background-color: var(--active-button-color);
 }
 
 .examplePre {
@@ -475,6 +480,16 @@ const totalLines = () => {
   return s.lines.length
 }
 
+const updateButtonHighlights = () => {
+  for (let i = 0; i < s.sets.length; i++) {
+    if (i === s.currentSet) {
+      window[`stepByStepNumberButton_${i}`].classList.add('activeButton')
+    } else {
+      window[`stepByStepNumberButton_${i}`].classList.remove('activeButton')
+    }
+  }
+}
+
 const updateCodeLines = () => {
   for (let i = 0; i < totalLines(); i++) {
     const targetNumber = s.lineIndexes[i]
@@ -491,6 +506,7 @@ const updateEverything = (setIndex) => {
   updateNotes()
   updateCodeLines()
   updateOutputLines()
+  updateButtonHighlights()
   updateFinalHighlights()
 }
 
@@ -644,6 +660,7 @@ document.addEventListener('DOMContentLoaded', init)
              
             <h2>CSS SOURCE</h2>
             <pre class="examplePre"><code id="exampleCSS" class="language-css hljs">:root {
+  --active-button-color: #381;
   --base-padding: 0.8rem;
   --border-radius: 0.8rem;
   --output-color: #444;
@@ -744,6 +761,10 @@ pre {
   padding-bottom: var(--base-padding);
   padding-left: var(--lines-left-pad);
   border-bottom-right-radius: var(--border-radius);
+}
+
+.activeButton {
+  background-color: var(--active-button-color);
 }
 
 .examplePre {
@@ -1083,6 +1104,16 @@ const totalLines = () =&gt; {
   return s.lines.length
 }
 
+const updateButtonHighlights = () =&gt; {
+  for (let i = 0; i &lt; s.sets.length; i++) {
+    if (i === s.currentSet) {
+      window[`stepByStepNumberButton_${i}`].classList.add(&#x27;activeButton&#x27;)
+    } else {
+      window[`stepByStepNumberButton_${i}`].classList.remove(&#x27;activeButton&#x27;)
+    }
+  }
+}
+
 const updateCodeLines = () =&gt; {
   for (let i = 0; i &lt; totalLines(); i++) {
     const targetNumber = s.lineIndexes[i]
@@ -1099,6 +1130,7 @@ const updateEverything = (setIndex) =&gt; {
   updateNotes()
   updateCodeLines()
   updateOutputLines()
+  updateButtonHighlights()
   updateFinalHighlights()
 }
 

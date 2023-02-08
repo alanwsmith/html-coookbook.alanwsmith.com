@@ -326,6 +326,16 @@ const totalLines = () => {
   return s.lines.length
 }
 
+const updateButtonHighlights = () => {
+  for (let i = 0; i < s.sets.length; i++) {
+    if (i === s.currentSet) {
+      window[`stepByStepNumberButton_${i}`].classList.add('activeButton')
+    } else {
+      window[`stepByStepNumberButton_${i}`].classList.remove('activeButton')
+    }
+  }
+}
+
 const updateCodeLines = () => {
   for (let i = 0; i < totalLines(); i++) {
     const targetNumber = s.lineIndexes[i]
@@ -342,6 +352,7 @@ const updateEverything = (setIndex) => {
   updateNotes()
   updateCodeLines()
   updateOutputLines()
+  updateButtonHighlights()
   updateFinalHighlights()
 }
 
