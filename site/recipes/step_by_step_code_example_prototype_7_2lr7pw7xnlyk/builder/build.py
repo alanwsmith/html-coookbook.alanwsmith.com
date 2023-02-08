@@ -118,74 +118,27 @@ class Builder():
     def wrap_escapes(self):
         if self.parts['HEAD'] != '':
             self.parts['ESCAPED_HEAD'] = f'''
-            <h2>&lt;head&gt;</h2>
+            <h2>&lt;head&gt; SOURCE</h2>
             <pre class="examplePre"><code id="exampleHTMLHead" class="language-html hljs">{escape(self.parts['HEAD'])}</code></pre>
             '''
 
         if self.parts['BODY'] != '':
             self.parts['ESCAPED_BODY'] = f'''
-            <h2>HTML</h2>
+            <h2>HTML SOURCE</h2>
             <pre class="examplePre"><code id="exampleHTMLBody" class="language-html hljs">{escape(self.parts['BODY'])}</code></pre>
             '''
 
         if self.parts['CSS'] != '':
             self.parts['ESCAPED_CSS'] = f'''
-            <h2>CSS</h2>
+            <h2>CSS SOURCE</h2>
             <pre class="examplePre"><code id="exampleCSS" class="language-css hljs">{escape(self.parts['CSS'])}</code></pre>
             '''
 
         if self.parts['JAVASCRIPT'] != '':
             self.parts['ESCAPED_JAVASCRIPT'] = f'''
-            <h2>JavaScript</h2>
+            <h2>JavaScript SOURCE</h2>
             <pre class="examplePre"><code id="exampleJS" class="language-js hljs">{escape(self.parts['JAVASCRIPT'])}</code></pre>
             '''
-
-
-
-
-
-
-# for part in parts:
-#     print('-----------------')
-#     print(parts)
-
-
-# with open(f'{source_dir}/src/head.html') as _head:
-#     head = _head.read()
-# with open(f'{source_dir}/src/script.js') as _script:
-#     script = _script.read()
-# with open(f'{source_dir}/src/css.css') as _css:
-#     css = _css.read()
-# with open(f'{source_dir}/src/template.html') as _template:
-#     template = _template.read()
-
-# references = []
-# for reference in config['references']:
-#     references.append(f'''
-# <li><a href="{reference['url']}">{reference['title']}</a><br />{reference['extra']}</li>
-# ''')
-#     print(reference)
-
-# skeleton = Template(parts['TEMPLATE'])
-
-# output = skeleton.substitute(
-#     parts
-#     # {
-#     #     "TITLE": config['TITLE'],
-#     #     "DESCRIPTION": config['DESCRIPTION'],
-#     #     "IMAGESLUG": urllib.parse.quote(config['TITLE']),
-#     # }
-#     # # CONTENT=content,
-#     # HEAD=parts['HEAD'],
-#     # STYLES=parts['STYLES'],
-#     # SCRIPT=parts['SCRIPT']
-#     # # ESCAPED_HTML=escape(content),
-#     # # ESCAPED_JS=escape(js),
-#     # # REFERENCES="\n".join(references),
-# )
-
-# with open(f'{base_dir}/index.html', 'w') as _output:
-#     _output.write(output)
 
 
 

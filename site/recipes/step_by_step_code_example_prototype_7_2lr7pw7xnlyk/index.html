@@ -38,7 +38,11 @@
   --border-radius: 0.8rem;
   --output-color: #444;
   --border-color-1: #aaaacc;
+  --border-color-2: #777799;
   --lines-left-pad: 1.2rem;
+  --notes-background-color: #aab;
+  --notes-font-color: black;
+  --code-background-color: black;
 }
 
 c-1 {
@@ -53,21 +57,19 @@ c-3 {
   color: green;
 }
 
-p {
-  margin-bottom: 1.5rem;
-}
-
 pre {
   line-height: 1.3rem;
 }
 
 #stepByStepNotesSpacer {
+  color: var(--notes-font-color);
   font-family: monospace;
   position: absolute;
   padding: 1ch;
   margin: 0;
-  background-color: #666;
+  background-color: var(--notes-background-color);
   border-radius: 0.4rem;
+  border: 1px solid var(--border-color-1);
 }
 
 #stepByStepWrapper {
@@ -82,6 +84,10 @@ pre {
 
 #stepByStepNotes {
   font-family: sans-serif;
+}
+
+#stepByStepNotes p:nth-child(n + 2) {
+  margin-top: 1.1rem;
 }
 
 #stepByStepLineNumbers {
@@ -104,18 +110,18 @@ pre {
   background-color: var(--output-color);
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
-  border-right: 1px solid var(--border-color-1);
+  border-right: 1px solid var(--border-color-2);
 }
 
 #stepByStepPointers {
   background-color: #002;
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
-  border-right: 1px solid var(--border-color-1);
+  border-right: 1px solid var(--border-color-2);
 }
 
 #stepByStepCodeLines {
-  background-color: #100;
+  background-color: var(--code-background-color);
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   padding-left: var(--lines-left-pad);
@@ -289,7 +295,7 @@ pre {
   ],
 
   positions: [
-    [2.8, 3.8, 32.0, 4.6], // 1
+    [2.8, 5.0, 32.0, 4.6], // 1
     [3, 0, 0, 0],
     [1.2, 1.4, 0, 0],
     [0, 0, 0, 0],
@@ -518,7 +524,7 @@ document.addEventListener('DOMContentLoaded', init)
                     <li>An experiment with putting descriptive text directly below the code line</li>
                 </ul>
                   
-            <h2>HTML</h2>
+            <h2>HTML SOURCE</h2>
             <pre class="examplePre"><code id="exampleHTMLBody" class="language-html hljs">&lt;div id=&quot;stepByStepHeader&quot;&gt;
   &lt;!-- TODO: Move this into the grid --&gt;
 &lt;/div&gt;
@@ -539,13 +545,17 @@ document.addEventListener('DOMContentLoaded', init)
 &lt;button id=&quot;nextButton&quot;&gt;Next&lt;/button&gt;
 </code></pre>
              
-            <h2>CSS</h2>
+            <h2>CSS SOURCE</h2>
             <pre class="examplePre"><code id="exampleCSS" class="language-css hljs">:root {
   --base-padding: 0.8rem;
   --border-radius: 0.8rem;
   --output-color: #444;
   --border-color-1: #aaaacc;
+  --border-color-2: #777799;
   --lines-left-pad: 1.2rem;
+  --notes-background-color: #aab;
+  --notes-font-color: black;
+  --code-background-color: black;
 }
 
 c-1 {
@@ -560,21 +570,19 @@ c-3 {
   color: green;
 }
 
-p {
-  margin-bottom: 1.5rem;
-}
-
 pre {
   line-height: 1.3rem;
 }
 
 #stepByStepNotesSpacer {
+  color: var(--notes-font-color);
   font-family: monospace;
   position: absolute;
   padding: 1ch;
   margin: 0;
-  background-color: #666;
+  background-color: var(--notes-background-color);
   border-radius: 0.4rem;
+  border: 1px solid var(--border-color-1);
 }
 
 #stepByStepWrapper {
@@ -589,6 +597,10 @@ pre {
 
 #stepByStepNotes {
   font-family: sans-serif;
+}
+
+#stepByStepNotes p:nth-child(n + 2) {
+  margin-top: 1.1rem;
 }
 
 #stepByStepLineNumbers {
@@ -611,18 +623,18 @@ pre {
   background-color: var(--output-color);
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
-  border-right: 1px solid var(--border-color-1);
+  border-right: 1px solid var(--border-color-2);
 }
 
 #stepByStepPointers {
   background-color: #002;
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
-  border-right: 1px solid var(--border-color-1);
+  border-right: 1px solid var(--border-color-2);
 }
 
 #stepByStepCodeLines {
-  background-color: #100;
+  background-color: var(--code-background-color);
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   padding-left: var(--lines-left-pad);
@@ -645,7 +657,7 @@ pre {
 </code></pre>
             
       
-            <h2>JavaScript</h2>
+            <h2>JavaScript SOURCE</h2>
             <pre class="examplePre"><code id="exampleJS" class="language-js hljs">const s = {
   currentSet: 0,
   lineIndexes: [],
@@ -794,7 +806,7 @@ pre {
   ],
 
   positions: [
-    [2.8, 3.8, 32.0, 4.6], // 1
+    [2.8, 5.0, 32.0, 4.6], // 1
     [3, 0, 0, 0],
     [1.2, 1.4, 0, 0],
     [0, 0, 0, 0],

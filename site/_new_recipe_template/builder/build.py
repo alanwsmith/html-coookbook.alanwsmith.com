@@ -118,25 +118,25 @@ class Builder():
     def wrap_escapes(self):
         if self.parts['HEAD'] != '':
             self.parts['ESCAPED_HEAD'] = f'''
-            <h2>&lt;head&gt;</h2>
+            <h2>&lt;head&gt; Source</h2>
             <pre><code class="language-html">{escape(self.parts['HEAD'])}</code></pre>
             '''
 
         if self.parts['BODY'] != '':
             self.parts['ESCAPED_BODY'] = f'''
-            <h2>HTML</h2>
+            <h2>HTML Source</h2>
             <pre><code class="language-html">{escape(self.parts['BODY'])}</code></pre>
             '''
 
         if self.parts['CSS'] != '':
             self.parts['ESCAPED_CSS'] = f'''
-            <h2>CSS</h2>
+            <h2>CSS Source</h2>
             <pre><code class="language-css">{escape(self.parts['CSS'])}</code></pre>
             '''
 
         if self.parts['JAVASCRIPT'] != '':
             self.parts['ESCAPED_JAVASCRIPT'] = f'''
-            <h2>JavaScript</h2>
+            <h2>JavaScript Source</h2>
             <pre><code class="language-js">{escape(self.parts['JAVASCRIPT'])}</code></pre>
             '''
 
