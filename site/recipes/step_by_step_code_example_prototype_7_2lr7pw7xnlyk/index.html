@@ -40,12 +40,9 @@
 #stepByStepNotesSpacer {
   font-family: monospace;
   position: absolute;
-  top: 2.3rem;
-  left: 5ch;
   padding: 1ch;
   margin: 0;
-  background-color: #002;
-  min-width: 60ch;
+  background-color: #666;
 }
 
 #stepByStepWrapper {
@@ -210,6 +207,12 @@
       <p>In this case, the sample output is from a case then the environmental variable existed and was read in which means <code>returnValueAsResult</code> received a <code>Result</code> with <code>Ok</code> and the value of the environmental variable (which was <code>/Users/alan</code> in this case)</p>
     `,
   ],
+  positions: [
+    [2.4, 4.8, 40.0],
+    [5.2, 4.8, 40.0],
+    [5.2, 4.8, 40.0],
+    [5.2, 4.8, 40.0],
+  ],
 }
 
 const handleNextClick = () => {
@@ -278,10 +281,18 @@ const totalLines = () => {
   return s.lines.length
 }
 
+const updateCodeLines = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    const targetNumber = s.lineIndexes[i]
+    window[`stepByStepCodeLine_${i}`].innerHTML = s.lines[i][targetNumber]
+  }
+}
+
 const updateEverything = (setIndex) => {
   console.log(`Updating to: ${setIndex}`)
   s.currentSet = setIndex
   updateLineIndexes()
+  updatePositions()
   updateNotes()
   updateCodeLines()
 }
@@ -299,11 +310,12 @@ const updateNotes = () => {
   window.stepByStepNotes.innerHTML = s.notes[s.currentSet]
 }
 
-const updateCodeLines = () => {
-  for (let i = 0; i < totalLines(); i++) {
-    const targetNumber = s.lineIndexes[i]
-    window[`stepByStepCodeLine_${i}`].innerHTML = s.lines[i][targetNumber]
-  }
+const updatePositions = () => {
+  window.stepByStepNotesSpacer.style.top = `${s.positions[s.currentSet][0]}rem`
+  window.stepByStepNotesSpacer.style.left = `${s.positions[s.currentSet][1]}rem`
+  window.stepByStepNotesSpacer.style.width = `${
+    s.positions[s.currentSet][2]
+  }rem`
 }
 
 const init = () => {
@@ -370,12 +382,9 @@ document.addEventListener('DOMContentLoaded', init)
 #stepByStepNotesSpacer {
   font-family: monospace;
   position: absolute;
-  top: 2.3rem;
-  left: 5ch;
   padding: 1ch;
   margin: 0;
-  background-color: #002;
-  min-width: 60ch;
+  background-color: #666;
 }
 
 #stepByStepWrapper {
@@ -540,6 +549,12 @@ document.addEventListener('DOMContentLoaded', init)
       &lt;p&gt;In this case, the sample output is from a case then the environmental variable existed and was read in which means &lt;code&gt;returnValueAsResult&lt;/code&gt; received a &lt;code&gt;Result&lt;/code&gt; with &lt;code&gt;Ok&lt;/code&gt; and the value of the environmental variable (which was &lt;code&gt;/Users/alan&lt;/code&gt; in this case)&lt;/p&gt;
     `,
   ],
+  positions: [
+    [2.4, 4.8, 40.0],
+    [5.2, 4.8, 40.0],
+    [5.2, 4.8, 40.0],
+    [5.2, 4.8, 40.0],
+  ],
 }
 
 const handleNextClick = () =&gt; {
@@ -608,10 +623,18 @@ const totalLines = () =&gt; {
   return s.lines.length
 }
 
+const updateCodeLines = () =&gt; {
+  for (let i = 0; i &lt; totalLines(); i++) {
+    const targetNumber = s.lineIndexes[i]
+    window[`stepByStepCodeLine_${i}`].innerHTML = s.lines[i][targetNumber]
+  }
+}
+
 const updateEverything = (setIndex) =&gt; {
   console.log(`Updating to: ${setIndex}`)
   s.currentSet = setIndex
   updateLineIndexes()
+  updatePositions()
   updateNotes()
   updateCodeLines()
 }
@@ -629,11 +652,12 @@ const updateNotes = () =&gt; {
   window.stepByStepNotes.innerHTML = s.notes[s.currentSet]
 }
 
-const updateCodeLines = () =&gt; {
-  for (let i = 0; i &lt; totalLines(); i++) {
-    const targetNumber = s.lineIndexes[i]
-    window[`stepByStepCodeLine_${i}`].innerHTML = s.lines[i][targetNumber]
-  }
+const updatePositions = () =&gt; {
+  window.stepByStepNotesSpacer.style.top = `${s.positions[s.currentSet][0]}rem`
+  window.stepByStepNotesSpacer.style.left = `${s.positions[s.currentSet][1]}rem`
+  window.stepByStepNotesSpacer.style.width = `${
+    s.positions[s.currentSet][2]
+  }rem`
 }
 
 const init = () =&gt; {

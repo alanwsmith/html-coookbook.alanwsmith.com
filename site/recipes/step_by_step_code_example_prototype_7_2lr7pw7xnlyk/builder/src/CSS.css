@@ -5,12 +5,9 @@ pre {
 #stepByStepNotesSpacer {
   font-family: monospace;
   position: absolute;
-  top: 2.3rem;
-  left: 5ch;
   padding: 1ch;
   margin: 0;
-  background-color: #002;
-  min-width: 60ch;
+  background-color: #666;
 }
 
 #stepByStepWrapper {
