@@ -40,7 +40,7 @@ pre {
 #stepByStepWrapper {
   font-family: monospace;
   position: relative;
-  margin: 0;
+  margin-bottom: 1.3rem;
   padding: 0;
   display: grid;
   grid-template-columns: 6ch 2ch 1fr;

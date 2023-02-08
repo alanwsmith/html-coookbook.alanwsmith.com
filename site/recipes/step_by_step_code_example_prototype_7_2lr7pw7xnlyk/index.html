@@ -75,7 +75,7 @@ pre {
 #stepByStepWrapper {
   font-family: monospace;
   position: relative;
-  margin: 0;
+  margin-bottom: 1.3rem;
   padding: 0;
   display: grid;
   grid-template-columns: 6ch 2ch 1fr;
@@ -375,6 +375,48 @@ const makeLineNumberRows = () => {
   }
 }
 
+const makeOutputLineNumbers = () => {
+  for (let i = 0; i < s.output.length; i++) {
+    const theText = i === 0 ? 'out' : ' '
+    makeElement(
+      'pre',
+      `stepByStepOutputLineNumber_${i}`,
+      theText,
+      'stepByStepOutputNumbers',
+      null,
+      null
+    )
+  }
+}
+
+const makeOutputLines = () => {
+  for (let i = 0; i < s.output.length; i++) {
+    const theText = i === 0 ? 'out' : ' '
+    makeElement(
+      'pre',
+      `stepByStepOutputLine_${i}`,
+      theText,
+      'stepByStepOutputLines',
+      null,
+      null
+    )
+  }
+}
+
+const makeOutputLinePointers = () => {
+  for (let i = 0; i < s.output.length; i++) {
+    const theText = i === 0 ? ':' : ' '
+    makeElement(
+      'pre',
+      `stepByStepOutputPointer_${i}`,
+      theText,
+      'stepByStepOutputPointers',
+      null,
+      null
+    )
+  }
+}
+
 const makePointerRows = () => {
   for (let i = 0; i < totalLines(); i++) {
     makeElement(
@@ -407,6 +449,7 @@ const updateEverything = (setIndex) => {
   updatePositions()
   updateNotes()
   updateCodeLines()
+  updateOutputLines()
   updateFinalHighlights()
 }
 
@@ -440,13 +483,24 @@ const updateNotes = () => {
   window.stepByStepNotes.innerHTML = s.notes[s.currentSet]
 }
 
+const updateOutputLines = () => {
+  for (let i = 0; i < s.output.length; i++) {
+    if (s.currentSet === s.sets.length - 1) {
+      window[`stepByStepOutputLine_${i}`].innerHTML = s.output[i]
+    } else {
+      // clear output for moving to previous line sets
+      window[`stepByStepOutputLine_${i}`].innerHTML = ' '
+    }
+  }
+}
+
 const updatePointers = () => {
   for (let i = 0; i < totalLines(); i++) {
     // can probably refactor this a little
     const checkIndex = s.lines[i].length - 1
     const currentIndex = s.lineIndexes[i]
     if (currentIndex > 0 && currentIndex < checkIndex) {
-      window[`stepByStepPointer_${i}`].innerHTML = '*'
+      window[`stepByStepPointer_${i}`].innerHTML = '&gt;'
     } else {
       window[`stepByStepPointer_${i}`].innerHTML = ' '
     }
@@ -457,12 +511,12 @@ const updatePositions = () => {
   let positionTop = 0
   let positionLeft = 0
   let positionWidth = 0
-  let positionHeight = 0
+  // let positionHeight = 0
   for (let i = 0; i <= s.currentSet; i++) {
     positionTop += s.positions[i][0]
     positionLeft += s.positions[i][1]
     positionWidth += s.positions[i][2]
-    positionHeight += s.positions[i][3]
+    // positionHeight += s.positions[i][3]
   }
   window.stepByStepNotesSpacer.style.top = `${positionTop}rem`
   window.stepByStepNotesSpacer.style.left = `${positionLeft}rem`
@@ -474,6 +528,9 @@ const init = () => {
   makeLineNumberRows()
   makePointerRows()
   makeCodeLineRows()
+  makeOutputLineNumbers()
+  makeOutputLinePointers()
+  makeOutputLines()
   window.previousButton.addEventListener('click', handlePreviousClick)
   window.nextButton.addEventListener('click', handleNextClick)
   updateEverything(0)
@@ -508,9 +565,9 @@ document.addEventListener('DOMContentLoaded', init)
   <div id="stepByStepLineNumbers"></div>
   <div id="stepByStepPointers"></div>
   <div id="stepByStepCodeLines"></div>
-  <div id="stepByStepOutputNumbers"><pre>out</pre></div>
-  <div id="stepByStepOutputPointers"><pre>:</pre></div>
-  <div id="stepByStepOutputLines"><pre>this is some output</pre></div>
+  <div id="stepByStepOutputNumbers"></div>
+  <div id="stepByStepOutputPointers"></div>
+  <div id="stepByStepOutputLines"></div>
   <div id="stepByStepNotesSpacer">
     <div id="stepByStepNotes"></div>
   </div>
@@ -533,9 +590,9 @@ document.addEventListener('DOMContentLoaded', init)
   &lt;div id=&quot;stepByStepLineNumbers&quot;&gt;&lt;/div&gt;
   &lt;div id=&quot;stepByStepPointers&quot;&gt;&lt;/div&gt;
   &lt;div id=&quot;stepByStepCodeLines&quot;&gt;&lt;/div&gt;
-  &lt;div id=&quot;stepByStepOutputNumbers&quot;&gt;&lt;pre&gt;out&lt;/pre&gt;&lt;/div&gt;
-  &lt;div id=&quot;stepByStepOutputPointers&quot;&gt;&lt;pre&gt;:&lt;/pre&gt;&lt;/div&gt;
-  &lt;div id=&quot;stepByStepOutputLines&quot;&gt;&lt;pre&gt;this is some output&lt;/pre&gt;&lt;/div&gt;
+  &lt;div id=&quot;stepByStepOutputNumbers&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;stepByStepOutputPointers&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;stepByStepOutputLines&quot;&gt;&lt;/div&gt;
   &lt;div id=&quot;stepByStepNotesSpacer&quot;&gt;
     &lt;div id=&quot;stepByStepNotes&quot;&gt;&lt;/div&gt;
   &lt;/div&gt;
@@ -588,7 +645,7 @@ pre {
 #stepByStepWrapper {
   font-family: monospace;
   position: relative;
-  margin: 0;
+  margin-bottom: 1.3rem;
   padding: 0;
   display: grid;
   grid-template-columns: 6ch 2ch 1fr;
@@ -886,6 +943,48 @@ const makeLineNumberRows = () =&gt; {
   }
 }
 
+const makeOutputLineNumbers = () =&gt; {
+  for (let i = 0; i &lt; s.output.length; i++) {
+    const theText = i === 0 ? &#x27;out&#x27; : &#x27; &#x27;
+    makeElement(
+      &#x27;pre&#x27;,
+      `stepByStepOutputLineNumber_${i}`,
+      theText,
+      &#x27;stepByStepOutputNumbers&#x27;,
+      null,
+      null
+    )
+  }
+}
+
+const makeOutputLines = () =&gt; {
+  for (let i = 0; i &lt; s.output.length; i++) {
+    const theText = i === 0 ? &#x27;out&#x27; : &#x27; &#x27;
+    makeElement(
+      &#x27;pre&#x27;,
+      `stepByStepOutputLine_${i}`,
+      theText,
+      &#x27;stepByStepOutputLines&#x27;,
+      null,
+      null
+    )
+  }
+}
+
+const makeOutputLinePointers = () =&gt; {
+  for (let i = 0; i &lt; s.output.length; i++) {
+    const theText = i === 0 ? &#x27;:&#x27; : &#x27; &#x27;
+    makeElement(
+      &#x27;pre&#x27;,
+      `stepByStepOutputPointer_${i}`,
+      theText,
+      &#x27;stepByStepOutputPointers&#x27;,
+      null,
+      null
+    )
+  }
+}
+
 const makePointerRows = () =&gt; {
   for (let i = 0; i &lt; totalLines(); i++) {
     makeElement(
@@ -918,6 +1017,7 @@ const updateEverything = (setIndex) =&gt; {
   updatePositions()
   updateNotes()
   updateCodeLines()
+  updateOutputLines()
   updateFinalHighlights()
 }
 
@@ -951,13 +1051,24 @@ const updateNotes = () =&gt; {
   window.stepByStepNotes.innerHTML = s.notes[s.currentSet]
 }
 
+const updateOutputLines = () =&gt; {
+  for (let i = 0; i &lt; s.output.length; i++) {
+    if (s.currentSet === s.sets.length - 1) {
+      window[`stepByStepOutputLine_${i}`].innerHTML = s.output[i]
+    } else {
+      // clear output for moving to previous line sets
+      window[`stepByStepOutputLine_${i}`].innerHTML = &#x27; &#x27;
+    }
+  }
+}
+
 const updatePointers = () =&gt; {
   for (let i = 0; i &lt; totalLines(); i++) {
     // can probably refactor this a little
     const checkIndex = s.lines[i].length - 1
     const currentIndex = s.lineIndexes[i]
     if (currentIndex &gt; 0 &amp;&amp; currentIndex &lt; checkIndex) {
-      window[`stepByStepPointer_${i}`].innerHTML = &#x27;*&#x27;
+      window[`stepByStepPointer_${i}`].innerHTML = &#x27;&amp;gt;&#x27;
     } else {
       window[`stepByStepPointer_${i}`].innerHTML = &#x27; &#x27;
     }
@@ -968,12 +1079,12 @@ const updatePositions = () =&gt; {
   let positionTop = 0
   let positionLeft = 0
   let positionWidth = 0
-  let positionHeight = 0
+  // let positionHeight = 0
   for (let i = 0; i &lt;= s.currentSet; i++) {
     positionTop += s.positions[i][0]
     positionLeft += s.positions[i][1]
     positionWidth += s.positions[i][2]
-    positionHeight += s.positions[i][3]
+    // positionHeight += s.positions[i][3]
   }
   window.stepByStepNotesSpacer.style.top = `${positionTop}rem`
   window.stepByStepNotesSpacer.style.left = `${positionLeft}rem`
@@ -985,6 +1096,9 @@ const init = () =&gt; {
   makeLineNumberRows()
   makePointerRows()
   makeCodeLineRows()
+  makeOutputLineNumbers()
+  makeOutputLinePointers()
+  makeOutputLines()
   window.previousButton.addEventListener(&#x27;click&#x27;, handlePreviousClick)
   window.nextButton.addEventListener(&#x27;click&#x27;, handleNextClick)
   updateEverything(0)

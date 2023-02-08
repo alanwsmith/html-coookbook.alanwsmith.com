@@ -226,6 +226,48 @@ const makeLineNumberRows = () => {
   }
 }
 
+const makeOutputLineNumbers = () => {
+  for (let i = 0; i < s.output.length; i++) {
+    const theText = i === 0 ? 'out' : ' '
+    makeElement(
+      'pre',
+      `stepByStepOutputLineNumber_${i}`,
+      theText,
+      'stepByStepOutputNumbers',
+      null,
+      null
+    )
+  }
+}
+
+const makeOutputLines = () => {
+  for (let i = 0; i < s.output.length; i++) {
+    const theText = i === 0 ? 'out' : ' '
+    makeElement(
+      'pre',
+      `stepByStepOutputLine_${i}`,
+      theText,
+      'stepByStepOutputLines',
+      null,
+      null
+    )
+  }
+}
+
+const makeOutputLinePointers = () => {
+  for (let i = 0; i < s.output.length; i++) {
+    const theText = i === 0 ? ':' : ' '
+    makeElement(
+      'pre',
+      `stepByStepOutputPointer_${i}`,
+      theText,
+      'stepByStepOutputPointers',
+      null,
+      null
+    )
+  }
+}
+
 const makePointerRows = () => {
   for (let i = 0; i < totalLines(); i++) {
     makeElement(
@@ -258,6 +300,7 @@ const updateEverything = (setIndex) => {
   updatePositions()
   updateNotes()
   updateCodeLines()
+  updateOutputLines()
   updateFinalHighlights()
 }
 
@@ -291,13 +334,24 @@ const updateNotes = () => {
   window.stepByStepNotes.innerHTML = s.notes[s.currentSet]
 }
 
+const updateOutputLines = () => {
+  for (let i = 0; i < s.output.length; i++) {
+    if (s.currentSet === s.sets.length - 1) {
+      window[`stepByStepOutputLine_${i}`].innerHTML = s.output[i]
+    } else {
+      // clear output for moving to previous line sets
+      window[`stepByStepOutputLine_${i}`].innerHTML = ' '
+    }
+  }
+}
+
 const updatePointers = () => {
   for (let i = 0; i < totalLines(); i++) {
     // can probably refactor this a little
     const checkIndex = s.lines[i].length - 1
     const currentIndex = s.lineIndexes[i]
     if (currentIndex > 0 && currentIndex < checkIndex) {
-      window[`stepByStepPointer_${i}`].innerHTML = '*'
+      window[`stepByStepPointer_${i}`].innerHTML = '&gt;'
     } else {
       window[`stepByStepPointer_${i}`].innerHTML = ' '
     }
@@ -308,12 +362,12 @@ const updatePositions = () => {
   let positionTop = 0
   let positionLeft = 0
   let positionWidth = 0
-  let positionHeight = 0
+  // let positionHeight = 0
   for (let i = 0; i <= s.currentSet; i++) {
     positionTop += s.positions[i][0]
     positionLeft += s.positions[i][1]
     positionWidth += s.positions[i][2]
-    positionHeight += s.positions[i][3]
+    // positionHeight += s.positions[i][3]
   }
   window.stepByStepNotesSpacer.style.top = `${positionTop}rem`
   window.stepByStepNotesSpacer.style.left = `${positionLeft}rem`
@@ -325,6 +379,9 @@ const init = () => {
   makeLineNumberRows()
   makePointerRows()
   makeCodeLineRows()
+  makeOutputLineNumbers()
+  makeOutputLinePointers()
+  makeOutputLines()
   window.previousButton.addEventListener('click', handlePreviousClick)
   window.nextButton.addEventListener('click', handleNextClick)
   updateEverything(0)
