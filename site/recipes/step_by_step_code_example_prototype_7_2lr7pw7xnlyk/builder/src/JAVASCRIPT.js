@@ -78,10 +78,10 @@ const s = {
   output: ['checking HOME', 'got /Users/alan'],
 
   notes: [
-    `<p>This is what the full solution looks like.</p><p>Click the buttons below to got through it step by step</p>`,
+    `<p>This is what the full solution looks like.</p><p>Click the buttons below to go through it step by step</p>`,
     `<p>Load the <code>std::env</code> library which gives us access to environmental variables</p>`,
     `<p>Create the <code>main()</code> function that will be used to kick things off in the program</p>`,
-    `<p>The program will search for Create an immutable variable named <code>key</code> with "HOME" bound to it</p>`,
+    `<p>This line requests an environmental variable named &quot;<code>HOME</code>&quot;. The value returned by <code>env::var</code> is a <code>Result</code> which is bound to the immutable variable <code>env_var_result</code></p>`,
     `
       <p>Bind a string literal with <code>HOME</code> to the <code>key</code> variable</p>
       <p>This matches the <code>HOME</code> environmental variable that's available in the Code Runners</p>
@@ -119,7 +119,7 @@ const s = {
   ],
 
   positions: [
-    [101, 130, 16, 0],
+    [1, 30, 16, 0],
     [1.8, -25.0, 16.0, 0], // 1
     [3, 0, 0, 0],
     [1.2, 1.4, 0, 0],
