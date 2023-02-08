@@ -34,11 +34,16 @@
     
     <style>
       :root {
+  --active-button-color: #381;
   --base-padding: 0.8rem;
   --border-radius: 0.8rem;
   --output-color: #444;
-  --border-color-1: #aaaacc;
+  --border-color-1: #fff;
+  --border-color-2: #779;
   --lines-left-pad: 1.2rem;
+  --notes-background-color: #99a;
+  --notes-font-color: black;
+  --code-background-color: black;
 }
 
 c-1 {
@@ -53,27 +58,25 @@ c-3 {
   color: green;
 }
 
-p {
-  margin-bottom: 1.5rem;
-}
-
 pre {
   line-height: 1.3rem;
 }
 
 #stepByStepNotesSpacer {
+  color: var(--notes-font-color);
   font-family: monospace;
   position: absolute;
   padding: 1ch;
   margin: 0;
-  background-color: #666;
+  background-color: var(--notes-background-color);
   border-radius: 0.4rem;
+  border: 1px solid var(--border-color-1);
 }
 
 #stepByStepWrapper {
   font-family: monospace;
   position: relative;
-  margin: 0;
+  margin-bottom: 1.3rem;
   padding: 0;
   display: grid;
   grid-template-columns: 6ch 2ch 1fr;
@@ -82,6 +85,10 @@ pre {
 
 #stepByStepNotes {
   font-family: sans-serif;
+}
+
+#stepByStepNotes p:nth-child(n + 2) {
+  margin-top: 1.1rem;
 }
 
 #stepByStepLineNumbers {
@@ -104,18 +111,18 @@ pre {
   background-color: var(--output-color);
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
-  border-right: 1px solid var(--border-color-1);
+  border-right: 1px solid var(--border-color-2);
 }
 
 #stepByStepPointers {
   background-color: #002;
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
-  border-right: 1px solid var(--border-color-1);
+  border-right: 1px solid var(--border-color-2);
 }
 
 #stepByStepCodeLines {
-  background-color: #100;
+  background-color: var(--code-background-color);
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   padding-left: var(--lines-left-pad);
@@ -128,6 +135,10 @@ pre {
   padding-bottom: var(--base-padding);
   padding-left: var(--lines-left-pad);
   border-bottom-right-radius: var(--border-radius);
+}
+
+.activeButton {
+  background-color: var(--active-button-color);
 }
 
 .examplePre {
@@ -145,113 +156,86 @@ pre {
   currentSet: 0,
   lineIndexes: [],
   lines: [
-    [` `, `<c-1>use std::env</c-1><c-2>;</c-2>`, `use std::env;`],
-    [` `, ` `],
-    [` `, `<c-1>fn main()</c-1> <c-2>{</c-2>`, `fn main() {`],
+    [`use std::env;`, `<c-1>use std::env</c-1><c-2>;</c-2>`, `use std::env;`],
+    [``, ``],
+    [`fn main() {`, ``, `<c-1>fn main()</c-1> <c-2>{</c-2>`, `fn main() {`],
     [
-      ` `,
-      `  <c-1>let key </c-1><c-2>=</c-2>`,
-      `  let key = <c-1>&quot;HOME&quot;</c-1><c-2>;</c-2>`,
-      `  let <c-3>key</c-3> = &quot;HOME&quot;;`,
-      `  let key = &quot;HOME&quot;;`,
+      `  let envVarResult = env::var(&quot;HOME&quot;);`,
+      ``,
+      `  <c-1>let envVarResult</c-1> <c-2>=</c-2> <c-1>env::var(&quot;HOME&quot;)</c-1><c-2>;</c-2>`,
+      `  let envVarResult = env::var(&quot;HOME&quot;);`,
+      `  let <c-3>envVarResult</c-3> = env::var(&quot;HOME&quot;);`,
+      `  let envVarResult = env::var(&quot;HOME&quot;);`,
     ],
     [
-      ` `,
-      `  <c-1>println!()</c-1><c-2>;</c-2>`,
-      `  println!(<c-1>"checking {}"</c-1>);`,
-      `  println!("checking {}"<c-2>,</c-2> <c-1>key</c-1>);`,
-      `  println!("checking {}", <c-1>key</c-1>);`,
-      `  println!("checking {}", key);`,
+      `  match envVarResult {`,
+      ``,
+      `  <c-1>match envVarResult</c-1> <c-2>{</c-2>`,
+      `  match <c-1>envVarResult</c-1> {`,
+      `  match envVarResult {`,
     ],
     [
-      ` `,
-      `  <c-1>let returnValueAsResult </c-1><c-2>=</c-2>`,
-      `  let returnValueAsResult = <c-1>env::var<c-1>()<c-2>;</c-2>`,
-      `  let returnValueAsResult = env::var(<c-1>key</c-1>);`,
-      `  let <c-3>returnValueAsResult</c-3> = env::var(key);`,
-      `  let returnValueAsResult = env::var(key);`,
-    ],
-    [
-      ` `,
-      `  <c-1>match</c-1> <c-2>{</c-2>`,
-      `  match <c-1>returnValueAsResult</c-1> {`,
-      `  match returnValueAsResult {`,
-    ],
-    [
-      ` `,
+      `    Ok(item) => {`,
+      ``,
       `    <c-1>Ok() =></c-1> <c-2>{</c-2>`,
       `    Ok(<c-1>item</c-1>) => {`,
       `    Ok(<c-3>item</c-3>) => {`,
       `    Ok(item) => {`,
     ],
     [
-      ` `,
-      `      <c-1>println!()</c-1><c-2>;</c-2>`,
-      `      println!(<c-1>&quot;got {}&quot;</c-1>);`,
-      `      println!(&quot;got {}&quot;<c-2>,</c-2> <c-1>item</c-1>);`,
+      `      println!(&quot;got {}&quot;, item);`,
+      ``,
+      `      <c-1>println!(&quot;got {}&quot;, item)</c-1><c-2>;</c-2>`,
       `      println!(&quot;got {}&quot;, <c-1>item</c-1>);`,
       `      println!(&quot;got {}&quot;, item);`,
     ],
-    [` `, `    <c-2>}</c-2>`, `    }`],
+    [`    }`, ``, `    <c-2>}</c-2>`, `    }`],
     [
-      ` `,
+      `    Err(error) => {`,
+      ``,
       `    <c-1>Err() => </c-1><c-2>{</c-2>`,
       `    Err(<c-1>error</c-1>) => {`,
+      `    Err(error) => {`,
       `    Err(<c-3>error</c-3>) => {`,
       `    Err(error) => {`,
     ],
     [
-      ` `,
-      `      <c-1>println!()</c-1><c-2>;</c-2>`,
-      `      println!(<c-1>&quot;error {}&quot;</c-1>);`,
-      `      println!(&quot;error {}&quot;<c-2>,</c-2> <c-1>error</c-1>);`,
+      `      println!(&quot;error {}&quot;, error);`,
+      ``,
+      `      <c-1>println!(&quot;error {}&quot;, error)</c-1>;`,
       `      println!(&quot;error {}&quot;, <c-1>error</c-1>);`,
       `      println!(&quot;error {}&quot;, error);`,
     ],
-    [` `, `    <c-2>}</c-2>`, `    }`],
-    [` `, `  <c-2>}</c-2>`, `  }`],
-    [` `, `<c-2>}</c-2>`, `}`],
+    [`    }`, ``, `    <c-2>}</c-2>`, `    }`],
+    [`  }`, ``, `  <c-2>}</c-2>`, `  }`],
+    [`}`, ``, `<c-2>}</c-2>`, `}`],
   ],
 
   sets: [
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 1
-    [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 5
-    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, -1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 10
-    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0, 2, 1, 0, 0, 0, 0, 0, 0, 1, 0],
-    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0],
-    //     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
-    [0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 15
-    [0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], // 20
-    [0, 0, 0, 0, 0, 0, 0, -1, 1, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], // 25
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
-    //     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], // 1
+    [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1], // 3
+    [0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0],
+    [0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0], // 5
+    [0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0], // 7
+    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0], // 9
+    [0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0], // 11
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0], // 13
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
   ],
 
   output: ['checking HOME', 'got /Users/alan'],
 
   notes: [
+    `<p>This is what the full solution looks like.</p><p>Click the buttons below to go through it step by step</p>`,
     `<p>Load the <code>std::env</code> library which gives us access to environmental variables</p>`,
-    `<p>Create the <code>main()</code> function</p>`,
-    `<p>Begin creating an immutable <code>key</code> variable</p>`,
+    `<p>Create the <code>main()</code> function that will be used to kick things off in the program</p>`,
+    `<p>This line requests an environmental variable named &quot;<code>HOME</code>&quot;. The value returned by <code>env::var</code> is a <code>Result</code> which is bound to the immutable variable <code>env_var_result</code></p>`,
     `
       <p>Bind a string literal with <code>HOME</code> to the <code>key</code> variable</p>
       <p>This matches the <code>HOME</code> environmental variable that's available in the Code Runners</p>
@@ -260,7 +244,7 @@ pre {
     `<p>Add the format string</p>`,
     `<p>And setup to use the value from <code>key</code></p>`,
     `<p>Which comes from the line above it</p>`,
-    `<p>Start creating a <code>returnValueAsResult</code> immutable variable</p>`,
+    `<p>Start creating a <code>envVarResult</code> immutable variable</p>`,
     `
       <p>The <code>env::var()</code> method is what's used to access individual environmental variables.</p>
       <p>The expression returns a <code>Result</code> value that will handle with the upcoming <code>match</code> statement</p>
@@ -268,8 +252,8 @@ pre {
     `<p>Insert the <code>key</code> variable name to finish the expression and define that we want the <code>HOME</code> environmental variable</p>`,
     `<p>The value for <code>key</code> comes from the variable on line 4</p>`,
     `<p>Begin creating the match expression</p>`,
-    `<p>Setup the <code>match</code> expression to examine the <code>returnValueAsResult</code> variable</p>`,
-    `<p>This is the same <code>returnValueAsResult</code> variable as the one from the line above</p>`,
+    `<p>Setup the <code>match</code> expression to examine the <code>envVarResult</code> variable</p>`,
+    `<p>This is the same <code>envVarResult</code> variable as the one from the line above</p>`,
     `<p>Now we start creating the <code>Ok()</code> expression which is the first of the two required arms of the <code>match</code> expression when used with a Result value</p>`,
     `<p>The <code>Ok()</code> portion of a <code>Result</code> contains a value that we can pull out. We're doing that here by assigning the incoming value to a variable named <code>item</code></p>`,
     `<p>Next we start to fill out the code we want to run if the <code>Result</code> is <code>Ok()</code>. Here were using a <code>println!()</code> expression but we could also call a function or return a value (TODO: Verify values can be returned)</p>`,
@@ -284,12 +268,13 @@ pre {
     `<p>Which we got as the incoming value for the <code>Err()</code> arm</p>`,
     `
       <p>Putting it all together, we get our final output.</p>
-      <p>In this case, the sample output is from a case then the environmental variable existed and was read in which means <code>returnValueAsResult</code> received a <code>Result</code> with <code>Ok</code> and the value of the environmental variable (which was <code>/Users/alan</code> in this case)</p>
+      <p>In this case, the sample output is from a case then the environmental variable existed and was read in which means <code>envVarResult</code> received a <code>Result</code> with <code>Ok</code> and the value of the environmental variable (which was <code>/Users/alan</code> in this case)</p>
     `,
   ],
 
   positions: [
-    [2.8, 3.8, 32.0, 4.6], // 1
+    [1, 30, 16, 0],
+    [1.8, -25.0, 16.0, 0], // 1
     [3, 0, 0, 0],
     [1.2, 1.4, 0, 0],
     [0, 0, 0, 0],
@@ -310,23 +295,28 @@ pre {
     [0, 0, 0, 0],
     [0, 0, 0, 0], // 20
     [0, 0, 0, 0],
-    [2.5, 2.8, 0, -0.6],
+    [2.5, 2.8, 0, 0],
     [0, 0, 0, 0],
     [1.0, 0, 0, 0],
     [0, 0, 0, 0], //25
     [0, 0, 0, 0],
     [0, 0, 0, 0],
-    [-14, 19, -14, 16],
+    [-15, 18, -14, 0],
   ],
 }
 
-const handleNextClick = () => {
+const handleNextButtonClick = () => {
   if (s.currentSet < s.sets.length - 1) {
     updateEverything(s.currentSet + 1)
   }
 }
 
-const handlePreviousClick = () => {
+const handleNumberButtonClick = (event) => {
+  const newIndex = parseInt(event.target.id.split('_')[1])
+  updateEverything(newIndex)
+}
+
+const handlePreviousButtonClick = () => {
   if (s.currentSet > 0) {
     updateEverything(s.currentSet - 1)
   }
@@ -338,7 +328,7 @@ const makeElement = (_type, _id, _html, _childOf, _event, _function) => {
   newElement.innerHTML = _html
   window[_childOf].appendChild(newElement)
   if (_event !== null) {
-    newEl.addEventListener(_event, _function)
+    newElement.addEventListener(_event, _function)
   }
 }
 
@@ -369,6 +359,77 @@ const makeLineNumberRows = () => {
   }
 }
 
+const makeNextButton = () => {
+  makeElement(
+    'button',
+    'stepByStepNextButton',
+    '-&gt;',
+    'stepByStepButtonWrapper',
+    'click',
+    handleNextButtonClick
+  )
+}
+
+const makeNumberButtons = () => {
+  for (let i = 0; i < s.sets.length; i++) {
+    let buttonText = i
+    if (i === 0) {
+      buttonText = 'Start'
+    } else if (i === s.sets.length - 1) {
+      buttonText = 'Complete'
+    }
+    makeElement(
+      'button',
+      `stepByStepNumberButton_${i}`,
+      buttonText,
+      'stepByStepButtonWrapper',
+      'click',
+      handleNumberButtonClick
+    )
+  }
+}
+
+const makeOutputLineNumbers = () => {
+  for (let i = 0; i < s.output.length; i++) {
+    const theText = i === 0 ? 'out' : ' '
+    makeElement(
+      'pre',
+      `stepByStepOutputLineNumber_${i}`,
+      theText,
+      'stepByStepOutputNumbers',
+      null,
+      null
+    )
+  }
+}
+
+const makeOutputLines = () => {
+  for (let i = 0; i < s.output.length; i++) {
+    makeElement(
+      'pre',
+      `stepByStepOutputLine_${i}`,
+      ' ',
+      'stepByStepOutputLines',
+      null,
+      null
+    )
+  }
+}
+
+const makeOutputLinePointers = () => {
+  for (let i = 0; i < s.output.length; i++) {
+    const theText = i === 0 ? ':' : ' '
+    makeElement(
+      'pre',
+      `stepByStepOutputPointer_${i}`,
+      theText,
+      'stepByStepOutputPointers',
+      null,
+      null
+    )
+  }
+}
+
 const makePointerRows = () => {
   for (let i = 0; i < totalLines(); i++) {
     makeElement(
@@ -382,31 +443,56 @@ const makePointerRows = () => {
   }
 }
 
+const makePreviousButton = () => {
+  makeElement(
+    'button',
+    'stepByStepPreviousButton',
+    '&lt;-',
+    'stepByStepButtonWrapper',
+    'click',
+    handlePreviousButtonClick
+  )
+}
+
 const totalLines = () => {
   return s.lines.length
+}
+
+const updateButtonHighlights = () => {
+  for (let i = 0; i < s.sets.length; i++) {
+    if (i === s.currentSet) {
+      window[`stepByStepNumberButton_${i}`].classList.add('activeButton')
+    } else {
+      window[`stepByStepNumberButton_${i}`].classList.remove('activeButton')
+    }
+  }
 }
 
 const updateCodeLines = () => {
   for (let i = 0; i < totalLines(); i++) {
     const targetNumber = s.lineIndexes[i]
-    window[`stepByStepCodeLine_${i}`].innerHTML = s.lines[i][targetNumber]
+    // add space to make sure empty lines take up space.
+    // probably a way to do that with css.
+    window[`stepByStepCodeLine_${i}`].innerHTML = s.lines[i][targetNumber] + ' '
   }
 }
 
 const updateEverything = (setIndex) => {
   s.currentSet = setIndex
-  updateHeader()
   updateLineIndexes()
+  updateHeader()
   updatePointers()
   updatePositions()
   updateNotes()
   updateCodeLines()
+  updateOutputLines()
+  updateButtonHighlights()
   updateFinalHighlights()
 }
 
 const updateFinalHighlights = () => {
   for (let i = 0; i < totalLines(); i++) {
-    if (s.currentSet === s.sets.length - 1) {
+    if (s.currentSet === s.sets.length - 1 || s.currentSet === 0) {
       window[`stepByStepCodeLine_${i}`].classList.add('hljs')
       window[`stepByStepCodeLine_${i}`].classList.add('language-rust')
       hljs.highlightElement(window[`stepByStepCodeLine_${i}`])
@@ -418,7 +504,14 @@ const updateFinalHighlights = () => {
 }
 
 const updateHeader = () => {
-  window.stepByStepHeader.innerHTML = `Step ${s.currentSet + 1}`
+  let headerString = `Step ${s.currentSet}`
+  if (s.currentSet === 0) {
+    headerString = `Full Code Sample`
+  } else if (s.currentSet === s.sets.length - 1) {
+    headerString = `Final Code Sample`
+  }
+
+  window.stepByStepHeader.innerHTML = headerString
 }
 
 const updateLineIndexes = () => {
@@ -434,16 +527,34 @@ const updateNotes = () => {
   window.stepByStepNotes.innerHTML = s.notes[s.currentSet]
 }
 
+const updateOutputLines = () => {
+  for (let i = 0; i < s.output.length; i++) {
+    if (s.currentSet === s.sets.length - 1 || s.currentSet === 0) {
+      window[`stepByStepOutputLine_${i}`].innerHTML = s.output[i]
+    } else {
+      // clear output for moving to previous line sets
+      window[`stepByStepOutputLine_${i}`].innerHTML = ' '
+    }
+  }
+}
+
 const updatePointers = () => {
   for (let i = 0; i < totalLines(); i++) {
-    // can probably refactor this a little
-    const checkIndex = s.lines[i].length - 1
-    const currentIndex = s.lineIndexes[i]
-    if (currentIndex > 0 && currentIndex < checkIndex) {
-      window[`stepByStepPointer_${i}`].innerHTML = '*'
-    } else {
-      window[`stepByStepPointer_${i}`].innerHTML = ' '
+    // Set empty to clear prior pointers
+    let pointerText = ' '
+
+    // only mark things that have changed
+    if (s.sets[s.currentSet][i] === 1) {
+      // don't mark empty lines
+      if (s.lines[i][s.currentSet] !== '') {
+        // don't mark the final change
+        if (s.lineIndexes[i] !== s.lines[i].length - 1) {
+          pointerText = '&gt;'
+        }
+      }
     }
+
+    window[`stepByStepPointer_${i}`].innerHTML = pointerText
   }
 }
 
@@ -451,25 +562,26 @@ const updatePositions = () => {
   let positionTop = 0
   let positionLeft = 0
   let positionWidth = 0
-  let positionHeight = 0
   for (let i = 0; i <= s.currentSet; i++) {
     positionTop += s.positions[i][0]
     positionLeft += s.positions[i][1]
     positionWidth += s.positions[i][2]
-    positionHeight += s.positions[i][3]
   }
   window.stepByStepNotesSpacer.style.top = `${positionTop}rem`
   window.stepByStepNotesSpacer.style.left = `${positionLeft}rem`
   window.stepByStepNotesSpacer.style.width = `${positionWidth}rem`
-  // window.stepByStepNotesSpacer.style.height = `${positionHeight}rem`
 }
 
 const init = () => {
   makeLineNumberRows()
   makePointerRows()
   makeCodeLineRows()
-  window.previousButton.addEventListener('click', handlePreviousClick)
-  window.nextButton.addEventListener('click', handleNextClick)
+  makePreviousButton()
+  makeNumberButtons()
+  makeNextButton()
+  makeOutputLineNumbers()
+  makeOutputLinePointers()
+  makeOutputLines()
   updateEverything(0)
 }
 
@@ -494,58 +606,61 @@ document.addEventListener('DOMContentLoaded', init)
     </header>
     <main>
       <h1>Step-By-Step Code Example Prototype 7</h1>
-      <div id="stepByStepHeader">
+      <h3 id="stepByStepHeader">
   <!-- TODO: Move this into the grid -->
-</div>
+</h3>
 
 <div id="stepByStepWrapper">
   <div id="stepByStepLineNumbers"></div>
   <div id="stepByStepPointers"></div>
   <div id="stepByStepCodeLines"></div>
-  <div id="stepByStepOutputNumbers"><pre>out</pre></div>
-  <div id="stepByStepOutputPointers"><pre>:</pre></div>
-  <div id="stepByStepOutputLines"><pre>this is some output</pre></div>
+  <div id="stepByStepOutputNumbers"></div>
+  <div id="stepByStepOutputPointers"></div>
+  <div id="stepByStepOutputLines"></div>
   <div id="stepByStepNotesSpacer">
     <div id="stepByStepNotes"></div>
   </div>
 </div>
 
-<button id="previousButton">Previous</button>
-<button id="nextButton">Next</button>
+<div id="stepByStepButtonWrapper"></div>
  
                 <h2>Details</h2>
                 <ul>
                     <li>An experiment with putting descriptive text directly below the code line</li>
                 </ul>
                   
-            <h2>HTML</h2>
-            <pre class="examplePre"><code id="exampleHTMLBody" class="language-html hljs">&lt;div id=&quot;stepByStepHeader&quot;&gt;
+            <h2>HTML SOURCE</h2>
+            <pre class="examplePre"><code id="exampleHTMLBody" class="language-html hljs">&lt;h3 id=&quot;stepByStepHeader&quot;&gt;
   &lt;!-- TODO: Move this into the grid --&gt;
-&lt;/div&gt;
+&lt;/h3&gt;
 
 &lt;div id=&quot;stepByStepWrapper&quot;&gt;
   &lt;div id=&quot;stepByStepLineNumbers&quot;&gt;&lt;/div&gt;
   &lt;div id=&quot;stepByStepPointers&quot;&gt;&lt;/div&gt;
   &lt;div id=&quot;stepByStepCodeLines&quot;&gt;&lt;/div&gt;
-  &lt;div id=&quot;stepByStepOutputNumbers&quot;&gt;&lt;pre&gt;out&lt;/pre&gt;&lt;/div&gt;
-  &lt;div id=&quot;stepByStepOutputPointers&quot;&gt;&lt;pre&gt;:&lt;/pre&gt;&lt;/div&gt;
-  &lt;div id=&quot;stepByStepOutputLines&quot;&gt;&lt;pre&gt;this is some output&lt;/pre&gt;&lt;/div&gt;
+  &lt;div id=&quot;stepByStepOutputNumbers&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;stepByStepOutputPointers&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;stepByStepOutputLines&quot;&gt;&lt;/div&gt;
   &lt;div id=&quot;stepByStepNotesSpacer&quot;&gt;
     &lt;div id=&quot;stepByStepNotes&quot;&gt;&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;button id=&quot;previousButton&quot;&gt;Previous&lt;/button&gt;
-&lt;button id=&quot;nextButton&quot;&gt;Next&lt;/button&gt;
+&lt;div id=&quot;stepByStepButtonWrapper&quot;&gt;&lt;/div&gt;
 </code></pre>
              
-            <h2>CSS</h2>
+            <h2>CSS SOURCE</h2>
             <pre class="examplePre"><code id="exampleCSS" class="language-css hljs">:root {
+  --active-button-color: #381;
   --base-padding: 0.8rem;
   --border-radius: 0.8rem;
   --output-color: #444;
-  --border-color-1: #aaaacc;
+  --border-color-1: #fff;
+  --border-color-2: #779;
   --lines-left-pad: 1.2rem;
+  --notes-background-color: #99a;
+  --notes-font-color: black;
+  --code-background-color: black;
 }
 
 c-1 {
@@ -560,27 +675,25 @@ c-3 {
   color: green;
 }
 
-p {
-  margin-bottom: 1.5rem;
-}
-
 pre {
   line-height: 1.3rem;
 }
 
 #stepByStepNotesSpacer {
+  color: var(--notes-font-color);
   font-family: monospace;
   position: absolute;
   padding: 1ch;
   margin: 0;
-  background-color: #666;
+  background-color: var(--notes-background-color);
   border-radius: 0.4rem;
+  border: 1px solid var(--border-color-1);
 }
 
 #stepByStepWrapper {
   font-family: monospace;
   position: relative;
-  margin: 0;
+  margin-bottom: 1.3rem;
   padding: 0;
   display: grid;
   grid-template-columns: 6ch 2ch 1fr;
@@ -589,6 +702,10 @@ pre {
 
 #stepByStepNotes {
   font-family: sans-serif;
+}
+
+#stepByStepNotes p:nth-child(n + 2) {
+  margin-top: 1.1rem;
 }
 
 #stepByStepLineNumbers {
@@ -611,18 +728,18 @@ pre {
   background-color: var(--output-color);
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
-  border-right: 1px solid var(--border-color-1);
+  border-right: 1px solid var(--border-color-2);
 }
 
 #stepByStepPointers {
   background-color: #002;
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
-  border-right: 1px solid var(--border-color-1);
+  border-right: 1px solid var(--border-color-2);
 }
 
 #stepByStepCodeLines {
-  background-color: #100;
+  background-color: var(--code-background-color);
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   padding-left: var(--lines-left-pad);
@@ -637,6 +754,10 @@ pre {
   border-bottom-right-radius: var(--border-radius);
 }
 
+.activeButton {
+  background-color: var(--active-button-color);
+}
+
 .examplePre {
   background-color: #242;
   border-radius: var(--border-radius);
@@ -645,118 +766,91 @@ pre {
 </code></pre>
             
       
-            <h2>JavaScript</h2>
+            <h2>JavaScript SOURCE</h2>
             <pre class="examplePre"><code id="exampleJS" class="language-js hljs">const s = {
   currentSet: 0,
   lineIndexes: [],
   lines: [
-    [` `, `&lt;c-1&gt;use std::env&lt;/c-1&gt;&lt;c-2&gt;;&lt;/c-2&gt;`, `use std::env;`],
-    [` `, ` `],
-    [` `, `&lt;c-1&gt;fn main()&lt;/c-1&gt; &lt;c-2&gt;{&lt;/c-2&gt;`, `fn main() {`],
+    [`use std::env;`, `&lt;c-1&gt;use std::env&lt;/c-1&gt;&lt;c-2&gt;;&lt;/c-2&gt;`, `use std::env;`],
+    [``, ``],
+    [`fn main() {`, ``, `&lt;c-1&gt;fn main()&lt;/c-1&gt; &lt;c-2&gt;{&lt;/c-2&gt;`, `fn main() {`],
     [
-      ` `,
-      `  &lt;c-1&gt;let key &lt;/c-1&gt;&lt;c-2&gt;=&lt;/c-2&gt;`,
-      `  let key = &lt;c-1&gt;&amp;quot;HOME&amp;quot;&lt;/c-1&gt;&lt;c-2&gt;;&lt;/c-2&gt;`,
-      `  let &lt;c-3&gt;key&lt;/c-3&gt; = &amp;quot;HOME&amp;quot;;`,
-      `  let key = &amp;quot;HOME&amp;quot;;`,
+      `  let envVarResult = env::var(&amp;quot;HOME&amp;quot;);`,
+      ``,
+      `  &lt;c-1&gt;let envVarResult&lt;/c-1&gt; &lt;c-2&gt;=&lt;/c-2&gt; &lt;c-1&gt;env::var(&amp;quot;HOME&amp;quot;)&lt;/c-1&gt;&lt;c-2&gt;;&lt;/c-2&gt;`,
+      `  let envVarResult = env::var(&amp;quot;HOME&amp;quot;);`,
+      `  let &lt;c-3&gt;envVarResult&lt;/c-3&gt; = env::var(&amp;quot;HOME&amp;quot;);`,
+      `  let envVarResult = env::var(&amp;quot;HOME&amp;quot;);`,
     ],
     [
-      ` `,
-      `  &lt;c-1&gt;println!()&lt;/c-1&gt;&lt;c-2&gt;;&lt;/c-2&gt;`,
-      `  println!(&lt;c-1&gt;&quot;checking {}&quot;&lt;/c-1&gt;);`,
-      `  println!(&quot;checking {}&quot;&lt;c-2&gt;,&lt;/c-2&gt; &lt;c-1&gt;key&lt;/c-1&gt;);`,
-      `  println!(&quot;checking {}&quot;, &lt;c-1&gt;key&lt;/c-1&gt;);`,
-      `  println!(&quot;checking {}&quot;, key);`,
+      `  match envVarResult {`,
+      ``,
+      `  &lt;c-1&gt;match envVarResult&lt;/c-1&gt; &lt;c-2&gt;{&lt;/c-2&gt;`,
+      `  match &lt;c-1&gt;envVarResult&lt;/c-1&gt; {`,
+      `  match envVarResult {`,
     ],
     [
-      ` `,
-      `  &lt;c-1&gt;let returnValueAsResult &lt;/c-1&gt;&lt;c-2&gt;=&lt;/c-2&gt;`,
-      `  let returnValueAsResult = &lt;c-1&gt;env::var&lt;c-1&gt;()&lt;c-2&gt;;&lt;/c-2&gt;`,
-      `  let returnValueAsResult = env::var(&lt;c-1&gt;key&lt;/c-1&gt;);`,
-      `  let &lt;c-3&gt;returnValueAsResult&lt;/c-3&gt; = env::var(key);`,
-      `  let returnValueAsResult = env::var(key);`,
-    ],
-    [
-      ` `,
-      `  &lt;c-1&gt;match&lt;/c-1&gt; &lt;c-2&gt;{&lt;/c-2&gt;`,
-      `  match &lt;c-1&gt;returnValueAsResult&lt;/c-1&gt; {`,
-      `  match returnValueAsResult {`,
-    ],
-    [
-      ` `,
+      `    Ok(item) =&gt; {`,
+      ``,
       `    &lt;c-1&gt;Ok() =&gt;&lt;/c-1&gt; &lt;c-2&gt;{&lt;/c-2&gt;`,
       `    Ok(&lt;c-1&gt;item&lt;/c-1&gt;) =&gt; {`,
       `    Ok(&lt;c-3&gt;item&lt;/c-3&gt;) =&gt; {`,
       `    Ok(item) =&gt; {`,
     ],
     [
-      ` `,
-      `      &lt;c-1&gt;println!()&lt;/c-1&gt;&lt;c-2&gt;;&lt;/c-2&gt;`,
-      `      println!(&lt;c-1&gt;&amp;quot;got {}&amp;quot;&lt;/c-1&gt;);`,
-      `      println!(&amp;quot;got {}&amp;quot;&lt;c-2&gt;,&lt;/c-2&gt; &lt;c-1&gt;item&lt;/c-1&gt;);`,
+      `      println!(&amp;quot;got {}&amp;quot;, item);`,
+      ``,
+      `      &lt;c-1&gt;println!(&amp;quot;got {}&amp;quot;, item)&lt;/c-1&gt;&lt;c-2&gt;;&lt;/c-2&gt;`,
       `      println!(&amp;quot;got {}&amp;quot;, &lt;c-1&gt;item&lt;/c-1&gt;);`,
       `      println!(&amp;quot;got {}&amp;quot;, item);`,
     ],
-    [` `, `    &lt;c-2&gt;}&lt;/c-2&gt;`, `    }`],
+    [`    }`, ``, `    &lt;c-2&gt;}&lt;/c-2&gt;`, `    }`],
     [
-      ` `,
+      `    Err(error) =&gt; {`,
+      ``,
       `    &lt;c-1&gt;Err() =&gt; &lt;/c-1&gt;&lt;c-2&gt;{&lt;/c-2&gt;`,
       `    Err(&lt;c-1&gt;error&lt;/c-1&gt;) =&gt; {`,
+      `    Err(error) =&gt; {`,
       `    Err(&lt;c-3&gt;error&lt;/c-3&gt;) =&gt; {`,
       `    Err(error) =&gt; {`,
     ],
     [
-      ` `,
-      `      &lt;c-1&gt;println!()&lt;/c-1&gt;&lt;c-2&gt;;&lt;/c-2&gt;`,
-      `      println!(&lt;c-1&gt;&amp;quot;error {}&amp;quot;&lt;/c-1&gt;);`,
-      `      println!(&amp;quot;error {}&amp;quot;&lt;c-2&gt;,&lt;/c-2&gt; &lt;c-1&gt;error&lt;/c-1&gt;);`,
+      `      println!(&amp;quot;error {}&amp;quot;, error);`,
+      ``,
+      `      &lt;c-1&gt;println!(&amp;quot;error {}&amp;quot;, error)&lt;/c-1&gt;;`,
       `      println!(&amp;quot;error {}&amp;quot;, &lt;c-1&gt;error&lt;/c-1&gt;);`,
       `      println!(&amp;quot;error {}&amp;quot;, error);`,
     ],
-    [` `, `    &lt;c-2&gt;}&lt;/c-2&gt;`, `    }`],
-    [` `, `  &lt;c-2&gt;}&lt;/c-2&gt;`, `  }`],
-    [` `, `&lt;c-2&gt;}&lt;/c-2&gt;`, `}`],
+    [`    }`, ``, `    &lt;c-2&gt;}&lt;/c-2&gt;`, `    }`],
+    [`  }`, ``, `  &lt;c-2&gt;}&lt;/c-2&gt;`, `  }`],
+    [`}`, ``, `&lt;c-2&gt;}&lt;/c-2&gt;`, `}`],
   ],
 
   sets: [
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 1
-    [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 5
-    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, -1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 10
-    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0, 2, 1, 0, 0, 0, 0, 0, 0, 1, 0],
-    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0],
-    //     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
-    [0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 15
-    [0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], // 20
-    [0, 0, 0, 0, 0, 0, 0, -1, 1, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], // 25
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
-    //     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], // 1
+    [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1], // 3
+    [0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0],
+    [0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0], // 5
+    [0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0], // 7
+    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0], // 9
+    [0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0], // 11
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0], // 13
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
   ],
 
   output: [&#x27;checking HOME&#x27;, &#x27;got /Users/alan&#x27;],
 
   notes: [
+    `&lt;p&gt;This is what the full solution looks like.&lt;/p&gt;&lt;p&gt;Click the buttons below to go through it step by step&lt;/p&gt;`,
     `&lt;p&gt;Load the &lt;code&gt;std::env&lt;/code&gt; library which gives us access to environmental variables&lt;/p&gt;`,
-    `&lt;p&gt;Create the &lt;code&gt;main()&lt;/code&gt; function&lt;/p&gt;`,
-    `&lt;p&gt;Begin creating an immutable &lt;code&gt;key&lt;/code&gt; variable&lt;/p&gt;`,
+    `&lt;p&gt;Create the &lt;code&gt;main()&lt;/code&gt; function that will be used to kick things off in the program&lt;/p&gt;`,
+    `&lt;p&gt;This line requests an environmental variable named &amp;quot;&lt;code&gt;HOME&lt;/code&gt;&amp;quot;. The value returned by &lt;code&gt;env::var&lt;/code&gt; is a &lt;code&gt;Result&lt;/code&gt; which is bound to the immutable variable &lt;code&gt;env_var_result&lt;/code&gt;&lt;/p&gt;`,
     `
       &lt;p&gt;Bind a string literal with &lt;code&gt;HOME&lt;/code&gt; to the &lt;code&gt;key&lt;/code&gt; variable&lt;/p&gt;
       &lt;p&gt;This matches the &lt;code&gt;HOME&lt;/code&gt; environmental variable that&#x27;s available in the Code Runners&lt;/p&gt;
@@ -765,7 +859,7 @@ pre {
     `&lt;p&gt;Add the format string&lt;/p&gt;`,
     `&lt;p&gt;And setup to use the value from &lt;code&gt;key&lt;/code&gt;&lt;/p&gt;`,
     `&lt;p&gt;Which comes from the line above it&lt;/p&gt;`,
-    `&lt;p&gt;Start creating a &lt;code&gt;returnValueAsResult&lt;/code&gt; immutable variable&lt;/p&gt;`,
+    `&lt;p&gt;Start creating a &lt;code&gt;envVarResult&lt;/code&gt; immutable variable&lt;/p&gt;`,
     `
       &lt;p&gt;The &lt;code&gt;env::var()&lt;/code&gt; method is what&#x27;s used to access individual environmental variables.&lt;/p&gt;
       &lt;p&gt;The expression returns a &lt;code&gt;Result&lt;/code&gt; value that will handle with the upcoming &lt;code&gt;match&lt;/code&gt; statement&lt;/p&gt;
@@ -773,8 +867,8 @@ pre {
     `&lt;p&gt;Insert the &lt;code&gt;key&lt;/code&gt; variable name to finish the expression and define that we want the &lt;code&gt;HOME&lt;/code&gt; environmental variable&lt;/p&gt;`,
     `&lt;p&gt;The value for &lt;code&gt;key&lt;/code&gt; comes from the variable on line 4&lt;/p&gt;`,
     `&lt;p&gt;Begin creating the match expression&lt;/p&gt;`,
-    `&lt;p&gt;Setup the &lt;code&gt;match&lt;/code&gt; expression to examine the &lt;code&gt;returnValueAsResult&lt;/code&gt; variable&lt;/p&gt;`,
-    `&lt;p&gt;This is the same &lt;code&gt;returnValueAsResult&lt;/code&gt; variable as the one from the line above&lt;/p&gt;`,
+    `&lt;p&gt;Setup the &lt;code&gt;match&lt;/code&gt; expression to examine the &lt;code&gt;envVarResult&lt;/code&gt; variable&lt;/p&gt;`,
+    `&lt;p&gt;This is the same &lt;code&gt;envVarResult&lt;/code&gt; variable as the one from the line above&lt;/p&gt;`,
     `&lt;p&gt;Now we start creating the &lt;code&gt;Ok()&lt;/code&gt; expression which is the first of the two required arms of the &lt;code&gt;match&lt;/code&gt; expression when used with a Result value&lt;/p&gt;`,
     `&lt;p&gt;The &lt;code&gt;Ok()&lt;/code&gt; portion of a &lt;code&gt;Result&lt;/code&gt; contains a value that we can pull out. We&#x27;re doing that here by assigning the incoming value to a variable named &lt;code&gt;item&lt;/code&gt;&lt;/p&gt;`,
     `&lt;p&gt;Next we start to fill out the code we want to run if the &lt;code&gt;Result&lt;/code&gt; is &lt;code&gt;Ok()&lt;/code&gt;. Here were using a &lt;code&gt;println!()&lt;/code&gt; expression but we could also call a function or return a value (TODO: Verify values can be returned)&lt;/p&gt;`,
@@ -789,12 +883,13 @@ pre {
     `&lt;p&gt;Which we got as the incoming value for the &lt;code&gt;Err()&lt;/code&gt; arm&lt;/p&gt;`,
     `
       &lt;p&gt;Putting it all together, we get our final output.&lt;/p&gt;
-      &lt;p&gt;In this case, the sample output is from a case then the environmental variable existed and was read in which means &lt;code&gt;returnValueAsResult&lt;/code&gt; received a &lt;code&gt;Result&lt;/code&gt; with &lt;code&gt;Ok&lt;/code&gt; and the value of the environmental variable (which was &lt;code&gt;/Users/alan&lt;/code&gt; in this case)&lt;/p&gt;
+      &lt;p&gt;In this case, the sample output is from a case then the environmental variable existed and was read in which means &lt;code&gt;envVarResult&lt;/code&gt; received a &lt;code&gt;Result&lt;/code&gt; with &lt;code&gt;Ok&lt;/code&gt; and the value of the environmental variable (which was &lt;code&gt;/Users/alan&lt;/code&gt; in this case)&lt;/p&gt;
     `,
   ],
 
   positions: [
-    [2.8, 3.8, 32.0, 4.6], // 1
+    [1, 30, 16, 0],
+    [1.8, -25.0, 16.0, 0], // 1
     [3, 0, 0, 0],
     [1.2, 1.4, 0, 0],
     [0, 0, 0, 0],
@@ -815,23 +910,28 @@ pre {
     [0, 0, 0, 0],
     [0, 0, 0, 0], // 20
     [0, 0, 0, 0],
-    [2.5, 2.8, 0, -0.6],
+    [2.5, 2.8, 0, 0],
     [0, 0, 0, 0],
     [1.0, 0, 0, 0],
     [0, 0, 0, 0], //25
     [0, 0, 0, 0],
     [0, 0, 0, 0],
-    [-14, 19, -14, 16],
+    [-15, 18, -14, 0],
   ],
 }
 
-const handleNextClick = () =&gt; {
+const handleNextButtonClick = () =&gt; {
   if (s.currentSet &lt; s.sets.length - 1) {
     updateEverything(s.currentSet + 1)
   }
 }
 
-const handlePreviousClick = () =&gt; {
+const handleNumberButtonClick = (event) =&gt; {
+  const newIndex = parseInt(event.target.id.split(&#x27;_&#x27;)[1])
+  updateEverything(newIndex)
+}
+
+const handlePreviousButtonClick = () =&gt; {
   if (s.currentSet &gt; 0) {
     updateEverything(s.currentSet - 1)
   }
@@ -843,7 +943,7 @@ const makeElement = (_type, _id, _html, _childOf, _event, _function) =&gt; {
   newElement.innerHTML = _html
   window[_childOf].appendChild(newElement)
   if (_event !== null) {
-    newEl.addEventListener(_event, _function)
+    newElement.addEventListener(_event, _function)
   }
 }
 
@@ -874,6 +974,77 @@ const makeLineNumberRows = () =&gt; {
   }
 }
 
+const makeNextButton = () =&gt; {
+  makeElement(
+    &#x27;button&#x27;,
+    &#x27;stepByStepNextButton&#x27;,
+    &#x27;-&amp;gt;&#x27;,
+    &#x27;stepByStepButtonWrapper&#x27;,
+    &#x27;click&#x27;,
+    handleNextButtonClick
+  )
+}
+
+const makeNumberButtons = () =&gt; {
+  for (let i = 0; i &lt; s.sets.length; i++) {
+    let buttonText = i
+    if (i === 0) {
+      buttonText = &#x27;Start&#x27;
+    } else if (i === s.sets.length - 1) {
+      buttonText = &#x27;Complete&#x27;
+    }
+    makeElement(
+      &#x27;button&#x27;,
+      `stepByStepNumberButton_${i}`,
+      buttonText,
+      &#x27;stepByStepButtonWrapper&#x27;,
+      &#x27;click&#x27;,
+      handleNumberButtonClick
+    )
+  }
+}
+
+const makeOutputLineNumbers = () =&gt; {
+  for (let i = 0; i &lt; s.output.length; i++) {
+    const theText = i === 0 ? &#x27;out&#x27; : &#x27; &#x27;
+    makeElement(
+      &#x27;pre&#x27;,
+      `stepByStepOutputLineNumber_${i}`,
+      theText,
+      &#x27;stepByStepOutputNumbers&#x27;,
+      null,
+      null
+    )
+  }
+}
+
+const makeOutputLines = () =&gt; {
+  for (let i = 0; i &lt; s.output.length; i++) {
+    makeElement(
+      &#x27;pre&#x27;,
+      `stepByStepOutputLine_${i}`,
+      &#x27; &#x27;,
+      &#x27;stepByStepOutputLines&#x27;,
+      null,
+      null
+    )
+  }
+}
+
+const makeOutputLinePointers = () =&gt; {
+  for (let i = 0; i &lt; s.output.length; i++) {
+    const theText = i === 0 ? &#x27;:&#x27; : &#x27; &#x27;
+    makeElement(
+      &#x27;pre&#x27;,
+      `stepByStepOutputPointer_${i}`,
+      theText,
+      &#x27;stepByStepOutputPointers&#x27;,
+      null,
+      null
+    )
+  }
+}
+
 const makePointerRows = () =&gt; {
   for (let i = 0; i &lt; totalLines(); i++) {
     makeElement(
@@ -887,31 +1058,56 @@ const makePointerRows = () =&gt; {
   }
 }
 
+const makePreviousButton = () =&gt; {
+  makeElement(
+    &#x27;button&#x27;,
+    &#x27;stepByStepPreviousButton&#x27;,
+    &#x27;&amp;lt;-&#x27;,
+    &#x27;stepByStepButtonWrapper&#x27;,
+    &#x27;click&#x27;,
+    handlePreviousButtonClick
+  )
+}
+
 const totalLines = () =&gt; {
   return s.lines.length
+}
+
+const updateButtonHighlights = () =&gt; {
+  for (let i = 0; i &lt; s.sets.length; i++) {
+    if (i === s.currentSet) {
+      window[`stepByStepNumberButton_${i}`].classList.add(&#x27;activeButton&#x27;)
+    } else {
+      window[`stepByStepNumberButton_${i}`].classList.remove(&#x27;activeButton&#x27;)
+    }
+  }
 }
 
 const updateCodeLines = () =&gt; {
   for (let i = 0; i &lt; totalLines(); i++) {
     const targetNumber = s.lineIndexes[i]
-    window[`stepByStepCodeLine_${i}`].innerHTML = s.lines[i][targetNumber]
+    // add space to make sure empty lines take up space.
+    // probably a way to do that with css.
+    window[`stepByStepCodeLine_${i}`].innerHTML = s.lines[i][targetNumber] + &#x27; &#x27;
   }
 }
 
 const updateEverything = (setIndex) =&gt; {
   s.currentSet = setIndex
-  updateHeader()
   updateLineIndexes()
+  updateHeader()
   updatePointers()
   updatePositions()
   updateNotes()
   updateCodeLines()
+  updateOutputLines()
+  updateButtonHighlights()
   updateFinalHighlights()
 }
 
 const updateFinalHighlights = () =&gt; {
   for (let i = 0; i &lt; totalLines(); i++) {
-    if (s.currentSet === s.sets.length - 1) {
+    if (s.currentSet === s.sets.length - 1 || s.currentSet === 0) {
       window[`stepByStepCodeLine_${i}`].classList.add(&#x27;hljs&#x27;)
       window[`stepByStepCodeLine_${i}`].classList.add(&#x27;language-rust&#x27;)
       hljs.highlightElement(window[`stepByStepCodeLine_${i}`])
@@ -923,7 +1119,14 @@ const updateFinalHighlights = () =&gt; {
 }
 
 const updateHeader = () =&gt; {
-  window.stepByStepHeader.innerHTML = `Step ${s.currentSet + 1}`
+  let headerString = `Step ${s.currentSet}`
+  if (s.currentSet === 0) {
+    headerString = `Full Code Sample`
+  } else if (s.currentSet === s.sets.length - 1) {
+    headerString = `Final Code Sample`
+  }
+
+  window.stepByStepHeader.innerHTML = headerString
 }
 
 const updateLineIndexes = () =&gt; {
@@ -939,16 +1142,34 @@ const updateNotes = () =&gt; {
   window.stepByStepNotes.innerHTML = s.notes[s.currentSet]
 }
 
+const updateOutputLines = () =&gt; {
+  for (let i = 0; i &lt; s.output.length; i++) {
+    if (s.currentSet === s.sets.length - 1 || s.currentSet === 0) {
+      window[`stepByStepOutputLine_${i}`].innerHTML = s.output[i]
+    } else {
+      // clear output for moving to previous line sets
+      window[`stepByStepOutputLine_${i}`].innerHTML = &#x27; &#x27;
+    }
+  }
+}
+
 const updatePointers = () =&gt; {
   for (let i = 0; i &lt; totalLines(); i++) {
-    // can probably refactor this a little
-    const checkIndex = s.lines[i].length - 1
-    const currentIndex = s.lineIndexes[i]
-    if (currentIndex &gt; 0 &amp;&amp; currentIndex &lt; checkIndex) {
-      window[`stepByStepPointer_${i}`].innerHTML = &#x27;*&#x27;
-    } else {
-      window[`stepByStepPointer_${i}`].innerHTML = &#x27; &#x27;
+    // Set empty to clear prior pointers
+    let pointerText = &#x27; &#x27;
+
+    // only mark things that have changed
+    if (s.sets[s.currentSet][i] === 1) {
+      // don&#x27;t mark empty lines
+      if (s.lines[i][s.currentSet] !== &#x27;&#x27;) {
+        // don&#x27;t mark the final change
+        if (s.lineIndexes[i] !== s.lines[i].length - 1) {
+          pointerText = &#x27;&amp;gt;&#x27;
+        }
+      }
     }
+
+    window[`stepByStepPointer_${i}`].innerHTML = pointerText
   }
 }
 
@@ -956,25 +1177,26 @@ const updatePositions = () =&gt; {
   let positionTop = 0
   let positionLeft = 0
   let positionWidth = 0
-  let positionHeight = 0
   for (let i = 0; i &lt;= s.currentSet; i++) {
     positionTop += s.positions[i][0]
     positionLeft += s.positions[i][1]
     positionWidth += s.positions[i][2]
-    positionHeight += s.positions[i][3]
   }
   window.stepByStepNotesSpacer.style.top = `${positionTop}rem`
   window.stepByStepNotesSpacer.style.left = `${positionLeft}rem`
   window.stepByStepNotesSpacer.style.width = `${positionWidth}rem`
-  // window.stepByStepNotesSpacer.style.height = `${positionHeight}rem`
 }
 
 const init = () =&gt; {
   makeLineNumberRows()
   makePointerRows()
   makeCodeLineRows()
-  window.previousButton.addEventListener(&#x27;click&#x27;, handlePreviousClick)
-  window.nextButton.addEventListener(&#x27;click&#x27;, handleNextClick)
+  makePreviousButton()
+  makeNumberButtons()
+  makeNextButton()
+  makeOutputLineNumbers()
+  makeOutputLinePointers()
+  makeOutputLines()
   updateEverything(0)
 }
 
