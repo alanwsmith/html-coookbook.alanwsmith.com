@@ -36,97 +36,340 @@
       pre {
   line-height: 1.3rem;
 }
-#textBlock {
+
+#stepByStepNotesSpacer {
   font-family: monospace;
   position: absolute;
-  top: 2.3rem;
-  left: 5ch;
-  padding:1ch;
-  margin:0;
-  background-color: #002;
-  min-width: 60ch;
+  padding: 1ch;
+  margin: 0;
+  background-color: #666;
+  border-radius: 0.4rem;
 }
 
-#wrapper {
+#stepByStepWrapper {
   font-family: monospace;
   position: relative;
-  padding:0;
-  margin:0;
+  margin: 0;
+  padding: 0.8rem;
+  background-color: #100;
+  display: grid;
+  grid-template-columns: 3ch 2ch 1fr;
+  border-radius: 0.4rem;
 }
 
-#outerWrapper {
-  padding:0.8rem;
-  background-color: #010;
-  position: relative;
-}
-
-#words {
+#stepByStepNotes {
   font-family: sans-serif;
+}
+
+#stepByStepLineNumbers {
+  background-color: #002;
 }
 
     </style>
     <script>
       const s = {
   currentSet: 0,
-  maxSet: 4,
+  lineIndexes: [],
+  lines: [
+    [` `, `<c-1>use std::env</c-1><c-2>;</c-2>`, `use std::env;`],
+    [` `, ` `],
+    [` `, `<c-1>fn main()</c-1> <c-2>{</c-2>`, `fn main() {`],
+    [
+      ` `,
+      `  <c-1>let key </c-1><c-2>=</c-2>`,
+      `  let key = <c-1>&quot;HOME&quot;</c-1><c-2>;</c-2>`,
+      `  let <c-3>key</c-3> = &quot;HOME&quot;;`,
+      `  let key = &quot;HOME&quot;;`,
+    ],
+    [
+      ` `,
+      `  <c-1>println!()</c-1><c-2>;</c-2>`,
+      `  println!(<c-1>"checking {}"</c-1>);`,
+      `  println!("checking {}"<c-2>,</c-2> <c-1>key</c-1>);`,
+      `  println!("checking {}", <c-1>key</c-1>);`,
+      `  println!("checking {}", key);`,
+    ],
+    [
+      ` `,
+      `  <c-1>let returnValueAsResult </c-1><c-2>=</c-2>`,
+      `  let returnValueAsResult = <c-1>env::var<c-1>()<c-2>;</c-2>`,
+      `  let returnValueAsResult = env::var(<c-1>key</c-1>);`,
+      `  let <c-3>returnValueAsResult</c-3> = env::var(key);`,
+      `  let returnValueAsResult = env::var(key);`,
+    ],
+    [
+      ` `,
+      `  <c-1>match</c-1> <c-2>{</c-2>`,
+      `  match <c-1>returnValueAsResult</c-1> {`,
+      `  match returnValueAsResult {`,
+    ],
+    [
+      ` `,
+      `    <c-1>Ok() =></c-1> <c-2>{</c-2>`,
+      `    Ok(<c-1>item</c-1>) => {`,
+      `    Ok(<c-3>item</c-3>) => {`,
+      `    Ok(item) => {`,
+    ],
+    [
+      ` `,
+      `      <c-1>println!()</c-1><c-2>;</c-2>`,
+      `      println!(<c-1>&quot;got {}&quot;</c-1>);`,
+      `      println!(&quot;got {}&quot;<c-2>,</c-2> <c-1>item</c-1>);`,
+      `      println!(&quot;got {}&quot;, <c-1>item</c-1>);`,
+      `      println!(&quot;got {}&quot;, item);`,
+    ],
+    [` `, `    <c-2>}</c-2>`, `    }`],
+    [
+      ` `,
+      `    <c-1>Err() => </c-1><c-2>{</c-2>`,
+      `    Err(<c-1>error</c-1>) => {`,
+      `    Err(<c-3>error</c-3>) => {`,
+      `    Err(error) => {`,
+    ],
+    [
+      ` `,
+      `      <c-1>println!()</c-1><c-2>;</c-2>`,
+      `      println!(<c-1>&quot;error {}&quot;</c-1>);`,
+      `      println!(&quot;error {}&quot;<c-2>,</c-2> <c-1>error</c-1>);`,
+      `      println!(&quot;error {}&quot;, <c-1>error</c-1>);`,
+      `      println!(&quot;error {}&quot;, error);`,
+    ],
+    [` `, `    <c-2>}</c-2>`, `    }`],
+    [` `, `  <c-2>}</c-2>`, `  }`],
+    [` `, `<c-2>}</c-2>`, `}`],
+  ],
+
+  sets: [
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 1
+    [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 5
+    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, -1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 10
+    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 2, 1, 0, 0, 0, 0, 0, 0, 1, 0],
+    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0],
+    //     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
+    [0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 15
+    [0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], // 20
+    [0, 0, 0, 0, 0, 0, 0, -1, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], // 25
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
+    //     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
+  ],
+
+  output: ['checking HOME', 'got /Users/alan'],
+
+  notes: [
+    `<p>Load the <code>std::env</code> library which gives us access to environmental variables</p>`,
+    `<p>Create the <code>main()</code> function</p>`,
+    `<p>Begin creating an immutable <code>key</code> variable</p>`,
+    `
+      <p>Bind a string literal with <code>HOME</code> to the <code>key</code> variable</p>
+      <p>This matches the <code>HOME</code> environmental variable that's available in the Code Runners</p>
+    `,
+    `<p>Create an initial <code>println!()</code> statement that is just here to help me test multiple line output in this example</p>`,
+    `<p>Add the format string</p>`,
+    `<p>And setup to use the value from <code>key</code></p>`,
+    `<p>Which comes from the line above it</p>`,
+    `<p>Start creating a <code>returnValueAsResult</code> immutable variable</p>`,
+    `
+      <p>The <code>env::var()</code> method is what's used to access individual environmental variables.</p>
+      <p>The expression returns a <code>Result</code> value that will handle with the upcoming <code>match</code> statement</p>
+    `,
+    `<p>Insert the <code>key</code> variable name to finish the expression and define that we want the <code>HOME</code> environmental variable</p>`,
+    `<p>The value for <code>key</code> comes from the variable on line 4</p>`,
+    `<p>Begin creating the match expression</p>`,
+    `<p>Setup the <code>match</code> expression to examine the <code>returnValueAsResult</code> variable</p>`,
+    `<p>This is the same <code>returnValueAsResult</code> variable as the one from the line above</p>`,
+    `<p>Now we start creating the <code>Ok()</code> expression which is the first of the two required arms of the <code>match</code> expression when used with a Result value</p>`,
+    `<p>The <code>Ok()</code> portion of a <code>Result</code> contains a value that we can pull out. We're doing that here by assigning the incoming value to a variable named <code>item</code></p>`,
+    `<p>Next we start to fill out the code we want to run if the <code>Result</code> is <code>Ok()</code>. Here were using a <code>println!()</code> expression but we could also call a function or return a value (TODO: Verify values can be returned)</p>`,
+    `<p>Here we're adding two placeholder to the format string that will be used for output if the <code>Ok</code> value is matched because it's what was returned in <code>Result</code></p>`,
+    `<p>Next, setup to use the <code>item</code> variable</p>`,
+    `<p><code>item</code> comes from the variable we set with the value that came in with <code>Ok</code></p>`,
+    `<p>Next we start the second arm of the <code>match</code> statement called <code>Err()</code></p>`,
+    `<p>The <code>Err()</code> arm receives a value in the same way the <code>Ok()</code> arm does. We'll pull this value into a variable named <code>error</code></p>`,
+    `<p>We'll create another <code>println()</code> expression for the <code>Err()</code> arm</p>`,
+    `<p>Next, setup a basic format string similar to the one we did for the <code>Ok()</code> arm</p>`,
+    `<p>And here we'll add the <code>error<code> variable</p>`,
+    `<p>Which we got as the incoming value for the <code>Err()</code> arm</p>`,
+    `
+      <p>Putting it all together, we get our final output.</p>
+      <p>In this case, the sample output is from a case then the environmental variable existed and was read in which means <code>returnValueAsResult</code> received a <code>Result</code> with <code>Ok</code> and the value of the environmental variable (which was <code>/Users/alan</code> in this case)</p>
+    `,
+  ],
+  positions: [
+    [2.5, 4.8, 40.0, 4.2], // 1
+    [3, 0, 0, 0],
+    [1.2, 0, 0, 0],
+    [0, 0, 0, 0],
+    [1.2, 0, 0, 0], // 5
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [1.2, 0, 0, 0],
+    [0, 0, 0, 0], // 10
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [1.4, 2, -2, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0], // 15
+    [2.6, 0.4, -0.4, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0], // 20
+    [0, 0, 0, 0],
+    [2.6, 0, 0, -0.6],
+    [0, 0, 0, 0],
+    [1.2, 0, 0, 0],
+    [0, 0, 0, 0], //25
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [-16, 22, -24, 16],
+  ],
 }
 
 const handleNextClick = () => {
-  console.log(`Next: ${s.currentSet}`)
-  if (s.currentSet < s.maxSet) {
-    update(s.currentSet + 1)
+  if (s.currentSet < s.sets.length - 1) {
+    updateEverything(s.currentSet + 1)
   }
 }
 
 const handlePreviousClick = () => {
-  console.log(`Previous: ${s.currentSet}`)
   if (s.currentSet > 0) {
-    update(s.currentSet - 1)
+    updateEverything(s.currentSet - 1)
   }
 }
 
-const update = (setIndex) => {
-  console.log(`Updating to: ${setIndex}`)
-  s.currentSet = setIndex
-
-  if (s.currentSet === 0) {
-    window.line_0.innerHTML = "this is"
-    window.line_1.innerHTML = " "
-    window.line_2.innerHTML = " "
-    window.line_3.innerHTML = " "
-    window.textBlock.style.top = '2.3rem'
-  } else if (s.currentSet === 1) {
-    window.line_0.innerHTML = "this is the line"
-    window.line_1.innerHTML = " "
-    window.line_2.innerHTML = " "
-    window.line_3.innerHTML = " "
-    window.textBlock.style.top = '2.3rem'
-  } else if (s.currentSet === 2) {
-    window.line_0.innerHTML = "this is the line"
-    window.line_1.innerHTML = "with some more text"
-    window.line_2.innerHTML = " "
-    window.line_3.innerHTML = " "
-    window.textBlock.style.top = '3.6rem'
-  } else if (s.currentSet === 3) {
-    window.line_0.innerHTML = "this is the line"
-    window.line_1.innerHTML = "with some more text"
-    window.line_2.innerHTML = "and the quick brown fox"
-    window.line_3.innerHTML = " "
-    window.textBlock.style.top = '4.9rem'
-  } else if (s.currentSet === 4) {
-    window.line_0.innerHTML = "this is the line"
-    window.line_1.innerHTML = "with some more text"
-    window.line_2.innerHTML = "and the quick brown fox"
-    window.line_3.innerHTML = "and the lazy dog"
-    window.textBlock.style.top = '6.2rem'
+const makeElement = (_type, _id, _html, _childOf, _event, _function) => {
+  const newElement = document.createElement(_type)
+  newElement.id = _id
+  newElement.innerHTML = _html
+  window[_childOf].appendChild(newElement)
+  if (_event !== null) {
+    newEl.addEventListener(_event, _function)
   }
+}
+
+const makeCodeLineRows = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    makeElement(
+      'pre',
+      `stepByStepCodeLine_${i}`,
+      ` `,
+      'stepByStepCodeLines',
+      null,
+      null
+    )
+  }
+}
+
+const makeLineNumberRows = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    const numberString = i < 9 ? `0${i + 1}` : i + 1
+    makeElement(
+      'pre',
+      `stepByStepLineNumber_${i}`,
+      numberString,
+      'stepByStepLineNumbers',
+      null,
+      null
+    )
+  }
+}
+
+const makePointerRows = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    makeElement(
+      'pre',
+      `stepByStepPointer_${i}`,
+      ` `,
+      'stepByStepPointers',
+      null,
+      null
+    )
+  }
+}
+
+const totalLines = () => {
+  return s.lines.length
+}
+
+const updateCodeLines = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    const targetNumber = s.lineIndexes[i]
+    window[`stepByStepCodeLine_${i}`].innerHTML = s.lines[i][targetNumber]
+  }
+}
+
+const updateEverything = (setIndex) => {
+  s.currentSet = setIndex
+  updateHeader()
+  updateLineIndexes()
+  updatePositions()
+  updateNotes()
+  updateCodeLines()
+}
+
+const updateHeader = () => {
+  window.stepByStepHeader.innerHTML = `Step ${s.currentSet + 1}`
+}
+
+const updateLineIndexes = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    s.lineIndexes[i] = 0
+    for (let x = 0; x <= s.currentSet; x++) {
+      s.lineIndexes[i] += s.sets[x][i]
+    }
+  }
+}
+
+const updateNotes = () => {
+  window.stepByStepNotes.innerHTML = s.notes[s.currentSet]
+}
+
+const updatePositions = () => {
+  let positionTop = 0
+  let positionLeft = 0
+  let positionWidth = 0
+  let positionHeight = 0
+
+  for (let i = 0; i <= s.currentSet; i++) {
+    positionTop += s.positions[i][0]
+    positionLeft += s.positions[i][1]
+    positionWidth += s.positions[i][2]
+    positionHeight += s.positions[i][3]
+  }
+
+  window.stepByStepNotesSpacer.style.top = `${positionTop}rem`
+  window.stepByStepNotesSpacer.style.left = `${positionLeft}rem`
+  window.stepByStepNotesSpacer.style.width = `${positionWidth}rem`
+  window.stepByStepNotesSpacer.style.height = `${positionHeight}rem`
 }
 
 const init = () => {
-  console.log("init")
+  makeLineNumberRows()
+  makePointerRows()
+  makeCodeLineRows()
   window.previousButton.addEventListener('click', handlePreviousClick)
   window.nextButton.addEventListener('click', handleNextClick)
-  update(0)
+  updateEverything(0)
 }
 
 document.addEventListener('DOMContentLoaded', init)
@@ -143,27 +386,21 @@ document.addEventListener('DOMContentLoaded', init)
     </header>
     <main>
       <h1>Step-By-Step Code Example Prototype 7</h1>
-      <div id="outerWrapper">
-  <pre id="textBlock"><div id="words"><p>This is some stuff</p><p>And some more lines</p></div></pre>
-  <div id="wrapper">
-  <pre id="line_0"> </pre>
-  <pre id="line_1"> </pre>
-  <pre id="line_2"> </pre>
-  <pre id="line_3"> </pre>
-  <pre id="line_4"> </pre>
-  <pre> </pre>
-  <pre> </pre>
-  <pre> </pre>
-  <pre> </pre>
-  <pre> </pre>
+      <div id="stepByStepHeader">
+  <!-- TODO: Move this into the grid -->
 </div>
 
+<div id="stepByStepWrapper">
+  <div id="stepByStepLineNumbers"></div>
+  <div id="stepByStepPointers"></div>
+  <div id="stepByStepCodeLines"></div>
+  <div id="stepByStepNotesSpacer">
+    <div id="stepByStepNotes"></div>
+  </div>
 </div>
-
 
 <button id="previousButton">Previous</button>
 <button id="nextButton">Next</button>
-
 
       
                 <h2>Details</h2>
@@ -172,124 +409,361 @@ document.addEventListener('DOMContentLoaded', init)
                 </ul>
                   
             <h2>HTML</h2>
-            <pre><code class="language-html">&lt;div id=&quot;outerWrapper&quot;&gt;
-  &lt;pre id=&quot;textBlock&quot;&gt;&lt;div id=&quot;words&quot;&gt;&lt;p&gt;This is some stuff&lt;/p&gt;&lt;p&gt;And some more lines&lt;/p&gt;&lt;/div&gt;&lt;/pre&gt;
-  &lt;div id=&quot;wrapper&quot;&gt;
-  &lt;pre id=&quot;line_0&quot;&gt; &lt;/pre&gt;
-  &lt;pre id=&quot;line_1&quot;&gt; &lt;/pre&gt;
-  &lt;pre id=&quot;line_2&quot;&gt; &lt;/pre&gt;
-  &lt;pre id=&quot;line_3&quot;&gt; &lt;/pre&gt;
-  &lt;pre id=&quot;line_4&quot;&gt; &lt;/pre&gt;
-  &lt;pre&gt; &lt;/pre&gt;
-  &lt;pre&gt; &lt;/pre&gt;
-  &lt;pre&gt; &lt;/pre&gt;
-  &lt;pre&gt; &lt;/pre&gt;
-  &lt;pre&gt; &lt;/pre&gt;
+            <pre><code class="language-html">&lt;div id=&quot;stepByStepHeader&quot;&gt;
+  &lt;!-- TODO: Move this into the grid --&gt;
 &lt;/div&gt;
 
+&lt;div id=&quot;stepByStepWrapper&quot;&gt;
+  &lt;div id=&quot;stepByStepLineNumbers&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;stepByStepPointers&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;stepByStepCodeLines&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;stepByStepNotesSpacer&quot;&gt;
+    &lt;div id=&quot;stepByStepNotes&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
 &lt;/div&gt;
-
 
 &lt;button id=&quot;previousButton&quot;&gt;Previous&lt;/button&gt;
 &lt;button id=&quot;nextButton&quot;&gt;Next&lt;/button&gt;
-
 </code></pre>
              
             <h2>CSS</h2>
             <pre><code class="language-css">pre {
   line-height: 1.3rem;
 }
-#textBlock {
+
+#stepByStepNotesSpacer {
   font-family: monospace;
   position: absolute;
-  top: 2.3rem;
-  left: 5ch;
-  padding:1ch;
-  margin:0;
-  background-color: #002;
-  min-width: 60ch;
+  padding: 1ch;
+  margin: 0;
+  background-color: #666;
+  border-radius: 0.4rem;
 }
 
-#wrapper {
+#stepByStepWrapper {
   font-family: monospace;
   position: relative;
-  padding:0;
-  margin:0;
+  margin: 0;
+  padding: 0.8rem;
+  background-color: #100;
+  display: grid;
+  grid-template-columns: 3ch 2ch 1fr;
+  border-radius: 0.4rem;
 }
 
-#outerWrapper {
-  padding:0.8rem;
-  background-color: #010;
-  position: relative;
-}
-
-#words {
+#stepByStepNotes {
   font-family: sans-serif;
+}
+
+#stepByStepLineNumbers {
+  background-color: #002;
 }
 </code></pre>
              
             <h2>JavaScript</h2>
             <pre><code class="language-js">const s = {
   currentSet: 0,
-  maxSet: 4,
+  lineIndexes: [],
+  lines: [
+    [` `, `&lt;c-1&gt;use std::env&lt;/c-1&gt;&lt;c-2&gt;;&lt;/c-2&gt;`, `use std::env;`],
+    [` `, ` `],
+    [` `, `&lt;c-1&gt;fn main()&lt;/c-1&gt; &lt;c-2&gt;{&lt;/c-2&gt;`, `fn main() {`],
+    [
+      ` `,
+      `  &lt;c-1&gt;let key &lt;/c-1&gt;&lt;c-2&gt;=&lt;/c-2&gt;`,
+      `  let key = &lt;c-1&gt;&amp;quot;HOME&amp;quot;&lt;/c-1&gt;&lt;c-2&gt;;&lt;/c-2&gt;`,
+      `  let &lt;c-3&gt;key&lt;/c-3&gt; = &amp;quot;HOME&amp;quot;;`,
+      `  let key = &amp;quot;HOME&amp;quot;;`,
+    ],
+    [
+      ` `,
+      `  &lt;c-1&gt;println!()&lt;/c-1&gt;&lt;c-2&gt;;&lt;/c-2&gt;`,
+      `  println!(&lt;c-1&gt;&quot;checking {}&quot;&lt;/c-1&gt;);`,
+      `  println!(&quot;checking {}&quot;&lt;c-2&gt;,&lt;/c-2&gt; &lt;c-1&gt;key&lt;/c-1&gt;);`,
+      `  println!(&quot;checking {}&quot;, &lt;c-1&gt;key&lt;/c-1&gt;);`,
+      `  println!(&quot;checking {}&quot;, key);`,
+    ],
+    [
+      ` `,
+      `  &lt;c-1&gt;let returnValueAsResult &lt;/c-1&gt;&lt;c-2&gt;=&lt;/c-2&gt;`,
+      `  let returnValueAsResult = &lt;c-1&gt;env::var&lt;c-1&gt;()&lt;c-2&gt;;&lt;/c-2&gt;`,
+      `  let returnValueAsResult = env::var(&lt;c-1&gt;key&lt;/c-1&gt;);`,
+      `  let &lt;c-3&gt;returnValueAsResult&lt;/c-3&gt; = env::var(key);`,
+      `  let returnValueAsResult = env::var(key);`,
+    ],
+    [
+      ` `,
+      `  &lt;c-1&gt;match&lt;/c-1&gt; &lt;c-2&gt;{&lt;/c-2&gt;`,
+      `  match &lt;c-1&gt;returnValueAsResult&lt;/c-1&gt; {`,
+      `  match returnValueAsResult {`,
+    ],
+    [
+      ` `,
+      `    &lt;c-1&gt;Ok() =&gt;&lt;/c-1&gt; &lt;c-2&gt;{&lt;/c-2&gt;`,
+      `    Ok(&lt;c-1&gt;item&lt;/c-1&gt;) =&gt; {`,
+      `    Ok(&lt;c-3&gt;item&lt;/c-3&gt;) =&gt; {`,
+      `    Ok(item) =&gt; {`,
+    ],
+    [
+      ` `,
+      `      &lt;c-1&gt;println!()&lt;/c-1&gt;&lt;c-2&gt;;&lt;/c-2&gt;`,
+      `      println!(&lt;c-1&gt;&amp;quot;got {}&amp;quot;&lt;/c-1&gt;);`,
+      `      println!(&amp;quot;got {}&amp;quot;&lt;c-2&gt;,&lt;/c-2&gt; &lt;c-1&gt;item&lt;/c-1&gt;);`,
+      `      println!(&amp;quot;got {}&amp;quot;, &lt;c-1&gt;item&lt;/c-1&gt;);`,
+      `      println!(&amp;quot;got {}&amp;quot;, item);`,
+    ],
+    [` `, `    &lt;c-2&gt;}&lt;/c-2&gt;`, `    }`],
+    [
+      ` `,
+      `    &lt;c-1&gt;Err() =&gt; &lt;/c-1&gt;&lt;c-2&gt;{&lt;/c-2&gt;`,
+      `    Err(&lt;c-1&gt;error&lt;/c-1&gt;) =&gt; {`,
+      `    Err(&lt;c-3&gt;error&lt;/c-3&gt;) =&gt; {`,
+      `    Err(error) =&gt; {`,
+    ],
+    [
+      ` `,
+      `      &lt;c-1&gt;println!()&lt;/c-1&gt;&lt;c-2&gt;;&lt;/c-2&gt;`,
+      `      println!(&lt;c-1&gt;&amp;quot;error {}&amp;quot;&lt;/c-1&gt;);`,
+      `      println!(&amp;quot;error {}&amp;quot;&lt;c-2&gt;,&lt;/c-2&gt; &lt;c-1&gt;error&lt;/c-1&gt;);`,
+      `      println!(&amp;quot;error {}&amp;quot;, &lt;c-1&gt;error&lt;/c-1&gt;);`,
+      `      println!(&amp;quot;error {}&amp;quot;, error);`,
+    ],
+    [` `, `    &lt;c-2&gt;}&lt;/c-2&gt;`, `    }`],
+    [` `, `  &lt;c-2&gt;}&lt;/c-2&gt;`, `  }`],
+    [` `, `&lt;c-2&gt;}&lt;/c-2&gt;`, `}`],
+  ],
+
+  sets: [
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 1
+    [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 5
+    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, -1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 10
+    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 2, 1, 0, 0, 0, 0, 0, 0, 1, 0],
+    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0],
+    //     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
+    [0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 15
+    [0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], // 20
+    [0, 0, 0, 0, 0, 0, 0, -1, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0], // 25
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
+    //     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
+  ],
+
+  output: [&#x27;checking HOME&#x27;, &#x27;got /Users/alan&#x27;],
+
+  notes: [
+    `&lt;p&gt;Load the &lt;code&gt;std::env&lt;/code&gt; library which gives us access to environmental variables&lt;/p&gt;`,
+    `&lt;p&gt;Create the &lt;code&gt;main()&lt;/code&gt; function&lt;/p&gt;`,
+    `&lt;p&gt;Begin creating an immutable &lt;code&gt;key&lt;/code&gt; variable&lt;/p&gt;`,
+    `
+      &lt;p&gt;Bind a string literal with &lt;code&gt;HOME&lt;/code&gt; to the &lt;code&gt;key&lt;/code&gt; variable&lt;/p&gt;
+      &lt;p&gt;This matches the &lt;code&gt;HOME&lt;/code&gt; environmental variable that&#x27;s available in the Code Runners&lt;/p&gt;
+    `,
+    `&lt;p&gt;Create an initial &lt;code&gt;println!()&lt;/code&gt; statement that is just here to help me test multiple line output in this example&lt;/p&gt;`,
+    `&lt;p&gt;Add the format string&lt;/p&gt;`,
+    `&lt;p&gt;And setup to use the value from &lt;code&gt;key&lt;/code&gt;&lt;/p&gt;`,
+    `&lt;p&gt;Which comes from the line above it&lt;/p&gt;`,
+    `&lt;p&gt;Start creating a &lt;code&gt;returnValueAsResult&lt;/code&gt; immutable variable&lt;/p&gt;`,
+    `
+      &lt;p&gt;The &lt;code&gt;env::var()&lt;/code&gt; method is what&#x27;s used to access individual environmental variables.&lt;/p&gt;
+      &lt;p&gt;The expression returns a &lt;code&gt;Result&lt;/code&gt; value that will handle with the upcoming &lt;code&gt;match&lt;/code&gt; statement&lt;/p&gt;
+    `,
+    `&lt;p&gt;Insert the &lt;code&gt;key&lt;/code&gt; variable name to finish the expression and define that we want the &lt;code&gt;HOME&lt;/code&gt; environmental variable&lt;/p&gt;`,
+    `&lt;p&gt;The value for &lt;code&gt;key&lt;/code&gt; comes from the variable on line 4&lt;/p&gt;`,
+    `&lt;p&gt;Begin creating the match expression&lt;/p&gt;`,
+    `&lt;p&gt;Setup the &lt;code&gt;match&lt;/code&gt; expression to examine the &lt;code&gt;returnValueAsResult&lt;/code&gt; variable&lt;/p&gt;`,
+    `&lt;p&gt;This is the same &lt;code&gt;returnValueAsResult&lt;/code&gt; variable as the one from the line above&lt;/p&gt;`,
+    `&lt;p&gt;Now we start creating the &lt;code&gt;Ok()&lt;/code&gt; expression which is the first of the two required arms of the &lt;code&gt;match&lt;/code&gt; expression when used with a Result value&lt;/p&gt;`,
+    `&lt;p&gt;The &lt;code&gt;Ok()&lt;/code&gt; portion of a &lt;code&gt;Result&lt;/code&gt; contains a value that we can pull out. We&#x27;re doing that here by assigning the incoming value to a variable named &lt;code&gt;item&lt;/code&gt;&lt;/p&gt;`,
+    `&lt;p&gt;Next we start to fill out the code we want to run if the &lt;code&gt;Result&lt;/code&gt; is &lt;code&gt;Ok()&lt;/code&gt;. Here were using a &lt;code&gt;println!()&lt;/code&gt; expression but we could also call a function or return a value (TODO: Verify values can be returned)&lt;/p&gt;`,
+    `&lt;p&gt;Here we&#x27;re adding two placeholder to the format string that will be used for output if the &lt;code&gt;Ok&lt;/code&gt; value is matched because it&#x27;s what was returned in &lt;code&gt;Result&lt;/code&gt;&lt;/p&gt;`,
+    `&lt;p&gt;Next, setup to use the &lt;code&gt;item&lt;/code&gt; variable&lt;/p&gt;`,
+    `&lt;p&gt;&lt;code&gt;item&lt;/code&gt; comes from the variable we set with the value that came in with &lt;code&gt;Ok&lt;/code&gt;&lt;/p&gt;`,
+    `&lt;p&gt;Next we start the second arm of the &lt;code&gt;match&lt;/code&gt; statement called &lt;code&gt;Err()&lt;/code&gt;&lt;/p&gt;`,
+    `&lt;p&gt;The &lt;code&gt;Err()&lt;/code&gt; arm receives a value in the same way the &lt;code&gt;Ok()&lt;/code&gt; arm does. We&#x27;ll pull this value into a variable named &lt;code&gt;error&lt;/code&gt;&lt;/p&gt;`,
+    `&lt;p&gt;We&#x27;ll create another &lt;code&gt;println()&lt;/code&gt; expression for the &lt;code&gt;Err()&lt;/code&gt; arm&lt;/p&gt;`,
+    `&lt;p&gt;Next, setup a basic format string similar to the one we did for the &lt;code&gt;Ok()&lt;/code&gt; arm&lt;/p&gt;`,
+    `&lt;p&gt;And here we&#x27;ll add the &lt;code&gt;error&lt;code&gt; variable&lt;/p&gt;`,
+    `&lt;p&gt;Which we got as the incoming value for the &lt;code&gt;Err()&lt;/code&gt; arm&lt;/p&gt;`,
+    `
+      &lt;p&gt;Putting it all together, we get our final output.&lt;/p&gt;
+      &lt;p&gt;In this case, the sample output is from a case then the environmental variable existed and was read in which means &lt;code&gt;returnValueAsResult&lt;/code&gt; received a &lt;code&gt;Result&lt;/code&gt; with &lt;code&gt;Ok&lt;/code&gt; and the value of the environmental variable (which was &lt;code&gt;/Users/alan&lt;/code&gt; in this case)&lt;/p&gt;
+    `,
+  ],
+  positions: [
+    [2.5, 4.8, 40.0, 4.2], // 1
+    [3, 0, 0, 0],
+    [1.2, 0, 0, 0],
+    [0, 0, 0, 0],
+    [1.2, 0, 0, 0], // 5
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [1.2, 0, 0, 0],
+    [0, 0, 0, 0], // 10
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [1.4, 2, -2, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0], // 15
+    [2.6, 0.4, -0.4, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0], // 20
+    [0, 0, 0, 0],
+    [2.6, 0, 0, -0.6],
+    [0, 0, 0, 0],
+    [1.2, 0, 0, 0],
+    [0, 0, 0, 0], //25
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [-16, 22, -24, 16],
+  ],
 }
 
 const handleNextClick = () =&gt; {
-  console.log(`Next: ${s.currentSet}`)
-  if (s.currentSet &lt; s.maxSet) {
-    update(s.currentSet + 1)
+  if (s.currentSet &lt; s.sets.length - 1) {
+    updateEverything(s.currentSet + 1)
   }
 }
 
 const handlePreviousClick = () =&gt; {
-  console.log(`Previous: ${s.currentSet}`)
   if (s.currentSet &gt; 0) {
-    update(s.currentSet - 1)
+    updateEverything(s.currentSet - 1)
   }
 }
 
-const update = (setIndex) =&gt; {
-  console.log(`Updating to: ${setIndex}`)
-  s.currentSet = setIndex
-
-  if (s.currentSet === 0) {
-    window.line_0.innerHTML = &quot;this is&quot;
-    window.line_1.innerHTML = &quot; &quot;
-    window.line_2.innerHTML = &quot; &quot;
-    window.line_3.innerHTML = &quot; &quot;
-    window.textBlock.style.top = &#x27;2.3rem&#x27;
-  } else if (s.currentSet === 1) {
-    window.line_0.innerHTML = &quot;this is the line&quot;
-    window.line_1.innerHTML = &quot; &quot;
-    window.line_2.innerHTML = &quot; &quot;
-    window.line_3.innerHTML = &quot; &quot;
-    window.textBlock.style.top = &#x27;2.3rem&#x27;
-  } else if (s.currentSet === 2) {
-    window.line_0.innerHTML = &quot;this is the line&quot;
-    window.line_1.innerHTML = &quot;with some more text&quot;
-    window.line_2.innerHTML = &quot; &quot;
-    window.line_3.innerHTML = &quot; &quot;
-    window.textBlock.style.top = &#x27;3.6rem&#x27;
-  } else if (s.currentSet === 3) {
-    window.line_0.innerHTML = &quot;this is the line&quot;
-    window.line_1.innerHTML = &quot;with some more text&quot;
-    window.line_2.innerHTML = &quot;and the quick brown fox&quot;
-    window.line_3.innerHTML = &quot; &quot;
-    window.textBlock.style.top = &#x27;4.9rem&#x27;
-  } else if (s.currentSet === 4) {
-    window.line_0.innerHTML = &quot;this is the line&quot;
-    window.line_1.innerHTML = &quot;with some more text&quot;
-    window.line_2.innerHTML = &quot;and the quick brown fox&quot;
-    window.line_3.innerHTML = &quot;and the lazy dog&quot;
-    window.textBlock.style.top = &#x27;6.2rem&#x27;
+const makeElement = (_type, _id, _html, _childOf, _event, _function) =&gt; {
+  const newElement = document.createElement(_type)
+  newElement.id = _id
+  newElement.innerHTML = _html
+  window[_childOf].appendChild(newElement)
+  if (_event !== null) {
+    newEl.addEventListener(_event, _function)
   }
+}
+
+const makeCodeLineRows = () =&gt; {
+  for (let i = 0; i &lt; totalLines(); i++) {
+    makeElement(
+      &#x27;pre&#x27;,
+      `stepByStepCodeLine_${i}`,
+      ` `,
+      &#x27;stepByStepCodeLines&#x27;,
+      null,
+      null
+    )
+  }
+}
+
+const makeLineNumberRows = () =&gt; {
+  for (let i = 0; i &lt; totalLines(); i++) {
+    const numberString = i &lt; 9 ? `0${i + 1}` : i + 1
+    makeElement(
+      &#x27;pre&#x27;,
+      `stepByStepLineNumber_${i}`,
+      numberString,
+      &#x27;stepByStepLineNumbers&#x27;,
+      null,
+      null
+    )
+  }
+}
+
+const makePointerRows = () =&gt; {
+  for (let i = 0; i &lt; totalLines(); i++) {
+    makeElement(
+      &#x27;pre&#x27;,
+      `stepByStepPointer_${i}`,
+      ` `,
+      &#x27;stepByStepPointers&#x27;,
+      null,
+      null
+    )
+  }
+}
+
+const totalLines = () =&gt; {
+  return s.lines.length
+}
+
+const updateCodeLines = () =&gt; {
+  for (let i = 0; i &lt; totalLines(); i++) {
+    const targetNumber = s.lineIndexes[i]
+    window[`stepByStepCodeLine_${i}`].innerHTML = s.lines[i][targetNumber]
+  }
+}
+
+const updateEverything = (setIndex) =&gt; {
+  s.currentSet = setIndex
+  updateHeader()
+  updateLineIndexes()
+  updatePositions()
+  updateNotes()
+  updateCodeLines()
+}
+
+const updateHeader = () =&gt; {
+  window.stepByStepHeader.innerHTML = `Step ${s.currentSet + 1}`
+}
+
+const updateLineIndexes = () =&gt; {
+  for (let i = 0; i &lt; totalLines(); i++) {
+    s.lineIndexes[i] = 0
+    for (let x = 0; x &lt;= s.currentSet; x++) {
+      s.lineIndexes[i] += s.sets[x][i]
+    }
+  }
+}
+
+const updateNotes = () =&gt; {
+  window.stepByStepNotes.innerHTML = s.notes[s.currentSet]
+}
+
+const updatePositions = () =&gt; {
+  let positionTop = 0
+  let positionLeft = 0
+  let positionWidth = 0
+  let positionHeight = 0
+
+  for (let i = 0; i &lt;= s.currentSet; i++) {
+    positionTop += s.positions[i][0]
+    positionLeft += s.positions[i][1]
+    positionWidth += s.positions[i][2]
+    positionHeight += s.positions[i][3]
+  }
+
+  window.stepByStepNotesSpacer.style.top = `${positionTop}rem`
+  window.stepByStepNotesSpacer.style.left = `${positionLeft}rem`
+  window.stepByStepNotesSpacer.style.width = `${positionWidth}rem`
+  window.stepByStepNotesSpacer.style.height = `${positionHeight}rem`
 }
 
 const init = () =&gt; {
-  console.log(&quot;init&quot;)
+  makeLineNumberRows()
+  makePointerRows()
+  makeCodeLineRows()
   window.previousButton.addEventListener(&#x27;click&#x27;, handlePreviousClick)
   window.nextButton.addEventListener(&#x27;click&#x27;, handleNextClick)
-  update(0)
+  updateEverything(0)
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
