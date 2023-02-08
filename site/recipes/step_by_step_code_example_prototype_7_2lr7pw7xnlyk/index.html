@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Step-By-Step Code Example Prototype 7 - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Step-By-Step Code Example Prototype 7" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630,w_1200,h_630,c_fit,w_940,h_540,co_rgb:eeeeee,l_text:Helvetica_94_bold:Step-By-Step%20Code%20Example%20Prototype%207/fl_layer_apply,g_north_west,x_60,y_60/co_rgb:666666,l_text:Inconsolata_36_bold:from%20alan%20w.%20smith/fl_layer_apply,g_south_east,x_196,y_40/og-images/black-with-white-line.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/fonts.css" />
+    <link rel="stylesheet" href="/styles/colors.css" />
+    <link rel="stylesheet" href="/styles/wrapper.css" />
+    <link rel="stylesheet" href="/styles/prism-customized.css" />
+    
+    <style>
+      pre {
+  line-height: 1.3rem;
+}
+#textBlock {
+  font-family: monospace;
+  position: absolute;
+  top: 2.3rem;
+  left: 5ch;
+  padding:1ch;
+  margin:0;
+  background-color: #002;
+  min-width: 60ch;
+}
+
+#wrapper {
+  font-family: monospace;
+  position: relative;
+  padding:0;
+  margin:0;
+}
+
+#outerWrapper {
+  padding:0.8rem;
+  background-color: #010;
+  position: relative;
+}
+
+#words {
+  font-family: sans-serif;
+}
+
+    </style>
+    <script>
+      const s = {
+  currentSet: 0,
+  maxSet: 4,
+}
+
+const handleNextClick = () => {
+  console.log(`Next: ${s.currentSet}`)
+  if (s.currentSet < s.maxSet) {
+    update(s.currentSet + 1)
+  }
+}
+
+const handlePreviousClick = () => {
+  console.log(`Previous: ${s.currentSet}`)
+  if (s.currentSet > 0) {
+    update(s.currentSet - 1)
+  }
+}
+
+const update = (setIndex) => {
+  console.log(`Updating to: ${setIndex}`)
+  s.currentSet = setIndex
+
+  if (s.currentSet === 0) {
+    window.line_0.innerHTML = "this is"
+    window.line_1.innerHTML = " "
+    window.line_2.innerHTML = " "
+    window.line_3.innerHTML = " "
+    window.textBlock.style.top = '2.3rem'
+  } else if (s.currentSet === 1) {
+    window.line_0.innerHTML = "this is the line"
+    window.line_1.innerHTML = " "
+    window.line_2.innerHTML = " "
+    window.line_3.innerHTML = " "
+    window.textBlock.style.top = '2.3rem'
+  } else if (s.currentSet === 2) {
+    window.line_0.innerHTML = "this is the line"
+    window.line_1.innerHTML = "with some more text"
+    window.line_2.innerHTML = " "
+    window.line_3.innerHTML = " "
+    window.textBlock.style.top = '3.6rem'
+  } else if (s.currentSet === 3) {
+    window.line_0.innerHTML = "this is the line"
+    window.line_1.innerHTML = "with some more text"
+    window.line_2.innerHTML = "and the quick brown fox"
+    window.line_3.innerHTML = " "
+    window.textBlock.style.top = '4.9rem'
+  } else if (s.currentSet === 4) {
+    window.line_0.innerHTML = "this is the line"
+    window.line_1.innerHTML = "with some more text"
+    window.line_2.innerHTML = "and the quick brown fox"
+    window.line_3.innerHTML = "and the lazy dog"
+    window.textBlock.style.top = '6.2rem'
+  }
+}
+
+const init = () => {
+  console.log("init")
+  window.previousButton.addEventListener('click', handlePreviousClick)
+  window.nextButton.addEventListener('click', handleNextClick)
+  update(0)
+}
+
+document.addEventListener('DOMContentLoaded', init)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">cookbook home</a> ~
+      <a href="https://www.alanwsmith.com/">main site</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
+    </header>
+    <main>
+      <h1>Step-By-Step Code Example Prototype 7</h1>
+      <div id="outerWrapper">
+  <pre id="textBlock"><div id="words"><p>This is some stuff</p><p>And some more lines</p></div></pre>
+  <div id="wrapper">
+  <pre id="line_0"> </pre>
+  <pre id="line_1"> </pre>
+  <pre id="line_2"> </pre>
+  <pre id="line_3"> </pre>
+  <pre id="line_4"> </pre>
+  <pre> </pre>
+  <pre> </pre>
+  <pre> </pre>
+  <pre> </pre>
+  <pre> </pre>
+</div>
+
+</div>
+
+
+<button id="previousButton">Previous</button>
+<button id="nextButton">Next</button>
+
+
+      
+                <h2>Details</h2>
+                <ul>
+                    <li>An experiment with putting descriptive text directly below the code line</li>
+                </ul>
+                  
+            <h2>HTML</h2>
+            <pre><code class="language-html">&lt;div id=&quot;outerWrapper&quot;&gt;
+  &lt;pre id=&quot;textBlock&quot;&gt;&lt;div id=&quot;words&quot;&gt;&lt;p&gt;This is some stuff&lt;/p&gt;&lt;p&gt;And some more lines&lt;/p&gt;&lt;/div&gt;&lt;/pre&gt;
+  &lt;div id=&quot;wrapper&quot;&gt;
+  &lt;pre id=&quot;line_0&quot;&gt; &lt;/pre&gt;
+  &lt;pre id=&quot;line_1&quot;&gt; &lt;/pre&gt;
+  &lt;pre id=&quot;line_2&quot;&gt; &lt;/pre&gt;
+  &lt;pre id=&quot;line_3&quot;&gt; &lt;/pre&gt;
+  &lt;pre id=&quot;line_4&quot;&gt; &lt;/pre&gt;
+  &lt;pre&gt; &lt;/pre&gt;
+  &lt;pre&gt; &lt;/pre&gt;
+  &lt;pre&gt; &lt;/pre&gt;
+  &lt;pre&gt; &lt;/pre&gt;
+  &lt;pre&gt; &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+
+&lt;button id=&quot;previousButton&quot;&gt;Previous&lt;/button&gt;
+&lt;button id=&quot;nextButton&quot;&gt;Next&lt;/button&gt;
+
+</code></pre>
+             
+            <h2>CSS</h2>
+            <pre><code class="language-css">pre {
+  line-height: 1.3rem;
+}
+#textBlock {
+  font-family: monospace;
+  position: absolute;
+  top: 2.3rem;
+  left: 5ch;
+  padding:1ch;
+  margin:0;
+  background-color: #002;
+  min-width: 60ch;
+}
+
+#wrapper {
+  font-family: monospace;
+  position: relative;
+  padding:0;
+  margin:0;
+}
+
+#outerWrapper {
+  padding:0.8rem;
+  background-color: #010;
+  position: relative;
+}
+
+#words {
+  font-family: sans-serif;
+}
+</code></pre>
+             
+            <h2>JavaScript</h2>
+            <pre><code class="language-js">const s = {
+  currentSet: 0,
+  maxSet: 4,
+}
+
+const handleNextClick = () =&gt; {
+  console.log(`Next: ${s.currentSet}`)
+  if (s.currentSet &lt; s.maxSet) {
+    update(s.currentSet + 1)
+  }
+}
+
+const handlePreviousClick = () =&gt; {
+  console.log(`Previous: ${s.currentSet}`)
+  if (s.currentSet &gt; 0) {
+    update(s.currentSet - 1)
+  }
+}
+
+const update = (setIndex) =&gt; {
+  console.log(`Updating to: ${setIndex}`)
+  s.currentSet = setIndex
+
+  if (s.currentSet === 0) {
+    window.line_0.innerHTML = &quot;this is&quot;
+    window.line_1.innerHTML = &quot; &quot;
+    window.line_2.innerHTML = &quot; &quot;
+    window.line_3.innerHTML = &quot; &quot;
+    window.textBlock.style.top = &#x27;2.3rem&#x27;
+  } else if (s.currentSet === 1) {
+    window.line_0.innerHTML = &quot;this is the line&quot;
+    window.line_1.innerHTML = &quot; &quot;
+    window.line_2.innerHTML = &quot; &quot;
+    window.line_3.innerHTML = &quot; &quot;
+    window.textBlock.style.top = &#x27;2.3rem&#x27;
+  } else if (s.currentSet === 2) {
+    window.line_0.innerHTML = &quot;this is the line&quot;
+    window.line_1.innerHTML = &quot;with some more text&quot;
+    window.line_2.innerHTML = &quot; &quot;
+    window.line_3.innerHTML = &quot; &quot;
+    window.textBlock.style.top = &#x27;3.6rem&#x27;
+  } else if (s.currentSet === 3) {
+    window.line_0.innerHTML = &quot;this is the line&quot;
+    window.line_1.innerHTML = &quot;with some more text&quot;
+    window.line_2.innerHTML = &quot;and the quick brown fox&quot;
+    window.line_3.innerHTML = &quot; &quot;
+    window.textBlock.style.top = &#x27;4.9rem&#x27;
+  } else if (s.currentSet === 4) {
+    window.line_0.innerHTML = &quot;this is the line&quot;
+    window.line_1.innerHTML = &quot;with some more text&quot;
+    window.line_2.innerHTML = &quot;and the quick brown fox&quot;
+    window.line_3.innerHTML = &quot;and the lazy dog&quot;
+    window.textBlock.style.top = &#x27;6.2rem&#x27;
+  }
+}
+
+const init = () =&gt; {
+  console.log(&quot;init&quot;)
+  window.previousButton.addEventListener(&#x27;click&#x27;, handlePreviousClick)
+  window.nextButton.addEventListener(&#x27;click&#x27;, handleNextClick)
+  update(0)
+}
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
+</code></pre>
+            
+      <h2>EXAMPLE</h2>
+        
+                <h2>References</h2>
+                <ul>
+                    <li><a href=""></a></li>
+                </ul>
+                
+    </main>
+    <footer>
+      from <a href="https://www.alanwsmith.com/">alan w. smith</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>
