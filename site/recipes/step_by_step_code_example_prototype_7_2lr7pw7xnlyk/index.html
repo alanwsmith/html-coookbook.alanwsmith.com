@@ -66,6 +66,7 @@
     <script>
       const s = {
   currentSet: 0,
+  lineIndexes: [],
   maxSet: 6,
   lines: [
     [` `, `<c-1>use std::env</c-1><c-2>;</c-2>`, `use std::env;`],
@@ -213,55 +214,14 @@
 }
 
 const handleNextClick = () => {
-  console.log(`Next: ${s.currentSet}`)
   if (s.currentSet < s.maxSet) {
-    update(s.currentSet + 1)
+    updateEverything(s.currentSet + 1)
   }
 }
 
 const handlePreviousClick = () => {
-  console.log(`Previous: ${s.currentSet}`)
   if (s.currentSet > 0) {
-    update(s.currentSet - 1)
-  }
-}
-
-const update = (setIndex) => {
-  console.log(`Updating to: ${setIndex}`)
-  s.currentSet = setIndex
-
-  window.stepByStepNotes.innerHTML = s.notes[s.currentSet]
-
-  if (s.currentSet === 0) {
-    window.stepByStepLine_0.innerHTML = s.lines[0][1]
-    window.stepByStepLine_1.innerHTML = ' '
-    window.stepByStepLine_2.innerHTML = ' '
-    window.stepByStepLine_3.innerHTML = ' '
-    window.stepByStepNotesSpacer.style.top = '2.3rem'
-  } else if (s.currentSet === 1) {
-    window.stepByStepLine_0.innerHTML = s.lines[0][2]
-    window.stepByStepLine_1.innerHTML = ' '
-    window.stepByStepLine_2.innerHTML = s.lines[2][1]
-    window.stepByStepLine_3.innerHTML = ' '
-    window.stepByStepNotesSpacer.style.top = '4.9rem'
-  } else if (s.currentSet === 2) {
-    window.stepByStepLine_0.innerHTML = 'this is the line'
-    window.stepByStepLine_1.innerHTML = 'with some more text'
-    window.stepByStepLine_2.innerHTML = ' '
-    window.stepByStepLine_3.innerHTML = ' '
-    window.stepByStepNotesSpacer.style.top = '3.6rem'
-  } else if (s.currentSet === 3) {
-    window.stepByStepLine_0.innerHTML = 'this is the line'
-    window.stepByStepLine_1.innerHTML = 'with some more text'
-    window.stepByStepLine_2.innerHTML = 'and the quick brown fox'
-    window.stepByStepLine_3.innerHTML = ' '
-    window.stepByStepNotesSpacer.style.top = '4.9rem'
-  } else if (s.currentSet === 4) {
-    window.stepByStepLine_0.innerHTML = 'this is the line'
-    window.stepByStepLine_1.innerHTML = 'with some more text'
-    window.stepByStepLine_2.innerHTML = 'and the quick brown fox'
-    window.stepByStepLine_3.innerHTML = 'and the lazy dog'
-    window.stepByStepNotesSpacer.style.top = '6.2rem'
+    updateEverything(s.currentSet - 1)
   }
 }
 
@@ -272,6 +232,19 @@ const makeElement = (_type, _id, _html, _childOf, _event, _function) => {
   window[_childOf].appendChild(newElement)
   if (_event !== null) {
     newEl.addEventListener(_event, _function)
+  }
+}
+
+const makeCodeLineRows = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    makeElement(
+      'pre',
+      `stepByStepCodeLine_${i}`,
+      ` `,
+      'stepByStepCodeLines',
+      null,
+      null
+    )
   }
 }
 
@@ -306,13 +279,42 @@ const totalLines = () => {
   return s.lines.length
 }
 
+const updateEverything = (setIndex) => {
+  console.log(`Updating to: ${setIndex}`)
+  s.currentSet = setIndex
+  updateLineIndexes()
+  updateNotes()
+  // updateCodeLines()
+}
+
+const updateLineIndexes = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    s.lineIndexes[i] = 0
+    for (let x = 0; x <= s.currentSet; x++) {
+      s.lineIndexes[i] += s.sets[x][i]
+    }
+  }
+}
+
+const updateNotes = () => {
+  window.stepByStepNotes.innerHTML = s.notes[s.currentSet]
+}
+
+const updateCodeLines = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    const targetNumber = s.lineIndexes[i]
+    window[`stepByStepCodeLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
+  }
+}
+
 const init = () => {
   makeLineNumberRows()
   makePointerRows()
+  makeCodeLineRows()
   console.log('init')
   window.previousButton.addEventListener('click', handlePreviousClick)
   window.nextButton.addEventListener('click', handleNextClick)
-  update(0)
+  updateEverything(0)
 }
 
 document.addEventListener('DOMContentLoaded', init)
@@ -332,21 +334,7 @@ document.addEventListener('DOMContentLoaded', init)
       <div id="stepByStepWrapper">
   <div id="stepByStepLineNumbers"></div>
   <div id="stepByStepPointers"></div>
-  <div id="stepByStepLines">
-    <pre id="stepByStepLine_0"></pre>
-    <pre id="stepByStepLine_1"></pre>
-    <pre id="stepByStepLine_2"></pre>
-    <pre id="stepByStepLine_3"></pre>
-    <pre id="stepByStepLine_4"></pre>
-    <pre>&nbsp;</pre>
-    <pre>&nbsp;</pre>
-    <pre>&nbsp;</pre>
-    <pre>&nbsp;</pre>
-    <pre>&nbsp;</pre>
-    <pre>&nbsp;</pre>
-    <pre>&nbsp;</pre>
-    <pre>&nbsp;</pre>
-  </div>
+  <div id="stepByStepCodeLines"></div>
   <div id="stepByStepNotesSpacer">
     <div id="stepByStepNotes"></div>
   </div>
@@ -365,21 +353,7 @@ document.addEventListener('DOMContentLoaded', init)
             <pre><code class="language-html">&lt;div id=&quot;stepByStepWrapper&quot;&gt;
   &lt;div id=&quot;stepByStepLineNumbers&quot;&gt;&lt;/div&gt;
   &lt;div id=&quot;stepByStepPointers&quot;&gt;&lt;/div&gt;
-  &lt;div id=&quot;stepByStepLines&quot;&gt;
-    &lt;pre id=&quot;stepByStepLine_0&quot;&gt;&lt;/pre&gt;
-    &lt;pre id=&quot;stepByStepLine_1&quot;&gt;&lt;/pre&gt;
-    &lt;pre id=&quot;stepByStepLine_2&quot;&gt;&lt;/pre&gt;
-    &lt;pre id=&quot;stepByStepLine_3&quot;&gt;&lt;/pre&gt;
-    &lt;pre id=&quot;stepByStepLine_4&quot;&gt;&lt;/pre&gt;
-    &lt;pre&gt;&amp;nbsp;&lt;/pre&gt;
-    &lt;pre&gt;&amp;nbsp;&lt;/pre&gt;
-    &lt;pre&gt;&amp;nbsp;&lt;/pre&gt;
-    &lt;pre&gt;&amp;nbsp;&lt;/pre&gt;
-    &lt;pre&gt;&amp;nbsp;&lt;/pre&gt;
-    &lt;pre&gt;&amp;nbsp;&lt;/pre&gt;
-    &lt;pre&gt;&amp;nbsp;&lt;/pre&gt;
-    &lt;pre&gt;&amp;nbsp;&lt;/pre&gt;
-  &lt;/div&gt;
+  &lt;div id=&quot;stepByStepCodeLines&quot;&gt;&lt;/div&gt;
   &lt;div id=&quot;stepByStepNotesSpacer&quot;&gt;
     &lt;div id=&quot;stepByStepNotes&quot;&gt;&lt;/div&gt;
   &lt;/div&gt;
@@ -423,6 +397,7 @@ document.addEventListener('DOMContentLoaded', init)
             <h2>JavaScript</h2>
             <pre><code class="language-js">const s = {
   currentSet: 0,
+  lineIndexes: [],
   maxSet: 6,
   lines: [
     [` `, `&lt;c-1&gt;use std::env&lt;/c-1&gt;&lt;c-2&gt;;&lt;/c-2&gt;`, `use std::env;`],
@@ -570,55 +545,14 @@ document.addEventListener('DOMContentLoaded', init)
 }
 
 const handleNextClick = () =&gt; {
-  console.log(`Next: ${s.currentSet}`)
   if (s.currentSet &lt; s.maxSet) {
-    update(s.currentSet + 1)
+    updateEverything(s.currentSet + 1)
   }
 }
 
 const handlePreviousClick = () =&gt; {
-  console.log(`Previous: ${s.currentSet}`)
   if (s.currentSet &gt; 0) {
-    update(s.currentSet - 1)
-  }
-}
-
-const update = (setIndex) =&gt; {
-  console.log(`Updating to: ${setIndex}`)
-  s.currentSet = setIndex
-
-  window.stepByStepNotes.innerHTML = s.notes[s.currentSet]
-
-  if (s.currentSet === 0) {
-    window.stepByStepLine_0.innerHTML = s.lines[0][1]
-    window.stepByStepLine_1.innerHTML = &#x27; &#x27;
-    window.stepByStepLine_2.innerHTML = &#x27; &#x27;
-    window.stepByStepLine_3.innerHTML = &#x27; &#x27;
-    window.stepByStepNotesSpacer.style.top = &#x27;2.3rem&#x27;
-  } else if (s.currentSet === 1) {
-    window.stepByStepLine_0.innerHTML = s.lines[0][2]
-    window.stepByStepLine_1.innerHTML = &#x27; &#x27;
-    window.stepByStepLine_2.innerHTML = s.lines[2][1]
-    window.stepByStepLine_3.innerHTML = &#x27; &#x27;
-    window.stepByStepNotesSpacer.style.top = &#x27;4.9rem&#x27;
-  } else if (s.currentSet === 2) {
-    window.stepByStepLine_0.innerHTML = &#x27;this is the line&#x27;
-    window.stepByStepLine_1.innerHTML = &#x27;with some more text&#x27;
-    window.stepByStepLine_2.innerHTML = &#x27; &#x27;
-    window.stepByStepLine_3.innerHTML = &#x27; &#x27;
-    window.stepByStepNotesSpacer.style.top = &#x27;3.6rem&#x27;
-  } else if (s.currentSet === 3) {
-    window.stepByStepLine_0.innerHTML = &#x27;this is the line&#x27;
-    window.stepByStepLine_1.innerHTML = &#x27;with some more text&#x27;
-    window.stepByStepLine_2.innerHTML = &#x27;and the quick brown fox&#x27;
-    window.stepByStepLine_3.innerHTML = &#x27; &#x27;
-    window.stepByStepNotesSpacer.style.top = &#x27;4.9rem&#x27;
-  } else if (s.currentSet === 4) {
-    window.stepByStepLine_0.innerHTML = &#x27;this is the line&#x27;
-    window.stepByStepLine_1.innerHTML = &#x27;with some more text&#x27;
-    window.stepByStepLine_2.innerHTML = &#x27;and the quick brown fox&#x27;
-    window.stepByStepLine_3.innerHTML = &#x27;and the lazy dog&#x27;
-    window.stepByStepNotesSpacer.style.top = &#x27;6.2rem&#x27;
+    updateEverything(s.currentSet - 1)
   }
 }
 
@@ -629,6 +563,19 @@ const makeElement = (_type, _id, _html, _childOf, _event, _function) =&gt; {
   window[_childOf].appendChild(newElement)
   if (_event !== null) {
     newEl.addEventListener(_event, _function)
+  }
+}
+
+const makeCodeLineRows = () =&gt; {
+  for (let i = 0; i &lt; totalLines(); i++) {
+    makeElement(
+      &#x27;pre&#x27;,
+      `stepByStepCodeLine_${i}`,
+      ` `,
+      &#x27;stepByStepCodeLines&#x27;,
+      null,
+      null
+    )
   }
 }
 
@@ -663,13 +610,42 @@ const totalLines = () =&gt; {
   return s.lines.length
 }
 
+const updateEverything = (setIndex) =&gt; {
+  console.log(`Updating to: ${setIndex}`)
+  s.currentSet = setIndex
+  updateLineIndexes()
+  updateNotes()
+  // updateCodeLines()
+}
+
+const updateLineIndexes = () =&gt; {
+  for (let i = 0; i &lt; totalLines(); i++) {
+    s.lineIndexes[i] = 0
+    for (let x = 0; x &lt;= s.currentSet; x++) {
+      s.lineIndexes[i] += s.sets[x][i]
+    }
+  }
+}
+
+const updateNotes = () =&gt; {
+  window.stepByStepNotes.innerHTML = s.notes[s.currentSet]
+}
+
+const updateCodeLines = () =&gt; {
+  for (let i = 0; i &lt; totalLines(); i++) {
+    const targetNumber = s.lineIndexes[i]
+    window[`stepByStepCodeLine_${i}`].innerHTML = s.sourceLines[i][targetNumber]
+  }
+}
+
 const init = () =&gt; {
   makeLineNumberRows()
   makePointerRows()
+  makeCodeLineRows()
   console.log(&#x27;init&#x27;)
   window.previousButton.addEventListener(&#x27;click&#x27;, handlePreviousClick)
   window.nextButton.addEventListener(&#x27;click&#x27;, handleNextClick)
-  update(0)
+  updateEverything(0)
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
