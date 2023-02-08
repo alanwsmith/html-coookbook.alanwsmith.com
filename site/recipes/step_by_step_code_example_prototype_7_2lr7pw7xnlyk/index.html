@@ -208,10 +208,18 @@
     `,
   ],
   positions: [
-    [2.4, 4.8, 40.0],
-    [5.2, 4.8, 40.0],
-    [5.2, 4.8, 40.0],
-    [5.2, 4.8, 40.0],
+    [2.4, 4.8, 40.0, 6.0],
+    [3, 0, 0, 0],
+    [1.2, 0, 0, 0],
+    [0, 0, 0, 0],
+    [1.2, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
   ],
 }
 
@@ -311,11 +319,22 @@ const updateNotes = () => {
 }
 
 const updatePositions = () => {
-  window.stepByStepNotesSpacer.style.top = `${s.positions[s.currentSet][0]}rem`
-  window.stepByStepNotesSpacer.style.left = `${s.positions[s.currentSet][1]}rem`
-  window.stepByStepNotesSpacer.style.width = `${
-    s.positions[s.currentSet][2]
-  }rem`
+  let positionTop = 0
+  let positionLeft = 0
+  let positionWidth = 0
+  let positionHeight = 0
+
+  for (let i = 0; i <= s.currentSet; i++) {
+    positionTop += s.positions[i][0]
+    positionLeft += s.positions[i][1]
+    positionWidth += s.positions[i][2]
+    positionHeight += s.positions[i][3]
+  }
+
+  window.stepByStepNotesSpacer.style.top = `${positionTop}rem`
+  window.stepByStepNotesSpacer.style.left = `${positionLeft}rem`
+  window.stepByStepNotesSpacer.style.width = `${positionWidth}rem`
+  window.stepByStepNotesSpacer.style.height = `${positionHeight}rem`
 }
 
 const init = () => {
@@ -550,10 +569,18 @@ document.addEventListener('DOMContentLoaded', init)
     `,
   ],
   positions: [
-    [2.4, 4.8, 40.0],
-    [5.2, 4.8, 40.0],
-    [5.2, 4.8, 40.0],
-    [5.2, 4.8, 40.0],
+    [2.4, 4.8, 40.0, 6.0],
+    [3, 0, 0, 0],
+    [1.2, 0, 0, 0],
+    [0, 0, 0, 0],
+    [1.2, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
   ],
 }
 
@@ -653,11 +680,22 @@ const updateNotes = () =&gt; {
 }
 
 const updatePositions = () =&gt; {
-  window.stepByStepNotesSpacer.style.top = `${s.positions[s.currentSet][0]}rem`
-  window.stepByStepNotesSpacer.style.left = `${s.positions[s.currentSet][1]}rem`
-  window.stepByStepNotesSpacer.style.width = `${
-    s.positions[s.currentSet][2]
-  }rem`
+  let positionTop = 0
+  let positionLeft = 0
+  let positionWidth = 0
+  let positionHeight = 0
+
+  for (let i = 0; i &lt;= s.currentSet; i++) {
+    positionTop += s.positions[i][0]
+    positionLeft += s.positions[i][1]
+    positionWidth += s.positions[i][2]
+    positionHeight += s.positions[i][3]
+  }
+
+  window.stepByStepNotesSpacer.style.top = `${positionTop}rem`
+  window.stepByStepNotesSpacer.style.left = `${positionLeft}rem`
+  window.stepByStepNotesSpacer.style.width = `${positionWidth}rem`
+  window.stepByStepNotesSpacer.style.height = `${positionHeight}rem`
 }
 
 const init = () =&gt; {
