@@ -9,6 +9,7 @@ const s = {
       `  let envVarResult = env::var(&quot;HOME&quot;);`,
       ``,
       `  <c-1>let envVarResult</c-1> <c-2>=</c-2> <c-1>env::var(&quot;HOME&quot;)</c-1><c-2>;</c-2>`,
+      `  let envVarResult = env::var(&quot;HOME&quot;);`,
       `  let <c-3>envVarResult</c-3> = env::var(&quot;HOME&quot;);`,
       `  let envVarResult = env::var(&quot;HOME&quot;);`,
     ],
@@ -58,17 +59,19 @@ const s = {
 
   sets: [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], // 1
+    [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1], // 3
     [0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0],
-    [0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0],
-    [0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0], // 5
+    [0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0], // 7
+    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0], // 9
     [0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0], // 11
     [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0], // 13
     [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
   ],
 
@@ -322,8 +325,8 @@ const updateCodeLines = () => {
 
 const updateEverything = (setIndex) => {
   s.currentSet = setIndex
-  updateHeader()
   updateLineIndexes()
+  updateHeader()
   updatePointers()
   updatePositions()
   updateNotes()
@@ -383,14 +386,21 @@ const updateOutputLines = () => {
 
 const updatePointers = () => {
   for (let i = 0; i < totalLines(); i++) {
+    // Set empty to clear prior pointers
+    let pointerText = ' '
+
+    // only mark things that have changed
     if (s.sets[s.currentSet][i] === 1) {
+      // don't mark empty lines
       if (s.lines[i][s.currentSet] !== '') {
-        window[`stepByStepPointer_${i}`].innerHTML = '&gt;'
+        // don't mark the final change
+        if (s.lineIndexes[i] !== s.lines[i].length - 1) {
+          pointerText = '&gt;'
+        }
       }
-    } else {
-      // this clears previous lines
-      window[`stepByStepPointer_${i}`].innerHTML = ' '
     }
+
+    window[`stepByStepPointer_${i}`].innerHTML = pointerText
   }
 }
 
