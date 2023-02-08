@@ -1,3 +1,24 @@
+:root {
+  --base-padding: 0.8rem;
+  --border-radius: 0.8rem;
+}
+
+c-1 {
+  color: red;
+}
+
+c-2 {
+  color: blue;
+}
+
+c-3 {
+  color: green;
+}
+
+p {
+  margin-bottom: 1.5rem;
+}
+
 pre {
   line-height: 1.3rem;
 }
@@ -15,10 +36,9 @@ pre {
   font-family: monospace;
   position: relative;
   margin: 0;
-  padding: 0.8rem;
-  background-color: #100;
+  padding: 0;
   display: grid;
-  grid-template-columns: 3ch 2ch 1fr;
+  grid-template-columns: 5ch 2ch 1fr;
   border-radius: 0.4rem;
 }
 
@@ -28,4 +48,30 @@ pre {
 
 #stepByStepLineNumbers {
   background-color: #002;
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  padding-left: var(--base-padding);
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+}
+
+#stepByStepPointers {
+  background-color: #002;
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+}
+
+#stepByStepCodeLines {
+  background-color: #100;
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  padding-left: var(--base-padding);
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+
+.examplePre {
+  background-color: #242;
+  border-radius: var(--border-radius);
+  padding: var(--base-padding);
 }

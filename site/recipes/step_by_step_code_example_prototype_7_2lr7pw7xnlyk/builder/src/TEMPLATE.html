@@ -30,13 +30,23 @@
     <link rel="stylesheet" href="/styles/fonts.css" />
     <link rel="stylesheet" href="/styles/colors.css" />
     <link rel="stylesheet" href="/styles/wrapper.css" />
-    <link rel="stylesheet" href="/styles/prism-customized.css" />
+    <link rel="stylesheet" href="./highlightjs-nord-custom.min.css" />
     $HEAD
     <style>
       $CSS
     </style>
+
+    <script src="/assets/highlight/highlight.min.js"></script>
+
     <script>
       $JAVASCRIPT
+
+      const highlightReferenceCode = () => {
+        hljs.highlightElement(window.exampleJS)
+        hljs.highlightElement(window.exampleHTMLBody)
+        hljs.highlightElement(window.exampleCSS)
+      }
+      document.addEventListener('DOMContentLoaded', highlightReferenceCode)
     </script>
   </head>
   <body class="line-numbers">
@@ -49,14 +59,11 @@
     </header>
     <main>
       <h1>$TITLE</h1>
-      $BODY
-      $DETAILS $ESCAPED_HEAD $ESCAPED_BODY $ESCAPED_CSS $ESCAPED_JAVASCRIPT
-      <h2>EXAMPLE</h2>
-      $TODOS $NOTES $REFERENCES
+      $BODY $DETAILS $ESCAPED_HEAD $ESCAPED_BODY $ESCAPED_CSS
+      $ESCAPED_JAVASCRIPT $TODOS $NOTES $REFERENCES
     </main>
     <footer>
       from <a href="https://www.alanwsmith.com/">alan w. smith</a>
     </footer>
-    <script src="/styles/prism.js"></script>
   </body>
 </html>

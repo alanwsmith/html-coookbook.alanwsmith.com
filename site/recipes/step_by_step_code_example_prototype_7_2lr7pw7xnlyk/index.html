@@ -30,10 +30,31 @@
     <link rel="stylesheet" href="/styles/fonts.css" />
     <link rel="stylesheet" href="/styles/colors.css" />
     <link rel="stylesheet" href="/styles/wrapper.css" />
-    <link rel="stylesheet" href="/styles/prism-customized.css" />
+    <link rel="stylesheet" href="./highlightjs-nord-custom.min.css" />
     
     <style>
-      pre {
+      :root {
+  --base-padding: 0.8rem;
+  --border-radius: 0.8rem;
+}
+
+c-1 {
+  color: red;
+}
+
+c-2 {
+  color: blue;
+}
+
+c-3 {
+  color: green;
+}
+
+p {
+  margin-bottom: 1.5rem;
+}
+
+pre {
   line-height: 1.3rem;
 }
 
@@ -50,10 +71,9 @@
   font-family: monospace;
   position: relative;
   margin: 0;
-  padding: 0.8rem;
-  background-color: #100;
+  padding: 0;
   display: grid;
-  grid-template-columns: 3ch 2ch 1fr;
+  grid-template-columns: 5ch 2ch 1fr;
   border-radius: 0.4rem;
 }
 
@@ -63,9 +83,38 @@
 
 #stepByStepLineNumbers {
   background-color: #002;
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  padding-left: var(--base-padding);
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+}
+
+#stepByStepPointers {
+  background-color: #002;
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+}
+
+#stepByStepCodeLines {
+  background-color: #100;
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  padding-left: var(--base-padding);
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+
+.examplePre {
+  background-color: #242;
+  border-radius: var(--border-radius);
+  padding: var(--base-padding);
 }
 
     </style>
+
+    <script src="/assets/highlight/highlight.min.js"></script>
+
     <script>
       const s = {
   currentSet: 0,
@@ -213,10 +262,11 @@
       <p>In this case, the sample output is from a case then the environmental variable existed and was read in which means <code>returnValueAsResult</code> received a <code>Result</code> with <code>Ok</code> and the value of the environmental variable (which was <code>/Users/alan</code> in this case)</p>
     `,
   ],
+
   positions: [
-    [2.5, 4.8, 40.0, 4.2], // 1
+    [2.8, 5.5, 40.0, 4.2], // 1
     [3, 0, 0, 0],
-    [1.2, 0, 0, 0],
+    [1.2, 1.7, 0, 0],
     [0, 0, 0, 0],
     [1.2, 0, 0, 0], // 5
     [0, 0, 0, 0],
@@ -226,10 +276,10 @@
     [0, 0, 0, 0], // 10
     [0, 0, 0, 0],
     [0, 0, 0, 0],
-    [1.4, 2, -2, 0],
+    [1.4, 1.7, -2, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0], // 15
-    [2.6, 0.4, -0.4, 0],
+    [2.6, 0, -0.4, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0],
@@ -322,9 +372,25 @@ const updateEverything = (setIndex) => {
   s.currentSet = setIndex
   updateHeader()
   updateLineIndexes()
+  updatePointers()
   updatePositions()
   updateNotes()
   updateCodeLines()
+  updateFinalHighlights()
+}
+
+const updateFinalHighlights = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    console.log('111')
+    if (s.currentSet === s.sets.length - 1) {
+      window[`stepByStepCodeLine_${i}`].classList.add('hljs')
+      window[`stepByStepCodeLine_${i}`].classList.add('language-rust')
+      hljs.highlightElement(window[`stepByStepCodeLine_${i}`])
+    } else {
+      window[`stepByStepCodeLine_${i}`].classList.remove('hljs')
+      window[`stepByStepCodeLine_${i}`].classList.remove('language-rust')
+    }
+  }
 }
 
 const updateHeader = () => {
@@ -344,19 +410,30 @@ const updateNotes = () => {
   window.stepByStepNotes.innerHTML = s.notes[s.currentSet]
 }
 
+const updatePointers = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    // can probably refactor this a little
+    const checkIndex = s.lines[i].length - 1
+    const currentIndex = s.lineIndexes[i]
+    if (currentIndex > 0 && currentIndex < checkIndex) {
+      window[`stepByStepPointer_${i}`].innerHTML = '*'
+    } else {
+      window[`stepByStepPointer_${i}`].innerHTML = ' '
+    }
+  }
+}
+
 const updatePositions = () => {
   let positionTop = 0
   let positionLeft = 0
   let positionWidth = 0
   let positionHeight = 0
-
   for (let i = 0; i <= s.currentSet; i++) {
     positionTop += s.positions[i][0]
     positionLeft += s.positions[i][1]
     positionWidth += s.positions[i][2]
     positionHeight += s.positions[i][3]
   }
-
   window.stepByStepNotesSpacer.style.top = `${positionTop}rem`
   window.stepByStepNotesSpacer.style.left = `${positionLeft}rem`
   window.stepByStepNotesSpacer.style.width = `${positionWidth}rem`
@@ -374,6 +451,13 @@ const init = () => {
 
 document.addEventListener('DOMContentLoaded', init)
 
+
+      const highlightReferenceCode = () => {
+        hljs.highlightElement(window.exampleJS)
+        hljs.highlightElement(window.exampleHTMLBody)
+        hljs.highlightElement(window.exampleCSS)
+      }
+      document.addEventListener('DOMContentLoaded', highlightReferenceCode)
     </script>
   </head>
   <body class="line-numbers">
@@ -401,15 +485,14 @@ document.addEventListener('DOMContentLoaded', init)
 
 <button id="previousButton">Previous</button>
 <button id="nextButton">Next</button>
-
-      
+ 
                 <h2>Details</h2>
                 <ul>
                     <li>An experiment with putting descriptive text directly below the code line</li>
                 </ul>
                   
             <h2>HTML</h2>
-            <pre><code class="language-html">&lt;div id=&quot;stepByStepHeader&quot;&gt;
+            <pre class="examplePre"><code id="exampleHTMLBody" class="language-html hljs">&lt;div id=&quot;stepByStepHeader&quot;&gt;
   &lt;!-- TODO: Move this into the grid --&gt;
 &lt;/div&gt;
 
@@ -427,7 +510,28 @@ document.addEventListener('DOMContentLoaded', init)
 </code></pre>
              
             <h2>CSS</h2>
-            <pre><code class="language-css">pre {
+            <pre class="examplePre"><code id="exampleCSS" class="language-css hljs">:root {
+  --base-padding: 0.8rem;
+  --border-radius: 0.8rem;
+}
+
+c-1 {
+  color: red;
+}
+
+c-2 {
+  color: blue;
+}
+
+c-3 {
+  color: green;
+}
+
+p {
+  margin-bottom: 1.5rem;
+}
+
+pre {
   line-height: 1.3rem;
 }
 
@@ -444,10 +548,9 @@ document.addEventListener('DOMContentLoaded', init)
   font-family: monospace;
   position: relative;
   margin: 0;
-  padding: 0.8rem;
-  background-color: #100;
+  padding: 0;
   display: grid;
-  grid-template-columns: 3ch 2ch 1fr;
+  grid-template-columns: 5ch 2ch 1fr;
   border-radius: 0.4rem;
 }
 
@@ -457,11 +560,38 @@ document.addEventListener('DOMContentLoaded', init)
 
 #stepByStepLineNumbers {
   background-color: #002;
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  padding-left: var(--base-padding);
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+}
+
+#stepByStepPointers {
+  background-color: #002;
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+}
+
+#stepByStepCodeLines {
+  background-color: #100;
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  padding-left: var(--base-padding);
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+
+.examplePre {
+  background-color: #242;
+  border-radius: var(--border-radius);
+  padding: var(--base-padding);
 }
 </code></pre>
-             
+            
+      
             <h2>JavaScript</h2>
-            <pre><code class="language-js">const s = {
+            <pre class="examplePre"><code id="exampleJS" class="language-js hljs">const s = {
   currentSet: 0,
   lineIndexes: [],
   lines: [
@@ -607,10 +737,11 @@ document.addEventListener('DOMContentLoaded', init)
       &lt;p&gt;In this case, the sample output is from a case then the environmental variable existed and was read in which means &lt;code&gt;returnValueAsResult&lt;/code&gt; received a &lt;code&gt;Result&lt;/code&gt; with &lt;code&gt;Ok&lt;/code&gt; and the value of the environmental variable (which was &lt;code&gt;/Users/alan&lt;/code&gt; in this case)&lt;/p&gt;
     `,
   ],
+
   positions: [
-    [2.5, 4.8, 40.0, 4.2], // 1
+    [2.8, 5.5, 40.0, 4.2], // 1
     [3, 0, 0, 0],
-    [1.2, 0, 0, 0],
+    [1.2, 1.7, 0, 0],
     [0, 0, 0, 0],
     [1.2, 0, 0, 0], // 5
     [0, 0, 0, 0],
@@ -620,10 +751,10 @@ document.addEventListener('DOMContentLoaded', init)
     [0, 0, 0, 0], // 10
     [0, 0, 0, 0],
     [0, 0, 0, 0],
-    [1.4, 2, -2, 0],
+    [1.4, 1.7, -2, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0], // 15
-    [2.6, 0.4, -0.4, 0],
+    [2.6, 0, -0.4, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0],
@@ -716,9 +847,25 @@ const updateEverything = (setIndex) =&gt; {
   s.currentSet = setIndex
   updateHeader()
   updateLineIndexes()
+  updatePointers()
   updatePositions()
   updateNotes()
   updateCodeLines()
+  updateFinalHighlights()
+}
+
+const updateFinalHighlights = () =&gt; {
+  for (let i = 0; i &lt; totalLines(); i++) {
+    console.log(&#x27;111&#x27;)
+    if (s.currentSet === s.sets.length - 1) {
+      window[`stepByStepCodeLine_${i}`].classList.add(&#x27;hljs&#x27;)
+      window[`stepByStepCodeLine_${i}`].classList.add(&#x27;language-rust&#x27;)
+      hljs.highlightElement(window[`stepByStepCodeLine_${i}`])
+    } else {
+      window[`stepByStepCodeLine_${i}`].classList.remove(&#x27;hljs&#x27;)
+      window[`stepByStepCodeLine_${i}`].classList.remove(&#x27;language-rust&#x27;)
+    }
+  }
 }
 
 const updateHeader = () =&gt; {
@@ -738,19 +885,30 @@ const updateNotes = () =&gt; {
   window.stepByStepNotes.innerHTML = s.notes[s.currentSet]
 }
 
+const updatePointers = () =&gt; {
+  for (let i = 0; i &lt; totalLines(); i++) {
+    // can probably refactor this a little
+    const checkIndex = s.lines[i].length - 1
+    const currentIndex = s.lineIndexes[i]
+    if (currentIndex &gt; 0 &amp;&amp; currentIndex &lt; checkIndex) {
+      window[`stepByStepPointer_${i}`].innerHTML = &#x27;*&#x27;
+    } else {
+      window[`stepByStepPointer_${i}`].innerHTML = &#x27; &#x27;
+    }
+  }
+}
+
 const updatePositions = () =&gt; {
   let positionTop = 0
   let positionLeft = 0
   let positionWidth = 0
   let positionHeight = 0
-
   for (let i = 0; i &lt;= s.currentSet; i++) {
     positionTop += s.positions[i][0]
     positionLeft += s.positions[i][1]
     positionWidth += s.positions[i][2]
     positionHeight += s.positions[i][3]
   }
-
   window.stepByStepNotesSpacer.style.top = `${positionTop}rem`
   window.stepByStepNotesSpacer.style.left = `${positionLeft}rem`
   window.stepByStepNotesSpacer.style.width = `${positionWidth}rem`
@@ -768,18 +926,10 @@ const init = () =&gt; {
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
 </code></pre>
-            
-      <h2>EXAMPLE</h2>
-        
-                <h2>References</h2>
-                <ul>
-                    <li><a href=""></a></li>
-                </ul>
-                
+               
     </main>
     <footer>
       from <a href="https://www.alanwsmith.com/">alan w. smith</a>
     </footer>
-    <script src="/styles/prism.js"></script>
   </body>
 </html>
