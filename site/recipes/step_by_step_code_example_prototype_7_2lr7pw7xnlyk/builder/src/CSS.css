@@ -3,10 +3,10 @@
   --base-padding: 0.8rem;
   --border-radius: 0.8rem;
   --output-color: #444;
-  --border-color-1: #aaaacc;
-  --border-color-2: #777799;
+  --border-color-1: #fff;
+  --border-color-2: #779;
   --lines-left-pad: 1.2rem;
-  --notes-background-color: #aab;
+  --notes-background-color: #99a;
   --notes-font-color: black;
   --code-background-color: black;
 }
