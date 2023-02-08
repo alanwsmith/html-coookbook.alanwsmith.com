@@ -177,7 +177,7 @@ const s = {
   ],
 }
 
-const handleNextClick = () => {
+const handleNextButtonClick = () => {
   if (s.currentSet < s.sets.length - 1) {
     updateEverything(s.currentSet + 1)
   }
@@ -224,6 +224,17 @@ const makeLineNumberRows = () => {
       null
     )
   }
+}
+
+const makeNextButton = () => {
+  makeElement(
+    'button',
+    'stepByStepNextButton',
+    '-&gt;',
+    'stepByStepButtonWrapper',
+    'click',
+    handleNextButtonClick
+  )
 }
 
 const makeOutputLineNumbers = () => {
@@ -391,11 +402,10 @@ const init = () => {
   makePointerRows()
   makeCodeLineRows()
   makePreviousButton()
+  makeNextButton()
   makeOutputLineNumbers()
   makeOutputLinePointers()
   makeOutputLines()
-  window.previousButton.addEventListener('click', handlePreviousButtonClick)
-  window.nextButton.addEventListener('click', handleNextClick)
   updateEverything(0)
 }
 
