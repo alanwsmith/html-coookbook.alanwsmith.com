@@ -209,7 +209,7 @@ const makeElement = (_type, _id, _html, _childOf, _event, _function) => {
   }
 }
 
-const makeLineNumbers = () => {
+const makeLineNumberRows = () => {
   for (let i = 0; i < totalLines(); i++) {
     const numberString = i < 9 ? `0${i + 1}` : i + 1
     makeElement(
@@ -223,12 +223,26 @@ const makeLineNumbers = () => {
   }
 }
 
+const makePointerRows = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    makeElement(
+      'pre',
+      `stepByStepPointer_${i}`,
+      ` `,
+      'stepByStepPointers',
+      null,
+      null
+    )
+  }
+}
+
 const totalLines = () => {
   return s.lines.length
 }
 
 const init = () => {
-  makeLineNumbers()
+  makeLineNumberRows()
+  makePointerRows()
   console.log('init')
   window.previousButton.addEventListener('click', handlePreviousClick)
   window.nextButton.addEventListener('click', handleNextClick)
