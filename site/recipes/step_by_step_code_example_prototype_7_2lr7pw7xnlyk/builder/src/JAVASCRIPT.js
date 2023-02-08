@@ -71,7 +71,8 @@ const s = {
   ],
 
   sets: [
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 1
+    [2, 1, 2, 4, 5, 5, 3, 4, 5, 2, 4, 5, 2, 2, 2],
+    [-1, -1, -2, -4, -5, -5, -3, -4, -5, -2, -4, -5, -2, -2, -2],
     [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -85,7 +86,7 @@ const s = {
     [0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 1, 0, 2, 1, 0, 0, 0, 0, 0, 0, 1, 0],
     [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0],
-    //     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
+    //  2  3  4  5  6  7  8  9 10 11 12 13 14 15
     [0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0], // 15
     [0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
@@ -106,6 +107,7 @@ const s = {
   output: ['checking HOME', 'got /Users/alan'],
 
   notes: [
+    `<p>This is what the full solution looks like.</p><p>Click the buttons below to got through it step by step</p>`,
     `<p>Load the <code>std::env</code> library which gives us access to environmental variables</p>`,
     `<p>Create the <code>main()</code> function</p>`,
     `<p>Begin creating an immutable <code>key</code> variable</p>`,
@@ -146,7 +148,8 @@ const s = {
   ],
 
   positions: [
-    [2.8, 5.0, 32.0, 4.6], // 1
+    [1, 30, 16, 0],
+    [1.8, -25.0, 16.0, 0], // 1
     [3, 0, 0, 0],
     [1.2, 1.4, 0, 0],
     [0, 0, 0, 0],
@@ -167,13 +170,13 @@ const s = {
     [0, 0, 0, 0],
     [0, 0, 0, 0], // 20
     [0, 0, 0, 0],
-    [2.5, 2.8, 0, -0.6],
+    [2.5, 2.8, 0, 0],
     [0, 0, 0, 0],
     [1.0, 0, 0, 0],
     [0, 0, 0, 0], //25
     [0, 0, 0, 0],
     [0, 0, 0, 0],
-    [-14, 19, -14, 16],
+    [-15, 18, -14, 0],
   ],
 }
 
@@ -244,7 +247,12 @@ const makeNextButton = () => {
 
 const makeNumberButtons = () => {
   for (let i = 0; i < s.sets.length; i++) {
-    let buttonText = i === s.sets.length - 1 ? 'Complete' : i + 1
+    let buttonText = i
+    if (i === 0) {
+      buttonText = 'Start'
+    } else if (i === s.sets.length - 1) {
+      buttonText = 'Complete'
+    }
     makeElement(
       'button',
       `stepByStepNumberButton_${i}`,
@@ -272,11 +280,10 @@ const makeOutputLineNumbers = () => {
 
 const makeOutputLines = () => {
   for (let i = 0; i < s.output.length; i++) {
-    const theText = i === 0 ? 'out' : ' '
     makeElement(
       'pre',
       `stepByStepOutputLine_${i}`,
-      theText,
+      ' ',
       'stepByStepOutputLines',
       null,
       null
@@ -358,7 +365,7 @@ const updateEverything = (setIndex) => {
 
 const updateFinalHighlights = () => {
   for (let i = 0; i < totalLines(); i++) {
-    if (s.currentSet === s.sets.length - 1) {
+    if (s.currentSet === s.sets.length - 1 || s.currentSet === 0) {
       window[`stepByStepCodeLine_${i}`].classList.add('hljs')
       window[`stepByStepCodeLine_${i}`].classList.add('language-rust')
       hljs.highlightElement(window[`stepByStepCodeLine_${i}`])
@@ -370,7 +377,14 @@ const updateFinalHighlights = () => {
 }
 
 const updateHeader = () => {
-  window.stepByStepHeader.innerHTML = `Step ${s.currentSet + 1}`
+  let headerString = `Step ${s.currentSet}`
+  if (s.currentSet === 0) {
+    headerString = `Full Code Sample`
+  } else if (s.currentSet === s.sets.length - 1) {
+    headerString = `Final Code Sample`
+  }
+
+  window.stepByStepHeader.innerHTML = headerString
 }
 
 const updateLineIndexes = () => {
@@ -388,7 +402,7 @@ const updateNotes = () => {
 
 const updateOutputLines = () => {
   for (let i = 0; i < s.output.length; i++) {
-    if (s.currentSet === s.sets.length - 1) {
+    if (s.currentSet === s.sets.length - 1 || s.currentSet === 0) {
       window[`stepByStepOutputLine_${i}`].innerHTML = s.output[i]
     } else {
       // clear output for moving to previous line sets
