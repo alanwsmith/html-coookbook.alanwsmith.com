@@ -146,9 +146,9 @@ const s = {
   ],
 
   positions: [
-    [2.8, 5.5, 40.0, 4.2], // 1
+    [2.8, 3.8, 32.0, 4.6], // 1
     [3, 0, 0, 0],
-    [1.2, 1.7, 0, 0],
+    [1.2, 1.4, 0, 0],
     [0, 0, 0, 0],
     [1.2, 0, 0, 0], // 5
     [0, 0, 0, 0],
@@ -158,22 +158,22 @@ const s = {
     [0, 0, 0, 0], // 10
     [0, 0, 0, 0],
     [0, 0, 0, 0],
-    [1.4, 1.7, -2, 0],
+    [1.4, 0, -2, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0], // 15
-    [2.6, 0, -0.4, 0],
+    [2.0, 3.0, -0.4, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0], // 20
     [0, 0, 0, 0],
-    [2.6, 0, 0, -0.6],
+    [2.5, 2.8, 0, -0.6],
     [0, 0, 0, 0],
-    [1.2, 0, 0, 0],
+    [1.0, 0, 0, 0],
     [0, 0, 0, 0], //25
     [0, 0, 0, 0],
     [0, 0, 0, 0],
-    [-16, 22, -24, 16],
+    [-14, 19, -14, 16],
   ],
 }
 
@@ -263,7 +263,6 @@ const updateEverything = (setIndex) => {
 
 const updateFinalHighlights = () => {
   for (let i = 0; i < totalLines(); i++) {
-    console.log('111')
     if (s.currentSet === s.sets.length - 1) {
       window[`stepByStepCodeLine_${i}`].classList.add('hljs')
       window[`stepByStepCodeLine_${i}`].classList.add('language-rust')
@@ -319,7 +318,7 @@ const updatePositions = () => {
   window.stepByStepNotesSpacer.style.top = `${positionTop}rem`
   window.stepByStepNotesSpacer.style.left = `${positionLeft}rem`
   window.stepByStepNotesSpacer.style.width = `${positionWidth}rem`
-  window.stepByStepNotesSpacer.style.height = `${positionHeight}rem`
+  // window.stepByStepNotesSpacer.style.height = `${positionHeight}rem`
 }
 
 const init = () => {

@@ -36,6 +36,9 @@
       :root {
   --base-padding: 0.8rem;
   --border-radius: 0.8rem;
+  --output-color: #444;
+  --border-color-1: #aaaacc;
+  --lines-left-pad: 1.2rem;
 }
 
 c-1 {
@@ -73,7 +76,7 @@ pre {
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 5ch 2ch 1fr;
+  grid-template-columns: 6ch 2ch 1fr;
   border-radius: 0.4rem;
 }
 
@@ -87,21 +90,43 @@ pre {
   padding-bottom: var(--base-padding);
   padding-left: var(--base-padding);
   border-top-left-radius: var(--border-radius);
+}
+
+#stepByStepOutputNumbers {
+  background-color: var(--output-color);
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  padding-left: var(--base-padding);
   border-bottom-left-radius: var(--border-radius);
+}
+
+#stepByStepOutputPointers {
+  background-color: var(--output-color);
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  border-right: 1px solid var(--border-color-1);
 }
 
 #stepByStepPointers {
   background-color: #002;
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
+  border-right: 1px solid var(--border-color-1);
 }
 
 #stepByStepCodeLines {
   background-color: #100;
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
-  padding-left: var(--base-padding);
+  padding-left: var(--lines-left-pad);
   border-top-right-radius: var(--border-radius);
+}
+
+#stepByStepOutputLines {
+  background-color: var(--output-color);
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  padding-left: var(--lines-left-pad);
   border-bottom-right-radius: var(--border-radius);
 }
 
@@ -264,9 +289,9 @@ pre {
   ],
 
   positions: [
-    [2.8, 5.5, 40.0, 4.2], // 1
+    [2.8, 3.8, 32.0, 4.6], // 1
     [3, 0, 0, 0],
-    [1.2, 1.7, 0, 0],
+    [1.2, 1.4, 0, 0],
     [0, 0, 0, 0],
     [1.2, 0, 0, 0], // 5
     [0, 0, 0, 0],
@@ -276,22 +301,22 @@ pre {
     [0, 0, 0, 0], // 10
     [0, 0, 0, 0],
     [0, 0, 0, 0],
-    [1.4, 1.7, -2, 0],
+    [1.4, 0, -2, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0], // 15
-    [2.6, 0, -0.4, 0],
+    [2.0, 3.0, -0.4, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0], // 20
     [0, 0, 0, 0],
-    [2.6, 0, 0, -0.6],
+    [2.5, 2.8, 0, -0.6],
     [0, 0, 0, 0],
-    [1.2, 0, 0, 0],
+    [1.0, 0, 0, 0],
     [0, 0, 0, 0], //25
     [0, 0, 0, 0],
     [0, 0, 0, 0],
-    [-16, 22, -24, 16],
+    [-14, 19, -14, 16],
   ],
 }
 
@@ -381,7 +406,6 @@ const updateEverything = (setIndex) => {
 
 const updateFinalHighlights = () => {
   for (let i = 0; i < totalLines(); i++) {
-    console.log('111')
     if (s.currentSet === s.sets.length - 1) {
       window[`stepByStepCodeLine_${i}`].classList.add('hljs')
       window[`stepByStepCodeLine_${i}`].classList.add('language-rust')
@@ -437,7 +461,7 @@ const updatePositions = () => {
   window.stepByStepNotesSpacer.style.top = `${positionTop}rem`
   window.stepByStepNotesSpacer.style.left = `${positionLeft}rem`
   window.stepByStepNotesSpacer.style.width = `${positionWidth}rem`
-  window.stepByStepNotesSpacer.style.height = `${positionHeight}rem`
+  // window.stepByStepNotesSpacer.style.height = `${positionHeight}rem`
 }
 
 const init = () => {
@@ -478,6 +502,9 @@ document.addEventListener('DOMContentLoaded', init)
   <div id="stepByStepLineNumbers"></div>
   <div id="stepByStepPointers"></div>
   <div id="stepByStepCodeLines"></div>
+  <div id="stepByStepOutputNumbers"><pre>out</pre></div>
+  <div id="stepByStepOutputPointers"><pre>:</pre></div>
+  <div id="stepByStepOutputLines"><pre>this is some output</pre></div>
   <div id="stepByStepNotesSpacer">
     <div id="stepByStepNotes"></div>
   </div>
@@ -500,6 +527,9 @@ document.addEventListener('DOMContentLoaded', init)
   &lt;div id=&quot;stepByStepLineNumbers&quot;&gt;&lt;/div&gt;
   &lt;div id=&quot;stepByStepPointers&quot;&gt;&lt;/div&gt;
   &lt;div id=&quot;stepByStepCodeLines&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;stepByStepOutputNumbers&quot;&gt;&lt;pre&gt;out&lt;/pre&gt;&lt;/div&gt;
+  &lt;div id=&quot;stepByStepOutputPointers&quot;&gt;&lt;pre&gt;:&lt;/pre&gt;&lt;/div&gt;
+  &lt;div id=&quot;stepByStepOutputLines&quot;&gt;&lt;pre&gt;this is some output&lt;/pre&gt;&lt;/div&gt;
   &lt;div id=&quot;stepByStepNotesSpacer&quot;&gt;
     &lt;div id=&quot;stepByStepNotes&quot;&gt;&lt;/div&gt;
   &lt;/div&gt;
@@ -513,6 +543,9 @@ document.addEventListener('DOMContentLoaded', init)
             <pre class="examplePre"><code id="exampleCSS" class="language-css hljs">:root {
   --base-padding: 0.8rem;
   --border-radius: 0.8rem;
+  --output-color: #444;
+  --border-color-1: #aaaacc;
+  --lines-left-pad: 1.2rem;
 }
 
 c-1 {
@@ -550,7 +583,7 @@ pre {
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 5ch 2ch 1fr;
+  grid-template-columns: 6ch 2ch 1fr;
   border-radius: 0.4rem;
 }
 
@@ -564,21 +597,43 @@ pre {
   padding-bottom: var(--base-padding);
   padding-left: var(--base-padding);
   border-top-left-radius: var(--border-radius);
+}
+
+#stepByStepOutputNumbers {
+  background-color: var(--output-color);
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  padding-left: var(--base-padding);
   border-bottom-left-radius: var(--border-radius);
+}
+
+#stepByStepOutputPointers {
+  background-color: var(--output-color);
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  border-right: 1px solid var(--border-color-1);
 }
 
 #stepByStepPointers {
   background-color: #002;
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
+  border-right: 1px solid var(--border-color-1);
 }
 
 #stepByStepCodeLines {
   background-color: #100;
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
-  padding-left: var(--base-padding);
+  padding-left: var(--lines-left-pad);
   border-top-right-radius: var(--border-radius);
+}
+
+#stepByStepOutputLines {
+  background-color: var(--output-color);
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  padding-left: var(--lines-left-pad);
   border-bottom-right-radius: var(--border-radius);
 }
 
@@ -739,9 +794,9 @@ pre {
   ],
 
   positions: [
-    [2.8, 5.5, 40.0, 4.2], // 1
+    [2.8, 3.8, 32.0, 4.6], // 1
     [3, 0, 0, 0],
-    [1.2, 1.7, 0, 0],
+    [1.2, 1.4, 0, 0],
     [0, 0, 0, 0],
     [1.2, 0, 0, 0], // 5
     [0, 0, 0, 0],
@@ -751,22 +806,22 @@ pre {
     [0, 0, 0, 0], // 10
     [0, 0, 0, 0],
     [0, 0, 0, 0],
-    [1.4, 1.7, -2, 0],
+    [1.4, 0, -2, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0], // 15
-    [2.6, 0, -0.4, 0],
+    [2.0, 3.0, -0.4, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0], // 20
     [0, 0, 0, 0],
-    [2.6, 0, 0, -0.6],
+    [2.5, 2.8, 0, -0.6],
     [0, 0, 0, 0],
-    [1.2, 0, 0, 0],
+    [1.0, 0, 0, 0],
     [0, 0, 0, 0], //25
     [0, 0, 0, 0],
     [0, 0, 0, 0],
-    [-16, 22, -24, 16],
+    [-14, 19, -14, 16],
   ],
 }
 
@@ -856,7 +911,6 @@ const updateEverything = (setIndex) =&gt; {
 
 const updateFinalHighlights = () =&gt; {
   for (let i = 0; i &lt; totalLines(); i++) {
-    console.log(&#x27;111&#x27;)
     if (s.currentSet === s.sets.length - 1) {
       window[`stepByStepCodeLine_${i}`].classList.add(&#x27;hljs&#x27;)
       window[`stepByStepCodeLine_${i}`].classList.add(&#x27;language-rust&#x27;)
@@ -912,7 +966,7 @@ const updatePositions = () =&gt; {
   window.stepByStepNotesSpacer.style.top = `${positionTop}rem`
   window.stepByStepNotesSpacer.style.left = `${positionLeft}rem`
   window.stepByStepNotesSpacer.style.width = `${positionWidth}rem`
-  window.stepByStepNotesSpacer.style.height = `${positionHeight}rem`
+  // window.stepByStepNotesSpacer.style.height = `${positionHeight}rem`
 }
 
 const init = () =&gt; {
