@@ -332,7 +332,7 @@ const handleNextClick = () => {
   }
 }
 
-const handlePreviousClick = () => {
+const handlePreviousButtonClick = () => {
   if (s.currentSet > 0) {
     updateEverything(s.currentSet - 1)
   }
@@ -344,7 +344,7 @@ const makeElement = (_type, _id, _html, _childOf, _event, _function) => {
   newElement.innerHTML = _html
   window[_childOf].appendChild(newElement)
   if (_event !== null) {
-    newEl.addEventListener(_event, _function)
+    newElement.addEventListener(_event, _function)
   }
 }
 
@@ -428,6 +428,17 @@ const makePointerRows = () => {
       null
     )
   }
+}
+
+const makePreviousButton = () => {
+  makeElement(
+    'button',
+    'stepByStepPreviousButton',
+    '&lt;-',
+    'stepByStepButtonWrapper',
+    'click',
+    handlePreviousButtonClick
+  )
 }
 
 const totalLines = () => {
@@ -528,10 +539,11 @@ const init = () => {
   makeLineNumberRows()
   makePointerRows()
   makeCodeLineRows()
+  makePreviousButton()
   makeOutputLineNumbers()
   makeOutputLinePointers()
   makeOutputLines()
-  window.previousButton.addEventListener('click', handlePreviousClick)
+  window.previousButton.addEventListener('click', handlePreviousButtonClick)
   window.nextButton.addEventListener('click', handleNextClick)
   updateEverything(0)
 }
@@ -573,8 +585,10 @@ document.addEventListener('DOMContentLoaded', init)
   </div>
 </div>
 
-<button id="previousButton">Previous</button>
-<button id="nextButton">Next</button>
+<div id="stepByStepButtonWrapper">
+  <button id="previousButton">Previous</button>
+  <button id="nextButton">Next</button>
+</div>
  
                 <h2>Details</h2>
                 <ul>
@@ -598,8 +612,10 @@ document.addEventListener('DOMContentLoaded', init)
   &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;button id=&quot;previousButton&quot;&gt;Previous&lt;/button&gt;
-&lt;button id=&quot;nextButton&quot;&gt;Next&lt;/button&gt;
+&lt;div id=&quot;stepByStepButtonWrapper&quot;&gt;
+  &lt;button id=&quot;previousButton&quot;&gt;Previous&lt;/button&gt;
+  &lt;button id=&quot;nextButton&quot;&gt;Next&lt;/button&gt;
+&lt;/div&gt;
 </code></pre>
              
             <h2>CSS SOURCE</h2>
@@ -900,7 +916,7 @@ const handleNextClick = () =&gt; {
   }
 }
 
-const handlePreviousClick = () =&gt; {
+const handlePreviousButtonClick = () =&gt; {
   if (s.currentSet &gt; 0) {
     updateEverything(s.currentSet - 1)
   }
@@ -912,7 +928,7 @@ const makeElement = (_type, _id, _html, _childOf, _event, _function) =&gt; {
   newElement.innerHTML = _html
   window[_childOf].appendChild(newElement)
   if (_event !== null) {
-    newEl.addEventListener(_event, _function)
+    newElement.addEventListener(_event, _function)
   }
 }
 
@@ -996,6 +1012,17 @@ const makePointerRows = () =&gt; {
       null
     )
   }
+}
+
+const makePreviousButton = () =&gt; {
+  makeElement(
+    &#x27;button&#x27;,
+    &#x27;stepByStepPreviousButton&#x27;,
+    &#x27;&amp;lt;-&#x27;,
+    &#x27;stepByStepButtonWrapper&#x27;,
+    &#x27;click&#x27;,
+    handlePreviousButtonClick
+  )
 }
 
 const totalLines = () =&gt; {
@@ -1096,10 +1123,11 @@ const init = () =&gt; {
   makeLineNumberRows()
   makePointerRows()
   makeCodeLineRows()
+  makePreviousButton()
   makeOutputLineNumbers()
   makeOutputLinePointers()
   makeOutputLines()
-  window.previousButton.addEventListener(&#x27;click&#x27;, handlePreviousClick)
+  window.previousButton.addEventListener(&#x27;click&#x27;, handlePreviousButtonClick)
   window.nextButton.addEventListener(&#x27;click&#x27;, handleNextClick)
   updateEverything(0)
 }

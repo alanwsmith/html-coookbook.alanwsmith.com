@@ -183,7 +183,7 @@ const handleNextClick = () => {
   }
 }
 
-const handlePreviousClick = () => {
+const handlePreviousButtonClick = () => {
   if (s.currentSet > 0) {
     updateEverything(s.currentSet - 1)
   }
@@ -195,7 +195,7 @@ const makeElement = (_type, _id, _html, _childOf, _event, _function) => {
   newElement.innerHTML = _html
   window[_childOf].appendChild(newElement)
   if (_event !== null) {
-    newEl.addEventListener(_event, _function)
+    newElement.addEventListener(_event, _function)
   }
 }
 
@@ -279,6 +279,17 @@ const makePointerRows = () => {
       null
     )
   }
+}
+
+const makePreviousButton = () => {
+  makeElement(
+    'button',
+    'stepByStepPreviousButton',
+    '&lt;-',
+    'stepByStepButtonWrapper',
+    'click',
+    handlePreviousButtonClick
+  )
 }
 
 const totalLines = () => {
@@ -379,10 +390,11 @@ const init = () => {
   makeLineNumberRows()
   makePointerRows()
   makeCodeLineRows()
+  makePreviousButton()
   makeOutputLineNumbers()
   makeOutputLinePointers()
   makeOutputLines()
-  window.previousButton.addEventListener('click', handlePreviousClick)
+  window.previousButton.addEventListener('click', handlePreviousButtonClick)
   window.nextButton.addEventListener('click', handleNextClick)
   updateEverything(0)
 }
