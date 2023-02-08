@@ -299,10 +299,15 @@ const updateCodeLines = () => {
 const updateEverything = (setIndex) => {
   console.log(`Updating to: ${setIndex}`)
   s.currentSet = setIndex
+  updateHeader()
   updateLineIndexes()
   updatePositions()
   updateNotes()
   updateCodeLines()
+}
+
+const updateHeader = () => {
+  window.stepByStepHeader.innerHTML = `Step ${s.currentSet + 1}`
 }
 
 const updateLineIndexes = () => {
@@ -341,7 +346,6 @@ const init = () => {
   makeLineNumberRows()
   makePointerRows()
   makeCodeLineRows()
-  console.log('init')
   window.previousButton.addEventListener('click', handlePreviousClick)
   window.nextButton.addEventListener('click', handleNextClick)
   updateEverything(0)
@@ -361,7 +365,11 @@ document.addEventListener('DOMContentLoaded', init)
     </header>
     <main>
       <h1>Step-By-Step Code Example Prototype 7</h1>
-      <div id="stepByStepWrapper">
+      <div id="stepByStepHeader">
+  <!-- TODO: Move this into the grid -->
+</div>
+
+<div id="stepByStepWrapper">
   <div id="stepByStepLineNumbers"></div>
   <div id="stepByStepPointers"></div>
   <div id="stepByStepCodeLines"></div>
@@ -380,7 +388,11 @@ document.addEventListener('DOMContentLoaded', init)
                 </ul>
                   
             <h2>HTML</h2>
-            <pre><code class="language-html">&lt;div id=&quot;stepByStepWrapper&quot;&gt;
+            <pre><code class="language-html">&lt;div id=&quot;stepByStepHeader&quot;&gt;
+  &lt;!-- TODO: Move this into the grid --&gt;
+&lt;/div&gt;
+
+&lt;div id=&quot;stepByStepWrapper&quot;&gt;
   &lt;div id=&quot;stepByStepLineNumbers&quot;&gt;&lt;/div&gt;
   &lt;div id=&quot;stepByStepPointers&quot;&gt;&lt;/div&gt;
   &lt;div id=&quot;stepByStepCodeLines&quot;&gt;&lt;/div&gt;
@@ -660,10 +672,15 @@ const updateCodeLines = () =&gt; {
 const updateEverything = (setIndex) =&gt; {
   console.log(`Updating to: ${setIndex}`)
   s.currentSet = setIndex
+  updateHeader()
   updateLineIndexes()
   updatePositions()
   updateNotes()
   updateCodeLines()
+}
+
+const updateHeader = () =&gt; {
+  window.stepByStepHeader.innerHTML = `Step ${s.currentSet + 1}`
 }
 
 const updateLineIndexes = () =&gt; {
@@ -702,7 +719,6 @@ const init = () =&gt; {
   makeLineNumberRows()
   makePointerRows()
   makeCodeLineRows()
-  console.log(&#x27;init&#x27;)
   window.previousButton.addEventListener(&#x27;click&#x27;, handlePreviousClick)
   window.nextButton.addEventListener(&#x27;click&#x27;, handleNextClick)
   updateEverything(0)

@@ -236,10 +236,15 @@ const updateCodeLines = () => {
 const updateEverything = (setIndex) => {
   console.log(`Updating to: ${setIndex}`)
   s.currentSet = setIndex
+  updateHeader()
   updateLineIndexes()
   updatePositions()
   updateNotes()
   updateCodeLines()
+}
+
+const updateHeader = () => {
+  window.stepByStepHeader.innerHTML = `Step ${s.currentSet + 1}`
 }
 
 const updateLineIndexes = () => {
@@ -278,7 +283,6 @@ const init = () => {
   makeLineNumberRows()
   makePointerRows()
   makeCodeLineRows()
-  console.log('init')
   window.previousButton.addEventListener('click', handlePreviousClick)
   window.nextButton.addEventListener('click', handleNextClick)
   updateEverything(0)
