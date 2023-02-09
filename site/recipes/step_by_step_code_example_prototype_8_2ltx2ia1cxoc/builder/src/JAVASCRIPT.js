@@ -478,9 +478,6 @@ const updatePositions = () => {
       .lineHeight.split('px')[0]
   )
   const theTop = (coords[0] - 1) * heightMultiplier
-
-  console.log(theTop)
-
   window.stepByStepNotesSpacer.style.top = `${theTop}px`
   window.stepByStepNotesSpacer.style.left = `${theLeft}ch`
   window.stepByStepNotesSpacer.style.width = `${coords[2]}ch`
