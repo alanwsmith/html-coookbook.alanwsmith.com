@@ -36,17 +36,18 @@
       :root {
   --active-button-color: #381;
   --base-padding: 1rem;
-  --border-radius: 0.8rem;
-  --output-color: #444;
   --border-color-1: #fff;
   --border-color-2: #779;
-  --lines-left-pad: 2ch;
-  --notes-background-color: #99a;
-  --notes-font-color: black;
-  --code-background-color: black;
-  --example-color: #234;
+  --border-radius: 0.8rem;
+  --code-background-color: #002;
   --code-font-size: 1rem;
   --code-line-height: 1rem;
+  --example-color: #234;
+  --line-numbers-background-color: #000;
+  --lines-left-pad: 2ch;
+  --notes-background-color: #bbc;
+  --notes-font-color: black;
+  --output-color: #444;
 }
 
 pre {
@@ -69,7 +70,7 @@ pre {
 }
 
 #stepByStepLineNumbers {
-  background-color: #002;
+  background-color: var(--line-numbers-background-color);
   color: white;
   padding-top: var(--base-padding);
   padding-left: var(--base-padding);
@@ -79,7 +80,7 @@ pre {
 
 #stepByStepNotes {
   font-family: sans-serif;
-  font-size: 0.81rem;
+  font-size: 0.9rem;
 }
 
 #stepByStepNotes p:nth-child(n + 2) {
@@ -112,7 +113,7 @@ pre {
 #stepByStepOutputNumbers {
   font-family: monospace;
   font-size: 1rem;
-  background-color: var(--output-color);
+  background-color: var(--line-numbers-background-color);
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   padding-left: var(--base-padding);
@@ -120,14 +121,14 @@ pre {
 }
 
 #stepByStepOutputPointers {
-  background-color: var(--output-color);
+  background-color: var(--line-numbers-background-color);
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   border-right: 1px solid var(--border-color-2);
 }
 
 #stepByStepPointers {
-  background-color: #002;
+  background-color: var(--line-numbers-background-color);
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   border-right: 1px solid var(--border-color-2);
@@ -140,20 +141,12 @@ pre {
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 5ch 2ch 1fr;
+  grid-template-columns: 6ch 2ch 1fr;
   line-height: 1rem;
 }
 
 .activeButton {
   background-color: var(--active-button-color);
-}
-
-.exampleCode {
-  background-color: var(--example-color);
-  /*
-  border-radius: var(--border-radius);
-  padding: var(--base-padding);
-  */
 }
 
 .h1 {
@@ -170,6 +163,13 @@ pre {
 
 .pad-top {
   padding-top: 1rem;
+}
+
+.stepByStepButton {
+  border: 1px solid black;
+  border-radius: 0.3rem;
+  margin-right: 0.3rem;
+  box-shadow: 0.1rem 0.1rem 2.1px black;
 }
 
     </style>
@@ -190,6 +190,7 @@ fn main() {
   } 
 }`,
 
+  // Usage (until it's better documented)
   //  highlights: ['h1|3|4|7'],
   //  fullCode: true,
   //   altLines: [
@@ -199,42 +200,41 @@ fn main() {
   //   },
   // ],
 
-  // NOTE: Only one hightlight works
-  // per line right now
+  // NOTE: Only one hightlight works per line right now
   sets: [
     {
       fullCode: true,
-      coords: [2, 38, 32],
+      coords: [2, 38, 30],
       notes: `<p>This is the full source code example.</p><p>Click through the buttons below to explinations of for each part of the code.</p>`,
     },
     {
       addLines: [1],
-      coords: [3, 5, 32],
+      coords: [3, 5, 30],
       notes: `<p>Start by loading <code>std::env</code> which provides Rust programs with access to the Environmental Variables it runs in</p>`,
     },
     {
       addLines: [3, 13],
-      coords: [5, 5, 32],
+      coords: [5, 5, 30],
       notes: `<p>Create the <code>main</code> function that Rust uses as the entry point for the program</p>`,
     },
     {
       addLines: [4],
-      coords: [6, 7, 32],
+      coords: [6, 7, 30],
       notes: `<p>Create a new immutalbe variable called <code>alfa</code> and bind the value returned by <code>env::var(&quot;HOME&quot;)</code> to it. That value is a <code>Result</code></p>`,
     },
     {
       addLines: [5, 12],
-      coords: [7, 7, 32],
+      coords: [7, 7, 30],
       notes: `<p>Begin creating the <code>match</code> expression that we'll use to process the <code>Result</code> value that was returned from <code>env::var(&quot;HOME&quot;)</code></p>`,
     },
     {
       highlights: ['h2, 4, 7, 11', 'h1, 5, 9, 13'],
-      coords: [7, 7, 32],
+      coords: [7, 7, 30],
       notes: `<p>Note that the value <code>match</code> is working on come from the <code>alfa</code> variable</p><p>TODO: See if match transfers ownership</p>`,
     },
     {
       addLines: [6, 8],
-      coords: [8, 10, 32],
+      coords: [8, 10, 30],
       notes: `<p><code>Result</code> values are <code>enums</code> that can contain either an <code>Ok</code> or a <code>Err</code> value. Here we're creating the first arm of the <code>match</code> expression that handles an <code>Ok</code></p>`,
     },
     {
@@ -254,12 +254,12 @@ fn main() {
     },
     {
       addLines: [10],
-      coords: [10, 37, 32],
+      coords: [10, 37, 30],
       notes: `<p>Finally we add the code to run if the <code>Result</code> from <code>env::var(&quot;HOME&quot;)</code> is an <code>Err</code></p>`,
     },
     {
       fullCode: true,
-      coords: [2, 38, 32],
+      coords: [2, 38, 30],
       notes: `<p>Put togehter, the full program looks like this.</p><p>Note: The output for this prototype contain two hard coded lines. The real version will just have one from the actual program</p>`,
     },
   ],
@@ -299,9 +299,38 @@ const addCustomHighlights = () => {
       ]
       s.currentLines[lineNum] = sections.join('')
       // Also update the pointer
-      window[`stepByStepPointer_${lineNum}`].innerHTML = '&gt;'
+      window[`stepByStepPointer_${lineNum}`].innerHTML = '&#8227;'
     }
   }
+}
+
+const buildFoundationStructure = () => {
+  // This is done outside of `makeElement`
+  // since it needs to be added after the
+  // other element
+  const stepByStepWrapperElement = document.createElement('div')
+  stepByStepWrapperElement.id = 'stepByStepWrapper'
+  window['step-by-step'].insertAdjacentElement(
+    'afterend',
+    stepByStepWrapperElement
+  )
+
+  makeElement('div', 'stepByStepLineNumbers', '', 'stepByStepWrapper')
+  makeElement('div', 'stepByStepPointers', '', 'stepByStepWrapper')
+  makeElement('div', 'stepByStepCodeLines', '', 'stepByStepWrapper')
+  makeElement('div', 'stepByStepOutputNumbers', '', 'stepByStepWrapper')
+  makeElement('div', 'stepByStepOutputPointers', '', 'stepByStepWrapper')
+  makeElement('div', 'stepByStepOutputLines', '', 'stepByStepWrapper')
+  makeElement('div', 'stepByStepNotesSpacer', '', 'stepByStepWrapper')
+  makeElement('div', 'stepByStepNotes', '', 'stepByStepNotesSpacer')
+
+  // TODO Move this under the StepByStepWrapper, probably
+  const stepByStepButtonWrapperElement = document.createElement('div')
+  stepByStepButtonWrapperElement.id = 'stepByStepButtonWrapper'
+  window.stepByStepWrapper.insertAdjacentElement(
+    'afterend',
+    stepByStepButtonWrapperElement
+  )
 }
 
 const handleNextButtonClick = () => {
@@ -361,13 +390,24 @@ const makeCodeLines = () => {
     )
   }
 }
-const makeElement = (_type, _id, _html, _childOf, _event, _function) => {
+const makeElement = (
+  _type,
+  _id,
+  _html,
+  _childOf,
+  _event,
+  _function,
+  _classes
+) => {
   const newElement = document.createElement(_type)
   newElement.id = _id
   newElement.innerHTML = _html
   window[_childOf].appendChild(newElement)
   if (_event !== null) {
     newElement.addEventListener(_event, _function)
+  }
+  if (_classes) {
+    newElement.classList.add(_classes)
   }
 }
 
@@ -405,7 +445,8 @@ const makeNextButton = () => {
     '-&gt;',
     'stepByStepButtonWrapper',
     'click',
-    handleNextButtonClick
+    handleNextButtonClick,
+    'stepByStepButton'
   )
 }
 
@@ -425,7 +466,8 @@ const makeNumberButtons = () => {
       buttonText,
       'stepByStepButtonWrapper',
       'click',
-      handleNumberButtonClick
+      handleNumberButtonClick,
+      'stepByStepButton'
     )
   }
 }
@@ -459,7 +501,7 @@ const makeOutputLines = () => {
 
 const makeOutputLinePointers = () => {
   for (let i = 0; i < c.output.length; i++) {
-    const theText = i === 0 ? ':' : ' '
+    const theText = i === 0 ? ' ' : ' '
     makeElement(
       'pre',
       `stepByStepOutputPointer_${i}`,
@@ -491,7 +533,8 @@ const makePreviousButton = () => {
     '&lt;-',
     'stepByStepButtonWrapper',
     'click',
-    handlePreviousButtonClick
+    handlePreviousButtonClick,
+    'stepByStepButton'
   )
 }
 
@@ -593,7 +636,7 @@ const updatePointers = () => {
 
   if (addData) {
     for (let i = 0; i < addData.length; i++) {
-      window[`stepByStepPointer_${addData[i]}`].innerHTML = '&gt;'
+      window[`stepByStepPointer_${addData[i]}`].innerHTML = '&#8227;'
     }
   }
 }
@@ -601,7 +644,7 @@ const updatePointers = () => {
 const updatePositions = () => {
   const coords = c.sets[s.currentSet].coords
   const theTop = coords[0] - 1
-  const theLeft = coords[1] + 8
+  const theLeft = coords[1] + 9
   window.stepByStepNotesSpacer.style.top = `${theTop}rem`
   window.stepByStepNotesSpacer.style.left = `${theLeft}ch`
   window.stepByStepNotesSpacer.style.width = `${coords[2]}ch`
@@ -610,6 +653,7 @@ const init = () => {
   s.currentSet = 0
   makeAddLineNumbersZeroBased()
   loadRawLines()
+  buildFoundationStructure()
   makePreviousButton()
   makeNumberButtons()
   makeNextButton()
@@ -660,7 +704,10 @@ document.addEventListener('DOMContentLoaded', init)
 
       <h2>Example</h2>
 
-      <div id="stepByStepWrapper">
+      <h3 id="step-by-step">Step By Step</h3>
+
+<!--
+<div id="stepByStepWrapper">
   <div id="stepByStepLineNumbers"></div>
   <div id="stepByStepPointers"></div>
   <div id="stepByStepCodeLines"></div>
@@ -673,6 +720,7 @@ document.addEventListener('DOMContentLoaded', init)
 </div>
 
 <div id="stepByStepButtonWrapper"></div>
+-->
  
                 <h2>TODO</h2>
                 <ul>
@@ -680,7 +728,10 @@ document.addEventListener('DOMContentLoaded', init)
                 </ul>
                
             <h2>HTML Source</h2>
-            <pre class="exampleCode" id="exampleHTMLBody" class="language-html">&lt;div id=&quot;stepByStepWrapper&quot;&gt;
+            <pre class="exampleCode" id="exampleHTMLBody" class="language-html">&lt;h3 id=&quot;step-by-step&quot;&gt;Step By Step&lt;/h3&gt;
+
+&lt;!--
+&lt;div id=&quot;stepByStepWrapper&quot;&gt;
   &lt;div id=&quot;stepByStepLineNumbers&quot;&gt;&lt;/div&gt;
   &lt;div id=&quot;stepByStepPointers&quot;&gt;&lt;/div&gt;
   &lt;div id=&quot;stepByStepCodeLines&quot;&gt;&lt;/div&gt;
@@ -693,23 +744,25 @@ document.addEventListener('DOMContentLoaded', init)
 &lt;/div&gt;
 
 &lt;div id=&quot;stepByStepButtonWrapper&quot;&gt;&lt;/div&gt;
+--&gt;
 </pre>
              
             <h2>CSS Source</h2>
             <pre class="exampleCode" id="exampleCSS" class="language-css">:root {
   --active-button-color: #381;
   --base-padding: 1rem;
-  --border-radius: 0.8rem;
-  --output-color: #444;
   --border-color-1: #fff;
   --border-color-2: #779;
-  --lines-left-pad: 2ch;
-  --notes-background-color: #99a;
-  --notes-font-color: black;
-  --code-background-color: black;
-  --example-color: #234;
+  --border-radius: 0.8rem;
+  --code-background-color: #002;
   --code-font-size: 1rem;
   --code-line-height: 1rem;
+  --example-color: #234;
+  --line-numbers-background-color: #000;
+  --lines-left-pad: 2ch;
+  --notes-background-color: #bbc;
+  --notes-font-color: black;
+  --output-color: #444;
 }
 
 pre {
@@ -732,7 +785,7 @@ pre {
 }
 
 #stepByStepLineNumbers {
-  background-color: #002;
+  background-color: var(--line-numbers-background-color);
   color: white;
   padding-top: var(--base-padding);
   padding-left: var(--base-padding);
@@ -742,7 +795,7 @@ pre {
 
 #stepByStepNotes {
   font-family: sans-serif;
-  font-size: 0.81rem;
+  font-size: 0.9rem;
 }
 
 #stepByStepNotes p:nth-child(n + 2) {
@@ -775,7 +828,7 @@ pre {
 #stepByStepOutputNumbers {
   font-family: monospace;
   font-size: 1rem;
-  background-color: var(--output-color);
+  background-color: var(--line-numbers-background-color);
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   padding-left: var(--base-padding);
@@ -783,14 +836,14 @@ pre {
 }
 
 #stepByStepOutputPointers {
-  background-color: var(--output-color);
+  background-color: var(--line-numbers-background-color);
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   border-right: 1px solid var(--border-color-2);
 }
 
 #stepByStepPointers {
-  background-color: #002;
+  background-color: var(--line-numbers-background-color);
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   border-right: 1px solid var(--border-color-2);
@@ -803,20 +856,12 @@ pre {
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 5ch 2ch 1fr;
+  grid-template-columns: 6ch 2ch 1fr;
   line-height: 1rem;
 }
 
 .activeButton {
   background-color: var(--active-button-color);
-}
-
-.exampleCode {
-  background-color: var(--example-color);
-  /*
-  border-radius: var(--border-radius);
-  padding: var(--base-padding);
-  */
 }
 
 .h1 {
@@ -833,6 +878,13 @@ pre {
 
 .pad-top {
   padding-top: 1rem;
+}
+
+.stepByStepButton {
+  border: 1px solid black;
+  border-radius: 0.3rem;
+  margin-right: 0.3rem;
+  box-shadow: 0.1rem 0.1rem 2.1px black;
 }
 </pre>
             
@@ -853,6 +905,7 @@ fn main() {
   } 
 }`,
 
+  // Usage (until it&#x27;s better documented)
   //  highlights: [&#x27;h1|3|4|7&#x27;],
   //  fullCode: true,
   //   altLines: [
@@ -862,42 +915,41 @@ fn main() {
   //   },
   // ],
 
-  // NOTE: Only one hightlight works
-  // per line right now
+  // NOTE: Only one hightlight works per line right now
   sets: [
     {
       fullCode: true,
-      coords: [2, 38, 32],
+      coords: [2, 38, 30],
       notes: `&lt;p&gt;This is the full source code example.&lt;/p&gt;&lt;p&gt;Click through the buttons below to explinations of for each part of the code.&lt;/p&gt;`,
     },
     {
       addLines: [1],
-      coords: [3, 5, 32],
+      coords: [3, 5, 30],
       notes: `&lt;p&gt;Start by loading &lt;code&gt;std::env&lt;/code&gt; which provides Rust programs with access to the Environmental Variables it runs in&lt;/p&gt;`,
     },
     {
       addLines: [3, 13],
-      coords: [5, 5, 32],
+      coords: [5, 5, 30],
       notes: `&lt;p&gt;Create the &lt;code&gt;main&lt;/code&gt; function that Rust uses as the entry point for the program&lt;/p&gt;`,
     },
     {
       addLines: [4],
-      coords: [6, 7, 32],
+      coords: [6, 7, 30],
       notes: `&lt;p&gt;Create a new immutalbe variable called &lt;code&gt;alfa&lt;/code&gt; and bind the value returned by &lt;code&gt;env::var(&amp;quot;HOME&amp;quot;)&lt;/code&gt; to it. That value is a &lt;code&gt;Result&lt;/code&gt;&lt;/p&gt;`,
     },
     {
       addLines: [5, 12],
-      coords: [7, 7, 32],
+      coords: [7, 7, 30],
       notes: `&lt;p&gt;Begin creating the &lt;code&gt;match&lt;/code&gt; expression that we&#x27;ll use to process the &lt;code&gt;Result&lt;/code&gt; value that was returned from &lt;code&gt;env::var(&amp;quot;HOME&amp;quot;)&lt;/code&gt;&lt;/p&gt;`,
     },
     {
       highlights: [&#x27;h2, 4, 7, 11&#x27;, &#x27;h1, 5, 9, 13&#x27;],
-      coords: [7, 7, 32],
+      coords: [7, 7, 30],
       notes: `&lt;p&gt;Note that the value &lt;code&gt;match&lt;/code&gt; is working on come from the &lt;code&gt;alfa&lt;/code&gt; variable&lt;/p&gt;&lt;p&gt;TODO: See if match transfers ownership&lt;/p&gt;`,
     },
     {
       addLines: [6, 8],
-      coords: [8, 10, 32],
+      coords: [8, 10, 30],
       notes: `&lt;p&gt;&lt;code&gt;Result&lt;/code&gt; values are &lt;code&gt;enums&lt;/code&gt; that can contain either an &lt;code&gt;Ok&lt;/code&gt; or a &lt;code&gt;Err&lt;/code&gt; value. Here we&#x27;re creating the first arm of the &lt;code&gt;match&lt;/code&gt; expression that handles an &lt;code&gt;Ok&lt;/code&gt;&lt;/p&gt;`,
     },
     {
@@ -917,12 +969,12 @@ fn main() {
     },
     {
       addLines: [10],
-      coords: [10, 37, 32],
+      coords: [10, 37, 30],
       notes: `&lt;p&gt;Finally we add the code to run if the &lt;code&gt;Result&lt;/code&gt; from &lt;code&gt;env::var(&amp;quot;HOME&amp;quot;)&lt;/code&gt; is an &lt;code&gt;Err&lt;/code&gt;&lt;/p&gt;`,
     },
     {
       fullCode: true,
-      coords: [2, 38, 32],
+      coords: [2, 38, 30],
       notes: `&lt;p&gt;Put togehter, the full program looks like this.&lt;/p&gt;&lt;p&gt;Note: The output for this prototype contain two hard coded lines. The real version will just have one from the actual program&lt;/p&gt;`,
     },
   ],
@@ -962,9 +1014,38 @@ const addCustomHighlights = () =&gt; {
       ]
       s.currentLines[lineNum] = sections.join(&#x27;&#x27;)
       // Also update the pointer
-      window[`stepByStepPointer_${lineNum}`].innerHTML = &#x27;&amp;gt;&#x27;
+      window[`stepByStepPointer_${lineNum}`].innerHTML = &#x27;&amp;#8227;&#x27;
     }
   }
+}
+
+const buildFoundationStructure = () =&gt; {
+  // This is done outside of `makeElement`
+  // since it needs to be added after the
+  // other element
+  const stepByStepWrapperElement = document.createElement(&#x27;div&#x27;)
+  stepByStepWrapperElement.id = &#x27;stepByStepWrapper&#x27;
+  window[&#x27;step-by-step&#x27;].insertAdjacentElement(
+    &#x27;afterend&#x27;,
+    stepByStepWrapperElement
+  )
+
+  makeElement(&#x27;div&#x27;, &#x27;stepByStepLineNumbers&#x27;, &#x27;&#x27;, &#x27;stepByStepWrapper&#x27;)
+  makeElement(&#x27;div&#x27;, &#x27;stepByStepPointers&#x27;, &#x27;&#x27;, &#x27;stepByStepWrapper&#x27;)
+  makeElement(&#x27;div&#x27;, &#x27;stepByStepCodeLines&#x27;, &#x27;&#x27;, &#x27;stepByStepWrapper&#x27;)
+  makeElement(&#x27;div&#x27;, &#x27;stepByStepOutputNumbers&#x27;, &#x27;&#x27;, &#x27;stepByStepWrapper&#x27;)
+  makeElement(&#x27;div&#x27;, &#x27;stepByStepOutputPointers&#x27;, &#x27;&#x27;, &#x27;stepByStepWrapper&#x27;)
+  makeElement(&#x27;div&#x27;, &#x27;stepByStepOutputLines&#x27;, &#x27;&#x27;, &#x27;stepByStepWrapper&#x27;)
+  makeElement(&#x27;div&#x27;, &#x27;stepByStepNotesSpacer&#x27;, &#x27;&#x27;, &#x27;stepByStepWrapper&#x27;)
+  makeElement(&#x27;div&#x27;, &#x27;stepByStepNotes&#x27;, &#x27;&#x27;, &#x27;stepByStepNotesSpacer&#x27;)
+
+  // TODO Move this under the StepByStepWrapper, probably
+  const stepByStepButtonWrapperElement = document.createElement(&#x27;div&#x27;)
+  stepByStepButtonWrapperElement.id = &#x27;stepByStepButtonWrapper&#x27;
+  window.stepByStepWrapper.insertAdjacentElement(
+    &#x27;afterend&#x27;,
+    stepByStepButtonWrapperElement
+  )
 }
 
 const handleNextButtonClick = () =&gt; {
@@ -1024,13 +1105,24 @@ const makeCodeLines = () =&gt; {
     )
   }
 }
-const makeElement = (_type, _id, _html, _childOf, _event, _function) =&gt; {
+const makeElement = (
+  _type,
+  _id,
+  _html,
+  _childOf,
+  _event,
+  _function,
+  _classes
+) =&gt; {
   const newElement = document.createElement(_type)
   newElement.id = _id
   newElement.innerHTML = _html
   window[_childOf].appendChild(newElement)
   if (_event !== null) {
     newElement.addEventListener(_event, _function)
+  }
+  if (_classes) {
+    newElement.classList.add(_classes)
   }
 }
 
@@ -1068,7 +1160,8 @@ const makeNextButton = () =&gt; {
     &#x27;-&amp;gt;&#x27;,
     &#x27;stepByStepButtonWrapper&#x27;,
     &#x27;click&#x27;,
-    handleNextButtonClick
+    handleNextButtonClick,
+    &#x27;stepByStepButton&#x27;
   )
 }
 
@@ -1088,7 +1181,8 @@ const makeNumberButtons = () =&gt; {
       buttonText,
       &#x27;stepByStepButtonWrapper&#x27;,
       &#x27;click&#x27;,
-      handleNumberButtonClick
+      handleNumberButtonClick,
+      &#x27;stepByStepButton&#x27;
     )
   }
 }
@@ -1122,7 +1216,7 @@ const makeOutputLines = () =&gt; {
 
 const makeOutputLinePointers = () =&gt; {
   for (let i = 0; i &lt; c.output.length; i++) {
-    const theText = i === 0 ? &#x27;:&#x27; : &#x27; &#x27;
+    const theText = i === 0 ? &#x27; &#x27; : &#x27; &#x27;
     makeElement(
       &#x27;pre&#x27;,
       `stepByStepOutputPointer_${i}`,
@@ -1154,7 +1248,8 @@ const makePreviousButton = () =&gt; {
     &#x27;&amp;lt;-&#x27;,
     &#x27;stepByStepButtonWrapper&#x27;,
     &#x27;click&#x27;,
-    handlePreviousButtonClick
+    handlePreviousButtonClick,
+    &#x27;stepByStepButton&#x27;
   )
 }
 
@@ -1256,7 +1351,7 @@ const updatePointers = () =&gt; {
 
   if (addData) {
     for (let i = 0; i &lt; addData.length; i++) {
-      window[`stepByStepPointer_${addData[i]}`].innerHTML = &#x27;&amp;gt;&#x27;
+      window[`stepByStepPointer_${addData[i]}`].innerHTML = &#x27;&amp;#8227;&#x27;
     }
   }
 }
@@ -1264,7 +1359,7 @@ const updatePointers = () =&gt; {
 const updatePositions = () =&gt; {
   const coords = c.sets[s.currentSet].coords
   const theTop = coords[0] - 1
-  const theLeft = coords[1] + 8
+  const theLeft = coords[1] + 9
   window.stepByStepNotesSpacer.style.top = `${theTop}rem`
   window.stepByStepNotesSpacer.style.left = `${theLeft}ch`
   window.stepByStepNotesSpacer.style.width = `${coords[2]}ch`
@@ -1273,6 +1368,7 @@ const init = () =&gt; {
   s.currentSet = 0
   makeAddLineNumbersZeroBased()
   loadRawLines()
+  buildFoundationStructure()
   makePreviousButton()
   makeNumberButtons()
   makeNextButton()
