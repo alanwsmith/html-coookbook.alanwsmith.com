@@ -15,17 +15,34 @@ fn main() {
 
   sets: [
     {
-      addLines: [1, 3, 13],
+      addLines: [1],
+    },
+    {
+      addLines: [3, 13],
+    },
+    {
+      addLines: [4],
+    },
+    {
+      addLines: [5, 12],
+    },
+    {
+      addLines: [6, 8],
     },
     {
       addLines: [7],
+    },
+    {
+      addLines: [9, 11],
+    },
+    {
+      addLines: [10],
     },
   ],
 }
 
 const s = {
-  currentSet: 1,
-  currentLines: [],
+  currentSet: 7,
 }
 
 // // this is inefficient but whatever
@@ -51,23 +68,14 @@ const s = {
 //   }
 // }
 
-// this turns human readeable numbers
-// into zero index based numbers for
-// working with them in code
-const prepConfig = () => {
-  for (let setsIndex = 0; setsIndex < c.sets.length; setsIndex++) {
-    for (
-      let addIndex = 0;
-      addIndex < c.sets[setsIndex].addLines.length;
-      addIndex++
-    ) {
-      c.sets[setsIndex].addLines[addIndex] -= 1
-    }
+const highlightNewLines = () => {
+  const lineCheck = c.sets[s.currentSet].addLines
+  for (let i = 0; i < lineCheck.length; i++) {
+    const lineIndex = lineCheck[i]
+    s.currentLines[
+      lineIndex
+    ] = `<code class="newLine">${s.rawLines[lineIndex]}</code>`
   }
-}
-
-const loadRawLines = () => {
-  s.rawLines = c.source.split('\n')
 }
 
 const loadInitialLines = () => {
@@ -80,11 +88,45 @@ const loadInitialLines = () => {
   }
 }
 
+const loadRawLines = () => {
+  s.rawLines = c.source.split('\n')
+}
+
+const outputLines = () => {
+  for (let i = 0; i < s.currentLines.length; i++) {
+    window[`s${i}`].innerHTML = s.currentLines[i]
+  }
+}
+
+const prepConfig = () => {
+  // this turns human readeable numbers
+  // into zero index based numbers for
+  // working with them in code
+  for (let setsIndex = 0; setsIndex < c.sets.length; setsIndex++) {
+    for (
+      let addIndex = 0;
+      addIndex < c.sets[setsIndex].addLines.length;
+      addIndex++
+    ) {
+      c.sets[setsIndex].addLines[addIndex] -= 1
+    }
+  }
+}
+
+const prepCurrentLines = () => {
+  s.currentLines = []
+  for (let i = 0; i < s.rawLines.length; i++) {
+    s.currentLines.push(' ')
+  }
+}
+
 const init = () => {
   prepConfig()
   loadRawLines()
+  prepCurrentLines()
   loadInitialLines()
-  console.log(s.currentLines)
+  highlightNewLines()
+  outputLines()
 }
 
 document.addEventListener('DOMContentLoaded', init)
