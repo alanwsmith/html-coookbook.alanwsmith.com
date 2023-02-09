@@ -98,9 +98,7 @@ fn main() {
   ],
 }
 
-const s = {
-  currentSet: 2,
-}
+const s = {}
 
 const addAltLines = () => {
   const altData = c.sets[s.currentSet].altLines
@@ -163,11 +161,33 @@ const loadRawLines = () => {
   s.rawLines = c.source.split('\n')
 }
 
-const outputLines = () => {
-  for (let i = 0; i < s.currentLines.length; i++) {
-    window[`s${i}`].innerHTML = s.currentLines[i]
+const makeCodeLines = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    makeElement(
+      'pre',
+      `stepByStepCodeLine_${i}`,
+      ` `,
+      'stepByStepCodeLines',
+      null,
+      null
+    )
   }
 }
+const makeElement = (_type, _id, _html, _childOf, _event, _function) => {
+  const newElement = document.createElement(_type)
+  newElement.id = _id
+  newElement.innerHTML = _html
+  window[_childOf].appendChild(newElement)
+  if (_event !== null) {
+    newElement.addEventListener(_event, _function)
+  }
+}
+
+// const outputLines = () => {
+//   for (let i = 0; i < s.currentLines.length; i++) {
+//     window[`s${i}`].innerHTML = s.currentLines[i]
+//   }
+// }
 
 const makeAddLineNumbersZeroBased = () => {
   // Moves config numbers from human readable to
@@ -189,15 +209,32 @@ const prepCurrentLines = () => {
   }
 }
 
-const init = () => {
-  makeAddLineNumbersZeroBased()
-  loadRawLines()
-  prepCurrentLines()
-  loadInitialLines()
+const totalLines = () => {
+  return s.rawLines.length
+}
+
+const updateCodeLines = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    window[`stepByStepCodeLine_${i}`].innerHTML = s.currentLines[i]
+  }
+}
+
+const updateEverything = (setIndex) => {
+  s.currentSet = setIndex
   highlightNewLines()
   addAltLines()
   addCustomHighlights()
-  outputLines()
+  updateCodeLines()
+}
+
+const init = () => {
+  s.currentSet = 0
+  makeAddLineNumbersZeroBased()
+  loadRawLines()
+  makeCodeLines()
+  prepCurrentLines()
+  loadInitialLines()
+  updateEverything(0)
 }
 
 document.addEventListener('DOMContentLoaded', init)
@@ -215,19 +252,7 @@ document.addEventListener('DOMContentLoaded', init)
     <main>
       <h1>Step By Step Code Example Prototype 8</h1>
       <div id="stepByStepWrapper">
-  <pre id="s0">-</pre>
-  <pre id="s1">-</pre>
-  <pre id="s2">-</pre>
-  <pre id="s3">-</pre>
-  <pre id="s4">-</pre>
-  <pre id="s5">-</pre>
-  <pre id="s6">-</pre>
-  <pre id="s7">-</pre>
-  <pre id="s8">-</pre>
-  <pre id="s9">-</pre>
-  <pre id="s10">-</pre>
-  <pre id="s11">-</pre>
-  <pre id="s12">-</pre>
+  <div id="stepByStepCodeLines"></div>
 </div>
  
                 <h2>Details</h2>
@@ -237,19 +262,7 @@ document.addEventListener('DOMContentLoaded', init)
                   
             <h2>HTML Source</h2>
             <pre><code class="language-html">&lt;div id=&quot;stepByStepWrapper&quot;&gt;
-  &lt;pre id=&quot;s0&quot;&gt;-&lt;/pre&gt;
-  &lt;pre id=&quot;s1&quot;&gt;-&lt;/pre&gt;
-  &lt;pre id=&quot;s2&quot;&gt;-&lt;/pre&gt;
-  &lt;pre id=&quot;s3&quot;&gt;-&lt;/pre&gt;
-  &lt;pre id=&quot;s4&quot;&gt;-&lt;/pre&gt;
-  &lt;pre id=&quot;s5&quot;&gt;-&lt;/pre&gt;
-  &lt;pre id=&quot;s6&quot;&gt;-&lt;/pre&gt;
-  &lt;pre id=&quot;s7&quot;&gt;-&lt;/pre&gt;
-  &lt;pre id=&quot;s8&quot;&gt;-&lt;/pre&gt;
-  &lt;pre id=&quot;s9&quot;&gt;-&lt;/pre&gt;
-  &lt;pre id=&quot;s10&quot;&gt;-&lt;/pre&gt;
-  &lt;pre id=&quot;s11&quot;&gt;-&lt;/pre&gt;
-  &lt;pre id=&quot;s12&quot;&gt;-&lt;/pre&gt;
+  &lt;div id=&quot;stepByStepCodeLines&quot;&gt;&lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
              
@@ -320,9 +333,7 @@ fn main() {
   ],
 }
 
-const s = {
-  currentSet: 2,
-}
+const s = {}
 
 const addAltLines = () =&gt; {
   const altData = c.sets[s.currentSet].altLines
@@ -385,11 +396,33 @@ const loadRawLines = () =&gt; {
   s.rawLines = c.source.split(&#x27;\n&#x27;)
 }
 
-const outputLines = () =&gt; {
-  for (let i = 0; i &lt; s.currentLines.length; i++) {
-    window[`s${i}`].innerHTML = s.currentLines[i]
+const makeCodeLines = () =&gt; {
+  for (let i = 0; i &lt; totalLines(); i++) {
+    makeElement(
+      &#x27;pre&#x27;,
+      `stepByStepCodeLine_${i}`,
+      ` `,
+      &#x27;stepByStepCodeLines&#x27;,
+      null,
+      null
+    )
   }
 }
+const makeElement = (_type, _id, _html, _childOf, _event, _function) =&gt; {
+  const newElement = document.createElement(_type)
+  newElement.id = _id
+  newElement.innerHTML = _html
+  window[_childOf].appendChild(newElement)
+  if (_event !== null) {
+    newElement.addEventListener(_event, _function)
+  }
+}
+
+// const outputLines = () =&gt; {
+//   for (let i = 0; i &lt; s.currentLines.length; i++) {
+//     window[`s${i}`].innerHTML = s.currentLines[i]
+//   }
+// }
 
 const makeAddLineNumbersZeroBased = () =&gt; {
   // Moves config numbers from human readable to
@@ -411,15 +444,32 @@ const prepCurrentLines = () =&gt; {
   }
 }
 
-const init = () =&gt; {
-  makeAddLineNumbersZeroBased()
-  loadRawLines()
-  prepCurrentLines()
-  loadInitialLines()
+const totalLines = () =&gt; {
+  return s.rawLines.length
+}
+
+const updateCodeLines = () =&gt; {
+  for (let i = 0; i &lt; totalLines(); i++) {
+    window[`stepByStepCodeLine_${i}`].innerHTML = s.currentLines[i]
+  }
+}
+
+const updateEverything = (setIndex) =&gt; {
+  s.currentSet = setIndex
   highlightNewLines()
   addAltLines()
   addCustomHighlights()
-  outputLines()
+  updateCodeLines()
+}
+
+const init = () =&gt; {
+  s.currentSet = 0
+  makeAddLineNumbersZeroBased()
+  loadRawLines()
+  makeCodeLines()
+  prepCurrentLines()
+  loadInitialLines()
+  updateEverything(0)
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
