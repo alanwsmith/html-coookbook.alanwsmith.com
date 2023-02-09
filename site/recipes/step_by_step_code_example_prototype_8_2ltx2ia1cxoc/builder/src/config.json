@@ -5,6 +5,7 @@
   "DETAILS": [],
   "NOTES": [],
   "TODOS": [
+    "Figure out accessability",
     "Add cookie to keep place",
     "Add arrow key navigation",
     "Make a web component"
