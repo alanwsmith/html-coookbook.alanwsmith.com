@@ -17,6 +17,9 @@ fn main() {
   // per line right now
   sets: [
     {
+      fullCode: true,
+    },
+    {
       addLines: [1],
     },
     {
@@ -49,6 +52,9 @@ fn main() {
     },
     {
       addLines: [10],
+    },
+    {
+      fullCode: true,
     },
   ],
 }
@@ -187,13 +193,13 @@ const makeNextButton = () => {
 
 const makeNumberButtons = () => {
   for (let i = 0; i < c.sets.length; i++) {
-    let buttonText = i + 1
+    let buttonText = i
 
-    // if (i === 0) {
-    //   buttonText = 'Start'
-    // } else if (i === c.sets.length - 1) {
-    //   buttonText = 'Complete'
-    // }
+    if (i === 0) {
+      buttonText = 'Start'
+    } else if (i === c.sets.length - 1) {
+      buttonText = 'Complete'
+    }
 
     makeElement(
       'button',
@@ -229,8 +235,14 @@ const totalLines = () => {
 }
 
 const updateCodeLines = () => {
-  for (let i = 0; i < totalLines(); i++) {
-    window[`stepByStepCodeLine_${i}`].innerHTML = s.currentLines[i]
+  if (c.sets[s.currentSet].fullCode === true) {
+    for (let i = 0; i < totalLines(); i++) {
+      window[`stepByStepCodeLine_${i}`].innerHTML = s.rawLines[i]
+    }
+  } else {
+    for (let i = 0; i < totalLines(); i++) {
+      window[`stepByStepCodeLine_${i}`].innerHTML = s.currentLines[i]
+    }
   }
 }
 
