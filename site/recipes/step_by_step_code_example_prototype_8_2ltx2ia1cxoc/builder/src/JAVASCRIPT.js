@@ -88,6 +88,23 @@ const addCustomHighlights = () => {
   }
 }
 
+const handleNextButtonClick = () => {
+  if (s.currentSet < c.sets.length - 1) {
+    updateEverything(s.currentSet + 1)
+  }
+}
+
+const handleNumberButtonClick = (event) => {
+  const newIndex = parseInt(event.target.id.split('_')[1])
+  updateEverything(newIndex)
+}
+
+const handlePreviousButtonClick = () => {
+  if (s.currentSet > 0) {
+    updateEverything(s.currentSet - 1)
+  }
+}
+
 const highlightNewLines = () => {
   const lineCheck = c.sets[s.currentSet].addLines
   if (lineCheck) {
@@ -157,6 +174,47 @@ const makeAddLineNumbersZeroBased = () => {
   }
 }
 
+const makeNextButton = () => {
+  makeElement(
+    'button',
+    'stepByStepNextButton',
+    '-&gt;',
+    'stepByStepButtonWrapper',
+    'click',
+    handleNextButtonClick
+  )
+}
+
+const makeNumberButtons = () => {
+  for (let i = 0; i < c.sets.length; i++) {
+    let buttonText = i
+    if (i === 0) {
+      buttonText = 'Start'
+    } else if (i === c.sets.length - 1) {
+      buttonText = 'Complete'
+    }
+    makeElement(
+      'button',
+      `stepByStepNumberButton_${i}`,
+      buttonText,
+      'stepByStepButtonWrapper',
+      'click',
+      handleNumberButtonClick
+    )
+  }
+}
+
+const makePreviousButton = () => {
+  makeElement(
+    'button',
+    'stepByStepPreviousButton',
+    '&lt;-',
+    'stepByStepButtonWrapper',
+    'click',
+    handlePreviousButtonClick
+  )
+}
+
 const prepCurrentLines = () => {
   s.currentLines = []
   for (let i = 0; i < s.rawLines.length; i++) {
@@ -176,6 +234,8 @@ const updateCodeLines = () => {
 
 const updateEverything = (setIndex) => {
   s.currentSet = setIndex
+  prepCurrentLines()
+  loadInitialLines()
   highlightNewLines()
   addAltLines()
   addCustomHighlights()
@@ -185,10 +245,11 @@ const updateEverything = (setIndex) => {
 const init = () => {
   s.currentSet = 0
   makeAddLineNumbersZeroBased()
+  makePreviousButton()
+  makeNumberButtons()
+  makeNextButton()
   loadRawLines()
   makeCodeLines()
-  prepCurrentLines()
-  loadInitialLines()
   updateEverything(0)
 }
 

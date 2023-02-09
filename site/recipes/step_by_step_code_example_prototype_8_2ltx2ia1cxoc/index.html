@@ -133,6 +133,23 @@ const addCustomHighlights = () => {
   }
 }
 
+const handleNextButtonClick = () => {
+  if (s.currentSet < c.sets.length - 1) {
+    updateEverything(s.currentSet + 1)
+  }
+}
+
+const handleNumberButtonClick = (event) => {
+  const newIndex = parseInt(event.target.id.split('_')[1])
+  updateEverything(newIndex)
+}
+
+const handlePreviousButtonClick = () => {
+  if (s.currentSet > 0) {
+    updateEverything(s.currentSet - 1)
+  }
+}
+
 const highlightNewLines = () => {
   const lineCheck = c.sets[s.currentSet].addLines
   if (lineCheck) {
@@ -202,6 +219,47 @@ const makeAddLineNumbersZeroBased = () => {
   }
 }
 
+const makeNextButton = () => {
+  makeElement(
+    'button',
+    'stepByStepNextButton',
+    '-&gt;',
+    'stepByStepButtonWrapper',
+    'click',
+    handleNextButtonClick
+  )
+}
+
+const makeNumberButtons = () => {
+  for (let i = 0; i < c.sets.length; i++) {
+    let buttonText = i
+    if (i === 0) {
+      buttonText = 'Start'
+    } else if (i === c.sets.length - 1) {
+      buttonText = 'Complete'
+    }
+    makeElement(
+      'button',
+      `stepByStepNumberButton_${i}`,
+      buttonText,
+      'stepByStepButtonWrapper',
+      'click',
+      handleNumberButtonClick
+    )
+  }
+}
+
+const makePreviousButton = () => {
+  makeElement(
+    'button',
+    'stepByStepPreviousButton',
+    '&lt;-',
+    'stepByStepButtonWrapper',
+    'click',
+    handlePreviousButtonClick
+  )
+}
+
 const prepCurrentLines = () => {
   s.currentLines = []
   for (let i = 0; i < s.rawLines.length; i++) {
@@ -221,6 +279,8 @@ const updateCodeLines = () => {
 
 const updateEverything = (setIndex) => {
   s.currentSet = setIndex
+  prepCurrentLines()
+  loadInitialLines()
   highlightNewLines()
   addAltLines()
   addCustomHighlights()
@@ -230,10 +290,11 @@ const updateEverything = (setIndex) => {
 const init = () => {
   s.currentSet = 0
   makeAddLineNumbersZeroBased()
+  makePreviousButton()
+  makeNumberButtons()
+  makeNextButton()
   loadRawLines()
   makeCodeLines()
-  prepCurrentLines()
-  loadInitialLines()
   updateEverything(0)
 }
 
@@ -251,9 +312,23 @@ document.addEventListener('DOMContentLoaded', init)
     </header>
     <main>
       <h1>Step By Step Code Example Prototype 8</h1>
-      <div id="stepByStepWrapper">
+      <h3 id="stepByStepHeader">
+  <!-- TODO: Move this into the grid -->
+</h3>
+
+<div id="stepByStepWrapper">
+  <div id="stepByStepLineNumbers"></div>
+  <div id="stepByStepPointers"></div>
   <div id="stepByStepCodeLines"></div>
+  <div id="stepByStepOutputNumbers"></div>
+  <div id="stepByStepOutputPointers"></div>
+  <div id="stepByStepOutputLines"></div>
+  <div id="stepByStepNotesSpacer">
+    <div id="stepByStepNotes"></div>
+  </div>
 </div>
+
+<div id="stepByStepButtonWrapper"></div>
  
                 <h2>Details</h2>
                 <ul>
@@ -261,9 +336,23 @@ document.addEventListener('DOMContentLoaded', init)
                 </ul>
                   
             <h2>HTML Source</h2>
-            <pre><code class="language-html">&lt;div id=&quot;stepByStepWrapper&quot;&gt;
+            <pre><code class="language-html">&lt;h3 id=&quot;stepByStepHeader&quot;&gt;
+  &lt;!-- TODO: Move this into the grid --&gt;
+&lt;/h3&gt;
+
+&lt;div id=&quot;stepByStepWrapper&quot;&gt;
+  &lt;div id=&quot;stepByStepLineNumbers&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;stepByStepPointers&quot;&gt;&lt;/div&gt;
   &lt;div id=&quot;stepByStepCodeLines&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;stepByStepOutputNumbers&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;stepByStepOutputPointers&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;stepByStepOutputLines&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;stepByStepNotesSpacer&quot;&gt;
+    &lt;div id=&quot;stepByStepNotes&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
 &lt;/div&gt;
+
+&lt;div id=&quot;stepByStepButtonWrapper&quot;&gt;&lt;/div&gt;
 </code></pre>
              
             <h2>CSS Source</h2>
@@ -368,6 +457,23 @@ const addCustomHighlights = () =&gt; {
   }
 }
 
+const handleNextButtonClick = () =&gt; {
+  if (s.currentSet &lt; c.sets.length - 1) {
+    updateEverything(s.currentSet + 1)
+  }
+}
+
+const handleNumberButtonClick = (event) =&gt; {
+  const newIndex = parseInt(event.target.id.split(&#x27;_&#x27;)[1])
+  updateEverything(newIndex)
+}
+
+const handlePreviousButtonClick = () =&gt; {
+  if (s.currentSet &gt; 0) {
+    updateEverything(s.currentSet - 1)
+  }
+}
+
 const highlightNewLines = () =&gt; {
   const lineCheck = c.sets[s.currentSet].addLines
   if (lineCheck) {
@@ -437,6 +543,47 @@ const makeAddLineNumbersZeroBased = () =&gt; {
   }
 }
 
+const makeNextButton = () =&gt; {
+  makeElement(
+    &#x27;button&#x27;,
+    &#x27;stepByStepNextButton&#x27;,
+    &#x27;-&amp;gt;&#x27;,
+    &#x27;stepByStepButtonWrapper&#x27;,
+    &#x27;click&#x27;,
+    handleNextButtonClick
+  )
+}
+
+const makeNumberButtons = () =&gt; {
+  for (let i = 0; i &lt; c.sets.length; i++) {
+    let buttonText = i
+    if (i === 0) {
+      buttonText = &#x27;Start&#x27;
+    } else if (i === c.sets.length - 1) {
+      buttonText = &#x27;Complete&#x27;
+    }
+    makeElement(
+      &#x27;button&#x27;,
+      `stepByStepNumberButton_${i}`,
+      buttonText,
+      &#x27;stepByStepButtonWrapper&#x27;,
+      &#x27;click&#x27;,
+      handleNumberButtonClick
+    )
+  }
+}
+
+const makePreviousButton = () =&gt; {
+  makeElement(
+    &#x27;button&#x27;,
+    &#x27;stepByStepPreviousButton&#x27;,
+    &#x27;&amp;lt;-&#x27;,
+    &#x27;stepByStepButtonWrapper&#x27;,
+    &#x27;click&#x27;,
+    handlePreviousButtonClick
+  )
+}
+
 const prepCurrentLines = () =&gt; {
   s.currentLines = []
   for (let i = 0; i &lt; s.rawLines.length; i++) {
@@ -456,6 +603,8 @@ const updateCodeLines = () =&gt; {
 
 const updateEverything = (setIndex) =&gt; {
   s.currentSet = setIndex
+  prepCurrentLines()
+  loadInitialLines()
   highlightNewLines()
   addAltLines()
   addCustomHighlights()
@@ -465,10 +614,11 @@ const updateEverything = (setIndex) =&gt; {
 const init = () =&gt; {
   s.currentSet = 0
   makeAddLineNumbersZeroBased()
+  makePreviousButton()
+  makeNumberButtons()
+  makeNextButton()
   loadRawLines()
   makeCodeLines()
-  prepCurrentLines()
-  loadInitialLines()
   updateEverything(0)
 }
 
