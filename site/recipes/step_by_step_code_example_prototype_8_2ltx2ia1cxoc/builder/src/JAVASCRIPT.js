@@ -27,6 +27,7 @@ fn main() {
   sets: [
     {
       fullCode: true,
+      coords: [5, 3, 30],
     },
     {
       addLines: [1],
@@ -339,6 +340,7 @@ const updateEverything = (setIndex) => {
   updateOutputLines()
   updateButtonHighlights()
   updateFullHighlights()
+  updatePositions()
 }
 
 const updateFullHighlights = () => {
@@ -395,6 +397,15 @@ const updatePointers = () => {
   }
 }
 
+const updatePositions = () => {
+  window.stepByStepNotesSpacer.style.top = `${c.sets[s.currentSet].coords[0]}lh`
+  window.stepByStepNotesSpacer.style.left = `${
+    c.sets[s.currentSet].coords[1]
+  }ch`
+  window.stepByStepNotesSpacer.style.width = `${
+    c.sets[s.currentSet].coords[2]
+  }ch`
+}
 const init = () => {
   s.currentSet = 0
   makeAddLineNumbersZeroBased()

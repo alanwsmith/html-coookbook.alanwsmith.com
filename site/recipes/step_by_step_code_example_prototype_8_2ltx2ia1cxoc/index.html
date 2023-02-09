@@ -63,7 +63,7 @@
   color: var(--notes-font-color);
   font-family: monospace;
   position: absolute;
-  padding: 1ch;
+  padding: 0;
   margin: 0;
   background-color: var(--notes-background-color);
   border-radius: 0.4rem;
@@ -176,6 +176,7 @@ fn main() {
   sets: [
     {
       fullCode: true,
+      coords: [5, 3, 30],
     },
     {
       addLines: [1],
@@ -488,6 +489,7 @@ const updateEverything = (setIndex) => {
   updateOutputLines()
   updateButtonHighlights()
   updateFullHighlights()
+  updatePositions()
 }
 
 const updateFullHighlights = () => {
@@ -544,6 +546,15 @@ const updatePointers = () => {
   }
 }
 
+const updatePositions = () => {
+  window.stepByStepNotesSpacer.style.top = `${c.sets[s.currentSet].coords[0]}lh`
+  window.stepByStepNotesSpacer.style.left = `${
+    c.sets[s.currentSet].coords[1]
+  }ch`
+  window.stepByStepNotesSpacer.style.width = `${
+    c.sets[s.currentSet].coords[2]
+  }ch`
+}
 const init = () => {
   s.currentSet = 0
   makeAddLineNumbersZeroBased()
@@ -606,7 +617,7 @@ document.addEventListener('DOMContentLoaded', init)
                 </ul>
                   
             <h2>HTML Source</h2>
-            <pre class="exampleCode"  id="exampleHTMLBody" class="language-html"><code>&lt;h3 id=&quot;stepByStepHeader&quot;&gt;
+            <pre class="exampleCode" id="exampleHTMLBody" class="language-html">&lt;h3 id=&quot;stepByStepHeader&quot;&gt;
   &lt;!-- TODO: Move this into the grid --&gt;
 &lt;/h3&gt;
 
@@ -623,10 +634,10 @@ document.addEventListener('DOMContentLoaded', init)
 &lt;/div&gt;
 
 &lt;div id=&quot;stepByStepButtonWrapper&quot;&gt;&lt;/div&gt;
-</code></pre>
+</pre>
              
             <h2>CSS Source</h2>
-            <pre class="exampleCode" id="exampleCSS" class="language-css"><code>:root {
+            <pre class="exampleCode" id="exampleCSS" class="language-css">:root {
   --active-button-color: #381;
   --base-padding: 0.8rem;
   --border-radius: 0.8rem;
@@ -656,7 +667,7 @@ document.addEventListener('DOMContentLoaded', init)
   color: var(--notes-font-color);
   font-family: monospace;
   position: absolute;
-  padding: 1ch;
+  padding: 0;
   margin: 0;
   background-color: var(--notes-background-color);
   border-radius: 0.4rem;
@@ -736,11 +747,11 @@ document.addEventListener('DOMContentLoaded', init)
   border-radius: var(--border-radius);
   padding: var(--base-padding);
 }
-</code></pre>
+</pre>
             
       
             <h2>JavaScript Source</h2>
-            <pre class="exampleCode" id="exampleJS" class="language-js"><code>const c = {
+            <pre class="exampleCode" id="exampleJS" class="language-js">const c = {
   source: `use std::env; 
  
 fn main() { 
@@ -769,6 +780,7 @@ fn main() {
   sets: [
     {
       fullCode: true,
+      coords: [5, 3, 30],
     },
     {
       addLines: [1],
@@ -1081,6 +1093,7 @@ const updateEverything = (setIndex) =&gt; {
   updateOutputLines()
   updateButtonHighlights()
   updateFullHighlights()
+  updatePositions()
 }
 
 const updateFullHighlights = () =&gt; {
@@ -1137,6 +1150,15 @@ const updatePointers = () =&gt; {
   }
 }
 
+const updatePositions = () =&gt; {
+  window.stepByStepNotesSpacer.style.top = `${c.sets[s.currentSet].coords[0]}lh`
+  window.stepByStepNotesSpacer.style.left = `${
+    c.sets[s.currentSet].coords[1]
+  }ch`
+  window.stepByStepNotesSpacer.style.width = `${
+    c.sets[s.currentSet].coords[2]
+  }ch`
+}
 const init = () =&gt; {
   s.currentSet = 0
   makeAddLineNumbersZeroBased()
@@ -1154,18 +1176,13 @@ const init = () =&gt; {
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
-</code></pre>
+</pre>
              
                 <h2>TODO</h2>
                 <ul>
                     <li>Add cookie to keep place</li> <li>Add arrow key navigation</li> <li>Make a web component</li>
                 </ul>
               
-                <h2>References</h2>
-                <ul>
-                    <li><a href=""></a></li>
-                </ul>
-                
     </main>
     <footer>
       from <a href="https://www.alanwsmith.com/">alan w. smith</a>

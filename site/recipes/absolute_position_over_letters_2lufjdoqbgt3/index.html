@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Absolutely Position Elements Over A Specific Letter - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Absolutely Position Elements Over A Specific Letter" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630,w_1200,h_630,c_fit,w_940,h_540,co_rgb:eeeeee,l_text:Helvetica_94_bold:Absolutely%20Position%20Elements%20Over%20A%20Specific%20Letter/fl_layer_apply,g_north_west,x_60,y_60/co_rgb:666666,l_text:Inconsolata_36_bold:from%20alan%20w.%20smith/fl_layer_apply,g_south_east,x_196,y_40/og-images/black-with-white-line.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/fonts.css" />
+    <link rel="stylesheet" href="/styles/colors.css" />
+    <link rel="stylesheet" href="/styles/wrapper.css" />
+    <link rel="stylesheet" href="/styles/prism-customized.css" />
+    
+    <style>
+      #foundation {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+#movingElement,
+pre {
+  font-family: monospace;
+  font-size: 1.2rem;
+  line-height: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+#movingElement {
+  position: absolute;
+  left: 14ch;
+  top: 8rem;
+}
+
+    </style>
+    <script>
+      const init = () => {
+    console.log("init")
+}
+
+document.addEventListener('DOMContentLoaded', init)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">cookbook home</a> ~
+      <a href="https://www.alanwsmith.com/">main site</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
+    </header>
+    <main>
+      <h1>Absolutely Position Elements Over A Specific Letter</h1>
+      <div id="foundation">
+  <div id="movingElement">x</div>
+  <div id="letters">
+    <pre>
+abcdefghijklmnopqrstuvwxyz
+abcdefghijklmnopqrstuvwxyz
+abcdefghijklmnopqrstuvwxyz
+abcdefghijklmnopqrstuvwxyz
+abcdefghijklmnopqrstuvwxyz
+abcdefghijklmnopqrstuvwxyz</pre
+    >
+  </div>
+</div>
+ 
+                <h2>Details</h2>
+                <ul>
+                    <li>GOAL: Figure out how to position an element directly over another letter in a monospaced layout</li> <li>The example below is built directly from the HTML and JavaScript code snippets that follow</li>
+                </ul>
+                  
+            <h2>HTML Source</h2>
+            <pre class="exampleCode" id="exampleHTMLBody" class="language-html">&lt;div id=&quot;foundation&quot;&gt;
+  &lt;div id=&quot;movingElement&quot;&gt;x&lt;/div&gt;
+  &lt;div id=&quot;letters&quot;&gt;
+    &lt;pre&gt;
+abcdefghijklmnopqrstuvwxyz
+abcdefghijklmnopqrstuvwxyz
+abcdefghijklmnopqrstuvwxyz
+abcdefghijklmnopqrstuvwxyz
+abcdefghijklmnopqrstuvwxyz
+abcdefghijklmnopqrstuvwxyz&lt;/pre
+    &gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+             
+            <h2>CSS Source</h2>
+            <pre class="exampleCode" id="exampleCSS" class="language-css">#foundation {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+#movingElement,
+pre {
+  font-family: monospace;
+  font-size: 1.2rem;
+  line-height: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+#movingElement {
+  position: absolute;
+  left: 14ch;
+  top: 8rem;
+}
+</pre>
+            
+      
+            <h2>JavaScript Source</h2>
+            <pre class="exampleCode" id="exampleJS" class="language-js">const init = () =&gt; {
+    console.log(&quot;init&quot;)
+}
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
+</pre>
+               
+                <h2>References</h2>
+                <ul>
+                    <li><a href=""></a></li>
+                </ul>
+                
+    </main>
+    <footer>
+      from <a href="https://www.alanwsmith.com/">alan w. smith</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>
