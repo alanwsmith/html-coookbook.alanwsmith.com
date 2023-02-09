@@ -2,7 +2,6 @@ const c = {
   source: `use std::env; 
  
 fn main() { 
-  let envVarResult = env::var("HOME"); 
   let envResult = env::var("HOME"); 
   match envResult { 
     Ok(item) => { 
@@ -63,6 +62,8 @@ fn main() {
       fullCode: true,
     },
   ],
+
+  output: ['line 1 of output', 'another output exampleline'],
 }
 
 const s = {}
@@ -167,12 +168,6 @@ const makeElement = (_type, _id, _html, _childOf, _event, _function) => {
   }
 }
 
-// const outputLines = () => {
-//   for (let i = 0; i < s.currentLines.length; i++) {
-//     window[`s${i}`].innerHTML = s.currentLines[i]
-//   }
-// }
-
 const makeAddLineNumbersZeroBased = () => {
   // Moves config numbers from human readable to
   // zero based index
@@ -183,6 +178,20 @@ const makeAddLineNumbersZeroBased = () => {
         addData[addIndex] -= 1
       }
     }
+  }
+}
+
+const makeLineNumberRows = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    const numberString = i < 9 ? `0${i + 1}` : i + 1
+    makeElement(
+      'pre',
+      `stepByStepLineNumber_${i}`,
+      numberString,
+      'stepByStepLineNumbers',
+      null,
+      null
+    )
   }
 }
 
@@ -218,6 +227,60 @@ const makeNumberButtons = () => {
   }
 }
 
+const makeOutputLineNumbers = () => {
+  for (let i = 0; i < c.output.length; i++) {
+    const theText = i === 0 ? 'out' : ' '
+    makeElement(
+      'pre',
+      `stepByStepOutputLineNumber_${i}`,
+      theText,
+      'stepByStepOutputNumbers',
+      null,
+      null
+    )
+  }
+}
+
+const makeOutputLines = () => {
+  for (let i = 0; i < c.output.length; i++) {
+    makeElement(
+      'pre',
+      `stepByStepOutputLine_${i}`,
+      ' ',
+      'stepByStepOutputLines',
+      null,
+      null
+    )
+  }
+}
+
+const makeOutputLinePointers = () => {
+  for (let i = 0; i < c.output.length; i++) {
+    const theText = i === 0 ? ':' : ' '
+    makeElement(
+      'pre',
+      `stepByStepOutputPointer_${i}`,
+      theText,
+      'stepByStepOutputPointers',
+      null,
+      null
+    )
+  }
+}
+
+const makePointerRows = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    makeElement(
+      'pre',
+      `stepByStepPointer_${i}`,
+      ` `,
+      'stepByStepPointers',
+      null,
+      null
+    )
+  }
+}
+
 const makePreviousButton = () => {
   makeElement(
     'button',
@@ -240,6 +303,16 @@ const totalLines = () => {
   return s.rawLines.length
 }
 
+const updateButtonHighlights = () => {
+  for (let i = 0; i < s.sets.length; i++) {
+    if (i === s.currentSet) {
+      window[`stepByStepNumberButton_${i}`].classList.add('activeButton')
+    } else {
+      window[`stepByStepNumberButton_${i}`].classList.remove('activeButton')
+    }
+  }
+}
+
 const updateCodeLines = () => {
   if (c.sets[s.currentSet].fullCode === true) {
     for (let i = 0; i < totalLines(); i++) {
@@ -260,16 +333,67 @@ const updateEverything = (setIndex) => {
   addAltLines()
   addCustomHighlights()
   updateCodeLines()
+  updatePointers()
+  updateOutputLines()
+}
+
+const updateHeader = () => {
+  let headerString = `Step ${s.currentSet}`
+  if (s.currentSet === 0) {
+    headerString = `Full Code Sample`
+  } else if (s.currentSet === s.sets.length - 1) {
+    headerString = `Final Code Sample`
+  }
+
+  window.stepByStepHeader.innerHTML = headerString
+}
+
+// const updateNotes = () => {
+//   window.stepByStepNotes.innerHTML = s.notes[s.currentSet]
+// }
+
+const updateOutputLines = () => {
+  for (let i = 0; i < c.output.length; i++) {
+    if (s.currentSet === c.sets.length - 1 || s.currentSet === 0) {
+      window[`stepByStepOutputLine_${i}`].innerHTML = c.output[i]
+    } else {
+      // clear output for moving to previous line sets
+      window[`stepByStepOutputLine_${i}`].innerHTML = ' '
+    }
+  }
+}
+
+const updatePointers = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    //   // Set empty to clear prior pointers
+    //   let pointerText = ' '
+    //   // only mark things that have changed
+    //   if (s.sets[s.currentSet][i] === 1) {
+    //     // don't mark empty lines
+    //     if (s.lines[i][s.currentSet] !== '') {
+    //       // don't mark the final change
+    //       if (s.lineIndexes[i] !== s.lines[i].length - 1) {
+    //         pointerText = '&gt;'
+    //       }
+    //     }
+    //   }
+    window[`stepByStepPointer_${i}`].innerHTML = 'x'
+  }
 }
 
 const init = () => {
   s.currentSet = 0
   makeAddLineNumbersZeroBased()
+  loadRawLines()
   makePreviousButton()
   makeNumberButtons()
   makeNextButton()
-  loadRawLines()
+  makeLineNumberRows()
   makeCodeLines()
+  makePointerRows()
+  makeOutputLines()
+  makeOutputLineNumbers()
+  makeOutputLinePointers()
   updateEverything(0)
 }
 

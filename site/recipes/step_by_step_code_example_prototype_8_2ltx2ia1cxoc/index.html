@@ -209,6 +209,8 @@ fn main() {
       fullCode: true,
     },
   ],
+
+  output: ['line 1 of output', 'another output exampleline'],
 }
 
 const s = {}
@@ -313,12 +315,6 @@ const makeElement = (_type, _id, _html, _childOf, _event, _function) => {
   }
 }
 
-// const outputLines = () => {
-//   for (let i = 0; i < s.currentLines.length; i++) {
-//     window[`s${i}`].innerHTML = s.currentLines[i]
-//   }
-// }
-
 const makeAddLineNumbersZeroBased = () => {
   // Moves config numbers from human readable to
   // zero based index
@@ -329,6 +325,20 @@ const makeAddLineNumbersZeroBased = () => {
         addData[addIndex] -= 1
       }
     }
+  }
+}
+
+const makeLineNumberRows = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    const numberString = i < 9 ? `0${i + 1}` : i + 1
+    makeElement(
+      'pre',
+      `stepByStepLineNumber_${i}`,
+      numberString,
+      'stepByStepLineNumbers',
+      null,
+      null
+    )
   }
 }
 
@@ -364,6 +374,60 @@ const makeNumberButtons = () => {
   }
 }
 
+const makeOutputLineNumbers = () => {
+  for (let i = 0; i < c.output.length; i++) {
+    const theText = i === 0 ? 'out' : ' '
+    makeElement(
+      'pre',
+      `stepByStepOutputLineNumber_${i}`,
+      theText,
+      'stepByStepOutputNumbers',
+      null,
+      null
+    )
+  }
+}
+
+const makeOutputLines = () => {
+  for (let i = 0; i < c.output.length; i++) {
+    makeElement(
+      'pre',
+      `stepByStepOutputLine_${i}`,
+      ' ',
+      'stepByStepOutputLines',
+      null,
+      null
+    )
+  }
+}
+
+const makeOutputLinePointers = () => {
+  for (let i = 0; i < c.output.length; i++) {
+    const theText = i === 0 ? ':' : ' '
+    makeElement(
+      'pre',
+      `stepByStepOutputPointer_${i}`,
+      theText,
+      'stepByStepOutputPointers',
+      null,
+      null
+    )
+  }
+}
+
+const makePointerRows = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    makeElement(
+      'pre',
+      `stepByStepPointer_${i}`,
+      ` `,
+      'stepByStepPointers',
+      null,
+      null
+    )
+  }
+}
+
 const makePreviousButton = () => {
   makeElement(
     'button',
@@ -386,6 +450,16 @@ const totalLines = () => {
   return s.rawLines.length
 }
 
+const updateButtonHighlights = () => {
+  for (let i = 0; i < s.sets.length; i++) {
+    if (i === s.currentSet) {
+      window[`stepByStepNumberButton_${i}`].classList.add('activeButton')
+    } else {
+      window[`stepByStepNumberButton_${i}`].classList.remove('activeButton')
+    }
+  }
+}
+
 const updateCodeLines = () => {
   if (c.sets[s.currentSet].fullCode === true) {
     for (let i = 0; i < totalLines(); i++) {
@@ -406,16 +480,67 @@ const updateEverything = (setIndex) => {
   addAltLines()
   addCustomHighlights()
   updateCodeLines()
+  updatePointers()
+  updateOutputLines()
+}
+
+const updateHeader = () => {
+  let headerString = `Step ${s.currentSet}`
+  if (s.currentSet === 0) {
+    headerString = `Full Code Sample`
+  } else if (s.currentSet === s.sets.length - 1) {
+    headerString = `Final Code Sample`
+  }
+
+  window.stepByStepHeader.innerHTML = headerString
+}
+
+// const updateNotes = () => {
+//   window.stepByStepNotes.innerHTML = s.notes[s.currentSet]
+// }
+
+const updateOutputLines = () => {
+  for (let i = 0; i < c.output.length; i++) {
+    if (s.currentSet === c.sets.length - 1 || s.currentSet === 0) {
+      window[`stepByStepOutputLine_${i}`].innerHTML = c.output[i]
+    } else {
+      // clear output for moving to previous line sets
+      window[`stepByStepOutputLine_${i}`].innerHTML = ' '
+    }
+  }
+}
+
+const updatePointers = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    //   // Set empty to clear prior pointers
+    //   let pointerText = ' '
+    //   // only mark things that have changed
+    //   if (s.sets[s.currentSet][i] === 1) {
+    //     // don't mark empty lines
+    //     if (s.lines[i][s.currentSet] !== '') {
+    //       // don't mark the final change
+    //       if (s.lineIndexes[i] !== s.lines[i].length - 1) {
+    //         pointerText = '&gt;'
+    //       }
+    //     }
+    //   }
+    window[`stepByStepPointer_${i}`].innerHTML = 'x'
+  }
 }
 
 const init = () => {
   s.currentSet = 0
   makeAddLineNumbersZeroBased()
+  loadRawLines()
   makePreviousButton()
   makeNumberButtons()
   makeNextButton()
-  loadRawLines()
+  makeLineNumberRows()
   makeCodeLines()
+  makePointerRows()
+  makeOutputLines()
+  makeOutputLineNumbers()
+  makeOutputLinePointers()
   updateEverything(0)
 }
 
@@ -654,6 +779,8 @@ fn main() {
       fullCode: true,
     },
   ],
+
+  output: [&#x27;line 1 of output&#x27;, &#x27;another output exampleline&#x27;],
 }
 
 const s = {}
@@ -758,12 +885,6 @@ const makeElement = (_type, _id, _html, _childOf, _event, _function) =&gt; {
   }
 }
 
-// const outputLines = () =&gt; {
-//   for (let i = 0; i &lt; s.currentLines.length; i++) {
-//     window[`s${i}`].innerHTML = s.currentLines[i]
-//   }
-// }
-
 const makeAddLineNumbersZeroBased = () =&gt; {
   // Moves config numbers from human readable to
   // zero based index
@@ -774,6 +895,20 @@ const makeAddLineNumbersZeroBased = () =&gt; {
         addData[addIndex] -= 1
       }
     }
+  }
+}
+
+const makeLineNumberRows = () =&gt; {
+  for (let i = 0; i &lt; totalLines(); i++) {
+    const numberString = i &lt; 9 ? `0${i + 1}` : i + 1
+    makeElement(
+      &#x27;pre&#x27;,
+      `stepByStepLineNumber_${i}`,
+      numberString,
+      &#x27;stepByStepLineNumbers&#x27;,
+      null,
+      null
+    )
   }
 }
 
@@ -809,6 +944,60 @@ const makeNumberButtons = () =&gt; {
   }
 }
 
+const makeOutputLineNumbers = () =&gt; {
+  for (let i = 0; i &lt; c.output.length; i++) {
+    const theText = i === 0 ? &#x27;out&#x27; : &#x27; &#x27;
+    makeElement(
+      &#x27;pre&#x27;,
+      `stepByStepOutputLineNumber_${i}`,
+      theText,
+      &#x27;stepByStepOutputNumbers&#x27;,
+      null,
+      null
+    )
+  }
+}
+
+const makeOutputLines = () =&gt; {
+  for (let i = 0; i &lt; c.output.length; i++) {
+    makeElement(
+      &#x27;pre&#x27;,
+      `stepByStepOutputLine_${i}`,
+      &#x27; &#x27;,
+      &#x27;stepByStepOutputLines&#x27;,
+      null,
+      null
+    )
+  }
+}
+
+const makeOutputLinePointers = () =&gt; {
+  for (let i = 0; i &lt; c.output.length; i++) {
+    const theText = i === 0 ? &#x27;:&#x27; : &#x27; &#x27;
+    makeElement(
+      &#x27;pre&#x27;,
+      `stepByStepOutputPointer_${i}`,
+      theText,
+      &#x27;stepByStepOutputPointers&#x27;,
+      null,
+      null
+    )
+  }
+}
+
+const makePointerRows = () =&gt; {
+  for (let i = 0; i &lt; totalLines(); i++) {
+    makeElement(
+      &#x27;pre&#x27;,
+      `stepByStepPointer_${i}`,
+      ` `,
+      &#x27;stepByStepPointers&#x27;,
+      null,
+      null
+    )
+  }
+}
+
 const makePreviousButton = () =&gt; {
   makeElement(
     &#x27;button&#x27;,
@@ -831,6 +1020,16 @@ const totalLines = () =&gt; {
   return s.rawLines.length
 }
 
+const updateButtonHighlights = () =&gt; {
+  for (let i = 0; i &lt; s.sets.length; i++) {
+    if (i === s.currentSet) {
+      window[`stepByStepNumberButton_${i}`].classList.add(&#x27;activeButton&#x27;)
+    } else {
+      window[`stepByStepNumberButton_${i}`].classList.remove(&#x27;activeButton&#x27;)
+    }
+  }
+}
+
 const updateCodeLines = () =&gt; {
   if (c.sets[s.currentSet].fullCode === true) {
     for (let i = 0; i &lt; totalLines(); i++) {
@@ -851,16 +1050,67 @@ const updateEverything = (setIndex) =&gt; {
   addAltLines()
   addCustomHighlights()
   updateCodeLines()
+  updatePointers()
+  updateOutputLines()
+}
+
+const updateHeader = () =&gt; {
+  let headerString = `Step ${s.currentSet}`
+  if (s.currentSet === 0) {
+    headerString = `Full Code Sample`
+  } else if (s.currentSet === s.sets.length - 1) {
+    headerString = `Final Code Sample`
+  }
+
+  window.stepByStepHeader.innerHTML = headerString
+}
+
+// const updateNotes = () =&gt; {
+//   window.stepByStepNotes.innerHTML = s.notes[s.currentSet]
+// }
+
+const updateOutputLines = () =&gt; {
+  for (let i = 0; i &lt; c.output.length; i++) {
+    if (s.currentSet === c.sets.length - 1 || s.currentSet === 0) {
+      window[`stepByStepOutputLine_${i}`].innerHTML = c.output[i]
+    } else {
+      // clear output for moving to previous line sets
+      window[`stepByStepOutputLine_${i}`].innerHTML = &#x27; &#x27;
+    }
+  }
+}
+
+const updatePointers = () =&gt; {
+  for (let i = 0; i &lt; totalLines(); i++) {
+    //   // Set empty to clear prior pointers
+    //   let pointerText = &#x27; &#x27;
+    //   // only mark things that have changed
+    //   if (s.sets[s.currentSet][i] === 1) {
+    //     // don&#x27;t mark empty lines
+    //     if (s.lines[i][s.currentSet] !== &#x27;&#x27;) {
+    //       // don&#x27;t mark the final change
+    //       if (s.lineIndexes[i] !== s.lines[i].length - 1) {
+    //         pointerText = &#x27;&amp;gt;&#x27;
+    //       }
+    //     }
+    //   }
+    window[`stepByStepPointer_${i}`].innerHTML = &#x27;x&#x27;
+  }
 }
 
 const init = () =&gt; {
   s.currentSet = 0
   makeAddLineNumbersZeroBased()
+  loadRawLines()
   makePreviousButton()
   makeNumberButtons()
   makeNextButton()
-  loadRawLines()
+  makeLineNumberRows()
   makeCodeLines()
+  makePointerRows()
+  makeOutputLines()
+  makeOutputLineNumbers()
+  makeOutputLinePointers()
   updateEverything(0)
 }
 
