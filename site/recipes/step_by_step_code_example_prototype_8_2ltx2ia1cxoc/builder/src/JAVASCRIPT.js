@@ -2,8 +2,8 @@ const c = {
   source: `use std::env; 
  
 fn main() { 
-  let envVarResult = env::var("HOME"); 
-  match envVarResult { 
+  let envResult = env::var("HOME"); 
+  match envResult { 
     Ok(item) => { 
       println!("got {}", item); 
     } 
@@ -13,9 +13,21 @@ fn main() {
   } 
 }`,
 
+  //  highlights: ['h1|3|4|7'],
+  //  fullCode: true,
+  //   altLines: [
+  //   {
+  //     line: 5,
+  //     text: 'the quick brown fox jumps over the lazy dog',
+  //   },
+  // ],
+
   // NOTE: Only one hightlight works
   // per line right now
   sets: [
+    {
+      fullCode: true,
+    },
     {
       addLines: [1],
     },
@@ -24,19 +36,12 @@ fn main() {
     },
     {
       addLines: [4],
-      altLines: [
-        {
-          line: 5,
-          text: 'the quick brown fox jumps over the lazy dog',
-        },
-      ],
-      highlights: ['h1|4|4|7'],
     },
     {
       addLines: [5, 12],
     },
     {
-      highlights: ['h1|3|4|7'],
+      highlights: ['h2, 4, 7, 16', 'h1, 5, 9, 18'],
     },
     {
       addLines: [6, 8],
@@ -45,12 +50,20 @@ fn main() {
       addLines: [7],
     },
     {
+      highlights: ['h2, 6, 8, 11', 'h1, 7, 26, 29'],
+    },
+    {
       addLines: [9, 11],
     },
     {
       addLines: [10],
     },
+    {
+      fullCode: true,
+    },
   ],
+
+  output: ['line 1 of output', 'another output exampleline'],
 }
 
 const s = {}
@@ -71,7 +84,7 @@ const addCustomHighlights = () => {
   const highlightData = c.sets[s.currentSet].highlights
   if (highlightData) {
     for (let i = 0; i < highlightData.length; i++) {
-      const parts = highlightData[i].split('|')
+      const parts = highlightData[i].split(',')
       const className = parts[0]
       const lineNum = parseInt(parts[1]) - 1
       const startChar = parseInt(parts[2]) - 1
@@ -84,6 +97,8 @@ const addCustomHighlights = () => {
         s.rawLines[lineNum].substring(stopChar),
       ]
       s.currentLines[lineNum] = sections.join('')
+      // Also update the pointer
+      window[`stepByStepPointer_${lineNum}`].innerHTML = '&gt;'
     }
   }
 }
@@ -155,12 +170,6 @@ const makeElement = (_type, _id, _html, _childOf, _event, _function) => {
   }
 }
 
-// const outputLines = () => {
-//   for (let i = 0; i < s.currentLines.length; i++) {
-//     window[`s${i}`].innerHTML = s.currentLines[i]
-//   }
-// }
-
 const makeAddLineNumbersZeroBased = () => {
   // Moves config numbers from human readable to
   // zero based index
@@ -171,6 +180,20 @@ const makeAddLineNumbersZeroBased = () => {
         addData[addIndex] -= 1
       }
     }
+  }
+}
+
+const makeLineNumberRows = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    const numberString = i < 9 ? `0${i + 1}` : i + 1
+    makeElement(
+      'pre',
+      `stepByStepLineNumber_${i}`,
+      numberString,
+      'stepByStepLineNumbers',
+      null,
+      null
+    )
   }
 }
 
@@ -187,13 +210,13 @@ const makeNextButton = () => {
 
 const makeNumberButtons = () => {
   for (let i = 0; i < c.sets.length; i++) {
-    let buttonText = i + 1
+    let buttonText = i
 
-    // if (i === 0) {
-    //   buttonText = 'Start'
-    // } else if (i === c.sets.length - 1) {
-    //   buttonText = 'Complete'
-    // }
+    if (i === 0) {
+      buttonText = 'Start'
+    } else if (i === c.sets.length - 1) {
+      buttonText = 'Complete'
+    }
 
     makeElement(
       'button',
@@ -202,6 +225,60 @@ const makeNumberButtons = () => {
       'stepByStepButtonWrapper',
       'click',
       handleNumberButtonClick
+    )
+  }
+}
+
+const makeOutputLineNumbers = () => {
+  for (let i = 0; i < c.output.length; i++) {
+    const theText = i === 0 ? 'out' : ' '
+    makeElement(
+      'pre',
+      `stepByStepOutputLineNumber_${i}`,
+      theText,
+      'stepByStepOutputNumbers',
+      null,
+      null
+    )
+  }
+}
+
+const makeOutputLines = () => {
+  for (let i = 0; i < c.output.length; i++) {
+    makeElement(
+      'pre',
+      `stepByStepOutputLine_${i}`,
+      ' ',
+      'stepByStepOutputLines',
+      null,
+      null
+    )
+  }
+}
+
+const makeOutputLinePointers = () => {
+  for (let i = 0; i < c.output.length; i++) {
+    const theText = i === 0 ? ':' : ' '
+    makeElement(
+      'pre',
+      `stepByStepOutputPointer_${i}`,
+      theText,
+      'stepByStepOutputPointers',
+      null,
+      null
+    )
+  }
+}
+
+const makePointerRows = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    makeElement(
+      'pre',
+      `stepByStepPointer_${i}`,
+      ` `,
+      'stepByStepPointers',
+      null,
+      null
     )
   }
 }
@@ -228,9 +305,25 @@ const totalLines = () => {
   return s.rawLines.length
 }
 
+const updateButtonHighlights = () => {
+  for (let i = 0; i < c.sets.length; i++) {
+    if (i === s.currentSet) {
+      window[`stepByStepNumberButton_${i}`].classList.add('activeButton')
+    } else {
+      window[`stepByStepNumberButton_${i}`].classList.remove('activeButton')
+    }
+  }
+}
+
 const updateCodeLines = () => {
-  for (let i = 0; i < totalLines(); i++) {
-    window[`stepByStepCodeLine_${i}`].innerHTML = s.currentLines[i]
+  if (c.sets[s.currentSet].fullCode === true) {
+    for (let i = 0; i < totalLines(); i++) {
+      window[`stepByStepCodeLine_${i}`].innerHTML = s.rawLines[i]
+    }
+  } else {
+    for (let i = 0; i < totalLines(); i++) {
+      window[`stepByStepCodeLine_${i}`].innerHTML = s.currentLines[i]
+    }
   }
 }
 
@@ -240,18 +333,81 @@ const updateEverything = (setIndex) => {
   loadInitialLines()
   highlightNewLines()
   addAltLines()
+  updatePointers()
   addCustomHighlights()
   updateCodeLines()
+  updateOutputLines()
+  updateButtonHighlights()
+  updateFullHighlights()
+}
+
+const updateFullHighlights = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    if (s.currentSet === c.sets.length - 1 || s.currentSet === 0) {
+      window[`stepByStepCodeLine_${i}`].classList.add('hljs')
+      window[`stepByStepCodeLine_${i}`].classList.add('language-rust')
+      hljs.highlightElement(window[`stepByStepCodeLine_${i}`])
+    } else {
+      window[`stepByStepCodeLine_${i}`].classList.remove('hljs')
+      window[`stepByStepCodeLine_${i}`].classList.remove('language-rust')
+    }
+  }
+}
+
+const updateHeader = () => {
+  let headerString = `Step ${s.currentSet}`
+  if (s.currentSet === 0) {
+    headerString = `Full Code Sample`
+  } else if (s.currentSet === s.sets.length - 1) {
+    headerString = `Final Code Sample`
+  }
+
+  window.stepByStepHeader.innerHTML = headerString
+}
+
+// const updateNotes = () => {
+//   window.stepByStepNotes.innerHTML = s.notes[s.currentSet]
+// }
+
+const updateOutputLines = () => {
+  for (let i = 0; i < c.output.length; i++) {
+    if (s.currentSet === c.sets.length - 1 || s.currentSet === 0) {
+      window[`stepByStepOutputLine_${i}`].innerHTML = c.output[i]
+    } else {
+      // clear output for moving to previous line sets
+      window[`stepByStepOutputLine_${i}`].innerHTML = ' '
+    }
+  }
+}
+
+const updatePointers = () => {
+  // clear the lines then add in the ones that need it
+  for (let i = 0; i < totalLines(); i++) {
+    window[`stepByStepPointer_${i}`].innerHTML = ' '
+  }
+
+  const addData = c.sets[s.currentSet].addLines
+
+  if (addData) {
+    for (let i = 0; i < addData.length; i++) {
+      window[`stepByStepPointer_${addData[i]}`].innerHTML = '&gt;'
+    }
+  }
 }
 
 const init = () => {
   s.currentSet = 0
   makeAddLineNumbersZeroBased()
+  loadRawLines()
   makePreviousButton()
   makeNumberButtons()
   makeNextButton()
-  loadRawLines()
+  makeLineNumberRows()
   makeCodeLines()
+  makePointerRows()
+  makeOutputLines()
+  makeOutputLineNumbers()
+  makeOutputLinePointers()
   updateEverything(0)
 }
 

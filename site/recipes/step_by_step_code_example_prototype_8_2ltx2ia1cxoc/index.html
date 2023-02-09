@@ -30,25 +30,129 @@
     <link rel="stylesheet" href="/styles/fonts.css" />
     <link rel="stylesheet" href="/styles/colors.css" />
     <link rel="stylesheet" href="/styles/wrapper.css" />
-    <link rel="stylesheet" href="/styles/prism-customized.css" />
+    <link rel="stylesheet" href="./highlightjs-nord-custom.min.css" />
     
     <style>
-      .newLine {
+      :root {
+  --active-button-color: #381;
+  --base-padding: 0.8rem;
+  --border-radius: 0.8rem;
+  --output-color: #444;
+  --border-color-1: #fff;
+  --border-color-2: #779;
+  --lines-left-pad: 1.2rem;
+  --notes-background-color: #99a;
+  --notes-font-color: black;
+  --code-background-color: black;
+  --example-color: #234;
+}
+
+.newLine {
   color: #392;
 }
 
 .h1 {
-  color: red;
+  color: blue;
+}
+
+.h2 {
+  color: green;
+}
+
+#stepByStepNotesSpacer {
+  color: var(--notes-font-color);
+  font-family: monospace;
+  position: absolute;
+  padding: 1ch;
+  margin: 0;
+  background-color: var(--notes-background-color);
+  border-radius: 0.4rem;
+  border: 1px solid var(--border-color-1);
+}
+
+#stepByStepWrapper {
+  font-family: monospace;
+  position: relative;
+  margin-bottom: 1.3rem;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 6ch 2ch 1fr;
+  border-radius: 0.4rem;
+}
+
+#stepByStepNotes {
+  font-family: sans-serif;
+}
+
+#stepByStepNotes p:nth-child(n + 2) {
+  margin-top: 1.1rem;
+}
+
+#stepByStepLineNumbers {
+  background-color: #002;
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  padding-left: var(--base-padding);
+  border-top-left-radius: var(--border-radius);
+}
+
+#stepByStepOutputNumbers {
+  background-color: var(--output-color);
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  padding-left: var(--base-padding);
+  border-bottom-left-radius: var(--border-radius);
+}
+
+#stepByStepOutputPointers {
+  background-color: var(--output-color);
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  border-right: 1px solid var(--border-color-2);
+}
+
+#stepByStepPointers {
+  background-color: #002;
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  border-right: 1px solid var(--border-color-2);
+}
+
+#stepByStepCodeLines {
+  background-color: var(--code-background-color);
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  padding-left: var(--lines-left-pad);
+  border-top-right-radius: var(--border-radius);
+}
+
+#stepByStepOutputLines {
+  background-color: var(--output-color);
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  padding-left: var(--lines-left-pad);
+  border-bottom-right-radius: var(--border-radius);
+}
+
+.activeButton {
+  background-color: var(--active-button-color);
+}
+
+.exampleCode {
+  background-color: var(--example-color);
+  border-radius: var(--border-radius);
+  padding: var(--base-padding);
 }
 
     </style>
+    <script src="/assets/highlight/highlight.min.js"></script>
     <script>
       const c = {
   source: `use std::env; 
  
 fn main() { 
-  let envVarResult = env::var("HOME"); 
-  match envVarResult { 
+  let envResult = env::var("HOME"); 
+  match envResult { 
     Ok(item) => { 
       println!("got {}", item); 
     } 
@@ -58,9 +162,21 @@ fn main() {
   } 
 }`,
 
+  //  highlights: ['h1|3|4|7'],
+  //  fullCode: true,
+  //   altLines: [
+  //   {
+  //     line: 5,
+  //     text: 'the quick brown fox jumps over the lazy dog',
+  //   },
+  // ],
+
   // NOTE: Only one hightlight works
   // per line right now
   sets: [
+    {
+      fullCode: true,
+    },
     {
       addLines: [1],
     },
@@ -69,19 +185,12 @@ fn main() {
     },
     {
       addLines: [4],
-      altLines: [
-        {
-          line: 5,
-          text: 'the quick brown fox jumps over the lazy dog',
-        },
-      ],
-      highlights: ['h1|4|4|7'],
     },
     {
       addLines: [5, 12],
     },
     {
-      highlights: ['h1|3|4|7'],
+      highlights: ['h2, 4, 7, 16', 'h1, 5, 9, 18'],
     },
     {
       addLines: [6, 8],
@@ -90,12 +199,20 @@ fn main() {
       addLines: [7],
     },
     {
+      highlights: ['h2, 6, 8, 11', 'h1, 7, 26, 29'],
+    },
+    {
       addLines: [9, 11],
     },
     {
       addLines: [10],
     },
+    {
+      fullCode: true,
+    },
   ],
+
+  output: ['line 1 of output', 'another output exampleline'],
 }
 
 const s = {}
@@ -116,7 +233,7 @@ const addCustomHighlights = () => {
   const highlightData = c.sets[s.currentSet].highlights
   if (highlightData) {
     for (let i = 0; i < highlightData.length; i++) {
-      const parts = highlightData[i].split('|')
+      const parts = highlightData[i].split(',')
       const className = parts[0]
       const lineNum = parseInt(parts[1]) - 1
       const startChar = parseInt(parts[2]) - 1
@@ -129,6 +246,8 @@ const addCustomHighlights = () => {
         s.rawLines[lineNum].substring(stopChar),
       ]
       s.currentLines[lineNum] = sections.join('')
+      // Also update the pointer
+      window[`stepByStepPointer_${lineNum}`].innerHTML = '&gt;'
     }
   }
 }
@@ -200,12 +319,6 @@ const makeElement = (_type, _id, _html, _childOf, _event, _function) => {
   }
 }
 
-// const outputLines = () => {
-//   for (let i = 0; i < s.currentLines.length; i++) {
-//     window[`s${i}`].innerHTML = s.currentLines[i]
-//   }
-// }
-
 const makeAddLineNumbersZeroBased = () => {
   // Moves config numbers from human readable to
   // zero based index
@@ -216,6 +329,20 @@ const makeAddLineNumbersZeroBased = () => {
         addData[addIndex] -= 1
       }
     }
+  }
+}
+
+const makeLineNumberRows = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    const numberString = i < 9 ? `0${i + 1}` : i + 1
+    makeElement(
+      'pre',
+      `stepByStepLineNumber_${i}`,
+      numberString,
+      'stepByStepLineNumbers',
+      null,
+      null
+    )
   }
 }
 
@@ -232,13 +359,13 @@ const makeNextButton = () => {
 
 const makeNumberButtons = () => {
   for (let i = 0; i < c.sets.length; i++) {
-    let buttonText = i + 1
+    let buttonText = i
 
-    // if (i === 0) {
-    //   buttonText = 'Start'
-    // } else if (i === c.sets.length - 1) {
-    //   buttonText = 'Complete'
-    // }
+    if (i === 0) {
+      buttonText = 'Start'
+    } else if (i === c.sets.length - 1) {
+      buttonText = 'Complete'
+    }
 
     makeElement(
       'button',
@@ -247,6 +374,60 @@ const makeNumberButtons = () => {
       'stepByStepButtonWrapper',
       'click',
       handleNumberButtonClick
+    )
+  }
+}
+
+const makeOutputLineNumbers = () => {
+  for (let i = 0; i < c.output.length; i++) {
+    const theText = i === 0 ? 'out' : ' '
+    makeElement(
+      'pre',
+      `stepByStepOutputLineNumber_${i}`,
+      theText,
+      'stepByStepOutputNumbers',
+      null,
+      null
+    )
+  }
+}
+
+const makeOutputLines = () => {
+  for (let i = 0; i < c.output.length; i++) {
+    makeElement(
+      'pre',
+      `stepByStepOutputLine_${i}`,
+      ' ',
+      'stepByStepOutputLines',
+      null,
+      null
+    )
+  }
+}
+
+const makeOutputLinePointers = () => {
+  for (let i = 0; i < c.output.length; i++) {
+    const theText = i === 0 ? ':' : ' '
+    makeElement(
+      'pre',
+      `stepByStepOutputPointer_${i}`,
+      theText,
+      'stepByStepOutputPointers',
+      null,
+      null
+    )
+  }
+}
+
+const makePointerRows = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    makeElement(
+      'pre',
+      `stepByStepPointer_${i}`,
+      ` `,
+      'stepByStepPointers',
+      null,
+      null
     )
   }
 }
@@ -273,9 +454,25 @@ const totalLines = () => {
   return s.rawLines.length
 }
 
+const updateButtonHighlights = () => {
+  for (let i = 0; i < c.sets.length; i++) {
+    if (i === s.currentSet) {
+      window[`stepByStepNumberButton_${i}`].classList.add('activeButton')
+    } else {
+      window[`stepByStepNumberButton_${i}`].classList.remove('activeButton')
+    }
+  }
+}
+
 const updateCodeLines = () => {
-  for (let i = 0; i < totalLines(); i++) {
-    window[`stepByStepCodeLine_${i}`].innerHTML = s.currentLines[i]
+  if (c.sets[s.currentSet].fullCode === true) {
+    for (let i = 0; i < totalLines(); i++) {
+      window[`stepByStepCodeLine_${i}`].innerHTML = s.rawLines[i]
+    }
+  } else {
+    for (let i = 0; i < totalLines(); i++) {
+      window[`stepByStepCodeLine_${i}`].innerHTML = s.currentLines[i]
+    }
   }
 }
 
@@ -285,23 +482,94 @@ const updateEverything = (setIndex) => {
   loadInitialLines()
   highlightNewLines()
   addAltLines()
+  updatePointers()
   addCustomHighlights()
   updateCodeLines()
+  updateOutputLines()
+  updateButtonHighlights()
+  updateFullHighlights()
+}
+
+const updateFullHighlights = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    if (s.currentSet === c.sets.length - 1 || s.currentSet === 0) {
+      window[`stepByStepCodeLine_${i}`].classList.add('hljs')
+      window[`stepByStepCodeLine_${i}`].classList.add('language-rust')
+      hljs.highlightElement(window[`stepByStepCodeLine_${i}`])
+    } else {
+      window[`stepByStepCodeLine_${i}`].classList.remove('hljs')
+      window[`stepByStepCodeLine_${i}`].classList.remove('language-rust')
+    }
+  }
+}
+
+const updateHeader = () => {
+  let headerString = `Step ${s.currentSet}`
+  if (s.currentSet === 0) {
+    headerString = `Full Code Sample`
+  } else if (s.currentSet === s.sets.length - 1) {
+    headerString = `Final Code Sample`
+  }
+
+  window.stepByStepHeader.innerHTML = headerString
+}
+
+// const updateNotes = () => {
+//   window.stepByStepNotes.innerHTML = s.notes[s.currentSet]
+// }
+
+const updateOutputLines = () => {
+  for (let i = 0; i < c.output.length; i++) {
+    if (s.currentSet === c.sets.length - 1 || s.currentSet === 0) {
+      window[`stepByStepOutputLine_${i}`].innerHTML = c.output[i]
+    } else {
+      // clear output for moving to previous line sets
+      window[`stepByStepOutputLine_${i}`].innerHTML = ' '
+    }
+  }
+}
+
+const updatePointers = () => {
+  // clear the lines then add in the ones that need it
+  for (let i = 0; i < totalLines(); i++) {
+    window[`stepByStepPointer_${i}`].innerHTML = ' '
+  }
+
+  const addData = c.sets[s.currentSet].addLines
+
+  if (addData) {
+    for (let i = 0; i < addData.length; i++) {
+      window[`stepByStepPointer_${addData[i]}`].innerHTML = '&gt;'
+    }
+  }
 }
 
 const init = () => {
   s.currentSet = 0
   makeAddLineNumbersZeroBased()
+  loadRawLines()
   makePreviousButton()
   makeNumberButtons()
   makeNextButton()
-  loadRawLines()
+  makeLineNumberRows()
   makeCodeLines()
+  makePointerRows()
+  makeOutputLines()
+  makeOutputLineNumbers()
+  makeOutputLinePointers()
   updateEverything(0)
 }
 
 document.addEventListener('DOMContentLoaded', init)
 
+
+      const highlightReferenceCode = () => {
+        hljs.highlightElement(window.exampleJS)
+        hljs.highlightElement(window.exampleHTMLBody)
+        hljs.highlightElement(window.exampleCSS)
+      }
+
+      document.addEventListener('DOMContentLoaded', highlightReferenceCode)
     </script>
   </head>
   <body class="line-numbers">
@@ -338,7 +606,7 @@ document.addEventListener('DOMContentLoaded', init)
                 </ul>
                   
             <h2>HTML Source</h2>
-            <pre><code class="language-html">&lt;h3 id=&quot;stepByStepHeader&quot;&gt;
+            <pre class="exampleCode"  id="exampleHTMLBody" class="language-html"><code>&lt;h3 id=&quot;stepByStepHeader&quot;&gt;
   &lt;!-- TODO: Move this into the grid --&gt;
 &lt;/h3&gt;
 
@@ -358,23 +626,126 @@ document.addEventListener('DOMContentLoaded', init)
 </code></pre>
              
             <h2>CSS Source</h2>
-            <pre><code class="language-css">.newLine {
+            <pre class="exampleCode" id="exampleCSS" class="language-css"><code>:root {
+  --active-button-color: #381;
+  --base-padding: 0.8rem;
+  --border-radius: 0.8rem;
+  --output-color: #444;
+  --border-color-1: #fff;
+  --border-color-2: #779;
+  --lines-left-pad: 1.2rem;
+  --notes-background-color: #99a;
+  --notes-font-color: black;
+  --code-background-color: black;
+  --example-color: #234;
+}
+
+.newLine {
   color: #392;
 }
 
 .h1 {
-  color: red;
+  color: blue;
+}
+
+.h2 {
+  color: green;
+}
+
+#stepByStepNotesSpacer {
+  color: var(--notes-font-color);
+  font-family: monospace;
+  position: absolute;
+  padding: 1ch;
+  margin: 0;
+  background-color: var(--notes-background-color);
+  border-radius: 0.4rem;
+  border: 1px solid var(--border-color-1);
+}
+
+#stepByStepWrapper {
+  font-family: monospace;
+  position: relative;
+  margin-bottom: 1.3rem;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 6ch 2ch 1fr;
+  border-radius: 0.4rem;
+}
+
+#stepByStepNotes {
+  font-family: sans-serif;
+}
+
+#stepByStepNotes p:nth-child(n + 2) {
+  margin-top: 1.1rem;
+}
+
+#stepByStepLineNumbers {
+  background-color: #002;
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  padding-left: var(--base-padding);
+  border-top-left-radius: var(--border-radius);
+}
+
+#stepByStepOutputNumbers {
+  background-color: var(--output-color);
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  padding-left: var(--base-padding);
+  border-bottom-left-radius: var(--border-radius);
+}
+
+#stepByStepOutputPointers {
+  background-color: var(--output-color);
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  border-right: 1px solid var(--border-color-2);
+}
+
+#stepByStepPointers {
+  background-color: #002;
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  border-right: 1px solid var(--border-color-2);
+}
+
+#stepByStepCodeLines {
+  background-color: var(--code-background-color);
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  padding-left: var(--lines-left-pad);
+  border-top-right-radius: var(--border-radius);
+}
+
+#stepByStepOutputLines {
+  background-color: var(--output-color);
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  padding-left: var(--lines-left-pad);
+  border-bottom-right-radius: var(--border-radius);
+}
+
+.activeButton {
+  background-color: var(--active-button-color);
+}
+
+.exampleCode {
+  background-color: var(--example-color);
+  border-radius: var(--border-radius);
+  padding: var(--base-padding);
 }
 </code></pre>
             
       
             <h2>JavaScript Source</h2>
-            <pre><code class="language-js">const c = {
+            <pre class="exampleCode" id="exampleJS" class="language-js"><code>const c = {
   source: `use std::env; 
  
 fn main() { 
-  let envVarResult = env::var(&quot;HOME&quot;); 
-  match envVarResult { 
+  let envResult = env::var(&quot;HOME&quot;); 
+  match envResult { 
     Ok(item) =&gt; { 
       println!(&quot;got {}&quot;, item); 
     } 
@@ -384,9 +755,21 @@ fn main() {
   } 
 }`,
 
+  //  highlights: [&#x27;h1|3|4|7&#x27;],
+  //  fullCode: true,
+  //   altLines: [
+  //   {
+  //     line: 5,
+  //     text: &#x27;the quick brown fox jumps over the lazy dog&#x27;,
+  //   },
+  // ],
+
   // NOTE: Only one hightlight works
   // per line right now
   sets: [
+    {
+      fullCode: true,
+    },
     {
       addLines: [1],
     },
@@ -395,19 +778,12 @@ fn main() {
     },
     {
       addLines: [4],
-      altLines: [
-        {
-          line: 5,
-          text: &#x27;the quick brown fox jumps over the lazy dog&#x27;,
-        },
-      ],
-      highlights: [&#x27;h1|4|4|7&#x27;],
     },
     {
       addLines: [5, 12],
     },
     {
-      highlights: [&#x27;h1|3|4|7&#x27;],
+      highlights: [&#x27;h2, 4, 7, 16&#x27;, &#x27;h1, 5, 9, 18&#x27;],
     },
     {
       addLines: [6, 8],
@@ -416,12 +792,20 @@ fn main() {
       addLines: [7],
     },
     {
+      highlights: [&#x27;h2, 6, 8, 11&#x27;, &#x27;h1, 7, 26, 29&#x27;],
+    },
+    {
       addLines: [9, 11],
     },
     {
       addLines: [10],
     },
+    {
+      fullCode: true,
+    },
   ],
+
+  output: [&#x27;line 1 of output&#x27;, &#x27;another output exampleline&#x27;],
 }
 
 const s = {}
@@ -442,7 +826,7 @@ const addCustomHighlights = () =&gt; {
   const highlightData = c.sets[s.currentSet].highlights
   if (highlightData) {
     for (let i = 0; i &lt; highlightData.length; i++) {
-      const parts = highlightData[i].split(&#x27;|&#x27;)
+      const parts = highlightData[i].split(&#x27;,&#x27;)
       const className = parts[0]
       const lineNum = parseInt(parts[1]) - 1
       const startChar = parseInt(parts[2]) - 1
@@ -455,6 +839,8 @@ const addCustomHighlights = () =&gt; {
         s.rawLines[lineNum].substring(stopChar),
       ]
       s.currentLines[lineNum] = sections.join(&#x27;&#x27;)
+      // Also update the pointer
+      window[`stepByStepPointer_${lineNum}`].innerHTML = &#x27;&amp;gt;&#x27;
     }
   }
 }
@@ -526,12 +912,6 @@ const makeElement = (_type, _id, _html, _childOf, _event, _function) =&gt; {
   }
 }
 
-// const outputLines = () =&gt; {
-//   for (let i = 0; i &lt; s.currentLines.length; i++) {
-//     window[`s${i}`].innerHTML = s.currentLines[i]
-//   }
-// }
-
 const makeAddLineNumbersZeroBased = () =&gt; {
   // Moves config numbers from human readable to
   // zero based index
@@ -542,6 +922,20 @@ const makeAddLineNumbersZeroBased = () =&gt; {
         addData[addIndex] -= 1
       }
     }
+  }
+}
+
+const makeLineNumberRows = () =&gt; {
+  for (let i = 0; i &lt; totalLines(); i++) {
+    const numberString = i &lt; 9 ? `0${i + 1}` : i + 1
+    makeElement(
+      &#x27;pre&#x27;,
+      `stepByStepLineNumber_${i}`,
+      numberString,
+      &#x27;stepByStepLineNumbers&#x27;,
+      null,
+      null
+    )
   }
 }
 
@@ -558,13 +952,13 @@ const makeNextButton = () =&gt; {
 
 const makeNumberButtons = () =&gt; {
   for (let i = 0; i &lt; c.sets.length; i++) {
-    let buttonText = i + 1
+    let buttonText = i
 
-    // if (i === 0) {
-    //   buttonText = &#x27;Start&#x27;
-    // } else if (i === c.sets.length - 1) {
-    //   buttonText = &#x27;Complete&#x27;
-    // }
+    if (i === 0) {
+      buttonText = &#x27;Start&#x27;
+    } else if (i === c.sets.length - 1) {
+      buttonText = &#x27;Complete&#x27;
+    }
 
     makeElement(
       &#x27;button&#x27;,
@@ -573,6 +967,60 @@ const makeNumberButtons = () =&gt; {
       &#x27;stepByStepButtonWrapper&#x27;,
       &#x27;click&#x27;,
       handleNumberButtonClick
+    )
+  }
+}
+
+const makeOutputLineNumbers = () =&gt; {
+  for (let i = 0; i &lt; c.output.length; i++) {
+    const theText = i === 0 ? &#x27;out&#x27; : &#x27; &#x27;
+    makeElement(
+      &#x27;pre&#x27;,
+      `stepByStepOutputLineNumber_${i}`,
+      theText,
+      &#x27;stepByStepOutputNumbers&#x27;,
+      null,
+      null
+    )
+  }
+}
+
+const makeOutputLines = () =&gt; {
+  for (let i = 0; i &lt; c.output.length; i++) {
+    makeElement(
+      &#x27;pre&#x27;,
+      `stepByStepOutputLine_${i}`,
+      &#x27; &#x27;,
+      &#x27;stepByStepOutputLines&#x27;,
+      null,
+      null
+    )
+  }
+}
+
+const makeOutputLinePointers = () =&gt; {
+  for (let i = 0; i &lt; c.output.length; i++) {
+    const theText = i === 0 ? &#x27;:&#x27; : &#x27; &#x27;
+    makeElement(
+      &#x27;pre&#x27;,
+      `stepByStepOutputPointer_${i}`,
+      theText,
+      &#x27;stepByStepOutputPointers&#x27;,
+      null,
+      null
+    )
+  }
+}
+
+const makePointerRows = () =&gt; {
+  for (let i = 0; i &lt; totalLines(); i++) {
+    makeElement(
+      &#x27;pre&#x27;,
+      `stepByStepPointer_${i}`,
+      ` `,
+      &#x27;stepByStepPointers&#x27;,
+      null,
+      null
     )
   }
 }
@@ -599,9 +1047,25 @@ const totalLines = () =&gt; {
   return s.rawLines.length
 }
 
+const updateButtonHighlights = () =&gt; {
+  for (let i = 0; i &lt; c.sets.length; i++) {
+    if (i === s.currentSet) {
+      window[`stepByStepNumberButton_${i}`].classList.add(&#x27;activeButton&#x27;)
+    } else {
+      window[`stepByStepNumberButton_${i}`].classList.remove(&#x27;activeButton&#x27;)
+    }
+  }
+}
+
 const updateCodeLines = () =&gt; {
-  for (let i = 0; i &lt; totalLines(); i++) {
-    window[`stepByStepCodeLine_${i}`].innerHTML = s.currentLines[i]
+  if (c.sets[s.currentSet].fullCode === true) {
+    for (let i = 0; i &lt; totalLines(); i++) {
+      window[`stepByStepCodeLine_${i}`].innerHTML = s.rawLines[i]
+    }
+  } else {
+    for (let i = 0; i &lt; totalLines(); i++) {
+      window[`stepByStepCodeLine_${i}`].innerHTML = s.currentLines[i]
+    }
   }
 }
 
@@ -611,18 +1075,81 @@ const updateEverything = (setIndex) =&gt; {
   loadInitialLines()
   highlightNewLines()
   addAltLines()
+  updatePointers()
   addCustomHighlights()
   updateCodeLines()
+  updateOutputLines()
+  updateButtonHighlights()
+  updateFullHighlights()
+}
+
+const updateFullHighlights = () =&gt; {
+  for (let i = 0; i &lt; totalLines(); i++) {
+    if (s.currentSet === c.sets.length - 1 || s.currentSet === 0) {
+      window[`stepByStepCodeLine_${i}`].classList.add(&#x27;hljs&#x27;)
+      window[`stepByStepCodeLine_${i}`].classList.add(&#x27;language-rust&#x27;)
+      hljs.highlightElement(window[`stepByStepCodeLine_${i}`])
+    } else {
+      window[`stepByStepCodeLine_${i}`].classList.remove(&#x27;hljs&#x27;)
+      window[`stepByStepCodeLine_${i}`].classList.remove(&#x27;language-rust&#x27;)
+    }
+  }
+}
+
+const updateHeader = () =&gt; {
+  let headerString = `Step ${s.currentSet}`
+  if (s.currentSet === 0) {
+    headerString = `Full Code Sample`
+  } else if (s.currentSet === s.sets.length - 1) {
+    headerString = `Final Code Sample`
+  }
+
+  window.stepByStepHeader.innerHTML = headerString
+}
+
+// const updateNotes = () =&gt; {
+//   window.stepByStepNotes.innerHTML = s.notes[s.currentSet]
+// }
+
+const updateOutputLines = () =&gt; {
+  for (let i = 0; i &lt; c.output.length; i++) {
+    if (s.currentSet === c.sets.length - 1 || s.currentSet === 0) {
+      window[`stepByStepOutputLine_${i}`].innerHTML = c.output[i]
+    } else {
+      // clear output for moving to previous line sets
+      window[`stepByStepOutputLine_${i}`].innerHTML = &#x27; &#x27;
+    }
+  }
+}
+
+const updatePointers = () =&gt; {
+  // clear the lines then add in the ones that need it
+  for (let i = 0; i &lt; totalLines(); i++) {
+    window[`stepByStepPointer_${i}`].innerHTML = &#x27; &#x27;
+  }
+
+  const addData = c.sets[s.currentSet].addLines
+
+  if (addData) {
+    for (let i = 0; i &lt; addData.length; i++) {
+      window[`stepByStepPointer_${addData[i]}`].innerHTML = &#x27;&amp;gt;&#x27;
+    }
+  }
 }
 
 const init = () =&gt; {
   s.currentSet = 0
   makeAddLineNumbersZeroBased()
+  loadRawLines()
   makePreviousButton()
   makeNumberButtons()
   makeNextButton()
-  loadRawLines()
+  makeLineNumberRows()
   makeCodeLines()
+  makePointerRows()
+  makeOutputLines()
+  makeOutputLineNumbers()
+  makeOutputLinePointers()
   updateEverything(0)
 }
 
