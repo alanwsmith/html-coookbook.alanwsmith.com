@@ -31,6 +31,7 @@ fn main() {
           text: 'the quick brown fox jumps over the lazy dog',
         },
       ],
+      highlights: ['h1|4|4|7'],
     },
     {
       addLines: [5, 12],
@@ -67,6 +68,9 @@ const addAltLines = () => {
 }
 
 const addCustomHighlights = () => {
+  // This overwrites any new line highlights
+  // so specific things can be pointed out
+  // with alt lines in previous steps
   const highlightData = c.sets[s.currentSet].highlights
   if (highlightData) {
     for (let i = 0; i < highlightData.length; i++) {
@@ -76,11 +80,11 @@ const addCustomHighlights = () => {
       const startChar = parseInt(parts[2]) - 1
       const stopChar = parseInt(parts[3])
       const sections = [
-        s.currentLines[lineNum].substring(0, startChar),
+        s.rawLines[lineNum].substring(0, startChar),
         `<code class="${className}">`,
-        s.currentLines[lineNum].substring(startChar, stopChar),
+        s.rawLines[lineNum].substring(startChar, stopChar),
         `</code>`,
-        s.currentLines[lineNum].substring(stopChar),
+        s.rawLines[lineNum].substring(stopChar),
       ]
       s.currentLines[lineNum] = sections.join('')
     }
