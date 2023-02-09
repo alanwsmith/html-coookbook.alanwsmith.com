@@ -54,7 +54,7 @@ fn main() {
 }
 
 const s = {
-  currentSet: 4,
+  currentSet: 2,
 }
 
 // // this is inefficient but whatever
@@ -80,6 +80,15 @@ const s = {
 //   }
 // }
 
+const addAltLines = () => {
+  const altData = c.sets[s.currentSet].altLines
+  if (altData) {
+    for (let i = 0; i < altData.length; i++) {
+      s.currentLines[altData[i].line - 1] = altData[i].text
+    }
+  }
+}
+
 const addCustomHighlights = () => {
   const highlightData = c.sets[s.currentSet].highlights
   if (highlightData) {
@@ -96,7 +105,6 @@ const addCustomHighlights = () => {
         `</code>`,
         s.currentLines[lineNum].substring(stopChar),
       ]
-
       s.currentLines[lineNum] = sections.join('')
     }
   }
@@ -203,6 +211,7 @@ const init = () => {
   prepCurrentLines()
   loadInitialLines()
   highlightNewLines()
+  addAltLines()
   addCustomHighlights()
   outputLines()
 }

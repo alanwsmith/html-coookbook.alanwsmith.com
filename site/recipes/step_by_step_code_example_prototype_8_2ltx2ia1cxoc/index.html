@@ -99,7 +99,7 @@ fn main() {
 }
 
 const s = {
-  currentSet: 4,
+  currentSet: 2,
 }
 
 // // this is inefficient but whatever
@@ -125,6 +125,15 @@ const s = {
 //   }
 // }
 
+const addAltLines = () => {
+  const altData = c.sets[s.currentSet].altLines
+  if (altData) {
+    for (let i = 0; i < altData.length; i++) {
+      s.currentLines[altData[i].line - 1] = altData[i].text
+    }
+  }
+}
+
 const addCustomHighlights = () => {
   const highlightData = c.sets[s.currentSet].highlights
   if (highlightData) {
@@ -141,7 +150,6 @@ const addCustomHighlights = () => {
         `</code>`,
         s.currentLines[lineNum].substring(stopChar),
       ]
-
       s.currentLines[lineNum] = sections.join('')
     }
   }
@@ -248,6 +256,7 @@ const init = () => {
   prepCurrentLines()
   loadInitialLines()
   highlightNewLines()
+  addAltLines()
   addCustomHighlights()
   outputLines()
 }
@@ -373,7 +382,7 @@ fn main() {
 }
 
 const s = {
-  currentSet: 4,
+  currentSet: 2,
 }
 
 // // this is inefficient but whatever
@@ -399,6 +408,15 @@ const s = {
 //   }
 // }
 
+const addAltLines = () =&gt; {
+  const altData = c.sets[s.currentSet].altLines
+  if (altData) {
+    for (let i = 0; i &lt; altData.length; i++) {
+      s.currentLines[altData[i].line - 1] = altData[i].text
+    }
+  }
+}
+
 const addCustomHighlights = () =&gt; {
   const highlightData = c.sets[s.currentSet].highlights
   if (highlightData) {
@@ -415,7 +433,6 @@ const addCustomHighlights = () =&gt; {
         `&lt;/code&gt;`,
         s.currentLines[lineNum].substring(stopChar),
       ]
-
       s.currentLines[lineNum] = sections.join(&#x27;&#x27;)
     }
   }
@@ -522,6 +539,7 @@ const init = () =&gt; {
   prepCurrentLines()
   loadInitialLines()
   highlightNewLines()
+  addAltLines()
   addCustomHighlights()
   outputLines()
 }
