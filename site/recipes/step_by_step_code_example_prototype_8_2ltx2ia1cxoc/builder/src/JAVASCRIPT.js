@@ -27,7 +27,7 @@ fn main() {
       addLines: [5, 12],
     },
     {
-      highlights: ['h1|4|7|12'],
+      highlights: ['h1|3|4|7'],
     },
     {
       addLines: [6, 8],
@@ -71,7 +71,27 @@ const s = {
 //   }
 // }
 
-const addCustomHighlights = () => {}
+const addCustomHighlights = () => {
+  const highlightData = c.sets[s.currentSet].highlights
+  if (highlightData) {
+    for (let i = 0; i < highlightData.length; i++) {
+      const parts = highlightData[i].split('|')
+      const className = parts[0]
+      const lineNum = parseInt(parts[1]) - 1
+      const startChar = parseInt(parts[2]) - 1
+      const stopChar = parseInt(parts[3])
+      const sections = [
+        s.currentLines[lineNum].substring(0, startChar),
+        `<code class="${className}">`,
+        s.currentLines[lineNum].substring(startChar, stopChar),
+        `</code>`,
+        s.currentLines[lineNum].substring(stopChar),
+      ]
+
+      s.currentLines[lineNum] = sections.join('')
+    }
+  }
+}
 
 const highlightNewLines = () => {
   const lineCheck = c.sets[s.currentSet].addLines
