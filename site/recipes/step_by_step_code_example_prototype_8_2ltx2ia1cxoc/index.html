@@ -232,12 +232,14 @@ const makeNextButton = () => {
 
 const makeNumberButtons = () => {
   for (let i = 0; i < c.sets.length; i++) {
-    let buttonText = i
-    if (i === 0) {
-      buttonText = 'Start'
-    } else if (i === c.sets.length - 1) {
-      buttonText = 'Complete'
-    }
+    let buttonText = i + 1
+
+    // if (i === 0) {
+    //   buttonText = 'Start'
+    // } else if (i === c.sets.length - 1) {
+    //   buttonText = 'Complete'
+    // }
+
     makeElement(
       'button',
       `stepByStepNumberButton_${i}`,
@@ -556,12 +558,14 @@ const makeNextButton = () =&gt; {
 
 const makeNumberButtons = () =&gt; {
   for (let i = 0; i &lt; c.sets.length; i++) {
-    let buttonText = i
-    if (i === 0) {
-      buttonText = &#x27;Start&#x27;
-    } else if (i === c.sets.length - 1) {
-      buttonText = &#x27;Complete&#x27;
-    }
+    let buttonText = i + 1
+
+    // if (i === 0) {
+    //   buttonText = &#x27;Start&#x27;
+    // } else if (i === c.sets.length - 1) {
+    //   buttonText = &#x27;Complete&#x27;
+    // }
+
     makeElement(
       &#x27;button&#x27;,
       `stepByStepNumberButton_${i}`,

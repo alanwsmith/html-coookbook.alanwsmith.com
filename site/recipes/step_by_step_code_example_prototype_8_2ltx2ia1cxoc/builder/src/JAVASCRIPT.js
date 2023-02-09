@@ -187,12 +187,14 @@ const makeNextButton = () => {
 
 const makeNumberButtons = () => {
   for (let i = 0; i < c.sets.length; i++) {
-    let buttonText = i
-    if (i === 0) {
-      buttonText = 'Start'
-    } else if (i === c.sets.length - 1) {
-      buttonText = 'Complete'
-    }
+    let buttonText = i + 1
+
+    // if (i === 0) {
+    //   buttonText = 'Start'
+    // } else if (i === c.sets.length - 1) {
+    //   buttonText = 'Complete'
+    // }
+
     makeElement(
       'button',
       `stepByStepNumberButton_${i}`,
