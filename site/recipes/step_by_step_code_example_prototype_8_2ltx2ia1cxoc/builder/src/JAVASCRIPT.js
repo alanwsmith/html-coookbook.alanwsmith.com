@@ -13,6 +13,7 @@ fn main() {
   } 
 }`,
 
+  // Usage (until it's better documented)
   //  highlights: ['h1|3|4|7'],
   //  fullCode: true,
   //   altLines: [
@@ -22,42 +23,41 @@ fn main() {
   //   },
   // ],
 
-  // NOTE: Only one hightlight works
-  // per line right now
+  // NOTE: Only one hightlight works per line right now
   sets: [
     {
       fullCode: true,
-      coords: [2, 38, 32],
+      coords: [2, 38, 30],
       notes: `<p>This is the full source code example.</p><p>Click through the buttons below to explinations of for each part of the code.</p>`,
     },
     {
       addLines: [1],
-      coords: [3, 5, 32],
+      coords: [3, 5, 30],
       notes: `<p>Start by loading <code>std::env</code> which provides Rust programs with access to the Environmental Variables it runs in</p>`,
     },
     {
       addLines: [3, 13],
-      coords: [5, 5, 32],
+      coords: [5, 5, 30],
       notes: `<p>Create the <code>main</code> function that Rust uses as the entry point for the program</p>`,
     },
     {
       addLines: [4],
-      coords: [6, 7, 32],
+      coords: [6, 7, 30],
       notes: `<p>Create a new immutalbe variable called <code>alfa</code> and bind the value returned by <code>env::var(&quot;HOME&quot;)</code> to it. That value is a <code>Result</code></p>`,
     },
     {
       addLines: [5, 12],
-      coords: [7, 7, 32],
+      coords: [7, 7, 30],
       notes: `<p>Begin creating the <code>match</code> expression that we'll use to process the <code>Result</code> value that was returned from <code>env::var(&quot;HOME&quot;)</code></p>`,
     },
     {
       highlights: ['h2, 4, 7, 11', 'h1, 5, 9, 13'],
-      coords: [7, 7, 32],
+      coords: [7, 7, 30],
       notes: `<p>Note that the value <code>match</code> is working on come from the <code>alfa</code> variable</p><p>TODO: See if match transfers ownership</p>`,
     },
     {
       addLines: [6, 8],
-      coords: [8, 10, 32],
+      coords: [8, 10, 30],
       notes: `<p><code>Result</code> values are <code>enums</code> that can contain either an <code>Ok</code> or a <code>Err</code> value. Here we're creating the first arm of the <code>match</code> expression that handles an <code>Ok</code></p>`,
     },
     {
@@ -77,12 +77,12 @@ fn main() {
     },
     {
       addLines: [10],
-      coords: [10, 37, 32],
+      coords: [10, 37, 30],
       notes: `<p>Finally we add the code to run if the <code>Result</code> from <code>env::var(&quot;HOME&quot;)</code> is an <code>Err</code></p>`,
     },
     {
       fullCode: true,
-      coords: [2, 38, 32],
+      coords: [2, 38, 30],
       notes: `<p>Put togehter, the full program looks like this.</p><p>Note: The output for this prototype contain two hard coded lines. The real version will just have one from the actual program</p>`,
     },
   ],
@@ -122,9 +122,38 @@ const addCustomHighlights = () => {
       ]
       s.currentLines[lineNum] = sections.join('')
       // Also update the pointer
-      window[`stepByStepPointer_${lineNum}`].innerHTML = '&gt;'
+      window[`stepByStepPointer_${lineNum}`].innerHTML = '&#8227;'
     }
   }
+}
+
+const buildFoundationStructure = () => {
+  // This is done outside of `makeElement`
+  // since it needs to be added after the
+  // other element
+  const stepByStepWrapperElement = document.createElement('div')
+  stepByStepWrapperElement.id = 'stepByStepWrapper'
+  window['step-by-step'].insertAdjacentElement(
+    'afterend',
+    stepByStepWrapperElement
+  )
+
+  makeElement('div', 'stepByStepLineNumbers', '', 'stepByStepWrapper')
+  makeElement('div', 'stepByStepPointers', '', 'stepByStepWrapper')
+  makeElement('div', 'stepByStepCodeLines', '', 'stepByStepWrapper')
+  makeElement('div', 'stepByStepOutputNumbers', '', 'stepByStepWrapper')
+  makeElement('div', 'stepByStepOutputPointers', '', 'stepByStepWrapper')
+  makeElement('div', 'stepByStepOutputLines', '', 'stepByStepWrapper')
+  makeElement('div', 'stepByStepNotesSpacer', '', 'stepByStepWrapper')
+  makeElement('div', 'stepByStepNotes', '', 'stepByStepNotesSpacer')
+
+  // TODO Move this under the StepByStepWrapper, probably
+  const stepByStepButtonWrapperElement = document.createElement('div')
+  stepByStepButtonWrapperElement.id = 'stepByStepButtonWrapper'
+  window.stepByStepWrapper.insertAdjacentElement(
+    'afterend',
+    stepByStepButtonWrapperElement
+  )
 }
 
 const handleNextButtonClick = () => {
@@ -184,13 +213,24 @@ const makeCodeLines = () => {
     )
   }
 }
-const makeElement = (_type, _id, _html, _childOf, _event, _function) => {
+const makeElement = (
+  _type,
+  _id,
+  _html,
+  _childOf,
+  _event,
+  _function,
+  _classes
+) => {
   const newElement = document.createElement(_type)
   newElement.id = _id
   newElement.innerHTML = _html
   window[_childOf].appendChild(newElement)
   if (_event !== null) {
     newElement.addEventListener(_event, _function)
+  }
+  if (_classes) {
+    newElement.classList.add(_classes)
   }
 }
 
@@ -228,7 +268,8 @@ const makeNextButton = () => {
     '-&gt;',
     'stepByStepButtonWrapper',
     'click',
-    handleNextButtonClick
+    handleNextButtonClick,
+    'stepByStepButton'
   )
 }
 
@@ -248,7 +289,8 @@ const makeNumberButtons = () => {
       buttonText,
       'stepByStepButtonWrapper',
       'click',
-      handleNumberButtonClick
+      handleNumberButtonClick,
+      'stepByStepButton'
     )
   }
 }
@@ -282,7 +324,7 @@ const makeOutputLines = () => {
 
 const makeOutputLinePointers = () => {
   for (let i = 0; i < c.output.length; i++) {
-    const theText = i === 0 ? ':' : ' '
+    const theText = i === 0 ? ' ' : ' '
     makeElement(
       'pre',
       `stepByStepOutputPointer_${i}`,
@@ -314,7 +356,8 @@ const makePreviousButton = () => {
     '&lt;-',
     'stepByStepButtonWrapper',
     'click',
-    handlePreviousButtonClick
+    handlePreviousButtonClick,
+    'stepByStepButton'
   )
 }
 
@@ -416,7 +459,7 @@ const updatePointers = () => {
 
   if (addData) {
     for (let i = 0; i < addData.length; i++) {
-      window[`stepByStepPointer_${addData[i]}`].innerHTML = '&gt;'
+      window[`stepByStepPointer_${addData[i]}`].innerHTML = '&#8227;'
     }
   }
 }
@@ -424,7 +467,7 @@ const updatePointers = () => {
 const updatePositions = () => {
   const coords = c.sets[s.currentSet].coords
   const theTop = coords[0] - 1
-  const theLeft = coords[1] + 8
+  const theLeft = coords[1] + 9
   window.stepByStepNotesSpacer.style.top = `${theTop}rem`
   window.stepByStepNotesSpacer.style.left = `${theLeft}ch`
   window.stepByStepNotesSpacer.style.width = `${coords[2]}ch`
@@ -433,6 +476,7 @@ const init = () => {
   s.currentSet = 0
   makeAddLineNumbersZeroBased()
   loadRawLines()
+  buildFoundationStructure()
   makePreviousButton()
   makeNumberButtons()
   makeNextButton()
