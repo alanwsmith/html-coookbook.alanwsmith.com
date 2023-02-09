@@ -21,9 +21,9 @@ pre {
 #stepByStepCodeLines {
   background-color: var(--code-background-color);
   padding-top: var(--base-padding);
+  padding-left: var(--lines-left-pad);
   /*
   padding-bottom: var(--base-padding);
-  padding-left: var(--lines-left-pad);
   border-top-right-radius: var(--border-radius);
   */
 }
@@ -32,15 +32,9 @@ pre {
   background-color: #002;
   color: white;
   padding-top: var(--base-padding);
-  /*
-  padding-bottom: var(--base-padding);
-  */
-  /*
   padding-left: var(--base-padding);
-  */
-  /*
+  padding-bottom: var(--base-padding);
   border-top-left-radius: var(--border-radius);
-  */
 }
 
 #stepByStepNotes {
@@ -69,42 +63,34 @@ pre {
 
 #stepByStepOutputLines {
   background-color: var(--output-color);
-  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   padding-left: var(--lines-left-pad);
   border-bottom-right-radius: var(--border-radius);
-  */
 }
 
 #stepByStepOutputNumbers {
   font-family: monospace;
   font-size: 1rem;
   background-color: var(--output-color);
-  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   padding-left: var(--base-padding);
   border-bottom-left-radius: var(--border-radius);
-  */
 }
 
 #stepByStepOutputPointers {
   background-color: var(--output-color);
-  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   border-right: 1px solid var(--border-color-2);
-  */
 }
 
 #stepByStepPointers {
   background-color: #002;
   padding-top: var(--base-padding);
-  /*
   padding-bottom: var(--base-padding);
   border-right: 1px solid var(--border-color-2);
-  */
 }
 
 #stepByStepWrapper {
@@ -114,7 +100,7 @@ pre {
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 6ch 2ch 1fr;
+  grid-template-columns: 5ch 2ch 1fr;
   line-height: 1rem;
 }
 
