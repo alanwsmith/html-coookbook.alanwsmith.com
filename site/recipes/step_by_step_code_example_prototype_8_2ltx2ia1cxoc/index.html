@@ -197,7 +197,7 @@ fn main() {
       addLines: [7],
     },
     {
-      highlights: ['h2, 6, 8, 12', 'h1, 7, 26, 29'],
+      highlights: ['h2, 6, 8, 11', 'h1, 7, 26, 29'],
     },
     {
       addLines: [9, 11],
@@ -478,9 +478,9 @@ const updateEverything = (setIndex) => {
   loadInitialLines()
   highlightNewLines()
   addAltLines()
+  updatePointers()
   addCustomHighlights()
   updateCodeLines()
-  updatePointers()
   updateOutputLines()
   updateButtonHighlights()
 }
@@ -512,20 +512,17 @@ const updateOutputLines = () => {
 }
 
 const updatePointers = () => {
+  // clear the lines then add in the ones that need it
   for (let i = 0; i < totalLines(); i++) {
-    //   // Set empty to clear prior pointers
-    //   let pointerText = ' '
-    //   // only mark things that have changed
-    //   if (s.sets[s.currentSet][i] === 1) {
-    //     // don't mark empty lines
-    //     if (s.lines[i][s.currentSet] !== '') {
-    //       // don't mark the final change
-    //       if (s.lineIndexes[i] !== s.lines[i].length - 1) {
-    //         pointerText = '&gt;'
-    //       }
-    //     }
-    //   }
-    window[`stepByStepPointer_${i}`].innerHTML = 'x'
+    window[`stepByStepPointer_${i}`].innerHTML = ' '
+  }
+
+  const addData = c.sets[s.currentSet].addLines
+
+  if (addData) {
+    for (let i = 0; i < addData.length; i++) {
+      window[`stepByStepPointer_${addData[i]}`].innerHTML = '&gt;'
+    }
   }
 }
 
@@ -768,7 +765,7 @@ fn main() {
       addLines: [7],
     },
     {
-      highlights: [&#x27;h2, 6, 8, 12&#x27;, &#x27;h1, 7, 26, 29&#x27;],
+      highlights: [&#x27;h2, 6, 8, 11&#x27;, &#x27;h1, 7, 26, 29&#x27;],
     },
     {
       addLines: [9, 11],
@@ -1049,9 +1046,9 @@ const updateEverything = (setIndex) =&gt; {
   loadInitialLines()
   highlightNewLines()
   addAltLines()
+  updatePointers()
   addCustomHighlights()
   updateCodeLines()
-  updatePointers()
   updateOutputLines()
   updateButtonHighlights()
 }
@@ -1083,20 +1080,17 @@ const updateOutputLines = () =&gt; {
 }
 
 const updatePointers = () =&gt; {
+  // clear the lines then add in the ones that need it
   for (let i = 0; i &lt; totalLines(); i++) {
-    //   // Set empty to clear prior pointers
-    //   let pointerText = &#x27; &#x27;
-    //   // only mark things that have changed
-    //   if (s.sets[s.currentSet][i] === 1) {
-    //     // don&#x27;t mark empty lines
-    //     if (s.lines[i][s.currentSet] !== &#x27;&#x27;) {
-    //       // don&#x27;t mark the final change
-    //       if (s.lineIndexes[i] !== s.lines[i].length - 1) {
-    //         pointerText = &#x27;&amp;gt;&#x27;
-    //       }
-    //     }
-    //   }
-    window[`stepByStepPointer_${i}`].innerHTML = &#x27;x&#x27;
+    window[`stepByStepPointer_${i}`].innerHTML = &#x27; &#x27;
+  }
+
+  const addData = c.sets[s.currentSet].addLines
+
+  if (addData) {
+    for (let i = 0; i &lt; addData.length; i++) {
+      window[`stepByStepPointer_${addData[i]}`].innerHTML = &#x27;&amp;gt;&#x27;
+    }
   }
 }
 
