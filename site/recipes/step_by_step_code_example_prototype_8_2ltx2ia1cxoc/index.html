@@ -49,16 +49,33 @@
   --code-line-height: 1rem;
 }
 
-.newLine {
-  color: #392;
+pre {
+  font-size: 1rem;
 }
 
-.h1 {
-  color: blue;
+#stepByStepCodeLines {
+  background-color: var(--code-background-color);
+  padding-top: var(--base-padding);
+  /*
+  padding-bottom: var(--base-padding);
+  padding-left: var(--lines-left-pad);
+  border-top-right-radius: var(--border-radius);
+  */
 }
 
-.h2 {
-  color: green;
+#stepByStepLineNumbers {
+  background-color: #002;
+  color: white;
+  padding-top: var(--base-padding);
+  /*
+  padding-bottom: var(--base-padding);
+  */
+  /*
+  padding-left: var(--base-padding);
+  */
+  /*
+  border-top-left-radius: var(--border-radius);
+  */
 }
 
 #stepByStepNotes {
@@ -66,49 +83,32 @@
   font-size: 0.81rem;
 }
 
+#stepByStepNotes p:nth-child(n + 2) {
+  margin-top: 0.8rem;
+}
+
 #stepByStepNotesSpacer {
   background-color: var(--notes-background-color);
   color: var(--notes-font-color);
   font-family: monospace;
   font-size: var(--code-font-size);
+  margin-top: var(--base-padding);
   position: absolute;
   padding-left: 1ch;
   padding-right: 1ch;
   padding-top: 1ch;
   padding-bottom: 1ch;
-  margin: 0;
   border: 1px solid var(--border-color-1);
   border-radius: 0.4rem;
 }
 
-#stepByStepWrapper {
-  position: relative;
-  font-family: monospace;
-  font-size: 1rem;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: 6ch 2ch 1fr;
-  line-height: 1rem;
-}
-
-#stepByStepNotes p:nth-child(n + 2) {
-  margin-top: 0.8rem;
-}
-
-#stepByStepLineNumbers {
-  background-color: #002;
-  color: white;
+#stepByStepOutputLines {
+  background-color: var(--output-color);
   /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
-  */
-  /*
-  padding-left: var(--base-padding);
-  */
-
-  /*
-  border-top-left-radius: var(--border-radius);
+  padding-left: var(--lines-left-pad);
+  border-bottom-right-radius: var(--border-radius);
   */
 }
 
@@ -135,31 +135,22 @@
 
 #stepByStepPointers {
   background-color: #002;
-  /*
   padding-top: var(--base-padding);
+  /*
   padding-bottom: var(--base-padding);
   border-right: 1px solid var(--border-color-2);
   */
 }
 
-#stepByStepCodeLines {
-  background-color: var(--code-background-color);
-  /*
-  padding-top: var(--base-padding);
-  padding-bottom: var(--base-padding);
-  padding-left: var(--lines-left-pad);
-  border-top-right-radius: var(--border-radius);
-  */
-}
-
-#stepByStepOutputLines {
-  background-color: var(--output-color);
-  /*
-  padding-top: var(--base-padding);
-  padding-bottom: var(--base-padding);
-  padding-left: var(--lines-left-pad);
-  border-bottom-right-radius: var(--border-radius);
-  */
+#stepByStepWrapper {
+  position: relative;
+  font-family: monospace;
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 6ch 2ch 1fr;
+  line-height: 1rem;
 }
 
 .activeButton {
@@ -174,8 +165,16 @@
   */
 }
 
-pre {
-  font-size: 1rem;
+.h1 {
+  color: blue;
+}
+
+.h2 {
+  color: green;
+}
+
+.newLine {
+  color: #392;
 }
 
     </style>
@@ -662,7 +661,7 @@ document.addEventListener('DOMContentLoaded', init)
   <div id="stepByStepOutputPointers"></div>
   <div id="stepByStepOutputLines"></div>
   <div id="stepByStepNotesSpacer">
-    <div id="stepByStepNotes">6</div>
+    <div id="stepByStepNotes"></div>
   </div>
 </div>
 
@@ -686,7 +685,7 @@ document.addEventListener('DOMContentLoaded', init)
   &lt;div id=&quot;stepByStepOutputPointers&quot;&gt;&lt;/div&gt;
   &lt;div id=&quot;stepByStepOutputLines&quot;&gt;&lt;/div&gt;
   &lt;div id=&quot;stepByStepNotesSpacer&quot;&gt;
-    &lt;div id=&quot;stepByStepNotes&quot;&gt;6&lt;/div&gt;
+    &lt;div id=&quot;stepByStepNotes&quot;&gt;&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 
@@ -710,16 +709,33 @@ document.addEventListener('DOMContentLoaded', init)
   --code-line-height: 1rem;
 }
 
-.newLine {
-  color: #392;
+pre {
+  font-size: 1rem;
 }
 
-.h1 {
-  color: blue;
+#stepByStepCodeLines {
+  background-color: var(--code-background-color);
+  padding-top: var(--base-padding);
+  /*
+  padding-bottom: var(--base-padding);
+  padding-left: var(--lines-left-pad);
+  border-top-right-radius: var(--border-radius);
+  */
 }
 
-.h2 {
-  color: green;
+#stepByStepLineNumbers {
+  background-color: #002;
+  color: white;
+  padding-top: var(--base-padding);
+  /*
+  padding-bottom: var(--base-padding);
+  */
+  /*
+  padding-left: var(--base-padding);
+  */
+  /*
+  border-top-left-radius: var(--border-radius);
+  */
 }
 
 #stepByStepNotes {
@@ -727,49 +743,32 @@ document.addEventListener('DOMContentLoaded', init)
   font-size: 0.81rem;
 }
 
+#stepByStepNotes p:nth-child(n + 2) {
+  margin-top: 0.8rem;
+}
+
 #stepByStepNotesSpacer {
   background-color: var(--notes-background-color);
   color: var(--notes-font-color);
   font-family: monospace;
   font-size: var(--code-font-size);
+  margin-top: var(--base-padding);
   position: absolute;
   padding-left: 1ch;
   padding-right: 1ch;
   padding-top: 1ch;
   padding-bottom: 1ch;
-  margin: 0;
   border: 1px solid var(--border-color-1);
   border-radius: 0.4rem;
 }
 
-#stepByStepWrapper {
-  position: relative;
-  font-family: monospace;
-  font-size: 1rem;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: 6ch 2ch 1fr;
-  line-height: 1rem;
-}
-
-#stepByStepNotes p:nth-child(n + 2) {
-  margin-top: 0.8rem;
-}
-
-#stepByStepLineNumbers {
-  background-color: #002;
-  color: white;
+#stepByStepOutputLines {
+  background-color: var(--output-color);
   /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
-  */
-  /*
-  padding-left: var(--base-padding);
-  */
-
-  /*
-  border-top-left-radius: var(--border-radius);
+  padding-left: var(--lines-left-pad);
+  border-bottom-right-radius: var(--border-radius);
   */
 }
 
@@ -796,31 +795,22 @@ document.addEventListener('DOMContentLoaded', init)
 
 #stepByStepPointers {
   background-color: #002;
-  /*
   padding-top: var(--base-padding);
+  /*
   padding-bottom: var(--base-padding);
   border-right: 1px solid var(--border-color-2);
   */
 }
 
-#stepByStepCodeLines {
-  background-color: var(--code-background-color);
-  /*
-  padding-top: var(--base-padding);
-  padding-bottom: var(--base-padding);
-  padding-left: var(--lines-left-pad);
-  border-top-right-radius: var(--border-radius);
-  */
-}
-
-#stepByStepOutputLines {
-  background-color: var(--output-color);
-  /*
-  padding-top: var(--base-padding);
-  padding-bottom: var(--base-padding);
-  padding-left: var(--lines-left-pad);
-  border-bottom-right-radius: var(--border-radius);
-  */
+#stepByStepWrapper {
+  position: relative;
+  font-family: monospace;
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 6ch 2ch 1fr;
+  line-height: 1rem;
 }
 
 .activeButton {
@@ -835,8 +825,16 @@ document.addEventListener('DOMContentLoaded', init)
   */
 }
 
-pre {
-  font-size: 1rem;
+.h1 {
+  color: blue;
+}
+
+.h2 {
+  color: green;
+}
+
+.newLine {
+  color: #392;
 }
 </pre>
             
