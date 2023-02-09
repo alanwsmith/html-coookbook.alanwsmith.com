@@ -27,10 +27,13 @@ fn main() {
   sets: [
     {
       fullCode: true,
-      coords: [5, 3, 30],
+      coords: [2, 34, 30],
+      notes: `<p>This is the full code example</p>`,
     },
     {
       addLines: [1],
+      coords: [10, 5, 20],
+      notes: `<p>This is a note with some details in it. This is a note with some details in it</p>`,
     },
     {
       addLines: [3, 13],
@@ -341,6 +344,7 @@ const updateEverything = (setIndex) => {
   updateButtonHighlights()
   updateFullHighlights()
   updatePositions()
+  updateNotes()
 }
 
 const updateFullHighlights = () => {
@@ -367,9 +371,9 @@ const updateHeader = () => {
   window.stepByStepHeader.innerHTML = headerString
 }
 
-// const updateNotes = () => {
-//   window.stepByStepNotes.innerHTML = s.notes[s.currentSet]
-// }
+const updateNotes = () => {
+  window.stepByStepNotes.innerHTML = c.sets[s.currentSet].notes
+}
 
 const updateOutputLines = () => {
   for (let i = 0; i < c.output.length; i++) {
@@ -398,13 +402,12 @@ const updatePointers = () => {
 }
 
 const updatePositions = () => {
-  window.stepByStepNotesSpacer.style.top = `${c.sets[s.currentSet].coords[0]}lh`
-  window.stepByStepNotesSpacer.style.left = `${
-    c.sets[s.currentSet].coords[1]
-  }ch`
-  window.stepByStepNotesSpacer.style.width = `${
-    c.sets[s.currentSet].coords[2]
-  }ch`
+  const coords = c.sets[s.currentSet].coords
+  const theTop = coords[0] - 1
+  const theLeft = coords[1] + 7
+  window.stepByStepNotesSpacer.style.top = `${theTop}rem`
+  window.stepByStepNotesSpacer.style.left = `${theLeft}ch`
+  window.stepByStepNotesSpacer.style.width = `${coords[2]}ch`
 }
 const init = () => {
   s.currentSet = 0

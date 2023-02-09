@@ -35,16 +35,18 @@
     <style>
       :root {
   --active-button-color: #381;
-  --base-padding: 0.8rem;
+  --base-padding: 1rem;
   --border-radius: 0.8rem;
   --output-color: #444;
   --border-color-1: #fff;
   --border-color-2: #779;
-  --lines-left-pad: 1.2rem;
+  --lines-left-pad: 2ch;
   --notes-background-color: #99a;
   --notes-font-color: black;
   --code-background-color: black;
   --example-color: #234;
+  --code-font-size: 1rem;
+  --code-line-height: 1rem;
 }
 
 .newLine {
@@ -59,79 +61,115 @@
   color: green;
 }
 
-#stepByStepNotesSpacer {
-  color: var(--notes-font-color);
+#stepByStepNotes {
+  /*
   font-family: monospace;
+  font-size: 1rem;
+  font-family: sans-serif;
+  */
+}
+
+#stepByStepNotesSpacer {
+  background-color: var(--notes-background-color);
+  color: var(--notes-font-color);
+  color: white;
+  font-family: monospace;
+  font-size: var(--code-font-size);
   position: absolute;
+  left: 2ch;
+  top: 5rem;
   padding: 0;
   margin: 0;
-  background-color: var(--notes-background-color);
+  /*
   border-radius: 0.4rem;
   border: 1px solid var(--border-color-1);
+  */
 }
 
 #stepByStepWrapper {
-  font-family: monospace;
   position: relative;
-  margin-bottom: 1.3rem;
+  font-family: monospace;
+  font-size: 1rem;
+  margin: 0;
   padding: 0;
   display: grid;
   grid-template-columns: 6ch 2ch 1fr;
+  /*
   border-radius: 0.4rem;
-}
-
-#stepByStepNotes {
-  font-family: sans-serif;
+  */
+  line-height: 1rem;
 }
 
 #stepByStepNotes p:nth-child(n + 2) {
+  /*
   margin-top: 1.1rem;
+  */
 }
 
 #stepByStepLineNumbers {
   background-color: #002;
+  color: white;
+  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
+  */
+  /*
   padding-left: var(--base-padding);
+  */
+
+  /*
   border-top-left-radius: var(--border-radius);
+  */
 }
 
 #stepByStepOutputNumbers {
+  font-family: monospace;
+  font-size: 1rem;
   background-color: var(--output-color);
+  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   padding-left: var(--base-padding);
   border-bottom-left-radius: var(--border-radius);
+  */
 }
 
 #stepByStepOutputPointers {
   background-color: var(--output-color);
+  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   border-right: 1px solid var(--border-color-2);
+  */
 }
 
 #stepByStepPointers {
   background-color: #002;
+  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   border-right: 1px solid var(--border-color-2);
+  */
 }
 
 #stepByStepCodeLines {
   background-color: var(--code-background-color);
+  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   padding-left: var(--lines-left-pad);
   border-top-right-radius: var(--border-radius);
+  */
 }
 
 #stepByStepOutputLines {
   background-color: var(--output-color);
+  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   padding-left: var(--lines-left-pad);
   border-bottom-right-radius: var(--border-radius);
+  */
 }
 
 .activeButton {
@@ -140,8 +178,14 @@
 
 .exampleCode {
   background-color: var(--example-color);
+  /*
   border-radius: var(--border-radius);
   padding: var(--base-padding);
+  */
+}
+
+pre {
+  font-size: 1rem;
 }
 
     </style>
@@ -176,10 +220,13 @@ fn main() {
   sets: [
     {
       fullCode: true,
-      coords: [5, 3, 30],
+      coords: [2, 34, 30],
+      notes: `<p>This is the full code example</p>`,
     },
     {
       addLines: [1],
+      coords: [10, 5, 20],
+      notes: `<p>This is a note with some details in it. This is a note with some details in it</p>`,
     },
     {
       addLines: [3, 13],
@@ -490,6 +537,7 @@ const updateEverything = (setIndex) => {
   updateButtonHighlights()
   updateFullHighlights()
   updatePositions()
+  updateNotes()
 }
 
 const updateFullHighlights = () => {
@@ -516,9 +564,9 @@ const updateHeader = () => {
   window.stepByStepHeader.innerHTML = headerString
 }
 
-// const updateNotes = () => {
-//   window.stepByStepNotes.innerHTML = s.notes[s.currentSet]
-// }
+const updateNotes = () => {
+  window.stepByStepNotes.innerHTML = c.sets[s.currentSet].notes
+}
 
 const updateOutputLines = () => {
   for (let i = 0; i < c.output.length; i++) {
@@ -547,13 +595,12 @@ const updatePointers = () => {
 }
 
 const updatePositions = () => {
-  window.stepByStepNotesSpacer.style.top = `${c.sets[s.currentSet].coords[0]}lh`
-  window.stepByStepNotesSpacer.style.left = `${
-    c.sets[s.currentSet].coords[1]
-  }ch`
-  window.stepByStepNotesSpacer.style.width = `${
-    c.sets[s.currentSet].coords[2]
-  }ch`
+  const coords = c.sets[s.currentSet].coords
+  const theTop = coords[0] - 1
+  const theLeft = coords[1] + 7
+  window.stepByStepNotesSpacer.style.top = `${theTop}rem`
+  window.stepByStepNotesSpacer.style.left = `${theLeft}ch`
+  window.stepByStepNotesSpacer.style.width = `${coords[2]}ch`
 }
 const init = () => {
   s.currentSet = 0
@@ -605,7 +652,7 @@ document.addEventListener('DOMContentLoaded', init)
   <div id="stepByStepOutputPointers"></div>
   <div id="stepByStepOutputLines"></div>
   <div id="stepByStepNotesSpacer">
-    <div id="stepByStepNotes"></div>
+    <div id="stepByStepNotes">6</div>
   </div>
 </div>
 
@@ -629,7 +676,7 @@ document.addEventListener('DOMContentLoaded', init)
   &lt;div id=&quot;stepByStepOutputPointers&quot;&gt;&lt;/div&gt;
   &lt;div id=&quot;stepByStepOutputLines&quot;&gt;&lt;/div&gt;
   &lt;div id=&quot;stepByStepNotesSpacer&quot;&gt;
-    &lt;div id=&quot;stepByStepNotes&quot;&gt;&lt;/div&gt;
+    &lt;div id=&quot;stepByStepNotes&quot;&gt;6&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 
@@ -639,16 +686,18 @@ document.addEventListener('DOMContentLoaded', init)
             <h2>CSS Source</h2>
             <pre class="exampleCode" id="exampleCSS" class="language-css">:root {
   --active-button-color: #381;
-  --base-padding: 0.8rem;
+  --base-padding: 1rem;
   --border-radius: 0.8rem;
   --output-color: #444;
   --border-color-1: #fff;
   --border-color-2: #779;
-  --lines-left-pad: 1.2rem;
+  --lines-left-pad: 2ch;
   --notes-background-color: #99a;
   --notes-font-color: black;
   --code-background-color: black;
   --example-color: #234;
+  --code-font-size: 1rem;
+  --code-line-height: 1rem;
 }
 
 .newLine {
@@ -663,79 +712,115 @@ document.addEventListener('DOMContentLoaded', init)
   color: green;
 }
 
-#stepByStepNotesSpacer {
-  color: var(--notes-font-color);
+#stepByStepNotes {
+  /*
   font-family: monospace;
+  font-size: 1rem;
+  font-family: sans-serif;
+  */
+}
+
+#stepByStepNotesSpacer {
+  background-color: var(--notes-background-color);
+  color: var(--notes-font-color);
+  color: white;
+  font-family: monospace;
+  font-size: var(--code-font-size);
   position: absolute;
+  left: 2ch;
+  top: 5rem;
   padding: 0;
   margin: 0;
-  background-color: var(--notes-background-color);
+  /*
   border-radius: 0.4rem;
   border: 1px solid var(--border-color-1);
+  */
 }
 
 #stepByStepWrapper {
-  font-family: monospace;
   position: relative;
-  margin-bottom: 1.3rem;
+  font-family: monospace;
+  font-size: 1rem;
+  margin: 0;
   padding: 0;
   display: grid;
   grid-template-columns: 6ch 2ch 1fr;
+  /*
   border-radius: 0.4rem;
-}
-
-#stepByStepNotes {
-  font-family: sans-serif;
+  */
+  line-height: 1rem;
 }
 
 #stepByStepNotes p:nth-child(n + 2) {
+  /*
   margin-top: 1.1rem;
+  */
 }
 
 #stepByStepLineNumbers {
   background-color: #002;
+  color: white;
+  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
+  */
+  /*
   padding-left: var(--base-padding);
+  */
+
+  /*
   border-top-left-radius: var(--border-radius);
+  */
 }
 
 #stepByStepOutputNumbers {
+  font-family: monospace;
+  font-size: 1rem;
   background-color: var(--output-color);
+  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   padding-left: var(--base-padding);
   border-bottom-left-radius: var(--border-radius);
+  */
 }
 
 #stepByStepOutputPointers {
   background-color: var(--output-color);
+  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   border-right: 1px solid var(--border-color-2);
+  */
 }
 
 #stepByStepPointers {
   background-color: #002;
+  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   border-right: 1px solid var(--border-color-2);
+  */
 }
 
 #stepByStepCodeLines {
   background-color: var(--code-background-color);
+  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   padding-left: var(--lines-left-pad);
   border-top-right-radius: var(--border-radius);
+  */
 }
 
 #stepByStepOutputLines {
   background-color: var(--output-color);
+  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   padding-left: var(--lines-left-pad);
   border-bottom-right-radius: var(--border-radius);
+  */
 }
 
 .activeButton {
@@ -744,8 +829,14 @@ document.addEventListener('DOMContentLoaded', init)
 
 .exampleCode {
   background-color: var(--example-color);
+  /*
   border-radius: var(--border-radius);
   padding: var(--base-padding);
+  */
+}
+
+pre {
+  font-size: 1rem;
 }
 </pre>
             
@@ -780,10 +871,13 @@ fn main() {
   sets: [
     {
       fullCode: true,
-      coords: [5, 3, 30],
+      coords: [2, 34, 30],
+      notes: `&lt;p&gt;This is the full code example&lt;/p&gt;`,
     },
     {
       addLines: [1],
+      coords: [10, 5, 20],
+      notes: `&lt;p&gt;This is a note with some details in it. This is a note with some details in it&lt;/p&gt;`,
     },
     {
       addLines: [3, 13],
@@ -1094,6 +1188,7 @@ const updateEverything = (setIndex) =&gt; {
   updateButtonHighlights()
   updateFullHighlights()
   updatePositions()
+  updateNotes()
 }
 
 const updateFullHighlights = () =&gt; {
@@ -1120,9 +1215,9 @@ const updateHeader = () =&gt; {
   window.stepByStepHeader.innerHTML = headerString
 }
 
-// const updateNotes = () =&gt; {
-//   window.stepByStepNotes.innerHTML = s.notes[s.currentSet]
-// }
+const updateNotes = () =&gt; {
+  window.stepByStepNotes.innerHTML = c.sets[s.currentSet].notes
+}
 
 const updateOutputLines = () =&gt; {
   for (let i = 0; i &lt; c.output.length; i++) {
@@ -1151,13 +1246,12 @@ const updatePointers = () =&gt; {
 }
 
 const updatePositions = () =&gt; {
-  window.stepByStepNotesSpacer.style.top = `${c.sets[s.currentSet].coords[0]}lh`
-  window.stepByStepNotesSpacer.style.left = `${
-    c.sets[s.currentSet].coords[1]
-  }ch`
-  window.stepByStepNotesSpacer.style.width = `${
-    c.sets[s.currentSet].coords[2]
-  }ch`
+  const coords = c.sets[s.currentSet].coords
+  const theTop = coords[0] - 1
+  const theLeft = coords[1] + 7
+  window.stepByStepNotesSpacer.style.top = `${theTop}rem`
+  window.stepByStepNotesSpacer.style.left = `${theLeft}ch`
+  window.stepByStepNotesSpacer.style.width = `${coords[2]}ch`
 }
 const init = () =&gt; {
   s.currentSet = 0
