@@ -57,17 +57,17 @@ fn main() {
     },
     {
       addLines: [6, 8],
-      coords: [8, 9, 32],
+      coords: [8, 10, 32],
       notes: `<p><code>Result</code> values are <code>enums</code> that can contain either an <code>Ok</code> or a <code>Err</code> value. Here we're creating the first arm of the <code>match</code> expression that handles an <code>Ok</code></p>`,
     },
     {
       addLines: [7],
-      coords: [9, 9, 38],
+      coords: [9, 10, 38],
       notes: `<p>When the <code>Result</code> value in <code>alfa</code> contains an <code>Ok</code> the code inside its code block gets executed. In this case we're printing out the value that got passed in via <code>Ok</code></p>`,
     },
     {
       highlights: ['h2, 6, 8, 11', 'h1, 7, 26, 29'],
-      coords: [9, 9, 32],
+      coords: [9, 10, 32],
       notes: `<p>Note the <code>item</code> value we're getting came packeged with the <code>Ok</code> from <code>Result</code></p>`,
     },
     {
@@ -77,7 +77,7 @@ fn main() {
     },
     {
       addLines: [10],
-      coords: [9, 28, 32],
+      coords: [10, 37, 32],
       notes: `<p>Finally we add the code to run if the <code>Result</code> from <code>env::var(&quot;HOME&quot;)</code> is an <code>Err</code></p>`,
     },
     {
@@ -209,7 +209,7 @@ const makeAddLineNumbersZeroBased = () => {
 
 const makeLineNumberRows = () => {
   for (let i = 0; i < totalLines(); i++) {
-    const numberString = i < 9 ? `0${i + 1}` : i + 1
+    const numberString = i < 9 ? ` 0${i + 1}` : ` ${i + 1}`
     makeElement(
       'pre',
       `stepByStepLineNumber_${i}`,
@@ -424,7 +424,7 @@ const updatePointers = () => {
 const updatePositions = () => {
   const coords = c.sets[s.currentSet].coords
   const theTop = coords[0] - 1
-  const theLeft = coords[1] + 7
+  const theLeft = coords[1] + 8
   window.stepByStepNotesSpacer.style.top = `${theTop}rem`
   window.stepByStepNotesSpacer.style.left = `${theLeft}ch`
   window.stepByStepNotesSpacer.style.width = `${coords[2]}ch`
