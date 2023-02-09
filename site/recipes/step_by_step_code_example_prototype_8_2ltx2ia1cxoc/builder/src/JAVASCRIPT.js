@@ -338,6 +338,20 @@ const updateEverything = (setIndex) => {
   updateCodeLines()
   updateOutputLines()
   updateButtonHighlights()
+  updateFullHighlights()
+}
+
+const updateFullHighlights = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    if (s.currentSet === c.sets.length - 1 || s.currentSet === 0) {
+      window[`stepByStepCodeLine_${i}`].classList.add('hljs')
+      window[`stepByStepCodeLine_${i}`].classList.add('language-rust')
+      hljs.highlightElement(window[`stepByStepCodeLine_${i}`])
+    } else {
+      window[`stepByStepCodeLine_${i}`].classList.remove('hljs')
+      window[`stepByStepCodeLine_${i}`].classList.remove('language-rust')
+    }
+  }
 }
 
 const updateHeader = () => {

@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="/styles/fonts.css" />
     <link rel="stylesheet" href="/styles/colors.css" />
     <link rel="stylesheet" href="/styles/wrapper.css" />
-    <link rel="stylesheet" href="/styles/prism-customized.css" />
+    <link rel="stylesheet" href="./highlightjs-nord-custom.min.css" />
     
     <style>
       :root {
@@ -44,6 +44,7 @@
   --notes-background-color: #99a;
   --notes-font-color: black;
   --code-background-color: black;
+  --example-color: #234;
 }
 
 .newLine {
@@ -137,13 +138,14 @@
   background-color: var(--active-button-color);
 }
 
-.examplePre {
-  background-color: #242;
+.exampleCode {
+  background-color: var(--example-color);
   border-radius: var(--border-radius);
   padding: var(--base-padding);
 }
 
     </style>
+    <script src="/assets/highlight/highlight.min.js"></script>
     <script>
       const c = {
   source: `use std::env; 
@@ -485,6 +487,20 @@ const updateEverything = (setIndex) => {
   updateCodeLines()
   updateOutputLines()
   updateButtonHighlights()
+  updateFullHighlights()
+}
+
+const updateFullHighlights = () => {
+  for (let i = 0; i < totalLines(); i++) {
+    if (s.currentSet === c.sets.length - 1 || s.currentSet === 0) {
+      window[`stepByStepCodeLine_${i}`].classList.add('hljs')
+      window[`stepByStepCodeLine_${i}`].classList.add('language-rust')
+      hljs.highlightElement(window[`stepByStepCodeLine_${i}`])
+    } else {
+      window[`stepByStepCodeLine_${i}`].classList.remove('hljs')
+      window[`stepByStepCodeLine_${i}`].classList.remove('language-rust')
+    }
+  }
 }
 
 const updateHeader = () => {
@@ -546,6 +562,14 @@ const init = () => {
 
 document.addEventListener('DOMContentLoaded', init)
 
+
+      const highlightReferenceCode = () => {
+        hljs.highlightElement(window.exampleJS)
+        hljs.highlightElement(window.exampleHTMLBody)
+        hljs.highlightElement(window.exampleCSS)
+      }
+
+      document.addEventListener('DOMContentLoaded', highlightReferenceCode)
     </script>
   </head>
   <body class="line-numbers">
@@ -582,7 +606,7 @@ document.addEventListener('DOMContentLoaded', init)
                 </ul>
                   
             <h2>HTML Source</h2>
-            <pre><code class="language-html">&lt;h3 id=&quot;stepByStepHeader&quot;&gt;
+            <pre class="exampleCode"  id="exampleHTMLBody" class="language-html"><code>&lt;h3 id=&quot;stepByStepHeader&quot;&gt;
   &lt;!-- TODO: Move this into the grid --&gt;
 &lt;/h3&gt;
 
@@ -602,7 +626,7 @@ document.addEventListener('DOMContentLoaded', init)
 </code></pre>
              
             <h2>CSS Source</h2>
-            <pre><code class="language-css">:root {
+            <pre class="exampleCode" id="exampleCSS" class="language-css"><code>:root {
   --active-button-color: #381;
   --base-padding: 0.8rem;
   --border-radius: 0.8rem;
@@ -613,6 +637,7 @@ document.addEventListener('DOMContentLoaded', init)
   --notes-background-color: #99a;
   --notes-font-color: black;
   --code-background-color: black;
+  --example-color: #234;
 }
 
 .newLine {
@@ -706,8 +731,8 @@ document.addEventListener('DOMContentLoaded', init)
   background-color: var(--active-button-color);
 }
 
-.examplePre {
-  background-color: #242;
+.exampleCode {
+  background-color: var(--example-color);
   border-radius: var(--border-radius);
   padding: var(--base-padding);
 }
@@ -715,7 +740,7 @@ document.addEventListener('DOMContentLoaded', init)
             
       
             <h2>JavaScript Source</h2>
-            <pre><code class="language-js">const c = {
+            <pre class="exampleCode" id="exampleJS" class="language-js"><code>const c = {
   source: `use std::env; 
  
 fn main() { 
@@ -1055,6 +1080,20 @@ const updateEverything = (setIndex) =&gt; {
   updateCodeLines()
   updateOutputLines()
   updateButtonHighlights()
+  updateFullHighlights()
+}
+
+const updateFullHighlights = () =&gt; {
+  for (let i = 0; i &lt; totalLines(); i++) {
+    if (s.currentSet === c.sets.length - 1 || s.currentSet === 0) {
+      window[`stepByStepCodeLine_${i}`].classList.add(&#x27;hljs&#x27;)
+      window[`stepByStepCodeLine_${i}`].classList.add(&#x27;language-rust&#x27;)
+      hljs.highlightElement(window[`stepByStepCodeLine_${i}`])
+    } else {
+      window[`stepByStepCodeLine_${i}`].classList.remove(&#x27;hljs&#x27;)
+      window[`stepByStepCodeLine_${i}`].classList.remove(&#x27;language-rust&#x27;)
+    }
+  }
 }
 
 const updateHeader = () =&gt; {
