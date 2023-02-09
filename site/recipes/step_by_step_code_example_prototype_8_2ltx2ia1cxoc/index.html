@@ -42,7 +42,7 @@
   --box-shadow-color: #0008;
   --code-background-color: #002;
   --code-font-size: 1rem;
-  --code-line-height: 1rem;
+  --code-line-height: 1.2rem;
   --example-color: #234;
   --line-numbers-background-color: #000;
   --lines-left-pad: 2ch;
@@ -644,9 +644,22 @@ const updatePointers = () => {
 
 const updatePositions = () => {
   const coords = c.sets[s.currentSet].coords
-  const theTop = coords[0] - 1
   const theLeft = coords[1] + 9
-  window.stepByStepNotesSpacer.style.top = `${theTop}rem`
+  // this is a bit gross, but it pulls the line
+  // height in pixels then remove the `px` and
+  // converts the value into an it that gets used
+  // as the multiplier for the value coming in
+  // from the config
+  const heightMultiplier = parseInt(
+    window
+      .getComputedStyle(window.stepByStepCodeLines)
+      .lineHeight.split('px')[0]
+  )
+  const theTop = (coords[0] - 1) * heightMultiplier
+
+  console.log(theTop)
+
+  window.stepByStepNotesSpacer.style.top = `${theTop}px`
   window.stepByStepNotesSpacer.style.left = `${theLeft}ch`
   window.stepByStepNotesSpacer.style.width = `${coords[2]}ch`
 }
@@ -726,7 +739,7 @@ document.addEventListener('DOMContentLoaded', init)
   --box-shadow-color: #0008;
   --code-background-color: #002;
   --code-font-size: 1rem;
-  --code-line-height: 1rem;
+  --code-line-height: 1.2rem;
   --example-color: #234;
   --line-numbers-background-color: #000;
   --lines-left-pad: 2ch;
@@ -1328,9 +1341,22 @@ const updatePointers = () =&gt; {
 
 const updatePositions = () =&gt; {
   const coords = c.sets[s.currentSet].coords
-  const theTop = coords[0] - 1
   const theLeft = coords[1] + 9
-  window.stepByStepNotesSpacer.style.top = `${theTop}rem`
+  // this is a bit gross, but it pulls the line
+  // height in pixels then remove the `px` and
+  // converts the value into an it that gets used
+  // as the multiplier for the value coming in
+  // from the config
+  const heightMultiplier = parseInt(
+    window
+      .getComputedStyle(window.stepByStepCodeLines)
+      .lineHeight.split(&#x27;px&#x27;)[0]
+  )
+  const theTop = (coords[0] - 1) * heightMultiplier
+
+  console.log(theTop)
+
+  window.stepByStepNotesSpacer.style.top = `${theTop}px`
   window.stepByStepNotesSpacer.style.left = `${theLeft}ch`
   window.stepByStepNotesSpacer.style.width = `${coords[2]}ch`
 }
