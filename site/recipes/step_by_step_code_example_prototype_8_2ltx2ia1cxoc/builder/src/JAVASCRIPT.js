@@ -13,6 +13,9 @@ fn main() {
   } 
 }`,
 
+  // NOTE: Only one hightlight works
+  // per line. Might add more later,
+  // but that's TBD.
   sets: [
     {
       addLines: [1],
@@ -22,6 +25,12 @@ fn main() {
     },
     {
       addLines: [4],
+      altLines: [
+        {
+          line: 5,
+          text: 'the quick brown fox jumps over the lazy dog',
+        },
+      ],
     },
     {
       addLines: [5, 12],
