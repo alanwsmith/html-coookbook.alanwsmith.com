@@ -26,20 +26,9 @@ fn main() {
     {
       addLines: [5, 12],
     },
-
     {
-      h1: [
-        {
-          line: 4,
-          range: [7, 15],
-        },
-        {
-          line: 5,
-          range: [9, 17],
-        },
-      ],
+      highlights: ['h1|4|7|12'],
     },
-
     {
       addLines: [6, 8],
     },
@@ -56,7 +45,7 @@ fn main() {
 }
 
 const s = {
-  currentSet: 7,
+  currentSet: 4,
 }
 
 // // this is inefficient but whatever
@@ -82,13 +71,17 @@ const s = {
 //   }
 // }
 
+const addCustomHighlights = () => {}
+
 const highlightNewLines = () => {
   const lineCheck = c.sets[s.currentSet].addLines
-  for (let i = 0; i < lineCheck.length; i++) {
-    const lineIndex = lineCheck[i]
-    s.currentLines[
-      lineIndex
-    ] = `<code class="newLine">${s.rawLines[lineIndex]}</code>`
+  if (lineCheck) {
+    for (let i = 0; i < lineCheck.length; i++) {
+      const lineIndex = lineCheck[i]
+      s.currentLines[
+        lineIndex
+      ] = `<code class="newLine">${s.rawLines[lineIndex]}</code>`
+    }
   }
 }
 
@@ -114,7 +107,9 @@ const outputLines = () => {
   }
 }
 
-const prepAddLinesConfig = () => {
+const makeAddLineNumbersZeroBased = () => {
+  // Moves config numbers from human readable to
+  // zero based index
   for (let setsIndex = 0; setsIndex < c.sets.length; setsIndex++) {
     const addData = c.sets[setsIndex].addLines
     if (addData) {
@@ -125,6 +120,19 @@ const prepAddLinesConfig = () => {
   }
 }
 
+// const makeH1NumbersZeroBased = () => {
+//   for (let setsIndex = 0; setsIndex < c.sets.length; setsIndex++) {
+//     const h1Data = c.sets[setsIndex].h1
+//     if (h1Data) {
+//       for (let h1Index = 0; h1Index < h1Data.length; h1Index++) {
+//         console.log(h1Data[h1Index])
+//         // h1Data[h1Index] -= 1
+//       }
+//     }
+//   }
+// }
+
+// TODO: Remove this
 const prepConfig = () => {
   // this turns human readeable numbers
   // into zero index based numbers for
@@ -158,13 +166,15 @@ const prepCurrentLines = () => {
 }
 
 const init = () => {
-  prepAddLinesConfig()
+  makeAddLineNumbersZeroBased()
+  // makeH1NumbersZeroBased()
   // prepConfig()
 
   loadRawLines()
   prepCurrentLines()
   loadInitialLines()
   highlightNewLines()
+  addCustomHighlights()
   outputLines()
 }
 
