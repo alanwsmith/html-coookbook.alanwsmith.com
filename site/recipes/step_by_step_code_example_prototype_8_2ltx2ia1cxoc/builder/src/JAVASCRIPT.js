@@ -26,6 +26,20 @@ fn main() {
     {
       addLines: [5, 12],
     },
+
+    // {
+    //   h1: [
+    //     {
+    //       line: 4,
+    //       range: [7, 15],
+    //     },
+    //     {
+    //       line: 5,
+    //       range: [9, 17],
+    //     },
+    //   ],
+    // },
+
     {
       addLines: [6, 8],
     },
@@ -81,9 +95,11 @@ const highlightNewLines = () => {
 const loadInitialLines = () => {
   for (let setIndex = 0; setIndex <= s.currentSet; setIndex++) {
     const lineSet = c.sets[setIndex].addLines
-    for (let addIndex = 0; addIndex < lineSet.length; addIndex++) {
-      const lineIndex = c.sets[setIndex].addLines[addIndex]
-      s.currentLines[lineIndex] = s.rawLines[lineIndex]
+    if (lineSet) {
+      for (let addIndex = 0; addIndex < lineSet.length; addIndex++) {
+        const lineIndex = c.sets[setIndex].addLines[addIndex]
+        s.currentLines[lineIndex] = s.rawLines[lineIndex]
+      }
     }
   }
 }
@@ -102,14 +118,23 @@ const prepConfig = () => {
   // this turns human readeable numbers
   // into zero index based numbers for
   // working with them in code
+
   for (let setsIndex = 0; setsIndex < c.sets.length; setsIndex++) {
-    for (
-      let addIndex = 0;
-      addIndex < c.sets[setsIndex].addLines.length;
-      addIndex++
-    ) {
-      c.sets[setsIndex].addLines[addIndex] -= 1
+    const addData = c.sets[setsIndex].addLines
+
+    if (addData) {
+      for (let addIndex = 0; addIndex < addData.length; addIndex++) {
+        addData[addIndex] -= 1
+      }
     }
+
+    // const h1Data = c.sets[setsIndex].h1
+
+    // if (h1Data) {
+    //   for (let h1Index = 0; h1Index < h1Data.length; h1Index++) {
+    //     console.log(h1Data[h1Index])
+    //   }
+    // }
   }
 }
 
@@ -122,6 +147,7 @@ const prepCurrentLines = () => {
 
 const init = () => {
   prepConfig()
+
   loadRawLines()
   prepCurrentLines()
   loadInitialLines()
