@@ -244,6 +244,8 @@ const addCustomHighlights = () => {
         s.rawLines[lineNum].substring(stopChar),
       ]
       s.currentLines[lineNum] = sections.join('')
+      // Also update the pointer
+      window[`stepByStepPointer_${lineNum}`].innerHTML = '&gt;'
     }
   }
 }
@@ -812,6 +814,8 @@ const addCustomHighlights = () =&gt; {
         s.rawLines[lineNum].substring(stopChar),
       ]
       s.currentLines[lineNum] = sections.join(&#x27;&#x27;)
+      // Also update the pointer
+      window[`stepByStepPointer_${lineNum}`].innerHTML = &#x27;&amp;gt;&#x27;
     }
   }
 }

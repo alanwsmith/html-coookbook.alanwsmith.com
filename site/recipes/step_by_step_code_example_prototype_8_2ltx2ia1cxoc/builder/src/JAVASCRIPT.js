@@ -97,6 +97,8 @@ const addCustomHighlights = () => {
         s.rawLines[lineNum].substring(stopChar),
       ]
       s.currentLines[lineNum] = sections.join('')
+      // Also update the pointer
+      window[`stepByStepPointer_${lineNum}`].innerHTML = '&gt;'
     }
   }
 }
