@@ -102,29 +102,6 @@ const s = {
   currentSet: 2,
 }
 
-// // this is inefficient but whatever
-// // It get human line numbers not
-// // zero based index
-// const line = (n) => {
-//   return c.source.split('\n')[n - 1]
-// }
-
-// const addCodeLines = (lineSet) => {
-//   const lineNums = c.sets[lineSet].addLines
-//   for (let i = 0; i < lineNums.length; i++) {
-//     const lineNum = lineNums[i]
-//     // window[`s${lineNum}`].innerHTML = `<code class="newLine">${line(
-//     //   lineNum
-//     // )}</code>`
-//   }
-// }
-
-// const updateCodeLines = () => {
-//   for (let i = 0; i <= s.currentSet; i++) {
-//     addCodeLines(i)
-//   }
-// }
-
 const addAltLines = () => {
   const altData = c.sets[s.currentSet].altLines
   if (altData) {
@@ -384,29 +361,6 @@ fn main() {
 const s = {
   currentSet: 2,
 }
-
-// // this is inefficient but whatever
-// // It get human line numbers not
-// // zero based index
-// const line = (n) =&gt; {
-//   return c.source.split(&#x27;\n&#x27;)[n - 1]
-// }
-
-// const addCodeLines = (lineSet) =&gt; {
-//   const lineNums = c.sets[lineSet].addLines
-//   for (let i = 0; i &lt; lineNums.length; i++) {
-//     const lineNum = lineNums[i]
-//     // window[`s${lineNum}`].innerHTML = `&lt;code class=&quot;newLine&quot;&gt;${line(
-//     //   lineNum
-//     // )}&lt;/code&gt;`
-//   }
-// }
-
-// const updateCodeLines = () =&gt; {
-//   for (let i = 0; i &lt;= s.currentSet; i++) {
-//     addCodeLines(i)
-//   }
-// }
 
 const addAltLines = () =&gt; {
   const altData = c.sets[s.currentSet].altLines

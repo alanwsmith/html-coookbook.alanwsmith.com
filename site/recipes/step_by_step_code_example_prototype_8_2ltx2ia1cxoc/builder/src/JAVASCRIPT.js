@@ -57,29 +57,6 @@ const s = {
   currentSet: 2,
 }
 
-// // this is inefficient but whatever
-// // It get human line numbers not
-// // zero based index
-// const line = (n) => {
-//   return c.source.split('\n')[n - 1]
-// }
-
-// const addCodeLines = (lineSet) => {
-//   const lineNums = c.sets[lineSet].addLines
-//   for (let i = 0; i < lineNums.length; i++) {
-//     const lineNum = lineNums[i]
-//     // window[`s${lineNum}`].innerHTML = `<code class="newLine">${line(
-//     //   lineNum
-//     // )}</code>`
-//   }
-// }
-
-// const updateCodeLines = () => {
-//   for (let i = 0; i <= s.currentSet; i++) {
-//     addCodeLines(i)
-//   }
-// }
-
 const addAltLines = () => {
   const altData = c.sets[s.currentSet].altLines
   if (altData) {
