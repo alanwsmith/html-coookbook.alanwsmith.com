@@ -1,21 +1,21 @@
 {
-    "TITLE": "Step By Step Code Example Prototype 8",
-    "STATUS": "draft",
-    "DESCRIPTION": "",
-    "DETAILS": [
-        "More exploration in making a step by step process for demonstrating code example"
-    ],
-    "NOTES": [],
-    "TODOs": [
-        "Add cookie to keep place",
-        "Add arrow key navigation",
-        "Make a web component"
-    ],
-    "REFERENCES": [
-        {
-            "title": "",
-            "url": "",
-            "extra": ""
-        }
-    ]
+  "TITLE": "Step By Step Code Example Prototype 8",
+  "STATUS": "draft",
+  "DESCRIPTION": "",
+  "DETAILS": [
+    "More exploration in making a step by step process for demonstrating code example"
+  ],
+  "NOTES": [],
+  "TODOS": [
+    "Add cookie to keep place",
+    "Add arrow key navigation",
+    "Make a web component"
+  ],
+  "REFERENCES": [
+    {
+      "title": "",
+      "url": "",
+      "extra": ""
+    }
+  ]
 }
