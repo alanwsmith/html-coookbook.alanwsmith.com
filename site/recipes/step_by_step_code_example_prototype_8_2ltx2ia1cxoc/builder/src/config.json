@@ -1,6 +1,6 @@
 {
   "TITLE": "Step By Step Code Example Prototype 8",
-  "STATUS": "draft",
+  "STATUS": "published",
   "DESCRIPTION": "",
   "DETAILS": [
     "More exploration in making a step by step process for demonstrating code example"
@@ -11,11 +11,5 @@
     "Add arrow key navigation",
     "Make a web component"
   ],
-  "REFERENCES": [
-    {
-      "title": "",
-      "url": "",
-      "extra": ""
-    }
-  ]
+  "REFERENCES": []
 }

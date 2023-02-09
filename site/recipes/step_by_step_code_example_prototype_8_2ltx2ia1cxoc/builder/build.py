@@ -119,25 +119,25 @@ class Builder():
         if self.parts['HEAD'] != '':
             self.parts['ESCAPED_HEAD'] = f'''
             <h2>&lt;head&gt; Source</h2>
-            <pre class="exampleCode" id="exampleHead" class="language-html"><code>{escape(self.parts['HEAD'])}</code></pre>
+            <pre class="exampleCode" id="exampleHead" class="language-html">{escape(self.parts['HEAD'])}</pre>
             '''
 
         if self.parts['BODY'] != '':
             self.parts['ESCAPED_BODY'] = f'''
             <h2>HTML Source</h2>
-            <pre class="exampleCode"  id="exampleHTMLBody" class="language-html"><code>{escape(self.parts['BODY'])}</code></pre>
+            <pre class="exampleCode" id="exampleHTMLBody" class="language-html">{escape(self.parts['BODY'])}</pre>
             '''
 
         if self.parts['CSS'] != '':
             self.parts['ESCAPED_CSS'] = f'''
             <h2>CSS Source</h2>
-            <pre class="exampleCode" id="exampleCSS" class="language-css"><code>{escape(self.parts['CSS'])}</code></pre>
+            <pre class="exampleCode" id="exampleCSS" class="language-css">{escape(self.parts['CSS'])}</pre>
             '''
 
         if self.parts['JAVASCRIPT'] != '':
             self.parts['ESCAPED_JAVASCRIPT'] = f'''
             <h2>JavaScript Source</h2>
-            <pre class="exampleCode" id="exampleJS" class="language-js"><code>{escape(self.parts['JAVASCRIPT'])}</code></pre>
+            <pre class="exampleCode" id="exampleJS" class="language-js">{escape(self.parts['JAVASCRIPT'])}</pre>
             '''
 
 

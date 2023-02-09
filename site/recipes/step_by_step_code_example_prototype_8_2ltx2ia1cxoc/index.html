@@ -35,16 +35,18 @@
     <style>
       :root {
   --active-button-color: #381;
-  --base-padding: 0.8rem;
+  --base-padding: 1rem;
   --border-radius: 0.8rem;
   --output-color: #444;
   --border-color-1: #fff;
   --border-color-2: #779;
-  --lines-left-pad: 1.2rem;
+  --lines-left-pad: 2ch;
   --notes-background-color: #99a;
   --notes-font-color: black;
   --code-background-color: black;
   --example-color: #234;
+  --code-font-size: 1rem;
+  --code-line-height: 1rem;
 }
 
 .newLine {
@@ -59,79 +61,105 @@
   color: green;
 }
 
+#stepByStepNotes {
+  font-family: sans-serif;
+  font-size: 0.81rem;
+}
+
 #stepByStepNotesSpacer {
+  background-color: var(--notes-background-color);
   color: var(--notes-font-color);
   font-family: monospace;
+  font-size: var(--code-font-size);
   position: absolute;
-  padding: 1ch;
+  padding-left: 1ch;
+  padding-right: 1ch;
+  padding-top: 1ch;
+  padding-bottom: 1ch;
   margin: 0;
-  background-color: var(--notes-background-color);
-  border-radius: 0.4rem;
   border: 1px solid var(--border-color-1);
+  border-radius: 0.4rem;
 }
 
 #stepByStepWrapper {
-  font-family: monospace;
   position: relative;
-  margin-bottom: 1.3rem;
+  font-family: monospace;
+  font-size: 1rem;
+  margin: 0;
   padding: 0;
   display: grid;
   grid-template-columns: 6ch 2ch 1fr;
-  border-radius: 0.4rem;
-}
-
-#stepByStepNotes {
-  font-family: sans-serif;
+  line-height: 1rem;
 }
 
 #stepByStepNotes p:nth-child(n + 2) {
-  margin-top: 1.1rem;
+  margin-top: 0.8rem;
 }
 
 #stepByStepLineNumbers {
   background-color: #002;
+  color: white;
+  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
+  */
+  /*
   padding-left: var(--base-padding);
+  */
+
+  /*
   border-top-left-radius: var(--border-radius);
+  */
 }
 
 #stepByStepOutputNumbers {
+  font-family: monospace;
+  font-size: 1rem;
   background-color: var(--output-color);
+  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   padding-left: var(--base-padding);
   border-bottom-left-radius: var(--border-radius);
+  */
 }
 
 #stepByStepOutputPointers {
   background-color: var(--output-color);
+  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   border-right: 1px solid var(--border-color-2);
+  */
 }
 
 #stepByStepPointers {
   background-color: #002;
+  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   border-right: 1px solid var(--border-color-2);
+  */
 }
 
 #stepByStepCodeLines {
   background-color: var(--code-background-color);
+  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   padding-left: var(--lines-left-pad);
   border-top-right-radius: var(--border-radius);
+  */
 }
 
 #stepByStepOutputLines {
   background-color: var(--output-color);
+  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   padding-left: var(--lines-left-pad);
   border-bottom-right-radius: var(--border-radius);
+  */
 }
 
 .activeButton {
@@ -140,8 +168,14 @@
 
 .exampleCode {
   background-color: var(--example-color);
+  /*
   border-radius: var(--border-radius);
   padding: var(--base-padding);
+  */
+}
+
+pre {
+  font-size: 1rem;
 }
 
     </style>
@@ -151,8 +185,8 @@
   source: `use std::env; 
  
 fn main() { 
-  let envResult = env::var("HOME"); 
-  match envResult { 
+  let alfa = env::var("HOME"); 
+  match alfa { 
     Ok(item) => { 
       println!("got {}", item); 
     } 
@@ -176,43 +210,67 @@ fn main() {
   sets: [
     {
       fullCode: true,
+      coords: [2, 38, 32],
+      notes: `<p>This is the full source code example.</p><p>Click through the buttons below to explinations of for each part of the code.</p>`,
     },
     {
       addLines: [1],
+      coords: [3, 5, 32],
+      notes: `<p>Start by loading <code>std::env</code> which provides Rust programs with access to the Environmental Variables it runs in</p>`,
     },
     {
       addLines: [3, 13],
+      coords: [5, 5, 32],
+      notes: `<p>Create the <code>main</code> function that Rust uses as the entry point for the program</p>`,
     },
     {
       addLines: [4],
+      coords: [6, 7, 32],
+      notes: `<p>Create a new immutalbe variable called <code>alfa</code> and bind the value returned by <code>env::var(&quot;HOME&quot;)</code> to it. That value is a <code>Result</code></p>`,
     },
     {
       addLines: [5, 12],
+      coords: [7, 7, 32],
+      notes: `<p>Begin creating the <code>match</code> expression that we'll use to process the <code>Result</code> value that was returned from <code>env::var(&quot;HOME&quot;)</code></p>`,
     },
     {
-      highlights: ['h2, 4, 7, 16', 'h1, 5, 9, 18'],
+      highlights: ['h2, 4, 7, 11', 'h1, 5, 9, 13'],
+      coords: [7, 7, 32],
+      notes: `<p>Note that the value <code>match</code> is working on come from the <code>alfa</code> variable</p><p>TODO: See if match transfers ownership</p>`,
     },
     {
       addLines: [6, 8],
+      coords: [8, 9, 32],
+      notes: `<p><code>Result</code> values are <code>enums</code> that can contain either an <code>Ok</code> or a <code>Err</code> value. Here we're creating the first arm of the <code>match</code> expression that handles an <code>Ok</code></p>`,
     },
     {
       addLines: [7],
+      coords: [9, 9, 38],
+      notes: `<p>When the <code>Result</code> value in <code>alfa</code> contains an <code>Ok</code> the code inside its code block gets executed. In this case we're printing out the value that got passed in via <code>Ok</code></p>`,
     },
     {
       highlights: ['h2, 6, 8, 11', 'h1, 7, 26, 29'],
+      coords: [9, 9, 32],
+      notes: `<p>Note the <code>item</code> value we're getting came packeged with the <code>Ok</code> from <code>Result</code></p>`,
     },
     {
       addLines: [9, 11],
+      coords: [9, 22, 26],
+      notes: `<p>Next we create the <code>Err</code> arm for the match expression</p>`,
     },
     {
       addLines: [10],
+      coords: [9, 28, 32],
+      notes: `<p>Finally we add the code to run if the <code>Result</code> from <code>env::var(&quot;HOME&quot;)</code> is an <code>Err</code></p>`,
     },
     {
       fullCode: true,
+      coords: [2, 38, 32],
+      notes: `<p>Put togehter, the full program looks like this.</p><p>Note: The output for this prototype contain two hard coded lines. The real version will just have one from the actual program</p>`,
     },
   ],
 
-  output: ['line 1 of output', 'another output exampleline'],
+  output: ['example output line 1', 'example output line 2'],
 }
 
 const s = {}
@@ -488,6 +546,8 @@ const updateEverything = (setIndex) => {
   updateOutputLines()
   updateButtonHighlights()
   updateFullHighlights()
+  updatePositions()
+  updateNotes()
 }
 
 const updateFullHighlights = () => {
@@ -514,9 +574,9 @@ const updateHeader = () => {
   window.stepByStepHeader.innerHTML = headerString
 }
 
-// const updateNotes = () => {
-//   window.stepByStepNotes.innerHTML = s.notes[s.currentSet]
-// }
+const updateNotes = () => {
+  window.stepByStepNotes.innerHTML = c.sets[s.currentSet].notes
+}
 
 const updateOutputLines = () => {
   for (let i = 0; i < c.output.length; i++) {
@@ -544,6 +604,14 @@ const updatePointers = () => {
   }
 }
 
+const updatePositions = () => {
+  const coords = c.sets[s.currentSet].coords
+  const theTop = coords[0] - 1
+  const theLeft = coords[1] + 7
+  window.stepByStepNotesSpacer.style.top = `${theTop}rem`
+  window.stepByStepNotesSpacer.style.left = `${theLeft}ch`
+  window.stepByStepNotesSpacer.style.width = `${coords[2]}ch`
+}
 const init = () => {
   s.currentSet = 0
   makeAddLineNumbersZeroBased()
@@ -594,7 +662,7 @@ document.addEventListener('DOMContentLoaded', init)
   <div id="stepByStepOutputPointers"></div>
   <div id="stepByStepOutputLines"></div>
   <div id="stepByStepNotesSpacer">
-    <div id="stepByStepNotes"></div>
+    <div id="stepByStepNotes">6</div>
   </div>
 </div>
 
@@ -606,7 +674,7 @@ document.addEventListener('DOMContentLoaded', init)
                 </ul>
                   
             <h2>HTML Source</h2>
-            <pre class="exampleCode"  id="exampleHTMLBody" class="language-html"><code>&lt;h3 id=&quot;stepByStepHeader&quot;&gt;
+            <pre class="exampleCode" id="exampleHTMLBody" class="language-html">&lt;h3 id=&quot;stepByStepHeader&quot;&gt;
   &lt;!-- TODO: Move this into the grid --&gt;
 &lt;/h3&gt;
 
@@ -618,26 +686,28 @@ document.addEventListener('DOMContentLoaded', init)
   &lt;div id=&quot;stepByStepOutputPointers&quot;&gt;&lt;/div&gt;
   &lt;div id=&quot;stepByStepOutputLines&quot;&gt;&lt;/div&gt;
   &lt;div id=&quot;stepByStepNotesSpacer&quot;&gt;
-    &lt;div id=&quot;stepByStepNotes&quot;&gt;&lt;/div&gt;
+    &lt;div id=&quot;stepByStepNotes&quot;&gt;6&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;div id=&quot;stepByStepButtonWrapper&quot;&gt;&lt;/div&gt;
-</code></pre>
+</pre>
              
             <h2>CSS Source</h2>
-            <pre class="exampleCode" id="exampleCSS" class="language-css"><code>:root {
+            <pre class="exampleCode" id="exampleCSS" class="language-css">:root {
   --active-button-color: #381;
-  --base-padding: 0.8rem;
+  --base-padding: 1rem;
   --border-radius: 0.8rem;
   --output-color: #444;
   --border-color-1: #fff;
   --border-color-2: #779;
-  --lines-left-pad: 1.2rem;
+  --lines-left-pad: 2ch;
   --notes-background-color: #99a;
   --notes-font-color: black;
   --code-background-color: black;
   --example-color: #234;
+  --code-font-size: 1rem;
+  --code-line-height: 1rem;
 }
 
 .newLine {
@@ -652,79 +722,105 @@ document.addEventListener('DOMContentLoaded', init)
   color: green;
 }
 
+#stepByStepNotes {
+  font-family: sans-serif;
+  font-size: 0.81rem;
+}
+
 #stepByStepNotesSpacer {
+  background-color: var(--notes-background-color);
   color: var(--notes-font-color);
   font-family: monospace;
+  font-size: var(--code-font-size);
   position: absolute;
-  padding: 1ch;
+  padding-left: 1ch;
+  padding-right: 1ch;
+  padding-top: 1ch;
+  padding-bottom: 1ch;
   margin: 0;
-  background-color: var(--notes-background-color);
-  border-radius: 0.4rem;
   border: 1px solid var(--border-color-1);
+  border-radius: 0.4rem;
 }
 
 #stepByStepWrapper {
-  font-family: monospace;
   position: relative;
-  margin-bottom: 1.3rem;
+  font-family: monospace;
+  font-size: 1rem;
+  margin: 0;
   padding: 0;
   display: grid;
   grid-template-columns: 6ch 2ch 1fr;
-  border-radius: 0.4rem;
-}
-
-#stepByStepNotes {
-  font-family: sans-serif;
+  line-height: 1rem;
 }
 
 #stepByStepNotes p:nth-child(n + 2) {
-  margin-top: 1.1rem;
+  margin-top: 0.8rem;
 }
 
 #stepByStepLineNumbers {
   background-color: #002;
+  color: white;
+  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
+  */
+  /*
   padding-left: var(--base-padding);
+  */
+
+  /*
   border-top-left-radius: var(--border-radius);
+  */
 }
 
 #stepByStepOutputNumbers {
+  font-family: monospace;
+  font-size: 1rem;
   background-color: var(--output-color);
+  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   padding-left: var(--base-padding);
   border-bottom-left-radius: var(--border-radius);
+  */
 }
 
 #stepByStepOutputPointers {
   background-color: var(--output-color);
+  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   border-right: 1px solid var(--border-color-2);
+  */
 }
 
 #stepByStepPointers {
   background-color: #002;
+  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   border-right: 1px solid var(--border-color-2);
+  */
 }
 
 #stepByStepCodeLines {
   background-color: var(--code-background-color);
+  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   padding-left: var(--lines-left-pad);
   border-top-right-radius: var(--border-radius);
+  */
 }
 
 #stepByStepOutputLines {
   background-color: var(--output-color);
+  /*
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   padding-left: var(--lines-left-pad);
   border-bottom-right-radius: var(--border-radius);
+  */
 }
 
 .activeButton {
@@ -733,19 +829,25 @@ document.addEventListener('DOMContentLoaded', init)
 
 .exampleCode {
   background-color: var(--example-color);
+  /*
   border-radius: var(--border-radius);
   padding: var(--base-padding);
+  */
 }
-</code></pre>
+
+pre {
+  font-size: 1rem;
+}
+</pre>
             
       
             <h2>JavaScript Source</h2>
-            <pre class="exampleCode" id="exampleJS" class="language-js"><code>const c = {
+            <pre class="exampleCode" id="exampleJS" class="language-js">const c = {
   source: `use std::env; 
  
 fn main() { 
-  let envResult = env::var(&quot;HOME&quot;); 
-  match envResult { 
+  let alfa = env::var(&quot;HOME&quot;); 
+  match alfa { 
     Ok(item) =&gt; { 
       println!(&quot;got {}&quot;, item); 
     } 
@@ -769,43 +871,67 @@ fn main() {
   sets: [
     {
       fullCode: true,
+      coords: [2, 38, 32],
+      notes: `&lt;p&gt;This is the full source code example.&lt;/p&gt;&lt;p&gt;Click through the buttons below to explinations of for each part of the code.&lt;/p&gt;`,
     },
     {
       addLines: [1],
+      coords: [3, 5, 32],
+      notes: `&lt;p&gt;Start by loading &lt;code&gt;std::env&lt;/code&gt; which provides Rust programs with access to the Environmental Variables it runs in&lt;/p&gt;`,
     },
     {
       addLines: [3, 13],
+      coords: [5, 5, 32],
+      notes: `&lt;p&gt;Create the &lt;code&gt;main&lt;/code&gt; function that Rust uses as the entry point for the program&lt;/p&gt;`,
     },
     {
       addLines: [4],
+      coords: [6, 7, 32],
+      notes: `&lt;p&gt;Create a new immutalbe variable called &lt;code&gt;alfa&lt;/code&gt; and bind the value returned by &lt;code&gt;env::var(&amp;quot;HOME&amp;quot;)&lt;/code&gt; to it. That value is a &lt;code&gt;Result&lt;/code&gt;&lt;/p&gt;`,
     },
     {
       addLines: [5, 12],
+      coords: [7, 7, 32],
+      notes: `&lt;p&gt;Begin creating the &lt;code&gt;match&lt;/code&gt; expression that we&#x27;ll use to process the &lt;code&gt;Result&lt;/code&gt; value that was returned from &lt;code&gt;env::var(&amp;quot;HOME&amp;quot;)&lt;/code&gt;&lt;/p&gt;`,
     },
     {
-      highlights: [&#x27;h2, 4, 7, 16&#x27;, &#x27;h1, 5, 9, 18&#x27;],
+      highlights: [&#x27;h2, 4, 7, 11&#x27;, &#x27;h1, 5, 9, 13&#x27;],
+      coords: [7, 7, 32],
+      notes: `&lt;p&gt;Note that the value &lt;code&gt;match&lt;/code&gt; is working on come from the &lt;code&gt;alfa&lt;/code&gt; variable&lt;/p&gt;&lt;p&gt;TODO: See if match transfers ownership&lt;/p&gt;`,
     },
     {
       addLines: [6, 8],
+      coords: [8, 9, 32],
+      notes: `&lt;p&gt;&lt;code&gt;Result&lt;/code&gt; values are &lt;code&gt;enums&lt;/code&gt; that can contain either an &lt;code&gt;Ok&lt;/code&gt; or a &lt;code&gt;Err&lt;/code&gt; value. Here we&#x27;re creating the first arm of the &lt;code&gt;match&lt;/code&gt; expression that handles an &lt;code&gt;Ok&lt;/code&gt;&lt;/p&gt;`,
     },
     {
       addLines: [7],
+      coords: [9, 9, 38],
+      notes: `&lt;p&gt;When the &lt;code&gt;Result&lt;/code&gt; value in &lt;code&gt;alfa&lt;/code&gt; contains an &lt;code&gt;Ok&lt;/code&gt; the code inside its code block gets executed. In this case we&#x27;re printing out the value that got passed in via &lt;code&gt;Ok&lt;/code&gt;&lt;/p&gt;`,
     },
     {
       highlights: [&#x27;h2, 6, 8, 11&#x27;, &#x27;h1, 7, 26, 29&#x27;],
+      coords: [9, 9, 32],
+      notes: `&lt;p&gt;Note the &lt;code&gt;item&lt;/code&gt; value we&#x27;re getting came packeged with the &lt;code&gt;Ok&lt;/code&gt; from &lt;code&gt;Result&lt;/code&gt;&lt;/p&gt;`,
     },
     {
       addLines: [9, 11],
+      coords: [9, 22, 26],
+      notes: `&lt;p&gt;Next we create the &lt;code&gt;Err&lt;/code&gt; arm for the match expression&lt;/p&gt;`,
     },
     {
       addLines: [10],
+      coords: [9, 28, 32],
+      notes: `&lt;p&gt;Finally we add the code to run if the &lt;code&gt;Result&lt;/code&gt; from &lt;code&gt;env::var(&amp;quot;HOME&amp;quot;)&lt;/code&gt; is an &lt;code&gt;Err&lt;/code&gt;&lt;/p&gt;`,
     },
     {
       fullCode: true,
+      coords: [2, 38, 32],
+      notes: `&lt;p&gt;Put togehter, the full program looks like this.&lt;/p&gt;&lt;p&gt;Note: The output for this prototype contain two hard coded lines. The real version will just have one from the actual program&lt;/p&gt;`,
     },
   ],
 
-  output: [&#x27;line 1 of output&#x27;, &#x27;another output exampleline&#x27;],
+  output: [&#x27;example output line 1&#x27;, &#x27;example output line 2&#x27;],
 }
 
 const s = {}
@@ -1081,6 +1207,8 @@ const updateEverything = (setIndex) =&gt; {
   updateOutputLines()
   updateButtonHighlights()
   updateFullHighlights()
+  updatePositions()
+  updateNotes()
 }
 
 const updateFullHighlights = () =&gt; {
@@ -1107,9 +1235,9 @@ const updateHeader = () =&gt; {
   window.stepByStepHeader.innerHTML = headerString
 }
 
-// const updateNotes = () =&gt; {
-//   window.stepByStepNotes.innerHTML = s.notes[s.currentSet]
-// }
+const updateNotes = () =&gt; {
+  window.stepByStepNotes.innerHTML = c.sets[s.currentSet].notes
+}
 
 const updateOutputLines = () =&gt; {
   for (let i = 0; i &lt; c.output.length; i++) {
@@ -1137,6 +1265,14 @@ const updatePointers = () =&gt; {
   }
 }
 
+const updatePositions = () =&gt; {
+  const coords = c.sets[s.currentSet].coords
+  const theTop = coords[0] - 1
+  const theLeft = coords[1] + 7
+  window.stepByStepNotesSpacer.style.top = `${theTop}rem`
+  window.stepByStepNotesSpacer.style.left = `${theLeft}ch`
+  window.stepByStepNotesSpacer.style.width = `${coords[2]}ch`
+}
 const init = () =&gt; {
   s.currentSet = 0
   makeAddLineNumbersZeroBased()
@@ -1154,18 +1290,13 @@ const init = () =&gt; {
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
-</code></pre>
+</pre>
              
                 <h2>TODO</h2>
                 <ul>
                     <li>Add cookie to keep place</li> <li>Add arrow key navigation</li> <li>Make a web component</li>
                 </ul>
               
-                <h2>References</h2>
-                <ul>
-                    <li><a href=""></a></li>
-                </ul>
-                
     </main>
     <footer>
       from <a href="https://www.alanwsmith.com/">alan w. smith</a>

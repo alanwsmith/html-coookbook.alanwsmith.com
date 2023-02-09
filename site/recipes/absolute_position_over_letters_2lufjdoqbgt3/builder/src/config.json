@@ -1,0 +1,18 @@
+{
+    "TITLE": "Absolutely Position Elements Over A Specific Letter",
+    "STATUS": "draft",
+    "DESCRIPTION": "",
+    "DETAILS": [
+        "GOAL: Figure out how to position an element directly over another letter in a monospaced layout",
+        "The example below is built directly from the HTML and JavaScript code snippets that follow"
+    ],
+    "NOTES": [],
+    "TODOS": [],
+    "REFERENCES": [
+        {
+            "title": "",
+            "url": "",
+            "extra": ""
+        }
+    ]
+}
