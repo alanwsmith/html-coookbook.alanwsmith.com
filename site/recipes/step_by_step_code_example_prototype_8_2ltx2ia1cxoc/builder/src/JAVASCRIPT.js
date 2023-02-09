@@ -27,18 +27,18 @@ fn main() {
       addLines: [5, 12],
     },
 
-    // {
-    //   h1: [
-    //     {
-    //       line: 4,
-    //       range: [7, 15],
-    //     },
-    //     {
-    //       line: 5,
-    //       range: [9, 17],
-    //     },
-    //   ],
-    // },
+    {
+      h1: [
+        {
+          line: 4,
+          range: [7, 15],
+        },
+        {
+          line: 5,
+          range: [9, 17],
+        },
+      ],
+    },
 
     {
       addLines: [6, 8],
@@ -114,6 +114,17 @@ const outputLines = () => {
   }
 }
 
+const prepAddLinesConfig = () => {
+  for (let setsIndex = 0; setsIndex < c.sets.length; setsIndex++) {
+    const addData = c.sets[setsIndex].addLines
+    if (addData) {
+      for (let addIndex = 0; addIndex < addData.length; addIndex++) {
+        addData[addIndex] -= 1
+      }
+    }
+  }
+}
+
 const prepConfig = () => {
   // this turns human readeable numbers
   // into zero index based numbers for
@@ -136,6 +147,7 @@ const prepConfig = () => {
     //   }
     // }
   }
+  console.log(c.sets)
 }
 
 const prepCurrentLines = () => {
@@ -146,7 +158,8 @@ const prepCurrentLines = () => {
 }
 
 const init = () => {
-  prepConfig()
+  prepAddLinesConfig()
+  // prepConfig()
 
   loadRawLines()
   prepCurrentLines()
