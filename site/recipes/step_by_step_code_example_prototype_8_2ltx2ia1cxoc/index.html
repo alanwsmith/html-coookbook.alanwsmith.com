@@ -53,6 +53,11 @@ pre {
   font-size: 1rem;
 }
 
+#stepByStepButtonWrapper {
+  padding-top: var(--base-padding);
+  padding-left: 8ch;
+}
+
 #stepByStepCodeLines {
   background-color: var(--code-background-color);
   padding-top: var(--base-padding);
@@ -163,6 +168,10 @@ pre {
   color: #392;
 }
 
+.pad-top {
+  padding-top: 1rem;
+}
+
     </style>
     <script src="/assets/highlight/highlight.min.js"></script>
     <script>
@@ -255,7 +264,7 @@ fn main() {
     },
   ],
 
-  output: ['example output line 1', 'example output line 2'],
+  output: ['got /Users/alan', 'this is a stub to check two lines of output'],
 }
 
 const s = {}
@@ -635,11 +644,23 @@ document.addEventListener('DOMContentLoaded', init)
     </header>
     <main>
       <h1>Step By Step Code Example Prototype 8</h1>
-      <h3 id="stepByStepHeader">
-  <!-- TODO: Move this into the grid -->
-</h3>
+      <h2>Overview</h2>
+      <p>
+        This is a prototype for a step-by-step process to demonstrate code in a
+        tutorial I'm working on called
+        <a href="https://typing-rust.alanwsmith.com/">Typing Rust</a>. The goal
+        is to put descriptions for each line instead of showing a chunk of code
+        and a multi-paragraph description separately. It starts out with the
+        full code sample then goes through each step independently.
+      </p>
+      <p class="pad-top">
+        I need to dig into accessability, but I'm pleased with the progress so
+        far.
+      </p>
 
-<div id="stepByStepWrapper">
+      <h2>Example</h2>
+
+      <div id="stepByStepWrapper">
   <div id="stepByStepLineNumbers"></div>
   <div id="stepByStepPointers"></div>
   <div id="stepByStepCodeLines"></div>
@@ -653,17 +674,13 @@ document.addEventListener('DOMContentLoaded', init)
 
 <div id="stepByStepButtonWrapper"></div>
  
-                <h2>Details</h2>
+                <h2>TODO</h2>
                 <ul>
-                    <li>More exploration in making a step by step process for demonstrating code example</li>
+                    <li>Add cookie to keep place</li> <li>Add arrow key navigation</li> <li>Make a web component</li>
                 </ul>
-                  
+               
             <h2>HTML Source</h2>
-            <pre class="exampleCode" id="exampleHTMLBody" class="language-html">&lt;h3 id=&quot;stepByStepHeader&quot;&gt;
-  &lt;!-- TODO: Move this into the grid --&gt;
-&lt;/h3&gt;
-
-&lt;div id=&quot;stepByStepWrapper&quot;&gt;
+            <pre class="exampleCode" id="exampleHTMLBody" class="language-html">&lt;div id=&quot;stepByStepWrapper&quot;&gt;
   &lt;div id=&quot;stepByStepLineNumbers&quot;&gt;&lt;/div&gt;
   &lt;div id=&quot;stepByStepPointers&quot;&gt;&lt;/div&gt;
   &lt;div id=&quot;stepByStepCodeLines&quot;&gt;&lt;/div&gt;
@@ -697,6 +714,11 @@ document.addEventListener('DOMContentLoaded', init)
 
 pre {
   font-size: 1rem;
+}
+
+#stepByStepButtonWrapper {
+  padding-top: var(--base-padding);
+  padding-left: 8ch;
 }
 
 #stepByStepCodeLines {
@@ -808,6 +830,10 @@ pre {
 .newLine {
   color: #392;
 }
+
+.pad-top {
+  padding-top: 1rem;
+}
 </pre>
             
       
@@ -901,7 +927,7 @@ fn main() {
     },
   ],
 
-  output: [&#x27;example output line 1&#x27;, &#x27;example output line 2&#x27;],
+  output: [&#x27;got /Users/alan&#x27;, &#x27;this is a stub to check two lines of output&#x27;],
 }
 
 const s = {}
@@ -1261,11 +1287,6 @@ const init = () =&gt; {
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
 </pre>
-             
-                <h2>TODO</h2>
-                <ul>
-                    <li>Add cookie to keep place</li> <li>Add arrow key navigation</li> <li>Make a web component</li>
-                </ul>
               
     </main>
     <footer>

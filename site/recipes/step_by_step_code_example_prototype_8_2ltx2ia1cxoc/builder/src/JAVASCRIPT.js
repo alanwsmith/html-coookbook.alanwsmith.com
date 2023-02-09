@@ -87,7 +87,7 @@ fn main() {
     },
   ],
 
-  output: ['example output line 1', 'example output line 2'],
+  output: ['got /Users/alan', 'this is a stub to check two lines of output'],
 }
 
 const s = {}
