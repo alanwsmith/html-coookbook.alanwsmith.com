@@ -304,7 +304,7 @@ const totalLines = () => {
 }
 
 const updateButtonHighlights = () => {
-  for (let i = 0; i < s.sets.length; i++) {
+  for (let i = 0; i < c.sets.length; i++) {
     if (i === s.currentSet) {
       window[`stepByStepNumberButton_${i}`].classList.add('activeButton')
     } else {
@@ -335,6 +335,7 @@ const updateEverything = (setIndex) => {
   updateCodeLines()
   updatePointers()
   updateOutputLines()
+  updateButtonHighlights()
 }
 
 const updateHeader = () => {
