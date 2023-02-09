@@ -39,6 +39,7 @@
   --border-color-1: #fff;
   --border-color-2: #779;
   --border-radius: 0.8rem;
+  --box-shadow-color: #0008;
   --code-background-color: #002;
   --code-font-size: 1rem;
   --code-line-height: 1rem;
@@ -56,17 +57,14 @@ pre {
 
 #stepByStepButtonWrapper {
   padding-top: var(--base-padding);
-  padding-left: 8ch;
+  padding-left: 9ch;
 }
 
 #stepByStepCodeLines {
   background-color: var(--code-background-color);
   padding-top: var(--base-padding);
   padding-left: var(--lines-left-pad);
-  /*
-  padding-bottom: var(--base-padding);
   border-top-right-radius: var(--border-radius);
-  */
 }
 
 #stepByStepLineNumbers {
@@ -100,6 +98,7 @@ pre {
   padding-bottom: 1ch;
   border: 1px solid var(--border-color-1);
   border-radius: 0.4rem;
+  box-shadow: 2px 2px 4px black;
 }
 
 #stepByStepOutputLines {
@@ -142,7 +141,9 @@ pre {
   padding: 0;
   display: grid;
   grid-template-columns: 6ch 2ch 1fr;
-  line-height: 1rem;
+  line-height: var(--code-line-height);
+  border-radius: var(--border-radius);
+  box-shadow: 0.1rem 0.1rem 2.1px var(--box-shadow-color);
 }
 
 .activeButton {
@@ -169,7 +170,7 @@ pre {
   border: 1px solid black;
   border-radius: 0.3rem;
   margin-right: 0.3rem;
-  box-shadow: 0.1rem 0.1rem 2.1px black;
+  box-shadow: 0.1rem 0.1rem 2.1px var(--box-shadow-color);
 }
 
     </style>
@@ -705,22 +706,6 @@ document.addEventListener('DOMContentLoaded', init)
       <h2>Example</h2>
 
       <h3 id="step-by-step">Step By Step</h3>
-
-<!--
-<div id="stepByStepWrapper">
-  <div id="stepByStepLineNumbers"></div>
-  <div id="stepByStepPointers"></div>
-  <div id="stepByStepCodeLines"></div>
-  <div id="stepByStepOutputNumbers"></div>
-  <div id="stepByStepOutputPointers"></div>
-  <div id="stepByStepOutputLines"></div>
-  <div id="stepByStepNotesSpacer">
-    <div id="stepByStepNotes"></div>
-  </div>
-</div>
-
-<div id="stepByStepButtonWrapper"></div>
--->
  
                 <h2>TODO</h2>
                 <ul>
@@ -729,22 +714,6 @@ document.addEventListener('DOMContentLoaded', init)
                
             <h2>HTML Source</h2>
             <pre class="exampleCode" id="exampleHTMLBody" class="language-html">&lt;h3 id=&quot;step-by-step&quot;&gt;Step By Step&lt;/h3&gt;
-
-&lt;!--
-&lt;div id=&quot;stepByStepWrapper&quot;&gt;
-  &lt;div id=&quot;stepByStepLineNumbers&quot;&gt;&lt;/div&gt;
-  &lt;div id=&quot;stepByStepPointers&quot;&gt;&lt;/div&gt;
-  &lt;div id=&quot;stepByStepCodeLines&quot;&gt;&lt;/div&gt;
-  &lt;div id=&quot;stepByStepOutputNumbers&quot;&gt;&lt;/div&gt;
-  &lt;div id=&quot;stepByStepOutputPointers&quot;&gt;&lt;/div&gt;
-  &lt;div id=&quot;stepByStepOutputLines&quot;&gt;&lt;/div&gt;
-  &lt;div id=&quot;stepByStepNotesSpacer&quot;&gt;
-    &lt;div id=&quot;stepByStepNotes&quot;&gt;&lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div id=&quot;stepByStepButtonWrapper&quot;&gt;&lt;/div&gt;
---&gt;
 </pre>
              
             <h2>CSS Source</h2>
@@ -754,6 +723,7 @@ document.addEventListener('DOMContentLoaded', init)
   --border-color-1: #fff;
   --border-color-2: #779;
   --border-radius: 0.8rem;
+  --box-shadow-color: #0008;
   --code-background-color: #002;
   --code-font-size: 1rem;
   --code-line-height: 1rem;
@@ -771,17 +741,14 @@ pre {
 
 #stepByStepButtonWrapper {
   padding-top: var(--base-padding);
-  padding-left: 8ch;
+  padding-left: 9ch;
 }
 
 #stepByStepCodeLines {
   background-color: var(--code-background-color);
   padding-top: var(--base-padding);
   padding-left: var(--lines-left-pad);
-  /*
-  padding-bottom: var(--base-padding);
   border-top-right-radius: var(--border-radius);
-  */
 }
 
 #stepByStepLineNumbers {
@@ -815,6 +782,7 @@ pre {
   padding-bottom: 1ch;
   border: 1px solid var(--border-color-1);
   border-radius: 0.4rem;
+  box-shadow: 2px 2px 4px black;
 }
 
 #stepByStepOutputLines {
@@ -857,7 +825,9 @@ pre {
   padding: 0;
   display: grid;
   grid-template-columns: 6ch 2ch 1fr;
-  line-height: 1rem;
+  line-height: var(--code-line-height);
+  border-radius: var(--border-radius);
+  box-shadow: 0.1rem 0.1rem 2.1px var(--box-shadow-color);
 }
 
 .activeButton {
@@ -884,7 +854,7 @@ pre {
   border: 1px solid black;
   border-radius: 0.3rem;
   margin-right: 0.3rem;
-  box-shadow: 0.1rem 0.1rem 2.1px black;
+  box-shadow: 0.1rem 0.1rem 2.1px var(--box-shadow-color);
 }
 </pre>
             
