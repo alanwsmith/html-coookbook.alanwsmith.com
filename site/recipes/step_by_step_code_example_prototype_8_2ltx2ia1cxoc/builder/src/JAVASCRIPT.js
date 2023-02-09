@@ -3,7 +3,8 @@ const c = {
  
 fn main() { 
   let envVarResult = env::var("HOME"); 
-  match envVarResult { 
+  let envResult = env::var("HOME"); 
+  match envResult { 
     Ok(item) => { 
       println!("got {}", item); 
     } 
@@ -12,6 +13,15 @@ fn main() {
     } 
   } 
 }`,
+
+  //  highlights: ['h1|3|4|7'],
+  //  fullCode: true,
+  //   altLines: [
+  //   {
+  //     line: 5,
+  //     text: 'the quick brown fox jumps over the lazy dog',
+  //   },
+  // ],
 
   // NOTE: Only one hightlight works
   // per line right now
@@ -27,25 +37,21 @@ fn main() {
     },
     {
       addLines: [4],
-      altLines: [
-        {
-          line: 5,
-          text: 'the quick brown fox jumps over the lazy dog',
-        },
-      ],
-      highlights: ['h1|4|4|7'],
     },
     {
       addLines: [5, 12],
     },
     {
-      highlights: ['h1|3|4|7'],
+      highlights: ['h2, 4, 7, 16', 'h1, 5, 9, 18'],
     },
     {
       addLines: [6, 8],
     },
     {
       addLines: [7],
+    },
+    {
+      highlights: ['h2, 6, 8, 12', 'h1, 7, 26, 29'],
     },
     {
       addLines: [9, 11],
@@ -77,7 +83,7 @@ const addCustomHighlights = () => {
   const highlightData = c.sets[s.currentSet].highlights
   if (highlightData) {
     for (let i = 0; i < highlightData.length; i++) {
-      const parts = highlightData[i].split('|')
+      const parts = highlightData[i].split(',')
       const className = parts[0]
       const lineNum = parseInt(parts[1]) - 1
       const startChar = parseInt(parts[2]) - 1

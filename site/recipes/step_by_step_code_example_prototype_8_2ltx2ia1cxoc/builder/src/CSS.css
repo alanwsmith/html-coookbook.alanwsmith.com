@@ -1,7 +1,109 @@
+:root {
+  --active-button-color: #381;
+  --base-padding: 0.8rem;
+  --border-radius: 0.8rem;
+  --output-color: #444;
+  --border-color-1: #fff;
+  --border-color-2: #779;
+  --lines-left-pad: 1.2rem;
+  --notes-background-color: #99a;
+  --notes-font-color: black;
+  --code-background-color: black;
+}
+
 .newLine {
   color: #392;
 }
 
 .h1 {
-  color: red;
+  color: blue;
+}
+
+.h2 {
+  color: green;
+}
+
+#stepByStepNotesSpacer {
+  color: var(--notes-font-color);
+  font-family: monospace;
+  position: absolute;
+  padding: 1ch;
+  margin: 0;
+  background-color: var(--notes-background-color);
+  border-radius: 0.4rem;
+  border: 1px solid var(--border-color-1);
+}
+
+#stepByStepWrapper {
+  font-family: monospace;
+  position: relative;
+  margin-bottom: 1.3rem;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 6ch 2ch 1fr;
+  border-radius: 0.4rem;
+}
+
+#stepByStepNotes {
+  font-family: sans-serif;
+}
+
+#stepByStepNotes p:nth-child(n + 2) {
+  margin-top: 1.1rem;
+}
+
+#stepByStepLineNumbers {
+  background-color: #002;
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  padding-left: var(--base-padding);
+  border-top-left-radius: var(--border-radius);
+}
+
+#stepByStepOutputNumbers {
+  background-color: var(--output-color);
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  padding-left: var(--base-padding);
+  border-bottom-left-radius: var(--border-radius);
+}
+
+#stepByStepOutputPointers {
+  background-color: var(--output-color);
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  border-right: 1px solid var(--border-color-2);
+}
+
+#stepByStepPointers {
+  background-color: #002;
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  border-right: 1px solid var(--border-color-2);
+}
+
+#stepByStepCodeLines {
+  background-color: var(--code-background-color);
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  padding-left: var(--lines-left-pad);
+  border-top-right-radius: var(--border-radius);
+}
+
+#stepByStepOutputLines {
+  background-color: var(--output-color);
+  padding-top: var(--base-padding);
+  padding-bottom: var(--base-padding);
+  padding-left: var(--lines-left-pad);
+  border-bottom-right-radius: var(--border-radius);
+}
+
+.activeButton {
+  background-color: var(--active-button-color);
+}
+
+.examplePre {
+  background-color: #242;
+  border-radius: var(--border-radius);
+  padding: var(--base-padding);
 }
