@@ -14,8 +14,7 @@ fn main() {
 }`,
 
   // NOTE: Only one hightlight works
-  // per line. Might add more later,
-  // but that's TBD.
+  // per line right now
   sets: [
     {
       addLines: [1],
@@ -138,44 +137,6 @@ const makeAddLineNumbersZeroBased = () => {
   }
 }
 
-// const makeH1NumbersZeroBased = () => {
-//   for (let setsIndex = 0; setsIndex < c.sets.length; setsIndex++) {
-//     const h1Data = c.sets[setsIndex].h1
-//     if (h1Data) {
-//       for (let h1Index = 0; h1Index < h1Data.length; h1Index++) {
-//         console.log(h1Data[h1Index])
-//         // h1Data[h1Index] -= 1
-//       }
-//     }
-//   }
-// }
-
-// TODO: Remove this
-const prepConfig = () => {
-  // this turns human readeable numbers
-  // into zero index based numbers for
-  // working with them in code
-
-  for (let setsIndex = 0; setsIndex < c.sets.length; setsIndex++) {
-    const addData = c.sets[setsIndex].addLines
-
-    if (addData) {
-      for (let addIndex = 0; addIndex < addData.length; addIndex++) {
-        addData[addIndex] -= 1
-      }
-    }
-
-    // const h1Data = c.sets[setsIndex].h1
-
-    // if (h1Data) {
-    //   for (let h1Index = 0; h1Index < h1Data.length; h1Index++) {
-    //     console.log(h1Data[h1Index])
-    //   }
-    // }
-  }
-  console.log(c.sets)
-}
-
 const prepCurrentLines = () => {
   s.currentLines = []
   for (let i = 0; i < s.rawLines.length; i++) {
@@ -185,9 +146,6 @@ const prepCurrentLines = () => {
 
 const init = () => {
   makeAddLineNumbersZeroBased()
-  // makeH1NumbersZeroBased()
-  // prepConfig()
-
   loadRawLines()
   prepCurrentLines()
   loadInitialLines()
