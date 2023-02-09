@@ -27,10 +27,6 @@
 }
 
 #stepByStepNotes {
-  /*
-  font-family: monospace;
-  font-size: 1rem;
-  */
   font-family: sans-serif;
   font-size: 0.81rem;
 }
@@ -48,8 +44,6 @@
   margin: 0;
   border: 1px solid var(--border-color-1);
   border-radius: 0.4rem;
-  /*
-  */
 }
 
 #stepByStepWrapper {
