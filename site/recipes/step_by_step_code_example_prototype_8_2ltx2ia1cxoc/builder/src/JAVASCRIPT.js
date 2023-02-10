@@ -440,7 +440,7 @@ const updateNotes = () => {
 
 const updateOutputLines = () => {
   for (let i = 0; i < c.output.length; i++) {
-    if (s.currentSet === c.sets.length - 1 || s.currentSet === 0) {
+    if (s.currentSet === c.sets.length - 1) {
       window[`stepByStepOutputLine_${i}`].innerHTML = c.output[i]
     } else {
       // clear output for moving to previous line sets
