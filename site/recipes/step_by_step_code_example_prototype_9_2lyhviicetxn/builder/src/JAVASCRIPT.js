@@ -23,7 +23,7 @@ const removeHighlights = () => {
     '.ace_rparen',
   ]
 
-  console.log(c.lines.length)
+  // console.log(c.lines.length)
 
   const removers = []
 
@@ -34,8 +34,14 @@ const removeHighlights = () => {
         removers.push(
           `.ace-monokai .ace_line:nth-child(${lineNumber}) ${selectors[x]} { color: #888; }`
         )
-        console.log(selectors[x])
+        // console.log(selectors[x])
       }
+      removers.push(
+        `.ace-monokai .ace_line:nth-child(${lineNumber}) .ace_comment { color: green; }`
+      )
+    }
+    // set the comment color for the lines with content
+    else {
       removers.push(
         `.ace-monokai .ace_line:nth-child(${lineNumber}) .ace_comment { color: green; }`
       )
@@ -43,7 +49,7 @@ const removeHighlights = () => {
   }
 
   c.styleOverride.innerHTML = `${removers.join(' ')}`
-  console.log(c.styleOverride.innerHTML)
+  // console.log(c.styleOverride.innerHTML)
   document.body.appendChild(c.styleOverride)
 }
 
@@ -56,10 +62,17 @@ const updateContent = () => {
       parts.push('')
     }
   }
+
+  // add the notes
   const noteParts = c.sets[c.set].note.split('\n')
   for (let n = 0; n < noteParts.length; n++) {
-    // c.sets[set]noteCoords[0]; n < noteParts.length; n ++) {
-    parts[n] += noteParts[0]
+    const outputLine = n + c.sets[c.set].noteCoords[0] - 1
+    const padding = c.sets[c.set].noteCoords[1] - parts[outputLine].length - 1
+    console.log(padding)
+    for (let pad = 0; pad < padding; pad++) {
+      parts[outputLine] += ' '
+    }
+    parts[outputLine] += noteParts[n]
   }
   c.editor.setValue(parts.join('\n'), 1)
 }
@@ -75,7 +88,7 @@ const init = () => {
   c.editor.setTheme('ace/theme/monokai')
   c.editor.session.setMode('ace/mode/rust')
   c.styleOverride = document.createElement('style')
-  updateEverything(2)
+  updateEverything(1)
   removeHighlights()
 }
 

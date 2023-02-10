@@ -20,21 +20,21 @@ fn widget(thing: String) -> String {
       highlights: [1],
       note: `// create the main() function which
 // is the entry point for the program`,
-      noteCoords: [7, 7],
+      noteCoords: [5, 2],
     },
     {
       lines: [1, 2, 11],
       highlights: [2],
       note: `// create an \`alfa\` variable with
 // a String.`,
-      noteCoords: [7, 7],
+      noteCoords: [4, 3],
     },
     {
       lines: [1, 2, 3, 11],
       highlights: [2, 3],
       note: `// this is a test
 // string for testing`,
-      noteCoords: [7, 7],
+      noteCoords: [2, 50],
     },
   ],
 }
