@@ -30,24 +30,40 @@
     <link rel="stylesheet" href="/styles/fonts.css" />
     <link rel="stylesheet" href="/styles/colors.css" />
     <link rel="stylesheet" href="/styles/wrapper.css" />
-    <link rel="stylesheet" href="./highlightjs-nord-custom.min.css" />
+    <!--
+    <link
+      rel="stylesheet"
+      href="/styles/highlightjs/_custom-base16-apprentice.min.css"
+    />
+    <link rel="stylesheet" href="/styles/highlightjs/_custom-agate.min.css" />
+    <link rel="stylesheet" href="/styles/highlightjs/_custom-base16-ashes.min.css" />
+    -->
+    <link
+      rel="stylesheet"
+      href="/styles/highlightjs/_custom-base16-atelier-sulphurpool.min.css"
+    />
+
     
     <style>
       :root {
   --active-button-color: #381;
   --base-padding: 1rem;
-  --border-color-1: #fff;
-  --border-color-2: #779;
+  --border-color-1: #ccc;
+  --border-color-2: #556;
   --border-radius: 0.8rem;
-  --code-background-color: #002;
+  --box-shadow-color: #0008;
+  --code-background-color: #000;
   --code-font-size: 1rem;
-  --code-line-height: 1rem;
   --example-color: #234;
-  --line-numbers-background-color: #000;
+  --font-color-1: #888;
+  --font-color-2: #ccc;
+  --line-height: 1.3rem;
   --lines-left-pad: 2ch;
-  --notes-background-color: #bbc;
-  --notes-font-color: black;
-  --output-color: #444;
+  --line-numbers-background-color: #000;
+  --notes-background-color: #000;
+  --notes-font-color: #bbb;
+  --output-color: black;
+  --output-font-color: #ccc;
 }
 
 pre {
@@ -56,31 +72,32 @@ pre {
 
 #stepByStepButtonWrapper {
   padding-top: var(--base-padding);
-  padding-left: 8ch;
+  padding-left: 9ch;
 }
 
 #stepByStepCodeLines {
   background-color: var(--code-background-color);
-  padding-top: var(--base-padding);
-  padding-left: var(--lines-left-pad);
-  /*
-  padding-bottom: var(--base-padding);
   border-top-right-radius: var(--border-radius);
-  */
+  color: var(--font-color-1);
+  padding-bottom: calc(var(--line-height) * 2);
+  padding-left: var(--lines-left-pad);
+  padding-top: var(--base-padding);
 }
 
 #stepByStepLineNumbers {
   background-color: var(--line-numbers-background-color);
-  color: white;
+  border-top-left-radius: var(--border-radius);
+  color: var(--font-color-1);
   padding-top: var(--base-padding);
   padding-left: var(--base-padding);
   padding-bottom: var(--base-padding);
-  border-top-left-radius: var(--border-radius);
 }
 
 #stepByStepNotes {
   font-family: sans-serif;
   font-size: 0.9rem;
+  color: var(--font-color-2);
+  font-weight: 500;
 }
 
 #stepByStepNotes p:nth-child(n + 2) {
@@ -100,24 +117,29 @@ pre {
   padding-bottom: 1ch;
   border: 1px solid var(--border-color-1);
   border-radius: 0.4rem;
+  box-shadow: 2px 2px 4px black;
 }
 
 #stepByStepOutputLines {
   background-color: var(--output-color);
-  padding-top: var(--base-padding);
+  border-bottom-right-radius: var(--border-radius);
+  border-top: 1px solid var(--border-color-2);
+  color: var(--output-font-color);
   padding-bottom: var(--base-padding);
   padding-left: var(--lines-left-pad);
-  border-bottom-right-radius: var(--border-radius);
+  padding-top: var(--base-padding);
 }
 
 #stepByStepOutputNumbers {
+  color: var(--font-color-1);
+  background-color: var(--line-numbers-background-color);
+  border-bottom-left-radius: var(--border-radius);
+  border-top: 1px solid var(--border-color-2);
   font-family: monospace;
   font-size: 1rem;
-  background-color: var(--line-numbers-background-color);
-  padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   padding-left: var(--base-padding);
-  border-bottom-left-radius: var(--border-radius);
+  padding-top: var(--base-padding);
 }
 
 #stepByStepOutputPointers {
@@ -125,6 +147,7 @@ pre {
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   border-right: 1px solid var(--border-color-2);
+  border-top: 1px solid var(--border-color-2);
 }
 
 #stepByStepPointers {
@@ -142,7 +165,12 @@ pre {
   padding: 0;
   display: grid;
   grid-template-columns: 6ch 2ch 1fr;
-  line-height: 1rem;
+  line-height: var(--line-height);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color-2);
+  /*
+  box-shadow: 0.1rem 0.1rem 2.1px var(--box-shadow-color);
+  */
 }
 
 .activeButton {
@@ -150,15 +178,15 @@ pre {
 }
 
 .h1 {
-  color: blue;
+  color: #22a2c9;
 }
 
 .h2 {
-  color: green;
+  color: #ac9739;
 }
 
 .newLine {
-  color: #392;
+  color: #22a2c9;
 }
 
 .pad-top {
@@ -169,7 +197,7 @@ pre {
   border: 1px solid black;
   border-radius: 0.3rem;
   margin-right: 0.3rem;
-  box-shadow: 0.1rem 0.1rem 2.1px black;
+  box-shadow: 0.1rem 0.1rem 2.1px var(--box-shadow-color);
 }
 
     </style>
@@ -204,32 +232,32 @@ fn main() {
   sets: [
     {
       fullCode: true,
-      coords: [2, 38, 30],
+      coords: [1, 38, 30, 13],
       notes: `<p>This is the full source code example.</p><p>Click through the buttons below to explinations of for each part of the code.</p>`,
     },
     {
       addLines: [1],
-      coords: [3, 5, 30],
+      coords: [3, 10, 30],
       notes: `<p>Start by loading <code>std::env</code> which provides Rust programs with access to the Environmental Variables it runs in</p>`,
     },
     {
       addLines: [3, 13],
-      coords: [5, 5, 30],
+      coords: [5, 10, 30],
       notes: `<p>Create the <code>main</code> function that Rust uses as the entry point for the program</p>`,
     },
     {
       addLines: [4],
-      coords: [6, 7, 30],
+      coords: [6, 10, 30],
       notes: `<p>Create a new immutalbe variable called <code>alfa</code> and bind the value returned by <code>env::var(&quot;HOME&quot;)</code> to it. That value is a <code>Result</code></p>`,
     },
     {
       addLines: [5, 12],
-      coords: [7, 7, 30],
+      coords: [7, 10, 30],
       notes: `<p>Begin creating the <code>match</code> expression that we'll use to process the <code>Result</code> value that was returned from <code>env::var(&quot;HOME&quot;)</code></p>`,
     },
     {
       highlights: ['h2, 4, 7, 11', 'h1, 5, 9, 13'],
-      coords: [7, 7, 30],
+      coords: [7, 10, 30],
       notes: `<p>Note that the value <code>match</code> is working on come from the <code>alfa</code> variable</p><p>TODO: See if match transfers ownership</p>`,
     },
     {
@@ -239,27 +267,27 @@ fn main() {
     },
     {
       addLines: [7],
-      coords: [9, 10, 38],
+      coords: [9, 10, 30],
       notes: `<p>When the <code>Result</code> value in <code>alfa</code> contains an <code>Ok</code> the code inside its code block gets executed. In this case we're printing out the value that got passed in via <code>Ok</code></p>`,
     },
     {
       highlights: ['h2, 6, 8, 11', 'h1, 7, 26, 29'],
-      coords: [9, 10, 32],
+      coords: [9, 10, 30],
       notes: `<p>Note the <code>item</code> value we're getting came packeged with the <code>Ok</code> from <code>Result</code></p>`,
     },
     {
       addLines: [9, 11],
-      coords: [9, 22, 26],
+      coords: [11, 10, 30],
       notes: `<p>Next we create the <code>Err</code> arm for the match expression</p>`,
     },
     {
       addLines: [10],
-      coords: [10, 37, 30],
+      coords: [12, 10, 38],
       notes: `<p>Finally we add the code to run if the <code>Result</code> from <code>env::var(&quot;HOME&quot;)</code> is an <code>Err</code></p>`,
     },
     {
       fullCode: true,
-      coords: [2, 38, 30],
+      coords: [1, 38, 30, 13],
       notes: `<p>Put togehter, the full program looks like this.</p><p>Note: The output for this prototype contain two hard coded lines. The real version will just have one from the actual program</p>`,
     },
   ],
@@ -643,11 +671,29 @@ const updatePointers = () => {
 
 const updatePositions = () => {
   const coords = c.sets[s.currentSet].coords
-  const theTop = coords[0] - 1
   const theLeft = coords[1] + 9
-  window.stepByStepNotesSpacer.style.top = `${theTop}rem`
+  // this is a bit gross, but it pulls the line
+  // height in pixels then remove the `px` and
+  // converts the value into an it that gets used
+  // as the multiplier for the value coming in
+  // from the config
+  const heightMultiplier = parseInt(
+    window
+      .getComputedStyle(window.stepByStepCodeLines)
+      .lineHeight.split('px')[0]
+  )
+  const theTop = (coords[0] - 1) * heightMultiplier
+  window.stepByStepNotesSpacer.style.top = `${theTop}px`
   window.stepByStepNotesSpacer.style.left = `${theLeft}ch`
   window.stepByStepNotesSpacer.style.width = `${coords[2]}ch`
+
+  // set the height if one was passed
+  if (coords[3]) {
+    const theHeight = coords[3] * heightMultiplier
+    window.stepByStepNotesSpacer.style.height = `${theHeight}px`
+  } else {
+    window.stepByStepNotesSpacer.style.height = null
+  }
 }
 const init = () => {
   s.currentSet = 0
@@ -705,22 +751,6 @@ document.addEventListener('DOMContentLoaded', init)
       <h2>Example</h2>
 
       <h3 id="step-by-step">Step By Step</h3>
-
-<!--
-<div id="stepByStepWrapper">
-  <div id="stepByStepLineNumbers"></div>
-  <div id="stepByStepPointers"></div>
-  <div id="stepByStepCodeLines"></div>
-  <div id="stepByStepOutputNumbers"></div>
-  <div id="stepByStepOutputPointers"></div>
-  <div id="stepByStepOutputLines"></div>
-  <div id="stepByStepNotesSpacer">
-    <div id="stepByStepNotes"></div>
-  </div>
-</div>
-
-<div id="stepByStepButtonWrapper"></div>
--->
  
                 <h2>TODO</h2>
                 <ul>
@@ -729,40 +759,28 @@ document.addEventListener('DOMContentLoaded', init)
                
             <h2>HTML Source</h2>
             <pre class="exampleCode" id="exampleHTMLBody" class="language-html">&lt;h3 id=&quot;step-by-step&quot;&gt;Step By Step&lt;/h3&gt;
-
-&lt;!--
-&lt;div id=&quot;stepByStepWrapper&quot;&gt;
-  &lt;div id=&quot;stepByStepLineNumbers&quot;&gt;&lt;/div&gt;
-  &lt;div id=&quot;stepByStepPointers&quot;&gt;&lt;/div&gt;
-  &lt;div id=&quot;stepByStepCodeLines&quot;&gt;&lt;/div&gt;
-  &lt;div id=&quot;stepByStepOutputNumbers&quot;&gt;&lt;/div&gt;
-  &lt;div id=&quot;stepByStepOutputPointers&quot;&gt;&lt;/div&gt;
-  &lt;div id=&quot;stepByStepOutputLines&quot;&gt;&lt;/div&gt;
-  &lt;div id=&quot;stepByStepNotesSpacer&quot;&gt;
-    &lt;div id=&quot;stepByStepNotes&quot;&gt;&lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div id=&quot;stepByStepButtonWrapper&quot;&gt;&lt;/div&gt;
---&gt;
 </pre>
              
             <h2>CSS Source</h2>
             <pre class="exampleCode" id="exampleCSS" class="language-css">:root {
   --active-button-color: #381;
   --base-padding: 1rem;
-  --border-color-1: #fff;
-  --border-color-2: #779;
+  --border-color-1: #ccc;
+  --border-color-2: #556;
   --border-radius: 0.8rem;
-  --code-background-color: #002;
+  --box-shadow-color: #0008;
+  --code-background-color: #000;
   --code-font-size: 1rem;
-  --code-line-height: 1rem;
   --example-color: #234;
-  --line-numbers-background-color: #000;
+  --font-color-1: #888;
+  --font-color-2: #ccc;
+  --line-height: 1.3rem;
   --lines-left-pad: 2ch;
-  --notes-background-color: #bbc;
-  --notes-font-color: black;
-  --output-color: #444;
+  --line-numbers-background-color: #000;
+  --notes-background-color: #000;
+  --notes-font-color: #bbb;
+  --output-color: black;
+  --output-font-color: #ccc;
 }
 
 pre {
@@ -771,31 +789,32 @@ pre {
 
 #stepByStepButtonWrapper {
   padding-top: var(--base-padding);
-  padding-left: 8ch;
+  padding-left: 9ch;
 }
 
 #stepByStepCodeLines {
   background-color: var(--code-background-color);
-  padding-top: var(--base-padding);
-  padding-left: var(--lines-left-pad);
-  /*
-  padding-bottom: var(--base-padding);
   border-top-right-radius: var(--border-radius);
-  */
+  color: var(--font-color-1);
+  padding-bottom: calc(var(--line-height) * 2);
+  padding-left: var(--lines-left-pad);
+  padding-top: var(--base-padding);
 }
 
 #stepByStepLineNumbers {
   background-color: var(--line-numbers-background-color);
-  color: white;
+  border-top-left-radius: var(--border-radius);
+  color: var(--font-color-1);
   padding-top: var(--base-padding);
   padding-left: var(--base-padding);
   padding-bottom: var(--base-padding);
-  border-top-left-radius: var(--border-radius);
 }
 
 #stepByStepNotes {
   font-family: sans-serif;
   font-size: 0.9rem;
+  color: var(--font-color-2);
+  font-weight: 500;
 }
 
 #stepByStepNotes p:nth-child(n + 2) {
@@ -815,24 +834,29 @@ pre {
   padding-bottom: 1ch;
   border: 1px solid var(--border-color-1);
   border-radius: 0.4rem;
+  box-shadow: 2px 2px 4px black;
 }
 
 #stepByStepOutputLines {
   background-color: var(--output-color);
-  padding-top: var(--base-padding);
+  border-bottom-right-radius: var(--border-radius);
+  border-top: 1px solid var(--border-color-2);
+  color: var(--output-font-color);
   padding-bottom: var(--base-padding);
   padding-left: var(--lines-left-pad);
-  border-bottom-right-radius: var(--border-radius);
+  padding-top: var(--base-padding);
 }
 
 #stepByStepOutputNumbers {
+  color: var(--font-color-1);
+  background-color: var(--line-numbers-background-color);
+  border-bottom-left-radius: var(--border-radius);
+  border-top: 1px solid var(--border-color-2);
   font-family: monospace;
   font-size: 1rem;
-  background-color: var(--line-numbers-background-color);
-  padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   padding-left: var(--base-padding);
-  border-bottom-left-radius: var(--border-radius);
+  padding-top: var(--base-padding);
 }
 
 #stepByStepOutputPointers {
@@ -840,6 +864,7 @@ pre {
   padding-top: var(--base-padding);
   padding-bottom: var(--base-padding);
   border-right: 1px solid var(--border-color-2);
+  border-top: 1px solid var(--border-color-2);
 }
 
 #stepByStepPointers {
@@ -857,7 +882,12 @@ pre {
   padding: 0;
   display: grid;
   grid-template-columns: 6ch 2ch 1fr;
-  line-height: 1rem;
+  line-height: var(--line-height);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color-2);
+  /*
+  box-shadow: 0.1rem 0.1rem 2.1px var(--box-shadow-color);
+  */
 }
 
 .activeButton {
@@ -865,15 +895,15 @@ pre {
 }
 
 .h1 {
-  color: blue;
+  color: #22a2c9;
 }
 
 .h2 {
-  color: green;
+  color: #ac9739;
 }
 
 .newLine {
-  color: #392;
+  color: #22a2c9;
 }
 
 .pad-top {
@@ -884,7 +914,7 @@ pre {
   border: 1px solid black;
   border-radius: 0.3rem;
   margin-right: 0.3rem;
-  box-shadow: 0.1rem 0.1rem 2.1px black;
+  box-shadow: 0.1rem 0.1rem 2.1px var(--box-shadow-color);
 }
 </pre>
             
@@ -919,32 +949,32 @@ fn main() {
   sets: [
     {
       fullCode: true,
-      coords: [2, 38, 30],
+      coords: [1, 38, 30, 13],
       notes: `&lt;p&gt;This is the full source code example.&lt;/p&gt;&lt;p&gt;Click through the buttons below to explinations of for each part of the code.&lt;/p&gt;`,
     },
     {
       addLines: [1],
-      coords: [3, 5, 30],
+      coords: [3, 10, 30],
       notes: `&lt;p&gt;Start by loading &lt;code&gt;std::env&lt;/code&gt; which provides Rust programs with access to the Environmental Variables it runs in&lt;/p&gt;`,
     },
     {
       addLines: [3, 13],
-      coords: [5, 5, 30],
+      coords: [5, 10, 30],
       notes: `&lt;p&gt;Create the &lt;code&gt;main&lt;/code&gt; function that Rust uses as the entry point for the program&lt;/p&gt;`,
     },
     {
       addLines: [4],
-      coords: [6, 7, 30],
+      coords: [6, 10, 30],
       notes: `&lt;p&gt;Create a new immutalbe variable called &lt;code&gt;alfa&lt;/code&gt; and bind the value returned by &lt;code&gt;env::var(&amp;quot;HOME&amp;quot;)&lt;/code&gt; to it. That value is a &lt;code&gt;Result&lt;/code&gt;&lt;/p&gt;`,
     },
     {
       addLines: [5, 12],
-      coords: [7, 7, 30],
+      coords: [7, 10, 30],
       notes: `&lt;p&gt;Begin creating the &lt;code&gt;match&lt;/code&gt; expression that we&#x27;ll use to process the &lt;code&gt;Result&lt;/code&gt; value that was returned from &lt;code&gt;env::var(&amp;quot;HOME&amp;quot;)&lt;/code&gt;&lt;/p&gt;`,
     },
     {
       highlights: [&#x27;h2, 4, 7, 11&#x27;, &#x27;h1, 5, 9, 13&#x27;],
-      coords: [7, 7, 30],
+      coords: [7, 10, 30],
       notes: `&lt;p&gt;Note that the value &lt;code&gt;match&lt;/code&gt; is working on come from the &lt;code&gt;alfa&lt;/code&gt; variable&lt;/p&gt;&lt;p&gt;TODO: See if match transfers ownership&lt;/p&gt;`,
     },
     {
@@ -954,27 +984,27 @@ fn main() {
     },
     {
       addLines: [7],
-      coords: [9, 10, 38],
+      coords: [9, 10, 30],
       notes: `&lt;p&gt;When the &lt;code&gt;Result&lt;/code&gt; value in &lt;code&gt;alfa&lt;/code&gt; contains an &lt;code&gt;Ok&lt;/code&gt; the code inside its code block gets executed. In this case we&#x27;re printing out the value that got passed in via &lt;code&gt;Ok&lt;/code&gt;&lt;/p&gt;`,
     },
     {
       highlights: [&#x27;h2, 6, 8, 11&#x27;, &#x27;h1, 7, 26, 29&#x27;],
-      coords: [9, 10, 32],
+      coords: [9, 10, 30],
       notes: `&lt;p&gt;Note the &lt;code&gt;item&lt;/code&gt; value we&#x27;re getting came packeged with the &lt;code&gt;Ok&lt;/code&gt; from &lt;code&gt;Result&lt;/code&gt;&lt;/p&gt;`,
     },
     {
       addLines: [9, 11],
-      coords: [9, 22, 26],
+      coords: [11, 10, 30],
       notes: `&lt;p&gt;Next we create the &lt;code&gt;Err&lt;/code&gt; arm for the match expression&lt;/p&gt;`,
     },
     {
       addLines: [10],
-      coords: [10, 37, 30],
+      coords: [12, 10, 38],
       notes: `&lt;p&gt;Finally we add the code to run if the &lt;code&gt;Result&lt;/code&gt; from &lt;code&gt;env::var(&amp;quot;HOME&amp;quot;)&lt;/code&gt; is an &lt;code&gt;Err&lt;/code&gt;&lt;/p&gt;`,
     },
     {
       fullCode: true,
-      coords: [2, 38, 30],
+      coords: [1, 38, 30, 13],
       notes: `&lt;p&gt;Put togehter, the full program looks like this.&lt;/p&gt;&lt;p&gt;Note: The output for this prototype contain two hard coded lines. The real version will just have one from the actual program&lt;/p&gt;`,
     },
   ],
@@ -1358,11 +1388,29 @@ const updatePointers = () =&gt; {
 
 const updatePositions = () =&gt; {
   const coords = c.sets[s.currentSet].coords
-  const theTop = coords[0] - 1
   const theLeft = coords[1] + 9
-  window.stepByStepNotesSpacer.style.top = `${theTop}rem`
+  // this is a bit gross, but it pulls the line
+  // height in pixels then remove the `px` and
+  // converts the value into an it that gets used
+  // as the multiplier for the value coming in
+  // from the config
+  const heightMultiplier = parseInt(
+    window
+      .getComputedStyle(window.stepByStepCodeLines)
+      .lineHeight.split(&#x27;px&#x27;)[0]
+  )
+  const theTop = (coords[0] - 1) * heightMultiplier
+  window.stepByStepNotesSpacer.style.top = `${theTop}px`
   window.stepByStepNotesSpacer.style.left = `${theLeft}ch`
   window.stepByStepNotesSpacer.style.width = `${coords[2]}ch`
+
+  // set the height if one was passed
+  if (coords[3]) {
+    const theHeight = coords[3] * heightMultiplier
+    window.stepByStepNotesSpacer.style.height = `${theHeight}px`
+  } else {
+    window.stepByStepNotesSpacer.style.height = null
+  }
 }
 const init = () =&gt; {
   s.currentSet = 0
