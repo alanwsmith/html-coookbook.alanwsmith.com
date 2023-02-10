@@ -48,7 +48,7 @@
       :root {
   --active-button-color: #381;
   --base-padding: 1rem;
-  --border-color-1: #fff;
+  --border-color-1: #ccc;
   --border-color-2: #556;
   --border-radius: 0.8rem;
   --box-shadow-color: #0008;
@@ -56,12 +56,14 @@
   --code-font-size: 1rem;
   --example-color: #234;
   --font-color-1: #888;
+  --font-color-2: #ccc;
   --line-height: 1.3rem;
   --lines-left-pad: 2ch;
   --line-numbers-background-color: #000;
-  --notes-background-color: #aab;
-  --notes-font-color: black;
+  --notes-background-color: #000;
+  --notes-font-color: #bbb;
   --output-color: black;
+  --output-font-color: #ccc;
 }
 
 pre {
@@ -94,6 +96,8 @@ pre {
 #stepByStepNotes {
   font-family: sans-serif;
   font-size: 0.9rem;
+  color: var(--font-color-2);
+  font-weight: 500;
 }
 
 #stepByStepNotes p:nth-child(n + 2) {
@@ -120,7 +124,7 @@ pre {
   background-color: var(--output-color);
   border-bottom-right-radius: var(--border-radius);
   border-top: 1px solid var(--border-color-2);
-  color: var(--font-color-1);
+  color: var(--output-font-color);
   padding-bottom: var(--base-padding);
   padding-left: var(--lines-left-pad);
   padding-top: var(--base-padding);
@@ -174,15 +178,15 @@ pre {
 }
 
 .h1 {
-  color: #a3be8c;
+  color: #22a2c9;
 }
 
 .h2 {
-  color: #ee7;
+  color: #ac9739;
 }
 
 .newLine {
-  color: #a3be8c;
+  color: #22a2c9;
 }
 
 .pad-top {
@@ -761,7 +765,7 @@ document.addEventListener('DOMContentLoaded', init)
             <pre class="exampleCode" id="exampleCSS" class="language-css">:root {
   --active-button-color: #381;
   --base-padding: 1rem;
-  --border-color-1: #fff;
+  --border-color-1: #ccc;
   --border-color-2: #556;
   --border-radius: 0.8rem;
   --box-shadow-color: #0008;
@@ -769,12 +773,14 @@ document.addEventListener('DOMContentLoaded', init)
   --code-font-size: 1rem;
   --example-color: #234;
   --font-color-1: #888;
+  --font-color-2: #ccc;
   --line-height: 1.3rem;
   --lines-left-pad: 2ch;
   --line-numbers-background-color: #000;
-  --notes-background-color: #aab;
-  --notes-font-color: black;
+  --notes-background-color: #000;
+  --notes-font-color: #bbb;
   --output-color: black;
+  --output-font-color: #ccc;
 }
 
 pre {
@@ -807,6 +813,8 @@ pre {
 #stepByStepNotes {
   font-family: sans-serif;
   font-size: 0.9rem;
+  color: var(--font-color-2);
+  font-weight: 500;
 }
 
 #stepByStepNotes p:nth-child(n + 2) {
@@ -833,7 +841,7 @@ pre {
   background-color: var(--output-color);
   border-bottom-right-radius: var(--border-radius);
   border-top: 1px solid var(--border-color-2);
-  color: var(--font-color-1);
+  color: var(--output-font-color);
   padding-bottom: var(--base-padding);
   padding-left: var(--lines-left-pad);
   padding-top: var(--base-padding);
@@ -887,15 +895,15 @@ pre {
 }
 
 .h1 {
-  color: #a3be8c;
+  color: #22a2c9;
 }
 
 .h2 {
-  color: #ee7;
+  color: #ac9739;
 }
 
 .newLine {
-  color: #a3be8c;
+  color: #22a2c9;
 }
 
 .pad-top {
