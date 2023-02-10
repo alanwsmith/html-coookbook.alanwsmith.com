@@ -5,7 +5,24 @@ const loadLines = () => {
 const removeHighlights = () => {
   console.log('removeHighlights')
 
-  const selectors = ['.ace_keyword', '.ace_lparen', '.ace_rparen']
+  const selectors = [
+    '.ace_keyword',
+    '.ace_lparen',
+    '.ace_source',
+    '.ace_rust',
+    '.ace_paren',
+    '.ace_function',
+    '.ace_entity',
+    '.ace_identifier',
+    '.ace_operator',
+    '.ace_support',
+    '.ace_constant',
+    '.ace_quoted',
+    '.ace_string',
+    '.ace_double',
+    '.ace_punctuation',
+    '.ace_rparen',
+  ]
 
   console.log(c.lines.length)
 

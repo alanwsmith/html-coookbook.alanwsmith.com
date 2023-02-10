@@ -99,7 +99,24 @@ fn widget(thing: String) -> String {
 const removeHighlights = () => {
   console.log('removeHighlights')
 
-  const selectors = ['.ace_keyword', '.ace_lparen', '.ace_rparen']
+  const selectors = [
+    '.ace_keyword',
+    '.ace_lparen',
+    '.ace_source',
+    '.ace_rust',
+    '.ace_paren',
+    '.ace_function',
+    '.ace_entity',
+    '.ace_identifier',
+    '.ace_operator',
+    '.ace_support',
+    '.ace_constant',
+    '.ace_quoted',
+    '.ace_string',
+    '.ace_double',
+    '.ace_punctuation',
+    '.ace_rparen',
+  ]
 
   console.log(c.lines.length)
 
@@ -248,7 +265,24 @@ document.addEventListener('DOMContentLoaded', init)
 const removeHighlights = () =&gt; {
   console.log(&#x27;removeHighlights&#x27;)
 
-  const selectors = [&#x27;.ace_keyword&#x27;, &#x27;.ace_lparen&#x27;, &#x27;.ace_rparen&#x27;]
+  const selectors = [
+    &#x27;.ace_keyword&#x27;,
+    &#x27;.ace_lparen&#x27;,
+    &#x27;.ace_source&#x27;,
+    &#x27;.ace_rust&#x27;,
+    &#x27;.ace_paren&#x27;,
+    &#x27;.ace_function&#x27;,
+    &#x27;.ace_entity&#x27;,
+    &#x27;.ace_identifier&#x27;,
+    &#x27;.ace_operator&#x27;,
+    &#x27;.ace_support&#x27;,
+    &#x27;.ace_constant&#x27;,
+    &#x27;.ace_quoted&#x27;,
+    &#x27;.ace_string&#x27;,
+    &#x27;.ace_double&#x27;,
+    &#x27;.ace_punctuation&#x27;,
+    &#x27;.ace_rparen&#x27;,
+  ]
 
   console.log(c.lines.length)
 
