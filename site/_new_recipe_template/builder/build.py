@@ -121,37 +121,37 @@ class Builder():
         if self.parts['HEAD'] != '':
             self.parts['ESCAPED_HEAD'] = f'''
             <h2>&lt;head&gt; Source</h2>
-            <pre class="exampleCode" id="exampleHead" class="language-html">{escape(self.parts['HEAD'])}</pre>
+            <pre class="exampleCode" id="exampleHead"><code class="language-html">{escape(self.parts['HEAD'])}</code></pre>
             '''
 
         if self.parts['BODY'] != '':
             self.parts['ESCAPED_BODY'] = f'''
             <h2>HTML Source</h2>
-            <pre class="exampleCode" id="exampleHTMLBody" class="language-html">{escape(self.parts['BODY'])}</pre>
+            <pre class="exampleCode" id="exampleHTMLBody"><code class="language-html">{escape(self.parts['BODY'])}</code></pre>
             '''
 
         if self.parts['CSS'] != '':
             self.parts['ESCAPED_CSS'] = f'''
             <h2>CSS Source</h2>
-            <pre class="exampleCode" id="exampleCSS" class="language-css">{escape(self.parts['CSS'])}</pre>
+            <pre class="exampleCode" id="exampleCSS"><code class="language-css">{escape(self.parts['CSS'])}</code></pre>
             '''
 
         if self.parts['JAVASCRIPT'] != '':
             self.parts['ESCAPED_JAVASCRIPT'] = f'''
             <h2>JavaScript Source</h2>
-            <pre class="exampleCode" id="exampleJS" class="language-js">{escape(self.parts['JAVASCRIPT'])}</pre>
+            <pre class="exampleCode" id="exampleJS"><code class="language-js">{escape(self.parts['JAVASCRIPT'])}</code></pre>
             '''
 
         if self.parts['data'] != '':
             self.parts['ESCAPED_DATA'] = f'''
             <h2>JSON Data Source</h2>
-            <pre class="exampleCode" id="exampleJSON" class="language-json">{escape(self.parts['data'])}</pre>
+            <pre class="exampleCode" id="exampleJSON"><code class="language-json">{escape(self.parts['data'])}</code></pre>
             '''
 
         if self.parts['CONFIG'] != '':
             self.parts['ESCAPED_CONFIG'] = f'''
             <h2>Config JS Source</h2>
-            <pre class="exampleCode" id="exampleCONFIG" class="language-js">{escape(self.parts['CONFIG'])}</pre>
+            <pre class="exampleCode" id="exampleCONFIG"><code class="language-js">{escape(self.parts['CONFIG'])}</code></pre>
             '''
 
 if __name__ == "__main__":
