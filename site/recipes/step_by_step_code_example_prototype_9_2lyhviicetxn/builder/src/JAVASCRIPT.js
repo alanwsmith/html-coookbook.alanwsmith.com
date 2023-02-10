@@ -87,7 +87,7 @@ const loadLines = () => {
 }
 
 const removeHighlights = () => {
-  console.log('removeHighlights')
+  // console.log('removeHighlights')
 
   // bail if no lines were selected
   //
@@ -159,11 +159,18 @@ const updateContent = () => {
   for (let n = 0; n < noteParts.length; n++) {
     const outputLine = n + c.sets[c.set].noteCoords[0] - 1
     const padding = c.sets[c.set].noteCoords[1] - parts[outputLine].length - 1
-    console.log(padding)
+    // console.log(padding)
     for (let pad = 0; pad < padding; pad++) {
       parts[outputLine] += ' '
     }
     parts[outputLine] += noteParts[n]
+  }
+
+  if (c.sets[c.set].overrides) {
+    for (let o = 0; o < c.sets[c.set].overrides.length; o++) {
+      const override = c.sets[c.set].overrides[0]
+      parts[override.line - 1] = override.text
+    }
   }
 
   c.editor.setValue(parts.join('\n'), 1)

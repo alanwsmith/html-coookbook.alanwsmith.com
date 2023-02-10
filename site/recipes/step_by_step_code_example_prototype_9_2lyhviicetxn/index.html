@@ -66,10 +66,10 @@ fn widget(thing: String) -> String {
     {
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       highlights: [],
-      overrides: [],
       note: `// Full source code`,
       noteCoords: [1, 40],
     },
+
     {
       lines: [7, 11],
       highlights: [7, 11],
@@ -78,30 +78,99 @@ fn widget(thing: String) -> String {
 // Start by creating a basic \`widget()\` 
 // function
 
+
 `,
-      noteCoords: [4, 0],
+      noteCoords: [3, 0],
     },
 
     {
-      lines: [1, 2, 11],
-      highlights: [1, 2, 11],
+      lines: [7, 11],
+      highlights: [7],
+      overrides: [{ line: 7, text: `fn widget(thing: String) {` }],
+      note: `
+// Setup \`widget\` to accept a \`String\` 
+// argument and bind it to the local 
+// variable \`thing\`
+
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 11],
+      highlights: [7],
+      overrides: [{ line: 7, text: `fn widget(thing: String) -> String {` }],
+      note: `
+// Add a \`String\` return type
+
+
+
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 8, 11],
+      highlights: [8],
+      note: `
+// Create a \`println!()\` output that shows
+// the \`thing\` variable that gets passed
+// into the function
+
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 8, 9, 10, 11],
+      highlights: [9, 10],
+      note: `
+// Create a \`bravo\` variable and assign it a 
+// \`String\` so it matches the return type then 
+// return it as the last expression of the function
+
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [1, 2, 5, 7, 8, 9, 10, 11],
+      highlights: [1, 2, 5],
       overrides: [],
+      noteCoords: [1, 40],
       note: `
 // Create the \`main()\` function and a
-// variable with a String bound to it. 
+// variable named \`alfa\` with a \`String\` 
+// bound to it. 
 
 `,
-      noteCoords: [4, 3],
     },
+
     {
-      lines: [1, 2, 3, 11],
-      highlights: [2, 3],
+      lines: [1, 2, 3, 5, 7, 8, 9, 10, 11],
+      highlights: [3],
       overrides: [],
+      noteCoords: [1, 40],
       note: `
-// this is a test
-// string for testing`,
-      noteCoords: [2, 50],
+// Add a variable named \`charlie\` that 
+// passes the \`alfa\` variable to \`widget\`
+
+`,
     },
+
+    {
+      lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
+      highlights: [4],
+      overrides: [],
+      noteCoords: [1, 40],
+      note: `
+// Finally print out the value in 
+// \`charlie\` to show the value it
+// received from \`widget\`
+
+`,
+    },
+
     {
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       highlights: [],
@@ -201,7 +270,7 @@ const loadLines = () => {
 }
 
 const removeHighlights = () => {
-  console.log('removeHighlights')
+  // console.log('removeHighlights')
 
   // bail if no lines were selected
   //
@@ -273,11 +342,18 @@ const updateContent = () => {
   for (let n = 0; n < noteParts.length; n++) {
     const outputLine = n + c.sets[c.set].noteCoords[0] - 1
     const padding = c.sets[c.set].noteCoords[1] - parts[outputLine].length - 1
-    console.log(padding)
+    // console.log(padding)
     for (let pad = 0; pad < padding; pad++) {
       parts[outputLine] += ' '
     }
     parts[outputLine] += noteParts[n]
+  }
+
+  if (c.sets[c.set].overrides) {
+    for (let o = 0; o < c.sets[c.set].overrides.length; o++) {
+      const override = c.sets[c.set].overrides[0]
+      parts[override.line - 1] = override.text
+    }
   }
 
   c.editor.setValue(parts.join('\n'), 1)
@@ -439,7 +515,7 @@ const loadLines = () =&gt; {
 }
 
 const removeHighlights = () =&gt; {
-  console.log(&#x27;removeHighlights&#x27;)
+  // console.log(&#x27;removeHighlights&#x27;)
 
   // bail if no lines were selected
   //
@@ -511,11 +587,18 @@ const updateContent = () =&gt; {
   for (let n = 0; n &lt; noteParts.length; n++) {
     const outputLine = n + c.sets[c.set].noteCoords[0] - 1
     const padding = c.sets[c.set].noteCoords[1] - parts[outputLine].length - 1
-    console.log(padding)
+    // console.log(padding)
     for (let pad = 0; pad &lt; padding; pad++) {
       parts[outputLine] += &#x27; &#x27;
     }
     parts[outputLine] += noteParts[n]
+  }
+
+  if (c.sets[c.set].overrides) {
+    for (let o = 0; o &lt; c.sets[c.set].overrides.length; o++) {
+      const override = c.sets[c.set].overrides[0]
+      parts[override.line - 1] = override.text
+    }
   }
 
   c.editor.setValue(parts.join(&#x27;\n&#x27;), 1)
@@ -572,10 +655,10 @@ fn widget(thing: String) -&gt; String {
     {
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       highlights: [],
-      overrides: [],
       note: `// Full source code`,
       noteCoords: [1, 40],
     },
+
     {
       lines: [7, 11],
       highlights: [7, 11],
@@ -584,30 +667,99 @@ fn widget(thing: String) -&gt; String {
 // Start by creating a basic \`widget()\` 
 // function
 
+
 `,
-      noteCoords: [4, 0],
+      noteCoords: [3, 0],
     },
 
     {
-      lines: [1, 2, 11],
-      highlights: [1, 2, 11],
+      lines: [7, 11],
+      highlights: [7],
+      overrides: [{ line: 7, text: `fn widget(thing: String) {` }],
+      note: `
+// Setup \`widget\` to accept a \`String\` 
+// argument and bind it to the local 
+// variable \`thing\`
+
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 11],
+      highlights: [7],
+      overrides: [{ line: 7, text: `fn widget(thing: String) -&gt; String {` }],
+      note: `
+// Add a \`String\` return type
+
+
+
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 8, 11],
+      highlights: [8],
+      note: `
+// Create a \`println!()\` output that shows
+// the \`thing\` variable that gets passed
+// into the function
+
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 8, 9, 10, 11],
+      highlights: [9, 10],
+      note: `
+// Create a \`bravo\` variable and assign it a 
+// \`String\` so it matches the return type then 
+// return it as the last expression of the function
+
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [1, 2, 5, 7, 8, 9, 10, 11],
+      highlights: [1, 2, 5],
       overrides: [],
+      noteCoords: [1, 40],
       note: `
 // Create the \`main()\` function and a
-// variable with a String bound to it. 
+// variable named \`alfa\` with a \`String\` 
+// bound to it. 
 
 `,
-      noteCoords: [4, 3],
     },
+
     {
-      lines: [1, 2, 3, 11],
-      highlights: [2, 3],
+      lines: [1, 2, 3, 5, 7, 8, 9, 10, 11],
+      highlights: [3],
       overrides: [],
+      noteCoords: [1, 40],
       note: `
-// this is a test
-// string for testing`,
-      noteCoords: [2, 50],
+// Add a variable named \`charlie\` that 
+// passes the \`alfa\` variable to \`widget\`
+
+`,
     },
+
+    {
+      lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
+      highlights: [4],
+      overrides: [],
+      noteCoords: [1, 40],
+      note: `
+// Finally print out the value in 
+// \`charlie\` to show the value it
+// received from \`widget\`
+
+`,
+    },
+
     {
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       highlights: [],

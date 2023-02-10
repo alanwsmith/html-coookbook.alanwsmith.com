@@ -18,10 +18,10 @@ fn widget(thing: String) -> String {
     {
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       highlights: [],
-      overrides: [],
       note: `// Full source code`,
       noteCoords: [1, 40],
     },
+
     {
       lines: [7, 11],
       highlights: [7, 11],
@@ -30,30 +30,99 @@ fn widget(thing: String) -> String {
 // Start by creating a basic \`widget()\` 
 // function
 
+
 `,
-      noteCoords: [4, 0],
+      noteCoords: [3, 0],
     },
 
     {
-      lines: [1, 2, 11],
-      highlights: [1, 2, 11],
+      lines: [7, 11],
+      highlights: [7],
+      overrides: [{ line: 7, text: `fn widget(thing: String) {` }],
+      note: `
+// Setup \`widget\` to accept a \`String\` 
+// argument and bind it to the local 
+// variable \`thing\`
+
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 11],
+      highlights: [7],
+      overrides: [{ line: 7, text: `fn widget(thing: String) -> String {` }],
+      note: `
+// Add a \`String\` return type
+
+
+
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 8, 11],
+      highlights: [8],
+      note: `
+// Create a \`println!()\` output that shows
+// the \`thing\` variable that gets passed
+// into the function
+
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 8, 9, 10, 11],
+      highlights: [9, 10],
+      note: `
+// Create a \`bravo\` variable and assign it a 
+// \`String\` so it matches the return type then 
+// return it as the last expression of the function
+
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [1, 2, 5, 7, 8, 9, 10, 11],
+      highlights: [1, 2, 5],
       overrides: [],
+      noteCoords: [1, 40],
       note: `
 // Create the \`main()\` function and a
-// variable with a String bound to it. 
+// variable named \`alfa\` with a \`String\` 
+// bound to it. 
 
 `,
-      noteCoords: [4, 3],
     },
+
     {
-      lines: [1, 2, 3, 11],
-      highlights: [2, 3],
+      lines: [1, 2, 3, 5, 7, 8, 9, 10, 11],
+      highlights: [3],
       overrides: [],
+      noteCoords: [1, 40],
       note: `
-// this is a test
-// string for testing`,
-      noteCoords: [2, 50],
+// Add a variable named \`charlie\` that 
+// passes the \`alfa\` variable to \`widget\`
+
+`,
     },
+
+    {
+      lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
+      highlights: [4],
+      overrides: [],
+      noteCoords: [1, 40],
+      note: `
+// Finally print out the value in 
+// \`charlie\` to show the value it
+// received from \`widget\`
+
+`,
+    },
+
     {
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       highlights: [],
