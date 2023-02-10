@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cookbook Recipe Template - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <title>-- New Recipe In Progress -- - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Cookbook Recipe Template" />
+    <meta property="og:title" content="-- New Recipe In Progress --" />
     <meta property="og:description" content="" />
     <meta
       property="og:image"
-      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630/c_fit,co_rgb:222222,l_text:Helvetica_72_bold:Cookbook%20Recipe%20Template,w_1080,h_480/fl_layer_apply,g_north_west,x_70,y_70/og-images/html-css-js--og-2022-10-24-blank.png"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630,w_1200,h_630,c_fit,w_940,h_540,co_rgb:eeeeee,l_text:Helvetica_94_bold:--%20New%20Recipe%20In%20Progress%20--/fl_layer_apply,g_north_west,x_60,y_60/co_rgb:666666,l_text:Inconsolata_36_bold:from%20alan%20w.%20smith/fl_layer_apply,g_south_east,x_196,y_40/og-images/black-with-white-line.jpg"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site:id" content="@TheIdOfAlan" />
@@ -25,57 +25,90 @@
       sizes="180x180"
       href="/favicons/180x180.png"
     />
-    <link rel="stylesheet" href="/styles/global.css" />
-    <link rel="stylesheet" href="/styles/prism.css" />
-    <!-- Content for &lt;head&gt; goes here -->
 
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/fonts.css" />
+    <link rel="stylesheet" href="/styles/colors.css" />
+    <link rel="stylesheet" href="/styles/wrapper.css" />
+    <link rel="stylesheet" href="/styles/prism-customized.css" />
+    
     <style>
-      /* Any styles for the page go here */
-
+      
     </style>
     <script>
-      const kickoff = () => {
-    console.log("kickoff")
+      // This file can be used to represent
+// and data that should be held outside
+// of the main script
+
+const c = {
+  alfa: 'bravo',
 }
 
-document.addEventListener('DOMContentLoaded', kickoff)
+      const init = () => {
+  console.log('init')
+  console.log(c.alfa)
+}
+
+document.addEventListener('DOMContentLoaded', init)
 
     </script>
   </head>
   <body class="line-numbers">
     <header>
-      <a href="/">Cookbook Home----------</a> ~
-      <a href="https://www.alanwsmith.com/">alanwsmith.com</a> ~
+      <a href="/">cookbook home</a> ~
+      <a href="https://www.alanwsmith.com/">main site</a> ~
       <a href="https://links.alanwsmith.com">links</a> ~
       <a href="https://podcast.alanwsmith.com/">podcast</a> ~
-      <a href="https://https://twitter.com/TheIdOfAlan">twitter</a>
+      <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
     </header>
     <main>
-      <h1>Cookbook Recipe Template</h1>
-      <h2>TL;DR</h2>
-      <p>A template for making recipes</p>
- 
-            <h2>&lt;head&gt;</h2>
-            <pre><code class="language-html">&lt;!-- Content for &amp;lt;head&amp;gt; goes here --&gt;
-</code></pre>
-             
-            <h2>HTML</h2>
-            <pre><code class="language-html">&lt;p&gt;A template for making recipes&lt;/p&gt;
-</code></pre>
-             
-            <h2>CSS</h2>
-            <pre><code class="language-css">/* Any styles for the page go here */
-</code></pre>
-             
-            <h2>JavaScript</h2>
-            <pre><code class="language-js">const kickoff = () =&gt; {
-    console.log(&quot;kickoff&quot;)
+      <h1>-- New Recipe In Progress --</h1>
+      
+                <h2>Details</h2>
+                <ul>
+                    <li>The example below is built directly from the HTML and JavaScript code snippets that follow</li>
+                </ul>
+                
+
+      <h2>EXAMPLE</h2>
+      <p>the quick brown fox</p>
+
+
+      <br />
+      <br />
+      <br />
+      <hr />
+       
+            <h2>HTML Source</h2>
+            <pre class="exampleCode" id="exampleHTMLBody" class="language-html">&lt;p&gt;the quick brown fox&lt;/p&gt;
+</pre>
+              
+            <h2>JavaScript Source</h2>
+            <pre class="exampleCode" id="exampleJS" class="language-js">const init = () =&gt; {
+  console.log(&#x27;init&#x27;)
+  console.log(c.alfa)
 }
 
-document.addEventListener(&#x27;DOMContentLoaded&#x27;, kickoff)
-</code></pre>
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
+</pre>
+             
+            <h2>JSON Data Source</h2>
+            <pre class="exampleCode" id="exampleJSON" class="language-json">{
+  &quot;note&quot;: &quot;Example JSON data file&quot;
+}
+</pre>
             
-         
+      
+            <h2>Config JS Source</h2>
+            <pre class="exampleCode" id="exampleCONFIG" class="language-js">// This file can be used to represent
+// and data that should be held outside
+// of the main script
+
+const c = {
+  alfa: &#x27;bravo&#x27;,
+}
+</pre>
+               
                 <h2>References</h2>
                 <ul>
                     <li><a href=""></a></li>
@@ -83,11 +116,7 @@ document.addEventListener(&#x27;DOMContentLoaded&#x27;, kickoff)
                 
     </main>
     <footer>
-      made by <a href="https://twitter.com/TheIdOfAlan">alan w. smith</a>
-      <br />
-      who has a <a href="https://www.alanwsmith.com">website</a> and a
-      <a href="https://podcast.alanwsmith.com/">podcast</a> <br />
-      among other <a href="https://links.alanwsmith.com">things</a>
+      from <a href="https://www.alanwsmith.com/">alan w. smith</a>
     </footer>
     <script src="/styles/prism.js"></script>
   </body>

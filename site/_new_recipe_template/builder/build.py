@@ -6,8 +6,9 @@ import re
 import urllib.parse
 
 from datetime import datetime
-from string import Template
 from html import escape
+from shutil import copy2
+from string import Template
 
 class Builder():
     def __init__(self):
@@ -110,6 +111,7 @@ class Builder():
             self.parts['REFERENCES'] = ''
 
     def do_output(self):
+        copy2(f"{self.source_dir}/data.json", f"{self.base_dir}/data.json")
         skeleton = Template(self.parts['TEMPLATE'])
         output = skeleton.substitute(self.parts)
         with open(f"{self.base_dir}/index.html", 'w') as _output:
@@ -140,58 +142,29 @@ class Builder():
             <pre class="exampleCode" id="exampleJS" class="language-js">{escape(self.parts['JAVASCRIPT'])}</pre>
             '''
 
+        if self.parts['data'] != '':
+            self.parts['ESCAPED_DATA'] = f'''
+            <h2>JSON Data Source</h2>
+            <pre class="exampleCode" id="exampleJSON" class="language-json">{escape(self.parts['data'])}</pre>
+            '''
 
-
-
-
-
-# for part in parts:
-#     print('-----------------')
-#     print(parts)
-
-
-# with open(f'{source_dir}/src/head.html') as _head:
-#     head = _head.read()
-# with open(f'{source_dir}/src/script.js') as _script:
-#     script = _script.read()
-# with open(f'{source_dir}/src/css.css') as _css:
-#     css = _css.read()
-# with open(f'{source_dir}/src/template.html') as _template:
-#     template = _template.read()
-
-# references = []
-# for reference in config['references']:
-#     references.append(f'''
-# <li><a href="{reference['url']}">{reference['title']}</a><br />{reference['extra']}</li>
-# ''')
-#     print(reference)
-
-# skeleton = Template(parts['TEMPLATE'])
-
-# output = skeleton.substitute(
-#     parts
-#     # {
-#     #     "TITLE": config['TITLE'],
-#     #     "DESCRIPTION": config['DESCRIPTION'],
-#     #     "IMAGESLUG": urllib.parse.quote(config['TITLE']),
-#     # }
-#     # # CONTENT=content,
-#     # HEAD=parts['HEAD'],
-#     # STYLES=parts['STYLES'],
-#     # SCRIPT=parts['SCRIPT']
-#     # # ESCAPED_HTML=escape(content),
-#     # # ESCAPED_JS=escape(js),
-#     # # REFERENCES="\n".join(references),
-# )
-
-# with open(f'{base_dir}/index.html', 'w') as _output:
-#     _output.write(output)
-
-
+        if self.parts['CONFIG'] != '':
+            self.parts['ESCAPED_CONFIG'] = f'''
+            <h2>Config JS Source</h2>
+            <pre class="exampleCode" id="exampleCONFIG" class="language-js">{escape(self.parts['CONFIG'])}</pre>
+            '''
 
 if __name__ == "__main__":
     b = Builder()
-    b.content_files = ['BODY.html', 'HEAD.html', 'JAVASCRIPT.js', 'CSS.css', 'TEMPLATE.html']
+    b.content_files = [
+            'BODY.html', 
+            'CONFIG.js',
+            'CSS.css', 
+            'data.json', 
+            'HEAD.html', 
+            'JAVASCRIPT.js', 
+            'TEMPLATE.html', 
+        ]
     b.load_config()
     b.load_parts()
     b.escape_parts()
