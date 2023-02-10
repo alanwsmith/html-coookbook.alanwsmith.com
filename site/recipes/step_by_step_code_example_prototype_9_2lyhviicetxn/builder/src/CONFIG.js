@@ -16,10 +16,16 @@ fn widget(thing: String) -> String {
 }`,
   sets: [
     {
-      lines: [1],
+      lines: [1, 11],
+      highlights: [1],
     },
     {
-      lines: [3],
+      lines: [1, 2, 11],
+      highlights: [2],
+    },
+    {
+      lines: [1, 2, 3, 11],
+      highlights: [2, 3],
     },
   ],
 }
