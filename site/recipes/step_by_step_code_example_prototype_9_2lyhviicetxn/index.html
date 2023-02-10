@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Step By Step Code Example Prototype V9 - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Step By Step Code Example Prototype V9" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630,w_1200,h_630,c_fit,w_940,h_540,co_rgb:eeeeee,l_text:Helvetica_94_bold:Step%20By%20Step%20Code%20Example%20Prototype%20V9/fl_layer_apply,g_north_west,x_60,y_60/co_rgb:666666,l_text:Inconsolata_36_bold:from%20alan%20w.%20smith/fl_layer_apply,g_south_east,x_196,y_40/og-images/black-with-white-line.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/fonts.css" />
+    <link rel="stylesheet" href="/styles/colors.css" />
+    <link rel="stylesheet" href="/styles/wrapper.css" />
+    
+
+    <style>
+       #editor {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+    </style>
+
+    <!--
+    <link
+      rel="stylesheet"
+      href="/styles/highlightjs/_custom-base16-atelier-sulphurpool.min.css"
+    />
+    <script src="/assets/highlight/highlight.min.js"></script>
+-->
+
+    <script
+      src="/ace-editor/ace.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+
+    <script>
+      // This file can be used to represent
+// and data that should be held outside
+// of the main script
+
+const s = {
+  source: `fn main() {
+  println!("Hello, World");
+}`,
+  sets: [
+    {
+      lines: [1],
+    },
+    {
+      lines: [1, 2],
+    },
+  ],
+}
+
+      /*
+let editor
+
+
+
+
+const init = () => {
+  console.log('init')
+  loadLines()
+  editor = window.stepByStepContent
+  updateContent(1)
+  console.log(s)
+}
+
+*/
+
+const loadLines = () => {
+  s.lines = s.source.split('\n')
+}
+
+const updateContent = (setIndex) => {
+  s.setIndex = setIndex
+  parts = []
+  for (let i = 0; i <= s.setIndex; i++) {
+    parts.push(s.lines[i])
+  }
+  s.editor.setValue(parts.join('\n'), 1)
+}
+
+const init = () => {
+  loadLines()
+  s.editor = ace.edit('editor')
+  s.editor.setTheme('ace/theme/monokai')
+  s.editor.session.setMode('ace/mode/rust')
+  updateContent(1)
+}
+
+document.addEventListener('DOMContentLoaded', init)
+
+
+      /*
+      const doHighlightJs = () => {
+        hljs.highlightAll()
+      }
+      document.addEventListener('DOMContentLoaded', doHighlightJs)
+      */
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">cookbook home</a> ~
+      <a href="https://www.alanwsmith.com/">main site</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
+    </header>
+    <main>
+      <h1>Step By Step Code Example Prototype V9</h1>
+      
+                <h2>Details</h2>
+                <ul>
+                    <li>The example below is built directly from the HTML and JavaScript code snippets that follow</li> <li>The goal is to produce a step by step example to use with Rust playgrounds on typing-rust.alanwsmith.com</li> <li>This one uses the ace editor.</li>
+                </ul>
+                
+
+      <h2>EXAMPLE</h2>
+      <!-- prettier-ignore -->
+<div id="editor"></div>
+
+<script>
+</script>
+
+<pre><code id="stepByStepContent" class="language-rust"></code></pre>
+
+
+      <br />
+      <br />
+      <br />
+      <hr />
+       
+            <h2>HTML Source</h2>
+            <pre class="exampleCode" id="exampleHTMLBody"><code class="language-html">&lt;!-- prettier-ignore --&gt;
+&lt;div id=&quot;editor&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+&lt;/script&gt;
+
+&lt;pre&gt;&lt;code id=&quot;stepByStepContent&quot; class=&quot;language-rust&quot;&gt;&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
+              
+            <h2>JavaScript Source</h2>
+            <pre class="exampleCode" id="exampleJS"><code class="language-js">/*
+let editor
+
+
+
+
+const init = () =&gt; {
+  console.log(&#x27;init&#x27;)
+  loadLines()
+  editor = window.stepByStepContent
+  updateContent(1)
+  console.log(s)
+}
+
+*/
+
+const loadLines = () =&gt; {
+  s.lines = s.source.split(&#x27;\n&#x27;)
+}
+
+const updateContent = (setIndex) =&gt; {
+  s.setIndex = setIndex
+  parts = []
+  for (let i = 0; i &lt;= s.setIndex; i++) {
+    parts.push(s.lines[i])
+  }
+  s.editor.setValue(parts.join(&#x27;\n&#x27;), 1)
+}
+
+const init = () =&gt; {
+  loadLines()
+  s.editor = ace.edit(&#x27;editor&#x27;)
+  s.editor.setTheme(&#x27;ace/theme/monokai&#x27;)
+  s.editor.session.setMode(&#x27;ace/mode/rust&#x27;)
+  updateContent(1)
+}
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
+</code></pre>
+             
+            <h2>JSON Data Source</h2>
+            <pre class="exampleCode" id="exampleJSON"><code class="language-json">{
+  &quot;note&quot;: &quot;Example JSON data file&quot;
+}
+</code></pre>
+            
+      
+            <h2>Config JS Source</h2>
+            <pre class="exampleCode" id="exampleCONFIG"><code class="language-js">// This file can be used to represent
+// and data that should be held outside
+// of the main script
+
+const s = {
+  source: `fn main() {
+  println!(&quot;Hello, World&quot;);
+}`,
+  sets: [
+    {
+      lines: [1],
+    },
+    {
+      lines: [1, 2],
+    },
+  ],
+}
+</code></pre>
+               
+    </main>
+    <footer>
+      from <a href="https://www.alanwsmith.com/">alan w. smith</a>
+    </footer>
+  </body>
+</html>
