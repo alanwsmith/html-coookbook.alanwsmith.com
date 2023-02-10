@@ -30,7 +30,19 @@
     <link rel="stylesheet" href="/styles/fonts.css" />
     <link rel="stylesheet" href="/styles/colors.css" />
     <link rel="stylesheet" href="/styles/wrapper.css" />
-    <link rel="stylesheet" href="./highlightjs-nord-custom.min.css" />
+    <!--
+    <link
+      rel="stylesheet"
+      href="/styles/highlightjs/_custom-base16-apprentice.min.css"
+    />
+    <link rel="stylesheet" href="/styles/highlightjs/_custom-agate.min.css" />
+    <link rel="stylesheet" href="/styles/highlightjs/_custom-base16-ashes.min.css" />
+    -->
+    <link
+      rel="stylesheet"
+      href="/styles/highlightjs/_custom-base16-atelier-sulphurpool.min.css"
+    />
+
     
     <style>
       :root {
@@ -40,14 +52,14 @@
   --border-color-2: #556;
   --border-radius: 0.8rem;
   --box-shadow-color: #0008;
-  --code-background-color: #002;
+  --code-background-color: #000;
   --code-font-size: 1rem;
-  --code-line-height: 1.3rem;
-  --font-color-1: #aaa;
   --example-color: #234;
-  --line-numbers-background-color: #000;
+  --font-color-1: #888;
+  --line-height: 1.3rem;
   --lines-left-pad: 2ch;
-  --notes-background-color: #bbc;
+  --line-numbers-background-color: #000;
+  --notes-background-color: #aab;
   --notes-font-color: black;
   --output-color: black;
 }
@@ -63,9 +75,11 @@ pre {
 
 #stepByStepCodeLines {
   background-color: var(--code-background-color);
-  padding-top: var(--base-padding);
-  padding-left: var(--lines-left-pad);
   border-top-right-radius: var(--border-radius);
+  color: var(--font-color-1);
+  padding-bottom: calc(var(--line-height) * 2);
+  padding-left: var(--lines-left-pad);
+  padding-top: var(--base-padding);
 }
 
 #stepByStepLineNumbers {
@@ -147,7 +161,7 @@ pre {
   padding: 0;
   display: grid;
   grid-template-columns: 6ch 2ch 1fr;
-  line-height: var(--code-line-height);
+  line-height: var(--line-height);
   border-radius: var(--border-radius);
   border: 1px solid var(--border-color-2);
   /*
@@ -160,15 +174,15 @@ pre {
 }
 
 .h1 {
-  color: blue;
+  color: #a3be8c;
 }
 
 .h2 {
-  color: green;
+  color: #ee7;
 }
 
 .newLine {
-  color: #392;
+  color: #a3be8c;
 }
 
 .pad-top {
@@ -751,14 +765,14 @@ document.addEventListener('DOMContentLoaded', init)
   --border-color-2: #556;
   --border-radius: 0.8rem;
   --box-shadow-color: #0008;
-  --code-background-color: #002;
+  --code-background-color: #000;
   --code-font-size: 1rem;
-  --code-line-height: 1.3rem;
-  --font-color-1: #aaa;
   --example-color: #234;
-  --line-numbers-background-color: #000;
+  --font-color-1: #888;
+  --line-height: 1.3rem;
   --lines-left-pad: 2ch;
-  --notes-background-color: #bbc;
+  --line-numbers-background-color: #000;
+  --notes-background-color: #aab;
   --notes-font-color: black;
   --output-color: black;
 }
@@ -774,9 +788,11 @@ pre {
 
 #stepByStepCodeLines {
   background-color: var(--code-background-color);
-  padding-top: var(--base-padding);
-  padding-left: var(--lines-left-pad);
   border-top-right-radius: var(--border-radius);
+  color: var(--font-color-1);
+  padding-bottom: calc(var(--line-height) * 2);
+  padding-left: var(--lines-left-pad);
+  padding-top: var(--base-padding);
 }
 
 #stepByStepLineNumbers {
@@ -858,7 +874,7 @@ pre {
   padding: 0;
   display: grid;
   grid-template-columns: 6ch 2ch 1fr;
-  line-height: var(--code-line-height);
+  line-height: var(--line-height);
   border-radius: var(--border-radius);
   border: 1px solid var(--border-color-2);
   /*
@@ -871,15 +887,15 @@ pre {
 }
 
 .h1 {
-  color: blue;
+  color: #a3be8c;
 }
 
 .h2 {
-  color: green;
+  color: #ee7;
 }
 
 .newLine {
-  color: #392;
+  color: #a3be8c;
 }
 
 .pad-top {
