@@ -70,88 +70,118 @@
 // and data that should be held outside
 // of the main script
 
-const s = {
-  source: `fn main() {
-  println!("Hello, World");
+const c = {
+  source: `fn main() { 
+  let alfa = String::from("apple"); 
+  let charlie = widget(alfa); 
+  println!("charlie is {charlie}"); 
+} 
+ 
+fn widget(thing: String) -> String { 
+  println!("widget got {thing}"); 
+  let bravo = String::from("berry"); 
+  bravo 
 }`,
   sets: [
     {
       lines: [1],
     },
     {
-      lines: [1, 2],
+      lines: [3],
     },
   ],
 }
 
-      /*
-let editor
-
-
-
-
-const init = () => {
-  console.log('init')
-  loadLines()
-  editor = window.stepByStepContent
-  updateContent(1)
-  console.log(s)
-}
-
-*/
-
-const loadLines = () => {
-  s.lines = s.source.split('\n')
+      const loadLines = () => {
+  c.lines = c.source.split('\n')
 }
 
 const removeHighlights = () => {
   console.log('removeHighlights')
-  s.styleOverride = document.createElement('style')
-  s.styleOverride.innerHTML = `
-.ace-monokai .ace_line:not(:nth-child(2)) .ace_keyword,
-.ace-monokai .ace_line:not(:nth-child(2)) .ace_lparen,
-.ace-monokai .ace_line:not(:nth-child(2)) .ace_rparen,
-.ace-monokai .ace_line:not(:nth-child(2)) .ace_entity,
-.ace-monokai .ace_line:not(:nth-child(2)) .ace_name,
-.ace-monokai .ace_line:not(:nth-child(2)) .ace_function,
-.ace-monokai .ace_line:not(:nth-child(2)) .ace_source,
-.ace-monokai .ace_line:not(:nth-child(2)) .ace_rust
 
-{
+  const selectors = ['.ace_keyword', '.ace_lparen', '.ace_rparen']
+
+  console.log(c.lines.length)
+
+  const removers = []
+
+  for (let i = 0; i < c.lines.length; i++) {
+    const lineNumber = i + 1
+    if (!c.sets[c.set].lines.includes(lineNumber)) {
+      for (let x = 0; x < selectors.length; x++) {
+        removers.push(
+          `.ace-monokai .ace_line:nth-child(${lineNumber}) ${selectors[x]}`
+        )
+        console.log(selectors[x])
+      }
+    }
+  }
+
+  // console.log(removers)
+
+  c.styleOverride.innerHTML = `
+  .ace-monokai .ace_line:nth-child(2) .ace_lparen
+   {
+   color: #777;
+   }
+  `
+
+  c.styleOverride.innerHTML = `
+  .ace-monokai .ace_line:nth-child(2) .ace_rparen
+   {
+   color: #777;
+   }
+  `
+
+  // .ace-monokai .ace_line:nth-child(2) .ace_keyword,
+  // .ace-monokai .ace_line:nth-child(2) .ace_lparen,
+  // .ace-monokai .ace_line:nth-child(2) .ace_rparen,
+  // .ace-monokai .ace_line:nth-child(2) .ace_entity,
+  // .ace-monokai .ace_line:nth-child(2) .ace_name,
+  // .ace-monokai .ace_line:nth-child(2) .ace_function,
+  // .ace-monokai .ace_line:nth-child(2) .ace_source,
+  // .ace-monokai .ace_line:nth-child(2) .ace_rust
+  // {
+  // color: #777;
+  // }
+  // `
+
+  c.styleOverride.innerHTML = `
+  .ace-monokai .ace_line:nth-child(2) .ace_keyword
+  {
   color: #777;
-}
-`
-
-  document.body.appendChild(s.styleOverride)
-}
-
-/*
-const removeHighlights = () => {
-  console.log('removeHighlights')
-  // const els = document.getElementsByClassName('language-rust')
-  const els = document.getElementsByClassName('ace_line')
-  for (let i = 0; i <= els.length; i++) {
-    console.log(els[i])
-    // els[i].styles.classList.remove('ace_keyword')
   }
-}
-*/
+  `
 
-const updateContent = (setIndex) => {
-  s.setIndex = setIndex
+  // c.styleOverride.innerHTML = `.ace-monokai .ace_line:nth-child(2) .ace_keyword { color: #777; }`
+
+  const removers2 = [`.ace-monokai .ace_line:nth-child(2) .ace_keyword`]
+
+  c.styleOverride.innerHTML = `${removers.join(', ')} {color: #777;}`
+
+  // c.styleOverride.innerHTML = `.ace-monokai .ace_line:nth-child(2) .ace_keyword { color #777; }`
+  // c.styleOverride.innerHTML = `.ace-monokai .ace_line:nth-child(2) .ace_keyword { color #777; }`
+
+  console.log(c.styleOverride.innerHTML)
+  document.body.appendChild(c.styleOverride)
+}
+
+const updateContent = (set) => {
+  c.set = set
   parts = []
-  for (let i = 0; i <= s.setIndex; i++) {
-    parts.push(s.lines[i])
+  for (let i = 0; i <= c.lines.length; i++) {
+    parts.push(c.lines[i])
   }
-  s.editor.setValue(parts.join('\n'), 1)
+  c.editor.setValue(parts.join('\n'), 1)
 }
 
 const init = () => {
   loadLines()
-  s.editor = ace.edit('editor')
-  s.editor.setTheme('ace/theme/monokai')
-  s.editor.session.setMode('ace/mode/rust')
-  // updateContent(1)
+  c.editor = ace.edit('editor')
+  c.editor.setTheme('ace/theme/monokai')
+  c.editor.session.setMode('ace/mode/rust')
+  c.styleOverride = document.createElement('style')
+  updateContent(1)
   removeHighlights()
 }
 
@@ -185,11 +215,7 @@ document.addEventListener('DOMContentLoaded', init)
 
       <h2>EXAMPLE</h2>
       <!-- prettier-ignore -->
-<div id="editor">fn main() {
-  println!("Hello, World");
-}</div>
-
-<pre><code id="stepByStepContent" class="language-rust"></code></pre>
+<div id="editor"></div>
 
 
       <br />
@@ -199,11 +225,7 @@ document.addEventListener('DOMContentLoaded', init)
        
             <h2>HTML Source</h2>
             <pre class="exampleCode" id="exampleHTMLBody"><code class="language-html">&lt;!-- prettier-ignore --&gt;
-&lt;div id=&quot;editor&quot;&gt;fn main() {
-  println!(&quot;Hello, World&quot;);
-}&lt;/div&gt;
-
-&lt;pre&gt;&lt;code id=&quot;stepByStepContent&quot; class=&quot;language-rust&quot;&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&quot;editor&quot;&gt;&lt;/div&gt;
 </code></pre>
              
             <h2>CSS Source</h2>
@@ -219,74 +241,96 @@ document.addEventListener('DOMContentLoaded', init)
 </code></pre>
              
             <h2>JavaScript Source</h2>
-            <pre class="exampleCode" id="exampleJS"><code class="language-js">/*
-let editor
-
-
-
-
-const init = () =&gt; {
-  console.log(&#x27;init&#x27;)
-  loadLines()
-  editor = window.stepByStepContent
-  updateContent(1)
-  console.log(s)
-}
-
-*/
-
-const loadLines = () =&gt; {
-  s.lines = s.source.split(&#x27;\n&#x27;)
+            <pre class="exampleCode" id="exampleJS"><code class="language-js">const loadLines = () =&gt; {
+  c.lines = c.source.split(&#x27;\n&#x27;)
 }
 
 const removeHighlights = () =&gt; {
   console.log(&#x27;removeHighlights&#x27;)
-  s.styleOverride = document.createElement(&#x27;style&#x27;)
-  s.styleOverride.innerHTML = `
-.ace-monokai .ace_line:not(:nth-child(2)) .ace_keyword,
-.ace-monokai .ace_line:not(:nth-child(2)) .ace_lparen,
-.ace-monokai .ace_line:not(:nth-child(2)) .ace_rparen,
-.ace-monokai .ace_line:not(:nth-child(2)) .ace_entity,
-.ace-monokai .ace_line:not(:nth-child(2)) .ace_name,
-.ace-monokai .ace_line:not(:nth-child(2)) .ace_function,
-.ace-monokai .ace_line:not(:nth-child(2)) .ace_source,
-.ace-monokai .ace_line:not(:nth-child(2)) .ace_rust
 
-{
+  const selectors = [&#x27;.ace_keyword&#x27;, &#x27;.ace_lparen&#x27;, &#x27;.ace_rparen&#x27;]
+
+  console.log(c.lines.length)
+
+  const removers = []
+
+  for (let i = 0; i &lt; c.lines.length; i++) {
+    const lineNumber = i + 1
+    if (!c.sets[c.set].lines.includes(lineNumber)) {
+      for (let x = 0; x &lt; selectors.length; x++) {
+        removers.push(
+          `.ace-monokai .ace_line:nth-child(${lineNumber}) ${selectors[x]}`
+        )
+        console.log(selectors[x])
+      }
+    }
+  }
+
+  // console.log(removers)
+
+  c.styleOverride.innerHTML = `
+  .ace-monokai .ace_line:nth-child(2) .ace_lparen
+   {
+   color: #777;
+   }
+  `
+
+  c.styleOverride.innerHTML = `
+  .ace-monokai .ace_line:nth-child(2) .ace_rparen
+   {
+   color: #777;
+   }
+  `
+
+  // .ace-monokai .ace_line:nth-child(2) .ace_keyword,
+  // .ace-monokai .ace_line:nth-child(2) .ace_lparen,
+  // .ace-monokai .ace_line:nth-child(2) .ace_rparen,
+  // .ace-monokai .ace_line:nth-child(2) .ace_entity,
+  // .ace-monokai .ace_line:nth-child(2) .ace_name,
+  // .ace-monokai .ace_line:nth-child(2) .ace_function,
+  // .ace-monokai .ace_line:nth-child(2) .ace_source,
+  // .ace-monokai .ace_line:nth-child(2) .ace_rust
+  // {
+  // color: #777;
+  // }
+  // `
+
+  c.styleOverride.innerHTML = `
+  .ace-monokai .ace_line:nth-child(2) .ace_keyword
+  {
   color: #777;
-}
-`
-
-  document.body.appendChild(s.styleOverride)
-}
-
-/*
-const removeHighlights = () =&gt; {
-  console.log(&#x27;removeHighlights&#x27;)
-  // const els = document.getElementsByClassName(&#x27;language-rust&#x27;)
-  const els = document.getElementsByClassName(&#x27;ace_line&#x27;)
-  for (let i = 0; i &lt;= els.length; i++) {
-    console.log(els[i])
-    // els[i].styles.classList.remove(&#x27;ace_keyword&#x27;)
   }
-}
-*/
+  `
 
-const updateContent = (setIndex) =&gt; {
-  s.setIndex = setIndex
+  // c.styleOverride.innerHTML = `.ace-monokai .ace_line:nth-child(2) .ace_keyword { color: #777; }`
+
+  const removers2 = [`.ace-monokai .ace_line:nth-child(2) .ace_keyword`]
+
+  c.styleOverride.innerHTML = `${removers.join(&#x27;, &#x27;)} {color: #777;}`
+
+  // c.styleOverride.innerHTML = `.ace-monokai .ace_line:nth-child(2) .ace_keyword { color #777; }`
+  // c.styleOverride.innerHTML = `.ace-monokai .ace_line:nth-child(2) .ace_keyword { color #777; }`
+
+  console.log(c.styleOverride.innerHTML)
+  document.body.appendChild(c.styleOverride)
+}
+
+const updateContent = (set) =&gt; {
+  c.set = set
   parts = []
-  for (let i = 0; i &lt;= s.setIndex; i++) {
-    parts.push(s.lines[i])
+  for (let i = 0; i &lt;= c.lines.length; i++) {
+    parts.push(c.lines[i])
   }
-  s.editor.setValue(parts.join(&#x27;\n&#x27;), 1)
+  c.editor.setValue(parts.join(&#x27;\n&#x27;), 1)
 }
 
 const init = () =&gt; {
   loadLines()
-  s.editor = ace.edit(&#x27;editor&#x27;)
-  s.editor.setTheme(&#x27;ace/theme/monokai&#x27;)
-  s.editor.session.setMode(&#x27;ace/mode/rust&#x27;)
-  // updateContent(1)
+  c.editor = ace.edit(&#x27;editor&#x27;)
+  c.editor.setTheme(&#x27;ace/theme/monokai&#x27;)
+  c.editor.session.setMode(&#x27;ace/mode/rust&#x27;)
+  c.styleOverride = document.createElement(&#x27;style&#x27;)
+  updateContent(1)
   removeHighlights()
 }
 
@@ -305,16 +349,24 @@ document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
 // and data that should be held outside
 // of the main script
 
-const s = {
-  source: `fn main() {
-  println!(&quot;Hello, World&quot;);
+const c = {
+  source: `fn main() { 
+  let alfa = String::from(&quot;apple&quot;); 
+  let charlie = widget(alfa); 
+  println!(&quot;charlie is {charlie}&quot;); 
+} 
+ 
+fn widget(thing: String) -&gt; String { 
+  println!(&quot;widget got {thing}&quot;); 
+  let bravo = String::from(&quot;berry&quot;); 
+  bravo 
 }`,
   sets: [
     {
       lines: [1],
     },
     {
-      lines: [1, 2],
+      lines: [3],
     },
   ],
 }
