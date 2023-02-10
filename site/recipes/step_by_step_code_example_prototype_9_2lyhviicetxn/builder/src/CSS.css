@@ -1,3 +1,7 @@
 #editor {
   min-height: 22rem;
 }
+
+#stepByStepRangeSlider {
+  min-width: 20rem;
+}
