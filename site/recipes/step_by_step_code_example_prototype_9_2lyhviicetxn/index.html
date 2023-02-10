@@ -86,14 +86,17 @@ fn widget(thing: String) -> String {
     {
       lines: [1, 11],
       highlights: [1],
-      note: `// create the main() function which
+      note: `
+
+// create the main() function which
 // is the entry point for the program`,
       noteCoords: [5, 2],
     },
     {
       lines: [1, 2, 11],
       highlights: [2],
-      note: `// create an \`alfa\` variable with
+      note: `
+// cxreate an \`alfa\` variable with
 // a String.`,
       noteCoords: [4, 3],
     },
@@ -173,7 +176,7 @@ const updateContent = () => {
   }
 
   // add the notes
-  const noteParts = c.sets[c.set].note.split('\n')
+  const noteParts = c.sets[c.set].note.split('\n').filter((line) => line !== '')
   for (let n = 0; n < noteParts.length; n++) {
     const outputLine = n + c.sets[c.set].noteCoords[0] - 1
     const padding = c.sets[c.set].noteCoords[1] - parts[outputLine].length - 1
@@ -323,7 +326,7 @@ const updateContent = () =&gt; {
   }
 
   // add the notes
-  const noteParts = c.sets[c.set].note.split(&#x27;\n&#x27;)
+  const noteParts = c.sets[c.set].note.split(&#x27;\n&#x27;).filter((line) =&gt; line !== &#x27;&#x27;)
   for (let n = 0; n &lt; noteParts.length; n++) {
     const outputLine = n + c.sets[c.set].noteCoords[0] - 1
     const padding = c.sets[c.set].noteCoords[1] - parts[outputLine].length - 1
@@ -382,14 +385,17 @@ fn widget(thing: String) -&gt; String {
     {
       lines: [1, 11],
       highlights: [1],
-      note: `// create the main() function which
+      note: `
+
+// create the main() function which
 // is the entry point for the program`,
       noteCoords: [5, 2],
     },
     {
       lines: [1, 2, 11],
       highlights: [2],
-      note: `// create an \`alfa\` variable with
+      note: `
+// cxreate an \`alfa\` variable with
 // a String.`,
       noteCoords: [4, 3],
     },

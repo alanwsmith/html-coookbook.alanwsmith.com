@@ -18,14 +18,17 @@ fn widget(thing: String) -> String {
     {
       lines: [1, 11],
       highlights: [1],
-      note: `// create the main() function which
+      note: `
+
+// create the main() function which
 // is the entry point for the program`,
       noteCoords: [5, 2],
     },
     {
       lines: [1, 2, 11],
       highlights: [2],
-      note: `// create an \`alfa\` variable with
+      note: `
+// cxreate an \`alfa\` variable with
 // a String.`,
       noteCoords: [4, 3],
     },

@@ -64,7 +64,7 @@ const updateContent = () => {
   }
 
   // add the notes
-  const noteParts = c.sets[c.set].note.split('\n')
+  const noteParts = c.sets[c.set].note.split('\n').filter((line) => line !== '')
   for (let n = 0; n < noteParts.length; n++) {
     const outputLine = n + c.sets[c.set].noteCoords[0] - 1
     const padding = c.sets[c.set].noteCoords[1] - parts[outputLine].length - 1
