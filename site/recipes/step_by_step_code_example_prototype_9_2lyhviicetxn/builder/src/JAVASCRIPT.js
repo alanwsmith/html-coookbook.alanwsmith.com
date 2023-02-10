@@ -48,12 +48,34 @@ const makeNextButton = () => {
   )
 }
 
+const makeNumberButtons = () => {
+  for (let i = 0; i < c.sets.length; i++) {
+    let buttonText = i
+
+    if (i === 0) {
+      buttonText = 'Start'
+    } else if (i === c.sets.length - 1) {
+      buttonText = 'Complete'
+    }
+
+    makeElement(
+      'button',
+      `stepByStepNumberButton_${i}`,
+      buttonText,
+      'wrapper',
+      'click',
+      handleNumberButtonClick,
+      'stepByStepButton'
+    )
+  }
+}
+
 const makePreviousButton = () => {
   makeElement(
     'button',
     'stepByStepPreviousButton',
     '&lt;-',
-    'exampleCSS',
+    'wrapper',
     'click',
     handlePreviousButtonClick,
     'stepByStepButton'
@@ -66,6 +88,14 @@ const loadLines = () => {
 
 const removeHighlights = () => {
   console.log('removeHighlights')
+
+  // bail if no lines were selected
+  //
+  if (c.sets[c.set].highlights.length === 0) {
+    c.styleOverride.innerHTML = `.ace-monokai .ace_line .ace_comment { color: green; }`
+    return
+  }
+
   const selectors = [
     '.ace_keyword',
     '.ace_lparen',
@@ -112,12 +142,11 @@ const removeHighlights = () => {
 
   c.styleOverride.innerHTML = `${removers.join(' ')}`
   // console.log(c.styleOverride.innerHTML)
-  document.body.appendChild(c.styleOverride)
 }
 
 const updateContent = () => {
   parts = []
-  for (let i = 0; i <= c.lines.length; i++) {
+  for (let i = 0; i < c.lines.length; i++) {
     if (c.sets[c.set].lines.includes(i + 1)) {
       parts.push(`${c.lines[i]}`)
     } else {
@@ -136,6 +165,7 @@ const updateContent = () => {
     }
     parts[outputLine] += noteParts[n]
   }
+
   c.editor.setValue(parts.join('\n'), 1)
 }
 
@@ -150,8 +180,11 @@ const init = () => {
   c.editor = ace.edit('editor')
   c.editor.setTheme('ace/theme/monokai')
   c.editor.session.setMode('ace/mode/rust')
+  c.editor.setHighlightActiveLine(false)
   c.styleOverride = document.createElement('style')
-  // makePreviousButton()
+  document.body.appendChild(c.styleOverride)
+  makePreviousButton()
+  makeNumberButtons()
   makeNextButton()
   updateEverything(0)
 }

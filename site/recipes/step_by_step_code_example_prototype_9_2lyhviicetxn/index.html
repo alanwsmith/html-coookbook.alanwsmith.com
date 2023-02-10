@@ -33,31 +33,11 @@
     
 
     <style>
-      #wrapper {
-        position: relative;
-        min-height: 22rem;
-      }
-
       #editor {
-        min-height: 22rem;
-      }
+  min-height: 22rem;
+}
 
-      #xeditor {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-      }
     </style>
-
-    <!--
-    <link
-      rel="stylesheet"
-      href="/styles/highlightjs/_custom-base16-atelier-sulphurpool.min.css"
-    />
-    <script src="/assets/highlight/highlight.min.js"></script>
--->
 
     <script
       src="/ace-editor/ace.js"
@@ -84,29 +64,50 @@ fn widget(thing: String) -> String {
 }`,
   sets: [
     {
-      lines: [1, 11],
-      highlights: [1],
-      note: `
-
-// create the main() function which
-// is the entry point for the program`,
-      noteCoords: [3, 3],
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [],
+      overrides: [],
+      note: `// Full source code`,
+      noteCoords: [1, 40],
     },
     {
-      lines: [1, 2, 11],
-      highlights: [2],
+      lines: [7, 11],
+      highlights: [7, 11],
+      overrides: [{ line: 7, text: `fn widget() {` }],
       note: `
-// create an \`alfa\` variable with
-// a String.`,
+// Start by creating a basic \`widget()\` 
+// function
+
+`,
+      noteCoords: [4, 0],
+    },
+
+    {
+      lines: [1, 2, 11],
+      highlights: [1, 2, 11],
+      overrides: [],
+      note: `
+// Create the \`main()\` function and a
+// variable with a String bound to it. 
+
+`,
       noteCoords: [4, 3],
     },
     {
       lines: [1, 2, 3, 11],
       highlights: [2, 3],
+      overrides: [],
       note: `
 // this is a test
 // string for testing`,
       noteCoords: [2, 50],
+    },
+    {
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [],
+      overrides: [],
+      note: `// Click run to see the output`,
+      noteCoords: [1, 40],
     },
   ],
 }
@@ -161,12 +162,34 @@ const makeNextButton = () => {
   )
 }
 
+const makeNumberButtons = () => {
+  for (let i = 0; i < c.sets.length; i++) {
+    let buttonText = i
+
+    if (i === 0) {
+      buttonText = 'Start'
+    } else if (i === c.sets.length - 1) {
+      buttonText = 'Complete'
+    }
+
+    makeElement(
+      'button',
+      `stepByStepNumberButton_${i}`,
+      buttonText,
+      'wrapper',
+      'click',
+      handleNumberButtonClick,
+      'stepByStepButton'
+    )
+  }
+}
+
 const makePreviousButton = () => {
   makeElement(
     'button',
     'stepByStepPreviousButton',
     '&lt;-',
-    'exampleCSS',
+    'wrapper',
     'click',
     handlePreviousButtonClick,
     'stepByStepButton'
@@ -179,6 +202,14 @@ const loadLines = () => {
 
 const removeHighlights = () => {
   console.log('removeHighlights')
+
+  // bail if no lines were selected
+  //
+  if (c.sets[c.set].highlights.length === 0) {
+    c.styleOverride.innerHTML = `.ace-monokai .ace_line .ace_comment { color: green; }`
+    return
+  }
+
   const selectors = [
     '.ace_keyword',
     '.ace_lparen',
@@ -225,12 +256,11 @@ const removeHighlights = () => {
 
   c.styleOverride.innerHTML = `${removers.join(' ')}`
   // console.log(c.styleOverride.innerHTML)
-  document.body.appendChild(c.styleOverride)
 }
 
 const updateContent = () => {
   parts = []
-  for (let i = 0; i <= c.lines.length; i++) {
+  for (let i = 0; i < c.lines.length; i++) {
     if (c.sets[c.set].lines.includes(i + 1)) {
       parts.push(`${c.lines[i]}`)
     } else {
@@ -249,6 +279,7 @@ const updateContent = () => {
     }
     parts[outputLine] += noteParts[n]
   }
+
   c.editor.setValue(parts.join('\n'), 1)
 }
 
@@ -263,21 +294,17 @@ const init = () => {
   c.editor = ace.edit('editor')
   c.editor.setTheme('ace/theme/monokai')
   c.editor.session.setMode('ace/mode/rust')
+  c.editor.setHighlightActiveLine(false)
   c.styleOverride = document.createElement('style')
-  // makePreviousButton()
+  document.body.appendChild(c.styleOverride)
+  makePreviousButton()
+  makeNumberButtons()
   makeNextButton()
   updateEverything(0)
 }
 
 document.addEventListener('DOMContentLoaded', init)
 
-
-      /*
-      const doHighlightJs = () => {
-        hljs.highlightAll()
-      }
-      document.addEventListener('DOMContentLoaded', doHighlightJs)
-      */
     </script>
   </head>
   <body class="line-numbers">
@@ -315,7 +342,13 @@ document.addEventListener('DOMContentLoaded', init)
 &lt;div id=&quot;editor&quot;&gt;&lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
-              
+             
+            <h2>CSS Source</h2>
+            <pre class="exampleCode" id="exampleCSS"><code class="language-css">#editor {
+  min-height: 22rem;
+}
+</code></pre>
+             
             <h2>JavaScript Source</h2>
             <pre class="exampleCode" id="exampleJS"><code class="language-js">const makeElement = (
   _type,
@@ -367,12 +400,34 @@ const makeNextButton = () =&gt; {
   )
 }
 
+const makeNumberButtons = () =&gt; {
+  for (let i = 0; i &lt; c.sets.length; i++) {
+    let buttonText = i
+
+    if (i === 0) {
+      buttonText = &#x27;Start&#x27;
+    } else if (i === c.sets.length - 1) {
+      buttonText = &#x27;Complete&#x27;
+    }
+
+    makeElement(
+      &#x27;button&#x27;,
+      `stepByStepNumberButton_${i}`,
+      buttonText,
+      &#x27;wrapper&#x27;,
+      &#x27;click&#x27;,
+      handleNumberButtonClick,
+      &#x27;stepByStepButton&#x27;
+    )
+  }
+}
+
 const makePreviousButton = () =&gt; {
   makeElement(
     &#x27;button&#x27;,
     &#x27;stepByStepPreviousButton&#x27;,
     &#x27;&amp;lt;-&#x27;,
-    &#x27;exampleCSS&#x27;,
+    &#x27;wrapper&#x27;,
     &#x27;click&#x27;,
     handlePreviousButtonClick,
     &#x27;stepByStepButton&#x27;
@@ -385,6 +440,14 @@ const loadLines = () =&gt; {
 
 const removeHighlights = () =&gt; {
   console.log(&#x27;removeHighlights&#x27;)
+
+  // bail if no lines were selected
+  //
+  if (c.sets[c.set].highlights.length === 0) {
+    c.styleOverride.innerHTML = `.ace-monokai .ace_line .ace_comment { color: green; }`
+    return
+  }
+
   const selectors = [
     &#x27;.ace_keyword&#x27;,
     &#x27;.ace_lparen&#x27;,
@@ -431,12 +494,11 @@ const removeHighlights = () =&gt; {
 
   c.styleOverride.innerHTML = `${removers.join(&#x27; &#x27;)}`
   // console.log(c.styleOverride.innerHTML)
-  document.body.appendChild(c.styleOverride)
 }
 
 const updateContent = () =&gt; {
   parts = []
-  for (let i = 0; i &lt;= c.lines.length; i++) {
+  for (let i = 0; i &lt; c.lines.length; i++) {
     if (c.sets[c.set].lines.includes(i + 1)) {
       parts.push(`${c.lines[i]}`)
     } else {
@@ -455,6 +517,7 @@ const updateContent = () =&gt; {
     }
     parts[outputLine] += noteParts[n]
   }
+
   c.editor.setValue(parts.join(&#x27;\n&#x27;), 1)
 }
 
@@ -469,8 +532,11 @@ const init = () =&gt; {
   c.editor = ace.edit(&#x27;editor&#x27;)
   c.editor.setTheme(&#x27;ace/theme/monokai&#x27;)
   c.editor.session.setMode(&#x27;ace/mode/rust&#x27;)
+  c.editor.setHighlightActiveLine(false)
   c.styleOverride = document.createElement(&#x27;style&#x27;)
-  // makePreviousButton()
+  document.body.appendChild(c.styleOverride)
+  makePreviousButton()
+  makeNumberButtons()
   makeNextButton()
   updateEverything(0)
 }
@@ -504,29 +570,50 @@ fn widget(thing: String) -&gt; String {
 }`,
   sets: [
     {
-      lines: [1, 11],
-      highlights: [1],
-      note: `
-
-// create the main() function which
-// is the entry point for the program`,
-      noteCoords: [3, 3],
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [],
+      overrides: [],
+      note: `// Full source code`,
+      noteCoords: [1, 40],
     },
     {
-      lines: [1, 2, 11],
-      highlights: [2],
+      lines: [7, 11],
+      highlights: [7, 11],
+      overrides: [{ line: 7, text: `fn widget() {` }],
       note: `
-// create an \`alfa\` variable with
-// a String.`,
+// Start by creating a basic \`widget()\` 
+// function
+
+`,
+      noteCoords: [4, 0],
+    },
+
+    {
+      lines: [1, 2, 11],
+      highlights: [1, 2, 11],
+      overrides: [],
+      note: `
+// Create the \`main()\` function and a
+// variable with a String bound to it. 
+
+`,
       noteCoords: [4, 3],
     },
     {
       lines: [1, 2, 3, 11],
       highlights: [2, 3],
+      overrides: [],
       note: `
 // this is a test
 // string for testing`,
       noteCoords: [2, 50],
+    },
+    {
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [],
+      overrides: [],
+      note: `// Click run to see the output`,
+      noteCoords: [1, 40],
     },
   ],
 }

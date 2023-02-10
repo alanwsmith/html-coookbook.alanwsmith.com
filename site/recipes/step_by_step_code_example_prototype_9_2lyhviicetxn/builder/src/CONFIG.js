@@ -16,29 +16,50 @@ fn widget(thing: String) -> String {
 }`,
   sets: [
     {
-      lines: [1, 11],
-      highlights: [1],
-      note: `
-
-// create the main() function which
-// is the entry point for the program`,
-      noteCoords: [3, 3],
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [],
+      overrides: [],
+      note: `// Full source code`,
+      noteCoords: [1, 40],
     },
     {
-      lines: [1, 2, 11],
-      highlights: [2],
+      lines: [7, 11],
+      highlights: [7, 11],
+      overrides: [{ line: 7, text: `fn widget() {` }],
       note: `
-// create an \`alfa\` variable with
-// a String.`,
+// Start by creating a basic \`widget()\` 
+// function
+
+`,
+      noteCoords: [4, 0],
+    },
+
+    {
+      lines: [1, 2, 11],
+      highlights: [1, 2, 11],
+      overrides: [],
+      note: `
+// Create the \`main()\` function and a
+// variable with a String bound to it. 
+
+`,
       noteCoords: [4, 3],
     },
     {
       lines: [1, 2, 3, 11],
       highlights: [2, 3],
+      overrides: [],
       note: `
 // this is a test
 // string for testing`,
       noteCoords: [2, 50],
+    },
+    {
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [],
+      overrides: [],
+      note: `// Click run to see the output`,
+      noteCoords: [1, 40],
     },
   ],
 }

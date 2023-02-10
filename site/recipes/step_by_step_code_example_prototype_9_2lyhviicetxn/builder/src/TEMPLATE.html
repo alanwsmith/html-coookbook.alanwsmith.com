@@ -33,31 +33,8 @@
     $HEAD
 
     <style>
-      #wrapper {
-        position: relative;
-        min-height: 22rem;
-      }
-
-      #editor {
-        min-height: 22rem;
-      }
-
-      #xeditor {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-      }
+      $CSS
     </style>
-
-    <!--
-    <link
-      rel="stylesheet"
-      href="/styles/highlightjs/_custom-base16-atelier-sulphurpool.min.css"
-    />
-    <script src="/assets/highlight/highlight.min.js"></script>
--->
 
     <script
       src="/ace-editor/ace.js"
@@ -68,13 +45,6 @@
     <script>
       $CONFIG
       $JAVASCRIPT
-
-      /*
-      const doHighlightJs = () => {
-        hljs.highlightAll()
-      }
-      document.addEventListener('DOMContentLoaded', doHighlightJs)
-      */
     </script>
   </head>
   <body class="line-numbers">
