@@ -82,6 +82,21 @@ const makePreviousButton = () => {
   )
 }
 
+const handleRangeSliderChange = (event) => {
+  updateEverything(parseInt(event.target.value))
+}
+
+const makeRangeSlider = () => {
+  const newEl = document.createElement('input')
+  newEl.id = 'stepByStepRangeSlider'
+  newEl.type = 'range'
+  newEl.min = 0
+  newEl.max = 9
+  newEl.value = 0
+  newEl.addEventListener('input', handleRangeSliderChange)
+  window.wrapper.appendChild(newEl)
+}
+
 const loadLines = () => {
   c.lines = c.source.split('\n')
 }
@@ -92,7 +107,7 @@ const removeHighlights = () => {
   // bail if no lines were selected
   //
   if (c.sets[c.set].highlights.length === 0) {
-    c.styleOverride.innerHTML = `.ace-monokai .ace_line .ace_comment { color: green; }`
+    c.styleOverride.innerHTML = `.ace-monokai .ace_line .ace_comment { color: #eee; }`
     return
   }
 
@@ -124,18 +139,18 @@ const removeHighlights = () => {
     if (!c.sets[c.set].highlights.includes(lineNumber)) {
       for (let x = 0; x < selectors.length; x++) {
         removers.push(
-          `.ace-monokai .ace_line:nth-child(${lineNumber}) ${selectors[x]} { color: #888; }`
+          `.ace-monokai .ace_line:nth-child(${lineNumber}) ${selectors[x]} { color: #667; }`
         )
         // console.log(selectors[x])
       }
       removers.push(
-        `.ace-monokai .ace_line:nth-child(${lineNumber}) .ace_comment { color: green; }`
+        `.ace-monokai .ace_line:nth-child(${lineNumber}) .ace_comment { color: #eee; }`
       )
     }
     // set the comment color for the lines with content
     else {
       removers.push(
-        `.ace-monokai .ace_line:nth-child(${lineNumber}) .ace_comment { color: green; }`
+        `.ace-monokai .ace_line:nth-child(${lineNumber}) .ace_comment { color: #eee; }`
       )
     }
   }
@@ -178,6 +193,7 @@ const updateContent = () => {
 
 const updateEverything = (set) => {
   c.set = set
+  window.stepByStepRangeSlider.value = set
   updateContent()
   removeHighlights()
 }
@@ -191,7 +207,8 @@ const init = () => {
   c.styleOverride = document.createElement('style')
   document.body.appendChild(c.styleOverride)
   makePreviousButton()
-  makeNumberButtons()
+  //makeNumberButtons()
+  makeRangeSlider()
   makeNextButton()
   updateEverything(0)
 }
