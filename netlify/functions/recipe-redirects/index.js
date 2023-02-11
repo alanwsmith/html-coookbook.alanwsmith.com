@@ -33,6 +33,7 @@ exports.handler = async function (event, context) {
   "calculate_percentage_difference_between_two_numbers_in_javascript--2hjncmpdqlyx": "/recipes/calculate_percentage_difference_between_two_numbers_in_javascript--2hjncmpdqlyx/index.html",
   "center-a-pre-tag--2i9eqonyasa7": "/recipes/center-a-pre-tag--2i9eqonyasa7/index.html",
   "center-vertically-with-a-header-and-footer--2i9lfclfwj0y": "/recipes/center-vertically-with-a-header-and-footer--2i9lfclfwj0y/index.html",
+  "change_content_on_scorll_position_basic_2lbbeuksugnp": "/recipes/change_content_on_scorll_position_basic_2lbbeuksugnp/index.html",
   "change_the_browsers_url_without_reloading_the_page--2hpup1k3l8qz": "/recipes/change_the_browsers_url_without_reloading_the_page--2hpup1k3l8qz/index.html",
   "css_grid__basic_grid--2hzdlrjy0zus": "/recipes/css_grid__basic_grid--2hzdlrjy0zus/index.html",
   "css_grid_columns_2iwlzkz6yki4": "/recipes/css_grid_columns_2iwlzkz6yki4/index.html",
@@ -61,6 +62,7 @@ exports.handler = async function (event, context) {
   "step_by_step_code_example_prototype_7_2lr7pw7xnlyk": "/recipes/step_by_step_code_example_prototype_7_2lr7pw7xnlyk/index.html",
   "step_by_step_code_example_prototype_8_2ltx2ia1cxoc": "/recipes/step_by_step_code_example_prototype_8_2ltx2ia1cxoc/index.html",
   "step_by_step_code_example_prototype_9_2lyhviicetxn": "/recipes/step_by_step_code_example_prototype_9_2lyhviicetxn/index.html",
+  "sticky-code-area_2lzzuqaxn54f": "/recipes/sticky-code-area_2lzzuqaxn54f/index.html",
   "stream-chat-crt-overlay_2kusi3saawnj": "/recipes/stream-chat-crt-overlay_2kusi3saawnj/index.html",
   "system-dark-mode-preference--2icsgti1btei": "/recipes/system-dark-mode-preference--2icsgti1btei/index.html",
   "use_mutation_observers_between_web_components_and_parent_pages--2gxzzx78txjy": "/recipes/use_mutation_observers_between_web_components_and_parent_pages--2gxzzx78txjy/index.html"
