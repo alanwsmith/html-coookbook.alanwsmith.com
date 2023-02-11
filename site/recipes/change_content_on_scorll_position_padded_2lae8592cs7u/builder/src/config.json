@@ -1,0 +1,19 @@
+{
+  "TITLE": "Change Content On Scroll With Intersection Observer",
+  "STATUS": "published",
+  "DESCRIPTION": "",
+  "DETAILS": [
+    "This is a basic example of using Intersectoin Observer to transition content based on the scroll position of a set of content",
+    "The example below is built directly from the HTML and JavaScript code snippets that follow"
+  ],
+  "NOTES": [],
+  "TODOS": [],
+  "REFERENCES": [],
+  "REFERENCES_TEMPLATE": [
+    {
+      "title": "",
+      "url": "",
+      "extra": ""
+    }
+  ]
+}

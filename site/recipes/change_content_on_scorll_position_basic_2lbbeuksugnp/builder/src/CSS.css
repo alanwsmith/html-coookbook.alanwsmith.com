@@ -1,0 +1,20 @@
+:root {
+  --area-height: 18rem;
+  --li-bottom-margin: 4rem;
+}
+
+#scrollArea {
+  border: 1px solid black;
+  height: var(--area-height);
+  overflow-y: auto;
+  width: 22rem;
+}
+
+#scrollArea li {
+  padding-bottom: var(--li-bottom-margin);
+  margin: 0;
+}
+
+#scrollArea li:last-child {
+  height: calc(var(--area-height) - var(--li-bottom-margin));
+}

@@ -1,0 +1,18 @@
+{
+  "TITLE": "Sticky Code Area",
+  "STATUS": "draft",
+  "DESCRIPTION": "",
+  "DETAILS": [
+    "This is a test of putting a code area in the middle of a page and then when you scroll it sticks to the top and the other content rolls underneath it."
+  ],
+  "NOTES": [],
+  "TODOS": [],
+  "REFERENCES": [],
+  "REFERENCES_TEMPLATE": [
+    {
+      "title": "",
+      "url": "",
+      "extra": ""
+    }
+  ]
+}

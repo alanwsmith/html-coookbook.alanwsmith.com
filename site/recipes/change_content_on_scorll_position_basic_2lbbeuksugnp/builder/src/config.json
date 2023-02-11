@@ -1,0 +1,20 @@
+{
+  "TITLE": "Change Content Based On Basic Scroll Position",
+  "STATUS": "draft",
+  "DESCRIPTION": "",
+  "DETAILS": [
+    "Goal: This code shows how to trigger an event and make an update to a page with the Intersection Observer when content scrolls to a certain point.",
+    "Goal: The demonstration area contains a &quot;ul&quot; with several &quot;li&quot; children. When each child element reaches the top of the demo box the display value changes to the show the id of the &quote;li&quot;",
+    "The example below is built directly from the HTML and JavaScript code snippets that follow"
+  ],
+  "NOTES": [],
+  "TODOS": [],
+  "REFERENCES": [],
+  "REFERENCES_TEMPLATE": [
+    {
+      "title": "",
+      "url": "",
+      "extra": ""
+    }
+  ]
+}

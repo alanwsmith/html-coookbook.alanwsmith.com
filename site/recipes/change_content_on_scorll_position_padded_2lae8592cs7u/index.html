@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Change Content On Scroll With Intersection Observer - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Change Content On Scroll With Intersection Observer" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630,w_1200,h_630,c_fit,w_940,h_540,co_rgb:eeeeee,l_text:Helvetica_94_bold:Change%20Content%20On%20Scroll%20With%20Intersection%20Observer/fl_layer_apply,g_north_west,x_60,y_60/co_rgb:666666,l_text:Inconsolata_36_bold:from%20alan%20w.%20smith/fl_layer_apply,g_south_east,x_196,y_40/og-images/black-with-white-line.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/fonts.css" />
+    <link rel="stylesheet" href="/styles/colors.css" />
+    <link rel="stylesheet" href="/styles/wrapper.css" />
+    <link rel="stylesheet" href="/styles/prism-customized.css" />
+    
+    <style>
+      #scrollableArea1 {
+  width: 220px;
+  height: 300px;
+  border: 1px solid black;
+  overflow-y: auto;
+}
+
+#scrollContent {
+  padding-bottom: 130px;
+}
+
+    </style>
+
+    <!--
+    <link rel="stylesheet" href="/styles/highlightjs/_custom-base16-atelier-sulphurpool.min.css" />
+    <script src="/assets/highlight/highlight.min.js"></script>
+    -->
+
+    <script>
+      // This file can be used to represent
+// and data that should be held outside
+// of the main script
+
+const c = {
+  alfa: 'bravo',
+}
+
+      const visiblePercent = 0
+
+function handleIntersect(entries, observer) {
+  entries.forEach((entry) => {
+    console.log('asdf')
+    if (
+      entry.boundingClientRect.top < entry.rootBounds.top &&
+      entry.intersectionRatio < visiblePercent
+    ) {
+      if (entry.target.nextElementSibling) {
+        window.display1.innerHTML = `Currently on ${entry.target.nextElementSibling.id}`
+      }
+    } else if (
+      entry.boundingClientRect.top < entry.rootBounds.top &&
+      entry.intersectionRatio >= visiblePercent
+    ) {
+      window.display1.innerHTML = `Currently on ${entry.target.id}`
+    }
+  })
+}
+
+function createObserver() {
+  const options = {
+    root: window.scrollableArea1,
+    rootMargin: '0px',
+    threshold: visiblePercent,
+  }
+  const observer = new IntersectionObserver(handleIntersect, options)
+  const els = document.getElementsByTagName('li')
+  for (let i = 0; i < els.length; i++) {
+    observer.observe(els[i])
+  }
+}
+
+window.addEventListener('load', createObserver)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">cookbook home</a> ~
+      <a href="https://www.alanwsmith.com/">main site</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
+    </header>
+    <main>
+      <h1>Change Content On Scroll With Intersection Observer</h1>
+      
+                <h2>Details</h2>
+                <ul>
+                    <li>This is a basic example of using Intersectoin Observer to transition content based on the scroll position of a set of content</li> <li>The example below is built directly from the HTML and JavaScript code snippets that follow</li>
+                </ul>
+                
+
+      <h2>EXAMPLE</h2>
+      <div id="display1">Value is 1</div>
+
+<div id="scrollableArea1">
+  <ol id="scrollContent">
+    <li id="1">
+      The curtain rose and the show was on. The birch canoe slid on the smooth
+      planks. Glue the sheet to the dark blue background. It's easy to tell the
+      depth of a well.
+    </li>
+    <li id="2">
+      Rice is often served in round bowls. The box was thrown beside the parked
+      truck. The source of the huge river is the clear spring.
+    </li>
+    <li id="3">
+      The salt breeze came across from the sea. Two blue fish swam in the tank.
+    </li>
+    <li id="4">
+      The colt reared and threw the tall rider. It snowed, rained, and hailed
+      the same morning. Take the winding path to reach the lake. The wide road
+      shimmered in the hot sun.
+    </li>
+    <li id="5">
+      Lift the square stone over the fence. The frosty air passed through the
+      coat.
+    </li>
+    <li id="6">
+      A saw is a tool used for making boards. Use a pencil to write the first
+      draft. A small creek cut across the field. The dune rose from the edge of
+      the water. Those words were the cue for the actor to leave.
+    </li>
+  </ol>
+</div>
+
+
+      <br />
+      <br />
+      <br />
+      <hr />
+       
+            <h2>HTML Source</h2>
+            <pre class="exampleCode" id="exampleHTMLBody"><code class="language-html">&lt;div id=&quot;display1&quot;&gt;Value is 1&lt;/div&gt;
+
+&lt;div id=&quot;scrollableArea1&quot;&gt;
+  &lt;ol id=&quot;scrollContent&quot;&gt;
+    &lt;li id=&quot;1&quot;&gt;
+      The curtain rose and the show was on. The birch canoe slid on the smooth
+      planks. Glue the sheet to the dark blue background. It&#x27;s easy to tell the
+      depth of a well.
+    &lt;/li&gt;
+    &lt;li id=&quot;2&quot;&gt;
+      Rice is often served in round bowls. The box was thrown beside the parked
+      truck. The source of the huge river is the clear spring.
+    &lt;/li&gt;
+    &lt;li id=&quot;3&quot;&gt;
+      The salt breeze came across from the sea. Two blue fish swam in the tank.
+    &lt;/li&gt;
+    &lt;li id=&quot;4&quot;&gt;
+      The colt reared and threw the tall rider. It snowed, rained, and hailed
+      the same morning. Take the winding path to reach the lake. The wide road
+      shimmered in the hot sun.
+    &lt;/li&gt;
+    &lt;li id=&quot;5&quot;&gt;
+      Lift the square stone over the fence. The frosty air passed through the
+      coat.
+    &lt;/li&gt;
+    &lt;li id=&quot;6&quot;&gt;
+      A saw is a tool used for making boards. Use a pencil to write the first
+      draft. A small creek cut across the field. The dune rose from the edge of
+      the water. Those words were the cue for the actor to leave.
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</code></pre>
+             
+            <h2>CSS Source</h2>
+            <pre class="exampleCode" id="exampleCSS"><code class="language-css">#scrollableArea1 {
+  width: 220px;
+  height: 300px;
+  border: 1px solid black;
+  overflow-y: auto;
+}
+
+#scrollContent {
+  padding-bottom: 130px;
+}
+</code></pre>
+             
+            <h2>JavaScript Source</h2>
+            <pre class="exampleCode" id="exampleJS"><code class="language-js">const visiblePercent = 0
+
+function handleIntersect(entries, observer) {
+  entries.forEach((entry) =&gt; {
+    console.log(&#x27;asdf&#x27;)
+    if (
+      entry.boundingClientRect.top &lt; entry.rootBounds.top &amp;&amp;
+      entry.intersectionRatio &lt; visiblePercent
+    ) {
+      if (entry.target.nextElementSibling) {
+        window.display1.innerHTML = `Currently on ${entry.target.nextElementSibling.id}`
+      }
+    } else if (
+      entry.boundingClientRect.top &lt; entry.rootBounds.top &amp;&amp;
+      entry.intersectionRatio &gt;= visiblePercent
+    ) {
+      window.display1.innerHTML = `Currently on ${entry.target.id}`
+    }
+  })
+}
+
+function createObserver() {
+  const options = {
+    root: window.scrollableArea1,
+    rootMargin: &#x27;0px&#x27;,
+    threshold: visiblePercent,
+  }
+  const observer = new IntersectionObserver(handleIntersect, options)
+  const els = document.getElementsByTagName(&#x27;li&#x27;)
+  for (let i = 0; i &lt; els.length; i++) {
+    observer.observe(els[i])
+  }
+}
+
+window.addEventListener(&#x27;load&#x27;, createObserver)
+</code></pre>
+             
+            <h2>JSON Data Source</h2>
+            <pre class="exampleCode" id="exampleJSON"><code class="language-json">{
+  &quot;note&quot;: &quot;Example JSON data file&quot;
+}
+</code></pre>
+            
+      
+            <h2>Config JS Source</h2>
+            <pre class="exampleCode" id="exampleCONFIG"><code class="language-js">// This file can be used to represent
+// and data that should be held outside
+// of the main script
+
+const c = {
+  alfa: &#x27;bravo&#x27;,
+}
+</code></pre>
+               
+    </main>
+    <footer>
+      from <a href="https://www.alanwsmith.com/">alan w. smith</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>
