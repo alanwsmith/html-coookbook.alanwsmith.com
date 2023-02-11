@@ -1,0 +1,26 @@
+#editor {
+  min-height: 12rem;
+}
+
+#stepByStepRangeSlider {
+  min-width: 20rem;
+}
+
+#notesContainer {
+  max-width: 29rem;
+  margin-top: 1.4rem;
+  min-height: 9rem;
+}
+
+#notesContainer pre {
+  background-color: black;
+  margin: 0.6rem;
+  padding: 0.3rem;
+  border-radius: 0.4rem;
+}
+
+#notesContainer code {
+  font-weight: bold;
+  color: #aac;
+  font-family: monospace;
+}
