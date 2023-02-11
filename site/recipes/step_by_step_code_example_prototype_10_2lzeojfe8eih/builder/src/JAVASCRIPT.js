@@ -139,7 +139,7 @@ const removeHighlights = () => {
     if (!c.sets[c.set].highlights.includes(lineNumber)) {
       for (let x = 0; x < selectors.length; x++) {
         removers.push(
-          `.ace-monokai .ace_line:nth-child(${lineNumber}) ${selectors[x]} { color: #667; }`
+          `.ace-monokai .ace_line:nth-child(${lineNumber}) ${selectors[x]} { color: ${c.fadeColor}; }`
         )
         // console.log(selectors[x])
       }
@@ -152,6 +152,20 @@ const removeHighlights = () => {
       removers.push(
         `.ace-monokai .ace_line:nth-child(${lineNumber}) .ace_comment { color: #eee; }`
       )
+    }
+  }
+
+  if (c.sets[c.set].fades) {
+    for (let f = 0; f < c.sets[c.set].fades.length; f++) {
+      const fader = c.sets[c.set].fades[f]
+      for (let n = 0; n < fader.spans.length; n++) {
+        for (let x = 0; x < selectors.length; x++) {
+          const fadeString = `.ace-monokai .ace_line:nth-child(${fader.line}) span:nth-child(${n})${selectors[x]} { color: ${c.fadeColor}; }`
+          removers.push(fadeString)
+          console.log(fadeString)
+        }
+      }
+      console.log(fader)
     }
   }
 

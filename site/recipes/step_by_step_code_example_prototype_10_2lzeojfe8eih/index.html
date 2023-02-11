@@ -47,6 +47,18 @@
   min-height: 9rem;
 }
 
+#notesContainer pre {
+  background-color: black;
+  margin: 0.6rem;
+  padding: 0.3rem;
+}
+
+#notesContainer code {
+  font-weight: bold;
+  color: #aac;
+  font-family: monospace;
+}
+
     </style>
 
     <script
@@ -61,6 +73,7 @@
 // of the main script
 
 const c = {
+  fadeColor: "#667",
   source: `fn main() {
   println!(
     "main got {}", widget(String::from("apple"))
@@ -170,6 +183,7 @@ fn widget (value: String) -> String {
       highlights: [3],
       overrides: [],
       noteCoords: [1, 40],
+      fades: [{ line: 3, spans: [1, 2, 3, 4] }],
       note: `
 <p>Make a call to <code>widget</code> passing in
 a <code>String</code> as an argument with:</p>
@@ -330,7 +344,7 @@ const removeHighlights = () => {
     if (!c.sets[c.set].highlights.includes(lineNumber)) {
       for (let x = 0; x < selectors.length; x++) {
         removers.push(
-          `.ace-monokai .ace_line:nth-child(${lineNumber}) ${selectors[x]} { color: #667; }`
+          `.ace-monokai .ace_line:nth-child(${lineNumber}) ${selectors[x]} { color: ${c.fadeColor}; }`
         )
         // console.log(selectors[x])
       }
@@ -343,6 +357,20 @@ const removeHighlights = () => {
       removers.push(
         `.ace-monokai .ace_line:nth-child(${lineNumber}) .ace_comment { color: #eee; }`
       )
+    }
+  }
+
+  if (c.sets[c.set].fades) {
+    for (let f = 0; f < c.sets[c.set].fades.length; f++) {
+      const fader = c.sets[c.set].fades[f]
+      for (let n = 0; n < fader.spans.length; n++) {
+        for (let x = 0; x < selectors.length; x++) {
+          const fadeString = `.ace-monokai .ace_line:nth-child(${fader.line}) span:nth-child(${n})${selectors[x]} { color: ${c.fadeColor}; }`
+          removers.push(fadeString)
+          console.log(fadeString)
+        }
+      }
+      console.log(fader)
     }
   }
 
@@ -468,6 +496,18 @@ document.addEventListener('DOMContentLoaded', init)
   max-width: 29rem;
   margin-top: 1.4rem;
   min-height: 9rem;
+}
+
+#notesContainer pre {
+  background-color: black;
+  margin: 0.6rem;
+  padding: 0.3rem;
+}
+
+#notesContainer code {
+  font-weight: bold;
+  color: #aac;
+  font-family: monospace;
 }
 </code></pre>
              
@@ -613,7 +653,7 @@ const removeHighlights = () =&gt; {
     if (!c.sets[c.set].highlights.includes(lineNumber)) {
       for (let x = 0; x &lt; selectors.length; x++) {
         removers.push(
-          `.ace-monokai .ace_line:nth-child(${lineNumber}) ${selectors[x]} { color: #667; }`
+          `.ace-monokai .ace_line:nth-child(${lineNumber}) ${selectors[x]} { color: ${c.fadeColor}; }`
         )
         // console.log(selectors[x])
       }
@@ -626,6 +666,20 @@ const removeHighlights = () =&gt; {
       removers.push(
         `.ace-monokai .ace_line:nth-child(${lineNumber}) .ace_comment { color: #eee; }`
       )
+    }
+  }
+
+  if (c.sets[c.set].fades) {
+    for (let f = 0; f &lt; c.sets[c.set].fades.length; f++) {
+      const fader = c.sets[c.set].fades[f]
+      for (let n = 0; n &lt; fader.spans.length; n++) {
+        for (let x = 0; x &lt; selectors.length; x++) {
+          const fadeString = `.ace-monokai .ace_line:nth-child(${fader.line}) span:nth-child(${n})${selectors[x]} { color: ${c.fadeColor}; }`
+          removers.push(fadeString)
+          console.log(fadeString)
+        }
+      }
+      console.log(fader)
     }
   }
 
@@ -712,6 +766,7 @@ document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
 // of the main script
 
 const c = {
+  fadeColor: &quot;#667&quot;,
   source: `fn main() {
   println!(
     &quot;main got {}&quot;, widget(String::from(&quot;apple&quot;))
@@ -821,6 +876,7 @@ fn widget (value: String) -&gt; String {
       highlights: [3],
       overrides: [],
       noteCoords: [1, 40],
+      fades: [{ line: 3, spans: [1, 2, 3, 4] }],
       note: `
 &lt;p&gt;Make a call to &lt;code&gt;widget&lt;/code&gt; passing in
 a &lt;code&gt;String&lt;/code&gt; as an argument with:&lt;/p&gt;

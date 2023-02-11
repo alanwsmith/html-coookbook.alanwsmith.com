@@ -11,3 +11,15 @@
   margin-top: 1.4rem;
   min-height: 9rem;
 }
+
+#notesContainer pre {
+  background-color: black;
+  margin: 0.6rem;
+  padding: 0.3rem;
+}
+
+#notesContainer code {
+  font-weight: bold;
+  color: #aac;
+  font-family: monospace;
+}
