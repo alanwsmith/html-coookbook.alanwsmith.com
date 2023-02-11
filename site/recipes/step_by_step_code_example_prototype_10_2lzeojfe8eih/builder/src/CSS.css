@@ -1,0 +1,13 @@
+#editor {
+  min-height: 12rem;
+}
+
+#stepByStepRangeSlider {
+  min-width: 20rem;
+}
+
+#notesContainer {
+  max-width: 29rem;
+  margin-top: 1.4rem;
+  min-height: 9rem;
+}

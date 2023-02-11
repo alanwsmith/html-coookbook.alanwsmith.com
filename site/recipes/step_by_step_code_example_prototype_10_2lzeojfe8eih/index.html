@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Step By Step Code Example Prototype v10 - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Step By Step Code Example Prototype v10" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630,w_1200,h_630,c_fit,w_940,h_540,co_rgb:eeeeee,l_text:Helvetica_94_bold:Step%20By%20Step%20Code%20Example%20Prototype%20v10/fl_layer_apply,g_north_west,x_60,y_60/co_rgb:666666,l_text:Inconsolata_36_bold:from%20alan%20w.%20smith/fl_layer_apply,g_south_east,x_196,y_40/og-images/black-with-white-line.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/fonts.css" />
+    <link rel="stylesheet" href="/styles/colors.css" />
+    <link rel="stylesheet" href="/styles/wrapper.css" />
+    
+
+    <style>
+      #editor {
+  min-height: 12rem;
+}
+
+#stepByStepRangeSlider {
+  min-width: 20rem;
+}
+
+#notesContainer {
+  max-width: 29rem;
+  margin-top: 1.4rem;
+  min-height: 9rem;
+}
+
+    </style>
+
+    <script
+      src="/ace-editor/ace.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+
+    <script>
+      // This file can be used to represent
+// and data that should be held outside
+// of the main script
+
+const c = {
+  source: `fn main() {
+  println!(
+    "main got {}", widget(String::from("apple"))
+  );
+}
+
+fn widget (value: String) -> String {
+  println!("widget got {}", value);
+  String::from("berry")
+}`,
+  sets: [
+    {
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [],
+      note: `
+      <p>This is an example of a function that takes an argument and returns a value. </p>
+      <p>A <code>String</code> is sent from <code>main</code> to <code>widget</code> 
+      where it's printed out. <code>widget</code> then passes a string back to 
+      <code>main</code> for it to print.
+      </p>
+      `,
+      noteCoords: [1, 40],
+    },
+
+    {
+      lines: [7, 11],
+      highlights: [7, 11],
+      overrides: [{ line: 7, text: `fn widget() {` }],
+      note: `
+      <p>Start creating a <code>widget</code> function.</p>
+      `,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 11],
+      highlights: [7],
+      overrides: [{ line: 7, text: `fn widget(thing: String) {` }],
+      note: `
+      <p>Set it up to accept a <code>String</code> that gets bound to 
+      an internal variable called <code>thing</code> with:</p>
+      <pre><code class="language-rust">thing: String</code></pre>
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 11],
+      highlights: [7],
+      overrides: [{ line: 7, text: `fn widget(thing: String) -> String {` }],
+      note: `
+      <p>Finish the signature by adding a <code>String</code> return type with:</p>
+
+      <pre><code class="language-rust">-&gt; String</code></pre>
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 8, 11],
+      highlights: [8],
+      note: `
+      <p>Add a <code>println!()</code> to show the value passed into <code>widget</code></p>
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 8, 9, 10, 11],
+      highlights: [9],
+      note: `
+      <p>Add a <code>String</code> as the last thing in the function. </p>
+      Using a <code>String</code> here since that's what the function
+      is speced to return</p>
+      <p><code>String::from()</code> is an expression which means
+      it has a value. Since there's no semi-colon after it that
+      value is what gets passed back from the function </p>
+<p>
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [1, 2, 5, 7, 8, 9, 10, 11],
+      highlights: [1, 5],
+      overrides: [],
+      noteCoords: [1, 40],
+      note: `
+      <p>Start making the <code>main</code> function</p>
+
+`,
+    },
+
+    {
+      lines: [1, 2, 3, 5, 7, 8, 9, 10, 11],
+      highlights: [2, 3, 4],
+      overrides: [{ line: 3, text: '    "main got {}"' }],
+      noteCoords: [1, 40],
+      note: `
+      <p>Stub out a <code>println!()</code> with  
+      a format string</p>
+`,
+    },
+
+    {
+      lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
+      highlights: [3],
+      overrides: [],
+      noteCoords: [1, 40],
+      note: `
+<p>Make a call to <code>widget</code> passing in
+a <code>String</code> as an argument with:</p>
+
+<pre><code>widget(String::from("apple"))</code></pre>
+
+`,
+    },
+
+    {
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [],
+      overrides: [],
+      note: `~ fin ~`,
+      noteCoords: [1, 40],
+    },
+  ],
+}
+
+      const makeElement = (
+  _type,
+  _id,
+  _html,
+  _childOf,
+  _event,
+  _function,
+  _classes
+) => {
+  const newElement = document.createElement(_type)
+  newElement.id = _id
+  newElement.innerHTML = _html
+  window[_childOf].appendChild(newElement)
+  if (_event !== null) {
+    newElement.addEventListener(_event, _function)
+  }
+  if (_classes) {
+    newElement.classList.add(_classes)
+  }
+}
+
+const handleNextButtonClick = () => {
+  if (c.set < c.sets.length - 1) {
+    updateEverything(c.set + 1)
+  }
+}
+
+const handleNumberButtonClick = (event) => {
+  const newIndex = parseInt(event.target.id.split('_')[1])
+  updateEverything(newIndex)
+}
+
+const handlePreviousButtonClick = () => {
+  if (c.set > 0) {
+    updateEverything(c.set - 1)
+  }
+}
+
+const makeNextButton = () => {
+  makeElement(
+    'button',
+    'stepByStepNextButton',
+    '-&gt;',
+    'navStuff',
+    'click',
+    handleNextButtonClick,
+    'stepByStepButton'
+  )
+}
+
+const makeNumberButtons = () => {
+  for (let i = 0; i < c.sets.length; i++) {
+    let buttonText = i
+
+    if (i === 0) {
+      buttonText = 'Start'
+    } else if (i === c.sets.length - 1) {
+      buttonText = 'Complete'
+    }
+
+    makeElement(
+      'button',
+      `stepByStepNumberButton_${i}`,
+      buttonText,
+      'navStuff',
+      'click',
+      handleNumberButtonClick,
+      'stepByStepButton'
+    )
+  }
+}
+
+const makePreviousButton = () => {
+  makeElement(
+    'button',
+    'stepByStepPreviousButton',
+    '&lt;-',
+    'navStuff',
+    'click',
+    handlePreviousButtonClick,
+    'stepByStepButton'
+  )
+}
+
+const handleRangeSliderChange = (event) => {
+  updateEverything(parseInt(event.target.value))
+}
+
+const makeRangeSlider = () => {
+  const newEl = document.createElement('input')
+  newEl.id = 'stepByStepRangeSlider'
+  newEl.type = 'range'
+  newEl.min = 0
+  newEl.max = 9
+  newEl.value = 0
+  newEl.addEventListener('input', handleRangeSliderChange)
+  window.navStuff.appendChild(newEl)
+}
+
+const loadLines = () => {
+  c.lines = c.source.split('\n')
+}
+
+const removeHighlights = () => {
+  // console.log('removeHighlights')
+
+  // bail if no lines were selected
+  //
+  if (c.sets[c.set].highlights.length === 0) {
+    c.styleOverride.innerHTML = `.ace-monokai .ace_line .ace_comment { color: #eee; }`
+    return
+  }
+
+  const selectors = [
+    '.ace_keyword',
+    '.ace_lparen',
+    '.ace_source',
+    '.ace_rust',
+    '.ace_paren',
+    '.ace_function',
+    '.ace_entity',
+    '.ace_identifier',
+    '.ace_operator',
+    '.ace_support',
+    '.ace_constant',
+    '.ace_quoted',
+    '.ace_string',
+    '.ace_double',
+    '.ace_punctuation',
+    '.ace_rparen',
+  ]
+
+  // console.log(c.lines.length)
+
+  const removers = []
+
+  for (let i = 0; i < c.lines.length; i++) {
+    const lineNumber = i + 1
+    if (!c.sets[c.set].highlights.includes(lineNumber)) {
+      for (let x = 0; x < selectors.length; x++) {
+        removers.push(
+          `.ace-monokai .ace_line:nth-child(${lineNumber}) ${selectors[x]} { color: #667; }`
+        )
+        // console.log(selectors[x])
+      }
+      removers.push(
+        `.ace-monokai .ace_line:nth-child(${lineNumber}) .ace_comment { color: #eee; }`
+      )
+    }
+    // set the comment color for the lines with content
+    else {
+      removers.push(
+        `.ace-monokai .ace_line:nth-child(${lineNumber}) .ace_comment { color: #eee; }`
+      )
+    }
+  }
+
+  c.styleOverride.innerHTML = `${removers.join(' ')}`
+  // console.log(c.styleOverride.innerHTML)
+}
+
+const updateContent = () => {
+  parts = []
+
+  for (let i = 0; i < c.lines.length; i++) {
+    // TEMOPRARIY DOING THIS WITH COMMENTS TO
+    // OUTPUT ALL LINES
+    // if (c.sets[c.set].lines.includes(i + 1)) {
+    parts.push(`${c.lines[i]}`)
+    // } else {
+    // parts.push('')
+    // }
+  }
+
+  // // add the notes
+  // const noteParts = c.sets[c.set].note.split('\n').filter((line) => line !== '')
+  // for (let n = 0; n < noteParts.length; n++) {
+  //   const outputLine = n + c.sets[c.set].noteCoords[0] - 1
+  //   const padding = c.sets[c.set].noteCoords[1] - parts[outputLine].length - 1
+  //   // console.log(padding)
+  //   for (let pad = 0; pad < padding; pad++) {
+  //     parts[outputLine] += ' '
+  //   }
+  //   parts[outputLine] += noteParts[n]
+  // }
+
+  if (c.sets[c.set].overrides) {
+    for (let o = 0; o < c.sets[c.set].overrides.length; o++) {
+      const override = c.sets[c.set].overrides[0]
+      parts[override.line - 1] = override.text
+    }
+  }
+
+  c.editor.setValue(parts.join('\n'), 1)
+}
+
+const updateNotes = () => {
+  window.notesContainer.innerHTML = c.sets[c.set].note
+}
+
+const updateEverything = (set) => {
+  c.set = set
+  console.log(`Updated to: ${set}`)
+  window.stepByStepRangeSlider.value = set
+  updateContent()
+  updateNotes()
+  removeHighlights()
+}
+
+const init = () => {
+  loadLines()
+  c.editor = ace.edit('editor')
+  c.editor.setTheme('ace/theme/monokai')
+  c.editor.session.setMode('ace/mode/rust')
+  c.editor.setHighlightActiveLine(false)
+  c.styleOverride = document.createElement('style')
+  document.body.appendChild(c.styleOverride)
+  makePreviousButton()
+  //makeNumberButtons()
+  makeRangeSlider()
+  makeNextButton()
+  updateEverything(0)
+}
+
+document.addEventListener('DOMContentLoaded', init)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">cookbook home</a> ~
+      <a href="https://www.alanwsmith.com/">main site</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
+    </header>
+    <main>
+      <h1>Step By Step Code Example Prototype v10</h1>
+
+      <h2>EXAMPLE</h2>
+      <div id="wrapper">
+  <div id="editor"></div>
+</div>
+<div id="notesContainer"></div>
+<div id="navStuff"></div>
+
+
+      <br />
+      <br />
+      <br />
+      
+                <h2>Details</h2>
+                <ul>
+                    <li>The example below is built directly from the HTML and JavaScript code snippets that follow</li> <li>This is an experiment in showing details of individual lines as well as showing it in source code.</li>
+                </ul>
+                
+      <hr />
+       
+            <h2>HTML Source</h2>
+            <pre class="exampleCode" id="exampleHTMLBody"><code class="language-html">&lt;div id=&quot;wrapper&quot;&gt;
+  &lt;div id=&quot;editor&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;notesContainer&quot;&gt;&lt;/div&gt;
+&lt;div id=&quot;navStuff&quot;&gt;&lt;/div&gt;
+</code></pre>
+             
+            <h2>CSS Source</h2>
+            <pre class="exampleCode" id="exampleCSS"><code class="language-css">#editor {
+  min-height: 12rem;
+}
+
+#stepByStepRangeSlider {
+  min-width: 20rem;
+}
+
+#notesContainer {
+  max-width: 29rem;
+  margin-top: 1.4rem;
+  min-height: 9rem;
+}
+</code></pre>
+             
+            <h2>JavaScript Source</h2>
+            <pre class="exampleCode" id="exampleJS"><code class="language-js">const makeElement = (
+  _type,
+  _id,
+  _html,
+  _childOf,
+  _event,
+  _function,
+  _classes
+) =&gt; {
+  const newElement = document.createElement(_type)
+  newElement.id = _id
+  newElement.innerHTML = _html
+  window[_childOf].appendChild(newElement)
+  if (_event !== null) {
+    newElement.addEventListener(_event, _function)
+  }
+  if (_classes) {
+    newElement.classList.add(_classes)
+  }
+}
+
+const handleNextButtonClick = () =&gt; {
+  if (c.set &lt; c.sets.length - 1) {
+    updateEverything(c.set + 1)
+  }
+}
+
+const handleNumberButtonClick = (event) =&gt; {
+  const newIndex = parseInt(event.target.id.split(&#x27;_&#x27;)[1])
+  updateEverything(newIndex)
+}
+
+const handlePreviousButtonClick = () =&gt; {
+  if (c.set &gt; 0) {
+    updateEverything(c.set - 1)
+  }
+}
+
+const makeNextButton = () =&gt; {
+  makeElement(
+    &#x27;button&#x27;,
+    &#x27;stepByStepNextButton&#x27;,
+    &#x27;-&amp;gt;&#x27;,
+    &#x27;navStuff&#x27;,
+    &#x27;click&#x27;,
+    handleNextButtonClick,
+    &#x27;stepByStepButton&#x27;
+  )
+}
+
+const makeNumberButtons = () =&gt; {
+  for (let i = 0; i &lt; c.sets.length; i++) {
+    let buttonText = i
+
+    if (i === 0) {
+      buttonText = &#x27;Start&#x27;
+    } else if (i === c.sets.length - 1) {
+      buttonText = &#x27;Complete&#x27;
+    }
+
+    makeElement(
+      &#x27;button&#x27;,
+      `stepByStepNumberButton_${i}`,
+      buttonText,
+      &#x27;navStuff&#x27;,
+      &#x27;click&#x27;,
+      handleNumberButtonClick,
+      &#x27;stepByStepButton&#x27;
+    )
+  }
+}
+
+const makePreviousButton = () =&gt; {
+  makeElement(
+    &#x27;button&#x27;,
+    &#x27;stepByStepPreviousButton&#x27;,
+    &#x27;&amp;lt;-&#x27;,
+    &#x27;navStuff&#x27;,
+    &#x27;click&#x27;,
+    handlePreviousButtonClick,
+    &#x27;stepByStepButton&#x27;
+  )
+}
+
+const handleRangeSliderChange = (event) =&gt; {
+  updateEverything(parseInt(event.target.value))
+}
+
+const makeRangeSlider = () =&gt; {
+  const newEl = document.createElement(&#x27;input&#x27;)
+  newEl.id = &#x27;stepByStepRangeSlider&#x27;
+  newEl.type = &#x27;range&#x27;
+  newEl.min = 0
+  newEl.max = 9
+  newEl.value = 0
+  newEl.addEventListener(&#x27;input&#x27;, handleRangeSliderChange)
+  window.navStuff.appendChild(newEl)
+}
+
+const loadLines = () =&gt; {
+  c.lines = c.source.split(&#x27;\n&#x27;)
+}
+
+const removeHighlights = () =&gt; {
+  // console.log(&#x27;removeHighlights&#x27;)
+
+  // bail if no lines were selected
+  //
+  if (c.sets[c.set].highlights.length === 0) {
+    c.styleOverride.innerHTML = `.ace-monokai .ace_line .ace_comment { color: #eee; }`
+    return
+  }
+
+  const selectors = [
+    &#x27;.ace_keyword&#x27;,
+    &#x27;.ace_lparen&#x27;,
+    &#x27;.ace_source&#x27;,
+    &#x27;.ace_rust&#x27;,
+    &#x27;.ace_paren&#x27;,
+    &#x27;.ace_function&#x27;,
+    &#x27;.ace_entity&#x27;,
+    &#x27;.ace_identifier&#x27;,
+    &#x27;.ace_operator&#x27;,
+    &#x27;.ace_support&#x27;,
+    &#x27;.ace_constant&#x27;,
+    &#x27;.ace_quoted&#x27;,
+    &#x27;.ace_string&#x27;,
+    &#x27;.ace_double&#x27;,
+    &#x27;.ace_punctuation&#x27;,
+    &#x27;.ace_rparen&#x27;,
+  ]
+
+  // console.log(c.lines.length)
+
+  const removers = []
+
+  for (let i = 0; i &lt; c.lines.length; i++) {
+    const lineNumber = i + 1
+    if (!c.sets[c.set].highlights.includes(lineNumber)) {
+      for (let x = 0; x &lt; selectors.length; x++) {
+        removers.push(
+          `.ace-monokai .ace_line:nth-child(${lineNumber}) ${selectors[x]} { color: #667; }`
+        )
+        // console.log(selectors[x])
+      }
+      removers.push(
+        `.ace-monokai .ace_line:nth-child(${lineNumber}) .ace_comment { color: #eee; }`
+      )
+    }
+    // set the comment color for the lines with content
+    else {
+      removers.push(
+        `.ace-monokai .ace_line:nth-child(${lineNumber}) .ace_comment { color: #eee; }`
+      )
+    }
+  }
+
+  c.styleOverride.innerHTML = `${removers.join(&#x27; &#x27;)}`
+  // console.log(c.styleOverride.innerHTML)
+}
+
+const updateContent = () =&gt; {
+  parts = []
+
+  for (let i = 0; i &lt; c.lines.length; i++) {
+    // TEMOPRARIY DOING THIS WITH COMMENTS TO
+    // OUTPUT ALL LINES
+    // if (c.sets[c.set].lines.includes(i + 1)) {
+    parts.push(`${c.lines[i]}`)
+    // } else {
+    // parts.push(&#x27;&#x27;)
+    // }
+  }
+
+  // // add the notes
+  // const noteParts = c.sets[c.set].note.split(&#x27;\n&#x27;).filter((line) =&gt; line !== &#x27;&#x27;)
+  // for (let n = 0; n &lt; noteParts.length; n++) {
+  //   const outputLine = n + c.sets[c.set].noteCoords[0] - 1
+  //   const padding = c.sets[c.set].noteCoords[1] - parts[outputLine].length - 1
+  //   // console.log(padding)
+  //   for (let pad = 0; pad &lt; padding; pad++) {
+  //     parts[outputLine] += &#x27; &#x27;
+  //   }
+  //   parts[outputLine] += noteParts[n]
+  // }
+
+  if (c.sets[c.set].overrides) {
+    for (let o = 0; o &lt; c.sets[c.set].overrides.length; o++) {
+      const override = c.sets[c.set].overrides[0]
+      parts[override.line - 1] = override.text
+    }
+  }
+
+  c.editor.setValue(parts.join(&#x27;\n&#x27;), 1)
+}
+
+const updateNotes = () =&gt; {
+  window.notesContainer.innerHTML = c.sets[c.set].note
+}
+
+const updateEverything = (set) =&gt; {
+  c.set = set
+  console.log(`Updated to: ${set}`)
+  window.stepByStepRangeSlider.value = set
+  updateContent()
+  updateNotes()
+  removeHighlights()
+}
+
+const init = () =&gt; {
+  loadLines()
+  c.editor = ace.edit(&#x27;editor&#x27;)
+  c.editor.setTheme(&#x27;ace/theme/monokai&#x27;)
+  c.editor.session.setMode(&#x27;ace/mode/rust&#x27;)
+  c.editor.setHighlightActiveLine(false)
+  c.styleOverride = document.createElement(&#x27;style&#x27;)
+  document.body.appendChild(c.styleOverride)
+  makePreviousButton()
+  //makeNumberButtons()
+  makeRangeSlider()
+  makeNextButton()
+  updateEverything(0)
+}
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
+</code></pre>
+             
+            <h2>JSON Data Source</h2>
+            <pre class="exampleCode" id="exampleJSON"><code class="language-json">{
+  &quot;note&quot;: &quot;Example JSON data file&quot;
+}
+</code></pre>
+            
+      
+            <h2>Config JS Source</h2>
+            <pre class="exampleCode" id="exampleCONFIG"><code class="language-js">// This file can be used to represent
+// and data that should be held outside
+// of the main script
+
+const c = {
+  source: `fn main() {
+  println!(
+    &quot;main got {}&quot;, widget(String::from(&quot;apple&quot;))
+  );
+}
+
+fn widget (value: String) -&gt; String {
+  println!(&quot;widget got {}&quot;, value);
+  String::from(&quot;berry&quot;)
+}`,
+  sets: [
+    {
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [],
+      note: `
+      &lt;p&gt;This is an example of a function that takes an argument and returns a value. &lt;/p&gt;
+      &lt;p&gt;A &lt;code&gt;String&lt;/code&gt; is sent from &lt;code&gt;main&lt;/code&gt; to &lt;code&gt;widget&lt;/code&gt; 
+      where it&#x27;s printed out. &lt;code&gt;widget&lt;/code&gt; then passes a string back to 
+      &lt;code&gt;main&lt;/code&gt; for it to print.
+      &lt;/p&gt;
+      `,
+      noteCoords: [1, 40],
+    },
+
+    {
+      lines: [7, 11],
+      highlights: [7, 11],
+      overrides: [{ line: 7, text: `fn widget() {` }],
+      note: `
+      &lt;p&gt;Start creating a &lt;code&gt;widget&lt;/code&gt; function.&lt;/p&gt;
+      `,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 11],
+      highlights: [7],
+      overrides: [{ line: 7, text: `fn widget(thing: String) {` }],
+      note: `
+      &lt;p&gt;Set it up to accept a &lt;code&gt;String&lt;/code&gt; that gets bound to 
+      an internal variable called &lt;code&gt;thing&lt;/code&gt; with:&lt;/p&gt;
+      &lt;pre&gt;&lt;code class=&quot;language-rust&quot;&gt;thing: String&lt;/code&gt;&lt;/pre&gt;
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 11],
+      highlights: [7],
+      overrides: [{ line: 7, text: `fn widget(thing: String) -&gt; String {` }],
+      note: `
+      &lt;p&gt;Finish the signature by adding a &lt;code&gt;String&lt;/code&gt; return type with:&lt;/p&gt;
+
+      &lt;pre&gt;&lt;code class=&quot;language-rust&quot;&gt;-&amp;gt; String&lt;/code&gt;&lt;/pre&gt;
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 8, 11],
+      highlights: [8],
+      note: `
+      &lt;p&gt;Add a &lt;code&gt;println!()&lt;/code&gt; to show the value passed into &lt;code&gt;widget&lt;/code&gt;&lt;/p&gt;
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 8, 9, 10, 11],
+      highlights: [9],
+      note: `
+      &lt;p&gt;Add a &lt;code&gt;String&lt;/code&gt; as the last thing in the function. &lt;/p&gt;
+      Using a &lt;code&gt;String&lt;/code&gt; here since that&#x27;s what the function
+      is speced to return&lt;/p&gt;
+      &lt;p&gt;&lt;code&gt;String::from()&lt;/code&gt; is an expression which means
+      it has a value. Since there&#x27;s no semi-colon after it that
+      value is what gets passed back from the function &lt;/p&gt;
+&lt;p&gt;
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [1, 2, 5, 7, 8, 9, 10, 11],
+      highlights: [1, 5],
+      overrides: [],
+      noteCoords: [1, 40],
+      note: `
+      &lt;p&gt;Start making the &lt;code&gt;main&lt;/code&gt; function&lt;/p&gt;
+
+`,
+    },
+
+    {
+      lines: [1, 2, 3, 5, 7, 8, 9, 10, 11],
+      highlights: [2, 3, 4],
+      overrides: [{ line: 3, text: &#x27;    &quot;main got {}&quot;&#x27; }],
+      noteCoords: [1, 40],
+      note: `
+      &lt;p&gt;Stub out a &lt;code&gt;println!()&lt;/code&gt; with  
+      a format string&lt;/p&gt;
+`,
+    },
+
+    {
+      lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
+      highlights: [3],
+      overrides: [],
+      noteCoords: [1, 40],
+      note: `
+&lt;p&gt;Make a call to &lt;code&gt;widget&lt;/code&gt; passing in
+a &lt;code&gt;String&lt;/code&gt; as an argument with:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;widget(String::from(&quot;apple&quot;))&lt;/code&gt;&lt;/pre&gt;
+
+`,
+    },
+
+    {
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [],
+      overrides: [],
+      note: `~ fin ~`,
+      noteCoords: [1, 40],
+    },
+  ],
+}
+</code></pre>
+               
+    </main>
+    <footer>
+      from <a href="https://www.alanwsmith.com/">alan w. smith</a>
+    </footer>
+  </body>
+</html>

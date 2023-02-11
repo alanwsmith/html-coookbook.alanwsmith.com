@@ -50,6 +50,7 @@ exports.handler = async function (event, context) {
   "html_canvas_simulate_an_animated_gif_2iythtpjmuhh": "/recipes/html_canvas_simulate_an_animated_gif_2iythtpjmuhh/index.html",
   "html_input_range_type_with_floating_point_number--2itkxa97ogoe": "/recipes/html_input_range_type_with_floating_point_number--2itkxa97ogoe/index.html",
   "live_code_codes_maker_experiment_alpha--2gxv4l6iyo7v": "/recipes/live_code_codes_maker_experiment_alpha--2gxv4l6iyo7v/index.html",
+  "step_by_step_code_example_prototype_10_2lzeojfe8eih": "/recipes/step_by_step_code_example_prototype_10_2lzeojfe8eih/index.html",
   "step_by_step_code_example_prototype_1_2l9acthsgjbc": "/recipes/step_by_step_code_example_prototype_1_2l9acthsgjbc/index.html",
   "step_by_step_code_example_prototype_2_2l9rj2dlz1yn": "/recipes/step_by_step_code_example_prototype_2_2l9rj2dlz1yn/index.html",
   "step_by_step_code_example_prototype_3_2la5nzy6th6j": "/recipes/step_by_step_code_example_prototype_3_2la5nzy6th6j/index.html",
