@@ -5,8 +5,10 @@
   "DETAILS": [
     "The example below is built directly from the HTML and JavaScript code snippets that follow"
   ],
-  "NOTES": [],
-  "TODOS": [],
+  "NOTES": [
+    "Could probably also just move the margin a little away from the code block to move the trigger point"
+  ],
+  "TODOS": ["Deal with refreshes"],
   "REFERENCES": [],
   "REFERENCES_TEMPLATE": [
     {
