@@ -35,7 +35,7 @@
     <style>
       :root {
   --area-height: 18rem;
-  --li-bottom-margin: 4rem;
+  --top-padding: 1rem;
 }
 
 #scrollArea {
@@ -43,15 +43,16 @@
   height: var(--area-height);
   overflow-y: auto;
   width: 22rem;
+  padding-top: var(--top-padding);
 }
 
 #scrollArea li {
-  padding-bottom: var(--li-bottom-margin);
+  padding-bottom: 4rem;
   margin: 0;
 }
 
 #scrollArea li:last-child {
-  height: calc(var(--area-height) - var(--li-bottom-margin));
+  height: calc(var(--area-height) - var(--top-padding));
 }
 
     </style>
@@ -72,10 +73,16 @@ const c = {
 
       function handleIntersect(entries, observer) {
   entries.forEach((entry) => {
-    if (entry.boundingClientRect.top < entry.rootBounds.top) {
-      window.currentId.innerHTML = entry.target.nextElementSibling.id
-    } else if (entry.boundingClientRect.top < entry.rootBounds.top) {
+    if (
+      entry.boundingClientRect.top < entry.rootBounds.top &&
+      entry.boundingClientRect.bottom > entry.rootBounds.top
+    ) {
       window.currentId.innerHTML = entry.target.id
+    } else if (
+      entry.boundingClientRect.top < entry.rootBounds.top &&
+      entry.boundingClientRect.bottom < entry.rootBounds.top
+    ) {
+      window.currentId.innerHTML = entry.target.nextElementSibling.id
     }
   })
 }
@@ -115,7 +122,7 @@ window.addEventListener('load', createObserver)
                 
 
       <h2>EXAMPLE</h2>
-      <div>The current id is: <span id="currentId">item1</span></div>
+      <div id="currentId">item1</div>
 
 <div id="scrollArea">
   <ol>
@@ -156,7 +163,7 @@ window.addEventListener('load', createObserver)
       <hr />
        
             <h2>HTML Source</h2>
-            <pre class="exampleCode" id="exampleHTMLBody"><code class="language-html">&lt;div&gt;The current id is: &lt;span id=&quot;currentId&quot;&gt;item1&lt;/span&gt;&lt;/div&gt;
+            <pre class="exampleCode" id="exampleHTMLBody"><code class="language-html">&lt;div id=&quot;currentId&quot;&gt;item1&lt;/div&gt;
 
 &lt;div id=&quot;scrollArea&quot;&gt;
   &lt;ol&gt;
@@ -194,7 +201,7 @@ window.addEventListener('load', createObserver)
             <h2>CSS Source</h2>
             <pre class="exampleCode" id="exampleCSS"><code class="language-css">:root {
   --area-height: 18rem;
-  --li-bottom-margin: 4rem;
+  --top-padding: 1rem;
 }
 
 #scrollArea {
@@ -202,25 +209,32 @@ window.addEventListener('load', createObserver)
   height: var(--area-height);
   overflow-y: auto;
   width: 22rem;
+  padding-top: var(--top-padding);
 }
 
 #scrollArea li {
-  padding-bottom: var(--li-bottom-margin);
+  padding-bottom: 4rem;
   margin: 0;
 }
 
 #scrollArea li:last-child {
-  height: calc(var(--area-height) - var(--li-bottom-margin));
+  height: calc(var(--area-height) - var(--top-padding));
 }
 </code></pre>
              
             <h2>JavaScript Source</h2>
             <pre class="exampleCode" id="exampleJS"><code class="language-js">function handleIntersect(entries, observer) {
   entries.forEach((entry) =&gt; {
-    if (entry.boundingClientRect.top &lt; entry.rootBounds.top) {
-      window.currentId.innerHTML = entry.target.nextElementSibling.id
-    } else if (entry.boundingClientRect.top &lt; entry.rootBounds.top) {
+    if (
+      entry.boundingClientRect.top &lt; entry.rootBounds.top &amp;&amp;
+      entry.boundingClientRect.bottom &gt; entry.rootBounds.top
+    ) {
       window.currentId.innerHTML = entry.target.id
+    } else if (
+      entry.boundingClientRect.top &lt; entry.rootBounds.top &amp;&amp;
+      entry.boundingClientRect.bottom &lt; entry.rootBounds.top
+    ) {
+      window.currentId.innerHTML = entry.target.nextElementSibling.id
     }
   })
 }

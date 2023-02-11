@@ -1,6 +1,6 @@
 :root {
   --area-height: 18rem;
-  --li-bottom-margin: 4rem;
+  --top-padding: 1rem;
 }
 
 #scrollArea {
@@ -8,13 +8,14 @@
   height: var(--area-height);
   overflow-y: auto;
   width: 22rem;
+  padding-top: var(--top-padding);
 }
 
 #scrollArea li {
-  padding-bottom: var(--li-bottom-margin);
+  padding-bottom: 4rem;
   margin: 0;
 }
 
 #scrollArea li:last-child {
-  height: calc(var(--area-height) - var(--li-bottom-margin));
+  height: calc(var(--area-height) - var(--top-padding));
 }

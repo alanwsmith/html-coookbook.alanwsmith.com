@@ -1,9 +1,15 @@
 function handleIntersect(entries, observer) {
   entries.forEach((entry) => {
-    if (entry.boundingClientRect.top < entry.rootBounds.top) {
-      window.currentId.innerHTML = entry.target.nextElementSibling.id
-    } else if (entry.boundingClientRect.top < entry.rootBounds.top) {
+    if (
+      entry.boundingClientRect.top < entry.rootBounds.top &&
+      entry.boundingClientRect.bottom > entry.rootBounds.top
+    ) {
       window.currentId.innerHTML = entry.target.id
+    } else if (
+      entry.boundingClientRect.top < entry.rootBounds.top &&
+      entry.boundingClientRect.bottom < entry.rootBounds.top
+    ) {
+      window.currentId.innerHTML = entry.target.nextElementSibling.id
     }
   })
 }
