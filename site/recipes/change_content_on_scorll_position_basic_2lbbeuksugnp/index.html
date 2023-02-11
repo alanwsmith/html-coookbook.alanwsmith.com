@@ -271,7 +271,12 @@ const c = {
   alfa: &#x27;bravo&#x27;,
 }
 </code></pre>
-               
+              
+                <h2>Notes</h2>
+                <ul>
+                    <li>The last element is given a specific height so it scrolls all the way to the top of the content area</li> <li>The top padding lets the switch happen just a little before the number appears at the top of the border box</li> <li>The scrolling area is created by setting `overflow-y` to `audo`</li> <li>The nextElementSibling call is used when the scroll is moving up since the observation is made on the element leaving the area</li>
+                </ul>
+             
     </main>
     <footer>
       from <a href="https://www.alanwsmith.com/">alan w. smith</a>

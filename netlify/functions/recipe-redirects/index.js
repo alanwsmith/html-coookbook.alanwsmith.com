@@ -50,7 +50,6 @@ exports.handler = async function (event, context) {
   "html_canvas_draw_rectangle_2iz9dtmla7to": "/recipes/html_canvas_draw_rectangle_2iz9dtmla7to/index.html",
   "html_canvas_simulate_an_animated_gif_2iythtpjmuhh": "/recipes/html_canvas_simulate_an_animated_gif_2iythtpjmuhh/index.html",
   "html_input_range_type_with_floating_point_number--2itkxa97ogoe": "/recipes/html_input_range_type_with_floating_point_number--2itkxa97ogoe/index.html",
-  "intersection_observer_test_2lae8592cs7u": "/recipes/intersection_observer_test_2lae8592cs7u/index.html",
   "live_code_codes_maker_experiment_alpha--2gxv4l6iyo7v": "/recipes/live_code_codes_maker_experiment_alpha--2gxv4l6iyo7v/index.html",
   "step_by_step_code_example_prototype_10_2lzeojfe8eih": "/recipes/step_by_step_code_example_prototype_10_2lzeojfe8eih/index.html",
   "step_by_step_code_example_prototype_11_2lzsw7a1hdhf": "/recipes/step_by_step_code_example_prototype_11_2lzsw7a1hdhf/index.html",

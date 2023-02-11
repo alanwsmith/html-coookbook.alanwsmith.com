@@ -7,13 +7,28 @@
     "Goal: The demonstration area contains a &quot;ul&quot; with several &quot;li&quot; children. When each child element reaches the top of the demo box the display value changes to the show the id of the &quote;li&quot;",
     "The example below is built directly from the HTML and JavaScript code snippets that follow"
   ],
-  "NOTES": [],
+  "NOTES": [
+    "The last element is given a specific height so it scrolls all the way to the top of the content area",
+    "The top padding lets the switch happen just a little before the number appears at the top of the border box",
+    "The scrolling area is created by setting `overflow-y` to `audo`",
+    "The nextElementSibling call is used when the scroll is moving up since the observation is made on the element leaving the area"
+  ],
   "TODOS": [],
   "REFERENCES": [],
   "REFERENCES_TEMPLATE": [
     {
-      "title": "",
-      "url": "",
+      "title": "MDN: CSS :last-child",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/:last-child",
+      "extra": ""
+    },
+    {
+      "title": "MDN: Element.nextElementSibling",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/Element/nextElementSibling",
+      "extra": ""
+    },
+    {
+      "title": "MDN: overflow-y",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-y",
       "extra": ""
     }
   ]
