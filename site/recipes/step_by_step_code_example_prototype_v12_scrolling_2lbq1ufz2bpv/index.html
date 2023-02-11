@@ -41,7 +41,8 @@
 }
 
 #contentArea {
-  width: 24rem;
+  padding-left: 11rem;
+  width: 28rem;
 }
 
 #contentArea li {
@@ -80,6 +81,7 @@ function handleIntersect2(entries, observer) {
     const clientBottom = entry.boundingClientRect.bottom
 
     if (clientTop < rootTop && clientBottom > rootTop) {
+      window.currentId.innerHTML = entry.target.id
       console.log(
         `-- down - ${id} - ${clientTop} - ${rootTop} - ${clientBottom}`
       )
@@ -95,6 +97,7 @@ function handleIntersect1(entries, observer) {
     const clientBottom = entry.boundingClientRect.bottom
 
     if (clientTop < rootTop) {
+      window.currentId.innerHTML = entry.target.id
       console.log(`-- up - ${id} - ${clientTop} - ${rootTop} - ${clientBottom}`)
       // } else if (clientTop < rootTop && clientBottom > rootTop) {
       // console.log(`-- dn - ${id} - ${clientTop} - ${rootTop} - ${clientBottom}`)
@@ -165,7 +168,7 @@ window.addEventListener('load', createObservers)
       <h2>EXAMPLE</h2>
       <div id="wrapper">
   <div id="codeArea">
-    <pre><code id="currentId">this is some code</code></pre>
+    <pre><code id="currentId">note1</code></pre>
   </div>
   <div id="contentArea">
     <ol>
@@ -208,7 +211,7 @@ window.addEventListener('load', createObservers)
             <h2>HTML Source</h2>
             <pre class="exampleCode" id="exampleHTMLBody"><code class="language-html">&lt;div id=&quot;wrapper&quot;&gt;
   &lt;div id=&quot;codeArea&quot;&gt;
-    &lt;pre&gt;&lt;code id=&quot;currentId&quot;&gt;this is some code&lt;/code&gt;&lt;/pre&gt;
+    &lt;pre&gt;&lt;code id=&quot;currentId&quot;&gt;note1&lt;/code&gt;&lt;/pre&gt;
   &lt;/div&gt;
   &lt;div id=&quot;contentArea&quot;&gt;
     &lt;ol&gt;
@@ -252,7 +255,8 @@ window.addEventListener('load', createObservers)
 }
 
 #contentArea {
-  width: 24rem;
+  padding-left: 11rem;
+  width: 28rem;
 }
 
 #contentArea li {
@@ -277,6 +281,7 @@ function handleIntersect2(entries, observer) {
     const clientBottom = entry.boundingClientRect.bottom
 
     if (clientTop &lt; rootTop &amp;&amp; clientBottom &gt; rootTop) {
+      window.currentId.innerHTML = entry.target.id
       console.log(
         `-- down - ${id} - ${clientTop} - ${rootTop} - ${clientBottom}`
       )
@@ -292,6 +297,7 @@ function handleIntersect1(entries, observer) {
     const clientBottom = entry.boundingClientRect.bottom
 
     if (clientTop &lt; rootTop) {
+      window.currentId.innerHTML = entry.target.id
       console.log(`-- up - ${id} - ${clientTop} - ${rootTop} - ${clientBottom}`)
       // } else if (clientTop &lt; rootTop &amp;&amp; clientBottom &gt; rootTop) {
       // console.log(`-- dn - ${id} - ${clientTop} - ${rootTop} - ${clientBottom}`)

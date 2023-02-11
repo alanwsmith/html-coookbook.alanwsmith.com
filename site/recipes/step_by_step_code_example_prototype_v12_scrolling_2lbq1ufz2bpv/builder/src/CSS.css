@@ -6,7 +6,8 @@
 }
 
 #contentArea {
-  width: 24rem;
+  padding-left: 11rem;
+  width: 28rem;
 }
 
 #contentArea li {
