@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Step By Step Code Example Prototype v10 - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <title>Step By Step Code Example Prototype v11 - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Step By Step Code Example Prototype v10" />
+    <meta property="og:title" content="Step By Step Code Example Prototype v11" />
     <meta property="og:description" content="" />
     <meta
       property="og:image"
-      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630,w_1200,h_630,c_fit,w_940,h_540,co_rgb:eeeeee,l_text:Helvetica_94_bold:Step%20By%20Step%20Code%20Example%20Prototype%20v10/fl_layer_apply,g_north_west,x_60,y_60/co_rgb:666666,l_text:Inconsolata_36_bold:from%20alan%20w.%20smith/fl_layer_apply,g_south_east,x_196,y_40/og-images/black-with-white-line.jpg"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630,w_1200,h_630,c_fit,w_940,h_540,co_rgb:eeeeee,l_text:Helvetica_94_bold:Step%20By%20Step%20Code%20Example%20Prototype%20v11/fl_layer_apply,g_north_west,x_60,y_60/co_rgb:666666,l_text:Inconsolata_36_bold:from%20alan%20w.%20smith/fl_layer_apply,g_south_east,x_196,y_40/og-images/black-with-white-line.jpg"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site:id" content="@TheIdOfAlan" />
@@ -99,8 +99,8 @@ fn widget (value: String) -> String {
     },
 
     {
-      lines: [7, 11],
-      highlights: [7, 11],
+      lines: [7, 10],
+      highlights: [7, 10],
       overrides: [{ line: 7, text: `fn widget() {` }],
       note: `
       <p>Start creating a <code>widget</code> function.</p>
@@ -109,8 +109,8 @@ fn widget (value: String) -> String {
     },
 
     {
-      lines: [7, 11],
-      highlights: [7],
+      lines: [7, 10],
+      highlights: [7, 10],
       overrides: [{ line: 7, text: `fn widget(thing: String) {` }],
       note: `
       <p>Set it up to accept a <code>String</code> that gets bound to 
@@ -121,8 +121,8 @@ fn widget (value: String) -> String {
     },
 
     {
-      lines: [7, 11],
-      highlights: [7],
+      lines: [7, 10],
+      highlights: [7, 10],
       overrides: [{ line: 7, text: `fn widget(thing: String) -> String {` }],
       note: `
       <p>Finish the signature by adding a <code>String</code> return type with:</p>
@@ -157,7 +157,7 @@ fn widget (value: String) -> String {
     },
 
     {
-      lines: [1, 2, 5, 7, 8, 9, 10, 11],
+      lines: [1, 5, 7, 8, 9, 10, 11],
       highlights: [1, 5],
       overrides: [],
       noteCoords: [1, 40],
@@ -168,7 +168,7 @@ fn widget (value: String) -> String {
     },
 
     {
-      lines: [1, 2, 3, 5, 7, 8, 9, 10, 11],
+      lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
       highlights: [2, 3, 4],
       overrides: [{ line: 3, text: '    "main got {}"' }],
       noteCoords: [1, 40],
@@ -385,13 +385,11 @@ const updateContent = () => {
   parts = []
 
   for (let i = 0; i < c.lines.length; i++) {
-    // TEMOPRARIY DOING THIS WITH COMMENTS TO
-    // OUTPUT ALL LINES
-    // if (c.sets[c.set].lines.includes(i + 1)) {
-    parts.push(`${c.lines[i]}`)
-    // } else {
-    // parts.push('')
-    // }
+    if (c.sets[c.set].lines.includes(i + 1)) {
+      parts.push(`${c.lines[i]}`)
+    } else {
+      parts.push('')
+    }
   }
 
   // // add the notes
@@ -457,7 +455,7 @@ document.addEventListener('DOMContentLoaded', init)
       <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
     </header>
     <main>
-      <h1>Step By Step Code Example Prototype v10</h1>
+      <h1>Step By Step Code Example Prototype v11</h1>
 
       <h2>EXAMPLE</h2>
       <div id="wrapper">
@@ -473,7 +471,7 @@ document.addEventListener('DOMContentLoaded', init)
       
                 <h2>Details</h2>
                 <ul>
-                    <li>The example below is built directly from the HTML and JavaScript code snippets that follow</li> <li>This is an experiment in showing details of individual lines as well as showing it in source code.</li>
+                    <li>The example below is built directly from the HTML and JavaScript code snippets that follow</li> <li>This is the same as v10, but only showing source code lines after they get mentioned</li>
                 </ul>
                 
       <hr />
@@ -694,13 +692,11 @@ const updateContent = () =&gt; {
   parts = []
 
   for (let i = 0; i &lt; c.lines.length; i++) {
-    // TEMOPRARIY DOING THIS WITH COMMENTS TO
-    // OUTPUT ALL LINES
-    // if (c.sets[c.set].lines.includes(i + 1)) {
-    parts.push(`${c.lines[i]}`)
-    // } else {
-    // parts.push(&#x27;&#x27;)
-    // }
+    if (c.sets[c.set].lines.includes(i + 1)) {
+      parts.push(`${c.lines[i]}`)
+    } else {
+      parts.push(&#x27;&#x27;)
+    }
   }
 
   // // add the notes
@@ -795,8 +791,8 @@ fn widget (value: String) -&gt; String {
     },
 
     {
-      lines: [7, 11],
-      highlights: [7, 11],
+      lines: [7, 10],
+      highlights: [7, 10],
       overrides: [{ line: 7, text: `fn widget() {` }],
       note: `
       &lt;p&gt;Start creating a &lt;code&gt;widget&lt;/code&gt; function.&lt;/p&gt;
@@ -805,8 +801,8 @@ fn widget (value: String) -&gt; String {
     },
 
     {
-      lines: [7, 11],
-      highlights: [7],
+      lines: [7, 10],
+      highlights: [7, 10],
       overrides: [{ line: 7, text: `fn widget(thing: String) {` }],
       note: `
       &lt;p&gt;Set it up to accept a &lt;code&gt;String&lt;/code&gt; that gets bound to 
@@ -817,8 +813,8 @@ fn widget (value: String) -&gt; String {
     },
 
     {
-      lines: [7, 11],
-      highlights: [7],
+      lines: [7, 10],
+      highlights: [7, 10],
       overrides: [{ line: 7, text: `fn widget(thing: String) -&gt; String {` }],
       note: `
       &lt;p&gt;Finish the signature by adding a &lt;code&gt;String&lt;/code&gt; return type with:&lt;/p&gt;
@@ -853,7 +849,7 @@ fn widget (value: String) -&gt; String {
     },
 
     {
-      lines: [1, 2, 5, 7, 8, 9, 10, 11],
+      lines: [1, 5, 7, 8, 9, 10, 11],
       highlights: [1, 5],
       overrides: [],
       noteCoords: [1, 40],
@@ -864,7 +860,7 @@ fn widget (value: String) -&gt; String {
     },
 
     {
-      lines: [1, 2, 3, 5, 7, 8, 9, 10, 11],
+      lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
       highlights: [2, 3, 4],
       overrides: [{ line: 3, text: &#x27;    &quot;main got {}&quot;&#x27; }],
       noteCoords: [1, 40],
