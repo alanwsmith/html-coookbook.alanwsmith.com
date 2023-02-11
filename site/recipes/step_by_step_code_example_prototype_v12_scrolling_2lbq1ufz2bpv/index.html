@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Step By Step Code Example Prototype v12 - Scrolling Content Area - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Step By Step Code Example Prototype v12 - Scrolling Content Area" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630,w_1200,h_630,c_fit,w_940,h_540,co_rgb:eeeeee,l_text:Helvetica_94_bold:Step%20By%20Step%20Code%20Example%20Prototype%20v12%20-%20Scrolling%20Content%20Area/fl_layer_apply,g_north_west,x_60,y_60/co_rgb:666666,l_text:Inconsolata_36_bold:from%20alan%20w.%20smith/fl_layer_apply,g_south_east,x_196,y_40/og-images/black-with-white-line.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/fonts.css" />
+    <link rel="stylesheet" href="/styles/colors.css" />
+    <link rel="stylesheet" href="/styles/wrapper.css" />
+    <link rel="stylesheet" href="/styles/prism-customized.css" />
+    
+    <style>
+      #codeArea {
+  height: 100px;
+  position: sticky;
+  top: 0;
+  border: 1px solid black;
+}
+
+#contentArea {
+  width: 24rem;
+}
+
+#contentArea li {
+  padding: 0;
+  margin: 0;
+}
+
+#wrapper {
+  position: relative;
+}
+
+    </style>
+
+    <!--
+    <link rel="stylesheet" href="/styles/highlightjs/_custom-base16-atelier-sulphurpool.min.css" />
+    <script src="/assets/highlight/highlight.min.js"></script>
+    -->
+
+    <script>
+      // This file can be used to represent
+// and data that should be held outside
+// of the main script
+
+const c = {
+  alfa: 'bravo',
+}
+
+      // const multiplier = 0.7
+
+function handleIntersect2(entries, observer) {
+  entries.forEach((entry) => {
+    const id = entry.target.id
+    const clientTop = entry.boundingClientRect.top
+    const rootTop = entry.rootBounds.top
+    const rootBottom = entry.rootBounds.bottom
+    const clientBottom = entry.boundingClientRect.bottom
+
+    if (clientTop < rootTop && clientBottom > rootTop) {
+      console.log(
+        `-- down - ${id} - ${clientTop} - ${rootTop} - ${clientBottom}`
+      )
+    }
+  })
+}
+
+function handleIntersect1(entries, observer) {
+  entries.forEach((entry) => {
+    const id = entry.target.id
+    const clientTop = entry.boundingClientRect.top
+    const rootTop = entry.rootBounds.top
+    const clientBottom = entry.boundingClientRect.bottom
+
+    if (clientTop < rootTop) {
+      console.log(`-- up - ${id} - ${clientTop} - ${rootTop} - ${clientBottom}`)
+      // } else if (clientTop < rootTop && clientBottom > rootTop) {
+      // console.log(`-- dn - ${id} - ${clientTop} - ${rootTop} - ${clientBottom}`)
+    }
+
+    // console.log(
+    //   `-- ${entry.target.id} - ${entry.boundingClientRect.top} - ${entry.rootBounds.top} -   ${entry.boundingClientRect.bottom}`
+    // )
+
+    //if (
+    //  entry.boundingClientRect.top < entry.rootBounds.top &&
+    //  entry.boundingClientRect.bottom > entry.rootBounds.top
+    //) {
+    //  console.log('a')
+    //  //window.currentId.innerHTML = entry.target.id
+    //} else if (
+    //  entry.boundingClientRect.top < entry.rootBounds.top &&
+    //  entry.boundingClientRect.bottom > entry.rootBounds.top
+    //) {
+    //  console.log('b')
+    //  // window.currentId.innerHTML = entry.target.nextElementSibling.id
+    //}
+  })
+}
+
+function createObservers() {
+  const options1 = {
+    root: null,
+    rootMargin: '-100px',
+    threshold: 1.0,
+  }
+  const options2 = {
+    root: null,
+    rootMargin: '-100px',
+    threshold: 0,
+  }
+  const observer1 = new IntersectionObserver(handleIntersect1, options1)
+  const observer2 = new IntersectionObserver(handleIntersect2, options2)
+
+  const els = window.contentArea.getElementsByTagName('li')
+  for (let i = 0; i < els.length; i++) {
+    observer1.observe(els[i])
+    observer2.observe(els[i])
+  }
+}
+
+window.addEventListener('load', createObservers)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">cookbook home</a> ~
+      <a href="https://www.alanwsmith.com/">main site</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
+    </header>
+    <main>
+      <h1>Step By Step Code Example Prototype v12 - Scrolling Content Area</h1>
+      
+                <h2>Details</h2>
+                <ul>
+                    <li>The example below is built directly from the HTML and JavaScript code snippets that follow</li>
+                </ul>
+                
+
+      <h2>EXAMPLE</h2>
+      <div id="wrapper">
+  <div id="codeArea">
+    <pre><code id="currentId">this is some code</code></pre>
+  </div>
+  <div id="contentArea">
+    <ol>
+      <li id="note1">
+        The curtain rose and the show was on. The birch canoe slid on the smooth
+        planks. Glue the sheet to the dark blue background. It's easy to tell
+        the depth of a well.
+      </li>
+      <li id="note2">
+        The colt reared and threw the tall rider. It snowed, rained, and hailed
+        the same morning. Take the winding path to reach the lake. The wide road
+        shimmered in the hot sun.
+      </li>
+      <li id="note3">
+        The pencils have all been used. The sofa cushion is red and of light
+        weight. The jacket hung on the back of the wide chair.
+      </li>
+      <li id="note4">
+        The paper box is full of thumb tacks. The petals fall with the next puff
+        of wind. Bring your best compass to the third class. A fresh start will
+        work such wonders. He wrote his last novel there at the inn.
+      </li>
+      <li id="note5">
+        No hardship seemed to keep him sad. Once we stood beside the shore.
+      </li>
+      <li id="note6">
+        He took the lead and kept it the whole distance. The key you designed
+        will fit the lock. This plank was made for walking on.
+      </li>
+    </ol>
+  </div>
+</div>
+
+
+      <br />
+      <br />
+      <br />
+      <hr />
+       
+            <h2>HTML Source</h2>
+            <pre class="exampleCode" id="exampleHTMLBody"><code class="language-html">&lt;div id=&quot;wrapper&quot;&gt;
+  &lt;div id=&quot;codeArea&quot;&gt;
+    &lt;pre&gt;&lt;code id=&quot;currentId&quot;&gt;this is some code&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;contentArea&quot;&gt;
+    &lt;ol&gt;
+      &lt;li id=&quot;note1&quot;&gt;
+        The curtain rose and the show was on. The birch canoe slid on the smooth
+        planks. Glue the sheet to the dark blue background. It&#x27;s easy to tell
+        the depth of a well.
+      &lt;/li&gt;
+      &lt;li id=&quot;note2&quot;&gt;
+        The colt reared and threw the tall rider. It snowed, rained, and hailed
+        the same morning. Take the winding path to reach the lake. The wide road
+        shimmered in the hot sun.
+      &lt;/li&gt;
+      &lt;li id=&quot;note3&quot;&gt;
+        The pencils have all been used. The sofa cushion is red and of light
+        weight. The jacket hung on the back of the wide chair.
+      &lt;/li&gt;
+      &lt;li id=&quot;note4&quot;&gt;
+        The paper box is full of thumb tacks. The petals fall with the next puff
+        of wind. Bring your best compass to the third class. A fresh start will
+        work such wonders. He wrote his last novel there at the inn.
+      &lt;/li&gt;
+      &lt;li id=&quot;note5&quot;&gt;
+        No hardship seemed to keep him sad. Once we stood beside the shore.
+      &lt;/li&gt;
+      &lt;li id=&quot;note6&quot;&gt;
+        He took the lead and kept it the whole distance. The key you designed
+        will fit the lock. This plank was made for walking on.
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+             
+            <h2>CSS Source</h2>
+            <pre class="exampleCode" id="exampleCSS"><code class="language-css">#codeArea {
+  height: 100px;
+  position: sticky;
+  top: 0;
+  border: 1px solid black;
+}
+
+#contentArea {
+  width: 24rem;
+}
+
+#contentArea li {
+  padding: 0;
+  margin: 0;
+}
+
+#wrapper {
+  position: relative;
+}
+</code></pre>
+             
+            <h2>JavaScript Source</h2>
+            <pre class="exampleCode" id="exampleJS"><code class="language-js">// const multiplier = 0.7
+
+function handleIntersect2(entries, observer) {
+  entries.forEach((entry) =&gt; {
+    const id = entry.target.id
+    const clientTop = entry.boundingClientRect.top
+    const rootTop = entry.rootBounds.top
+    const rootBottom = entry.rootBounds.bottom
+    const clientBottom = entry.boundingClientRect.bottom
+
+    if (clientTop &lt; rootTop &amp;&amp; clientBottom &gt; rootTop) {
+      console.log(
+        `-- down - ${id} - ${clientTop} - ${rootTop} - ${clientBottom}`
+      )
+    }
+  })
+}
+
+function handleIntersect1(entries, observer) {
+  entries.forEach((entry) =&gt; {
+    const id = entry.target.id
+    const clientTop = entry.boundingClientRect.top
+    const rootTop = entry.rootBounds.top
+    const clientBottom = entry.boundingClientRect.bottom
+
+    if (clientTop &lt; rootTop) {
+      console.log(`-- up - ${id} - ${clientTop} - ${rootTop} - ${clientBottom}`)
+      // } else if (clientTop &lt; rootTop &amp;&amp; clientBottom &gt; rootTop) {
+      // console.log(`-- dn - ${id} - ${clientTop} - ${rootTop} - ${clientBottom}`)
+    }
+
+    // console.log(
+    //   `-- ${entry.target.id} - ${entry.boundingClientRect.top} - ${entry.rootBounds.top} -   ${entry.boundingClientRect.bottom}`
+    // )
+
+    //if (
+    //  entry.boundingClientRect.top &lt; entry.rootBounds.top &amp;&amp;
+    //  entry.boundingClientRect.bottom &gt; entry.rootBounds.top
+    //) {
+    //  console.log(&#x27;a&#x27;)
+    //  //window.currentId.innerHTML = entry.target.id
+    //} else if (
+    //  entry.boundingClientRect.top &lt; entry.rootBounds.top &amp;&amp;
+    //  entry.boundingClientRect.bottom &gt; entry.rootBounds.top
+    //) {
+    //  console.log(&#x27;b&#x27;)
+    //  // window.currentId.innerHTML = entry.target.nextElementSibling.id
+    //}
+  })
+}
+
+function createObservers() {
+  const options1 = {
+    root: null,
+    rootMargin: &#x27;-100px&#x27;,
+    threshold: 1.0,
+  }
+  const options2 = {
+    root: null,
+    rootMargin: &#x27;-100px&#x27;,
+    threshold: 0,
+  }
+  const observer1 = new IntersectionObserver(handleIntersect1, options1)
+  const observer2 = new IntersectionObserver(handleIntersect2, options2)
+
+  const els = window.contentArea.getElementsByTagName(&#x27;li&#x27;)
+  for (let i = 0; i &lt; els.length; i++) {
+    observer1.observe(els[i])
+    observer2.observe(els[i])
+  }
+}
+
+window.addEventListener(&#x27;load&#x27;, createObservers)
+</code></pre>
+             
+            <h2>JSON Data Source</h2>
+            <pre class="exampleCode" id="exampleJSON"><code class="language-json">{
+  &quot;note&quot;: &quot;Example JSON data file&quot;
+}
+</code></pre>
+            
+      
+            <h2>Config JS Source</h2>
+            <pre class="exampleCode" id="exampleCONFIG"><code class="language-js">// This file can be used to represent
+// and data that should be held outside
+// of the main script
+
+const c = {
+  alfa: &#x27;bravo&#x27;,
+}
+</code></pre>
+               
+    </main>
+    <footer>
+      from <a href="https://www.alanwsmith.com/">alan w. smith</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>
