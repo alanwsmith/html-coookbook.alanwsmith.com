@@ -3,7 +3,7 @@
 // of the main script
 
 const c = {
-  fadeColor: "#667",
+  fadeColor: '#667',
   source: `fn main() {
   println!(
     "main got {}", widget(String::from("apple"))
@@ -127,7 +127,10 @@ a <code>String</code> as an argument with:</p>
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       highlights: [],
       overrides: [],
-      note: `~ fin ~`,
+      note: `<p>The output from the program is:</p>
+      <pre><code>widget got apple
+main got berry</code></pre>
+      `,
       noteCoords: [1, 40],
     },
   ],
