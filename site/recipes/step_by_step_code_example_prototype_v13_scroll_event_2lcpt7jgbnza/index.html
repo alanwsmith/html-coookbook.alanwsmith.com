@@ -67,36 +67,160 @@
 // of the main script
 
 const c = {
-  alfa: 'bravo',
+  fadeColor: '#667',
+  source: `fn main() {
+  println!(
+    "main got {}", widget(String::from("apple"))
+  );
 }
 
-      const doThing = () => {
+fn widget (value: String) -> String {
+  println!("widget got {}", value);
+  String::from("berry")
+}`,
+  sets: [
+    {
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [],
+      note: `
+      <p>This is an example of a function that takes an argument and returns a value. </p>
+      <p>A <code>String</code> is sent from <code>main</code> to <code>widget</code> 
+      where it's printed out. <code>widget</code> then passes a string back to 
+      <code>main</code> for it to print.
+      </p>
+      `,
+      noteCoords: [1, 40],
+    },
+
+    {
+      lines: [7, 10],
+      highlights: [7, 10],
+      overrides: [{ line: 7, text: `fn widget() {` }],
+      note: `
+      <p>Start creating a <code>widget</code> function.</p>
+      `,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 10],
+      highlights: [7, 10],
+      overrides: [{ line: 7, text: `fn widget(thing: String) {` }],
+      note: `
+      <p>Set it up to accept a <code>String</code> that gets bound to 
+      an internal variable called <code>thing</code> with:</p>
+      <pre><code class="language-rust">thing: String</code></pre>
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 10],
+      highlights: [7, 10],
+      overrides: [{ line: 7, text: `fn widget(thing: String) -> String {` }],
+      note: `
+      <p>Finish the signature by adding a <code>String</code> return type with:</p>
+
+      <pre><code class="language-rust">-&gt; String</code></pre>
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 8, 11],
+      highlights: [8],
+      note: `
+      <p>Add a <code>println!()</code> to show the value passed into <code>widget</code></p>
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 8, 9, 10, 11],
+      highlights: [9],
+      note: `
+      <p>Add a <code>String</code> as the last thing in the function. </p>
+      Using a <code>String</code> here since that's what the function
+      is speced to return</p>
+      <p><code>String::from()</code> is an expression which means
+      it has a value. Since there's no semi-colon after it that
+      value is what gets passed back from the function </p>
+<p>
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [1, 5, 7, 8, 9, 10, 11],
+      highlights: [1, 5],
+      overrides: [],
+      noteCoords: [1, 40],
+      note: `
+      <p>Start making the <code>main</code> function</p>
+
+`,
+    },
+
+    {
+      lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
+      highlights: [2, 3, 4],
+      overrides: [{ line: 3, text: '    "main got {}"' }],
+      noteCoords: [1, 40],
+      note: `
+      <p>Stub out a <code>println!()</code> with  
+      a format string</p>
+`,
+    },
+
+    {
+      lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
+      highlights: [3],
+      overrides: [],
+      noteCoords: [1, 40],
+      fades: [{ line: 3, spans: [1, 2, 3, 4] }],
+      note: `
+<p>Make a call to <code>widget</code> passing in
+a <code>String</code> as an argument with:</p>
+
+<pre><code>widget(String::from("apple"))</code></pre>
+
+`,
+    },
+
+    {
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [],
+      overrides: [],
+      note: `<p>The output from the program is:</p>
+      <pre><code>widget got apple
+main got berry</code></pre>
+      `,
+      noteCoords: [1, 40],
+    },
+  ],
+}
+
+      const state = {}
+
+const doThing = () => {
   const codeBlock = window.codeBlock
   const item1 = window.item1
-
   const bottomOfCodeBlock = codeBlock.offsetHeight + codeBlock.offsetTop
-  const topOfItemBlock = item1.offsetTop
 
+  state.items.forEach((item, itemIndex) => {
+    if (item.offsetTop < bottomOfCodeBlock) {
+      item.style.borderLeft = '1px solid red'
+    } else {
+      item.style.borderLeft = '1px solid green'
+    }
+  })
   console.log(bottomOfCodeBlock)
-  console.log(topOfItemBlock)
-
-  if (topOfItemBlock < bottomOfCodeBlock) {
-    item1.style.borderLeft = '1px solid green'
-  } else {
-    item1.style.borderLeft = '1px solid red'
-  }
-
-  // console.log(window.scrollY)
 }
 
-// const tmp = () => {
-//   console.log(b.offsetWidth)
-//   console.log(b.offsetHeight)
-// }
-
 const init = () => {
+  state.items = document.querySelectorAll('#contentBlock > div')
+  console.log(state)
   document.addEventListener('scroll', doThing)
-  // tmp()
 }
 
 document.addEventListener('DOMContentLoaded', init)
@@ -225,33 +349,27 @@ document.addEventListener('DOMContentLoaded', init)
 </code></pre>
              
             <h2>JavaScript Source</h2>
-            <pre class="exampleCode" id="exampleJS"><code class="language-js">const doThing = () =&gt; {
+            <pre class="exampleCode" id="exampleJS"><code class="language-js">const state = {}
+
+const doThing = () =&gt; {
   const codeBlock = window.codeBlock
   const item1 = window.item1
-
   const bottomOfCodeBlock = codeBlock.offsetHeight + codeBlock.offsetTop
-  const topOfItemBlock = item1.offsetTop
 
+  state.items.forEach((item, itemIndex) =&gt; {
+    if (item.offsetTop &lt; bottomOfCodeBlock) {
+      item.style.borderLeft = &#x27;1px solid red&#x27;
+    } else {
+      item.style.borderLeft = &#x27;1px solid green&#x27;
+    }
+  })
   console.log(bottomOfCodeBlock)
-  console.log(topOfItemBlock)
-
-  if (topOfItemBlock &lt; bottomOfCodeBlock) {
-    item1.style.borderLeft = &#x27;1px solid green&#x27;
-  } else {
-    item1.style.borderLeft = &#x27;1px solid red&#x27;
-  }
-
-  // console.log(window.scrollY)
 }
 
-// const tmp = () =&gt; {
-//   console.log(b.offsetWidth)
-//   console.log(b.offsetHeight)
-// }
-
 const init = () =&gt; {
+  state.items = document.querySelectorAll(&#x27;#contentBlock &gt; div&#x27;)
+  console.log(state)
   document.addEventListener(&#x27;scroll&#x27;, doThing)
-  // tmp()
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
@@ -270,7 +388,137 @@ document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
 // of the main script
 
 const c = {
-  alfa: &#x27;bravo&#x27;,
+  fadeColor: &#x27;#667&#x27;,
+  source: `fn main() {
+  println!(
+    &quot;main got {}&quot;, widget(String::from(&quot;apple&quot;))
+  );
+}
+
+fn widget (value: String) -&gt; String {
+  println!(&quot;widget got {}&quot;, value);
+  String::from(&quot;berry&quot;)
+}`,
+  sets: [
+    {
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [],
+      note: `
+      &lt;p&gt;This is an example of a function that takes an argument and returns a value. &lt;/p&gt;
+      &lt;p&gt;A &lt;code&gt;String&lt;/code&gt; is sent from &lt;code&gt;main&lt;/code&gt; to &lt;code&gt;widget&lt;/code&gt; 
+      where it&#x27;s printed out. &lt;code&gt;widget&lt;/code&gt; then passes a string back to 
+      &lt;code&gt;main&lt;/code&gt; for it to print.
+      &lt;/p&gt;
+      `,
+      noteCoords: [1, 40],
+    },
+
+    {
+      lines: [7, 10],
+      highlights: [7, 10],
+      overrides: [{ line: 7, text: `fn widget() {` }],
+      note: `
+      &lt;p&gt;Start creating a &lt;code&gt;widget&lt;/code&gt; function.&lt;/p&gt;
+      `,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 10],
+      highlights: [7, 10],
+      overrides: [{ line: 7, text: `fn widget(thing: String) {` }],
+      note: `
+      &lt;p&gt;Set it up to accept a &lt;code&gt;String&lt;/code&gt; that gets bound to 
+      an internal variable called &lt;code&gt;thing&lt;/code&gt; with:&lt;/p&gt;
+      &lt;pre&gt;&lt;code class=&quot;language-rust&quot;&gt;thing: String&lt;/code&gt;&lt;/pre&gt;
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 10],
+      highlights: [7, 10],
+      overrides: [{ line: 7, text: `fn widget(thing: String) -&gt; String {` }],
+      note: `
+      &lt;p&gt;Finish the signature by adding a &lt;code&gt;String&lt;/code&gt; return type with:&lt;/p&gt;
+
+      &lt;pre&gt;&lt;code class=&quot;language-rust&quot;&gt;-&amp;gt; String&lt;/code&gt;&lt;/pre&gt;
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 8, 11],
+      highlights: [8],
+      note: `
+      &lt;p&gt;Add a &lt;code&gt;println!()&lt;/code&gt; to show the value passed into &lt;code&gt;widget&lt;/code&gt;&lt;/p&gt;
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 8, 9, 10, 11],
+      highlights: [9],
+      note: `
+      &lt;p&gt;Add a &lt;code&gt;String&lt;/code&gt; as the last thing in the function. &lt;/p&gt;
+      Using a &lt;code&gt;String&lt;/code&gt; here since that&#x27;s what the function
+      is speced to return&lt;/p&gt;
+      &lt;p&gt;&lt;code&gt;String::from()&lt;/code&gt; is an expression which means
+      it has a value. Since there&#x27;s no semi-colon after it that
+      value is what gets passed back from the function &lt;/p&gt;
+&lt;p&gt;
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [1, 5, 7, 8, 9, 10, 11],
+      highlights: [1, 5],
+      overrides: [],
+      noteCoords: [1, 40],
+      note: `
+      &lt;p&gt;Start making the &lt;code&gt;main&lt;/code&gt; function&lt;/p&gt;
+
+`,
+    },
+
+    {
+      lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
+      highlights: [2, 3, 4],
+      overrides: [{ line: 3, text: &#x27;    &quot;main got {}&quot;&#x27; }],
+      noteCoords: [1, 40],
+      note: `
+      &lt;p&gt;Stub out a &lt;code&gt;println!()&lt;/code&gt; with  
+      a format string&lt;/p&gt;
+`,
+    },
+
+    {
+      lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
+      highlights: [3],
+      overrides: [],
+      noteCoords: [1, 40],
+      fades: [{ line: 3, spans: [1, 2, 3, 4] }],
+      note: `
+&lt;p&gt;Make a call to &lt;code&gt;widget&lt;/code&gt; passing in
+a &lt;code&gt;String&lt;/code&gt; as an argument with:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;widget(String::from(&quot;apple&quot;))&lt;/code&gt;&lt;/pre&gt;
+
+`,
+    },
+
+    {
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [],
+      overrides: [],
+      note: `&lt;p&gt;The output from the program is:&lt;/p&gt;
+      &lt;pre&gt;&lt;code&gt;widget got apple
+main got berry&lt;/code&gt;&lt;/pre&gt;
+      `,
+      noteCoords: [1, 40],
+    },
+  ],
 }
 </code></pre>
                
