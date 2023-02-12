@@ -1,0 +1,16 @@
+{
+  "TITLE": "Step-By-Step Code Example - Prototype v08 - Refined Notes In Code Editor",
+  "STATUS": "published",
+  "DESCRIPTION": "",
+  "DETAILS": [
+    "An experiment with putting descriptive text directly below the code line"
+  ],
+  "NOTES": [],
+  "TODOS": [
+    "Figure out accessibility",
+    "Add cookie to keep place",
+    "Add arrow key navigation",
+    "Make a web component"
+  ],
+  "REFERENCES": []
+}

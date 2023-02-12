@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Step By Step Code Example Prototype v13 - Scroll Event - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <title>Step By Step Code Example - Prototype v13 - Scroll Event Test - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Step By Step Code Example Prototype v13 - Scroll Event" />
+    <meta property="og:title" content="Step By Step Code Example - Prototype v13 - Scroll Event Test" />
     <meta property="og:description" content="" />
     <meta
       property="og:image"
-      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630,w_1200,h_630,c_fit,w_940,h_540,co_rgb:eeeeee,l_text:Helvetica_94_bold:Step%20By%20Step%20Code%20Example%20Prototype%20v13%20-%20Scroll%20Event/fl_layer_apply,g_north_west,x_60,y_60/co_rgb:666666,l_text:Inconsolata_36_bold:from%20alan%20w.%20smith/fl_layer_apply,g_south_east,x_196,y_40/og-images/black-with-white-line.jpg"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630,w_1200,h_630,c_fit,w_940,h_540,co_rgb:eeeeee,l_text:Helvetica_94_bold:Step%20By%20Step%20Code%20Example%20-%20Prototype%20v13%20-%20Scroll%20Event%20Test/fl_layer_apply,g_north_west,x_60,y_60/co_rgb:666666,l_text:Inconsolata_36_bold:from%20alan%20w.%20smith/fl_layer_apply,g_south_east,x_196,y_40/og-images/black-with-white-line.jpg"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site:id" content="@TheIdOfAlan" />
@@ -272,9 +272,7 @@ const makeNotes = () => {
 }
 
 const updateEverything = () => {
-  // console.log('update everything')
   updateNotes()
-  // console.log(c)
 }
 
 const updateNotes = () => {
@@ -288,7 +286,6 @@ const updateNotes = () => {
     const noteTop = notes[n].offsetTop
     const noteBottom = notes[n].offsetTop + notes[n].offsetHeight
 
-    //console.log(`-- ${noteTop} - ${bottomOfCodeBlock} - ${noteBottom}`)
     if (noteTop < triggerPoint && noteBottom > triggerPoint) {
       c.currentHighlight = n
     }
@@ -306,7 +303,6 @@ const updateNotes = () => {
         c.sets[n].overrides.forEach((override) => {
           console.log(override.line)
           lineAssembler[override.line - 1] = override.text
-          // console.log(override)
         })
       }
 
@@ -316,42 +312,6 @@ const updateNotes = () => {
       notes[n].style.borderLeft = null
     }
   }
-
-  // console.log(c.currentHighlight)
-
-  //  .forEach((note) => {
-  // console.log(note.offsetTop)
-  // console.log(bottomOfCodeBlock)
-  // const noteBottom = note.offsetTop + note.offsetHeight
-  // console.log(noteBottom)
-  //    const noteTop = note.offsetTop
-
-  // const noteMiddle = Math.floor(note.offsetHeigth / 2)
-  // console.log(`-- ${noteTop} - ${noteMiddle} - ${noteBottom}`)
-
-  //console.log(`-- ${noteTop} - ${bottomOfCodeBlock} - ${noteBottom}`)
-
-  // if (noteTop < triggerPoint && noteBottom < triggerPoint) {
-  //   note.style.borderLeft = null
-  // } else {
-  //   note.style.borderLeft = '1px solid purple'
-  // }
-
-  // if (noteTop < bottomOfCodeBlock && noteBottom < bottomOfCodeBlock) {
-  //   // note.style.border = '1px solid red'
-  // } else if (noteTop < bottomOfCodeBlock && noteBottom >= bottomOfCodeBlock) {
-  //   const firstNumber = bottomOfCodeBlock - noteTop
-  //   // note.style.border = '1px solid green'
-  // } else {
-  //   if (!opacitySetForFirstNote) {
-  //     // opacitySetForFirstNote = true
-  //   } else {
-  //     // note.style.border = '1px solid blue'
-  //   }
-  // }
-
-  // console.log(noteBottom)
-  //   })
 }
 
 const init = () => {
@@ -376,7 +336,7 @@ document.addEventListener('DOMContentLoaded', init)
       <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
     </header>
     <main>
-      <h1>Step By Step Code Example Prototype v13 - Scroll Event</h1>
+      <h1>Step By Step Code Example - Prototype v13 - Scroll Event Test</h1>
       
                 <h2>Details</h2>
                 <ul>
@@ -503,9 +463,7 @@ const makeNotes = () =&gt; {
 }
 
 const updateEverything = () =&gt; {
-  // console.log(&#x27;update everything&#x27;)
   updateNotes()
-  // console.log(c)
 }
 
 const updateNotes = () =&gt; {
@@ -519,7 +477,6 @@ const updateNotes = () =&gt; {
     const noteTop = notes[n].offsetTop
     const noteBottom = notes[n].offsetTop + notes[n].offsetHeight
 
-    //console.log(`-- ${noteTop} - ${bottomOfCodeBlock} - ${noteBottom}`)
     if (noteTop &lt; triggerPoint &amp;&amp; noteBottom &gt; triggerPoint) {
       c.currentHighlight = n
     }
@@ -537,7 +494,6 @@ const updateNotes = () =&gt; {
         c.sets[n].overrides.forEach((override) =&gt; {
           console.log(override.line)
           lineAssembler[override.line - 1] = override.text
-          // console.log(override)
         })
       }
 
@@ -547,42 +503,6 @@ const updateNotes = () =&gt; {
       notes[n].style.borderLeft = null
     }
   }
-
-  // console.log(c.currentHighlight)
-
-  //  .forEach((note) =&gt; {
-  // console.log(note.offsetTop)
-  // console.log(bottomOfCodeBlock)
-  // const noteBottom = note.offsetTop + note.offsetHeight
-  // console.log(noteBottom)
-  //    const noteTop = note.offsetTop
-
-  // const noteMiddle = Math.floor(note.offsetHeigth / 2)
-  // console.log(`-- ${noteTop} - ${noteMiddle} - ${noteBottom}`)
-
-  //console.log(`-- ${noteTop} - ${bottomOfCodeBlock} - ${noteBottom}`)
-
-  // if (noteTop &lt; triggerPoint &amp;&amp; noteBottom &lt; triggerPoint) {
-  //   note.style.borderLeft = null
-  // } else {
-  //   note.style.borderLeft = &#x27;1px solid purple&#x27;
-  // }
-
-  // if (noteTop &lt; bottomOfCodeBlock &amp;&amp; noteBottom &lt; bottomOfCodeBlock) {
-  //   // note.style.border = &#x27;1px solid red&#x27;
-  // } else if (noteTop &lt; bottomOfCodeBlock &amp;&amp; noteBottom &gt;= bottomOfCodeBlock) {
-  //   const firstNumber = bottomOfCodeBlock - noteTop
-  //   // note.style.border = &#x27;1px solid green&#x27;
-  // } else {
-  //   if (!opacitySetForFirstNote) {
-  //     // opacitySetForFirstNote = true
-  //   } else {
-  //     // note.style.border = &#x27;1px solid blue&#x27;
-  //   }
-  // }
-
-  // console.log(noteBottom)
-  //   })
 }
 
 const init = () =&gt; {

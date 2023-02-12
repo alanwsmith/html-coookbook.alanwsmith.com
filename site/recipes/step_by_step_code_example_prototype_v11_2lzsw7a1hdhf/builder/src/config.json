@@ -1,0 +1,19 @@
+{
+  "TITLE": "Step-By-Step Code Example - Prototype v11 - Slider With Notes And Only Active Lines",
+  "STATUS": "published",
+  "DESCRIPTION": "",
+  "DETAILS": [
+    "The example below is built directly from the HTML and JavaScript code snippets that follow",
+    "This is the same as v10, but only showing source code lines after they get mentioned"
+  ],
+  "NOTES": [],
+  "TODOS": [],
+  "REFERENCES": [],
+  "REFERENCES_Template": [
+    {
+      "title": "",
+      "url": "",
+      "extra": ""
+    }
+  ]
+}

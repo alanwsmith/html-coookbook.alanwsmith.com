@@ -1,8 +1,9 @@
 {
-    "TITLE": "Step-By-Step Code Example - Prototype v13 - Scroll Event Test",
-    "STATUS": "published",
+    "TITLE": "Step-By-Step Code Example - Prototype v16",
+    "STATUS": "draft",
     "DESCRIPTION": "",
     "DETAILS": [
+        "GOA: A more traditional example but with each step of code outlined explicitly",
         "The example below is built directly from the HTML and JavaScript code snippets that follow"
     ],
     "NOTES": [],
