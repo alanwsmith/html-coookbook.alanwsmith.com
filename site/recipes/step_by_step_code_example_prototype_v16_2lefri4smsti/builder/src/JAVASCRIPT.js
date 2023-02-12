@@ -42,6 +42,16 @@ const makeSections = () => {
       'codeSectionHeader'
     )
 
+    const note = makeElement(
+      `div`,
+      `sectionNote${setIndex}`,
+      set.note,
+      `section${setIndex}`,
+      null,
+      null,
+      'codeSectionNote'
+    )
+
     const code = makeElement(
       'div',
       `sectionCode${setIndex}`,
@@ -54,15 +64,19 @@ const makeSections = () => {
       'codeSectionCode'
     )
 
-    const note = makeElement(
-      `div`,
-      `sectionNote${setIndex}`,
-      set.note,
-      `section${setIndex}`,
-      null,
-      null,
-      'codeSectionNote'
-    )
+    set.editor = ace.edit(`sectionCode${setIndex}`)
+    set.editor.setOption('maxLines', 1000)
+    set.editor.setTheme('ace/theme/monokai')
+    set.editor.session.setMode('ace/mode/rust')
+    set.editor.setHighlightActiveLine(false)
+    // set.editor.setReadOnly(true)
+    set.editor.setOptions({
+      readOnly: true,
+      highlightActiveLine: false,
+      highlightGutterLine: false,
+    })
+
+    set.editor.renderer.$cursorLayer.element.style.display = 'none'
   })
 }
 

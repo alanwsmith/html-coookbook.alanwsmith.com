@@ -30,16 +30,36 @@
     <link rel="stylesheet" href="/styles/fonts.css" />
     <link rel="stylesheet" href="/styles/colors.css" />
     <link rel="stylesheet" href="/styles/wrapper.css" />
-    <link rel="stylesheet" href="/styles/prism-customized.css" />
     
     <style>
-      
+      body {
+  background-color: #333;
+}
+
+.codeSection {
+  border: 1px solid #aaa;
+  border-radius: 0.4rem;
+  padding: 0rem 1.3rem 2rem 1.3rem;
+  margin-bottom: 6.8rem;
+  background-color: #000;
+}
+
+.codeSectionNote {
+  color: #aaa;
+  padding-bottom: 0.7rem;
+}
+
+.ace_editor {
+  padding: 0.6rem;
+}
+
     </style>
 
-    <!--
-    <link rel="stylesheet" href="/styles/highlightjs/_custom-base16-atelier-sulphurpool.min.css" />
-    <script src="/assets/highlight/highlight.min.js"></script>
-    -->
+    <script
+      src="/ace-editor/ace.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
 
     <script>
       // This file can be used to represent
@@ -216,6 +236,16 @@ const makeSections = () => {
       'codeSectionHeader'
     )
 
+    const note = makeElement(
+      `div`,
+      `sectionNote${setIndex}`,
+      set.note,
+      `section${setIndex}`,
+      null,
+      null,
+      'codeSectionNote'
+    )
+
     const code = makeElement(
       'div',
       `sectionCode${setIndex}`,
@@ -228,15 +258,19 @@ const makeSections = () => {
       'codeSectionCode'
     )
 
-    const note = makeElement(
-      `div`,
-      `sectionNote${setIndex}`,
-      set.note,
-      `section${setIndex}`,
-      null,
-      null,
-      'codeSectionNote'
-    )
+    set.editor = ace.edit(`sectionCode${setIndex}`)
+    set.editor.setOption('maxLines', 1000)
+    set.editor.setTheme('ace/theme/monokai')
+    set.editor.session.setMode('ace/mode/rust')
+    set.editor.setHighlightActiveLine(false)
+    // set.editor.setReadOnly(true)
+    set.editor.setOptions({
+      readOnly: true,
+      highlightActiveLine: false,
+      highlightGutterLine: false,
+    })
+
+    set.editor.renderer.$cursorLayer.element.style.display = 'none'
   })
 }
 
@@ -297,13 +331,35 @@ document.addEventListener('DOMContentLoaded', init)
 
       <br />
       <br />
-      <br />
       <hr />
        
             <h2>HTML Source</h2>
             <pre class="exampleCode" id="exampleHTMLBody"><code class="language-html">&lt;div id=&quot;wrapper&quot;&gt;&lt;/div&gt;
 </code></pre>
-              
+             
+            <h2>CSS Source</h2>
+            <pre class="exampleCode" id="exampleCSS"><code class="language-css">body {
+  background-color: #333;
+}
+
+.codeSection {
+  border: 1px solid #aaa;
+  border-radius: 0.4rem;
+  padding: 0rem 1.3rem 2rem 1.3rem;
+  margin-bottom: 6.8rem;
+  background-color: #000;
+}
+
+.codeSectionNote {
+  color: #aaa;
+  padding-bottom: 0.7rem;
+}
+
+.ace_editor {
+  padding: 0.6rem;
+}
+</code></pre>
+             
             <h2>JavaScript Source</h2>
             <pre class="exampleCode" id="exampleJS"><code class="language-js">const makeElement = (
   _type,
@@ -349,6 +405,16 @@ const makeSections = () =&gt; {
       &#x27;codeSectionHeader&#x27;
     )
 
+    const note = makeElement(
+      `div`,
+      `sectionNote${setIndex}`,
+      set.note,
+      `section${setIndex}`,
+      null,
+      null,
+      &#x27;codeSectionNote&#x27;
+    )
+
     const code = makeElement(
       &#x27;div&#x27;,
       `sectionCode${setIndex}`,
@@ -361,15 +427,19 @@ const makeSections = () =&gt; {
       &#x27;codeSectionCode&#x27;
     )
 
-    const note = makeElement(
-      `div`,
-      `sectionNote${setIndex}`,
-      set.note,
-      `section${setIndex}`,
-      null,
-      null,
-      &#x27;codeSectionNote&#x27;
-    )
+    set.editor = ace.edit(`sectionCode${setIndex}`)
+    set.editor.setOption(&#x27;maxLines&#x27;, 1000)
+    set.editor.setTheme(&#x27;ace/theme/monokai&#x27;)
+    set.editor.session.setMode(&#x27;ace/mode/rust&#x27;)
+    set.editor.setHighlightActiveLine(false)
+    // set.editor.setReadOnly(true)
+    set.editor.setOptions({
+      readOnly: true,
+      highlightActiveLine: false,
+      highlightGutterLine: false,
+    })
+
+    set.editor.renderer.$cursorLayer.element.style.display = &#x27;none&#x27;
   })
 }
 
@@ -549,6 +619,5 @@ main got berry&lt;/code&gt;&lt;/pre&gt;
     <footer>
       from <a href="https://www.alanwsmith.com/">alan w. smith</a>
     </footer>
-    <script src="/styles/prism.js"></script>
   </body>
 </html>
