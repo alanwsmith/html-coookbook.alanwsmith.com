@@ -36,7 +36,7 @@
       #codeBlock {
   background-color: #3457;
   position: sticky;
-  top: 20px;
+  top: 30px;
   height: 180px;
 }
 
@@ -204,22 +204,31 @@ main got berry</code></pre>
 
 const doThing = () => {
   const codeBlock = window.codeBlock
-  const item1 = window.item1
   const bottomOfCodeBlock = codeBlock.offsetHeight + codeBlock.offsetTop
 
+  const activeItems = []
+
   state.items.forEach((item, itemIndex) => {
-    if (item.offsetTop < bottomOfCodeBlock) {
-      item.style.borderLeft = '1px solid red'
-    } else {
+    if (item.offsetTop > bottomOfCodeBlock) {
       item.style.borderLeft = '1px solid green'
+      activeItems.push(itemIndex)
+    } else {
+      item.style.borderLeft = '1px solid red'
     }
   })
-  console.log(bottomOfCodeBlock)
+
+  if (activeItems.length > 0) {
+    console.log(activeItems[0])
+    // window.theCode.innerHTML = c.sets[state.activeItems[0]]
+  }
+
+  // console.log(bottomOfCodeBlock)
 }
 
 const init = () => {
   state.items = document.querySelectorAll('#contentBlock > div')
-  console.log(state)
+  state.lines = c.source.split('\n')
+  doThing()
   document.addEventListener('scroll', doThing)
 }
 
@@ -329,7 +338,7 @@ document.addEventListener('DOMContentLoaded', init)
             <pre class="exampleCode" id="exampleCSS"><code class="language-css">#codeBlock {
   background-color: #3457;
   position: sticky;
-  top: 20px;
+  top: 30px;
   height: 180px;
 }
 
@@ -353,22 +362,31 @@ document.addEventListener('DOMContentLoaded', init)
 
 const doThing = () =&gt; {
   const codeBlock = window.codeBlock
-  const item1 = window.item1
   const bottomOfCodeBlock = codeBlock.offsetHeight + codeBlock.offsetTop
 
+  const activeItems = []
+
   state.items.forEach((item, itemIndex) =&gt; {
-    if (item.offsetTop &lt; bottomOfCodeBlock) {
-      item.style.borderLeft = &#x27;1px solid red&#x27;
-    } else {
+    if (item.offsetTop &gt; bottomOfCodeBlock) {
       item.style.borderLeft = &#x27;1px solid green&#x27;
+      activeItems.push(itemIndex)
+    } else {
+      item.style.borderLeft = &#x27;1px solid red&#x27;
     }
   })
-  console.log(bottomOfCodeBlock)
+
+  if (activeItems.length &gt; 0) {
+    console.log(activeItems[0])
+    // window.theCode.innerHTML = c.sets[state.activeItems[0]]
+  }
+
+  // console.log(bottomOfCodeBlock)
 }
 
 const init = () =&gt; {
   state.items = document.querySelectorAll(&#x27;#contentBlock &gt; div&#x27;)
-  console.log(state)
+  state.lines = c.source.split(&#x27;\n&#x27;)
+  doThing()
   document.addEventListener(&#x27;scroll&#x27;, doThing)
 }
 
