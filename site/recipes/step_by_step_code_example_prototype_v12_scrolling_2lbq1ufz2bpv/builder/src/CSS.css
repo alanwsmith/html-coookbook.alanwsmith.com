@@ -6,16 +6,21 @@
 }
 
 #contentArea {
+  padding-top: 1rem; /*I think you need some padding here to make sure the things work reliatblye with the detection */
   padding-left: 9rem;
   width: 28rem;
 }
 
 #contentArea div {
-  /* NOTE: Using padding to let the 
+  /* NOTE: Using padding-top to let the 
    * value switch befor it touches the text
-   * when scrolling */
+   * when scrolling - could also move the box which
+   * might be worth a try e.g: 
   padding-top: 3.1rem;
+  */
   margin: 0;
+  padding-top: 1rem;
+  outline: 1px solid red;
 }
 
 #wrapper {

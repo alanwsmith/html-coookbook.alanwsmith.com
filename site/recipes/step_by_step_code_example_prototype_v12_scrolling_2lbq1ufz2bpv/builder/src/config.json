@@ -8,7 +8,10 @@
   "NOTES": [
     "Could probably also just move the margin a little away from the code block to move the trigger point"
   ],
-  "TODOS": ["Deal with refreshes"],
+  "TODOS": [
+    "Deal with refreshes",
+    "Make all the numbers dynamic based off screen size and dimensions"
+  ],
   "REFERENCES": [],
   "REFERENCES_TEMPLATE": [
     {

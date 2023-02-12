@@ -41,16 +41,21 @@
 }
 
 #contentArea {
+  padding-top: 1rem; /*I think you need some padding here to make sure the things work reliatblye with the detection */
   padding-left: 9rem;
   width: 28rem;
 }
 
 #contentArea div {
-  /* NOTE: Using padding to let the 
+  /* NOTE: Using padding-top to let the 
    * value switch befor it touches the text
-   * when scrolling */
+   * when scrolling - could also move the box which
+   * might be worth a try e.g: 
   padding-top: 3.1rem;
+  */
   margin: 0;
+  padding-top: 1rem;
+  outline: 1px solid red;
 }
 
 #wrapper {
@@ -75,7 +80,14 @@
 // of the main script
 
 const c = {
-  alfa: 'bravo',
+  code: {
+    code1: "This is code 1", 
+    code2: "This is code 2", 
+    code3: "This is code 3", 
+    code4: "This is code 4", 
+    code5: "This is code 5", 
+    code6: "This is code 6", 
+  }
 }
 
       function handleIntersect1(entries, observer) {
@@ -84,8 +96,10 @@ const c = {
     const clientTop = entry.boundingClientRect.top
     const rootTop = entry.rootBounds.top
     const clientBottom = entry.boundingClientRect.bottom
+    console.log(`${id} - ${clientTop} - ${rootTop} - ${clientBottom}`)
     if (clientTop < rootTop && clientBottom > rootTop) {
-      window.currentId.innerHTML = entry.target.id
+      console.log('scrolling down')
+      window.currentCode.innerHTML = entry.target.id
     }
   })
 }
@@ -95,8 +109,11 @@ function handleIntersect2(entries, observer) {
     const id = entry.target.id
     const clientTop = entry.boundingClientRect.top
     const rootTop = entry.rootBounds.top
-    if (clientTop < rootTop) {
-      window.currentId.innerHTML = entry.target.id
+    const clientBottom = entry.boundingClientRect.bottom
+    console.log(`${id} - ${clientTop} - ${rootTop} - ${clientBottom}`)
+    if (clientTop <= rootTop) {
+      console.log('scrolling up')
+      window.currentCode.innerHTML = c.code[entry.target.id]
     }
   })
 }
@@ -104,25 +121,30 @@ function handleIntersect2(entries, observer) {
 function createObservers() {
   const options1 = {
     root: null,
-    rootMargin: '-200px',
+    rootMargin: '-200px 0px 200px 0px',
     threshold: 0,
   }
   const options2 = {
     root: null,
-    rootMargin: '-200px',
+    rootMargin: '-200px 0px 200px 0px',
     threshold: 1,
   }
   const observer1 = new IntersectionObserver(handleIntersect1, options1)
   const observer2 = new IntersectionObserver(handleIntersect2, options2)
 
-  const els = window.contentArea.getElementsByTagName('li')
+  const els = window.contentArea.getElementsByTagName('div')
   for (let i = 0; i < els.length; i++) {
     observer1.observe(els[i])
     observer2.observe(els[i])
   }
 }
 
-window.addEventListener('load', createObservers)
+const init = () => {
+  window.currentCode.innerHTML = c.code.code1
+  createObservers()
+}
+
+window.addEventListener('load', init)
 
     </script>
   </head>
@@ -146,34 +168,35 @@ window.addEventListener('load', createObservers)
       <h2>EXAMPLE</h2>
       <div id="wrapper">
   <div id="codeArea">
-    <pre><code id="currentId"></code></pre>
+    <pre><code id="currentCode"></code></pre>
   </div>
   <div id="contentArea">
-    <div id="note1">
-      The curtain rose and the show was on. The birch canoe slid on the smooth
-      planks. Glue the sheet to the dark blue background. It's easy to tell the
-      depth of a well.
+    <div id="code1">
+      TEST: 1 - The curtain rose and the show was on. The birch canoe slid on
+      the smooth planks. Glue the sheet to the dark blue background. It's easy
+      to tell the depth of a well.
     </div>
-    <div id="note2">
-      The colt reared and threw the tall rider. It snowed, rained, and hailed
-      the same morning. Take the winding path to reach the lake. The wide road
-      shimmered in the hot sun.
+    <div id="code2">
+      TEST: 2 - The colt reared and threw the tall rider. It snowed, rained, and
+      hailed the same morning. Take the winding path to reach the lake. The wide
+      road shimmered in the hot sun.
     </div>
-    <div id="note3">
-      The pencils have all been used. The sofa cushion is red and of light
-      weight. The jacket hung on the back of the wide chair.
+    <div id="code3">
+      TEST: 3 - The pencils have all been used. The sofa cushion is red and of
+      light weight. The jacket hung on the back of the wide chair.
     </div>
-    <div id="note4">
-      The paper box is full of thumb tacks. The petals fall with the next puff
-      of wind. Bring your best compass to the third class. A fresh start will
-      work such wonders. He wrote his last novel there at the inn.
+    <div id="code4">
+      TEST: 4 - The paper box is full of thumb tacks. The petals fall with the
+      next puff of wind. Bring your best compass to the third class. A fresh
+      start will work such wonders. He wrote his last novel there at the inn.
     </div>
-    <div id="note5">
-      No hardship seemed to keep him sad. Once we stood beside the shore.
+    <div id="code5">
+      TEST: 5 - No hardship seemed to keep him sad. Once we stood beside the
+      shore.
     </div>
-    <div id="note6">
-      He took the lead and kept it the whole distance. The key you designed will
-      fit the lock. This plank was made for walking on.
+    <div id="code6">
+      TEST: 6 - He took the lead and kept it the whole distance. The key you
+      designed will fit the lock. This plank was made for walking on.
     </div>
   </div>
 </div>
@@ -190,34 +213,35 @@ window.addEventListener('load', createObservers)
             <h2>HTML Source</h2>
             <pre class="exampleCode" id="exampleHTMLBody"><code class="language-html">&lt;div id=&quot;wrapper&quot;&gt;
   &lt;div id=&quot;codeArea&quot;&gt;
-    &lt;pre&gt;&lt;code id=&quot;currentId&quot;&gt;&lt;/code&gt;&lt;/pre&gt;
+    &lt;pre&gt;&lt;code id=&quot;currentCode&quot;&gt;&lt;/code&gt;&lt;/pre&gt;
   &lt;/div&gt;
   &lt;div id=&quot;contentArea&quot;&gt;
-    &lt;div id=&quot;note1&quot;&gt;
-      The curtain rose and the show was on. The birch canoe slid on the smooth
-      planks. Glue the sheet to the dark blue background. It&#x27;s easy to tell the
-      depth of a well.
+    &lt;div id=&quot;code1&quot;&gt;
+      TEST: 1 - The curtain rose and the show was on. The birch canoe slid on
+      the smooth planks. Glue the sheet to the dark blue background. It&#x27;s easy
+      to tell the depth of a well.
     &lt;/div&gt;
-    &lt;div id=&quot;note2&quot;&gt;
-      The colt reared and threw the tall rider. It snowed, rained, and hailed
-      the same morning. Take the winding path to reach the lake. The wide road
-      shimmered in the hot sun.
+    &lt;div id=&quot;code2&quot;&gt;
+      TEST: 2 - The colt reared and threw the tall rider. It snowed, rained, and
+      hailed the same morning. Take the winding path to reach the lake. The wide
+      road shimmered in the hot sun.
     &lt;/div&gt;
-    &lt;div id=&quot;note3&quot;&gt;
-      The pencils have all been used. The sofa cushion is red and of light
-      weight. The jacket hung on the back of the wide chair.
+    &lt;div id=&quot;code3&quot;&gt;
+      TEST: 3 - The pencils have all been used. The sofa cushion is red and of
+      light weight. The jacket hung on the back of the wide chair.
     &lt;/div&gt;
-    &lt;div id=&quot;note4&quot;&gt;
-      The paper box is full of thumb tacks. The petals fall with the next puff
-      of wind. Bring your best compass to the third class. A fresh start will
-      work such wonders. He wrote his last novel there at the inn.
+    &lt;div id=&quot;code4&quot;&gt;
+      TEST: 4 - The paper box is full of thumb tacks. The petals fall with the
+      next puff of wind. Bring your best compass to the third class. A fresh
+      start will work such wonders. He wrote his last novel there at the inn.
     &lt;/div&gt;
-    &lt;div id=&quot;note5&quot;&gt;
-      No hardship seemed to keep him sad. Once we stood beside the shore.
+    &lt;div id=&quot;code5&quot;&gt;
+      TEST: 5 - No hardship seemed to keep him sad. Once we stood beside the
+      shore.
     &lt;/div&gt;
-    &lt;div id=&quot;note6&quot;&gt;
-      He took the lead and kept it the whole distance. The key you designed will
-      fit the lock. This plank was made for walking on.
+    &lt;div id=&quot;code6&quot;&gt;
+      TEST: 6 - He took the lead and kept it the whole distance. The key you
+      designed will fit the lock. This plank was made for walking on.
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
@@ -235,16 +259,21 @@ window.addEventListener('load', createObservers)
 }
 
 #contentArea {
+  padding-top: 1rem; /*I think you need some padding here to make sure the things work reliatblye with the detection */
   padding-left: 9rem;
   width: 28rem;
 }
 
 #contentArea div {
-  /* NOTE: Using padding to let the 
+  /* NOTE: Using padding-top to let the 
    * value switch befor it touches the text
-   * when scrolling */
+   * when scrolling - could also move the box which
+   * might be worth a try e.g: 
   padding-top: 3.1rem;
+  */
   margin: 0;
+  padding-top: 1rem;
+  outline: 1px solid red;
 }
 
 #wrapper {
@@ -264,8 +293,10 @@ window.addEventListener('load', createObservers)
     const clientTop = entry.boundingClientRect.top
     const rootTop = entry.rootBounds.top
     const clientBottom = entry.boundingClientRect.bottom
+    console.log(`${id} - ${clientTop} - ${rootTop} - ${clientBottom}`)
     if (clientTop &lt; rootTop &amp;&amp; clientBottom &gt; rootTop) {
-      window.currentId.innerHTML = entry.target.id
+      console.log(&#x27;scrolling down&#x27;)
+      window.currentCode.innerHTML = entry.target.id
     }
   })
 }
@@ -275,8 +306,11 @@ function handleIntersect2(entries, observer) {
     const id = entry.target.id
     const clientTop = entry.boundingClientRect.top
     const rootTop = entry.rootBounds.top
-    if (clientTop &lt; rootTop) {
-      window.currentId.innerHTML = entry.target.id
+    const clientBottom = entry.boundingClientRect.bottom
+    console.log(`${id} - ${clientTop} - ${rootTop} - ${clientBottom}`)
+    if (clientTop &lt;= rootTop) {
+      console.log(&#x27;scrolling up&#x27;)
+      window.currentCode.innerHTML = c.code[entry.target.id]
     }
   })
 }
@@ -284,25 +318,30 @@ function handleIntersect2(entries, observer) {
 function createObservers() {
   const options1 = {
     root: null,
-    rootMargin: &#x27;-200px&#x27;,
+    rootMargin: &#x27;-200px 0px 200px 0px&#x27;,
     threshold: 0,
   }
   const options2 = {
     root: null,
-    rootMargin: &#x27;-200px&#x27;,
+    rootMargin: &#x27;-200px 0px 200px 0px&#x27;,
     threshold: 1,
   }
   const observer1 = new IntersectionObserver(handleIntersect1, options1)
   const observer2 = new IntersectionObserver(handleIntersect2, options2)
 
-  const els = window.contentArea.getElementsByTagName(&#x27;li&#x27;)
+  const els = window.contentArea.getElementsByTagName(&#x27;div&#x27;)
   for (let i = 0; i &lt; els.length; i++) {
     observer1.observe(els[i])
     observer2.observe(els[i])
   }
 }
 
-window.addEventListener(&#x27;load&#x27;, createObservers)
+const init = () =&gt; {
+  window.currentCode.innerHTML = c.code.code1
+  createObservers()
+}
+
+window.addEventListener(&#x27;load&#x27;, init)
 </code></pre>
              
             <h2>JSON Data Source</h2>
@@ -318,13 +357,20 @@ window.addEventListener(&#x27;load&#x27;, createObservers)
 // of the main script
 
 const c = {
-  alfa: &#x27;bravo&#x27;,
+  code: {
+    code1: &quot;This is code 1&quot;, 
+    code2: &quot;This is code 2&quot;, 
+    code3: &quot;This is code 3&quot;, 
+    code4: &quot;This is code 4&quot;, 
+    code5: &quot;This is code 5&quot;, 
+    code6: &quot;This is code 6&quot;, 
+  }
 }
 </code></pre>
              
                 <h2>TODO</h2>
                 <ul>
-                    <li>Deal with refreshes</li>
+                    <li>Deal with refreshes</li> <li>Make all the numbers dynamic based off screen size and dimensions</li>
                 </ul>
              
                 <h2>Notes</h2>
