@@ -1,27 +1,20 @@
-#codeBlock {
-  background-color: #8378;
-  height: 150px;
-}
-
 #contentBlock {
   height: 120px;
-  margin-bottom: 100px;
   overflow-y: auto;
   border: 1px solid black;
 }
 
 #contentBlock > div {
-  margin-top: 1rem;
-  margin-bottom: 2rem;
   padding-left: 0.2rem;
-  min-height: 180px;
+  padding-top: 0.2rem;
+  margin-bottom: 92px;
 }
 
 #editor {
-  min-height: 9rem;
+  min-height: 10rem;
 }
 
 #wrapper {
   display: grid;
-  grid-template-columns: 2fr 4fr;
+  grid-template-columns: 1fr 2fr;
 }

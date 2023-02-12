@@ -36,31 +36,34 @@ const makeNotes = () => {
   })
 }
 
+const outputCode = () => {
+  c.editor.setValue(c.lines.join('\n'), 1)
+}
+
 const updateCode = () => {
   const boxTop = window.contentBlock.getBoundingClientRect().top
-  const targetLine = boxTop + 110
+  const targetLine = boxTop + 50
   c.notes.forEach((note, noteIndex) => {
     const noteTop = note.getBoundingClientRect().top
     const noteBottom = note.getBoundingClientRect().bottom
-    if (noteTop < targetLine && noteBottom > targetLine) {
-      const lineAssembler = []
+    //if (noteTop < targetLine && noteBottom > targetLine) {
+    if (noteTop < targetLine) {
+      c.lines = []
+      c.set = noteIndex
+      // const lineAssembler = []
       c.rawLines.forEach((rawLine, rawLineIndex) => {
         if (c.sets[noteIndex].lines.includes(rawLineIndex + 1)) {
-          lineAssembler.push(rawLine)
+          //lineAssembler.push(rawLine)
+          c.lines.push(rawLine)
         } else {
-          lineAssembler.push(' ')
+          c.lines.push(' ')
+          //lineAssembler.push(' ')
         }
       })
 
-      if (c.sets[noteIndex].overrides) {
-        c.sets[noteIndex].overrides.forEach((override) => {
-          lineAssembler[override.line - 1] = override.text
-        })
-      }
-
       // window.theCode.innerHTML = lineAssembler.join('\n')
 
-      c.editor.setValue(lineAssembler.join('\n'), 1)
+      // c.editor.setValue(lineAssembler.join('\n'), 1)
 
       // console.log(note.id)
       // console.log(noteBottom)
@@ -68,11 +71,24 @@ const updateCode = () => {
       // console.log(boxTop)
       // console.log(noteTop)
     }
+    updateOverrides()
+    outputCode()
+
+    // return
     //console.log(note)
   })
   //console.log(window.contentBlock.getBoundingClientRect().top)
   // console.log(window.set0.getBoundingClientRect().top)
   // console.log(c.notes)
+}
+
+const updateOverrides = () => {
+  console.log('here')
+  if (c.sets[c.set].overrides) {
+    c.sets[c.set].overrides.forEach((override) => {
+      c.lines[override.line - 1] = override.text
+    })
+  }
 }
 
 const updateEverything = () => {
