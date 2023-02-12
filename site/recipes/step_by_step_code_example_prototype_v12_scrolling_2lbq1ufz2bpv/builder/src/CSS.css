@@ -17,9 +17,10 @@
    * when scrolling - could also move the box which
    * might be worth a try e.g: 
   padding-top: 3.1rem;
+  actually turning off for now since it needs to hit
+  the next value halfway thru
   */
   margin: 0;
-  padding-top: 1rem;
   outline: 1px solid red;
 }
 

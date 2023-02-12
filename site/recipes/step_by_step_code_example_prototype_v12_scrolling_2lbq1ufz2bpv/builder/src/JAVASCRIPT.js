@@ -20,8 +20,11 @@ function handleIntersect2(entries, observer) {
     const clientBottom = entry.boundingClientRect.bottom
     console.log(`${id} - ${clientTop} - ${rootTop} - ${clientBottom}`)
     if (clientTop <= rootTop) {
-      console.log('scrolling up')
-      window.currentCode.innerHTML = c.code[entry.target.id]
+      const nextId = entry.target.nextElementSibling.id
+      if (nextId) {
+        console.log('scrolling up')
+        window.currentCode.innerHTML = c.code[nextId]
+      }
     }
   })
 }
@@ -48,7 +51,7 @@ function createObservers() {
 }
 
 const init = () => {
-  window.currentCode.innerHTML = c.code.code1
+  window.currentCode.innerHTML = c.code['code1']
   createObservers()
 }
 
