@@ -1,0 +1,20 @@
+#codeBlock {
+  background-color: #3457;
+  position: sticky;
+  top: 20px;
+  height: 180px;
+}
+
+#contentBlock {
+  /* The block is sized and padded to make it 
+   * easier to see the scroll bhavoir. */
+  padding-bottom: 4rem;
+  margin-left: 10rem;
+  width: 24rem;
+}
+
+#contentBlock div {
+  padding-bottom: 3rem;
+  padding-top: 1rem;
+  margin-top: 2rem;
+}

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Step By Step Code Example Prototype v13 - Scroll Event - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Step By Step Code Example Prototype v13 - Scroll Event" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630,w_1200,h_630,c_fit,w_940,h_540,co_rgb:eeeeee,l_text:Helvetica_94_bold:Step%20By%20Step%20Code%20Example%20Prototype%20v13%20-%20Scroll%20Event/fl_layer_apply,g_north_west,x_60,y_60/co_rgb:666666,l_text:Inconsolata_36_bold:from%20alan%20w.%20smith/fl_layer_apply,g_south_east,x_196,y_40/og-images/black-with-white-line.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/fonts.css" />
+    <link rel="stylesheet" href="/styles/colors.css" />
+    <link rel="stylesheet" href="/styles/wrapper.css" />
+    <link rel="stylesheet" href="/styles/prism-customized.css" />
+    
+    <style>
+      #codeBlock {
+  background-color: #3457;
+  position: sticky;
+  top: 20px;
+  height: 180px;
+}
+
+#contentBlock {
+  /* The block is sized and padded to make it 
+   * easier to see the scroll bhavoir. */
+  padding-bottom: 4rem;
+  margin-left: 10rem;
+  width: 24rem;
+}
+
+#contentBlock div {
+  padding-bottom: 3rem;
+  padding-top: 1rem;
+  margin-top: 2rem;
+}
+
+    </style>
+
+    <!--
+    <link rel="stylesheet" href="/styles/highlightjs/_custom-base16-atelier-sulphurpool.min.css" />
+    <script src="/assets/highlight/highlight.min.js"></script>
+    -->
+
+    <script>
+      // This file can be used to represent
+// and data that should be held outside
+// of the main script
+
+const c = {
+  alfa: 'bravo',
+}
+
+      const doThing = () => {
+  const codeBlock = window.codeBlock
+  const item1 = window.item1
+
+  const bottomOfCodeBlock = codeBlock.offsetHeight + codeBlock.offsetTop
+  const topOfItemBlock = item1.offsetTop
+
+  console.log(bottomOfCodeBlock)
+  console.log(topOfItemBlock)
+
+  if (topOfItemBlock < bottomOfCodeBlock) {
+    item1.style.borderLeft = '1px solid green'
+  } else {
+    item1.style.borderLeft = '1px solid red'
+  }
+
+  // console.log(window.scrollY)
+}
+
+// const tmp = () => {
+//   console.log(b.offsetWidth)
+//   console.log(b.offsetHeight)
+// }
+
+const init = () => {
+  document.addEventListener('scroll', doThing)
+  // tmp()
+}
+
+document.addEventListener('DOMContentLoaded', init)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">cookbook home</a> ~
+      <a href="https://www.alanwsmith.com/">main site</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
+    </header>
+    <main>
+      <h1>Step By Step Code Example Prototype v13 - Scroll Event</h1>
+      
+                <h2>Details</h2>
+                <ul>
+                    <li>The example below is built directly from the HTML and JavaScript code snippets that follow</li>
+                </ul>
+                
+
+      <h2>EXAMPLE</h2>
+      <div id="wrapper">
+  <div id="codeBlock">
+    <pre><code id="theCode">This is the code</code></pre>
+  </div>
+  <div id="contentBlock">
+    <div id="item1">
+      There is a lag between thought and act. Seed is needed to plant the spring
+      corn. Draw the chart with heavy black lines. Hats are worn to tea and not
+      to dinner.
+    </div>
+    <div id="item2">
+      Breakfast buns are fine with a hot drink. Bottles hold four kinds of rum.
+      The man wore a feather in his felt hat. He wheeled the bike past the
+      winding road.
+    </div>
+    <div id="item3">
+      No hardship seemed to keep him sad. Once we stood beside the shore.
+    </div>
+    <div id="item4">
+      Mark the spot with a sign painted red. The fur of cats goes by many names.
+      Go now and come here later. Soap can wash most dirt away. That move means
+      the game is over.
+    </div>
+    <div id="item5">
+      At that high level the air is pure. The office paint was a dull sad tan.
+      Steam hissed from the broken valve. There was a sound of dry leaves
+      outside.
+    </div>
+    <div id="item6">
+      A saw is a tool used for making boards. Use a pencil to write the first
+      draft. A small creek cut across the field. The dune rose from the edge of
+      the water. Those words were the cue for the actor to leave.
+    </div>
+  </div>
+</div>
+
+
+      <br />
+      <br />
+      <br />
+      <hr />
+       
+            <h2>HTML Source</h2>
+            <pre class="exampleCode" id="exampleHTMLBody"><code class="language-html">&lt;div id=&quot;wrapper&quot;&gt;
+  &lt;div id=&quot;codeBlock&quot;&gt;
+    &lt;pre&gt;&lt;code id=&quot;theCode&quot;&gt;This is the code&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;contentBlock&quot;&gt;
+    &lt;div id=&quot;item1&quot;&gt;
+      There is a lag between thought and act. Seed is needed to plant the spring
+      corn. Draw the chart with heavy black lines. Hats are worn to tea and not
+      to dinner.
+    &lt;/div&gt;
+    &lt;div id=&quot;item2&quot;&gt;
+      Breakfast buns are fine with a hot drink. Bottles hold four kinds of rum.
+      The man wore a feather in his felt hat. He wheeled the bike past the
+      winding road.
+    &lt;/div&gt;
+    &lt;div id=&quot;item3&quot;&gt;
+      No hardship seemed to keep him sad. Once we stood beside the shore.
+    &lt;/div&gt;
+    &lt;div id=&quot;item4&quot;&gt;
+      Mark the spot with a sign painted red. The fur of cats goes by many names.
+      Go now and come here later. Soap can wash most dirt away. That move means
+      the game is over.
+    &lt;/div&gt;
+    &lt;div id=&quot;item5&quot;&gt;
+      At that high level the air is pure. The office paint was a dull sad tan.
+      Steam hissed from the broken valve. There was a sound of dry leaves
+      outside.
+    &lt;/div&gt;
+    &lt;div id=&quot;item6&quot;&gt;
+      A saw is a tool used for making boards. Use a pencil to write the first
+      draft. A small creek cut across the field. The dune rose from the edge of
+      the water. Those words were the cue for the actor to leave.
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+             
+            <h2>CSS Source</h2>
+            <pre class="exampleCode" id="exampleCSS"><code class="language-css">#codeBlock {
+  background-color: #3457;
+  position: sticky;
+  top: 20px;
+  height: 180px;
+}
+
+#contentBlock {
+  /* The block is sized and padded to make it 
+   * easier to see the scroll bhavoir. */
+  padding-bottom: 4rem;
+  margin-left: 10rem;
+  width: 24rem;
+}
+
+#contentBlock div {
+  padding-bottom: 3rem;
+  padding-top: 1rem;
+  margin-top: 2rem;
+}
+</code></pre>
+             
+            <h2>JavaScript Source</h2>
+            <pre class="exampleCode" id="exampleJS"><code class="language-js">const doThing = () =&gt; {
+  const codeBlock = window.codeBlock
+  const item1 = window.item1
+
+  const bottomOfCodeBlock = codeBlock.offsetHeight + codeBlock.offsetTop
+  const topOfItemBlock = item1.offsetTop
+
+  console.log(bottomOfCodeBlock)
+  console.log(topOfItemBlock)
+
+  if (topOfItemBlock &lt; bottomOfCodeBlock) {
+    item1.style.borderLeft = &#x27;1px solid green&#x27;
+  } else {
+    item1.style.borderLeft = &#x27;1px solid red&#x27;
+  }
+
+  // console.log(window.scrollY)
+}
+
+// const tmp = () =&gt; {
+//   console.log(b.offsetWidth)
+//   console.log(b.offsetHeight)
+// }
+
+const init = () =&gt; {
+  document.addEventListener(&#x27;scroll&#x27;, doThing)
+  // tmp()
+}
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
+</code></pre>
+             
+            <h2>JSON Data Source</h2>
+            <pre class="exampleCode" id="exampleJSON"><code class="language-json">{
+  &quot;note&quot;: &quot;Example JSON data file&quot;
+}
+</code></pre>
+            
+      
+            <h2>Config JS Source</h2>
+            <pre class="exampleCode" id="exampleCONFIG"><code class="language-js">// This file can be used to represent
+// and data that should be held outside
+// of the main script
+
+const c = {
+  alfa: &#x27;bravo&#x27;,
+}
+</code></pre>
+               
+    </main>
+    <footer>
+      from <a href="https://www.alanwsmith.com/">alan w. smith</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>
