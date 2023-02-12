@@ -1,5 +1,5 @@
 #codeBlock {
-  background-color: black;
+  background-color: #3689;
   position: sticky;
   top: 30px;
   height: 250px;
@@ -15,7 +15,10 @@
 }
 
 #contentBlock div {
-  padding-bottom: 3rem;
-  padding-top: 1rem;
   margin-top: 2rem;
+  margin-bottom: 3rem;
+  padding-left: 0.4rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  border-left: 1px solid #234;
 }
