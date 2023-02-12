@@ -39,10 +39,19 @@ const makeNotes = () => {
 const updateCode = () => {
   const boxTop = window.contentBlock.getBoundingClientRect().top
   const targetLine = boxTop + 110
-  c.notes.forEach((note) => {
+  c.notes.forEach((note, noteIndex) => {
     const noteTop = note.getBoundingClientRect().top
     const noteBottom = note.getBoundingClientRect().bottom
     if (noteTop < targetLine && noteBottom > targetLine) {
+      const lineAssembler = []
+      c.rawLines.forEach((rawLine, rawLineIndex) => {
+        if (c.sets[noteIndex].lines.includes(rawLineIndex + 1)) {
+          lineAssembler.push(rawLine)
+        } else {
+          lineAssembler.push(' ')
+        }
+      })
+      window.theCode.innerHTML = lineAssembler.join('\n')
       console.log(note.id)
       // console.log(noteBottom)
 

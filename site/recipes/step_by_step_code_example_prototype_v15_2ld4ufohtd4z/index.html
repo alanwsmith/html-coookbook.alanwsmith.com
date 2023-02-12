@@ -244,10 +244,19 @@ const makeNotes = () => {
 const updateCode = () => {
   const boxTop = window.contentBlock.getBoundingClientRect().top
   const targetLine = boxTop + 110
-  c.notes.forEach((note) => {
+  c.notes.forEach((note, noteIndex) => {
     const noteTop = note.getBoundingClientRect().top
     const noteBottom = note.getBoundingClientRect().bottom
     if (noteTop < targetLine && noteBottom > targetLine) {
+      const lineAssembler = []
+      c.rawLines.forEach((rawLine, rawLineIndex) => {
+        if (c.sets[noteIndex].lines.includes(rawLineIndex + 1)) {
+          lineAssembler.push(rawLine)
+        } else {
+          lineAssembler.push(' ')
+        }
+      })
+      window.theCode.innerHTML = lineAssembler.join('\n')
       console.log(note.id)
       // console.log(noteBottom)
 
@@ -386,10 +395,19 @@ const makeNotes = () =&gt; {
 const updateCode = () =&gt; {
   const boxTop = window.contentBlock.getBoundingClientRect().top
   const targetLine = boxTop + 110
-  c.notes.forEach((note) =&gt; {
+  c.notes.forEach((note, noteIndex) =&gt; {
     const noteTop = note.getBoundingClientRect().top
     const noteBottom = note.getBoundingClientRect().bottom
     if (noteTop &lt; targetLine &amp;&amp; noteBottom &gt; targetLine) {
+      const lineAssembler = []
+      c.rawLines.forEach((rawLine, rawLineIndex) =&gt; {
+        if (c.sets[noteIndex].lines.includes(rawLineIndex + 1)) {
+          lineAssembler.push(rawLine)
+        } else {
+          lineAssembler.push(&#x27; &#x27;)
+        }
+      })
+      window.theCode.innerHTML = lineAssembler.join(&#x27;\n&#x27;)
       console.log(note.id)
       // console.log(noteBottom)
 
