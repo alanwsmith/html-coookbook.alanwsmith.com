@@ -25,7 +25,7 @@ const _doThing_v1 = () => {
     // Add the overrides
     if (c.sets[activeItems[0]].overrides) {
       c.sets[activeItems[0]].overrides.forEach((override) => {
-        console.log(override)
+        //console.log(override)
       })
     }
   }
@@ -66,9 +66,9 @@ const makeNotes = () => {
 }
 
 const updateEverything = () => {
-  console.log('update everything')
+  // console.log('update everything')
   updateNotes()
-  console.log(c)
+  // console.log(c)
 }
 
 const updateNotes = () => {
@@ -82,7 +82,7 @@ const updateNotes = () => {
     const noteTop = notes[n].offsetTop
     const noteBottom = notes[n].offsetTop + notes[n].offsetHeight
 
-    console.log(`-- ${noteTop} - ${bottomOfCodeBlock} - ${noteBottom}`)
+    //console.log(`-- ${noteTop} - ${bottomOfCodeBlock} - ${noteBottom}`)
     if (noteTop < triggerPoint && noteBottom > triggerPoint) {
       c.currentHighlight = n
     }
@@ -95,6 +95,15 @@ const updateNotes = () => {
           return line
         }
       })
+
+      if (c.sets[n].overrides) {
+        c.sets[n].overrides.forEach((override) => {
+          console.log(override.line)
+          lineAssembler[override.line - 1] = override.text
+          // console.log(override)
+        })
+      }
+
       window.theCode.innerHTML = lineAssembler.join('\n')
       notes[n].style.borderLeft = '1px solid black'
     } else {
@@ -102,7 +111,7 @@ const updateNotes = () => {
     }
   }
 
-  console.log(c.currentHighlight)
+  // console.log(c.currentHighlight)
 
   //  .forEach((note) => {
   // console.log(note.offsetTop)
