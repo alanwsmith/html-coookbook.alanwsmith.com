@@ -1,0 +1,23 @@
+{
+  "TITLE": "Step By Step Code Example Prototype v12 - Scrolling Content Area",
+  "STATUS": "draft",
+  "DESCRIPTION": "",
+  "DETAILS": [
+    "The example below is built directly from the HTML and JavaScript code snippets that follow"
+  ],
+  "NOTES": [
+    "Could probably also just move the margin a little away from the code block to move the trigger point"
+  ],
+  "TODOS": [
+    "Deal with refreshes",
+    "Make all the numbers dynamic based off screen size and dimensions"
+  ],
+  "REFERENCES": [],
+  "REFERENCES_TEMPLATE": [
+    {
+      "title": "",
+      "url": "",
+      "extra": ""
+    }
+  ]
+}
