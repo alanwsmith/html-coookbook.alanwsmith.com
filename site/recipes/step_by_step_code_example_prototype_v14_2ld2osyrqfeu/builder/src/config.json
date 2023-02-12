@@ -1,19 +1,20 @@
 {
-    "TITLE": "Step By Step Code Example Prototype v14 - Scrolling On Side",
-    "STATUS": "draft",
-    "DESCRIPTION": "",
-    "DETAILS": [
-        "Trying a version where the code scrolls on the side",
-        "The example below is built directly from the HTML and JavaScript code snippets that follow"
-    ],
-    "NOTES": [],
-    "TODOS": [],
-    "REFERENCES": [],
-    "REFERENCES_TEMPLATE": [
-        {
-            "title": "",
-            "url": "",
-            "extra": ""
-        }
-    ]
+  "TITLE": "Step By Step Code Example Prototype v14 - Scrolling On Side",
+  "STATUS": "draft",
+  "DESCRIPTION": "",
+  "DETAILS": [
+    "Stopped this version in favor of moving to the next one that uses the Ace editor",
+    "Trying a version where the code scrolls on the side",
+    "The example below is built directly from the HTML and JavaScript code snippets that follow"
+  ],
+  "NOTES": [],
+  "TODOS": [],
+  "REFERENCES": [],
+  "REFERENCES_TEMPLATE": [
+    {
+      "title": "",
+      "url": "",
+      "extra": ""
+    }
+  ]
 }

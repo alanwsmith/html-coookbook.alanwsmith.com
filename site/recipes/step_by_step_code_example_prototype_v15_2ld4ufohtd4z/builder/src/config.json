@@ -1,19 +1,19 @@
 {
-    "TITLE": "Step By Step Code Example Prototype v15 - Scrolling In Panel",
-    "STATUS": "draft",
-    "DESCRIPTION": "",
-    "DETAILS": [
-        "Trying a version where the code scrolls in a panel",
-        "The example below is built directly from the HTML and JavaScript code snippets that follow"
-    ],
-    "NOTES": [],
-    "TODOS": [],
-    "REFERENCES": [],
-    "REFERENCES_TEMPLATE": [
-        {
-            "title": "",
-            "url": "",
-            "extra": ""
-        }
-    ]
+  "TITLE": "Step By Step Code Example Prototype v15 - Scrolling In Panel",
+  "STATUS": "published",
+  "DESCRIPTION": "",
+  "DETAILS": [
+    "This version uses the Ace Editor",
+    "The example below is built directly from the HTML and JavaScript code snippets that follow"
+  ],
+  "NOTES": [],
+  "TODOS": [],
+  "REFERENCES": [],
+  "REFERENCES_TEMPLATE": [
+    {
+      "title": "",
+      "url": "",
+      "extra": ""
+    }
+  ]
 }
