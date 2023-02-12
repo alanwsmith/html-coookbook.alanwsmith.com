@@ -4,10 +4,10 @@ function handleIntersect1(entries, observer) {
     const clientTop = entry.boundingClientRect.top
     const rootTop = entry.rootBounds.top
     const clientBottom = entry.boundingClientRect.bottom
-    if (clientTop < rootTop && clientBottom > rootTop) {
+    if (clientTop < rootTop && clientBottom > rootTop && entry.isIntersecting) {
       console.log('scrolling down')
       console.log(`-- ${id} - ${clientTop} - ${rootTop} - ${clientBottom}`)
-      window.currentCode.innerHTML = entry.target.id
+      window.currentCode.innerHTML = c.code[entry.target.id]
     }
   })
 }
@@ -18,14 +18,14 @@ function handleIntersect2(entries, observer) {
     const clientTop = entry.boundingClientRect.top
     const rootTop = entry.rootBounds.top
     const clientBottom = entry.boundingClientRect.bottom
-    if (clientTop <= rootTop) {
+    if (clientTop <= rootTop && entry.isIntersecting === false) {
       const nextSibling = entry.target.nextElementSibling
       if (nextSibling) {
         const nextId = nextSibling.id
         console.log('scrolling up')
         console.log(`-- ${id} - ${clientTop} - ${rootTop} - ${clientBottom}`)
         window.currentCode.innerHTML = c.code[nextId]
-        console.log(entry.isIntersecting)
+        // console.log(entry.isIntersecting)
       }
     }
   })
@@ -61,11 +61,14 @@ function handleIntersect3(entries, observer) {
   })
 }
 
-function _createObservers_v1() {
+function createObservers() {
   const options1 = {
     root: null,
     rootMargin: '-200px 0px 200px 0px',
-    threshold: 0.4,
+    threshold: 0.9,
+    // moving this to 1 didn't work with current setup
+    // could probalby shuffle the other handler checks,
+    // but this works
   }
   const options2 = {
     root: null,
@@ -81,23 +84,16 @@ function _createObservers_v1() {
   }
 }
 
-function createObservers() {
+function _createObservers_v2() {
   const options3 = {
     root: null,
     rootMargin: '-200px 0px 200px 0px',
     threshold: 0.6,
   }
-  // const options2 = {
-  //   root: null,
-  //   rootMargin: '-200px 0px 200px 0px',
-  //   threshold: 0.6,
-  // }
   const observer3 = new IntersectionObserver(handleIntersect3, options3)
-  // const observer2 = new IntersectionObserver(handleIntersect2, options2)
   const els = window.contentArea.getElementsByTagName('div')
   for (let i = 0; i < els.length; i++) {
     observer3.observe(els[i])
-    //observer2.observe(els[i])
   }
 }
 const init = () => {
