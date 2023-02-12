@@ -10,7 +10,7 @@ const c = {
   );
 }
 
-fn widget (value: String) -> String {
+fn widget(value: String) -> String {
   println!("widget got {}", value);
   String::from("berry")
 }`,
@@ -19,11 +19,7 @@ fn widget (value: String) -> String {
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       highlights: [],
       note: `
-      <p>This is an example of a function that takes an argument and returns a value. </p>
-      <p>A <code>String</code> is sent from <code>main</code> to <code>widget</code> 
-      where it's printed out. <code>widget</code> then passes a string back to 
-      <code>main</code> for it to print.
-      </p>
+      <p>Full code example. Scroll down for step by step details</p>
       `,
       noteCoords: [1, 40],
     },
@@ -33,7 +29,7 @@ fn widget (value: String) -> String {
       highlights: [7, 10],
       overrides: [{ line: 7, text: `fn widget() {` }],
       note: `
-      <p>Start creating a <code>widget</code> function.</p>
+      <p>Start a <code>widget</code> function</p>
       `,
       noteCoords: [3, 0],
     },
@@ -41,11 +37,9 @@ fn widget (value: String) -> String {
     {
       lines: [7, 10],
       highlights: [7, 10],
-      overrides: [{ line: 7, text: `fn widget(thing: String) {` }],
+      overrides: [{ line: 7, text: `fn widget(value: String) {` }],
       note: `
-      <p>Set it up to accept a <code>String</code> that gets bound to 
-      an internal variable called <code>thing</code> with:</p>
-      <pre><code class="language-rust">thing: String</code></pre>
+      <p>Accept a <code>String</code> that gets bound to <code>value</code></p>
 `,
       noteCoords: [3, 0],
     },
@@ -53,35 +47,27 @@ fn widget (value: String) -> String {
     {
       lines: [7, 10],
       highlights: [7, 10],
-      overrides: [{ line: 7, text: `fn widget(thing: String) -> String {` }],
+      overrides: [{ line: 7, text: `fn widget(value: String) -> String {` }],
       note: `
-      <p>Finish the signature by adding a <code>String</code> return type with:</p>
-
-      <pre><code class="language-rust">-&gt; String</code></pre>
+      <p>Add a <code>-&gt; String</code> for the return type </p>
 `,
       noteCoords: [3, 0],
     },
 
     {
-      lines: [7, 8, 11],
+      lines: [7, 8, 10],
       highlights: [8],
       note: `
-      <p>Add a <code>println!()</code> to show the value passed into <code>widget</code></p>
+      <p>Add a <code>println!()</code> to show the value that gets passed in</p>
 `,
       noteCoords: [3, 0],
     },
 
     {
-      lines: [7, 8, 9, 10, 11],
+      lines: [7, 8, 9, 10],
       highlights: [9],
       note: `
-      <p>Add a <code>String</code> as the last thing in the function. </p>
-      Using a <code>String</code> here since that's what the function
-      is speced to return</p>
-      <p><code>String::from()</code> is an expression which means
-      it has a value. Since there's no semi-colon after it that
-      value is what gets passed back from the function </p>
-<p>
+      <p>Add a <code>String</code> to return</p>
 `,
       noteCoords: [3, 0],
     },
@@ -115,11 +101,7 @@ fn widget (value: String) -> String {
       noteCoords: [1, 40],
       fades: [{ line: 3, spans: [1, 2, 3, 4] }],
       note: `
-<p>Make a call to <code>widget</code> passing in
-a <code>String</code> as an argument with:</p>
-
-<pre><code>widget(String::from("apple"))</code></pre>
-
+<p>Make a call to <code>widget</code> passing in a <code>String</code></p>
 `,
     },
 
