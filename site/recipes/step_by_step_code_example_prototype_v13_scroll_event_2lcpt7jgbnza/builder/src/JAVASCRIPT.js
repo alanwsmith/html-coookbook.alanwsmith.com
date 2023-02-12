@@ -1,9 +1,6 @@
-const state = {}
-
-const doThing = () => {
+const _doThing_v1 = () => {
   const codeBlock = window.codeBlock
   const bottomOfCodeBlock = codeBlock.offsetHeight + codeBlock.offsetTop
-
   const activeItems = []
 
   state.items.forEach((item, itemIndex) => {
@@ -15,7 +12,6 @@ const doThing = () => {
     }
   })
 
-  console.log(activeItems)
   if (activeItems.length > 0) {
     const lineAssembler = state.lines.map((line, lineIndex) => {
       if (c.sets[activeItems[0]].lines.includes(lineIndex + 1)) {
@@ -24,13 +20,15 @@ const doThing = () => {
         return ''
       }
     })
-
-    console.log(lineAssembler)
-    // console.log(activeItems[0])
     window.theCode.innerHTML = lineAssembler.join('\n')
-  }
 
-  // console.log(bottomOfCodeBlock)
+    // Add the overrides
+    if (c.sets[activeItems[0]].overrides) {
+      c.sets[activeItems[0]].overrides.forEach((override) => {
+        console.log(override)
+      })
+    }
+  }
 }
 
 const makeElement = (
@@ -68,11 +66,12 @@ const makeNotes = () => {
 }
 
 const init = () => {
-  state.lines = c.source.split('\n')
+  // state.lines = c.source.split('\n')
+  c.rawLines = c.source.split('\n')
   makeNotes()
-  state.items = document.querySelectorAll('#contentBlock > div')
-  doThing()
-  document.addEventListener('scroll', doThing)
+  // state.items = document.querySelectorAll('#contentBlock > div')
+  // doThing()
+  // document.addEventListener('scroll', doThing)
 }
 
 document.addEventListener('DOMContentLoaded', init)

@@ -1,8 +1,9 @@
 #codeBlock {
-  background-color: #3457;
+  background-color: black;
   position: sticky;
   top: 30px;
   height: 250px;
+  z-index: 2;
 }
 
 #contentBlock {
