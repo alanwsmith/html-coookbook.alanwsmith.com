@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Step By Step Code Example Prototype v15 - Scrolling In Panel - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Step By Step Code Example Prototype v15 - Scrolling In Panel" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630,w_1200,h_630,c_fit,w_940,h_540,co_rgb:eeeeee,l_text:Helvetica_94_bold:Step%20By%20Step%20Code%20Example%20Prototype%20v15%20-%20Scrolling%20In%20Panel/fl_layer_apply,g_north_west,x_60,y_60/co_rgb:666666,l_text:Inconsolata_36_bold:from%20alan%20w.%20smith/fl_layer_apply,g_south_east,x_196,y_40/og-images/black-with-white-line.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/fonts.css" />
+    <link rel="stylesheet" href="/styles/colors.css" />
+    <link rel="stylesheet" href="/styles/wrapper.css" />
+    <link rel="stylesheet" href="/styles/prism-customized.css" />
+    
+    <style>
+      #codeBlock {
+  background-color: #8378;
+  position: sticky;
+  top: 120px;
+  height: 250px;
+  z-index: 2;
+}
+
+#contentBlock {
+  height: 250px;
+  overflow-y: auto;
+}
+
+#contentBlock > div {
+  padding-left: 0.2rem;
+  min-height: 250px;
+}
+
+#wrapper {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+}
+
+    </style>
+
+    <!--
+    <link rel="stylesheet" href="/styles/highlightjs/_custom-base16-atelier-sulphurpool.min.css" />
+    <script src="/assets/highlight/highlight.min.js"></script>
+    -->
+
+    <script>
+      // This file can be used to represent
+// and data that should be held outside
+// of the main script
+
+const c = {
+  fadeColor: '#667',
+  source: `fn main() {
+  println!(
+    "main got {}", widget(String::from("apple"))
+  );
+}
+
+fn widget (value: String) -> String {
+  println!("widget got {}", value);
+  String::from("berry")
+}`,
+  sets: [
+    {
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [],
+      note: `
+      <p>This is an example of a function that takes an argument and returns a value. </p>
+      <p>A <code>String</code> is sent from <code>main</code> to <code>widget</code> 
+      where it's printed out. <code>widget</code> then passes a string back to 
+      <code>main</code> for it to print.
+      </p>
+      `,
+      noteCoords: [1, 40],
+    },
+
+    {
+      lines: [7, 10],
+      highlights: [7, 10],
+      overrides: [{ line: 7, text: `fn widget() {` }],
+      note: `
+      <p>Start creating a <code>widget</code> function.</p>
+      `,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 10],
+      highlights: [7, 10],
+      overrides: [{ line: 7, text: `fn widget(thing: String) {` }],
+      note: `
+      <p>Set it up to accept a <code>String</code> that gets bound to 
+      an internal variable called <code>thing</code> with:</p>
+      <pre><code class="language-rust">thing: String</code></pre>
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 10],
+      highlights: [7, 10],
+      overrides: [{ line: 7, text: `fn widget(thing: String) -> String {` }],
+      note: `
+      <p>Finish the signature by adding a <code>String</code> return type with:</p>
+
+      <pre><code class="language-rust">-&gt; String</code></pre>
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 8, 11],
+      highlights: [8],
+      note: `
+      <p>Add a <code>println!()</code> to show the value passed into <code>widget</code></p>
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 8, 9, 10, 11],
+      highlights: [9],
+      note: `
+      <p>Add a <code>String</code> as the last thing in the function. </p>
+      Using a <code>String</code> here since that's what the function
+      is speced to return</p>
+      <p><code>String::from()</code> is an expression which means
+      it has a value. Since there's no semi-colon after it that
+      value is what gets passed back from the function </p>
+<p>
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [1, 5, 7, 8, 9, 10, 11],
+      highlights: [1, 5],
+      overrides: [],
+      noteCoords: [1, 40],
+      note: `
+      <p>Start making the <code>main</code> function</p>
+
+`,
+    },
+
+    {
+      lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
+      highlights: [2, 3, 4],
+      overrides: [{ line: 3, text: '    "main got {}"' }],
+      noteCoords: [1, 40],
+      note: `
+      <p>Stub out a <code>println!()</code> with  
+      a format string</p>
+`,
+    },
+
+    {
+      lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
+      highlights: [3],
+      overrides: [],
+      noteCoords: [1, 40],
+      fades: [{ line: 3, spans: [1, 2, 3, 4] }],
+      note: `
+<p>Make a call to <code>widget</code> passing in
+a <code>String</code> as an argument with:</p>
+
+<pre><code>widget(String::from("apple"))</code></pre>
+
+`,
+    },
+
+    {
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [],
+      overrides: [],
+      note: `<p>The output from the program is:</p>
+      <pre><code>widget got apple
+main got berry</code></pre>
+      `,
+      noteCoords: [1, 40],
+    },
+  ],
+}
+
+      const makeElement = (
+  _type,
+  _id,
+  _html,
+  _childOf,
+  _event,
+  _function,
+  _classes
+) => {
+  const newElement = document.createElement(_type)
+  newElement.id = _id
+  newElement.innerHTML = _html
+  window[_childOf].appendChild(newElement)
+  if (_event !== null) {
+    newElement.addEventListener(_event, _function)
+  }
+  if (_classes) {
+    newElement.classList.add(_classes)
+  }
+}
+
+const makeNotes = () => {
+  c.sets.forEach((setData, setIndex) => {
+    makeElement(
+      'div',
+      `set${setIndex}`,
+      setData.note,
+      'contentBlock',
+      null,
+      null
+    )
+  })
+}
+
+const updateEverything = () => {
+  console.log('updating')
+}
+
+const init = () => {
+  c.rawLines = c.source.split('\n')
+  makeNotes()
+  updateEverything()
+  document.addEventListener('scroll', updateEverything)
+}
+
+document.addEventListener('DOMContentLoaded', init)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">cookbook home</a> ~
+      <a href="https://www.alanwsmith.com/">main site</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
+    </header>
+    <main>
+      <h1>Step By Step Code Example Prototype v15 - Scrolling In Panel</h1>
+      
+                <h2>Details</h2>
+                <ul>
+                    <li>Trying a version where the code scrolls in a panel</li> <li>The example below is built directly from the HTML and JavaScript code snippets that follow</li>
+                </ul>
+                
+
+      <h2>EXAMPLE</h2>
+      <div id="wrapper">
+  <div id="codeBlock">
+    <pre><code id="theCode"></code></pre>
+  </div>
+  <div id="contentBlock"></div>
+</div>
+
+
+      <br />
+      <br />
+      <br />
+      <hr />
+       
+            <h2>HTML Source</h2>
+            <pre class="exampleCode" id="exampleHTMLBody"><code class="language-html">&lt;div id=&quot;wrapper&quot;&gt;
+  &lt;div id=&quot;codeBlock&quot;&gt;
+    &lt;pre&gt;&lt;code id=&quot;theCode&quot;&gt;&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;contentBlock&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+             
+            <h2>CSS Source</h2>
+            <pre class="exampleCode" id="exampleCSS"><code class="language-css">#codeBlock {
+  background-color: #8378;
+  position: sticky;
+  top: 120px;
+  height: 250px;
+  z-index: 2;
+}
+
+#contentBlock {
+  height: 250px;
+  overflow-y: auto;
+}
+
+#contentBlock &gt; div {
+  padding-left: 0.2rem;
+  min-height: 250px;
+}
+
+#wrapper {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+}
+</code></pre>
+             
+            <h2>JavaScript Source</h2>
+            <pre class="exampleCode" id="exampleJS"><code class="language-js">const makeElement = (
+  _type,
+  _id,
+  _html,
+  _childOf,
+  _event,
+  _function,
+  _classes
+) =&gt; {
+  const newElement = document.createElement(_type)
+  newElement.id = _id
+  newElement.innerHTML = _html
+  window[_childOf].appendChild(newElement)
+  if (_event !== null) {
+    newElement.addEventListener(_event, _function)
+  }
+  if (_classes) {
+    newElement.classList.add(_classes)
+  }
+}
+
+const makeNotes = () =&gt; {
+  c.sets.forEach((setData, setIndex) =&gt; {
+    makeElement(
+      &#x27;div&#x27;,
+      `set${setIndex}`,
+      setData.note,
+      &#x27;contentBlock&#x27;,
+      null,
+      null
+    )
+  })
+}
+
+const updateEverything = () =&gt; {
+  console.log(&#x27;updating&#x27;)
+}
+
+const init = () =&gt; {
+  c.rawLines = c.source.split(&#x27;\n&#x27;)
+  makeNotes()
+  updateEverything()
+  document.addEventListener(&#x27;scroll&#x27;, updateEverything)
+}
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
+</code></pre>
+             
+            <h2>JSON Data Source</h2>
+            <pre class="exampleCode" id="exampleJSON"><code class="language-json">{
+  &quot;note&quot;: &quot;Example JSON data file&quot;
+}
+</code></pre>
+            
+      
+            <h2>Config JS Source</h2>
+            <pre class="exampleCode" id="exampleCONFIG"><code class="language-js">// This file can be used to represent
+// and data that should be held outside
+// of the main script
+
+const c = {
+  fadeColor: &#x27;#667&#x27;,
+  source: `fn main() {
+  println!(
+    &quot;main got {}&quot;, widget(String::from(&quot;apple&quot;))
+  );
+}
+
+fn widget (value: String) -&gt; String {
+  println!(&quot;widget got {}&quot;, value);
+  String::from(&quot;berry&quot;)
+}`,
+  sets: [
+    {
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [],
+      note: `
+      &lt;p&gt;This is an example of a function that takes an argument and returns a value. &lt;/p&gt;
+      &lt;p&gt;A &lt;code&gt;String&lt;/code&gt; is sent from &lt;code&gt;main&lt;/code&gt; to &lt;code&gt;widget&lt;/code&gt; 
+      where it&#x27;s printed out. &lt;code&gt;widget&lt;/code&gt; then passes a string back to 
+      &lt;code&gt;main&lt;/code&gt; for it to print.
+      &lt;/p&gt;
+      `,
+      noteCoords: [1, 40],
+    },
+
+    {
+      lines: [7, 10],
+      highlights: [7, 10],
+      overrides: [{ line: 7, text: `fn widget() {` }],
+      note: `
+      &lt;p&gt;Start creating a &lt;code&gt;widget&lt;/code&gt; function.&lt;/p&gt;
+      `,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 10],
+      highlights: [7, 10],
+      overrides: [{ line: 7, text: `fn widget(thing: String) {` }],
+      note: `
+      &lt;p&gt;Set it up to accept a &lt;code&gt;String&lt;/code&gt; that gets bound to 
+      an internal variable called &lt;code&gt;thing&lt;/code&gt; with:&lt;/p&gt;
+      &lt;pre&gt;&lt;code class=&quot;language-rust&quot;&gt;thing: String&lt;/code&gt;&lt;/pre&gt;
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 10],
+      highlights: [7, 10],
+      overrides: [{ line: 7, text: `fn widget(thing: String) -&gt; String {` }],
+      note: `
+      &lt;p&gt;Finish the signature by adding a &lt;code&gt;String&lt;/code&gt; return type with:&lt;/p&gt;
+
+      &lt;pre&gt;&lt;code class=&quot;language-rust&quot;&gt;-&amp;gt; String&lt;/code&gt;&lt;/pre&gt;
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 8, 11],
+      highlights: [8],
+      note: `
+      &lt;p&gt;Add a &lt;code&gt;println!()&lt;/code&gt; to show the value passed into &lt;code&gt;widget&lt;/code&gt;&lt;/p&gt;
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [7, 8, 9, 10, 11],
+      highlights: [9],
+      note: `
+      &lt;p&gt;Add a &lt;code&gt;String&lt;/code&gt; as the last thing in the function. &lt;/p&gt;
+      Using a &lt;code&gt;String&lt;/code&gt; here since that&#x27;s what the function
+      is speced to return&lt;/p&gt;
+      &lt;p&gt;&lt;code&gt;String::from()&lt;/code&gt; is an expression which means
+      it has a value. Since there&#x27;s no semi-colon after it that
+      value is what gets passed back from the function &lt;/p&gt;
+&lt;p&gt;
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      lines: [1, 5, 7, 8, 9, 10, 11],
+      highlights: [1, 5],
+      overrides: [],
+      noteCoords: [1, 40],
+      note: `
+      &lt;p&gt;Start making the &lt;code&gt;main&lt;/code&gt; function&lt;/p&gt;
+
+`,
+    },
+
+    {
+      lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
+      highlights: [2, 3, 4],
+      overrides: [{ line: 3, text: &#x27;    &quot;main got {}&quot;&#x27; }],
+      noteCoords: [1, 40],
+      note: `
+      &lt;p&gt;Stub out a &lt;code&gt;println!()&lt;/code&gt; with  
+      a format string&lt;/p&gt;
+`,
+    },
+
+    {
+      lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
+      highlights: [3],
+      overrides: [],
+      noteCoords: [1, 40],
+      fades: [{ line: 3, spans: [1, 2, 3, 4] }],
+      note: `
+&lt;p&gt;Make a call to &lt;code&gt;widget&lt;/code&gt; passing in
+a &lt;code&gt;String&lt;/code&gt; as an argument with:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;widget(String::from(&quot;apple&quot;))&lt;/code&gt;&lt;/pre&gt;
+
+`,
+    },
+
+    {
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [],
+      overrides: [],
+      note: `&lt;p&gt;The output from the program is:&lt;/p&gt;
+      &lt;pre&gt;&lt;code&gt;widget got apple
+main got berry&lt;/code&gt;&lt;/pre&gt;
+      `,
+      noteCoords: [1, 40],
+    },
+  ],
+}
+</code></pre>
+               
+    </main>
+    <footer>
+      from <a href="https://www.alanwsmith.com/">alan w. smith</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>

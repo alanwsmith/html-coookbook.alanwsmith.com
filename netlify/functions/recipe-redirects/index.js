@@ -64,6 +64,8 @@ exports.handler = async function (event, context) {
   "step_by_step_code_example_prototype_9_2lyhviicetxn": "/recipes/step_by_step_code_example_prototype_9_2lyhviicetxn/index.html",
   "step_by_step_code_example_prototype_v12_scrolling_2lbq1ufz2bpv": "/recipes/step_by_step_code_example_prototype_v12_scrolling_2lbq1ufz2bpv/index.html",
   "step_by_step_code_example_prototype_v13_scroll_event_2lcpt7jgbnza": "/recipes/step_by_step_code_example_prototype_v13_scroll_event_2lcpt7jgbnza/index.html",
+  "step_by_step_code_example_prototype_v14_2ld2osyrqfeu": "/recipes/step_by_step_code_example_prototype_v14_2ld2osyrqfeu/index.html",
+  "step_by_step_code_example_prototype_v15_2ld4ufohtd4z": "/recipes/step_by_step_code_example_prototype_v15_2ld4ufohtd4z/index.html",
   "sticky-code-area_2lzzuqaxn54f": "/recipes/sticky-code-area_2lzzuqaxn54f/index.html",
   "stream-chat-crt-overlay_2kusi3saawnj": "/recipes/stream-chat-crt-overlay_2kusi3saawnj/index.html",
   "system-dark-mode-preference--2icsgti1btei": "/recipes/system-dark-mode-preference--2icsgti1btei/index.html",
