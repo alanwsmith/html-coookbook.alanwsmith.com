@@ -37,7 +37,7 @@
   background-color: #3457;
   position: sticky;
   top: 30px;
-  height: 180px;
+  height: 250px;
 }
 
 #contentBlock {
@@ -217,9 +217,19 @@ const doThing = () => {
     }
   })
 
+  console.log(activeItems)
   if (activeItems.length > 0) {
-    console.log(activeItems[0])
-    // window.theCode.innerHTML = c.sets[state.activeItems[0]]
+    const lineAssembler = state.lines.map((line, lineIndex) => {
+      if (c.sets[activeItems[0]].lines.includes(lineIndex + 1)) {
+        return line
+      } else {
+        return ''
+      }
+    })
+
+    console.log(lineAssembler)
+    // console.log(activeItems[0])
+    window.theCode.innerHTML = lineAssembler.join('\n')
   }
 
   // console.log(bottomOfCodeBlock)
@@ -287,6 +297,26 @@ document.addEventListener('DOMContentLoaded', init)
       draft. A small creek cut across the field. The dune rose from the edge of
       the water. Those words were the cue for the actor to leave.
     </div>
+    <div id="item7">
+      A saw is a tool used for making boards. Use a pencil to write the first
+      draft. A small creek cut across the field. The dune rose from the edge of
+      the water. Those words were the cue for the actor to leave.
+    </div>
+    <div id="item8">
+      A saw is a tool used for making boards. Use a pencil to write the first
+      draft. A small creek cut across the field. The dune rose from the edge of
+      the water. Those words were the cue for the actor to leave.
+    </div>
+    <div id="item9">
+      A saw is a tool used for making boards. Use a pencil to write the first
+      draft. A small creek cut across the field. The dune rose from the edge of
+      the water. Those words were the cue for the actor to leave.
+    </div>
+    <div id="item1">
+      A saw is a tool used for making boards. Use a pencil to write the first
+      draft. A small creek cut across the field. The dune rose from the edge of
+      the water. Those words were the cue for the actor to leave.
+    </div>
   </div>
 </div>
 
@@ -330,6 +360,26 @@ document.addEventListener('DOMContentLoaded', init)
       draft. A small creek cut across the field. The dune rose from the edge of
       the water. Those words were the cue for the actor to leave.
     &lt;/div&gt;
+    &lt;div id=&quot;item7&quot;&gt;
+      A saw is a tool used for making boards. Use a pencil to write the first
+      draft. A small creek cut across the field. The dune rose from the edge of
+      the water. Those words were the cue for the actor to leave.
+    &lt;/div&gt;
+    &lt;div id=&quot;item8&quot;&gt;
+      A saw is a tool used for making boards. Use a pencil to write the first
+      draft. A small creek cut across the field. The dune rose from the edge of
+      the water. Those words were the cue for the actor to leave.
+    &lt;/div&gt;
+    &lt;div id=&quot;item9&quot;&gt;
+      A saw is a tool used for making boards. Use a pencil to write the first
+      draft. A small creek cut across the field. The dune rose from the edge of
+      the water. Those words were the cue for the actor to leave.
+    &lt;/div&gt;
+    &lt;div id=&quot;item1&quot;&gt;
+      A saw is a tool used for making boards. Use a pencil to write the first
+      draft. A small creek cut across the field. The dune rose from the edge of
+      the water. Those words were the cue for the actor to leave.
+    &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
@@ -339,7 +389,7 @@ document.addEventListener('DOMContentLoaded', init)
   background-color: #3457;
   position: sticky;
   top: 30px;
-  height: 180px;
+  height: 250px;
 }
 
 #contentBlock {
@@ -375,9 +425,19 @@ const doThing = () =&gt; {
     }
   })
 
+  console.log(activeItems)
   if (activeItems.length &gt; 0) {
-    console.log(activeItems[0])
-    // window.theCode.innerHTML = c.sets[state.activeItems[0]]
+    const lineAssembler = state.lines.map((line, lineIndex) =&gt; {
+      if (c.sets[activeItems[0]].lines.includes(lineIndex + 1)) {
+        return line
+      } else {
+        return &#x27;&#x27;
+      }
+    })
+
+    console.log(lineAssembler)
+    // console.log(activeItems[0])
+    window.theCode.innerHTML = lineAssembler.join(&#x27;\n&#x27;)
   }
 
   // console.log(bottomOfCodeBlock)

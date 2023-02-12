@@ -15,9 +15,19 @@ const doThing = () => {
     }
   })
 
+  console.log(activeItems)
   if (activeItems.length > 0) {
-    console.log(activeItems[0])
-    // window.theCode.innerHTML = c.sets[state.activeItems[0]]
+    const lineAssembler = state.lines.map((line, lineIndex) => {
+      if (c.sets[activeItems[0]].lines.includes(lineIndex + 1)) {
+        return line
+      } else {
+        return ''
+      }
+    })
+
+    console.log(lineAssembler)
+    // console.log(activeItems[0])
+    window.theCode.innerHTML = lineAssembler.join('\n')
   }
 
   // console.log(bottomOfCodeBlock)
