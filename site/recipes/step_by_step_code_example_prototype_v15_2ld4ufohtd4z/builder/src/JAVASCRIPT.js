@@ -58,7 +58,9 @@ const updateCode = () => {
         })
       }
 
-      window.theCode.innerHTML = lineAssembler.join('\n')
+      // window.theCode.innerHTML = lineAssembler.join('\n')
+
+      c.editor.setValue(lineAssembler.join('\n'), 1)
 
       // console.log(note.id)
       // console.log(noteBottom)
@@ -79,6 +81,10 @@ const updateEverything = () => {
 }
 
 const init = () => {
+  c.editor = ace.edit('editor')
+  c.editor.setTheme('ace/theme/monokai')
+  c.editor.session.setMode('ace/mode/rust')
+  c.editor.setHighlightActiveLine(false)
   c.notes = []
   c.rawLines = c.source.split('\n')
   makeNotes()

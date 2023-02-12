@@ -30,16 +30,15 @@
     <link rel="stylesheet" href="/styles/fonts.css" />
     <link rel="stylesheet" href="/styles/colors.css" />
     <link rel="stylesheet" href="/styles/wrapper.css" />
-    <link rel="stylesheet" href="/styles/prism-customized.css" />
     
     <style>
       #codeBlock {
   background-color: #8378;
-  height: 250px;
+  height: 150px;
 }
 
 #contentBlock {
-  height: 180px;
+  height: 120px;
   margin-bottom: 100px;
   overflow-y: auto;
   border: 1px solid black;
@@ -52,9 +51,13 @@
   min-height: 180px;
 }
 
+#editor {
+  min-height: 9rem;
+}
+
 #wrapper {
   display: grid;
-  grid-template-columns: 2fr 3fr;
+  grid-template-columns: 2fr 4fr;
 }
 
     </style>
@@ -63,6 +66,11 @@
     <link rel="stylesheet" href="/styles/highlightjs/_custom-base16-atelier-sulphurpool.min.css" />
     <script src="/assets/highlight/highlight.min.js"></script>
     -->
+<script
+      src="/ace-editor/ace.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
 
     <script>
       // This file can be used to represent
@@ -245,7 +253,9 @@ const updateCode = () => {
         })
       }
 
-      window.theCode.innerHTML = lineAssembler.join('\n')
+      // window.theCode.innerHTML = lineAssembler.join('\n')
+
+      c.editor.setValue(lineAssembler.join('\n'), 1)
 
       // console.log(note.id)
       // console.log(noteBottom)
@@ -266,6 +276,10 @@ const updateEverything = () => {
 }
 
 const init = () => {
+  c.editor = ace.edit('editor')
+  c.editor.setTheme('ace/theme/monokai')
+  c.editor.session.setMode('ace/mode/rust')
+  c.editor.setHighlightActiveLine(false)
   c.notes = []
   c.rawLines = c.source.split('\n')
   makeNotes()
@@ -297,9 +311,7 @@ document.addEventListener('DOMContentLoaded', init)
       <h2>EXAMPLE</h2>
       <div id="wrapper">
   <div id="contentBlock"></div>
-  <div id="codeBlock">
-    <pre><code id="theCode"></code></pre>
-  </div>
+  <div id="editor"></div>
 </div>
 
 
@@ -311,20 +323,18 @@ document.addEventListener('DOMContentLoaded', init)
             <h2>HTML Source</h2>
             <pre class="exampleCode" id="exampleHTMLBody"><code class="language-html">&lt;div id=&quot;wrapper&quot;&gt;
   &lt;div id=&quot;contentBlock&quot;&gt;&lt;/div&gt;
-  &lt;div id=&quot;codeBlock&quot;&gt;
-    &lt;pre&gt;&lt;code id=&quot;theCode&quot;&gt;&lt;/code&gt;&lt;/pre&gt;
-  &lt;/div&gt;
+  &lt;div id=&quot;editor&quot;&gt;&lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
              
             <h2>CSS Source</h2>
             <pre class="exampleCode" id="exampleCSS"><code class="language-css">#codeBlock {
   background-color: #8378;
-  height: 250px;
+  height: 150px;
 }
 
 #contentBlock {
-  height: 180px;
+  height: 120px;
   margin-bottom: 100px;
   overflow-y: auto;
   border: 1px solid black;
@@ -337,9 +347,13 @@ document.addEventListener('DOMContentLoaded', init)
   min-height: 180px;
 }
 
+#editor {
+  min-height: 9rem;
+}
+
 #wrapper {
   display: grid;
-  grid-template-columns: 2fr 3fr;
+  grid-template-columns: 2fr 4fr;
 }
 </code></pre>
              
@@ -404,7 +418,9 @@ const updateCode = () =&gt; {
         })
       }
 
-      window.theCode.innerHTML = lineAssembler.join(&#x27;\n&#x27;)
+      // window.theCode.innerHTML = lineAssembler.join(&#x27;\n&#x27;)
+
+      c.editor.setValue(lineAssembler.join(&#x27;\n&#x27;), 1)
 
       // console.log(note.id)
       // console.log(noteBottom)
@@ -425,6 +441,10 @@ const updateEverything = () =&gt; {
 }
 
 const init = () =&gt; {
+  c.editor = ace.edit(&#x27;editor&#x27;)
+  c.editor.setTheme(&#x27;ace/theme/monokai&#x27;)
+  c.editor.session.setMode(&#x27;ace/mode/rust&#x27;)
+  c.editor.setHighlightActiveLine(false)
   c.notes = []
   c.rawLines = c.source.split(&#x27;\n&#x27;)
   makeNotes()
@@ -568,6 +588,5 @@ main got berry&lt;/code&gt;&lt;/pre&gt;
     <footer>
       from <a href="https://www.alanwsmith.com/">alan w. smith</a>
     </footer>
-    <script src="/styles/prism.js"></script>
   </body>
 </html>
