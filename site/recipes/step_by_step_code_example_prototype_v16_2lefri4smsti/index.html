@@ -219,7 +219,9 @@ const makeSections = () => {
     const code = makeElement(
       'div',
       `sectionCode${setIndex}`,
-      `<pre><code id=codeBlock${setIndex}>x</code></pre>`,
+      `<pre><code id="codeBlock${setIndex}">${c.sets[setIndex].outputLines.join(
+        '\n'
+      )}</code></pre>`,
       `section${setIndex}`,
       null,
       null,
@@ -238,8 +240,33 @@ const makeSections = () => {
   })
 }
 
+const prepLines = () => {
+  c.sets.forEach((set, setIndex) => {
+    set.outputLines = []
+    c.rawLines.forEach((line, lineIndex) => {
+      if (set.lines.includes(lineIndex + 1)) {
+        set.outputLines.push(line)
+      } else {
+        set.outputLines.push(' ')
+      }
+    })
+  })
+}
+
+const prepOverrides = () => {
+  c.sets.forEach((set, setIndex) => {
+    if (set.overrides) {
+      set.overrides.forEach((override) => {
+        set.outputLines[override.line - 1] = override.text
+      })
+    }
+  })
+}
+
 const init = () => {
   c.rawLines = c.source.split('\n')
+  prepLines()
+  prepOverrides()
   makeSections()
 }
 
@@ -325,7 +352,9 @@ const makeSections = () =&gt; {
     const code = makeElement(
       &#x27;div&#x27;,
       `sectionCode${setIndex}`,
-      `&lt;pre&gt;&lt;code id=codeBlock${setIndex}&gt;x&lt;/code&gt;&lt;/pre&gt;`,
+      `&lt;pre&gt;&lt;code id=&quot;codeBlock${setIndex}&quot;&gt;${c.sets[setIndex].outputLines.join(
+        &#x27;\n&#x27;
+      )}&lt;/code&gt;&lt;/pre&gt;`,
       `section${setIndex}`,
       null,
       null,
@@ -344,8 +373,33 @@ const makeSections = () =&gt; {
   })
 }
 
+const prepLines = () =&gt; {
+  c.sets.forEach((set, setIndex) =&gt; {
+    set.outputLines = []
+    c.rawLines.forEach((line, lineIndex) =&gt; {
+      if (set.lines.includes(lineIndex + 1)) {
+        set.outputLines.push(line)
+      } else {
+        set.outputLines.push(&#x27; &#x27;)
+      }
+    })
+  })
+}
+
+const prepOverrides = () =&gt; {
+  c.sets.forEach((set, setIndex) =&gt; {
+    if (set.overrides) {
+      set.overrides.forEach((override) =&gt; {
+        set.outputLines[override.line - 1] = override.text
+      })
+    }
+  })
+}
+
 const init = () =&gt; {
   c.rawLines = c.source.split(&#x27;\n&#x27;)
+  prepLines()
+  prepOverrides()
   makeSections()
 }
 

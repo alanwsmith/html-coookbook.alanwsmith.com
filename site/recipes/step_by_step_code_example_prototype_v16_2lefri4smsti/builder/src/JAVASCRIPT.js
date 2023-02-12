@@ -45,7 +45,9 @@ const makeSections = () => {
     const code = makeElement(
       'div',
       `sectionCode${setIndex}`,
-      `<pre><code id=codeBlock${setIndex}>x</code></pre>`,
+      `<pre><code id="codeBlock${setIndex}">${c.sets[setIndex].outputLines.join(
+        '\n'
+      )}</code></pre>`,
       `section${setIndex}`,
       null,
       null,
@@ -64,8 +66,33 @@ const makeSections = () => {
   })
 }
 
+const prepLines = () => {
+  c.sets.forEach((set, setIndex) => {
+    set.outputLines = []
+    c.rawLines.forEach((line, lineIndex) => {
+      if (set.lines.includes(lineIndex + 1)) {
+        set.outputLines.push(line)
+      } else {
+        set.outputLines.push(' ')
+      }
+    })
+  })
+}
+
+const prepOverrides = () => {
+  c.sets.forEach((set, setIndex) => {
+    if (set.overrides) {
+      set.overrides.forEach((override) => {
+        set.outputLines[override.line - 1] = override.text
+      })
+    }
+  })
+}
+
 const init = () => {
   c.rawLines = c.source.split('\n')
+  prepLines()
+  prepOverrides()
   makeSections()
 }
 
