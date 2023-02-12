@@ -68,9 +68,9 @@ const makeNotes = () => {
 }
 
 const init = () => {
-  state.items = document.querySelectorAll('#contentBlock > div')
   state.lines = c.source.split('\n')
   makeNotes()
+  state.items = document.querySelectorAll('#contentBlock > div')
   doThing()
   document.addEventListener('scroll', doThing)
 }
