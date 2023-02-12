@@ -1,22 +1,23 @@
 #codeBlock {
   background-color: #8378;
-  position: sticky;
-  top: 120px;
   height: 250px;
-  z-index: 2;
 }
 
 #contentBlock {
-  height: 250px;
+  height: 180px;
+  margin-bottom: 100px;
   overflow-y: auto;
+  border: 1px solid black;
 }
 
 #contentBlock > div {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
   padding-left: 0.2rem;
-  min-height: 250px;
+  min-height: 180px;
 }
 
 #wrapper {
   display: grid;
-  grid-template-columns: 3fr 2fr;
+  grid-template-columns: 2fr 3fr;
 }
