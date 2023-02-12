@@ -51,8 +51,16 @@ const updateCode = () => {
           lineAssembler.push(' ')
         }
       })
+
+      if (c.sets[noteIndex].overrides) {
+        c.sets[noteIndex].overrides.forEach((override) => {
+          lineAssembler[override.line - 1] = override.text
+        })
+      }
+
       window.theCode.innerHTML = lineAssembler.join('\n')
-      console.log(note.id)
+
+      // console.log(note.id)
       // console.log(noteBottom)
 
       // console.log(boxTop)

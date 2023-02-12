@@ -256,8 +256,16 @@ const updateCode = () => {
           lineAssembler.push(' ')
         }
       })
+
+      if (c.sets[noteIndex].overrides) {
+        c.sets[noteIndex].overrides.forEach((override) => {
+          lineAssembler[override.line - 1] = override.text
+        })
+      }
+
       window.theCode.innerHTML = lineAssembler.join('\n')
-      console.log(note.id)
+
+      // console.log(note.id)
       // console.log(noteBottom)
 
       // console.log(boxTop)
@@ -407,8 +415,16 @@ const updateCode = () =&gt; {
           lineAssembler.push(&#x27; &#x27;)
         }
       })
+
+      if (c.sets[noteIndex].overrides) {
+        c.sets[noteIndex].overrides.forEach((override) =&gt; {
+          lineAssembler[override.line - 1] = override.text
+        })
+      }
+
       window.theCode.innerHTML = lineAssembler.join(&#x27;\n&#x27;)
-      console.log(note.id)
+
+      // console.log(note.id)
       // console.log(noteBottom)
 
       // console.log(boxTop)
