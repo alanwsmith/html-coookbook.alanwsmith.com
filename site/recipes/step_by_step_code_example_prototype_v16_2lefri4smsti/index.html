@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>-- New Recipe In Progress -- - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <title>Step-By-Step Code Example - Prototype v16 - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="-- New Recipe In Progress --" />
+    <meta property="og:title" content="Step-By-Step Code Example - Prototype v16" />
     <meta property="og:description" content="" />
     <meta
       property="og:image"
-      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630,w_1200,h_630,c_fit,w_940,h_540,co_rgb:eeeeee,l_text:Helvetica_94_bold:--%20New%20Recipe%20In%20Progress%20--/fl_layer_apply,g_north_west,x_60,y_60/co_rgb:666666,l_text:Inconsolata_36_bold:from%20alan%20w.%20smith/fl_layer_apply,g_south_east,x_196,y_40/og-images/black-with-white-line.jpg"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630,w_1200,h_630,c_fit,w_940,h_540,co_rgb:eeeeee,l_text:Helvetica_94_bold:Step-By-Step%20Code%20Example%20-%20Prototype%20v16/fl_layer_apply,g_north_west,x_60,y_60/co_rgb:666666,l_text:Inconsolata_36_bold:from%20alan%20w.%20smith/fl_layer_apply,g_south_east,x_196,y_40/og-images/black-with-white-line.jpg"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site:id" content="@TheIdOfAlan" />
@@ -35,18 +35,212 @@
     <style>
       
     </style>
+
+    <!--
+    <link rel="stylesheet" href="/styles/highlightjs/_custom-base16-atelier-sulphurpool.min.css" />
+    <script src="/assets/highlight/highlight.min.js"></script>
+    -->
+
     <script>
       // This file can be used to represent
 // and data that should be held outside
 // of the main script
 
 const c = {
-  alfa: 'bravo',
+  fadeColor: '#667',
+  source: `fn main() {
+  println!(
+    "main got {}", widget(String::from("apple"))
+  );
 }
 
-      const init = () => {
-  console.log('init')
-  console.log(c.alfa)
+fn widget(value: String) -> String {
+  println!("widget got {}", value);
+  String::from("berry")
+}`,
+  sets: [
+    {
+      header: `Goal`,
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [],
+      note: `
+      <p>Full code example. Scroll down for step by step details</p>
+      `,
+      noteCoords: [1, 40],
+    },
+
+    {
+      header: `Create The <code>widget</code> Function`,
+      lines: [7, 10],
+      highlights: [7, 10],
+      overrides: [{ line: 7, text: `fn widget() {` }],
+      note: `
+      <p>Start by stubbing out a basic <code>widget</code> fuction. This is what the main process will send data to and receive data from.</p>
+      `,
+      noteCoords: [3, 0],
+    },
+
+    {
+      header: `Accept An Argument`,
+      lines: [7, 10],
+      highlights: [7, 10],
+      overrides: [{ line: 7, text: `fn widget(value: String) {` }],
+      note: `
+      <p>Accept a <code>String</code> that gets bound to <code>value</code></p>
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      header: `Add A Return Type`,
+      lines: [7, 10],
+      highlights: [7, 10],
+      overrides: [{ line: 7, text: `fn widget(value: String) -> String {` }],
+      note: `
+      <p>Add a <code>-&gt; String</code> for the return type </p>
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      header: `Show Some Output`,
+      lines: [7, 8, 10],
+      highlights: [8],
+      note: `
+      <p>Add a <code>println!()</code> to show the value that gets passed in</p>
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      header: `Return Some Data`,
+      lines: [7, 8, 9, 10],
+      highlights: [9],
+      note: `
+      <p>Add a <code>String</code> to return</p>
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      header: `Stub The <code>main</code> Function`,
+      lines: [1, 5, 7, 8, 9, 10, 11],
+      highlights: [1, 5],
+      overrides: [],
+      noteCoords: [1, 40],
+      note: `
+      <p>Start making the <code>main</code> function</p>
+
+`,
+    },
+
+    {
+      header: `Stub A <code>println!()`,
+      lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
+      highlights: [2, 3, 4],
+      overrides: [{ line: 3, text: '    "main got {}"' }],
+      noteCoords: [1, 40],
+      note: `
+      <p>Stub out a <code>println!()</code> with  
+      a format string</p>
+`,
+    },
+
+    {
+      header: `Call <code>widget</code>`,
+      lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
+      highlights: [3],
+      overrides: [],
+      noteCoords: [1, 40],
+      fades: [{ line: 3, spans: [1, 2, 3, 4] }],
+      note: `
+<p>Make a call to <code>widget</code> passing in a <code>String</code></p>
+`,
+    },
+
+    {
+      header: `Check The Output`,
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [],
+      overrides: [],
+      note: `<p>The output from the program is:</p>
+      <pre><code>widget got apple
+main got berry</code></pre>
+      `,
+      noteCoords: [1, 40],
+    },
+  ],
+}
+
+      const makeElement = (
+  _type,
+  _id,
+  _html,
+  _childOf,
+  _event,
+  _function,
+  _classes
+) => {
+  const newElement = document.createElement(_type)
+  newElement.id = _id
+  newElement.innerHTML = _html
+  window[_childOf].appendChild(newElement)
+  if (_event !== null) {
+    newElement.addEventListener(_event, _function)
+  }
+  if (_classes) {
+    newElement.classList.add(_classes)
+  }
+  return newElement
+}
+
+const makeSections = () => {
+  c.sets.forEach((set, setIndex) => {
+    const section = makeElement(
+      'section',
+      `section${setIndex}`,
+      '',
+      'wrapper',
+      null,
+      null,
+      'codeSection'
+    )
+
+    const header = makeElement(
+      'h3',
+      `sectionHeader${setIndex}`,
+      set.header,
+      `section${setIndex}`,
+      null,
+      null,
+      'codeSectionHeader'
+    )
+
+    const code = makeElement(
+      'div',
+      `sectionCode${setIndex}`,
+      `<pre><code id=codeBlock${setIndex}>x</code></pre>`,
+      `section${setIndex}`,
+      null,
+      null,
+      'codeSectionCode'
+    )
+
+    const note = makeElement(
+      `div`,
+      `sectionNote${setIndex}`,
+      set.note,
+      `section${setIndex}`,
+      null,
+      null,
+      'codeSectionNote'
+    )
+  })
+}
+
+const init = () => {
+  c.rawLines = c.source.split('\n')
+  makeSections()
 }
 
 document.addEventListener('DOMContentLoaded', init)
@@ -62,16 +256,16 @@ document.addEventListener('DOMContentLoaded', init)
       <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
     </header>
     <main>
-      <h1>-- New Recipe In Progress --</h1>
+      <h1>Step-By-Step Code Example - Prototype v16</h1>
       
                 <h2>Details</h2>
                 <ul>
-                    <li>The example below is built directly from the HTML and JavaScript code snippets that follow</li>
+                    <li>GOAL: A more traditional example but with each step of code outlined explicitly</li> <li>The example below is built directly from the HTML and JavaScript code snippets that follow</li>
                 </ul>
                 
 
       <h2>EXAMPLE</h2>
-      <p>the quick brown fox</p>
+      <div id="wrapper"></div>
 
 
       <br />
@@ -80,40 +274,223 @@ document.addEventListener('DOMContentLoaded', init)
       <hr />
        
             <h2>HTML Source</h2>
-            <pre class="exampleCode" id="exampleHTMLBody" class="language-html">&lt;p&gt;the quick brown fox&lt;/p&gt;
-</pre>
+            <pre class="exampleCode" id="exampleHTMLBody"><code class="language-html">&lt;div id=&quot;wrapper&quot;&gt;&lt;/div&gt;
+</code></pre>
               
             <h2>JavaScript Source</h2>
-            <pre class="exampleCode" id="exampleJS" class="language-js">const init = () =&gt; {
-  console.log(&#x27;init&#x27;)
-  console.log(c.alfa)
+            <pre class="exampleCode" id="exampleJS"><code class="language-js">const makeElement = (
+  _type,
+  _id,
+  _html,
+  _childOf,
+  _event,
+  _function,
+  _classes
+) =&gt; {
+  const newElement = document.createElement(_type)
+  newElement.id = _id
+  newElement.innerHTML = _html
+  window[_childOf].appendChild(newElement)
+  if (_event !== null) {
+    newElement.addEventListener(_event, _function)
+  }
+  if (_classes) {
+    newElement.classList.add(_classes)
+  }
+  return newElement
+}
+
+const makeSections = () =&gt; {
+  c.sets.forEach((set, setIndex) =&gt; {
+    const section = makeElement(
+      &#x27;section&#x27;,
+      `section${setIndex}`,
+      &#x27;&#x27;,
+      &#x27;wrapper&#x27;,
+      null,
+      null,
+      &#x27;codeSection&#x27;
+    )
+
+    const header = makeElement(
+      &#x27;h3&#x27;,
+      `sectionHeader${setIndex}`,
+      set.header,
+      `section${setIndex}`,
+      null,
+      null,
+      &#x27;codeSectionHeader&#x27;
+    )
+
+    const code = makeElement(
+      &#x27;div&#x27;,
+      `sectionCode${setIndex}`,
+      `&lt;pre&gt;&lt;code id=codeBlock${setIndex}&gt;x&lt;/code&gt;&lt;/pre&gt;`,
+      `section${setIndex}`,
+      null,
+      null,
+      &#x27;codeSectionCode&#x27;
+    )
+
+    const note = makeElement(
+      `div`,
+      `sectionNote${setIndex}`,
+      set.note,
+      `section${setIndex}`,
+      null,
+      null,
+      &#x27;codeSectionNote&#x27;
+    )
+  })
+}
+
+const init = () =&gt; {
+  c.rawLines = c.source.split(&#x27;\n&#x27;)
+  makeSections()
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
-</pre>
+</code></pre>
              
             <h2>JSON Data Source</h2>
-            <pre class="exampleCode" id="exampleJSON" class="language-json">{
+            <pre class="exampleCode" id="exampleJSON"><code class="language-json">{
   &quot;note&quot;: &quot;Example JSON data file&quot;
 }
-</pre>
+</code></pre>
             
       
             <h2>Config JS Source</h2>
-            <pre class="exampleCode" id="exampleCONFIG" class="language-js">// This file can be used to represent
+            <pre class="exampleCode" id="exampleCONFIG"><code class="language-js">// This file can be used to represent
 // and data that should be held outside
 // of the main script
 
 const c = {
-  alfa: &#x27;bravo&#x27;,
+  fadeColor: &#x27;#667&#x27;,
+  source: `fn main() {
+  println!(
+    &quot;main got {}&quot;, widget(String::from(&quot;apple&quot;))
+  );
 }
-</pre>
+
+fn widget(value: String) -&gt; String {
+  println!(&quot;widget got {}&quot;, value);
+  String::from(&quot;berry&quot;)
+}`,
+  sets: [
+    {
+      header: `Goal`,
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [],
+      note: `
+      &lt;p&gt;Full code example. Scroll down for step by step details&lt;/p&gt;
+      `,
+      noteCoords: [1, 40],
+    },
+
+    {
+      header: `Create The &lt;code&gt;widget&lt;/code&gt; Function`,
+      lines: [7, 10],
+      highlights: [7, 10],
+      overrides: [{ line: 7, text: `fn widget() {` }],
+      note: `
+      &lt;p&gt;Start by stubbing out a basic &lt;code&gt;widget&lt;/code&gt; fuction. This is what the main process will send data to and receive data from.&lt;/p&gt;
+      `,
+      noteCoords: [3, 0],
+    },
+
+    {
+      header: `Accept An Argument`,
+      lines: [7, 10],
+      highlights: [7, 10],
+      overrides: [{ line: 7, text: `fn widget(value: String) {` }],
+      note: `
+      &lt;p&gt;Accept a &lt;code&gt;String&lt;/code&gt; that gets bound to &lt;code&gt;value&lt;/code&gt;&lt;/p&gt;
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      header: `Add A Return Type`,
+      lines: [7, 10],
+      highlights: [7, 10],
+      overrides: [{ line: 7, text: `fn widget(value: String) -&gt; String {` }],
+      note: `
+      &lt;p&gt;Add a &lt;code&gt;-&amp;gt; String&lt;/code&gt; for the return type &lt;/p&gt;
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      header: `Show Some Output`,
+      lines: [7, 8, 10],
+      highlights: [8],
+      note: `
+      &lt;p&gt;Add a &lt;code&gt;println!()&lt;/code&gt; to show the value that gets passed in&lt;/p&gt;
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      header: `Return Some Data`,
+      lines: [7, 8, 9, 10],
+      highlights: [9],
+      note: `
+      &lt;p&gt;Add a &lt;code&gt;String&lt;/code&gt; to return&lt;/p&gt;
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      header: `Stub The &lt;code&gt;main&lt;/code&gt; Function`,
+      lines: [1, 5, 7, 8, 9, 10, 11],
+      highlights: [1, 5],
+      overrides: [],
+      noteCoords: [1, 40],
+      note: `
+      &lt;p&gt;Start making the &lt;code&gt;main&lt;/code&gt; function&lt;/p&gt;
+
+`,
+    },
+
+    {
+      header: `Stub A &lt;code&gt;println!()`,
+      lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
+      highlights: [2, 3, 4],
+      overrides: [{ line: 3, text: &#x27;    &quot;main got {}&quot;&#x27; }],
+      noteCoords: [1, 40],
+      note: `
+      &lt;p&gt;Stub out a &lt;code&gt;println!()&lt;/code&gt; with  
+      a format string&lt;/p&gt;
+`,
+    },
+
+    {
+      header: `Call &lt;code&gt;widget&lt;/code&gt;`,
+      lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
+      highlights: [3],
+      overrides: [],
+      noteCoords: [1, 40],
+      fades: [{ line: 3, spans: [1, 2, 3, 4] }],
+      note: `
+&lt;p&gt;Make a call to &lt;code&gt;widget&lt;/code&gt; passing in a &lt;code&gt;String&lt;/code&gt;&lt;/p&gt;
+`,
+    },
+
+    {
+      header: `Check The Output`,
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [],
+      overrides: [],
+      note: `&lt;p&gt;The output from the program is:&lt;/p&gt;
+      &lt;pre&gt;&lt;code&gt;widget got apple
+main got berry&lt;/code&gt;&lt;/pre&gt;
+      `,
+      noteCoords: [1, 40],
+    },
+  ],
+}
+</code></pre>
                
-                <h2>References</h2>
-                <ul>
-                    <li><a href=""></a></li>
-                </ul>
-                
     </main>
     <footer>
       from <a href="https://www.alanwsmith.com/">alan w. smith</a>
