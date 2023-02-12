@@ -46,40 +46,20 @@ const updateCode = () => {
   c.notes.forEach((note, noteIndex) => {
     const noteTop = note.getBoundingClientRect().top
     const noteBottom = note.getBoundingClientRect().bottom
-    //if (noteTop < targetLine && noteBottom > targetLine) {
     if (noteTop < targetLine) {
       c.lines = []
       c.set = noteIndex
-      // const lineAssembler = []
       c.rawLines.forEach((rawLine, rawLineIndex) => {
         if (c.sets[noteIndex].lines.includes(rawLineIndex + 1)) {
-          //lineAssembler.push(rawLine)
           c.lines.push(rawLine)
         } else {
           c.lines.push(' ')
-          //lineAssembler.push(' ')
         }
       })
-
-      // window.theCode.innerHTML = lineAssembler.join('\n')
-
-      // c.editor.setValue(lineAssembler.join('\n'), 1)
-
-      // console.log(note.id)
-      // console.log(noteBottom)
-
-      // console.log(boxTop)
-      // console.log(noteTop)
     }
     updateOverrides()
     outputCode()
-
-    // return
-    //console.log(note)
   })
-  //console.log(window.contentBlock.getBoundingClientRect().top)
-  // console.log(window.set0.getBoundingClientRect().top)
-  // console.log(c.notes)
 }
 
 const updateOverrides = () => {

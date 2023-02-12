@@ -234,40 +234,20 @@ const updateCode = () => {
   c.notes.forEach((note, noteIndex) => {
     const noteTop = note.getBoundingClientRect().top
     const noteBottom = note.getBoundingClientRect().bottom
-    //if (noteTop < targetLine && noteBottom > targetLine) {
     if (noteTop < targetLine) {
       c.lines = []
       c.set = noteIndex
-      // const lineAssembler = []
       c.rawLines.forEach((rawLine, rawLineIndex) => {
         if (c.sets[noteIndex].lines.includes(rawLineIndex + 1)) {
-          //lineAssembler.push(rawLine)
           c.lines.push(rawLine)
         } else {
           c.lines.push(' ')
-          //lineAssembler.push(' ')
         }
       })
-
-      // window.theCode.innerHTML = lineAssembler.join('\n')
-
-      // c.editor.setValue(lineAssembler.join('\n'), 1)
-
-      // console.log(note.id)
-      // console.log(noteBottom)
-
-      // console.log(boxTop)
-      // console.log(noteTop)
     }
     updateOverrides()
     outputCode()
-
-    // return
-    //console.log(note)
   })
-  //console.log(window.contentBlock.getBoundingClientRect().top)
-  // console.log(window.set0.getBoundingClientRect().top)
-  // console.log(c.notes)
 }
 
 const updateOverrides = () => {
@@ -313,7 +293,7 @@ document.addEventListener('DOMContentLoaded', init)
       
                 <h2>Details</h2>
                 <ul>
-                    <li>Trying a version where the code scrolls in a panel</li> <li>The example below is built directly from the HTML and JavaScript code snippets that follow</li>
+                    <li>This version uses the Ace Editor</li> <li>The example below is built directly from the HTML and JavaScript code snippets that follow</li>
                 </ul>
                 
 
@@ -408,40 +388,20 @@ const updateCode = () =&gt; {
   c.notes.forEach((note, noteIndex) =&gt; {
     const noteTop = note.getBoundingClientRect().top
     const noteBottom = note.getBoundingClientRect().bottom
-    //if (noteTop &lt; targetLine &amp;&amp; noteBottom &gt; targetLine) {
     if (noteTop &lt; targetLine) {
       c.lines = []
       c.set = noteIndex
-      // const lineAssembler = []
       c.rawLines.forEach((rawLine, rawLineIndex) =&gt; {
         if (c.sets[noteIndex].lines.includes(rawLineIndex + 1)) {
-          //lineAssembler.push(rawLine)
           c.lines.push(rawLine)
         } else {
           c.lines.push(&#x27; &#x27;)
-          //lineAssembler.push(&#x27; &#x27;)
         }
       })
-
-      // window.theCode.innerHTML = lineAssembler.join(&#x27;\n&#x27;)
-
-      // c.editor.setValue(lineAssembler.join(&#x27;\n&#x27;), 1)
-
-      // console.log(note.id)
-      // console.log(noteBottom)
-
-      // console.log(boxTop)
-      // console.log(noteTop)
     }
     updateOverrides()
     outputCode()
-
-    // return
-    //console.log(note)
   })
-  //console.log(window.contentBlock.getBoundingClientRect().top)
-  // console.log(window.set0.getBoundingClientRect().top)
-  // console.log(c.notes)
 }
 
 const updateOverrides = () =&gt; {
