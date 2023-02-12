@@ -235,9 +235,44 @@ const doThing = () => {
   // console.log(bottomOfCodeBlock)
 }
 
+const makeElement = (
+  _type,
+  _id,
+  _html,
+  _childOf,
+  _event,
+  _function,
+  _classes
+) => {
+  const newElement = document.createElement(_type)
+  newElement.id = _id
+  newElement.innerHTML = _html
+  window[_childOf].appendChild(newElement)
+  if (_event !== null) {
+    newElement.addEventListener(_event, _function)
+  }
+  if (_classes) {
+    newElement.classList.add(_classes)
+  }
+}
+
+const makeNotes = () => {
+  c.sets.forEach((setData, setIndex) => {
+    makeElement(
+      'div',
+      `set${setIndex}`,
+      setData.note,
+      'contentBlock',
+      null,
+      null
+    )
+  })
+}
+
 const init = () => {
   state.items = document.querySelectorAll('#contentBlock > div')
   state.lines = c.source.split('\n')
+  makeNotes()
   doThing()
   document.addEventListener('scroll', doThing)
 }
@@ -268,56 +303,7 @@ document.addEventListener('DOMContentLoaded', init)
   <div id="codeBlock">
     <pre><code id="theCode">This is the code</code></pre>
   </div>
-  <div id="contentBlock">
-    <div id="item1">
-      There is a lag between thought and act. Seed is needed to plant the spring
-      corn. Draw the chart with heavy black lines. Hats are worn to tea and not
-      to dinner.
-    </div>
-    <div id="item2">
-      Breakfast buns are fine with a hot drink. Bottles hold four kinds of rum.
-      The man wore a feather in his felt hat. He wheeled the bike past the
-      winding road.
-    </div>
-    <div id="item3">
-      No hardship seemed to keep him sad. Once we stood beside the shore.
-    </div>
-    <div id="item4">
-      Mark the spot with a sign painted red. The fur of cats goes by many names.
-      Go now and come here later. Soap can wash most dirt away. That move means
-      the game is over.
-    </div>
-    <div id="item5">
-      At that high level the air is pure. The office paint was a dull sad tan.
-      Steam hissed from the broken valve. There was a sound of dry leaves
-      outside.
-    </div>
-    <div id="item6">
-      A saw is a tool used for making boards. Use a pencil to write the first
-      draft. A small creek cut across the field. The dune rose from the edge of
-      the water. Those words were the cue for the actor to leave.
-    </div>
-    <div id="item7">
-      A saw is a tool used for making boards. Use a pencil to write the first
-      draft. A small creek cut across the field. The dune rose from the edge of
-      the water. Those words were the cue for the actor to leave.
-    </div>
-    <div id="item8">
-      A saw is a tool used for making boards. Use a pencil to write the first
-      draft. A small creek cut across the field. The dune rose from the edge of
-      the water. Those words were the cue for the actor to leave.
-    </div>
-    <div id="item9">
-      A saw is a tool used for making boards. Use a pencil to write the first
-      draft. A small creek cut across the field. The dune rose from the edge of
-      the water. Those words were the cue for the actor to leave.
-    </div>
-    <div id="item1">
-      A saw is a tool used for making boards. Use a pencil to write the first
-      draft. A small creek cut across the field. The dune rose from the edge of
-      the water. Those words were the cue for the actor to leave.
-    </div>
-  </div>
+  <div id="contentBlock"></div>
 </div>
 
 
@@ -331,56 +317,7 @@ document.addEventListener('DOMContentLoaded', init)
   &lt;div id=&quot;codeBlock&quot;&gt;
     &lt;pre&gt;&lt;code id=&quot;theCode&quot;&gt;This is the code&lt;/code&gt;&lt;/pre&gt;
   &lt;/div&gt;
-  &lt;div id=&quot;contentBlock&quot;&gt;
-    &lt;div id=&quot;item1&quot;&gt;
-      There is a lag between thought and act. Seed is needed to plant the spring
-      corn. Draw the chart with heavy black lines. Hats are worn to tea and not
-      to dinner.
-    &lt;/div&gt;
-    &lt;div id=&quot;item2&quot;&gt;
-      Breakfast buns are fine with a hot drink. Bottles hold four kinds of rum.
-      The man wore a feather in his felt hat. He wheeled the bike past the
-      winding road.
-    &lt;/div&gt;
-    &lt;div id=&quot;item3&quot;&gt;
-      No hardship seemed to keep him sad. Once we stood beside the shore.
-    &lt;/div&gt;
-    &lt;div id=&quot;item4&quot;&gt;
-      Mark the spot with a sign painted red. The fur of cats goes by many names.
-      Go now and come here later. Soap can wash most dirt away. That move means
-      the game is over.
-    &lt;/div&gt;
-    &lt;div id=&quot;item5&quot;&gt;
-      At that high level the air is pure. The office paint was a dull sad tan.
-      Steam hissed from the broken valve. There was a sound of dry leaves
-      outside.
-    &lt;/div&gt;
-    &lt;div id=&quot;item6&quot;&gt;
-      A saw is a tool used for making boards. Use a pencil to write the first
-      draft. A small creek cut across the field. The dune rose from the edge of
-      the water. Those words were the cue for the actor to leave.
-    &lt;/div&gt;
-    &lt;div id=&quot;item7&quot;&gt;
-      A saw is a tool used for making boards. Use a pencil to write the first
-      draft. A small creek cut across the field. The dune rose from the edge of
-      the water. Those words were the cue for the actor to leave.
-    &lt;/div&gt;
-    &lt;div id=&quot;item8&quot;&gt;
-      A saw is a tool used for making boards. Use a pencil to write the first
-      draft. A small creek cut across the field. The dune rose from the edge of
-      the water. Those words were the cue for the actor to leave.
-    &lt;/div&gt;
-    &lt;div id=&quot;item9&quot;&gt;
-      A saw is a tool used for making boards. Use a pencil to write the first
-      draft. A small creek cut across the field. The dune rose from the edge of
-      the water. Those words were the cue for the actor to leave.
-    &lt;/div&gt;
-    &lt;div id=&quot;item1&quot;&gt;
-      A saw is a tool used for making boards. Use a pencil to write the first
-      draft. A small creek cut across the field. The dune rose from the edge of
-      the water. Those words were the cue for the actor to leave.
-    &lt;/div&gt;
-  &lt;/div&gt;
+  &lt;div id=&quot;contentBlock&quot;&gt;&lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
              
@@ -443,9 +380,44 @@ const doThing = () =&gt; {
   // console.log(bottomOfCodeBlock)
 }
 
+const makeElement = (
+  _type,
+  _id,
+  _html,
+  _childOf,
+  _event,
+  _function,
+  _classes
+) =&gt; {
+  const newElement = document.createElement(_type)
+  newElement.id = _id
+  newElement.innerHTML = _html
+  window[_childOf].appendChild(newElement)
+  if (_event !== null) {
+    newElement.addEventListener(_event, _function)
+  }
+  if (_classes) {
+    newElement.classList.add(_classes)
+  }
+}
+
+const makeNotes = () =&gt; {
+  c.sets.forEach((setData, setIndex) =&gt; {
+    makeElement(
+      &#x27;div&#x27;,
+      `set${setIndex}`,
+      setData.note,
+      &#x27;contentBlock&#x27;,
+      null,
+      null
+    )
+  })
+}
+
 const init = () =&gt; {
   state.items = document.querySelectorAll(&#x27;#contentBlock &gt; div&#x27;)
   state.lines = c.source.split(&#x27;\n&#x27;)
+  makeNotes()
   doThing()
   document.addEventListener(&#x27;scroll&#x27;, doThing)
 }
