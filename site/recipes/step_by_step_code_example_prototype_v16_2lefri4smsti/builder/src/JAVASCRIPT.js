@@ -129,11 +129,18 @@ const removeHighlights = () => {
   c.sets.forEach((set, setIndex) => {
     c.rawLines.forEach((line, lineIndex) => {
       for (let selector of selectors) {
-        styleAssembler.push(
-          `#sectionCode${setIndex} .ace_line:nth-child(${
-            lineIndex + 1
-          }) ${selector} { color: var(--faded-color) }`
-        )
+        if (!set.highlights.includes(lineIndex + 1)) {
+          styleAssembler.push(
+            `#sectionCode${setIndex} .ace_line:nth-child(${
+              lineIndex + 1
+            }) ${selector} { color: var(--faded-color) }`
+          )
+
+          // } else {
+          //   ;`#sectionCode${setIndex} .ace_line:nth-child(${
+          //     lineIndex + 1
+          //   }) ${selector} { font-weight: bold; }`
+        }
       }
     })
   })

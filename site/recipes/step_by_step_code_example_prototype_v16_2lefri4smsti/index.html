@@ -34,7 +34,7 @@
     <style>
       :root {
   --font-color-1: #bbb;
-  --faded-color: red;
+  --faded-color: #555;
 }
 
 body {
@@ -93,7 +93,7 @@ fn widget(value: String) -> String {
     {
       header: `Full Example`,
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      highlights: [],
+      highlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       note: ``,
       noteCoords: [1, 40],
     },
@@ -183,7 +183,7 @@ fn widget(value: String) -> String {
     {
       header: `Check The Output`,
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      highlights: [],
+      highlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       overrides: [],
       note: `<p>The output from the program is:</p>
       <pre><code>widget got apple
@@ -325,11 +325,18 @@ const removeHighlights = () => {
   c.sets.forEach((set, setIndex) => {
     c.rawLines.forEach((line, lineIndex) => {
       for (let selector of selectors) {
-        styleAssembler.push(
-          `#sectionCode${setIndex} .ace_line:nth-child(${
-            lineIndex + 1
-          }) ${selector} { color: var(--faded-color) }`
-        )
+        if (!set.highlights.includes(lineIndex + 1)) {
+          styleAssembler.push(
+            `#sectionCode${setIndex} .ace_line:nth-child(${
+              lineIndex + 1
+            }) ${selector} { color: var(--faded-color) }`
+          )
+
+          // } else {
+          //   ;`#sectionCode${setIndex} .ace_line:nth-child(${
+          //     lineIndex + 1
+          //   }) ${selector} { font-weight: bold; }`
+        }
       }
     })
   })
@@ -441,7 +448,7 @@ document.addEventListener('DOMContentLoaded', init)
             <h2>CSS Source</h2>
             <pre class="exampleCode" id="exampleCSS"><code class="language-css">:root {
   --font-color-1: #bbb;
-  --faded-color: red;
+  --faded-color: #555;
 }
 
 body {
@@ -604,11 +611,18 @@ const removeHighlights = () =&gt; {
   c.sets.forEach((set, setIndex) =&gt; {
     c.rawLines.forEach((line, lineIndex) =&gt; {
       for (let selector of selectors) {
-        styleAssembler.push(
-          `#sectionCode${setIndex} .ace_line:nth-child(${
-            lineIndex + 1
-          }) ${selector} { color: var(--faded-color) }`
-        )
+        if (!set.highlights.includes(lineIndex + 1)) {
+          styleAssembler.push(
+            `#sectionCode${setIndex} .ace_line:nth-child(${
+              lineIndex + 1
+            }) ${selector} { color: var(--faded-color) }`
+          )
+
+          // } else {
+          //   ;`#sectionCode${setIndex} .ace_line:nth-child(${
+          //     lineIndex + 1
+          //   }) ${selector} { font-weight: bold; }`
+        }
       }
     })
   })
@@ -715,7 +729,7 @@ fn widget(value: String) -&gt; String {
     {
       header: `Full Example`,
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      highlights: [],
+      highlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       note: ``,
       noteCoords: [1, 40],
     },
@@ -805,7 +819,7 @@ fn widget(value: String) -&gt; String {
     {
       header: `Check The Output`,
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      highlights: [],
+      highlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       overrides: [],
       note: `&lt;p&gt;The output from the program is:&lt;/p&gt;
       &lt;pre&gt;&lt;code&gt;widget got apple

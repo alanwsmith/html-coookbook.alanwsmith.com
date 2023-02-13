@@ -18,7 +18,7 @@ fn widget(value: String) -> String {
     {
       header: `Full Example`,
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      highlights: [],
+      highlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       note: ``,
       noteCoords: [1, 40],
     },
@@ -108,7 +108,7 @@ fn widget(value: String) -> String {
     {
       header: `Check The Output`,
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      highlights: [],
+      highlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       overrides: [],
       note: `<p>The output from the program is:</p>
       <pre><code>widget got apple
