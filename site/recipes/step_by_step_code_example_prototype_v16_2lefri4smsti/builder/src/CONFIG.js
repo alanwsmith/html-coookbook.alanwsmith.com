@@ -38,9 +38,9 @@ fn widget(value: String) -> String {
     {
       header: `Accept An Argument`,
       lines: [7, 10],
-      highlights: [7, 10],
+      highlights: [7],
       overrides: [{ line: 7, text: `fn widget(value: String) {` }],
-      fades: [],
+      fades: [{ line: 7, spans: [1, 2, 3, 4, 9, 10, 11] }],
       note: ``,
       noteCoords: [3, 0],
     },
@@ -48,9 +48,9 @@ fn widget(value: String) -> String {
     {
       header: `Add A Return Type`,
       lines: [7, 10],
-      highlights: [7, 10],
+      highlights: [7],
       overrides: [{ line: 7, text: `fn widget(value: String) -> String {` }],
-      fades: [],
+      fades: [{ line: 7, spans: [1, 2, 3, 4, 5, 6, 7, 8, 9, 15] }],
       note: ``,
       noteCoords: [3, 0],
     },
@@ -111,9 +111,8 @@ terminated and nothing would have been returned</p>
       lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
       highlights: [3],
       overrides: [],
-      fades: [],
-      noteCoords: [1, 40],
       fades: [{ line: 3, spans: [1, 2, 3, 4] }],
+      noteCoords: [1, 40],
       note: `
 <p>Call <code>widget</code> passing a <code>String</code></p>
 `,

@@ -1,3 +1,36 @@
+const prepFadeWords = () => {
+  const selectors = [
+    '.ace_keyword',
+    '.ace_lparen',
+    '.ace_source',
+    '.ace_rust',
+    '.ace_paren',
+    '.ace_function',
+    '.ace_entity',
+    '.ace_identifier',
+    '.ace_operator',
+    '.ace_support',
+    '.ace_constant',
+    '.ace_quoted',
+    '.ace_string',
+    '.ace_double',
+    '.ace_punctuation',
+    '.ace_rparen',
+  ]
+
+  c.sets.forEach((set, setIndex) => {
+    set.fades.forEach((fade, fadeIndex) => {
+      fade.spans.forEach((span, spanIndex) => {
+        selectors.forEach((selector) => {
+          const line = `#sectionCode${setIndex}.ace-monokai .ace_line:nth-child(${fade.line}) span:nth-child(${fade.spans[spanIndex]})${selector} { color: var(--fade-color); }`
+          console.log(line)
+          c.highlightRemovers.push(line)
+        })
+      })
+    })
+  })
+}
+
 const makeElement = (
   _type,
   _id,
@@ -102,9 +135,7 @@ const prepOverrides = () => {
   })
 }
 
-const removeHighlights = () => {
-  const styleAssembler = []
-
+const prepFadeLines = () => {
   const selectors = [
     '.ace_keyword',
     '.ace_lparen',
@@ -128,27 +159,28 @@ const removeHighlights = () => {
     c.rawLines.forEach((line, lineIndex) => {
       if (!set.highlights.includes(lineIndex + 1)) {
         for (let selector of selectors) {
-          styleAssembler.push(
+          c.highlightRemovers.push(
             `#sectionCode${setIndex} .ace_line:nth-child(${
               lineIndex + 1
-            }) ${selector} { color: var(--faded-color) }`
+            }) ${selector} { color: var(--fade-color) }`
           )
         }
       }
     })
   })
-
-  c.styleOverride.innerHTML = styleAssembler.join('\n')
 }
 
 const init = () => {
   c.rawLines = c.source.split('\n')
+  c.highlightRemovers = []
   prepLines()
   prepOverrides()
   makeSections()
   c.styleOverride = document.createElement('style')
   document.body.appendChild(c.styleOverride)
-  removeHighlights()
+  prepFadeLines()
+  prepFadeWords()
+  c.styleOverride.innerHTML = c.highlightRemovers.join('\n')
 }
 
 document.addEventListener('DOMContentLoaded', init)

@@ -34,7 +34,7 @@
     <style>
       :root {
   --font-color-1: #bbb;
-  --faded-color: #555;
+  --fade-color: #555;
 }
 
 body {
@@ -113,9 +113,9 @@ fn widget(value: String) -> String {
     {
       header: `Accept An Argument`,
       lines: [7, 10],
-      highlights: [7, 10],
+      highlights: [7],
       overrides: [{ line: 7, text: `fn widget(value: String) {` }],
-      fades: [],
+      fades: [{ line: 7, spans: [1, 2, 3, 4, 9, 10, 11] }],
       note: ``,
       noteCoords: [3, 0],
     },
@@ -123,9 +123,9 @@ fn widget(value: String) -> String {
     {
       header: `Add A Return Type`,
       lines: [7, 10],
-      highlights: [7, 10],
+      highlights: [7],
       overrides: [{ line: 7, text: `fn widget(value: String) -> String {` }],
-      fades: [],
+      fades: [{ line: 7, spans: [1, 2, 3, 4, 5, 6, 7, 8, 9, 15] }],
       note: ``,
       noteCoords: [3, 0],
     },
@@ -186,9 +186,8 @@ terminated and nothing would have been returned</p>
       lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
       highlights: [3],
       overrides: [],
-      fades: [],
-      noteCoords: [1, 40],
       fades: [{ line: 3, spans: [1, 2, 3, 4] }],
+      noteCoords: [1, 40],
       note: `
 <p>Call <code>widget</code> passing a <code>String</code></p>
 `,
@@ -209,7 +208,40 @@ main got berry</code></pre>
   ],
 }
 
-      const makeElement = (
+      const prepFadeWords = () => {
+  const selectors = [
+    '.ace_keyword',
+    '.ace_lparen',
+    '.ace_source',
+    '.ace_rust',
+    '.ace_paren',
+    '.ace_function',
+    '.ace_entity',
+    '.ace_identifier',
+    '.ace_operator',
+    '.ace_support',
+    '.ace_constant',
+    '.ace_quoted',
+    '.ace_string',
+    '.ace_double',
+    '.ace_punctuation',
+    '.ace_rparen',
+  ]
+
+  c.sets.forEach((set, setIndex) => {
+    set.fades.forEach((fade, fadeIndex) => {
+      fade.spans.forEach((span, spanIndex) => {
+        selectors.forEach((selector) => {
+          const line = `#sectionCode${setIndex}.ace-monokai .ace_line:nth-child(${fade.line}) span:nth-child(${fade.spans[spanIndex]})${selector} { color: var(--fade-color); }`
+          console.log(line)
+          c.highlightRemovers.push(line)
+        })
+      })
+    })
+  })
+}
+
+const makeElement = (
   _type,
   _id,
   _html,
@@ -313,9 +345,7 @@ const prepOverrides = () => {
   })
 }
 
-const removeHighlights = () => {
-  const styleAssembler = []
-
+const prepFadeLines = () => {
   const selectors = [
     '.ace_keyword',
     '.ace_lparen',
@@ -339,27 +369,28 @@ const removeHighlights = () => {
     c.rawLines.forEach((line, lineIndex) => {
       if (!set.highlights.includes(lineIndex + 1)) {
         for (let selector of selectors) {
-          styleAssembler.push(
+          c.highlightRemovers.push(
             `#sectionCode${setIndex} .ace_line:nth-child(${
               lineIndex + 1
-            }) ${selector} { color: var(--faded-color) }`
+            }) ${selector} { color: var(--fade-color) }`
           )
         }
       }
     })
   })
-
-  c.styleOverride.innerHTML = styleAssembler.join('\n')
 }
 
 const init = () => {
   c.rawLines = c.source.split('\n')
+  c.highlightRemovers = []
   prepLines()
   prepOverrides()
   makeSections()
   c.styleOverride = document.createElement('style')
   document.body.appendChild(c.styleOverride)
-  removeHighlights()
+  prepFadeLines()
+  prepFadeWords()
+  c.styleOverride.innerHTML = c.highlightRemovers.join('\n')
 }
 
 document.addEventListener('DOMContentLoaded', init)
@@ -398,7 +429,7 @@ document.addEventListener('DOMContentLoaded', init)
             <h2>CSS Source</h2>
             <pre class="exampleCode" id="exampleCSS"><code class="language-css">:root {
   --font-color-1: #bbb;
-  --faded-color: #555;
+  --fade-color: #555;
 }
 
 body {
@@ -430,7 +461,40 @@ body {
 </code></pre>
              
             <h2>JavaScript Source</h2>
-            <pre class="exampleCode" id="exampleJS"><code class="language-js">const makeElement = (
+            <pre class="exampleCode" id="exampleJS"><code class="language-js">const prepFadeWords = () =&gt; {
+  const selectors = [
+    &#x27;.ace_keyword&#x27;,
+    &#x27;.ace_lparen&#x27;,
+    &#x27;.ace_source&#x27;,
+    &#x27;.ace_rust&#x27;,
+    &#x27;.ace_paren&#x27;,
+    &#x27;.ace_function&#x27;,
+    &#x27;.ace_entity&#x27;,
+    &#x27;.ace_identifier&#x27;,
+    &#x27;.ace_operator&#x27;,
+    &#x27;.ace_support&#x27;,
+    &#x27;.ace_constant&#x27;,
+    &#x27;.ace_quoted&#x27;,
+    &#x27;.ace_string&#x27;,
+    &#x27;.ace_double&#x27;,
+    &#x27;.ace_punctuation&#x27;,
+    &#x27;.ace_rparen&#x27;,
+  ]
+
+  c.sets.forEach((set, setIndex) =&gt; {
+    set.fades.forEach((fade, fadeIndex) =&gt; {
+      fade.spans.forEach((span, spanIndex) =&gt; {
+        selectors.forEach((selector) =&gt; {
+          const line = `#sectionCode${setIndex}.ace-monokai .ace_line:nth-child(${fade.line}) span:nth-child(${fade.spans[spanIndex]})${selector} { color: var(--fade-color); }`
+          console.log(line)
+          c.highlightRemovers.push(line)
+        })
+      })
+    })
+  })
+}
+
+const makeElement = (
   _type,
   _id,
   _html,
@@ -534,9 +598,7 @@ const prepOverrides = () =&gt; {
   })
 }
 
-const removeHighlights = () =&gt; {
-  const styleAssembler = []
-
+const prepFadeLines = () =&gt; {
   const selectors = [
     &#x27;.ace_keyword&#x27;,
     &#x27;.ace_lparen&#x27;,
@@ -560,27 +622,28 @@ const removeHighlights = () =&gt; {
     c.rawLines.forEach((line, lineIndex) =&gt; {
       if (!set.highlights.includes(lineIndex + 1)) {
         for (let selector of selectors) {
-          styleAssembler.push(
+          c.highlightRemovers.push(
             `#sectionCode${setIndex} .ace_line:nth-child(${
               lineIndex + 1
-            }) ${selector} { color: var(--faded-color) }`
+            }) ${selector} { color: var(--fade-color) }`
           )
         }
       }
     })
   })
-
-  c.styleOverride.innerHTML = styleAssembler.join(&#x27;\n&#x27;)
 }
 
 const init = () =&gt; {
   c.rawLines = c.source.split(&#x27;\n&#x27;)
+  c.highlightRemovers = []
   prepLines()
   prepOverrides()
   makeSections()
   c.styleOverride = document.createElement(&#x27;style&#x27;)
   document.body.appendChild(c.styleOverride)
-  removeHighlights()
+  prepFadeLines()
+  prepFadeWords()
+  c.styleOverride.innerHTML = c.highlightRemovers.join(&#x27;\n&#x27;)
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
@@ -634,9 +697,9 @@ fn widget(value: String) -&gt; String {
     {
       header: `Accept An Argument`,
       lines: [7, 10],
-      highlights: [7, 10],
+      highlights: [7],
       overrides: [{ line: 7, text: `fn widget(value: String) {` }],
-      fades: [],
+      fades: [{ line: 7, spans: [1, 2, 3, 4, 9, 10, 11] }],
       note: ``,
       noteCoords: [3, 0],
     },
@@ -644,9 +707,9 @@ fn widget(value: String) -&gt; String {
     {
       header: `Add A Return Type`,
       lines: [7, 10],
-      highlights: [7, 10],
+      highlights: [7],
       overrides: [{ line: 7, text: `fn widget(value: String) -&gt; String {` }],
-      fades: [],
+      fades: [{ line: 7, spans: [1, 2, 3, 4, 5, 6, 7, 8, 9, 15] }],
       note: ``,
       noteCoords: [3, 0],
     },
@@ -707,9 +770,8 @@ terminated and nothing would have been returned&lt;/p&gt;
       lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
       highlights: [3],
       overrides: [],
-      fades: [],
-      noteCoords: [1, 40],
       fades: [{ line: 3, spans: [1, 2, 3, 4] }],
+      noteCoords: [1, 40],
       note: `
 &lt;p&gt;Call &lt;code&gt;widget&lt;/code&gt; passing a &lt;code&gt;String&lt;/code&gt;&lt;/p&gt;
 `,
