@@ -23,7 +23,6 @@ const prepFadeWords = () => {
       fade.spans.forEach((span, spanIndex) => {
         selectors.forEach((selector) => {
           const line = `#sectionCode${setIndex}.ace-monokai .ace_line:nth-child(${fade.line}) span:nth-child(${fade.spans[spanIndex]})${selector} { color: var(--fade-color); }`
-          console.log(line)
           c.highlightRemovers.push(line)
         })
       })
@@ -170,6 +169,16 @@ const prepFadeLines = () => {
   })
 }
 
+const prepRowHighlights = () => {
+  c.sets.forEach((set, setIndex) => {
+    set.rowHighlights.forEach((rowHighlight, rowHighlightIndex) => {
+      const style = `#sectionCode${setIndex} .ace_line:nth-child(${rowHighlight}) { background-color: var(--row-highlight);}`
+      // TODO: rename this to `highlightUpdaters`
+      c.highlightRemovers.push(style)
+    })
+  })
+}
+
 const init = () => {
   c.rawLines = c.source.split('\n')
   c.highlightRemovers = []
@@ -180,6 +189,7 @@ const init = () => {
   document.body.appendChild(c.styleOverride)
   prepFadeLines()
   prepFadeWords()
+  prepRowHighlights()
   c.styleOverride.innerHTML = c.highlightRemovers.join('\n')
 }
 

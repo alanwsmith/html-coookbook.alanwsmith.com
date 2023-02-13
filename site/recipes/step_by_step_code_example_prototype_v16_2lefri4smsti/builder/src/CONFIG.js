@@ -6,7 +6,8 @@ const c = {
   fadeColor: '#667',
   source: `fn main() {
   println!(
-    "main got {}", widget(String::from("apple"))
+    "main got {}", 
+    widget(String::from("apple"))
   );
 }
 
@@ -19,6 +20,7 @@ fn widget(value: String) -> String {
       header: `Full Example`,
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       highlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      rowHighlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       overrides: [],
       fades: [],
       note: ``,
@@ -27,9 +29,10 @@ fn widget(value: String) -> String {
 
     {
       header: `Create The <code>widget</code> Function`,
-      lines: [7, 10],
-      highlights: [7, 10],
-      overrides: [{ line: 7, text: `fn widget() {` }],
+      lines: [8, 11],
+      highlights: [8],
+      rowHighlights: [8, 9, 10, 11],
+      overrides: [{ line: 8, text: `fn widget() {` }],
       fades: [],
       note: ``,
       noteCoords: [3, 0],
@@ -37,28 +40,31 @@ fn widget(value: String) -> String {
 
     {
       header: `Accept An Argument`,
-      lines: [7, 10],
-      highlights: [7],
-      overrides: [{ line: 7, text: `fn widget(value: String) {` }],
-      fades: [{ line: 7, spans: [1, 2, 3, 4, 9, 10, 11] }],
+      lines: [8, 11],
+      highlights: [8],
+      rowHighlights: [8, 9, 10, 11],
+      overrides: [{ line: 8, text: `fn widget(value: String) {` }],
+      fades: [{ line: 8, spans: [1, 2, 3, 4, 9, 10, 11] }],
       note: ``,
       noteCoords: [3, 0],
     },
 
     {
       header: `Add A Return Type`,
-      lines: [7, 10],
-      highlights: [7],
-      overrides: [{ line: 7, text: `fn widget(value: String) -> String {` }],
-      fades: [{ line: 7, spans: [1, 2, 3, 4, 5, 6, 7, 8, 9, 15] }],
+      lines: [8, 11],
+      highlights: [8],
+      rowHighlights: [8, 9, 10, 11],
+      overrides: [{ line: 8, text: `fn widget(value: String) -> String {` }],
+      fades: [{ line: 8, spans: [1, 2, 3, 4, 5, 6, 7, 8, 9, 15] }],
       note: ``,
       noteCoords: [3, 0],
     },
 
     {
       header: `Show Some Output`,
-      lines: [7, 8, 10],
-      highlights: [8],
+      lines: [8, 9, 11],
+      highlights: [9],
+      rowHighlights: [8, 9, 10, 11],
       overrides: [],
       fades: [],
       note: ``,
@@ -67,8 +73,9 @@ fn widget(value: String) -> String {
 
     {
       header: `Return some data`,
-      lines: [7, 8, 9, 10],
-      highlights: [9],
+      lines: [8, 9, 10, 11],
+      highlights: [10],
+      rowHighlights: [8, 9, 10, 11],
       overrides: [],
       fades: [],
       note: `
@@ -83,33 +90,22 @@ terminated and nothing would have been returned</p>
     },
 
     {
-      header: `Stub The <code>main</code> Function`,
-      lines: [1, 5, 7, 8, 9, 10, 11],
-      highlights: [1, 5],
+      header: `Create <code>main</code> and stub a <code>println!()</code>`,
+      lines: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [1, 2, 3, 4, 5, 6],
+      rowHighlights: [1, 2, 3, 4, 5, 6],
       overrides: [],
+      // overrides: [{ line: 7, text: `fn widget(value: String) -> String {` }],
       fades: [],
       noteCoords: [1, 40],
-      note: `
-      <p>Stub the <code>main</code> function</p>
-`,
-    },
-
-    {
-      header: `Stub A <code>println!()`,
-      lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
-      highlights: [2, 3, 4],
-      overrides: [{ line: 3, text: '    "main got {}"' }],
-      fades: [],
-      noteCoords: [1, 40],
-      note: `
-      <p>Stub a <code>println!()</code> format string</p>
-`,
+      note: ``,
     },
 
     {
       header: `Call <code>widget</code>`,
-      lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
-      highlights: [3],
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [4],
+      rowHighlights: [1, 2, 3, 4, 5, 6],
       overrides: [],
       fades: [{ line: 3, spans: [1, 2, 3, 4] }],
       noteCoords: [1, 40],
@@ -122,6 +118,7 @@ terminated and nothing would have been returned</p>
       header: `Check The Output`,
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       highlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      rowHighlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       overrides: [],
       fades: [],
       note: `<p>The output from the program is:</p>

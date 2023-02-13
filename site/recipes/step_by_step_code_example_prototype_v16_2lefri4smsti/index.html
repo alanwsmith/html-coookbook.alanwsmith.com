@@ -35,6 +35,7 @@
       :root {
   --font-color-1: #bbb;
   --fade-color: #555;
+  --row-highlight: #111;
 }
 
 body {
@@ -81,7 +82,8 @@ const c = {
   fadeColor: '#667',
   source: `fn main() {
   println!(
-    "main got {}", widget(String::from("apple"))
+    "main got {}", 
+    widget(String::from("apple"))
   );
 }
 
@@ -94,6 +96,7 @@ fn widget(value: String) -> String {
       header: `Full Example`,
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       highlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      rowHighlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       overrides: [],
       fades: [],
       note: ``,
@@ -102,9 +105,10 @@ fn widget(value: String) -> String {
 
     {
       header: `Create The <code>widget</code> Function`,
-      lines: [7, 10],
-      highlights: [7, 10],
-      overrides: [{ line: 7, text: `fn widget() {` }],
+      lines: [8, 11],
+      highlights: [8],
+      rowHighlights: [8, 9, 10, 11],
+      overrides: [{ line: 8, text: `fn widget() {` }],
       fades: [],
       note: ``,
       noteCoords: [3, 0],
@@ -112,28 +116,31 @@ fn widget(value: String) -> String {
 
     {
       header: `Accept An Argument`,
-      lines: [7, 10],
-      highlights: [7],
-      overrides: [{ line: 7, text: `fn widget(value: String) {` }],
-      fades: [{ line: 7, spans: [1, 2, 3, 4, 9, 10, 11] }],
+      lines: [8, 11],
+      highlights: [8],
+      rowHighlights: [8, 9, 10, 11],
+      overrides: [{ line: 8, text: `fn widget(value: String) {` }],
+      fades: [{ line: 8, spans: [1, 2, 3, 4, 9, 10, 11] }],
       note: ``,
       noteCoords: [3, 0],
     },
 
     {
       header: `Add A Return Type`,
-      lines: [7, 10],
-      highlights: [7],
-      overrides: [{ line: 7, text: `fn widget(value: String) -> String {` }],
-      fades: [{ line: 7, spans: [1, 2, 3, 4, 5, 6, 7, 8, 9, 15] }],
+      lines: [8, 11],
+      highlights: [8],
+      rowHighlights: [8, 9, 10, 11],
+      overrides: [{ line: 8, text: `fn widget(value: String) -> String {` }],
+      fades: [{ line: 8, spans: [1, 2, 3, 4, 5, 6, 7, 8, 9, 15] }],
       note: ``,
       noteCoords: [3, 0],
     },
 
     {
       header: `Show Some Output`,
-      lines: [7, 8, 10],
-      highlights: [8],
+      lines: [8, 9, 11],
+      highlights: [9],
+      rowHighlights: [8, 9, 10, 11],
       overrides: [],
       fades: [],
       note: ``,
@@ -142,8 +149,9 @@ fn widget(value: String) -> String {
 
     {
       header: `Return some data`,
-      lines: [7, 8, 9, 10],
-      highlights: [9],
+      lines: [8, 9, 10, 11],
+      highlights: [10],
+      rowHighlights: [8, 9, 10, 11],
       overrides: [],
       fades: [],
       note: `
@@ -158,33 +166,22 @@ terminated and nothing would have been returned</p>
     },
 
     {
-      header: `Stub The <code>main</code> Function`,
-      lines: [1, 5, 7, 8, 9, 10, 11],
-      highlights: [1, 5],
+      header: `Create <code>main</code> and stub a <code>println!()</code>`,
+      lines: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [1, 2, 3, 4, 5, 6],
+      rowHighlights: [1, 2, 3, 4, 5, 6],
       overrides: [],
+      // overrides: [{ line: 7, text: `fn widget(value: String) -> String {` }],
       fades: [],
       noteCoords: [1, 40],
-      note: `
-      <p>Stub the <code>main</code> function</p>
-`,
-    },
-
-    {
-      header: `Stub A <code>println!()`,
-      lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
-      highlights: [2, 3, 4],
-      overrides: [{ line: 3, text: '    "main got {}"' }],
-      fades: [],
-      noteCoords: [1, 40],
-      note: `
-      <p>Stub a <code>println!()</code> format string</p>
-`,
+      note: ``,
     },
 
     {
       header: `Call <code>widget</code>`,
-      lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
-      highlights: [3],
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [4],
+      rowHighlights: [1, 2, 3, 4, 5, 6],
       overrides: [],
       fades: [{ line: 3, spans: [1, 2, 3, 4] }],
       noteCoords: [1, 40],
@@ -197,6 +194,7 @@ terminated and nothing would have been returned</p>
       header: `Check The Output`,
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       highlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      rowHighlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       overrides: [],
       fades: [],
       note: `<p>The output from the program is:</p>
@@ -233,7 +231,6 @@ main got berry</code></pre>
       fade.spans.forEach((span, spanIndex) => {
         selectors.forEach((selector) => {
           const line = `#sectionCode${setIndex}.ace-monokai .ace_line:nth-child(${fade.line}) span:nth-child(${fade.spans[spanIndex]})${selector} { color: var(--fade-color); }`
-          console.log(line)
           c.highlightRemovers.push(line)
         })
       })
@@ -380,6 +377,16 @@ const prepFadeLines = () => {
   })
 }
 
+const prepRowHighlights = () => {
+  c.sets.forEach((set, setIndex) => {
+    set.rowHighlights.forEach((rowHighlight, rowHighlightIndex) => {
+      const style = `#sectionCode${setIndex} .ace_line:nth-child(${rowHighlight}) { background-color: var(--row-highlight);}`
+      // TODO: rename this to `highlightUpdaters`
+      c.highlightRemovers.push(style)
+    })
+  })
+}
+
 const init = () => {
   c.rawLines = c.source.split('\n')
   c.highlightRemovers = []
@@ -390,6 +397,7 @@ const init = () => {
   document.body.appendChild(c.styleOverride)
   prepFadeLines()
   prepFadeWords()
+  prepRowHighlights()
   c.styleOverride.innerHTML = c.highlightRemovers.join('\n')
 }
 
@@ -430,6 +438,7 @@ document.addEventListener('DOMContentLoaded', init)
             <pre class="exampleCode" id="exampleCSS"><code class="language-css">:root {
   --font-color-1: #bbb;
   --fade-color: #555;
+  --row-highlight: #111;
 }
 
 body {
@@ -486,7 +495,6 @@ body {
       fade.spans.forEach((span, spanIndex) =&gt; {
         selectors.forEach((selector) =&gt; {
           const line = `#sectionCode${setIndex}.ace-monokai .ace_line:nth-child(${fade.line}) span:nth-child(${fade.spans[spanIndex]})${selector} { color: var(--fade-color); }`
-          console.log(line)
           c.highlightRemovers.push(line)
         })
       })
@@ -633,6 +641,16 @@ const prepFadeLines = () =&gt; {
   })
 }
 
+const prepRowHighlights = () =&gt; {
+  c.sets.forEach((set, setIndex) =&gt; {
+    set.rowHighlights.forEach((rowHighlight, rowHighlightIndex) =&gt; {
+      const style = `#sectionCode${setIndex} .ace_line:nth-child(${rowHighlight}) { background-color: var(--row-highlight);}`
+      // TODO: rename this to `highlightUpdaters`
+      c.highlightRemovers.push(style)
+    })
+  })
+}
+
 const init = () =&gt; {
   c.rawLines = c.source.split(&#x27;\n&#x27;)
   c.highlightRemovers = []
@@ -643,6 +661,7 @@ const init = () =&gt; {
   document.body.appendChild(c.styleOverride)
   prepFadeLines()
   prepFadeWords()
+  prepRowHighlights()
   c.styleOverride.innerHTML = c.highlightRemovers.join(&#x27;\n&#x27;)
 }
 
@@ -665,7 +684,8 @@ const c = {
   fadeColor: &#x27;#667&#x27;,
   source: `fn main() {
   println!(
-    &quot;main got {}&quot;, widget(String::from(&quot;apple&quot;))
+    &quot;main got {}&quot;, 
+    widget(String::from(&quot;apple&quot;))
   );
 }
 
@@ -678,6 +698,7 @@ fn widget(value: String) -&gt; String {
       header: `Full Example`,
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       highlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      rowHighlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       overrides: [],
       fades: [],
       note: ``,
@@ -686,9 +707,10 @@ fn widget(value: String) -&gt; String {
 
     {
       header: `Create The &lt;code&gt;widget&lt;/code&gt; Function`,
-      lines: [7, 10],
-      highlights: [7, 10],
-      overrides: [{ line: 7, text: `fn widget() {` }],
+      lines: [8, 11],
+      highlights: [8],
+      rowHighlights: [8, 9, 10, 11],
+      overrides: [{ line: 8, text: `fn widget() {` }],
       fades: [],
       note: ``,
       noteCoords: [3, 0],
@@ -696,28 +718,31 @@ fn widget(value: String) -&gt; String {
 
     {
       header: `Accept An Argument`,
-      lines: [7, 10],
-      highlights: [7],
-      overrides: [{ line: 7, text: `fn widget(value: String) {` }],
-      fades: [{ line: 7, spans: [1, 2, 3, 4, 9, 10, 11] }],
+      lines: [8, 11],
+      highlights: [8],
+      rowHighlights: [8, 9, 10, 11],
+      overrides: [{ line: 8, text: `fn widget(value: String) {` }],
+      fades: [{ line: 8, spans: [1, 2, 3, 4, 9, 10, 11] }],
       note: ``,
       noteCoords: [3, 0],
     },
 
     {
       header: `Add A Return Type`,
-      lines: [7, 10],
-      highlights: [7],
-      overrides: [{ line: 7, text: `fn widget(value: String) -&gt; String {` }],
-      fades: [{ line: 7, spans: [1, 2, 3, 4, 5, 6, 7, 8, 9, 15] }],
+      lines: [8, 11],
+      highlights: [8],
+      rowHighlights: [8, 9, 10, 11],
+      overrides: [{ line: 8, text: `fn widget(value: String) -&gt; String {` }],
+      fades: [{ line: 8, spans: [1, 2, 3, 4, 5, 6, 7, 8, 9, 15] }],
       note: ``,
       noteCoords: [3, 0],
     },
 
     {
       header: `Show Some Output`,
-      lines: [7, 8, 10],
-      highlights: [8],
+      lines: [8, 9, 11],
+      highlights: [9],
+      rowHighlights: [8, 9, 10, 11],
       overrides: [],
       fades: [],
       note: ``,
@@ -726,8 +751,9 @@ fn widget(value: String) -&gt; String {
 
     {
       header: `Return some data`,
-      lines: [7, 8, 9, 10],
-      highlights: [9],
+      lines: [8, 9, 10, 11],
+      highlights: [10],
+      rowHighlights: [8, 9, 10, 11],
       overrides: [],
       fades: [],
       note: `
@@ -742,33 +768,22 @@ terminated and nothing would have been returned&lt;/p&gt;
     },
 
     {
-      header: `Stub The &lt;code&gt;main&lt;/code&gt; Function`,
-      lines: [1, 5, 7, 8, 9, 10, 11],
-      highlights: [1, 5],
+      header: `Create &lt;code&gt;main&lt;/code&gt; and stub a &lt;code&gt;println!()&lt;/code&gt;`,
+      lines: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [1, 2, 3, 4, 5, 6],
+      rowHighlights: [1, 2, 3, 4, 5, 6],
       overrides: [],
+      // overrides: [{ line: 7, text: `fn widget(value: String) -&gt; String {` }],
       fades: [],
       noteCoords: [1, 40],
-      note: `
-      &lt;p&gt;Stub the &lt;code&gt;main&lt;/code&gt; function&lt;/p&gt;
-`,
-    },
-
-    {
-      header: `Stub A &lt;code&gt;println!()`,
-      lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
-      highlights: [2, 3, 4],
-      overrides: [{ line: 3, text: &#x27;    &quot;main got {}&quot;&#x27; }],
-      fades: [],
-      noteCoords: [1, 40],
-      note: `
-      &lt;p&gt;Stub a &lt;code&gt;println!()&lt;/code&gt; format string&lt;/p&gt;
-`,
+      note: ``,
     },
 
     {
       header: `Call &lt;code&gt;widget&lt;/code&gt;`,
-      lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
-      highlights: [3],
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [4],
+      rowHighlights: [1, 2, 3, 4, 5, 6],
       overrides: [],
       fades: [{ line: 3, spans: [1, 2, 3, 4] }],
       noteCoords: [1, 40],
@@ -781,6 +796,7 @@ terminated and nothing would have been returned&lt;/p&gt;
       header: `Check The Output`,
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       highlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      rowHighlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       overrides: [],
       fades: [],
       note: `&lt;p&gt;The output from the program is:&lt;/p&gt;

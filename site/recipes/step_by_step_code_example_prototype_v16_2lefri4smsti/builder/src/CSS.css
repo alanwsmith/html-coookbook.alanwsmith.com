@@ -1,6 +1,7 @@
 :root {
   --font-color-1: #bbb;
   --fade-color: #555;
+  --row-highlight: #111;
 }
 
 body {
