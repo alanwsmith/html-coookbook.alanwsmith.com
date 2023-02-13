@@ -16,12 +16,10 @@ fn widget(value: String) -> String {
 }`,
   sets: [
     {
-      header: `Goal`,
+      header: `Full Example`,
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       highlights: [],
-      note: `
-      <p>Full code example. Scroll down for step by step details</p>
-      `,
+      note: ``,
       noteCoords: [1, 40],
     },
 
@@ -30,9 +28,7 @@ fn widget(value: String) -> String {
       lines: [7, 10],
       highlights: [7, 10],
       overrides: [{ line: 7, text: `fn widget() {` }],
-      note: `
-      <p>Start by stubbing out a basic <code>widget</code> fuction. This is what the main process will send data to and receive data from.</p>
-      `,
+      note: ``,
       noteCoords: [3, 0],
     },
 
@@ -41,9 +37,7 @@ fn widget(value: String) -> String {
       lines: [7, 10],
       highlights: [7, 10],
       overrides: [{ line: 7, text: `fn widget(value: String) {` }],
-      note: `
-      <p>Accept a <code>String</code> that gets bound to <code>value</code></p>
-`,
+      note: ``,
       noteCoords: [3, 0],
     },
 
@@ -52,9 +46,7 @@ fn widget(value: String) -> String {
       lines: [7, 10],
       highlights: [7, 10],
       overrides: [{ line: 7, text: `fn widget(value: String) -> String {` }],
-      note: `
-      <p>Add a <code>-&gt; String</code> for the return type </p>
-`,
+      note: ``,
       noteCoords: [3, 0],
     },
 
@@ -62,18 +54,19 @@ fn widget(value: String) -> String {
       header: `Show Some Output`,
       lines: [7, 8, 10],
       highlights: [8],
-      note: `
-      <p>Add a <code>println!()</code> to show the value that gets passed in</p>
-`,
+      note: ``,
       noteCoords: [3, 0],
     },
 
     {
-      header: `Return Some Data`,
+      header: `Return some data`,
       lines: [7, 8, 9, 10],
       highlights: [9],
       note: `
-      <p>Add a <code>String</code> to return</p>
+      <p>Return some data</p>
+
+<p>The last expression of a function is what gets returned. The <code>String::from("berry")</code> line is an expression so it gets returned becaue there's no semi-colon behind it. If there there was a semi-color the expression would have been terminated and nothing would have been returned</p>
+
 `,
       noteCoords: [3, 0],
     },
@@ -85,8 +78,7 @@ fn widget(value: String) -> String {
       overrides: [],
       noteCoords: [1, 40],
       note: `
-      <p>Start making the <code>main</code> function</p>
-
+      <p>Stub the <code>main</code> function</p>
 `,
     },
 
@@ -97,8 +89,7 @@ fn widget(value: String) -> String {
       overrides: [{ line: 3, text: '    "main got {}"' }],
       noteCoords: [1, 40],
       note: `
-      <p>Stub out a <code>println!()</code> with  
-      a format string</p>
+      <p>Stub a <code>println!()</code> format string</p>
 `,
     },
 
@@ -110,7 +101,7 @@ fn widget(value: String) -> String {
       noteCoords: [1, 40],
       fades: [{ line: 3, spans: [1, 2, 3, 4] }],
       note: `
-<p>Make a call to <code>widget</code> passing in a <code>String</code></p>
+<p>Call <code>widget</code> passing a <code>String</code></p>
 `,
     },
 

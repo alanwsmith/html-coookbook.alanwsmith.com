@@ -1,3 +1,8 @@
+:root {
+  --font-color-1: #bbb;
+  --faded-color: red;
+}
+
 body {
   background-color: #333;
 }
@@ -11,10 +16,16 @@ body {
 }
 
 .codeSectionNote {
-  color: #aaa;
-  padding-bottom: 0.7rem;
+  color: var(--font-color-1);
+  padding: 0.7rem 0;
 }
 
 .ace_editor {
   padding: 0.6rem;
+}
+
+.codeSectionHeader {
+  color: var(--font-color-1);
+  font-size: 1.1rem;
+  font-weight: normal;
 }

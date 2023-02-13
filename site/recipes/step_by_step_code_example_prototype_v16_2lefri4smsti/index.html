@@ -32,7 +32,12 @@
     <link rel="stylesheet" href="/styles/wrapper.css" />
     
     <style>
-      body {
+      :root {
+  --font-color-1: #bbb;
+  --faded-color: red;
+}
+
+body {
   background-color: #333;
 }
 
@@ -45,12 +50,18 @@
 }
 
 .codeSectionNote {
-  color: #aaa;
-  padding-bottom: 0.7rem;
+  color: var(--font-color-1);
+  padding: 0.7rem 0;
 }
 
 .ace_editor {
   padding: 0.6rem;
+}
+
+.codeSectionHeader {
+  color: var(--font-color-1);
+  font-size: 1.1rem;
+  font-weight: normal;
 }
 
     </style>
@@ -80,12 +91,10 @@ fn widget(value: String) -> String {
 }`,
   sets: [
     {
-      header: `Goal`,
+      header: `Full Example`,
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       highlights: [],
-      note: `
-      <p>Full code example. Scroll down for step by step details</p>
-      `,
+      note: ``,
       noteCoords: [1, 40],
     },
 
@@ -94,9 +103,7 @@ fn widget(value: String) -> String {
       lines: [7, 10],
       highlights: [7, 10],
       overrides: [{ line: 7, text: `fn widget() {` }],
-      note: `
-      <p>Start by stubbing out a basic <code>widget</code> fuction. This is what the main process will send data to and receive data from.</p>
-      `,
+      note: ``,
       noteCoords: [3, 0],
     },
 
@@ -105,9 +112,7 @@ fn widget(value: String) -> String {
       lines: [7, 10],
       highlights: [7, 10],
       overrides: [{ line: 7, text: `fn widget(value: String) {` }],
-      note: `
-      <p>Accept a <code>String</code> that gets bound to <code>value</code></p>
-`,
+      note: ``,
       noteCoords: [3, 0],
     },
 
@@ -116,9 +121,7 @@ fn widget(value: String) -> String {
       lines: [7, 10],
       highlights: [7, 10],
       overrides: [{ line: 7, text: `fn widget(value: String) -> String {` }],
-      note: `
-      <p>Add a <code>-&gt; String</code> for the return type </p>
-`,
+      note: ``,
       noteCoords: [3, 0],
     },
 
@@ -126,18 +129,19 @@ fn widget(value: String) -> String {
       header: `Show Some Output`,
       lines: [7, 8, 10],
       highlights: [8],
-      note: `
-      <p>Add a <code>println!()</code> to show the value that gets passed in</p>
-`,
+      note: ``,
       noteCoords: [3, 0],
     },
 
     {
-      header: `Return Some Data`,
+      header: `Return some data`,
       lines: [7, 8, 9, 10],
       highlights: [9],
       note: `
-      <p>Add a <code>String</code> to return</p>
+      <p>Return some data</p>
+
+<p>The last expression of a function is what gets returned. The <code>String::from("berry")</code> line is an expression so it gets returned becaue there's no semi-colon behind it. If there there was a semi-color the expression would have been terminated and nothing would have been returned</p>
+
 `,
       noteCoords: [3, 0],
     },
@@ -149,8 +153,7 @@ fn widget(value: String) -> String {
       overrides: [],
       noteCoords: [1, 40],
       note: `
-      <p>Start making the <code>main</code> function</p>
-
+      <p>Stub the <code>main</code> function</p>
 `,
     },
 
@@ -161,8 +164,7 @@ fn widget(value: String) -> String {
       overrides: [{ line: 3, text: '    "main got {}"' }],
       noteCoords: [1, 40],
       note: `
-      <p>Stub out a <code>println!()</code> with  
-      a format string</p>
+      <p>Stub a <code>println!()</code> format string</p>
 `,
     },
 
@@ -174,7 +176,7 @@ fn widget(value: String) -> String {
       noteCoords: [1, 40],
       fades: [{ line: 3, spans: [1, 2, 3, 4] }],
       note: `
-<p>Make a call to <code>widget</code> passing in a <code>String</code></p>
+<p>Call <code>widget</code> passing a <code>String</code></p>
 `,
     },
 
@@ -236,6 +238,18 @@ const makeSections = () => {
       'codeSectionHeader'
     )
 
+    const code = makeElement(
+      'div',
+      `sectionCode${setIndex}`,
+      `<pre><code id="codeBlock${setIndex}" class="language-rust">${c.sets[
+        setIndex
+      ].outputLines.join('\n')}</code></pre>`,
+      `section${setIndex}`,
+      null,
+      null,
+      'codeSectionCode'
+    )
+
     const note = makeElement(
       `div`,
       `sectionNote${setIndex}`,
@@ -246,24 +260,11 @@ const makeSections = () => {
       'codeSectionNote'
     )
 
-    const code = makeElement(
-      'div',
-      `sectionCode${setIndex}`,
-      `<pre><code id="codeBlock${setIndex}">${c.sets[setIndex].outputLines.join(
-        '\n'
-      )}</code></pre>`,
-      `section${setIndex}`,
-      null,
-      null,
-      'codeSectionCode'
-    )
-
     set.editor = ace.edit(`sectionCode${setIndex}`)
     set.editor.setOption('maxLines', 1000)
     set.editor.setTheme('ace/theme/monokai')
     set.editor.session.setMode('ace/mode/rust')
     set.editor.setHighlightActiveLine(false)
-    // set.editor.setReadOnly(true)
     set.editor.setOptions({
       readOnly: true,
       highlightActiveLine: false,
@@ -297,11 +298,111 @@ const prepOverrides = () => {
   })
 }
 
+const removeHighlights = () => {
+  // console.log('removeHighlights')
+
+  const styleAssembler = []
+
+  const selectors = [
+    '.ace_keyword',
+    '.ace_lparen',
+    '.ace_source',
+    '.ace_rust',
+    '.ace_paren',
+    '.ace_function',
+    '.ace_entity',
+    '.ace_identifier',
+    '.ace_operator',
+    '.ace_support',
+    '.ace_constant',
+    '.ace_quoted',
+    '.ace_string',
+    '.ace_double',
+    '.ace_punctuation',
+    '.ace_rparen',
+  ]
+
+  c.sets.forEach((set, setIndex) => {
+    c.rawLines.forEach((line, lineIndex) => {
+      for (let selector of selectors) {
+        styleAssembler.push(
+          `#sectionCode${setIndex} .ace_line:nth-child(${
+            lineIndex + 1
+          }) ${selector} { color: var(--faded-color) }`
+        )
+      }
+    })
+  })
+
+  c.styleOverride.innerHTML = styleAssembler.join('\n')
+
+  // c.sets.forEach((set, setIndex) => {
+  //   if (c.sets[setIndex].highlights.length === 0) {
+  //     // c.styleOverride.innerHTML = `.ace-monokai .ace_line:nth-child(1) .ace_keyword { color: black; }`
+  //     c.styleOverride.innerHTML = `#sectionCode0 .ace_line:nth-child(1) .ace_keyword { color: black; }`
+  //     // c.styleOverride.innerHTML = `.ace-monokai .ace_keyword { color: red; }`
+  //     // c.styleOverride.innerHTML = `body { color: green;}`
+  //   }
+  // })
+
+  //// bail if no lines were selected
+  ////
+  //if (c.sets[c.set].highlights.length === 0) {
+  //  c.styleOverride.innerHTML = `.ace-monokai .ace_line .ace_comment { color: #eee; }`
+  //  return
+  //}
+
+  // console.log(c.lines.length)
+
+  // const removers = []
+
+  // for (let i = 0; i < c.lines.length; i++) {
+  //   const lineNumber = i + 1
+  //   if (!c.sets[c.set].highlights.includes(lineNumber)) {
+  //     for (let x = 0; x < selectors.length; x++) {
+  //       removers.push(
+  //         `.ace-monokai .ace_line:nth-child(${lineNumber}) ${selectors[x]} { color: ${c.fadeColor}; }`
+  //       )
+  //       // console.log(selectors[x])
+  //     }
+  //     removers.push(
+  //       `.ace-monokai .ace_line:nth-child(${lineNumber}) .ace_comment { color: #eee; }`
+  //     )
+  //   }
+  //   // set the comment color for the lines with content
+  //   else {
+  //     removers.push(
+  //       `.ace-monokai .ace_line:nth-child(${lineNumber}) .ace_comment { color: #eee; }`
+  //     )
+  //   }
+  // }
+
+  // if (c.sets[c.set].fades) {
+  //   for (let f = 0; f < c.sets[c.set].fades.length; f++) {
+  //     const fader = c.sets[c.set].fades[f]
+  //     for (let n = 0; n < fader.spans.length; n++) {
+  //       for (let x = 0; x < selectors.length; x++) {
+  //         const fadeString = `.ace-monokai .ace_line:nth-child(${fader.line}) span:nth-child(${n})${selectors[x]} { color: ${c.fadeColor}; }`
+  //         removers.push(fadeString)
+  //         console.log(fadeString)
+  //       }
+  //     }
+  //     console.log(fader)
+  //   }
+  // }
+
+  // c.styleOverride.innerHTML = `${removers.join(' ')}`
+  // console.log(c.styleOverride.innerHTML)
+}
+
 const init = () => {
   c.rawLines = c.source.split('\n')
   prepLines()
   prepOverrides()
   makeSections()
+  c.styleOverride = document.createElement('style')
+  document.body.appendChild(c.styleOverride)
+  removeHighlights()
 }
 
 document.addEventListener('DOMContentLoaded', init)
@@ -338,7 +439,12 @@ document.addEventListener('DOMContentLoaded', init)
 </code></pre>
              
             <h2>CSS Source</h2>
-            <pre class="exampleCode" id="exampleCSS"><code class="language-css">body {
+            <pre class="exampleCode" id="exampleCSS"><code class="language-css">:root {
+  --font-color-1: #bbb;
+  --faded-color: red;
+}
+
+body {
   background-color: #333;
 }
 
@@ -351,12 +457,18 @@ document.addEventListener('DOMContentLoaded', init)
 }
 
 .codeSectionNote {
-  color: #aaa;
-  padding-bottom: 0.7rem;
+  color: var(--font-color-1);
+  padding: 0.7rem 0;
 }
 
 .ace_editor {
   padding: 0.6rem;
+}
+
+.codeSectionHeader {
+  color: var(--font-color-1);
+  font-size: 1.1rem;
+  font-weight: normal;
 }
 </code></pre>
              
@@ -405,6 +517,18 @@ const makeSections = () =&gt; {
       &#x27;codeSectionHeader&#x27;
     )
 
+    const code = makeElement(
+      &#x27;div&#x27;,
+      `sectionCode${setIndex}`,
+      `&lt;pre&gt;&lt;code id=&quot;codeBlock${setIndex}&quot; class=&quot;language-rust&quot;&gt;${c.sets[
+        setIndex
+      ].outputLines.join(&#x27;\n&#x27;)}&lt;/code&gt;&lt;/pre&gt;`,
+      `section${setIndex}`,
+      null,
+      null,
+      &#x27;codeSectionCode&#x27;
+    )
+
     const note = makeElement(
       `div`,
       `sectionNote${setIndex}`,
@@ -415,24 +539,11 @@ const makeSections = () =&gt; {
       &#x27;codeSectionNote&#x27;
     )
 
-    const code = makeElement(
-      &#x27;div&#x27;,
-      `sectionCode${setIndex}`,
-      `&lt;pre&gt;&lt;code id=&quot;codeBlock${setIndex}&quot;&gt;${c.sets[setIndex].outputLines.join(
-        &#x27;\n&#x27;
-      )}&lt;/code&gt;&lt;/pre&gt;`,
-      `section${setIndex}`,
-      null,
-      null,
-      &#x27;codeSectionCode&#x27;
-    )
-
     set.editor = ace.edit(`sectionCode${setIndex}`)
     set.editor.setOption(&#x27;maxLines&#x27;, 1000)
     set.editor.setTheme(&#x27;ace/theme/monokai&#x27;)
     set.editor.session.setMode(&#x27;ace/mode/rust&#x27;)
     set.editor.setHighlightActiveLine(false)
-    // set.editor.setReadOnly(true)
     set.editor.setOptions({
       readOnly: true,
       highlightActiveLine: false,
@@ -466,11 +577,111 @@ const prepOverrides = () =&gt; {
   })
 }
 
+const removeHighlights = () =&gt; {
+  // console.log(&#x27;removeHighlights&#x27;)
+
+  const styleAssembler = []
+
+  const selectors = [
+    &#x27;.ace_keyword&#x27;,
+    &#x27;.ace_lparen&#x27;,
+    &#x27;.ace_source&#x27;,
+    &#x27;.ace_rust&#x27;,
+    &#x27;.ace_paren&#x27;,
+    &#x27;.ace_function&#x27;,
+    &#x27;.ace_entity&#x27;,
+    &#x27;.ace_identifier&#x27;,
+    &#x27;.ace_operator&#x27;,
+    &#x27;.ace_support&#x27;,
+    &#x27;.ace_constant&#x27;,
+    &#x27;.ace_quoted&#x27;,
+    &#x27;.ace_string&#x27;,
+    &#x27;.ace_double&#x27;,
+    &#x27;.ace_punctuation&#x27;,
+    &#x27;.ace_rparen&#x27;,
+  ]
+
+  c.sets.forEach((set, setIndex) =&gt; {
+    c.rawLines.forEach((line, lineIndex) =&gt; {
+      for (let selector of selectors) {
+        styleAssembler.push(
+          `#sectionCode${setIndex} .ace_line:nth-child(${
+            lineIndex + 1
+          }) ${selector} { color: var(--faded-color) }`
+        )
+      }
+    })
+  })
+
+  c.styleOverride.innerHTML = styleAssembler.join(&#x27;\n&#x27;)
+
+  // c.sets.forEach((set, setIndex) =&gt; {
+  //   if (c.sets[setIndex].highlights.length === 0) {
+  //     // c.styleOverride.innerHTML = `.ace-monokai .ace_line:nth-child(1) .ace_keyword { color: black; }`
+  //     c.styleOverride.innerHTML = `#sectionCode0 .ace_line:nth-child(1) .ace_keyword { color: black; }`
+  //     // c.styleOverride.innerHTML = `.ace-monokai .ace_keyword { color: red; }`
+  //     // c.styleOverride.innerHTML = `body { color: green;}`
+  //   }
+  // })
+
+  //// bail if no lines were selected
+  ////
+  //if (c.sets[c.set].highlights.length === 0) {
+  //  c.styleOverride.innerHTML = `.ace-monokai .ace_line .ace_comment { color: #eee; }`
+  //  return
+  //}
+
+  // console.log(c.lines.length)
+
+  // const removers = []
+
+  // for (let i = 0; i &lt; c.lines.length; i++) {
+  //   const lineNumber = i + 1
+  //   if (!c.sets[c.set].highlights.includes(lineNumber)) {
+  //     for (let x = 0; x &lt; selectors.length; x++) {
+  //       removers.push(
+  //         `.ace-monokai .ace_line:nth-child(${lineNumber}) ${selectors[x]} { color: ${c.fadeColor}; }`
+  //       )
+  //       // console.log(selectors[x])
+  //     }
+  //     removers.push(
+  //       `.ace-monokai .ace_line:nth-child(${lineNumber}) .ace_comment { color: #eee; }`
+  //     )
+  //   }
+  //   // set the comment color for the lines with content
+  //   else {
+  //     removers.push(
+  //       `.ace-monokai .ace_line:nth-child(${lineNumber}) .ace_comment { color: #eee; }`
+  //     )
+  //   }
+  // }
+
+  // if (c.sets[c.set].fades) {
+  //   for (let f = 0; f &lt; c.sets[c.set].fades.length; f++) {
+  //     const fader = c.sets[c.set].fades[f]
+  //     for (let n = 0; n &lt; fader.spans.length; n++) {
+  //       for (let x = 0; x &lt; selectors.length; x++) {
+  //         const fadeString = `.ace-monokai .ace_line:nth-child(${fader.line}) span:nth-child(${n})${selectors[x]} { color: ${c.fadeColor}; }`
+  //         removers.push(fadeString)
+  //         console.log(fadeString)
+  //       }
+  //     }
+  //     console.log(fader)
+  //   }
+  // }
+
+  // c.styleOverride.innerHTML = `${removers.join(&#x27; &#x27;)}`
+  // console.log(c.styleOverride.innerHTML)
+}
+
 const init = () =&gt; {
   c.rawLines = c.source.split(&#x27;\n&#x27;)
   prepLines()
   prepOverrides()
   makeSections()
+  c.styleOverride = document.createElement(&#x27;style&#x27;)
+  document.body.appendChild(c.styleOverride)
+  removeHighlights()
 }
 
 document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
@@ -502,12 +713,10 @@ fn widget(value: String) -&gt; String {
 }`,
   sets: [
     {
-      header: `Goal`,
+      header: `Full Example`,
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       highlights: [],
-      note: `
-      &lt;p&gt;Full code example. Scroll down for step by step details&lt;/p&gt;
-      `,
+      note: ``,
       noteCoords: [1, 40],
     },
 
@@ -516,9 +725,7 @@ fn widget(value: String) -&gt; String {
       lines: [7, 10],
       highlights: [7, 10],
       overrides: [{ line: 7, text: `fn widget() {` }],
-      note: `
-      &lt;p&gt;Start by stubbing out a basic &lt;code&gt;widget&lt;/code&gt; fuction. This is what the main process will send data to and receive data from.&lt;/p&gt;
-      `,
+      note: ``,
       noteCoords: [3, 0],
     },
 
@@ -527,9 +734,7 @@ fn widget(value: String) -&gt; String {
       lines: [7, 10],
       highlights: [7, 10],
       overrides: [{ line: 7, text: `fn widget(value: String) {` }],
-      note: `
-      &lt;p&gt;Accept a &lt;code&gt;String&lt;/code&gt; that gets bound to &lt;code&gt;value&lt;/code&gt;&lt;/p&gt;
-`,
+      note: ``,
       noteCoords: [3, 0],
     },
 
@@ -538,9 +743,7 @@ fn widget(value: String) -&gt; String {
       lines: [7, 10],
       highlights: [7, 10],
       overrides: [{ line: 7, text: `fn widget(value: String) -&gt; String {` }],
-      note: `
-      &lt;p&gt;Add a &lt;code&gt;-&amp;gt; String&lt;/code&gt; for the return type &lt;/p&gt;
-`,
+      note: ``,
       noteCoords: [3, 0],
     },
 
@@ -548,18 +751,19 @@ fn widget(value: String) -&gt; String {
       header: `Show Some Output`,
       lines: [7, 8, 10],
       highlights: [8],
-      note: `
-      &lt;p&gt;Add a &lt;code&gt;println!()&lt;/code&gt; to show the value that gets passed in&lt;/p&gt;
-`,
+      note: ``,
       noteCoords: [3, 0],
     },
 
     {
-      header: `Return Some Data`,
+      header: `Return some data`,
       lines: [7, 8, 9, 10],
       highlights: [9],
       note: `
-      &lt;p&gt;Add a &lt;code&gt;String&lt;/code&gt; to return&lt;/p&gt;
+      &lt;p&gt;Return some data&lt;/p&gt;
+
+&lt;p&gt;The last expression of a function is what gets returned. The &lt;code&gt;String::from(&quot;berry&quot;)&lt;/code&gt; line is an expression so it gets returned becaue there&#x27;s no semi-colon behind it. If there there was a semi-color the expression would have been terminated and nothing would have been returned&lt;/p&gt;
+
 `,
       noteCoords: [3, 0],
     },
@@ -571,8 +775,7 @@ fn widget(value: String) -&gt; String {
       overrides: [],
       noteCoords: [1, 40],
       note: `
-      &lt;p&gt;Start making the &lt;code&gt;main&lt;/code&gt; function&lt;/p&gt;
-
+      &lt;p&gt;Stub the &lt;code&gt;main&lt;/code&gt; function&lt;/p&gt;
 `,
     },
 
@@ -583,8 +786,7 @@ fn widget(value: String) -&gt; String {
       overrides: [{ line: 3, text: &#x27;    &quot;main got {}&quot;&#x27; }],
       noteCoords: [1, 40],
       note: `
-      &lt;p&gt;Stub out a &lt;code&gt;println!()&lt;/code&gt; with  
-      a format string&lt;/p&gt;
+      &lt;p&gt;Stub a &lt;code&gt;println!()&lt;/code&gt; format string&lt;/p&gt;
 `,
     },
 
@@ -596,7 +798,7 @@ fn widget(value: String) -&gt; String {
       noteCoords: [1, 40],
       fades: [{ line: 3, spans: [1, 2, 3, 4] }],
       note: `
-&lt;p&gt;Make a call to &lt;code&gt;widget&lt;/code&gt; passing in a &lt;code&gt;String&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Call &lt;code&gt;widget&lt;/code&gt; passing a &lt;code&gt;String&lt;/code&gt;&lt;/p&gt;
 `,
     },
 
