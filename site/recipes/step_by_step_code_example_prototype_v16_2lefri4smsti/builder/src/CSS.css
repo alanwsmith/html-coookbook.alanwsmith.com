@@ -1,0 +1,32 @@
+:root {
+  --font-color-1: #bbb;
+  --fade-color: #555;
+  --row-highlight: #111;
+}
+
+body {
+  background-color: #333;
+}
+
+.codeSection {
+  border: 1px solid #aaa;
+  border-radius: 0.4rem;
+  padding: 0rem 1.3rem 2rem 1.3rem;
+  margin-bottom: 6.8rem;
+  background-color: #000;
+}
+
+.codeSectionNote {
+  color: var(--font-color-1);
+  padding: 0.7rem 0;
+}
+
+.ace_editor {
+  padding: 0.6rem;
+}
+
+.codeSectionHeader {
+  color: var(--font-color-1);
+  font-size: 1.1rem;
+  font-weight: normal;
+}

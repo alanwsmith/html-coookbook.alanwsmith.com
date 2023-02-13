@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Step-By-Step Code Example - Prototype v16 - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Step-By-Step Code Example - Prototype v16" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630,w_1200,h_630,c_fit,w_940,h_540,co_rgb:eeeeee,l_text:Helvetica_94_bold:Step-By-Step%20Code%20Example%20-%20Prototype%20v16/fl_layer_apply,g_north_west,x_60,y_60/co_rgb:666666,l_text:Inconsolata_36_bold:from%20alan%20w.%20smith/fl_layer_apply,g_south_east,x_196,y_40/og-images/black-with-white-line.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/fonts.css" />
+    <link rel="stylesheet" href="/styles/colors.css" />
+    <link rel="stylesheet" href="/styles/wrapper.css" />
+    
+    <style>
+      :root {
+  --font-color-1: #bbb;
+  --fade-color: #555;
+  --row-highlight: #111;
+}
+
+body {
+  background-color: #333;
+}
+
+.codeSection {
+  border: 1px solid #aaa;
+  border-radius: 0.4rem;
+  padding: 0rem 1.3rem 2rem 1.3rem;
+  margin-bottom: 6.8rem;
+  background-color: #000;
+}
+
+.codeSectionNote {
+  color: var(--font-color-1);
+  padding: 0.7rem 0;
+}
+
+.ace_editor {
+  padding: 0.6rem;
+}
+
+.codeSectionHeader {
+  color: var(--font-color-1);
+  font-size: 1.1rem;
+  font-weight: normal;
+}
+
+    </style>
+
+    <script
+      src="/ace-editor/ace.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+
+    <script>
+      // This file can be used to represent
+// and data that should be held outside
+// of the main script
+
+const c = {
+  fadeColor: '#667',
+  source: `fn main() {
+  println!(
+    "main got {}", 
+    widget(String::from("apple"))
+  );
+}
+
+fn widget(value: String) -> String {
+  println!("widget got {}", value);
+  String::from("berry")
+}`,
+  sets: [
+    {
+      header: `Full Example`,
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      rowHighlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      overrides: [],
+      fades: [],
+      note: ``,
+      noteCoords: [1, 40],
+    },
+
+    {
+      header: `Create The <code>widget</code> Function`,
+      lines: [8, 11],
+      highlights: [8],
+      rowHighlights: [8, 9, 10, 11],
+      overrides: [{ line: 8, text: `fn widget() {` }],
+      fades: [],
+      note: ``,
+      noteCoords: [3, 0],
+    },
+
+    {
+      header: `Accept An Argument`,
+      lines: [8, 11],
+      highlights: [8],
+      rowHighlights: [8, 9, 10, 11],
+      overrides: [{ line: 8, text: `fn widget(value: String) {` }],
+      fades: [{ line: 8, spans: [1, 2, 3, 4, 9, 10, 11] }],
+      note: ``,
+      noteCoords: [3, 0],
+    },
+
+    {
+      header: `Add A Return Type`,
+      lines: [8, 11],
+      highlights: [8],
+      rowHighlights: [8, 9, 10, 11],
+      overrides: [{ line: 8, text: `fn widget(value: String) -> String {` }],
+      fades: [{ line: 8, spans: [1, 2, 3, 4, 5, 6, 7, 8, 9, 15] }],
+      note: ``,
+      noteCoords: [3, 0],
+    },
+
+    {
+      header: `Show Some Output`,
+      lines: [8, 9, 11],
+      highlights: [9],
+      rowHighlights: [8, 9, 10, 11],
+      overrides: [],
+      fades: [],
+      note: ``,
+      noteCoords: [3, 0],
+    },
+
+    {
+      header: `Return some data`,
+      lines: [8, 9, 10, 11],
+      highlights: [10],
+      rowHighlights: [8, 9, 10, 11],
+      overrides: [],
+      fades: [],
+      note: `
+<p>The last expression of a function is what gets returned. 
+The <code>String::from("berry")</code> line is an expression 
+so it gets returned becaue there's no semi-colon behind it. 
+If there was a semi-color the expression would have been, 
+terminated and nothing would have been returned</p>
+
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      header: `Create <code>main</code> and stub a <code>println!()</code>`,
+      lines: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [1, 2, 3, 4, 5, 6],
+      rowHighlights: [1, 2, 3, 4, 5, 6],
+      overrides: [],
+      // overrides: [{ line: 7, text: `fn widget(value: String) -> String {` }],
+      fades: [],
+      noteCoords: [1, 40],
+      note: ``,
+    },
+
+    {
+      header: `Call <code>widget</code>`,
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [4],
+      rowHighlights: [1, 2, 3, 4, 5, 6],
+      overrides: [],
+      fades: [{ line: 3, spans: [1, 2, 3, 4] }],
+      noteCoords: [1, 40],
+      note: `
+<p>Call <code>widget</code> passing a <code>String</code></p>
+`,
+    },
+
+    {
+      header: `Check The Output`,
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      rowHighlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      overrides: [],
+      fades: [],
+      note: `<p>The output from the program is:</p>
+      <pre><code>widget got apple
+main got berry</code></pre>
+      `,
+      noteCoords: [1, 40],
+    },
+  ],
+}
+
+      const prepFadeWords = () => {
+  const selectors = [
+    '.ace_keyword',
+    '.ace_lparen',
+    '.ace_source',
+    '.ace_rust',
+    '.ace_paren',
+    '.ace_function',
+    '.ace_entity',
+    '.ace_identifier',
+    '.ace_operator',
+    '.ace_support',
+    '.ace_constant',
+    '.ace_quoted',
+    '.ace_string',
+    '.ace_double',
+    '.ace_punctuation',
+    '.ace_rparen',
+  ]
+
+  c.sets.forEach((set, setIndex) => {
+    set.fades.forEach((fade, fadeIndex) => {
+      fade.spans.forEach((span, spanIndex) => {
+        selectors.forEach((selector) => {
+          const line = `#sectionCode${setIndex}.ace-monokai .ace_line:nth-child(${fade.line}) span:nth-child(${fade.spans[spanIndex]})${selector} { color: var(--fade-color); }`
+          c.highlightRemovers.push(line)
+        })
+      })
+    })
+  })
+}
+
+const makeElement = (
+  _type,
+  _id,
+  _html,
+  _childOf,
+  _event,
+  _function,
+  _classes
+) => {
+  const newElement = document.createElement(_type)
+  newElement.id = _id
+  newElement.innerHTML = _html
+  window[_childOf].appendChild(newElement)
+  if (_event !== null) {
+    newElement.addEventListener(_event, _function)
+  }
+  if (_classes) {
+    newElement.classList.add(_classes)
+  }
+  return newElement
+}
+
+const makeSections = () => {
+  c.sets.forEach((set, setIndex) => {
+    const section = makeElement(
+      'section',
+      `section${setIndex}`,
+      '',
+      'wrapper',
+      null,
+      null,
+      'codeSection'
+    )
+
+    const header = makeElement(
+      'h3',
+      `sectionHeader${setIndex}`,
+      set.header,
+      `section${setIndex}`,
+      null,
+      null,
+      'codeSectionHeader'
+    )
+
+    const code = makeElement(
+      'div',
+      `sectionCode${setIndex}`,
+      `<pre><code id="codeBlock${setIndex}" class="language-rust">${c.sets[
+        setIndex
+      ].outputLines.join('\n')}</code></pre>`,
+      `section${setIndex}`,
+      null,
+      null,
+      'codeSectionCode'
+    )
+
+    const note = makeElement(
+      `div`,
+      `sectionNote${setIndex}`,
+      set.note,
+      `section${setIndex}`,
+      null,
+      null,
+      'codeSectionNote'
+    )
+
+    set.editor = ace.edit(`sectionCode${setIndex}`)
+    set.editor.setOption('maxLines', 1000)
+    set.editor.setTheme('ace/theme/monokai')
+    set.editor.session.setMode('ace/mode/rust')
+    set.editor.setHighlightActiveLine(false)
+    set.editor.setOptions({
+      readOnly: true,
+      highlightActiveLine: false,
+      highlightGutterLine: false,
+    })
+
+    set.editor.renderer.$cursorLayer.element.style.display = 'none'
+  })
+}
+
+const prepLines = () => {
+  c.sets.forEach((set, setIndex) => {
+    set.outputLines = []
+    c.rawLines.forEach((line, lineIndex) => {
+      if (set.lines.includes(lineIndex + 1)) {
+        set.outputLines.push(line)
+      } else {
+        set.outputLines.push(' ')
+      }
+    })
+  })
+}
+
+const prepOverrides = () => {
+  c.sets.forEach((set, setIndex) => {
+    if (set.overrides) {
+      set.overrides.forEach((override) => {
+        set.outputLines[override.line - 1] = override.text
+      })
+    }
+  })
+}
+
+const prepFadeLines = () => {
+  const selectors = [
+    '.ace_keyword',
+    '.ace_lparen',
+    '.ace_source',
+    '.ace_rust',
+    '.ace_paren',
+    '.ace_function',
+    '.ace_entity',
+    '.ace_identifier',
+    '.ace_operator',
+    '.ace_support',
+    '.ace_constant',
+    '.ace_quoted',
+    '.ace_string',
+    '.ace_double',
+    '.ace_punctuation',
+    '.ace_rparen',
+  ]
+
+  c.sets.forEach((set, setIndex) => {
+    c.rawLines.forEach((line, lineIndex) => {
+      if (!set.highlights.includes(lineIndex + 1)) {
+        for (let selector of selectors) {
+          c.highlightRemovers.push(
+            `#sectionCode${setIndex} .ace_line:nth-child(${
+              lineIndex + 1
+            }) ${selector} { color: var(--fade-color) }`
+          )
+        }
+      }
+    })
+  })
+}
+
+const prepRowHighlights = () => {
+  c.sets.forEach((set, setIndex) => {
+    set.rowHighlights.forEach((rowHighlight, rowHighlightIndex) => {
+      const style = `#sectionCode${setIndex} .ace_line:nth-child(${rowHighlight}) { background-color: var(--row-highlight);}`
+      // TODO: rename this to `highlightUpdaters`
+      c.highlightRemovers.push(style)
+    })
+  })
+}
+
+const init = () => {
+  c.rawLines = c.source.split('\n')
+  c.highlightRemovers = []
+  prepLines()
+  prepOverrides()
+  makeSections()
+  c.styleOverride = document.createElement('style')
+  document.body.appendChild(c.styleOverride)
+  prepFadeLines()
+  prepFadeWords()
+  prepRowHighlights()
+  c.styleOverride.innerHTML = c.highlightRemovers.join('\n')
+}
+
+document.addEventListener('DOMContentLoaded', init)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">cookbook home</a> ~
+      <a href="https://www.alanwsmith.com/">main site</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
+    </header>
+    <main>
+      <h1>Step-By-Step Code Example - Prototype v16</h1>
+      
+                <h2>Details</h2>
+                <ul>
+                    <li>GOAL: A more traditional example but with each step of code outlined explicitly</li> <li>The example below is built directly from the HTML and JavaScript code snippets that follow</li>
+                </ul>
+                
+
+      <h2>EXAMPLE</h2>
+      <div id="wrapper"></div>
+
+
+      <br />
+      <br />
+      <hr />
+       
+            <h2>HTML Source</h2>
+            <pre class="exampleCode" id="exampleHTMLBody"><code class="language-html">&lt;div id=&quot;wrapper&quot;&gt;&lt;/div&gt;
+</code></pre>
+             
+            <h2>CSS Source</h2>
+            <pre class="exampleCode" id="exampleCSS"><code class="language-css">:root {
+  --font-color-1: #bbb;
+  --fade-color: #555;
+  --row-highlight: #111;
+}
+
+body {
+  background-color: #333;
+}
+
+.codeSection {
+  border: 1px solid #aaa;
+  border-radius: 0.4rem;
+  padding: 0rem 1.3rem 2rem 1.3rem;
+  margin-bottom: 6.8rem;
+  background-color: #000;
+}
+
+.codeSectionNote {
+  color: var(--font-color-1);
+  padding: 0.7rem 0;
+}
+
+.ace_editor {
+  padding: 0.6rem;
+}
+
+.codeSectionHeader {
+  color: var(--font-color-1);
+  font-size: 1.1rem;
+  font-weight: normal;
+}
+</code></pre>
+             
+            <h2>JavaScript Source</h2>
+            <pre class="exampleCode" id="exampleJS"><code class="language-js">const prepFadeWords = () =&gt; {
+  const selectors = [
+    &#x27;.ace_keyword&#x27;,
+    &#x27;.ace_lparen&#x27;,
+    &#x27;.ace_source&#x27;,
+    &#x27;.ace_rust&#x27;,
+    &#x27;.ace_paren&#x27;,
+    &#x27;.ace_function&#x27;,
+    &#x27;.ace_entity&#x27;,
+    &#x27;.ace_identifier&#x27;,
+    &#x27;.ace_operator&#x27;,
+    &#x27;.ace_support&#x27;,
+    &#x27;.ace_constant&#x27;,
+    &#x27;.ace_quoted&#x27;,
+    &#x27;.ace_string&#x27;,
+    &#x27;.ace_double&#x27;,
+    &#x27;.ace_punctuation&#x27;,
+    &#x27;.ace_rparen&#x27;,
+  ]
+
+  c.sets.forEach((set, setIndex) =&gt; {
+    set.fades.forEach((fade, fadeIndex) =&gt; {
+      fade.spans.forEach((span, spanIndex) =&gt; {
+        selectors.forEach((selector) =&gt; {
+          const line = `#sectionCode${setIndex}.ace-monokai .ace_line:nth-child(${fade.line}) span:nth-child(${fade.spans[spanIndex]})${selector} { color: var(--fade-color); }`
+          c.highlightRemovers.push(line)
+        })
+      })
+    })
+  })
+}
+
+const makeElement = (
+  _type,
+  _id,
+  _html,
+  _childOf,
+  _event,
+  _function,
+  _classes
+) =&gt; {
+  const newElement = document.createElement(_type)
+  newElement.id = _id
+  newElement.innerHTML = _html
+  window[_childOf].appendChild(newElement)
+  if (_event !== null) {
+    newElement.addEventListener(_event, _function)
+  }
+  if (_classes) {
+    newElement.classList.add(_classes)
+  }
+  return newElement
+}
+
+const makeSections = () =&gt; {
+  c.sets.forEach((set, setIndex) =&gt; {
+    const section = makeElement(
+      &#x27;section&#x27;,
+      `section${setIndex}`,
+      &#x27;&#x27;,
+      &#x27;wrapper&#x27;,
+      null,
+      null,
+      &#x27;codeSection&#x27;
+    )
+
+    const header = makeElement(
+      &#x27;h3&#x27;,
+      `sectionHeader${setIndex}`,
+      set.header,
+      `section${setIndex}`,
+      null,
+      null,
+      &#x27;codeSectionHeader&#x27;
+    )
+
+    const code = makeElement(
+      &#x27;div&#x27;,
+      `sectionCode${setIndex}`,
+      `&lt;pre&gt;&lt;code id=&quot;codeBlock${setIndex}&quot; class=&quot;language-rust&quot;&gt;${c.sets[
+        setIndex
+      ].outputLines.join(&#x27;\n&#x27;)}&lt;/code&gt;&lt;/pre&gt;`,
+      `section${setIndex}`,
+      null,
+      null,
+      &#x27;codeSectionCode&#x27;
+    )
+
+    const note = makeElement(
+      `div`,
+      `sectionNote${setIndex}`,
+      set.note,
+      `section${setIndex}`,
+      null,
+      null,
+      &#x27;codeSectionNote&#x27;
+    )
+
+    set.editor = ace.edit(`sectionCode${setIndex}`)
+    set.editor.setOption(&#x27;maxLines&#x27;, 1000)
+    set.editor.setTheme(&#x27;ace/theme/monokai&#x27;)
+    set.editor.session.setMode(&#x27;ace/mode/rust&#x27;)
+    set.editor.setHighlightActiveLine(false)
+    set.editor.setOptions({
+      readOnly: true,
+      highlightActiveLine: false,
+      highlightGutterLine: false,
+    })
+
+    set.editor.renderer.$cursorLayer.element.style.display = &#x27;none&#x27;
+  })
+}
+
+const prepLines = () =&gt; {
+  c.sets.forEach((set, setIndex) =&gt; {
+    set.outputLines = []
+    c.rawLines.forEach((line, lineIndex) =&gt; {
+      if (set.lines.includes(lineIndex + 1)) {
+        set.outputLines.push(line)
+      } else {
+        set.outputLines.push(&#x27; &#x27;)
+      }
+    })
+  })
+}
+
+const prepOverrides = () =&gt; {
+  c.sets.forEach((set, setIndex) =&gt; {
+    if (set.overrides) {
+      set.overrides.forEach((override) =&gt; {
+        set.outputLines[override.line - 1] = override.text
+      })
+    }
+  })
+}
+
+const prepFadeLines = () =&gt; {
+  const selectors = [
+    &#x27;.ace_keyword&#x27;,
+    &#x27;.ace_lparen&#x27;,
+    &#x27;.ace_source&#x27;,
+    &#x27;.ace_rust&#x27;,
+    &#x27;.ace_paren&#x27;,
+    &#x27;.ace_function&#x27;,
+    &#x27;.ace_entity&#x27;,
+    &#x27;.ace_identifier&#x27;,
+    &#x27;.ace_operator&#x27;,
+    &#x27;.ace_support&#x27;,
+    &#x27;.ace_constant&#x27;,
+    &#x27;.ace_quoted&#x27;,
+    &#x27;.ace_string&#x27;,
+    &#x27;.ace_double&#x27;,
+    &#x27;.ace_punctuation&#x27;,
+    &#x27;.ace_rparen&#x27;,
+  ]
+
+  c.sets.forEach((set, setIndex) =&gt; {
+    c.rawLines.forEach((line, lineIndex) =&gt; {
+      if (!set.highlights.includes(lineIndex + 1)) {
+        for (let selector of selectors) {
+          c.highlightRemovers.push(
+            `#sectionCode${setIndex} .ace_line:nth-child(${
+              lineIndex + 1
+            }) ${selector} { color: var(--fade-color) }`
+          )
+        }
+      }
+    })
+  })
+}
+
+const prepRowHighlights = () =&gt; {
+  c.sets.forEach((set, setIndex) =&gt; {
+    set.rowHighlights.forEach((rowHighlight, rowHighlightIndex) =&gt; {
+      const style = `#sectionCode${setIndex} .ace_line:nth-child(${rowHighlight}) { background-color: var(--row-highlight);}`
+      // TODO: rename this to `highlightUpdaters`
+      c.highlightRemovers.push(style)
+    })
+  })
+}
+
+const init = () =&gt; {
+  c.rawLines = c.source.split(&#x27;\n&#x27;)
+  c.highlightRemovers = []
+  prepLines()
+  prepOverrides()
+  makeSections()
+  c.styleOverride = document.createElement(&#x27;style&#x27;)
+  document.body.appendChild(c.styleOverride)
+  prepFadeLines()
+  prepFadeWords()
+  prepRowHighlights()
+  c.styleOverride.innerHTML = c.highlightRemovers.join(&#x27;\n&#x27;)
+}
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
+</code></pre>
+             
+            <h2>JSON Data Source</h2>
+            <pre class="exampleCode" id="exampleJSON"><code class="language-json">{
+  &quot;note&quot;: &quot;Example JSON data file&quot;
+}
+</code></pre>
+            
+      
+            <h2>Config JS Source</h2>
+            <pre class="exampleCode" id="exampleCONFIG"><code class="language-js">// This file can be used to represent
+// and data that should be held outside
+// of the main script
+
+const c = {
+  fadeColor: &#x27;#667&#x27;,
+  source: `fn main() {
+  println!(
+    &quot;main got {}&quot;, 
+    widget(String::from(&quot;apple&quot;))
+  );
+}
+
+fn widget(value: String) -&gt; String {
+  println!(&quot;widget got {}&quot;, value);
+  String::from(&quot;berry&quot;)
+}`,
+  sets: [
+    {
+      header: `Full Example`,
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      rowHighlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      overrides: [],
+      fades: [],
+      note: ``,
+      noteCoords: [1, 40],
+    },
+
+    {
+      header: `Create The &lt;code&gt;widget&lt;/code&gt; Function`,
+      lines: [8, 11],
+      highlights: [8],
+      rowHighlights: [8, 9, 10, 11],
+      overrides: [{ line: 8, text: `fn widget() {` }],
+      fades: [],
+      note: ``,
+      noteCoords: [3, 0],
+    },
+
+    {
+      header: `Accept An Argument`,
+      lines: [8, 11],
+      highlights: [8],
+      rowHighlights: [8, 9, 10, 11],
+      overrides: [{ line: 8, text: `fn widget(value: String) {` }],
+      fades: [{ line: 8, spans: [1, 2, 3, 4, 9, 10, 11] }],
+      note: ``,
+      noteCoords: [3, 0],
+    },
+
+    {
+      header: `Add A Return Type`,
+      lines: [8, 11],
+      highlights: [8],
+      rowHighlights: [8, 9, 10, 11],
+      overrides: [{ line: 8, text: `fn widget(value: String) -&gt; String {` }],
+      fades: [{ line: 8, spans: [1, 2, 3, 4, 5, 6, 7, 8, 9, 15] }],
+      note: ``,
+      noteCoords: [3, 0],
+    },
+
+    {
+      header: `Show Some Output`,
+      lines: [8, 9, 11],
+      highlights: [9],
+      rowHighlights: [8, 9, 10, 11],
+      overrides: [],
+      fades: [],
+      note: ``,
+      noteCoords: [3, 0],
+    },
+
+    {
+      header: `Return some data`,
+      lines: [8, 9, 10, 11],
+      highlights: [10],
+      rowHighlights: [8, 9, 10, 11],
+      overrides: [],
+      fades: [],
+      note: `
+&lt;p&gt;The last expression of a function is what gets returned. 
+The &lt;code&gt;String::from(&quot;berry&quot;)&lt;/code&gt; line is an expression 
+so it gets returned becaue there&#x27;s no semi-colon behind it. 
+If there was a semi-color the expression would have been, 
+terminated and nothing would have been returned&lt;/p&gt;
+
+`,
+      noteCoords: [3, 0],
+    },
+
+    {
+      header: `Create &lt;code&gt;main&lt;/code&gt; and stub a &lt;code&gt;println!()&lt;/code&gt;`,
+      lines: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [1, 2, 3, 4, 5, 6],
+      rowHighlights: [1, 2, 3, 4, 5, 6],
+      overrides: [],
+      // overrides: [{ line: 7, text: `fn widget(value: String) -&gt; String {` }],
+      fades: [],
+      noteCoords: [1, 40],
+      note: ``,
+    },
+
+    {
+      header: `Call &lt;code&gt;widget&lt;/code&gt;`,
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [4],
+      rowHighlights: [1, 2, 3, 4, 5, 6],
+      overrides: [],
+      fades: [{ line: 3, spans: [1, 2, 3, 4] }],
+      noteCoords: [1, 40],
+      note: `
+&lt;p&gt;Call &lt;code&gt;widget&lt;/code&gt; passing a &lt;code&gt;String&lt;/code&gt;&lt;/p&gt;
+`,
+    },
+
+    {
+      header: `Check The Output`,
+      lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      highlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      rowHighlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      overrides: [],
+      fades: [],
+      note: `&lt;p&gt;The output from the program is:&lt;/p&gt;
+      &lt;pre&gt;&lt;code&gt;widget got apple
+main got berry&lt;/code&gt;&lt;/pre&gt;
+      `,
+      noteCoords: [1, 40],
+    },
+  ],
+}
+</code></pre>
+               
+    </main>
+    <footer>
+      from <a href="https://www.alanwsmith.com/">alan w. smith</a>
+    </footer>
+  </body>
+</html>

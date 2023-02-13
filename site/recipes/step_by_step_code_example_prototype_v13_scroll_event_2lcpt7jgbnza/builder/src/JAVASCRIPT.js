@@ -66,9 +66,7 @@ const makeNotes = () => {
 }
 
 const updateEverything = () => {
-  // console.log('update everything')
   updateNotes()
-  // console.log(c)
 }
 
 const updateNotes = () => {
@@ -82,7 +80,6 @@ const updateNotes = () => {
     const noteTop = notes[n].offsetTop
     const noteBottom = notes[n].offsetTop + notes[n].offsetHeight
 
-    //console.log(`-- ${noteTop} - ${bottomOfCodeBlock} - ${noteBottom}`)
     if (noteTop < triggerPoint && noteBottom > triggerPoint) {
       c.currentHighlight = n
     }
@@ -100,7 +97,6 @@ const updateNotes = () => {
         c.sets[n].overrides.forEach((override) => {
           console.log(override.line)
           lineAssembler[override.line - 1] = override.text
-          // console.log(override)
         })
       }
 
@@ -110,42 +106,6 @@ const updateNotes = () => {
       notes[n].style.borderLeft = null
     }
   }
-
-  // console.log(c.currentHighlight)
-
-  //  .forEach((note) => {
-  // console.log(note.offsetTop)
-  // console.log(bottomOfCodeBlock)
-  // const noteBottom = note.offsetTop + note.offsetHeight
-  // console.log(noteBottom)
-  //    const noteTop = note.offsetTop
-
-  // const noteMiddle = Math.floor(note.offsetHeigth / 2)
-  // console.log(`-- ${noteTop} - ${noteMiddle} - ${noteBottom}`)
-
-  //console.log(`-- ${noteTop} - ${bottomOfCodeBlock} - ${noteBottom}`)
-
-  // if (noteTop < triggerPoint && noteBottom < triggerPoint) {
-  //   note.style.borderLeft = null
-  // } else {
-  //   note.style.borderLeft = '1px solid purple'
-  // }
-
-  // if (noteTop < bottomOfCodeBlock && noteBottom < bottomOfCodeBlock) {
-  //   // note.style.border = '1px solid red'
-  // } else if (noteTop < bottomOfCodeBlock && noteBottom >= bottomOfCodeBlock) {
-  //   const firstNumber = bottomOfCodeBlock - noteTop
-  //   // note.style.border = '1px solid green'
-  // } else {
-  //   if (!opacitySetForFirstNote) {
-  //     // opacitySetForFirstNote = true
-  //   } else {
-  //     // note.style.border = '1px solid blue'
-  //   }
-  // }
-
-  // console.log(noteBottom)
-  //   })
 }
 
 const init = () => {

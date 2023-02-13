@@ -1,8 +1,9 @@
 {
-  "TITLE": "Step By Step Code Example Prototype v12 - Scrolling Content Area",
+  "TITLE": "Step-By-Step Code Example - Prototype v12 - Intersection Observer Scrolling Content Area",
   "STATUS": "published",
   "DESCRIPTION": "",
   "DETAILS": [
+    "This doesn't work as expected if you scroll fast. The Intersection Observer doesn't high properly",
     "The example below is built directly from the HTML and JavaScript code snippets that follow"
   ],
   "NOTES": [
