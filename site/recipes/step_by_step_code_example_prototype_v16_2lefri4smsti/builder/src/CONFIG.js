@@ -19,6 +19,8 @@ fn widget(value: String) -> String {
       header: `Full Example`,
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       highlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      overrides: [],
+      fades: [],
       note: ``,
       noteCoords: [1, 40],
     },
@@ -28,6 +30,7 @@ fn widget(value: String) -> String {
       lines: [7, 10],
       highlights: [7, 10],
       overrides: [{ line: 7, text: `fn widget() {` }],
+      fades: [],
       note: ``,
       noteCoords: [3, 0],
     },
@@ -37,6 +40,7 @@ fn widget(value: String) -> String {
       lines: [7, 10],
       highlights: [7, 10],
       overrides: [{ line: 7, text: `fn widget(value: String) {` }],
+      fades: [],
       note: ``,
       noteCoords: [3, 0],
     },
@@ -46,6 +50,7 @@ fn widget(value: String) -> String {
       lines: [7, 10],
       highlights: [7, 10],
       overrides: [{ line: 7, text: `fn widget(value: String) -> String {` }],
+      fades: [],
       note: ``,
       noteCoords: [3, 0],
     },
@@ -54,6 +59,8 @@ fn widget(value: String) -> String {
       header: `Show Some Output`,
       lines: [7, 8, 10],
       highlights: [8],
+      overrides: [],
+      fades: [],
       note: ``,
       noteCoords: [3, 0],
     },
@@ -62,10 +69,14 @@ fn widget(value: String) -> String {
       header: `Return some data`,
       lines: [7, 8, 9, 10],
       highlights: [9],
+      overrides: [],
+      fades: [],
       note: `
-      <p>Return some data</p>
-
-<p>The last expression of a function is what gets returned. The <code>String::from("berry")</code> line is an expression so it gets returned becaue there's no semi-colon behind it. If there there was a semi-color the expression would have been terminated and nothing would have been returned</p>
+<p>The last expression of a function is what gets returned. 
+The <code>String::from("berry")</code> line is an expression 
+so it gets returned becaue there's no semi-colon behind it. 
+If there was a semi-color the expression would have been, 
+terminated and nothing would have been returned</p>
 
 `,
       noteCoords: [3, 0],
@@ -76,6 +87,7 @@ fn widget(value: String) -> String {
       lines: [1, 5, 7, 8, 9, 10, 11],
       highlights: [1, 5],
       overrides: [],
+      fades: [],
       noteCoords: [1, 40],
       note: `
       <p>Stub the <code>main</code> function</p>
@@ -87,6 +99,7 @@ fn widget(value: String) -> String {
       lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
       highlights: [2, 3, 4],
       overrides: [{ line: 3, text: '    "main got {}"' }],
+      fades: [],
       noteCoords: [1, 40],
       note: `
       <p>Stub a <code>println!()</code> format string</p>
@@ -98,6 +111,7 @@ fn widget(value: String) -> String {
       lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
       highlights: [3],
       overrides: [],
+      fades: [],
       noteCoords: [1, 40],
       fades: [{ line: 3, spans: [1, 2, 3, 4] }],
       note: `
@@ -110,6 +124,7 @@ fn widget(value: String) -> String {
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       highlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       overrides: [],
+      fades: [],
       note: `<p>The output from the program is:</p>
       <pre><code>widget got apple
 main got berry</code></pre>

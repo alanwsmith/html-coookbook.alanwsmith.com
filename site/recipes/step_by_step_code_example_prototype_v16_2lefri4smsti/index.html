@@ -94,6 +94,8 @@ fn widget(value: String) -> String {
       header: `Full Example`,
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       highlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      overrides: [],
+      fades: [],
       note: ``,
       noteCoords: [1, 40],
     },
@@ -103,6 +105,7 @@ fn widget(value: String) -> String {
       lines: [7, 10],
       highlights: [7, 10],
       overrides: [{ line: 7, text: `fn widget() {` }],
+      fades: [],
       note: ``,
       noteCoords: [3, 0],
     },
@@ -112,6 +115,7 @@ fn widget(value: String) -> String {
       lines: [7, 10],
       highlights: [7, 10],
       overrides: [{ line: 7, text: `fn widget(value: String) {` }],
+      fades: [],
       note: ``,
       noteCoords: [3, 0],
     },
@@ -121,6 +125,7 @@ fn widget(value: String) -> String {
       lines: [7, 10],
       highlights: [7, 10],
       overrides: [{ line: 7, text: `fn widget(value: String) -> String {` }],
+      fades: [],
       note: ``,
       noteCoords: [3, 0],
     },
@@ -129,6 +134,8 @@ fn widget(value: String) -> String {
       header: `Show Some Output`,
       lines: [7, 8, 10],
       highlights: [8],
+      overrides: [],
+      fades: [],
       note: ``,
       noteCoords: [3, 0],
     },
@@ -137,10 +144,14 @@ fn widget(value: String) -> String {
       header: `Return some data`,
       lines: [7, 8, 9, 10],
       highlights: [9],
+      overrides: [],
+      fades: [],
       note: `
-      <p>Return some data</p>
-
-<p>The last expression of a function is what gets returned. The <code>String::from("berry")</code> line is an expression so it gets returned becaue there's no semi-colon behind it. If there there was a semi-color the expression would have been terminated and nothing would have been returned</p>
+<p>The last expression of a function is what gets returned. 
+The <code>String::from("berry")</code> line is an expression 
+so it gets returned becaue there's no semi-colon behind it. 
+If there was a semi-color the expression would have been, 
+terminated and nothing would have been returned</p>
 
 `,
       noteCoords: [3, 0],
@@ -151,6 +162,7 @@ fn widget(value: String) -> String {
       lines: [1, 5, 7, 8, 9, 10, 11],
       highlights: [1, 5],
       overrides: [],
+      fades: [],
       noteCoords: [1, 40],
       note: `
       <p>Stub the <code>main</code> function</p>
@@ -162,6 +174,7 @@ fn widget(value: String) -> String {
       lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
       highlights: [2, 3, 4],
       overrides: [{ line: 3, text: '    "main got {}"' }],
+      fades: [],
       noteCoords: [1, 40],
       note: `
       <p>Stub a <code>println!()</code> format string</p>
@@ -173,6 +186,7 @@ fn widget(value: String) -> String {
       lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
       highlights: [3],
       overrides: [],
+      fades: [],
       noteCoords: [1, 40],
       fades: [{ line: 3, spans: [1, 2, 3, 4] }],
       note: `
@@ -185,6 +199,7 @@ fn widget(value: String) -> String {
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       highlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       overrides: [],
+      fades: [],
       note: `<p>The output from the program is:</p>
       <pre><code>widget got apple
 main got berry</code></pre>
@@ -299,8 +314,6 @@ const prepOverrides = () => {
 }
 
 const removeHighlights = () => {
-  // console.log('removeHighlights')
-
   const styleAssembler = []
 
   const selectors = [
@@ -324,82 +337,19 @@ const removeHighlights = () => {
 
   c.sets.forEach((set, setIndex) => {
     c.rawLines.forEach((line, lineIndex) => {
-      for (let selector of selectors) {
-        if (!set.highlights.includes(lineIndex + 1)) {
+      if (!set.highlights.includes(lineIndex + 1)) {
+        for (let selector of selectors) {
           styleAssembler.push(
             `#sectionCode${setIndex} .ace_line:nth-child(${
               lineIndex + 1
             }) ${selector} { color: var(--faded-color) }`
           )
-
-          // } else {
-          //   ;`#sectionCode${setIndex} .ace_line:nth-child(${
-          //     lineIndex + 1
-          //   }) ${selector} { font-weight: bold; }`
         }
       }
     })
   })
 
   c.styleOverride.innerHTML = styleAssembler.join('\n')
-
-  // c.sets.forEach((set, setIndex) => {
-  //   if (c.sets[setIndex].highlights.length === 0) {
-  //     // c.styleOverride.innerHTML = `.ace-monokai .ace_line:nth-child(1) .ace_keyword { color: black; }`
-  //     c.styleOverride.innerHTML = `#sectionCode0 .ace_line:nth-child(1) .ace_keyword { color: black; }`
-  //     // c.styleOverride.innerHTML = `.ace-monokai .ace_keyword { color: red; }`
-  //     // c.styleOverride.innerHTML = `body { color: green;}`
-  //   }
-  // })
-
-  //// bail if no lines were selected
-  ////
-  //if (c.sets[c.set].highlights.length === 0) {
-  //  c.styleOverride.innerHTML = `.ace-monokai .ace_line .ace_comment { color: #eee; }`
-  //  return
-  //}
-
-  // console.log(c.lines.length)
-
-  // const removers = []
-
-  // for (let i = 0; i < c.lines.length; i++) {
-  //   const lineNumber = i + 1
-  //   if (!c.sets[c.set].highlights.includes(lineNumber)) {
-  //     for (let x = 0; x < selectors.length; x++) {
-  //       removers.push(
-  //         `.ace-monokai .ace_line:nth-child(${lineNumber}) ${selectors[x]} { color: ${c.fadeColor}; }`
-  //       )
-  //       // console.log(selectors[x])
-  //     }
-  //     removers.push(
-  //       `.ace-monokai .ace_line:nth-child(${lineNumber}) .ace_comment { color: #eee; }`
-  //     )
-  //   }
-  //   // set the comment color for the lines with content
-  //   else {
-  //     removers.push(
-  //       `.ace-monokai .ace_line:nth-child(${lineNumber}) .ace_comment { color: #eee; }`
-  //     )
-  //   }
-  // }
-
-  // if (c.sets[c.set].fades) {
-  //   for (let f = 0; f < c.sets[c.set].fades.length; f++) {
-  //     const fader = c.sets[c.set].fades[f]
-  //     for (let n = 0; n < fader.spans.length; n++) {
-  //       for (let x = 0; x < selectors.length; x++) {
-  //         const fadeString = `.ace-monokai .ace_line:nth-child(${fader.line}) span:nth-child(${n})${selectors[x]} { color: ${c.fadeColor}; }`
-  //         removers.push(fadeString)
-  //         console.log(fadeString)
-  //       }
-  //     }
-  //     console.log(fader)
-  //   }
-  // }
-
-  // c.styleOverride.innerHTML = `${removers.join(' ')}`
-  // console.log(c.styleOverride.innerHTML)
 }
 
 const init = () => {
@@ -585,8 +535,6 @@ const prepOverrides = () =&gt; {
 }
 
 const removeHighlights = () =&gt; {
-  // console.log(&#x27;removeHighlights&#x27;)
-
   const styleAssembler = []
 
   const selectors = [
@@ -610,82 +558,19 @@ const removeHighlights = () =&gt; {
 
   c.sets.forEach((set, setIndex) =&gt; {
     c.rawLines.forEach((line, lineIndex) =&gt; {
-      for (let selector of selectors) {
-        if (!set.highlights.includes(lineIndex + 1)) {
+      if (!set.highlights.includes(lineIndex + 1)) {
+        for (let selector of selectors) {
           styleAssembler.push(
             `#sectionCode${setIndex} .ace_line:nth-child(${
               lineIndex + 1
             }) ${selector} { color: var(--faded-color) }`
           )
-
-          // } else {
-          //   ;`#sectionCode${setIndex} .ace_line:nth-child(${
-          //     lineIndex + 1
-          //   }) ${selector} { font-weight: bold; }`
         }
       }
     })
   })
 
   c.styleOverride.innerHTML = styleAssembler.join(&#x27;\n&#x27;)
-
-  // c.sets.forEach((set, setIndex) =&gt; {
-  //   if (c.sets[setIndex].highlights.length === 0) {
-  //     // c.styleOverride.innerHTML = `.ace-monokai .ace_line:nth-child(1) .ace_keyword { color: black; }`
-  //     c.styleOverride.innerHTML = `#sectionCode0 .ace_line:nth-child(1) .ace_keyword { color: black; }`
-  //     // c.styleOverride.innerHTML = `.ace-monokai .ace_keyword { color: red; }`
-  //     // c.styleOverride.innerHTML = `body { color: green;}`
-  //   }
-  // })
-
-  //// bail if no lines were selected
-  ////
-  //if (c.sets[c.set].highlights.length === 0) {
-  //  c.styleOverride.innerHTML = `.ace-monokai .ace_line .ace_comment { color: #eee; }`
-  //  return
-  //}
-
-  // console.log(c.lines.length)
-
-  // const removers = []
-
-  // for (let i = 0; i &lt; c.lines.length; i++) {
-  //   const lineNumber = i + 1
-  //   if (!c.sets[c.set].highlights.includes(lineNumber)) {
-  //     for (let x = 0; x &lt; selectors.length; x++) {
-  //       removers.push(
-  //         `.ace-monokai .ace_line:nth-child(${lineNumber}) ${selectors[x]} { color: ${c.fadeColor}; }`
-  //       )
-  //       // console.log(selectors[x])
-  //     }
-  //     removers.push(
-  //       `.ace-monokai .ace_line:nth-child(${lineNumber}) .ace_comment { color: #eee; }`
-  //     )
-  //   }
-  //   // set the comment color for the lines with content
-  //   else {
-  //     removers.push(
-  //       `.ace-monokai .ace_line:nth-child(${lineNumber}) .ace_comment { color: #eee; }`
-  //     )
-  //   }
-  // }
-
-  // if (c.sets[c.set].fades) {
-  //   for (let f = 0; f &lt; c.sets[c.set].fades.length; f++) {
-  //     const fader = c.sets[c.set].fades[f]
-  //     for (let n = 0; n &lt; fader.spans.length; n++) {
-  //       for (let x = 0; x &lt; selectors.length; x++) {
-  //         const fadeString = `.ace-monokai .ace_line:nth-child(${fader.line}) span:nth-child(${n})${selectors[x]} { color: ${c.fadeColor}; }`
-  //         removers.push(fadeString)
-  //         console.log(fadeString)
-  //       }
-  //     }
-  //     console.log(fader)
-  //   }
-  // }
-
-  // c.styleOverride.innerHTML = `${removers.join(&#x27; &#x27;)}`
-  // console.log(c.styleOverride.innerHTML)
 }
 
 const init = () =&gt; {
@@ -730,6 +615,8 @@ fn widget(value: String) -&gt; String {
       header: `Full Example`,
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       highlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      overrides: [],
+      fades: [],
       note: ``,
       noteCoords: [1, 40],
     },
@@ -739,6 +626,7 @@ fn widget(value: String) -&gt; String {
       lines: [7, 10],
       highlights: [7, 10],
       overrides: [{ line: 7, text: `fn widget() {` }],
+      fades: [],
       note: ``,
       noteCoords: [3, 0],
     },
@@ -748,6 +636,7 @@ fn widget(value: String) -&gt; String {
       lines: [7, 10],
       highlights: [7, 10],
       overrides: [{ line: 7, text: `fn widget(value: String) {` }],
+      fades: [],
       note: ``,
       noteCoords: [3, 0],
     },
@@ -757,6 +646,7 @@ fn widget(value: String) -&gt; String {
       lines: [7, 10],
       highlights: [7, 10],
       overrides: [{ line: 7, text: `fn widget(value: String) -&gt; String {` }],
+      fades: [],
       note: ``,
       noteCoords: [3, 0],
     },
@@ -765,6 +655,8 @@ fn widget(value: String) -&gt; String {
       header: `Show Some Output`,
       lines: [7, 8, 10],
       highlights: [8],
+      overrides: [],
+      fades: [],
       note: ``,
       noteCoords: [3, 0],
     },
@@ -773,10 +665,14 @@ fn widget(value: String) -&gt; String {
       header: `Return some data`,
       lines: [7, 8, 9, 10],
       highlights: [9],
+      overrides: [],
+      fades: [],
       note: `
-      &lt;p&gt;Return some data&lt;/p&gt;
-
-&lt;p&gt;The last expression of a function is what gets returned. The &lt;code&gt;String::from(&quot;berry&quot;)&lt;/code&gt; line is an expression so it gets returned becaue there&#x27;s no semi-colon behind it. If there there was a semi-color the expression would have been terminated and nothing would have been returned&lt;/p&gt;
+&lt;p&gt;The last expression of a function is what gets returned. 
+The &lt;code&gt;String::from(&quot;berry&quot;)&lt;/code&gt; line is an expression 
+so it gets returned becaue there&#x27;s no semi-colon behind it. 
+If there was a semi-color the expression would have been, 
+terminated and nothing would have been returned&lt;/p&gt;
 
 `,
       noteCoords: [3, 0],
@@ -787,6 +683,7 @@ fn widget(value: String) -&gt; String {
       lines: [1, 5, 7, 8, 9, 10, 11],
       highlights: [1, 5],
       overrides: [],
+      fades: [],
       noteCoords: [1, 40],
       note: `
       &lt;p&gt;Stub the &lt;code&gt;main&lt;/code&gt; function&lt;/p&gt;
@@ -798,6 +695,7 @@ fn widget(value: String) -&gt; String {
       lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
       highlights: [2, 3, 4],
       overrides: [{ line: 3, text: &#x27;    &quot;main got {}&quot;&#x27; }],
+      fades: [],
       noteCoords: [1, 40],
       note: `
       &lt;p&gt;Stub a &lt;code&gt;println!()&lt;/code&gt; format string&lt;/p&gt;
@@ -809,6 +707,7 @@ fn widget(value: String) -&gt; String {
       lines: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11],
       highlights: [3],
       overrides: [],
+      fades: [],
       noteCoords: [1, 40],
       fades: [{ line: 3, spans: [1, 2, 3, 4] }],
       note: `
@@ -821,6 +720,7 @@ fn widget(value: String) -&gt; String {
       lines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       highlights: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       overrides: [],
+      fades: [],
       note: `&lt;p&gt;The output from the program is:&lt;/p&gt;
       &lt;pre&gt;&lt;code&gt;widget got apple
 main got berry&lt;/code&gt;&lt;/pre&gt;
