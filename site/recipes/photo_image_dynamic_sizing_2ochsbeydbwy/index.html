@@ -84,15 +84,20 @@ p, h1, h2, h3, h4, h5, h6 {
 .content_wrapper {
   display: grid;
   place-items: center;
-
 }
 
 .image_wrapper {
-  padding:0vh;
-  background-color: #555;
-  max-width: 90vw;
-  max-height: 90vh;
+  background-color: #ddd;
+  display: grid;
+  place-items: center;
+  width: min(91vh, 100vw);
+  height: min(91vh, 100vw);
 }
+
+.image_itself {
+  border: 3px solid black;
+}
+
 
   </style>
 
@@ -140,25 +145,19 @@ document.addEventListener('DOMContentLoaded', init)
     <h2>EXAMPLE</h2>
     <div class="content_wrapper">
 
-  <div class="image_wrapperx">
-    <img src="./images/c-2160x2160.png" style="
-      --widthRaw: 2000;
-      --heightRaw: 2000;
-
+  <div class="image_wrapper">
+    <img class="image_itself" src="./images/c-2160x2160.png" style="
+      --widthRaw: 600;
+      --heightRaw: 600;
       --widthPixels:  calc(var(--widthRaw)  * 1px);
       --heightPixels: calc(var(--heightRaw) * 1px);
-
-      --widthBaseMin:  min(90vw, var(--widthPixels));
-      --heightBaseMin: min(90vh, var(--heightPixels));
-
+      --widthBaseMin:  min(74vw, var(--widthPixels));
+      --heightBaseMin: min(74vh, var(--heightPixels));
       --widthCheck: calc(var(--widthRaw) / var(--heightRaw) * var(--heightBaseMin));
       --heightCheck: calc(var(--heightRaw) / var(--widthRaw) * var(--widthBaseMin));
-
       width: min(var(--widthPixels), var(--widthBaseMin), var(--widthCheck));
       height: min(var(--heightPixels), var(--heightBaseMin), var(--heightCheck));
-
       " />
-
   </div>
 </div>
 
@@ -171,25 +170,19 @@ document.addEventListener('DOMContentLoaded', init)
             <h2>HTML Source</h2>
             <pre class="exampleCode" id="exampleHTMLBody"><code class="language-html">&lt;div class=&quot;content_wrapper&quot;&gt;
 
-  &lt;div class=&quot;image_wrapperx&quot;&gt;
-    &lt;img src=&quot;./images/c-2160x2160.png&quot; style=&quot;
-      --widthRaw: 2000;
-      --heightRaw: 2000;
-
+  &lt;div class=&quot;image_wrapper&quot;&gt;
+    &lt;img class=&quot;image_itself&quot; src=&quot;./images/c-2160x2160.png&quot; style=&quot;
+      --widthRaw: 600;
+      --heightRaw: 600;
       --widthPixels:  calc(var(--widthRaw)  * 1px);
       --heightPixels: calc(var(--heightRaw) * 1px);
-
-      --widthBaseMin:  min(90vw, var(--widthPixels));
-      --heightBaseMin: min(90vh, var(--heightPixels));
-
+      --widthBaseMin:  min(74vw, var(--widthPixels));
+      --heightBaseMin: min(74vh, var(--heightPixels));
       --widthCheck: calc(var(--widthRaw) / var(--heightRaw) * var(--heightBaseMin));
       --heightCheck: calc(var(--heightRaw) / var(--widthRaw) * var(--widthBaseMin));
-
       width: min(var(--widthPixels), var(--widthBaseMin), var(--widthCheck));
       height: min(var(--heightPixels), var(--heightBaseMin), var(--heightCheck));
-
       &quot; /&gt;
-
   &lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
@@ -254,15 +247,20 @@ p, h1, h2, h3, h4, h5, h6 {
 .content_wrapper {
   display: grid;
   place-items: center;
-
 }
 
 .image_wrapper {
-  padding:0vh;
-  background-color: #555;
-  max-width: 90vw;
-  max-height: 90vh;
+  background-color: #ddd;
+  display: grid;
+  place-items: center;
+  width: min(91vh, 100vw);
+  height: min(91vh, 100vw);
 }
+
+.image_itself {
+  border: 3px solid black;
+}
+
 </code></pre>
              
             <h2>JavaScript Source</h2>

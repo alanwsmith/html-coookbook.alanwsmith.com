@@ -57,12 +57,17 @@ p, h1, h2, h3, h4, h5, h6 {
 .content_wrapper {
   display: grid;
   place-items: center;
-
 }
 
 .image_wrapper {
-  padding:0vh;
-  background-color: #555;
-  max-width: 90vw;
-  max-height: 90vh;
+  background-color: #ddd;
+  display: grid;
+  place-items: center;
+  width: min(91vh, 100vw);
+  height: min(91vh, 100vw);
 }
+
+.image_itself {
+  border: 3px solid black;
+}
+
