@@ -1,8 +1,14 @@
 {
     "TITLE": "SVG Image Mask",
-    "STATUS": "draft",
+    "STATUS": "published",
     "DESCRIPTION": "",
     "DETAILS": [
+      "This example shows how to make a transparent hole in one image to show an image below it",
+      "The process is to make a mask with two rectangles in it. One white, one black.",
+      "The white rectangle defines the area that will show. Anything that's black is transparent.",
+      "Since the black comes after the white it's on top which means it makes the area transparent",
+      "The background image is placed before the foreground in the code which means it's behind it",
+      "By applying the mask to the foreground image with url(#main-mask) the background image shows through where the transparency is",
         "The example below is built directly from the HTML and JavaScript code snippets that follow"
     ],
     "NOTES": [],

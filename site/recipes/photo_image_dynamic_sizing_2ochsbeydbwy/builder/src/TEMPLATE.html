@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>$TITLE - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="$TITLE" />
+  <meta property="og:description" content="$DESCRIPTION" />
+  <meta property="og:image"
+    content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630,w_1200,h_630,c_fit,w_940,h_540,co_rgb:eeeeee,l_text:Helvetica_94_bold:$IMAGESLUG/fl_layer_apply,g_north_west,x_60,y_60/co_rgb:666666,l_text:Inconsolata_36_bold:from%20alan%20w.%20smith/fl_layer_apply,g_south_east,x_196,y_40/og-images/black-with-white-line.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site:id" content="@TheIdOfAlan" />
+  <meta name="twitter:creator" content="@TheIdOfAlan" />
+  <link rel="icon" type="image/png" sizes="228x228" href="/favicons/228x228.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/favicons/180x180.png" />
+
+  <!--
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/fonts.css" />
+    <link rel="stylesheet" href="/styles/colors.css" />
+    <link rel="stylesheet" href="/styles/wrapper.css" />
+    <link rel="stylesheet" href="/styles/prism-customized.css" />
+-->
+  $HEAD
+  <style>
+    $CSS
+  </style>
+
+  <!--
+    <link rel="stylesheet" href="/styles/highlightjs/_custom-base16-atelier-sulphurpool.min.css" />
+    <script src="/assets/highlight/highlight.min.js"></script>
+    -->
+
+  <script>
+    $CONFIG
+    $JAVASCRIPT
+  </script>
+</head>
+
+<body class="line-numbers">
+  <header>
+    <a href="/">cookbook home</a> ~
+    <a href="https://www.alanwsmith.com/">main site</a> ~
+    <a href="https://links.alanwsmith.com">links</a> ~
+    <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+    <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
+  </header>
+  <main>
+    <h1>$TITLE</h1>
+    <p>
+
+      $BODY
+
+      <br />
+      <br />
+      <br />
+      <hr />
+      $ESCAPED_HEAD $ESCAPED_BODY $ESCAPED_CSS $ESCAPED_JAVASCRIPT $ESCAPED_DATA
+      $ESCAPED_CONFIG $TODOS $NOTES $REFERENCES
+  </main>
+  <footer>
+    from <a href="https://www.alanwsmith.com/">alan w. smith</a>
+  </footer>
+  <script src="/styles/prism.js"></script>
+</body>
+
+</html>

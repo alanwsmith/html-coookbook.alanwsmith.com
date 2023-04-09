@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SVG Image Mask - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <title>howler.js test - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="SVG Image Mask" />
+    <meta property="og:title" content="howler.js test" />
     <meta property="og:description" content="" />
     <meta
       property="og:image"
-      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630,w_1200,h_630,c_fit,w_940,h_540,co_rgb:eeeeee,l_text:Helvetica_94_bold:SVG%20Image%20Mask/fl_layer_apply,g_north_west,x_60,y_60/co_rgb:666666,l_text:Inconsolata_36_bold:from%20alan%20w.%20smith/fl_layer_apply,g_south_east,x_196,y_40/og-images/black-with-white-line.jpg"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630,w_1200,h_630,c_fit,w_940,h_540,co_rgb:eeeeee,l_text:Helvetica_94_bold:howler.js%20test/fl_layer_apply,g_north_west,x_60,y_60/co_rgb:666666,l_text:Inconsolata_36_bold:from%20alan%20w.%20smith/fl_layer_apply,g_south_east,x_196,y_40/og-images/black-with-white-line.jpg"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site:id" content="@TheIdOfAlan" />
@@ -31,7 +31,8 @@
     <link rel="stylesheet" href="/styles/colors.css" />
     <link rel="stylesheet" href="/styles/wrapper.css" />
     <link rel="stylesheet" href="/styles/prism-customized.css" />
-    
+    <script src="howler.core.js"></script>
+
     <style>
       
     </style>
@@ -51,6 +52,26 @@ const c = {
 }
 
       const init = () => {
+  var sound = new Howl({
+    src: ['gracie.mp3', 'plucks.mp3'],
+    sprite: {
+      track01: [0, 20000],
+      track02: [21000, 41000]
+    }
+  });
+
+  // Play each of the track.s
+  sound.play('track01');
+  sound.play('track02');
+
+  // Change the volume of both tracks.
+  sound.volume(0.5);
+
+  // // After a second, pause both sounds in the group.
+  // setTimeout(function() {
+  //   sound.pause();
+  // }, 1000);
+
   console.log('init')
   console.log(c.alfa)
 }
@@ -68,67 +89,69 @@ document.addEventListener('DOMContentLoaded', init)
       <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
     </header>
     <main>
-      <h1>SVG Image Mask</h1>
+      <h1>howler.js test</h1>
       
                 <h2>Details</h2>
                 <ul>
-                    <li>This example shows how to make a transparent hole in one image to show an image below it</li> <li>The process is to make a mask with two rectangles in it. One white, one black.</li> <li>The white rectangle defines the area that will show. Anything that's black is transparent.</li> <li>Since the black comes after the white it's on top which means it makes the area transparent</li> <li>The background image is placed before the foreground in the code which means it's behind it</li> <li>By applying the mask to the foreground image with url(#main-mask) the background image shows through where the transparency is</li> <li>The example below is built directly from the HTML and JavaScript code snippets that follow</li>
+                    <li>The example below is built directly from the HTML and JavaScript code snippets that follow</li>
                 </ul>
                 
 
       <h2>EXAMPLE</h2>
-      <svg width="300" height="300" 
-      viewBox="0 0 300 300" 
-      xmlns="http://www.w3.org/2000/svg">
+      <p>This is quick test of howler.js</p>
 
-  <mask id="main-mask">
+<p>Was checking to see if it can pay multiple tracks with
+  an explict sync, but I'm not seeing that.
+<p>
 
-    <rect fill="white" width="300" 
-        height="300" rx="20" x="0" y="0"/>
-    <rect fill="black" width="100" 
-        height="100" rx="20" x="30" y="30"/>
-  </mask>
-
-  <image href="background.jpg" width="100" 
-        height="100" x="30" y="30" /> 
-
-  <image href="foreground.jpg" mask="url(#main-mask)" 
-      width="300" height="300" x="0" y="0" />
-
-</svg>
-
+<p>The audio files aren't included here because
+  I was using ones I can't publish during local
+  testing</p>
 
 
       <br />
       <br />
       <br />
       <hr />
-       
+      
+            <h2>&lt;head&gt; Source</h2>
+            <pre class="exampleCode" id="exampleHead"><code class="language-html">&lt;script src=&quot;howler.core.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+             
             <h2>HTML Source</h2>
-            <pre class="exampleCode" id="exampleHTMLBody"><code class="language-html">&lt;svg width=&quot;300&quot; height=&quot;300&quot; 
-      viewBox=&quot;0 0 300 300&quot; 
-      xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;
+            <pre class="exampleCode" id="exampleHTMLBody"><code class="language-html">&lt;p&gt;This is quick test of howler.js&lt;/p&gt;
 
-  &lt;mask id=&quot;main-mask&quot;&gt;
+&lt;p&gt;Was checking to see if it can pay multiple tracks with
+  an explict sync, but I&#x27;m not seeing that.
+&lt;p&gt;
 
-    &lt;rect fill=&quot;white&quot; width=&quot;300&quot; 
-        height=&quot;300&quot; rx=&quot;20&quot; x=&quot;0&quot; y=&quot;0&quot;/&gt;
-    &lt;rect fill=&quot;black&quot; width=&quot;100&quot; 
-        height=&quot;100&quot; rx=&quot;20&quot; x=&quot;30&quot; y=&quot;30&quot;/&gt;
-  &lt;/mask&gt;
-
-  &lt;image href=&quot;background.jpg&quot; width=&quot;100&quot; 
-        height=&quot;100&quot; x=&quot;30&quot; y=&quot;30&quot; /&gt; 
-
-  &lt;image href=&quot;foreground.jpg&quot; mask=&quot;url(#main-mask)&quot; 
-      width=&quot;300&quot; height=&quot;300&quot; x=&quot;0&quot; y=&quot;0&quot; /&gt;
-
-&lt;/svg&gt;
-
+&lt;p&gt;The audio files aren&#x27;t included here because
+  I was using ones I can&#x27;t publish during local
+  testing&lt;/p&gt;
 </code></pre>
               
             <h2>JavaScript Source</h2>
             <pre class="exampleCode" id="exampleJS"><code class="language-js">const init = () =&gt; {
+  var sound = new Howl({
+    src: [&#x27;gracie.mp3&#x27;, &#x27;plucks.mp3&#x27;],
+    sprite: {
+      track01: [0, 20000],
+      track02: [21000, 41000]
+    }
+  });
+
+  // Play each of the track.s
+  sound.play(&#x27;track01&#x27;);
+  sound.play(&#x27;track02&#x27;);
+
+  // Change the volume of both tracks.
+  sound.volume(0.5);
+
+  // // After a second, pause both sounds in the group.
+  // setTimeout(function() {
+  //   sound.pause();
+  // }, 1000);
+
   console.log(&#x27;init&#x27;)
   console.log(c.alfa)
 }
