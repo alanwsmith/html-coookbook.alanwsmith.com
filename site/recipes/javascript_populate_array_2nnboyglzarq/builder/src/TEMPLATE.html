@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>$TITLE - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="$TITLE" />
+  <meta property="og:description" content="$DESCRIPTION" />
+  <meta property="og:image"
+    content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630,w_1200,h_630,c_fit,w_940,h_540,co_rgb:eeeeee,l_text:Helvetica_94_bold:$IMAGESLUG/fl_layer_apply,g_north_west,x_60,y_60/co_rgb:666666,l_text:Inconsolata_36_bold:from%20alan%20w.%20smith/fl_layer_apply,g_south_east,x_196,y_40/og-images/black-with-white-line.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site:id" content="@TheIdOfAlan" />
+  <meta name="twitter:creator" content="@TheIdOfAlan" />
+  <link rel="icon" type="image/png" sizes="228x228" href="/favicons/228x228.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/favicons/180x180.png" />
+
+  <link rel="stylesheet" href="/styles/reset.css" />
+  <link rel="stylesheet" href="/styles/fonts.css" />
+  <link rel="stylesheet" href="/styles/colors.css" />
+  <link rel="stylesheet" href="/styles/wrapper.css" />
+  <link rel="stylesheet" href="/styles/prism-customized.css" />
+  $HEAD
+  <style>
+    $CSS
+  </style>
+
+  <!--
+    <link rel="stylesheet" href="/styles/highlightjs/_custom-base16-atelier-sulphurpool.min.css" />
+    <script src="/assets/highlight/highlight.min.js"></script>
+    -->
+
+  <script>
+    $CONFIG
+    $JAVASCRIPT
+  </script>
+</head>
+
+<body class="line-numbers">
+  <header>
+    <a href="/">cookbook home</a> ~
+    <a href="https://www.alanwsmith.com/">main site</a> ~
+    <a href="https://links.alanwsmith.com">links</a> ~
+    <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+    <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
+  </header>
+  <main>
+    <h1>$TITLE</h1>
+    <h2>Overview</h2>
+    <ul>
+      <li>I'm working on a prototype audio mixing app with the
+        web audio api. I'm keeping track of the slider changes
+        at time stamp tic indexes. The way I'm thinking about reproducing
+        them during playback is to expand out a full array that identifies
+        what the values should be at every tic index. The process
+        would check on every tic and change the current value
+        if it doesn't match the target.
+      </li>
+      <li>
+        This feels like a brute-force naive approach. I have some ideas
+        for how to write a function that wouldn't require building
+        out the full array. For example, by using the original individual
+        markers and comparing against them directly. Searching for a solution
+        has proved difficult so far.
+      </li>
+    </ul>
+    <br />
+    <br />
+    $ESCAPED_JAVASCRIPT
+    <br />
+    <h2>Output</h2>
+    <pre class="exampleCode" id="exampleHead"><code id="cout" class="language-json"></code></pre>
+  </main>
+  <footer>
+    from <a href="https://www.alanwsmith.com/">alan w. smith</a>
+  </footer>
+  <script src="/styles/prism.js"></script>
+</body>
+
+</html>

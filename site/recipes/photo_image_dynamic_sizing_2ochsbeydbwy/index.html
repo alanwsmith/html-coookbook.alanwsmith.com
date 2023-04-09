@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Photo And Image Scroll Gallery Dynamic Sizing - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Photo And Image Scroll Gallery Dynamic Sizing" />
+  <meta property="og:description" content="" />
+  <meta property="og:image"
+    content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630,w_1200,h_630,c_fit,w_940,h_540,co_rgb:eeeeee,l_text:Helvetica_94_bold:Photo%20And%20Image%20Scroll%20Gallery%20Dynamic%20Sizing/fl_layer_apply,g_north_west,x_60,y_60/co_rgb:666666,l_text:Inconsolata_36_bold:from%20alan%20w.%20smith/fl_layer_apply,g_south_east,x_196,y_40/og-images/black-with-white-line.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site:id" content="@TheIdOfAlan" />
+  <meta name="twitter:creator" content="@TheIdOfAlan" />
+  <link rel="icon" type="image/png" sizes="228x228" href="/favicons/228x228.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/favicons/180x180.png" />
+
+  <!--
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/fonts.css" />
+    <link rel="stylesheet" href="/styles/colors.css" />
+    <link rel="stylesheet" href="/styles/wrapper.css" />
+    <link rel="stylesheet" href="/styles/prism-customized.css" />
+-->
+  
+  <style>
+    
+/*
+  1. Use a more-intuitive box-sizing model.
+*/
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+/*
+  2. Remove default margin
+*/
+* {
+  margin: 0;
+}
+/*
+  3. Allow percentage-based heights in the application
+*/
+html, body {
+  height: 100%;
+}
+/*
+  Typographic tweaks!
+  4. Add accessible line-height
+  5. Improve text rendering
+*/
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  background-color: black;
+  color: #aaa;
+}
+/*
+  6. Improve media defaults
+*/
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+/*
+  7. Remove built-in form typography styles
+*/
+input, button, textarea, select {
+  font: inherit;
+}
+/*
+  8. Avoid text overflows
+*/
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+/*
+  9. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
+}
+
+.content_wrapper {
+  display: grid;
+  place-items: center;
+
+}
+
+.image_wrapper {
+  padding:0vh;
+  background-color: #555;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+  </style>
+
+  <!--
+    <link rel="stylesheet" href="/styles/highlightjs/_custom-base16-atelier-sulphurpool.min.css" />
+    <script src="/assets/highlight/highlight.min.js"></script>
+    -->
+
+  <script>
+    // This file can be used to represent
+// and data that should be held outside
+// of the main script
+
+const c = {
+  alfa: 'bravo',
+}
+
+    const init = () => {
+  console.log('init')
+  console.log(c.alfa)
+}
+
+document.addEventListener('DOMContentLoaded', init)
+
+  </script>
+</head>
+
+<body class="line-numbers">
+  <header>
+    <a href="/">cookbook home</a> ~
+    <a href="https://www.alanwsmith.com/">main site</a> ~
+    <a href="https://links.alanwsmith.com">links</a> ~
+    <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+    <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
+  </header>
+  <main>
+    <h1>Photo And Image Scroll Gallery Dynamic Sizing</h1>
+    
+                <h2>Details</h2>
+                <ul>
+                    <li>The example below is built directly from the HTML and JavaScript code snippets that follow</li>
+                </ul>
+                
+
+    <h2>EXAMPLE</h2>
+    <div class="content_wrapper">
+
+  <div class="image_wrapperx">
+    <img src="./images/c-2160x2160.png" style="
+      --widthRaw: 2000;
+      --heightRaw: 2000;
+
+      --widthPixels:  calc(var(--widthRaw)  * 1px);
+      --heightPixels: calc(var(--heightRaw) * 1px);
+
+      --widthBaseMin:  min(90vw, var(--widthPixels));
+      --heightBaseMin: min(90vh, var(--heightPixels));
+
+      --widthCheck: calc(var(--widthRaw) / var(--heightRaw) * var(--heightBaseMin));
+      --heightCheck: calc(var(--heightRaw) / var(--widthRaw) * var(--widthBaseMin));
+
+      width: min(var(--widthPixels), var(--widthBaseMin), var(--widthCheck));
+      height: min(var(--heightPixels), var(--heightBaseMin), var(--heightCheck));
+
+      " />
+
+  </div>
+</div>
+
+
+    <br />
+    <br />
+    <br />
+    <hr />
+     
+            <h2>HTML Source</h2>
+            <pre class="exampleCode" id="exampleHTMLBody"><code class="language-html">&lt;div class=&quot;content_wrapper&quot;&gt;
+
+  &lt;div class=&quot;image_wrapperx&quot;&gt;
+    &lt;img src=&quot;./images/c-2160x2160.png&quot; style=&quot;
+      --widthRaw: 2000;
+      --heightRaw: 2000;
+
+      --widthPixels:  calc(var(--widthRaw)  * 1px);
+      --heightPixels: calc(var(--heightRaw) * 1px);
+
+      --widthBaseMin:  min(90vw, var(--widthPixels));
+      --heightBaseMin: min(90vh, var(--heightPixels));
+
+      --widthCheck: calc(var(--widthRaw) / var(--heightRaw) * var(--heightBaseMin));
+      --heightCheck: calc(var(--heightRaw) / var(--widthRaw) * var(--widthBaseMin));
+
+      width: min(var(--widthPixels), var(--widthBaseMin), var(--widthCheck));
+      height: min(var(--heightPixels), var(--heightBaseMin), var(--heightCheck));
+
+      &quot; /&gt;
+
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+             
+            <h2>CSS Source</h2>
+            <pre class="exampleCode" id="exampleCSS"><code class="language-css">
+/*
+  1. Use a more-intuitive box-sizing model.
+*/
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+/*
+  2. Remove default margin
+*/
+* {
+  margin: 0;
+}
+/*
+  3. Allow percentage-based heights in the application
+*/
+html, body {
+  height: 100%;
+}
+/*
+  Typographic tweaks!
+  4. Add accessible line-height
+  5. Improve text rendering
+*/
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  background-color: black;
+  color: #aaa;
+}
+/*
+  6. Improve media defaults
+*/
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+/*
+  7. Remove built-in form typography styles
+*/
+input, button, textarea, select {
+  font: inherit;
+}
+/*
+  8. Avoid text overflows
+*/
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+/*
+  9. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
+}
+
+.content_wrapper {
+  display: grid;
+  place-items: center;
+
+}
+
+.image_wrapper {
+  padding:0vh;
+  background-color: #555;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+</code></pre>
+             
+            <h2>JavaScript Source</h2>
+            <pre class="exampleCode" id="exampleJS"><code class="language-js">const init = () =&gt; {
+  console.log(&#x27;init&#x27;)
+  console.log(c.alfa)
+}
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
+</code></pre>
+             
+            <h2>JSON Data Source</h2>
+            <pre class="exampleCode" id="exampleJSON"><code class="language-json">{
+  &quot;note&quot;: &quot;Example JSON data file&quot;
+}
+</code></pre>
+            
+    
+            <h2>Config JS Source</h2>
+            <pre class="exampleCode" id="exampleCONFIG"><code class="language-js">// This file can be used to represent
+// and data that should be held outside
+// of the main script
+
+const c = {
+  alfa: &#x27;bravo&#x27;,
+}
+</code></pre>
+               
+  </main>
+  <footer>
+    from <a href="https://www.alanwsmith.com/">alan w. smith</a>
+  </footer>
+  <script src="/styles/prism.js"></script>
+</body>
+
+</html>

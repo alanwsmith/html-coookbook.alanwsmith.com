@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Audio Webform - The HTML, CSS, and JavaScript Cookbook Of Alan</title>
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Audio Webform" />
+    <meta property="og:description" content="" />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/awsimages/image/upload/w_1200,h_630,w_1200,h_630,c_fit,w_940,h_540,co_rgb:eeeeee,l_text:Helvetica_94_bold:Audio%20Webform/fl_layer_apply,g_north_west,x_60,y_60/co_rgb:666666,l_text:Inconsolata_36_bold:from%20alan%20w.%20smith/fl_layer_apply,g_south_east,x_196,y_40/og-images/black-with-white-line.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site:id" content="@TheIdOfAlan" />
+    <meta name="twitter:creator" content="@TheIdOfAlan" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="228x228"
+      href="/favicons/228x228.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="180x180"
+      href="/favicons/180x180.png"
+    />
+
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/fonts.css" />
+    <link rel="stylesheet" href="/styles/colors.css" />
+    <link rel="stylesheet" href="/styles/wrapper.css" />
+    <link rel="stylesheet" href="/styles/prism-customized.css" />
+    
+    <style>
+      
+    </style>
+
+    <!--
+    <link rel="stylesheet" href="/styles/highlightjs/_custom-base16-atelier-sulphurpool.min.css" />
+    <script src="/assets/highlight/highlight.min.js"></script>
+    -->
+
+    <script>
+      // This file can be used to represent
+// and data that should be held outside
+// of the main script
+
+const c = {
+  alfa: 'bravo',
+}
+
+      // this started from here: 
+// https://css-tricks.com/making-an-audio-waveform-visualizer-with-vanilla-javascript/
+
+
+window.AudioContext = window.AudioContext || window.webkitAudioContext;
+const audioContext = new AudioContext();
+let currentBuffer = null;
+
+const init = () => {
+  visualizeAudio("sample.mp3")
+}
+
+
+const visualizeAudio = url => {
+  fetch(url)
+    .then(response => response.arrayBuffer())
+    .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
+    .then(audioBuffer => visualize(audioBuffer));
+};
+
+
+const visualize = (audioBuffer) => {
+  const filteredData = filterData(audioBuffer)
+  const normalizedData = normalizeData(filteredData)
+  draw(normalizedData)
+
+}
+
+
+const filterData = audioBuffer => {
+  const rawData = audioBuffer.getChannelData(0); // We only need to work with one channel of data
+  const samples = 1000; // Number of samples we want to have in our final data set
+  const blockSize = Math.floor(rawData.length / samples); // the number of samples in each subdivision
+  const filteredData = [];
+  for (let i = 0; i < samples; i++) {
+    let blockStart = blockSize * i; // the location of the first sample in the block
+    let sum = 0;
+    for (let j = 0; j < blockSize; j++) {
+      sum = sum + Math.abs(rawData[blockStart + j]) // find the sum of all the samples in the block
+    }
+    filteredData.push(sum / blockSize); // divide the sum by the block size to get the average
+  }
+  return filteredData;
+}
+
+const normalizeData = filteredData => {
+  const multiplier = Math.pow(Math.max(...filteredData), -1);
+  return filteredData.map(n => n * multiplier);
+}
+
+
+// const draw = normalizedData => {
+//   // Set up the canvas
+//   const canvas = document.querySelector("canvas");
+//   const dpr = window.devicePixelRatio || 1;
+//   const padding = 20;
+//   canvas.width = canvas.offsetWidth * dpr;
+//   canvas.height = (canvas.offsetHeight + padding * 2) * dpr;
+//   const ctx = canvas.getContext("2d");
+//   ctx.scale(dpr, dpr);
+//   ctx.translate(0, canvas.offsetHeight / 2 + padding); // Set Y = 0 to be in the middle of the canvas
+// };
+
+
+const drawLineSegment = (ctx, x, y, width, isEven) => {
+  ctx.lineWidth = 1; // how thick the line is
+  ctx.strokeStyle = "#fff"; // what color our line is
+  ctx.beginPath();
+  y = isEven ? y : -y;
+  ctx.moveTo(x, 0);
+  ctx.lineTo(x, y);
+  ctx.arc(x + width / 2, y, width / 2, Math.PI, 0, isEven);
+  ctx.lineTo(x + width, 0);
+  ctx.stroke();
+};
+
+
+const draw = normalizedData => {
+  // Set up the canvas
+  const canvas = document.querySelector("canvas");
+  const dpr = window.devicePixelRatio || 1;
+  const padding = 0;
+  canvas.width = canvas.offsetWidth * dpr;
+  canvas.height = (canvas.offsetHeight + padding * 2) * dpr;
+  const ctx = canvas.getContext("2d");
+  ctx.scale(dpr, dpr);
+  ctx.translate(0, canvas.offsetHeight / 2 + padding); // Set Y = 0 to be in the middle of the canvas
+  // draw the line segments
+  const width = canvas.offsetWidth / normalizedData.length;
+  for (let i = 0; i < normalizedData.length; i++) {
+    const x = width * i;
+    let height = normalizedData[i] * canvas.offsetHeight - padding;
+    if (height < 0) {
+        height = 0;
+    } else if (height > canvas.offsetHeight / 2) {
+        height = height > canvas.offsetHeight / 2;
+    }
+    drawLineSegment(ctx, x, height, width, (i + 1) % 2);
+  }
+};
+
+
+
+
+// const filterData = audioBuffer => {
+//   const rawData = audioBuffer.getChannelData(0); // We only need to work with one channel of data
+//   const samples = 70; // Number of samples we want to have in our final data set
+//   const blockSize = Math.floor(rawData.length / samples); // Number of samples in each subdivision
+//   const filteredData = [];
+//   for (let i = 0; i < samples; i++) {
+//     filteredData.push(rawData[i * blockSize]); 
+//   }
+//   return filteredData;
+// }
+
+
+
+
+// let analyser;
+// let ctx;
+// let dataArray;
+// let width = 600;
+// let height = 400;
+// let bufferLength;
+// let canvas;
+
+
+// const init = () => {
+//   canvas = document.querySelector('canvas');
+//   ctx = canvas.getContext('2d');
+//   ctx.fillStyle = 'green';
+//   ctx.fillRect(0, 0, width, height);
+//   loadTrack();
+// }
+
+//async function loadTrack() {
+//  const audioCtx = new AudioContext();
+//  analyser = audioCtx.createAnalyser();
+//  const response = await fetch("sample.mp3");
+//  const arrayBuffer = await response.arrayBuffer();
+//  const track = await audioCtx.decodeAudioData(arrayBuffer);
+//  // const source = new AudioBufferSourceNode(audioCtx, {
+//  //   buffer: track
+//  // });
+//  // analyser.fftSize = 2048;
+//  // bufferLength = analyser.frequencyBinCount;
+//  // dataArray = new Uint8Array(bufferLength);
+//   //draw();
+//}
+
+
+// const filterData = audioBuffer => {
+//   const rawData = audioBuffer.getChannelData(0); // We only need to work with one channel of data
+//   const samples = 70; // Number of samples we want to have in our final data set
+//   const blockSize = Math.floor(rawData.length / samples); // Number of samples in each subdivision
+//   const filteredData = [];
+//   for (let i = 0; i < samples; i++) {
+//     filteredData.push(rawData[i * blockSize]); 
+//   }
+//   return filteredData;
+// }
+
+
+
+// function draw() {
+//   // const drawVisual = requestAnimationFrame(draw);
+//   // analyser.getByteTimeDomainData(dataArray);
+//   // ctx.fillStyle = "rgb(200, 200, 200)";
+//   // ctx.fillRect(0, 0, width, height);
+//   // ctx.lineWidth = 2;
+//   // ctx.strokeStyle = "rgb(0, 0, 0)";
+//   // ctx.beginPath();
+//   // const sliceWidth = width / bufferLength;
+//   // let x = 0;
+//   // for (let i = 0; i < bufferLength; i++) {
+//   //   const v = dataArray[i] / 128.0;
+//   //   const y = v * (height / 2);
+//   //   if (i === 0) {
+//   //     ctx.moveTo(x, y);
+//   //   } else {
+//   //     ctx.lineTo(x, y);
+//   //   }
+//   //   x += sliceWidth;
+//   //   ctx.lineTo(width, height / 2);
+//   //   ctx.stroke();
+//   // }
+// }
+
+
+// track.gainNode = state.audioCtx.createGain();
+// track.analyserNode = state.audioCtx.createAnalyser();
+// track.analyserNode.fftSize = 2048;
+// track.bufferLength = track.analyserNode.frequencyBinCount;
+// track.dataArray = new Uint8Array(track.bufferLength);
+// track.source.connect(track.gainNode).connect(state.audioCtx.destination);
+// state.numberOfTracksLoaded += 1
+// if (state.numberOfTracksLoaded == tracks.length) {
+//   window.startButton.addEventListener("click", play);
+//   window.startButton.innerHTML = "Play";
+// }
+
+
+document.addEventListener('DOMContentLoaded', init)
+
+    </script>
+  </head>
+  <body class="line-numbers">
+    <header>
+      <a href="/">cookbook home</a> ~
+      <a href="https://www.alanwsmith.com/">main site</a> ~
+      <a href="https://links.alanwsmith.com">links</a> ~
+      <a href="https://podcast.alanwsmith.com/">podcast</a> ~
+      <a href="https://hachyderm.io/web/@TheIdOfAlan">mastodon</a>
+    </header>
+    <main>
+      <h1>Audio Webform</h1>
+      
+                <h2>Details</h2>
+                <ul>
+                    <li>The example below is built directly from the HTML and JavaScript code snippets that follow</li>
+                </ul>
+                
+
+      <h2>EXAMPLE</h2>
+      <p>NOTE: This one is still a work in progress. I was
+  going off <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Visualizations_with_Web_Audio_API">
+    these docs</a> but couldn't get them to work. Gonna play with <a href="https://howlerjs.com/">howler</a> next
+</p>
+
+
+<canvas id="canvas" width="600" height="50"></canvas>
+
+
+      <br />
+      <br />
+      <br />
+      <hr />
+       
+            <h2>HTML Source</h2>
+            <pre class="exampleCode" id="exampleHTMLBody"><code class="language-html">&lt;p&gt;NOTE: This one is still a work in progress. I was
+  going off &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Visualizations_with_Web_Audio_API&quot;&gt;
+    these docs&lt;/a&gt; but couldn&#x27;t get them to work. Gonna play with &lt;a href=&quot;https://howlerjs.com/&quot;&gt;howler&lt;/a&gt; next
+&lt;/p&gt;
+
+
+&lt;canvas id=&quot;canvas&quot; width=&quot;600&quot; height=&quot;50&quot;&gt;&lt;/canvas&gt;
+</code></pre>
+              
+            <h2>JavaScript Source</h2>
+            <pre class="exampleCode" id="exampleJS"><code class="language-js">// this started from here: 
+// https://css-tricks.com/making-an-audio-waveform-visualizer-with-vanilla-javascript/
+
+
+window.AudioContext = window.AudioContext || window.webkitAudioContext;
+const audioContext = new AudioContext();
+let currentBuffer = null;
+
+const init = () =&gt; {
+  visualizeAudio(&quot;sample.mp3&quot;)
+}
+
+
+const visualizeAudio = url =&gt; {
+  fetch(url)
+    .then(response =&gt; response.arrayBuffer())
+    .then(arrayBuffer =&gt; audioContext.decodeAudioData(arrayBuffer))
+    .then(audioBuffer =&gt; visualize(audioBuffer));
+};
+
+
+const visualize = (audioBuffer) =&gt; {
+  const filteredData = filterData(audioBuffer)
+  const normalizedData = normalizeData(filteredData)
+  draw(normalizedData)
+
+}
+
+
+const filterData = audioBuffer =&gt; {
+  const rawData = audioBuffer.getChannelData(0); // We only need to work with one channel of data
+  const samples = 1000; // Number of samples we want to have in our final data set
+  const blockSize = Math.floor(rawData.length / samples); // the number of samples in each subdivision
+  const filteredData = [];
+  for (let i = 0; i &lt; samples; i++) {
+    let blockStart = blockSize * i; // the location of the first sample in the block
+    let sum = 0;
+    for (let j = 0; j &lt; blockSize; j++) {
+      sum = sum + Math.abs(rawData[blockStart + j]) // find the sum of all the samples in the block
+    }
+    filteredData.push(sum / blockSize); // divide the sum by the block size to get the average
+  }
+  return filteredData;
+}
+
+const normalizeData = filteredData =&gt; {
+  const multiplier = Math.pow(Math.max(...filteredData), -1);
+  return filteredData.map(n =&gt; n * multiplier);
+}
+
+
+// const draw = normalizedData =&gt; {
+//   // Set up the canvas
+//   const canvas = document.querySelector(&quot;canvas&quot;);
+//   const dpr = window.devicePixelRatio || 1;
+//   const padding = 20;
+//   canvas.width = canvas.offsetWidth * dpr;
+//   canvas.height = (canvas.offsetHeight + padding * 2) * dpr;
+//   const ctx = canvas.getContext(&quot;2d&quot;);
+//   ctx.scale(dpr, dpr);
+//   ctx.translate(0, canvas.offsetHeight / 2 + padding); // Set Y = 0 to be in the middle of the canvas
+// };
+
+
+const drawLineSegment = (ctx, x, y, width, isEven) =&gt; {
+  ctx.lineWidth = 1; // how thick the line is
+  ctx.strokeStyle = &quot;#fff&quot;; // what color our line is
+  ctx.beginPath();
+  y = isEven ? y : -y;
+  ctx.moveTo(x, 0);
+  ctx.lineTo(x, y);
+  ctx.arc(x + width / 2, y, width / 2, Math.PI, 0, isEven);
+  ctx.lineTo(x + width, 0);
+  ctx.stroke();
+};
+
+
+const draw = normalizedData =&gt; {
+  // Set up the canvas
+  const canvas = document.querySelector(&quot;canvas&quot;);
+  const dpr = window.devicePixelRatio || 1;
+  const padding = 0;
+  canvas.width = canvas.offsetWidth * dpr;
+  canvas.height = (canvas.offsetHeight + padding * 2) * dpr;
+  const ctx = canvas.getContext(&quot;2d&quot;);
+  ctx.scale(dpr, dpr);
+  ctx.translate(0, canvas.offsetHeight / 2 + padding); // Set Y = 0 to be in the middle of the canvas
+  // draw the line segments
+  const width = canvas.offsetWidth / normalizedData.length;
+  for (let i = 0; i &lt; normalizedData.length; i++) {
+    const x = width * i;
+    let height = normalizedData[i] * canvas.offsetHeight - padding;
+    if (height &lt; 0) {
+        height = 0;
+    } else if (height &gt; canvas.offsetHeight / 2) {
+        height = height &gt; canvas.offsetHeight / 2;
+    }
+    drawLineSegment(ctx, x, height, width, (i + 1) % 2);
+  }
+};
+
+
+
+
+// const filterData = audioBuffer =&gt; {
+//   const rawData = audioBuffer.getChannelData(0); // We only need to work with one channel of data
+//   const samples = 70; // Number of samples we want to have in our final data set
+//   const blockSize = Math.floor(rawData.length / samples); // Number of samples in each subdivision
+//   const filteredData = [];
+//   for (let i = 0; i &lt; samples; i++) {
+//     filteredData.push(rawData[i * blockSize]); 
+//   }
+//   return filteredData;
+// }
+
+
+
+
+// let analyser;
+// let ctx;
+// let dataArray;
+// let width = 600;
+// let height = 400;
+// let bufferLength;
+// let canvas;
+
+
+// const init = () =&gt; {
+//   canvas = document.querySelector(&#x27;canvas&#x27;);
+//   ctx = canvas.getContext(&#x27;2d&#x27;);
+//   ctx.fillStyle = &#x27;green&#x27;;
+//   ctx.fillRect(0, 0, width, height);
+//   loadTrack();
+// }
+
+//async function loadTrack() {
+//  const audioCtx = new AudioContext();
+//  analyser = audioCtx.createAnalyser();
+//  const response = await fetch(&quot;sample.mp3&quot;);
+//  const arrayBuffer = await response.arrayBuffer();
+//  const track = await audioCtx.decodeAudioData(arrayBuffer);
+//  // const source = new AudioBufferSourceNode(audioCtx, {
+//  //   buffer: track
+//  // });
+//  // analyser.fftSize = 2048;
+//  // bufferLength = analyser.frequencyBinCount;
+//  // dataArray = new Uint8Array(bufferLength);
+//   //draw();
+//}
+
+
+// const filterData = audioBuffer =&gt; {
+//   const rawData = audioBuffer.getChannelData(0); // We only need to work with one channel of data
+//   const samples = 70; // Number of samples we want to have in our final data set
+//   const blockSize = Math.floor(rawData.length / samples); // Number of samples in each subdivision
+//   const filteredData = [];
+//   for (let i = 0; i &lt; samples; i++) {
+//     filteredData.push(rawData[i * blockSize]); 
+//   }
+//   return filteredData;
+// }
+
+
+
+// function draw() {
+//   // const drawVisual = requestAnimationFrame(draw);
+//   // analyser.getByteTimeDomainData(dataArray);
+//   // ctx.fillStyle = &quot;rgb(200, 200, 200)&quot;;
+//   // ctx.fillRect(0, 0, width, height);
+//   // ctx.lineWidth = 2;
+//   // ctx.strokeStyle = &quot;rgb(0, 0, 0)&quot;;
+//   // ctx.beginPath();
+//   // const sliceWidth = width / bufferLength;
+//   // let x = 0;
+//   // for (let i = 0; i &lt; bufferLength; i++) {
+//   //   const v = dataArray[i] / 128.0;
+//   //   const y = v * (height / 2);
+//   //   if (i === 0) {
+//   //     ctx.moveTo(x, y);
+//   //   } else {
+//   //     ctx.lineTo(x, y);
+//   //   }
+//   //   x += sliceWidth;
+//   //   ctx.lineTo(width, height / 2);
+//   //   ctx.stroke();
+//   // }
+// }
+
+
+// track.gainNode = state.audioCtx.createGain();
+// track.analyserNode = state.audioCtx.createAnalyser();
+// track.analyserNode.fftSize = 2048;
+// track.bufferLength = track.analyserNode.frequencyBinCount;
+// track.dataArray = new Uint8Array(track.bufferLength);
+// track.source.connect(track.gainNode).connect(state.audioCtx.destination);
+// state.numberOfTracksLoaded += 1
+// if (state.numberOfTracksLoaded == tracks.length) {
+//   window.startButton.addEventListener(&quot;click&quot;, play);
+//   window.startButton.innerHTML = &quot;Play&quot;;
+// }
+
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, init)
+</code></pre>
+             
+            <h2>JSON Data Source</h2>
+            <pre class="exampleCode" id="exampleJSON"><code class="language-json">{
+  &quot;note&quot;: &quot;Example JSON data file&quot;
+}
+</code></pre>
+            
+      
+            <h2>Config JS Source</h2>
+            <pre class="exampleCode" id="exampleCONFIG"><code class="language-js">// This file can be used to represent
+// and data that should be held outside
+// of the main script
+
+const c = {
+  alfa: &#x27;bravo&#x27;,
+}
+</code></pre>
+               
+    </main>
+    <footer>
+      from <a href="https://www.alanwsmith.com/">alan w. smith</a>
+    </footer>
+    <script src="/styles/prism.js"></script>
+  </body>
+</html>
